@@ -11,7 +11,7 @@ define the model and supports export as a json schema.
 
 from pathlib import Path
 from datetime import date
-from typing import List, Literal
+from typing import Literal
 from pydantic import BaseModel, Field, EmailStr
 import json
 
@@ -44,7 +44,7 @@ class ReportContributor(BaseModel):
         description="Notes to clarify contribution.")
     completion_date: date = Field(
         None,
-        description="Contribution completion date in the format YYYY-MM-DD.",
+        description="Contribution completion date (format YYYY-MM-DD).",
         examples=["2022-10-04"])
 
 
@@ -62,7 +62,10 @@ class CoordinateSystem(BaseModel):
 
 class TurbineModel(BaseModel):
     """Specification of a wind turbine model."""
-    pass
+    turbine_model_label: str = Field(
+        ...,
+        description="Label of the turbine model.",
+        examples=["V172-7.2 MW", "N175/6.X", "SG 6.6-170", "E-175 EP5"])
 
 
 class Turbine(BaseModel):
@@ -77,7 +80,7 @@ class Turbine(BaseModel):
     y: float = Field(
         ...,
         description="Wind turbine y-coordinate.")
-    coordinate_reference_system: CoordinateSystem = Field(
+    coordinate_system: CoordinateSystem = Field(
         ...,
         description="Specification of the coordinate reference system used.")
     hub_height: float = Field(
@@ -98,29 +101,65 @@ class WindFarm(BaseModel):
     :ivar relevance: whether the wind farm is relevant as is internal,
         external or future
     """
-    wind_farm_label: str = Field(
+    wind_farm_name: str = Field(
         ...,
-        description="Label of the wind farm.",
+        description="Name of the wind farm.",
         examples=["Barefoot Wind Farm", "Project Summit Phase III"])
-    turbines: List[Turbine] = Field(
-        ...,
-        description="List of turbines that form part of the wind farm.")
+    wind_farm_label: str = Field(
+        None,
+        description="Abbreviated label of the wind farm.",
+        examples=["BWF", "Summit PhIII"])
+    wind_farm_description: str = Field(
+        None,
+        description="Description of the wind farm.",
+        examples=["The third phase of the Summit project"])
+    operational_lifetime_start_date: date = Field(
+        None,
+        description="Operational lifetime start date (format YYYY-MM-DD).",
+        examples=["2026-01-01", "2017-04-01"])
+    operational_lifetime_end_date: date = Field(
+        None,
+        description="Operational lifetime end date (format YYYY-MM-DD).",
+        examples=["2051-03-31", "2025-12-31"])
+    wind_farm_comments: str = Field(
+        None,
+        description="Comments regarding the wind farm.")
     relevance: Literal['internal', 'external', 'future'] = Field(
         ...,
         description="The relevance of the wind farm for the assessment.")
+    turbines: list[Turbine] = Field(
+        ...,
+        description="List of turbines that form part of the wind farm.")
 
 
-class WindFarmsConfiguration(BaseModel):
+class SiteWindFarmsConfiguration(BaseModel):
     """Configuration of all relevant wind farms for the site."""
     wind_farms_configuration_label: str = Field(
         ...,
         description="The wind farms configuration label.")
+    wind_farms_configuration_description: str = Field(
+        None,
+        description="The wind farms configuration description.")
     wind_farms_configuration_comments: str = Field(
-        ...,
+        None,
         description="Comments regarding the wind farms configuration.")
-    wind_farms: List[WindFarm] = Field(
+    wind_farms: list[WindFarm] = Field(
         ...,
         description="List of wind farms belonging to the configuration.")
+
+
+class WindSpatialModel(BaseModel):
+    """Wind spatial model used in the assessment."""
+    model_name: str = Field(
+        ...,
+        description="Name of the wind spatial model.",
+        examples=["WAsP", "VORTEX BLOCKS", "DNV CFD", "VENTOS/M"])
+    model_description: str = Field(
+        None,
+        description="Description of the wind spatial model.",)
+    model_comments: str = Field(
+        None,
+        description="Comments on the wind spatial model.")
 
 
 class MastWindResourceResults(BaseModel):
@@ -166,15 +205,15 @@ class EnergyAssessmentResults(BaseModel):
         description="Type of energy assessment results.")
     results_label: str = Field(
         ...,
-        description="Label of the results",
+        description="Label of the results.",
         examples=["10-year"])
     results_description: str = Field(
         ...,
-        description="Description of the results",
+        description="Description of the results.",
         examples=["First 10 years of operation"])
     results_comments: str = Field(
         None,
-        description="Comments on the results")
+        description="Comments on the results.")
     mast_wind_resource_results: MastWindResourceResults = Field(
         None,  # Optional as the basis can also be operational data
         description="Wind resource assessment results at the measurement(s).")
@@ -200,20 +239,33 @@ class EnergyAssessmentResults(BaseModel):
 
 class Scenario(BaseModel):
     """Single unique scenario of energy assessment."""
-    project_lifetime_length_years: float = Field(
+    scenario_label: str = Field(
         ...,
-        description="Number of years of project lifetime considered.",
+        description="Label of the scenario.",
+        examples=["Sc1", "A", "B01"])
+    scenario_description: str = Field(
+        None,
+        description="Description of the scenario.",
+        examples=["Main scenario", "XZY220-7.2MW turbine model scenario"])
+    scenario_comments: str = Field(
+        None,
+        description="Comments on the scenario.")
+    is_main_scenario: bool = Field(
+        ...,
+        description="Whether or not this is the main scenario in the report.")
+    operational_lifetime_length_years: float = Field(
+        ...,
+        description="Number of years of project operational lifetime.",
         gt=1.0,
         lt=100.0,
         examples=[10.0, 20.0, 30.0])
-    project_lifetime_start_date: date = Field(
-        None,
-        description="Project lifetime start date in the format YYYY-MM-DD.",
-        examples=["2023-01-01", "2017-04-01"])
-    wind_farms_configuration: WindFarmsConfiguration = Field(
+    wind_farms_configuration: SiteWindFarmsConfiguration = Field(
         ...,
         description="Configuration of all relevant wind farms for the site.")
-    energy_assessment_results: List[EnergyAssessmentResults] = Field(
+    wind_spatial_models: list[WindSpatialModel] = Field(
+        ...,
+        description="Wind spatial models used in the assessment.")
+    energy_assessment_results: list[EnergyAssessmentResults] = Field(
         ...,
         description="Energy assessment results for the scenario")
 
@@ -256,7 +308,7 @@ class EnergyAssessmentReport(BaseModel):
         examples=["1.2.3", "A", "Rev. A"])
     issue_date: date = Field(
         ...,
-        description="Report issue date in the format YYYY-MM-DD.",
+        description="Report issue date (format YYYY-MM-DD).",
         examples=["2022-10-05"])
     issuing_organisation: str = Field(
         ...,
@@ -276,14 +328,14 @@ class EnergyAssessmentReport(BaseModel):
     receiving_organisation_address: str = Field(
         None,
         description="Address of organisation receiving the report.")
-    contributors: List[ReportContributor] = Field(
+    contributors: list[ReportContributor] = Field(
         ...,
         description="List of report contributors (e.g. author and verifier)")
     report_confidentiality_classification: str = Field(
         None,
         description="Confidentiality classification of the report.",
         examples=["Confidential", "Commercial in confidence"])
-    scenarios: List[Scenario] = Field(
+    scenarios: list[Scenario] = Field(
         ...,
         description="List of scenarios included in the report")
 
