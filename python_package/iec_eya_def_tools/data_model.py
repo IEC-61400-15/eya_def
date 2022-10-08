@@ -31,7 +31,7 @@ class ReportContributor(BaseModel):
         ...,
         description="Name of the author.",
         examples=["Joan Miro", "Andrei Tarkovsky"])
-    email_address: EmailStr = Field(
+    email_address: EmailStr | None = Field(
         None,
         description="Email address of the author.",
         examples=["j.miro@art.cat", "andrei.tarkovsky@cinema.com"])
@@ -39,10 +39,10 @@ class ReportContributor(BaseModel):
         'author', 'verifier', 'approver', 'other'] = Field(
             ...,
             description="Type of contributor.")
-    contribution_notes: str = Field(
+    contribution_notes: str | None = Field(
         None,
         description="Notes to clarify contribution.")
-    completion_date: date = Field(
+    completion_date: date | None = Field(
         None,
         description="Contribution completion date (format YYYY-MM-DD).",
         examples=["2022-10-04"])
@@ -54,7 +54,7 @@ class CoordinateSystem(BaseModel):
         ...,
         description="Label of the coordinate system.",
         examples=["OSGB36 / British National Grid", "SWEREF99 TM"])
-    epsg_number: int = Field(
+    epsg_number: int | None = Field(
         None,
         description="EPSG integer code to identify the coordinate system.",
         examples=[27700, 3006])
@@ -80,9 +80,6 @@ class Turbine(BaseModel):
     y: float = Field(
         ...,
         description="Wind turbine y-coordinate.")
-    coordinate_system: CoordinateSystem = Field(
-        ...,
-        description="Specification of the coordinate reference system used.")
     hub_height: float = Field(
         ...,
         description="Hub height of the turbine.",
@@ -105,31 +102,34 @@ class WindFarm(BaseModel):
         ...,
         description="Name of the wind farm.",
         examples=["Barefoot Wind Farm", "Project Summit Phase III"])
-    wind_farm_label: str = Field(
+    wind_farm_label: str | None = Field(
         None,
         description="Abbreviated label of the wind farm.",
         examples=["BWF", "Summit PhIII"])
-    wind_farm_description: str = Field(
+    wind_farm_description: str | None = Field(
         None,
         description="Description of the wind farm.",
         examples=["The third phase of the Summit project"])
-    operational_lifetime_start_date: date = Field(
-        None,
-        description="Operational lifetime start date (format YYYY-MM-DD).",
-        examples=["2026-01-01", "2017-04-01"])
-    operational_lifetime_end_date: date = Field(
-        None,
-        description="Operational lifetime end date (format YYYY-MM-DD).",
-        examples=["2051-03-31", "2025-12-31"])
-    wind_farm_comments: str = Field(
+    wind_farm_comments: str | None = Field(
         None,
         description="Comments regarding the wind farm.")
     relevance: Literal['internal', 'external', 'future'] = Field(
         ...,
         description="The relevance of the wind farm for the assessment.")
+    operational_lifetime_start_date: date | None = Field(
+        None,
+        description="Operational lifetime start date (format YYYY-MM-DD).",
+        examples=["2026-01-01", "2017-04-01"])
+    operational_lifetime_end_date: date | None = Field(
+        None,
+        description="Operational lifetime end date (format YYYY-MM-DD).",
+        examples=["2051-03-31", "2025-12-31"])
     turbines: list[Turbine] = Field(
         ...,
         description="List of turbines that form part of the wind farm.")
+    coordinate_system: CoordinateSystem = Field(
+        ...,
+        description="Specification of the coordinate reference system used.")
 
 
 class SiteWindFarmsConfiguration(BaseModel):
@@ -137,10 +137,10 @@ class SiteWindFarmsConfiguration(BaseModel):
     wind_farms_configuration_label: str = Field(
         ...,
         description="The wind farms configuration label.")
-    wind_farms_configuration_description: str = Field(
+    wind_farms_configuration_description: str | None = Field(
         None,
         description="The wind farms configuration description.")
-    wind_farms_configuration_comments: str = Field(
+    wind_farms_configuration_comments: str | None = Field(
         None,
         description="Comments regarding the wind farms configuration.")
     wind_farms: list[WindFarm] = Field(
@@ -154,10 +154,10 @@ class WindSpatialModel(BaseModel):
         ...,
         description="Name of the wind spatial model.",
         examples=["WAsP", "VORTEX BLOCKS", "DNV CFD", "VENTOS/M"])
-    model_description: str = Field(
+    model_description: str | None = Field(
         None,
         description="Description of the wind spatial model.",)
-    model_comments: str = Field(
+    model_comments: str | None = Field(
         None,
         description="Comments on the wind spatial model.")
 
@@ -211,13 +211,13 @@ class EnergyAssessmentResults(BaseModel):
         ...,
         description="Description of the results.",
         examples=["First 10 years of operation"])
-    results_comments: str = Field(
+    results_comments: str | None = Field(
         None,
         description="Comments on the results.")
-    mast_wind_resource_results: MastWindResourceResults = Field(
+    mast_wind_resource_results: MastWindResourceResults | None = Field(
         None,  # Optional as the basis can also be operational data
         description="Wind resource assessment results at the measurement(s).")
-    turbine_wind_resource_results: TurbineWindResourceResults = Field(
+    turbine_wind_resource_results: TurbineWindResourceResults | None = Field(
         None,  # Optional as it may not be used with operational data
         description="Wind resource assessment results at turbines.")
     gross_energy_results: GrossEnergyResults = Field(
@@ -243,11 +243,11 @@ class Scenario(BaseModel):
         ...,
         description="Label of the scenario.",
         examples=["Sc1", "A", "B01"])
-    scenario_description: str = Field(
+    scenario_description: str | None = Field(
         None,
         description="Description of the scenario.",
         examples=["Main scenario", "XZY220-7.2MW turbine model scenario"])
-    scenario_comments: str = Field(
+    scenario_comments: str | None = Field(
         None,
         description="Comments on the scenario.")
     is_main_scenario: bool = Field(
@@ -292,13 +292,13 @@ class EnergyAssessmentReport(BaseModel):
         ...,
         description="Title of the energy assessment report.",
         examples=["Energy yield assessment of the Barefoot Wind Farm"])
-    report_description: str = Field(
+    report_description: str | None = Field(
         None,
         description="Description of the energy assessment report.")
-    report_comments: str = Field(
+    report_comments: str | None = Field(
         None,
         description="Comments on the energy assessment report.")
-    document_id: str = Field(
+    document_id: str | None = Field(
         None,
         description="Report document ID.",
         examples=["C385945/A/UK/R/002/E"])
@@ -310,28 +310,36 @@ class EnergyAssessmentReport(BaseModel):
         ...,
         description="Report issue date (format YYYY-MM-DD).",
         examples=["2022-10-05"])
-    issuing_organisation: str = Field(
+    issuing_organisation_name: str = Field(
         ...,
-        description="Organisation issuing the report.",
-        examples=["DNV", "Natural Power", "Brightwind", "NREL"])
-    issuing_organisation_address: str = Field(
+        description="Entity name of the organisation issuing the report.",
+        examples=["The Natural Power Consultants Limited"])
+    issuing_organisation_abbreviation: str = Field(
+        ...,
+        description="Abbreviated name of issuing organisation.",
+        examples=["Natural Power", "DNV", "Brightwind", "NREL"])
+    issuing_organisation_address: str | None = Field(
         None,
         description="Address of organisation issuing the report.")
-    receiving_organisation: str = Field(
+    receiving_organisation_name: str | None = Field(
         None,
-        description="Organisation receiving the report.",
+        description="Entity name of the organisation receiving the report.",
+        examples=["Cubico Sustainable Investments Limited"])
+    receiving_organisation_abbreviation: str | None = Field(
+        None,
+        description="Abbreviated name of receiving organisation.",
         examples=["Cubico", "Apex", "COP"])
-    receiving_organisation_contact_name: str = Field(
+    receiving_organisation_contact_name: str | None = Field(
         None,
         description="Name(s) of contact person(s) in receiving organisation.",
         examples=["Luis Bunuel", "Miles Davis, John Coltrane"])
-    receiving_organisation_address: str = Field(
+    receiving_organisation_address: str | None = Field(
         None,
         description="Address of organisation receiving the report.")
     contributors: list[ReportContributor] = Field(
         ...,
         description="List of report contributors (e.g. author and verifier)")
-    report_confidentiality_classification: str = Field(
+    report_confidentiality_classification: str | None = Field(
         None,
         description="Confidentiality classification of the report.",
         examples=["Confidential", "Commercial in confidence"])
@@ -342,6 +350,13 @@ class EnergyAssessmentReport(BaseModel):
 
 def export_json_schema(filepath: Path) -> None:
     """Export the top-level data model to a json schema.
+
+    NOTE: there is a known issue with the json schema export
+    functionality in pydantic where variables that can be set to `None`
+    are not correctly set to nullable in the json schema. This will
+    likely be resolved in the near term. In the meanwhile, json
+    documents should not include `null` values, but properties with a
+    `null` value should rather be excluded.
 
     :param filepath: the path of the file to export to
     """
@@ -360,4 +375,4 @@ def export_json_schema(filepath: Path) -> None:
         f.write(json.dumps(sorted_schema_dict, indent=2))
 
 
-export_json_schema(Path("../iec_61400-15-2_reporting_def.schema.json"))
+# export_json_schema(Path("../iec_61400-15-2_reporting_def.schema.json"))

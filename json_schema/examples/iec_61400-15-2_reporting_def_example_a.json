@@ -6,9 +6,11 @@
   "document_id": "12345678",
   "document_version": "B",
   "issue_date": "2022-10-07",
-  "issuing_organisation": "Natural Power Consultants Limited ",
+  "issuing_organisation_name": "The Natural Power Consultants Limited",
+  "issuing_organisation_abbreviation": "Natural Power",
   "issuing_organisation_address": "The Greenhouse, Dalry, Castle Douglas, DG7 3XS, UK",
-  "receiving_organisation": "Cubico Sustainable Investments Limited",
+  "receiving_organisation_name": "Cubico Sustainable Investments Limited",
+  "receiving_organisation_abbreviation": "Cubico",
   "receiving_organisation_contact_name": "Charlie Plumley",
   "receiving_organisation_address": "70 St Mary Axe, London, EC3A 8BE, UK",
   "contributors": [
@@ -30,14 +32,12 @@
       "name": "Graeme Watson",
       "email_address": "graemew@naturalpower.com",
       "contributor_type": "verifier",
-      "contribution_notes": null,
       "completion_date": "2022-10-06"
     },
     {
       "name": "Christian Jonsson",
       "email_address": "christianj@naturalpower.com",
       "contributor_type": "approver",
-      "contribution_notes": null,
       "completion_date": "2022-10-07"
     }
   ],
@@ -46,31 +46,21 @@
     {
       "scenario_label": "A",
       "scenario_description": "ABC165-5.5MW turbine model scenario",
-      "scenario_comments": null,
       "is_main_scenario": true,
       "operational_lifetime_length_years": 30.0,
       "wind_farms_configuration": {
         "wind_farms_configuration_label": "A",
         "wind_farms_configuration_description": "Wind farms configuration for turbine model scenario A",
-        "wind_farms_configuration_comments": null,
         "wind_farms": [
           {
             "wind_farm_name": "Barefoot Wind Farm",
-            "wind_farm_label": null,
-            "wind_farm_description": null,
-            "operational_lifetime_start_date": "2024-01-01",
-            "operational_lifetime_end_date": null,
-            "wind_farm_comments": null,
             "relevance": "internal",
+            "operational_lifetime_start_date": "2024-01-01",
             "turbines": [
               {
                 "turbine_label": "WTG01",
                 "x": 419665.0,
                 "y": 6194240.0,
-                "coordinate_system": {
-                  "system_label": "WGS 84 / UTM zone 30N",
-                  "epsg_number": 32630
-                },
                 "hub_height": 150.0,
                 "turbine_model": {
                   "turbine_model_label": "ABC165-5.5MW"
@@ -80,34 +70,30 @@
                 "turbine_label": "WTG02",
                 "x": 420665.0,
                 "y": 6194240.0,
-                "coordinate_system": {
-                  "system_label": "WGS 84 / UTM zone 30N",
-                  "epsg_number": 32630
-                },
                 "hub_height": 160.0,
                 "turbine_model": {
                   "turbine_model_label": "ABC165-5.5MW"
                 }
               }
-            ]
+            ],
+            "coordinate_system": {
+              "system_label": "WGS 84 / UTM zone 30N",
+              "epsg_number": 32630
+            }
           },
           {
             "wind_farm_name": "Munro Wind Farm",
             "wind_farm_label": "MWF",
-            "wind_farm_description": "",
+            "wind_farm_description": "The operational Munro Wind Farm",
+            "wind_farm_comments": "Specifications taken from publicly available information",
+            "relevance": "external",
             "operational_lifetime_start_date": "2018-07-01",
             "operational_lifetime_end_date": "2038-06-30",
-            "wind_farm_comments": "",
-            "relevance": "external",
             "turbines": [
               {
                 "turbine_label": "Mu_T1",
                 "x": 419665.0,
                 "y": 6195240.0,
-                "coordinate_system": {
-                  "system_label": "WGS 84 / UTM zone 30N",
-                  "epsg_number": 32630
-                },
                 "hub_height": 125.0,
                 "turbine_model": {
                   "turbine_model_label": "XYZ-3.2/140"
@@ -117,16 +103,16 @@
                 "turbine_label": "Mu_T2",
                 "x": 420665.0,
                 "y": 6195240.0,
-                "coordinate_system": {
-                  "system_label": "WGS 84 / UTM zone 30N",
-                  "epsg_number": 32630
-                },
                 "hub_height": 125.0,
                 "turbine_model": {
                   "turbine_model_label": "XYZ-3.2/140"
                 }
               }
-            ]
+            ],
+            "coordinate_system": {
+              "system_label": "WGS 84 / UTM zone 30N",
+              "epsg_number": 32630
+            }
           }
         ]
       },
@@ -142,7 +128,6 @@
           "results_type": "lifetime",
           "results_label": "30-year",
           "results_description": "Results for the full operational lifetime of 30 years",
-          "results_comments": null,
           "mast_wind_resource_results": {},
           "turbine_wind_resource_results": {},
           "gross_energy_results": {},
@@ -179,21 +164,12 @@
         "wind_farms": [
           {
             "wind_farm_name": "Barefoot Wind Farm",
-            "wind_farm_label": null,
-            "wind_farm_description": null,
-            "operational_lifetime_start_date": null,
-            "operational_lifetime_end_date": null,
-            "wind_farm_comments": null,
             "relevance": "internal",
             "turbines": [
               {
                 "turbine_label": "WTG01",
                 "x": 419665.0,
                 "y": 6194240.0,
-                "coordinate_system": {
-                  "system_label": "WGS 84 / UTM zone 30N",
-                  "epsg_number": 32630
-                },
                 "hub_height": 148.0,
                 "turbine_model": {
                   "turbine_model_label": "PQR169-5.8MW"
@@ -203,34 +179,30 @@
                 "turbine_label": "WTG02",
                 "x": 420665.0,
                 "y": 6194240.0,
-                "coordinate_system": {
-                  "system_label": "WGS 84 / UTM zone 30N",
-                  "epsg_number": 32630
-                },
                 "hub_height": 158.0,
                 "turbine_model": {
                   "turbine_model_label": "PQR169-5.8MW"
                 }
               }
-            ]
+            ],
+            "coordinate_system": {
+              "system_label": "WGS 84 / UTM zone 30N",
+              "epsg_number": 32630
+            }
           },
           {
             "wind_farm_name": "Munro Wind Farm",
             "wind_farm_label": "MWF",
-            "wind_farm_description": "",
+            "wind_farm_description": "The operational Munro Wind Farm",
+            "wind_farm_comments": "Specifications taken from publicly available information",
+            "relevance": "external",
             "operational_lifetime_start_date": "2018-07-01",
             "operational_lifetime_end_date": "2038-06-30",
-            "wind_farm_comments": "",
-            "relevance": "external",
             "turbines": [
               {
                 "turbine_label": "Mu_T1",
                 "x": 419665.0,
                 "y": 6195240.0,
-                "coordinate_system": {
-                  "system_label": "WGS 84 / UTM zone 30N",
-                  "epsg_number": 32630
-                },
                 "hub_height": 125.0,
                 "turbine_model": {
                   "turbine_model_label": "XYZ-3.2/140"
@@ -240,16 +212,16 @@
                 "turbine_label": "Mu_T2",
                 "x": 420665.0,
                 "y": 6195240.0,
-                "coordinate_system": {
-                  "system_label": "WGS 84 / UTM zone 30N",
-                  "epsg_number": 32630
-                },
                 "hub_height": 125.0,
                 "turbine_model": {
                   "turbine_model_label": "XYZ-3.2/140"
                 }
               }
-            ]
+            ],
+            "coordinate_system": {
+              "system_label": "WGS 84 / UTM zone 30N",
+              "epsg_number": 32630
+            }
           }
         ]
       },
@@ -265,7 +237,6 @@
           "results_type": "lifetime",
           "results_label": "30-year",
           "results_description": "Results for the full operational lifetime of 30 years",
-          "results_comments": null,
           "mast_wind_resource_results": {},
           "turbine_wind_resource_results": {},
           "gross_energy_results": {},

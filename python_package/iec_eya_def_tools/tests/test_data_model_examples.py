@@ -3,15 +3,14 @@
 
 """
 
-
 import pytest
+from pathlib import Path
 
 import iec_eya_def_tools.data_model as data_model
 
 
-@pytest.fixture
-def energy_assessment_report_a() -> data_model.EnergyAssessmentReport:
-    """Make test case instance 'a' of `EnergyAssessmentReport`."""
+def build_energy_assessment_report_a() -> data_model.EnergyAssessmentReport:
+    """Build example instance 'a' of `EnergyAssessmentReport`."""
     main_author = data_model.ReportContributor(
         name="Ben Simmonds",
         email_address="bens@naturalpower.com",  # type: ignore
@@ -53,25 +52,25 @@ def energy_assessment_report_a() -> data_model.EnergyAssessmentReport:
             turbine_label="Mu_T1",
             x=419665.0,
             y=6195240.0,
-            coordinate_system=coordinate_system,
             hub_height=125.0,
             turbine_model=neighbouring_turbine_model),
         data_model.Turbine(
             turbine_label="Mu_T2",
             x=420665.0,
             y=6195240.0,
-            coordinate_system=coordinate_system,
             hub_height=125.0,
             turbine_model=neighbouring_turbine_model)]
     neighbouring_wind_farm = data_model.WindFarm(
         wind_farm_name="Munro Wind Farm",
         wind_farm_label="MWF",
-        wind_farm_description="",
-        wind_farm_comments="",
+        wind_farm_description="The operational Munro Wind Farm",
+        wind_farm_comments=(
+            "Specifications taken from publicly available information"),
+        relevance='external',
         operational_lifetime_start_date="2018-07-01",  # type: ignore
         operational_lifetime_end_date="2038-06-30",  # type: ignore
-        relevance='external',
-        turbines=neighbouring_turbines)
+        turbines=neighbouring_turbines,
+        coordinate_system=coordinate_system)
 
     turbine_model_a = data_model.TurbineModel(
         turbine_model_label="ABC165-5.5MW")
@@ -80,21 +79,20 @@ def energy_assessment_report_a() -> data_model.EnergyAssessmentReport:
             turbine_label="WTG01",
             x=419665.0,
             y=6194240.0,
-            coordinate_system=coordinate_system,
             hub_height=150.0,
             turbine_model=turbine_model_a),
         data_model.Turbine(
             turbine_label="WTG02",
             x=420665.0,
             y=6194240.0,
-            coordinate_system=coordinate_system,
             hub_height=160.0,
             turbine_model=turbine_model_a)]
     project_wind_farm_a = data_model.WindFarm(
         wind_farm_name="Barefoot Wind Farm",
         operational_lifetime_start_date="2024-01-01",  # type: ignore
         relevance='internal',
-        turbines=turbines_a)
+        turbines=turbines_a,
+        coordinate_system=coordinate_system)
     wind_farms_a = [project_wind_farm_a, neighbouring_wind_farm]
     wind_farms_configuration_a = data_model.SiteWindFarmsConfiguration(
         wind_farms_configuration_label="A",
@@ -147,20 +145,19 @@ def energy_assessment_report_a() -> data_model.EnergyAssessmentReport:
             turbine_label="WTG01",
             x=419665.0,
             y=6194240.0,
-            coordinate_system=coordinate_system,
             hub_height=148.0,
             turbine_model=turbine_model_b),
         data_model.Turbine(
             turbine_label="WTG02",
             x=420665.0,
             y=6194240.0,
-            coordinate_system=coordinate_system,
             hub_height=158.0,
             turbine_model=turbine_model_b)]
     project_wind_farm_b = data_model.WindFarm(
         wind_farm_name="Barefoot Wind Farm",
         relevance='internal',
-        turbines=turbines_b)
+        turbines=turbines_b,
+        coordinate_system=coordinate_system)
     wind_farms_b = [project_wind_farm_b, neighbouring_wind_farm]
     wind_farms_configuration_b = data_model.SiteWindFarmsConfiguration(
         wind_farms_configuration_label="B",
@@ -226,10 +223,12 @@ def energy_assessment_report_a() -> data_model.EnergyAssessmentReport:
         document_id="12345678",
         document_version="B",
         issue_date="2022-10-07",  # type: ignore
-        issuing_organisation="Natural Power Consultants Limited ",
+        issuing_organisation_name="The Natural Power Consultants Limited",
+        issuing_organisation_abbreviation="Natural Power",
         issuing_organisation_address=(
             "The Greenhouse, Dalry, Castle Douglas, DG7 3XS, UK"),
-        receiving_organisation="Cubico Sustainable Investments Limited",
+        receiving_organisation_name="Cubico Sustainable Investments Limited",
+        receiving_organisation_abbreviation="Cubico",
         receiving_organisation_contact_name="Charlie Plumley",
         receiving_organisation_address=(
             "70 St Mary Axe, London, EC3A 8BE, UK"),
@@ -239,8 +238,31 @@ def energy_assessment_report_a() -> data_model.EnergyAssessmentReport:
     return energy_assessment_report
 
 
+def export_energy_assessment_report_examples_as_json(
+        filepath: Path,
+        exclude_none: bool) -> None:
+    """Export example instance 'a' of `EnergyAssessmentReport` to json.
+
+    :param filepath: the path to export the json file to
+    :param exclude_none: whether to exclude variables set to `None` from
+        the json document
+    """
+    with open(filepath, 'w') as f:
+        f.write(build_energy_assessment_report_a().json(
+            indent=2, exclude_none=exclude_none))
+
+
+@pytest.fixture(scope='module')
+def energy_assessment_report_a() -> data_model.EnergyAssessmentReport:
+    """Get test case instance 'a' of `EnergyAssessmentReport`."""
+    return build_energy_assessment_report_a()
+
+
 def test_initiate_energy_assessment_report_a(energy_assessment_report_a):
     assert isinstance(
         energy_assessment_report_a, data_model.EnergyAssessmentReport)
-    with open("test.json", 'w') as f:
-        f.write(energy_assessment_report_a.json(indent=2))
+
+
+# export_energy_assessment_report_examples_as_json(
+#     Path("iec_61400-15-2_reporting_def_example_a.json"),
+#     exclude_none=True)

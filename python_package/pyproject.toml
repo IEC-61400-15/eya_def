@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "iec_eya_def_tools"
-version = "0.0.1"
+version = "0.0.1a1"
 authors = [
   {name="M. Jason Fields", email="michael.fields@nrel.gov"},
   {name="Andrew Henderson", email="arh@cop.dk"},
@@ -18,7 +18,7 @@ authors = [
 ]
 description = "IEC 61400-15-2 Reporting Digital Exchange Format (DEF) toolset"
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 classifiers = [
     "Programming Language :: Python :: 3",
     "Operating System :: OS Independent",

@@ -59,12 +59,20 @@
       "type": "string",
       "format": "date"
     },
-    "issuing_organisation": {
-      "title": "Issuing Organisation",
-      "description": "Organisation issuing the report.",
+    "issuing_organisation_name": {
+      "title": "Issuing Organisation Name",
+      "description": "Entity name of the organisation issuing the report.",
       "examples": [
-        "DNV",
+        "The Natural Power Consultants Limited"
+      ],
+      "type": "string"
+    },
+    "issuing_organisation_abbreviation": {
+      "title": "Issuing Organisation Abbreviation",
+      "description": "Abbreviated name of issuing organisation.",
+      "examples": [
         "Natural Power",
+        "DNV",
         "Brightwind",
         "NREL"
       ],
@@ -75,9 +83,17 @@
       "description": "Address of organisation issuing the report.",
       "type": "string"
     },
-    "receiving_organisation": {
-      "title": "Receiving Organisation",
-      "description": "Organisation receiving the report.",
+    "receiving_organisation_name": {
+      "title": "Receiving Organisation Name",
+      "description": "Entity name of the organisation receiving the report.",
+      "examples": [
+        "Cubico Sustainable Investments Limited"
+      ],
+      "type": "string"
+    },
+    "receiving_organisation_abbreviation": {
+      "title": "Receiving Organisation Abbreviation",
+      "description": "Abbreviated name of receiving organisation.",
       "examples": [
         "Cubico",
         "Apex",
@@ -129,7 +145,8 @@
     "project_name",
     "report_title",
     "issue_date",
-    "issuing_organisation",
+    "issuing_organisation_name",
+    "issuing_organisation_abbreviation",
     "contributors",
     "scenarios"
   ],
@@ -190,34 +207,6 @@
         "contributor_type"
       ]
     },
-    "CoordinateSystem": {
-      "title": "CoordinateSystem",
-      "description": "Specification of a coordinate reference system for GIS data.",
-      "type": "object",
-      "properties": {
-        "system_label": {
-          "title": "System Label",
-          "description": "Label of the coordinate system.",
-          "examples": [
-            "OSGB36 / British National Grid",
-            "SWEREF99 TM"
-          ],
-          "type": "string"
-        },
-        "epsg_number": {
-          "title": "Epsg Number",
-          "description": "EPSG integer code to identify the coordinate system.",
-          "examples": [
-            27700,
-            3006
-          ],
-          "type": "integer"
-        }
-      },
-      "required": [
-        "system_label"
-      ]
-    },
     "TurbineModel": {
       "title": "TurbineModel",
       "description": "Specification of a wind turbine model.",
@@ -264,15 +253,6 @@
           "description": "Wind turbine y-coordinate.",
           "type": "number"
         },
-        "coordinate_system": {
-          "title": "Coordinate System",
-          "description": "Specification of the coordinate reference system used.",
-          "allOf": [
-            {
-              "$ref": "#/definitions/CoordinateSystem"
-            }
-          ]
-        },
         "hub_height": {
           "title": "Hub Height",
           "description": "Hub height of the turbine.",
@@ -297,9 +277,36 @@
         "turbine_label",
         "x",
         "y",
-        "coordinate_system",
         "hub_height",
         "turbine_model"
+      ]
+    },
+    "CoordinateSystem": {
+      "title": "CoordinateSystem",
+      "description": "Specification of a coordinate reference system for GIS data.",
+      "type": "object",
+      "properties": {
+        "system_label": {
+          "title": "System Label",
+          "description": "Label of the coordinate system.",
+          "examples": [
+            "OSGB36 / British National Grid",
+            "SWEREF99 TM"
+          ],
+          "type": "string"
+        },
+        "epsg_number": {
+          "title": "Epsg Number",
+          "description": "EPSG integer code to identify the coordinate system.",
+          "examples": [
+            27700,
+            3006
+          ],
+          "type": "integer"
+        }
+      },
+      "required": [
+        "system_label"
       ]
     },
     "WindFarm": {
@@ -333,6 +340,21 @@
           ],
           "type": "string"
         },
+        "wind_farm_comments": {
+          "title": "Wind Farm Comments",
+          "description": "Comments regarding the wind farm.",
+          "type": "string"
+        },
+        "relevance": {
+          "title": "Relevance",
+          "description": "The relevance of the wind farm for the assessment.",
+          "enum": [
+            "internal",
+            "external",
+            "future"
+          ],
+          "type": "string"
+        },
         "operational_lifetime_start_date": {
           "title": "Operational Lifetime Start Date",
           "description": "Operational lifetime start date (format YYYY-MM-DD).",
@@ -353,21 +375,6 @@
           "type": "string",
           "format": "date"
         },
-        "wind_farm_comments": {
-          "title": "Wind Farm Comments",
-          "description": "Comments regarding the wind farm.",
-          "type": "string"
-        },
-        "relevance": {
-          "title": "Relevance",
-          "description": "The relevance of the wind farm for the assessment.",
-          "enum": [
-            "internal",
-            "external",
-            "future"
-          ],
-          "type": "string"
-        },
         "turbines": {
           "title": "Turbines",
           "description": "List of turbines that form part of the wind farm.",
@@ -375,12 +382,22 @@
           "items": {
             "$ref": "#/definitions/Turbine"
           }
+        },
+        "coordinate_system": {
+          "title": "Coordinate System",
+          "description": "Specification of the coordinate reference system used.",
+          "allOf": [
+            {
+              "$ref": "#/definitions/CoordinateSystem"
+            }
+          ]
         }
       },
       "required": [
         "wind_farm_name",
         "relevance",
-        "turbines"
+        "turbines",
+        "coordinate_system"
       ]
     },
     "SiteWindFarmsConfiguration": {
