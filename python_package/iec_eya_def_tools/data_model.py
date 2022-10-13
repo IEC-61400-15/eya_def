@@ -14,11 +14,29 @@ likely solve most of these issues in a more robust way.
 
 """
 
-# TODO fix allOf issue
-
 from datetime import date
-from typing import Literal, Optional
+from typing import Literal
 from pydantic import BaseModel, Field, EmailStr
+
+
+def reduce_json_all_of(json_dict: dict) -> dict:
+    """Get a copy of a json dict without superfluous ollOf definitions.
+
+    This is a temporary fix and should be resolved when moving to
+    pydantic version 2.
+
+    :param json_dict: the original json `dict`
+    :return: a `dict` where superfluous ollOf definitions are removed
+    """
+    reduced_json_dict = {}
+    for key, val in json_dict.items():
+        if isinstance(val, dict):
+            reduced_json_dict[key] = reduce_json_all_of(val)
+        elif key == 'allOf' and isinstance(val, list) and len(val) == 1:
+            reduced_json_dict.update(val[0].items())
+        else:
+            reduced_json_dict[key] = val
+    return reduced_json_dict
 
 
 def get_json_schema_reference_uri() -> str:
@@ -485,6 +503,8 @@ class EnergyAssessmentReport(BaseModel):
         `null` value should rather be excluded.
         """
         schema_dict = cls.schema(by_alias=True)
+        assert bool(schema_dict)
+        assert isinstance(schema_dict, dict)
         schema_key_order = [
             '$schema', '$id', '$version', 'title', 'description', 'type',
             'properties', 'required', 'additionalProperties', 'definitions']
@@ -496,4 +516,5 @@ class EnergyAssessmentReport(BaseModel):
         for property_exclude in properties_exclude:
             if property_exclude in updated_schema_dict['properties'].keys():
                 del updated_schema_dict['properties'][property_exclude]
+        updated_schema_dict = reduce_json_all_of(updated_schema_dict)
         return updated_schema_dict

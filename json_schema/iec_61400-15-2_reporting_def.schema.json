@@ -305,11 +305,7 @@
         "turbine_model": {
           "title": "Turbine Model",
           "description": "Specification of the turbine model.",
-          "allOf": [
-            {
-              "$ref": "#/definitions/TurbineModel"
-            }
-          ]
+          "$ref": "#/definitions/TurbineModel"
         }
       },
       "required": [
@@ -425,11 +421,7 @@
         "coordinate_system": {
           "title": "Coordinate System",
           "description": "Specification of the coordinate reference system used.",
-          "allOf": [
-            {
-              "$ref": "#/definitions/CoordinateSystem"
-            }
-          ]
+          "$ref": "#/definitions/CoordinateSystem"
         }
       },
       "required": [
@@ -586,65 +578,37 @@
         "mast_wind_resource_results": {
           "title": "Mast Wind Resource Results",
           "description": "Wind resource assessment results at the measurement(s).",
-          "allOf": [
-            {
-              "$ref": "#/definitions/MastWindResourceResults"
-            }
-          ]
+          "$ref": "#/definitions/MastWindResourceResults"
         },
         "turbine_wind_resource_results": {
           "title": "Turbine Wind Resource Results",
           "description": "Wind resource assessment results at turbines.",
-          "allOf": [
-            {
-              "$ref": "#/definitions/TurbineWindResourceResults"
-            }
-          ]
+          "$ref": "#/definitions/TurbineWindResourceResults"
         },
         "gross_energy_results": {
           "title": "Gross Energy Results",
           "description": "Gross energy yield results.",
-          "allOf": [
-            {
-              "$ref": "#/definitions/GrossEnergyResults"
-            }
-          ]
+          "$ref": "#/definitions/GrossEnergyResults"
         },
         "plant_performance_results": {
           "title": "Plant Performance Results",
           "description": "Plant performance results including all losses.",
-          "allOf": [
-            {
-              "$ref": "#/definitions/PlantPerformanceResults"
-            }
-          ]
+          "$ref": "#/definitions/PlantPerformanceResults"
         },
         "net_energy_results": {
           "title": "Net Energy Results",
           "description": "Net energy yield results.",
-          "allOf": [
-            {
-              "$ref": "#/definitions/NetEnergyResults"
-            }
-          ]
+          "$ref": "#/definitions/NetEnergyResults"
         },
         "uncertainty_results": {
           "title": "Uncertainty Results",
           "description": "Results of uncertainty analysis.",
-          "allOf": [
-            {
-              "$ref": "#/definitions/UncertaintyResults"
-            }
-          ]
+          "$ref": "#/definitions/UncertaintyResults"
         },
         "confidence_limit_results": {
           "title": "Confidence Limit Results",
           "description": "Energy yield results at different confidence limits.",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ConfidenceLimitResults"
-            }
-          ]
+          "$ref": "#/definitions/ConfidenceLimitResults"
         }
       },
       "required": [
@@ -715,11 +679,7 @@
         "wind_farms_configuration": {
           "title": "Wind Farms Configuration",
           "description": "Configuration of all relevant wind farms for the site.",
-          "allOf": [
-            {
-              "$ref": "#/definitions/SiteWindFarmsConfiguration"
-            }
-          ]
+          "$ref": "#/definitions/SiteWindFarmsConfiguration"
         },
         "wind_spatial_models": {
           "title": "Wind Spatial Models",
