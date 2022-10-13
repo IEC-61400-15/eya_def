@@ -4,4 +4,6 @@
 """
 
 
-# TODO this is a placeholder
+def test_export_json_schema(pydantic_json_schema_tmp_path):
+    """Test that the json schema was exported to temporary file."""
+    assert pydantic_json_schema_tmp_path.is_file()

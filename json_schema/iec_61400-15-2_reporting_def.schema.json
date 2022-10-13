@@ -6,16 +6,8 @@
   "description": "IEC 61400-15-2 Reporting DEF energy assessment report data model.",
   "type": "object",
   "properties": {
-    "project_name": {
-      "title": "Project Name",
-      "description": "Name of the project under assessment.",
-      "examples": [
-        "Barefoot Wind Farm"
-      ],
-      "type": "string"
-    },
-    "report_title": {
-      "title": "Report Title",
+    "title": {
+      "title": "Title",
       "description": "Title of the energy assessment report.",
       "examples": [
         "Energy yield assessment of the Barefoot Wind Farm"
@@ -32,17 +24,26 @@
       "description": "Comments on the energy assessment report.",
       "type": "string"
     },
-    "document_id": {
-      "title": "Document Id",
-      "description": "Report document ID.",
+    "project_name": {
+      "title": "Project Name",
+      "description": "Name of the project under assessment.",
       "examples": [
-        "C385945/A/UK/R/002/E"
+        "Barefoot Wind Farm"
+      ],
+      "type": "string"
+    },
+    "document_id": {
+      "title": "Document ID",
+      "description": "The ID of the report document; when including a document_version, do not duplicate the version here",
+      "examples": [
+        "C385945/A/UK/R/002",
+        "0345.923454.0001"
       ],
       "type": "string"
     },
     "document_version": {
       "title": "Document Version",
-      "description": "Report version (avoid duplicating from `document_id`).",
+      "description": "Version of the report document.",
       "examples": [
         "1.2.3",
         "A",
@@ -142,15 +143,14 @@
     }
   },
   "required": [
+    "title",
     "project_name",
-    "report_title",
     "issue_date",
     "issuing_organisation_name",
     "issuing_organisation_abbreviation",
     "contributors",
     "scenarios"
   ],
-  "additionalProperties": true,
   "definitions": {
     "ReportContributor": {
       "title": "ReportContributor",
@@ -205,6 +205,45 @@
       "required": [
         "name",
         "contributor_type"
+      ]
+    },
+    "WindMeasurementCampaign": {
+      "title": "WindMeasurementCampaign",
+      "description": "Details of a wind measurement campaign.",
+      "type": "object",
+      "properties": {
+        "measurement_id": {
+          "title": "Measurement Id",
+          "description": "Measurement unique ID.",
+          "type": "string"
+        },
+        "measurement_name": {
+          "title": "Measurement Name",
+          "description": "Measurement name for use as label; when including a metadata_ref_iea43_model, ensure this value matches the name field of the measurement_location.",
+          "type": "string"
+        },
+        "measurement_description": {
+          "title": "Measurement Description",
+          "description": "Measurement description.",
+          "type": "string"
+        },
+        "measurement_comments": {
+          "title": "Measurement Comments",
+          "description": "Measurement comments.",
+          "type": "string"
+        },
+        "metadata_ref_iea43_model": {
+          "$ref": "https://raw.githubusercontent.com/IEA-Task-43/digital_wra_data_standard/master/schema/iea43_wra_data_model.schema.json",
+          "title": "Metadata Reference (IEA Task 43 WRA Data Model)",
+          "description": "Reference to a json document with measurement metadata according to the IEA Task 43 WRA data model.",
+          "examples": [
+            "https://foo.com/bar/example_iea43.json"
+          ]
+        }
+      },
+      "required": [
+        "measurement_id",
+        "measurement_name"
       ]
     },
     "TurbineModel": {
@@ -665,6 +704,14 @@
           ],
           "type": "number"
         },
+        "wind_measurement_campaigns": {
+          "title": "Wind Measurement Campaigns",
+          "description": "Details of the wind measurement campaign.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/WindMeasurementCampaign"
+          }
+        },
         "wind_farms_configuration": {
           "title": "Wind Farms Configuration",
           "description": "Configuration of all relevant wind farms for the site.",
@@ -695,6 +742,7 @@
         "scenario_label",
         "is_main_scenario",
         "operational_lifetime_length_years",
+        "wind_measurement_campaigns",
         "wind_farms_configuration",
         "wind_spatial_models",
         "energy_assessment_results"

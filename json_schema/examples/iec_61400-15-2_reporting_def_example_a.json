@@ -1,8 +1,9 @@
 {
-  "project_name": "Barefoot Wind Farm",
-  "report_title": "Energy yield assessment of the Barefoot Wind Farm",
+  "$id": "https://example.naturalpower.com/api/v2/eya/report/id=b1396029-e9af-49f7-9599-534db175e53c",
+  "title": "Energy yield assessment of the Barefoot Wind Farm",
   "report_description": "Wind resource and energy yield assessment of the Barefoot Wind Farm based on two on-site meteorological masts and considering two different turbine scenarios",
   "report_comments": "Update to consider further on-site measurement data",
+  "project_name": "Barefoot Wind Farm",
   "document_id": "12345678",
   "document_version": "B",
   "issue_date": "2022-10-07",
@@ -48,6 +49,15 @@
       "scenario_description": "ABC165-5.5MW turbine model scenario",
       "is_main_scenario": true,
       "operational_lifetime_length_years": 30.0,
+      "wind_measurement_campaigns": [
+        {
+          "measurement_id": "BF_M01",
+          "measurement_name": "M1",
+          "measurement_description": "Barefoot Wind Farm on-site meteorological mast",
+          "measurement_comments": "",
+          "metadata_ref_iea43_model": "{\"$ref\": \"/foo/bar/metadata_ref_iea43_model.json\"}"
+        }
+      ],
       "wind_farms_configuration": {
         "wind_farms_configuration_label": "A",
         "wind_farms_configuration_description": "Wind farms configuration for turbine model scenario A",
@@ -157,6 +167,15 @@
       "scenario_comments": "The site suitability of turbine model has not yet investigated.",
       "is_main_scenario": false,
       "operational_lifetime_length_years": 30.0,
+      "wind_measurement_campaigns": [
+        {
+          "measurement_id": "BF_M01",
+          "measurement_name": "M1",
+          "measurement_description": "Barefoot Wind Farm on-site meteorological mast",
+          "measurement_comments": "",
+          "metadata_ref_iea43_model": "{\"$ref\": \"/foo/bar/metadata_ref_iea43_model.json\"}"
+        }
+      ],
       "wind_farms_configuration": {
         "wind_farms_configuration_label": "B",
         "wind_farms_configuration_description": "Wind farms configuration for turbine model scenario B",

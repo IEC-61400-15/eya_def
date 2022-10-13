@@ -7,22 +7,58 @@ Exchange Format (DEF), which is referred to the "EYA DEF data model" in
 short. The python implementation makes use of the `pydantic` package to
 define the model and supports export as a json schema.
 
+Note that some temporary fixes have been implemented for the translation
+between this data model and json representations of the schema and model
+instances. Pydantic version 2 is due to be released soon, which will
+likely solve most of these issues in a more robust way.
+
 """
 
-from pathlib import Path
+# TODO fix allOf issue
+
 from datetime import date
-from typing import Literal
+from typing import Literal, Optional
 from pydantic import BaseModel, Field, EmailStr
-import json
+
+
+def get_json_schema_reference_uri() -> str:
+    """Get the reference schema URI of the json schema.
+
+    :return: the public URI of the schema reference used
+    """
+    return "https://json-schema.org/draft/2020-12/schema"
+
+
+def get_json_schema_uri() -> str:
+    """Get the URI of the json schema.
+
+    :return: the public URI of the latest released version of the json
+        schema
+    """
+    # TODO this is a placeholder to be updated
+    return (
+        "https://raw.githubusercontent.com/IEC-61400-15/"
+        "energy_yield_reporting_DEF/blob/main/"
+        "iec_61400-15-2_reporting_def.schema.json")
 
 
 def get_json_schema_version() -> str:
-    """Get the version string of the json schema.
+    """Get the current version string of the json schema.
 
     :return: the semantic version string of the schema, following the
         format <major>.<minor>.<patch> (e.g. '1.2.3')
     """
-    return "0.0.1"  # TODO this is a placeholder to be updated
+    # TODO this is a placeholder to be updated
+    #      (consider using versioneer)
+    return "0.0.1"
+
+
+def get_json_schema_title() -> str:
+    """Get the IEC 61400-15-2 Reporting DEF json schema title.
+
+    :return: the title of the json schema.
+    """
+    return "IEC 61400-15-2 Reporting DEF data model"
 
 
 class ReportContributor(BaseModel):
@@ -58,6 +94,85 @@ class CoordinateSystem(BaseModel):
         None,
         description="EPSG integer code to identify the coordinate system.",
         examples=[27700, 3006])
+
+
+class MetadataIEA43ModelRef(str):
+    """Specification of an IEA Task 43 WRA Data Model reference."""
+
+    @classmethod
+    def __modify_schema__(cls, field_schema: dict) -> None:
+        field_schema.update(**{
+            '$ref': (
+                "https://raw.githubusercontent.com/IEA-Task-43/"
+                "digital_wra_data_standard/master/schema/"
+                "iea43_wra_data_model.schema.json"),
+            'title': "Metadata Reference (IEA Task 43 WRA Data Model)",
+            'description': (
+                "Reference to a json document with measurement metadata "
+                "according to the IEA Task 43 WRA data model."),
+            'examples': ["https://foo.com/bar/example_iea43.json"],
+            'type': None})
+        del field_schema['type']
+
+    def json(self) -> str:
+        """Get a json `str` representation of the reference.
+
+        :return: a string of the form `{"$ref": "<reference_uri>"}`
+        """
+        return '{"$ref": "' + self.format() + '"}'
+
+
+class WindMeasurementCampaign(BaseModel):
+    """Details of a wind measurement campaign."""
+    measurement_id: str = Field(
+        ...,
+        description="Measurement unique ID.")
+    measurement_name: str = Field(
+        ...,
+        description=(
+            "Measurement name for use as label; when including a "
+            "metadata_ref_iea43_model, ensure this value matches the "
+            "name field of the measurement_location."))
+    measurement_description: str | None = Field(
+        None,
+        description="Measurement description.")
+    measurement_comments: str | None = Field(
+        None,
+        description="Measurement comments.")
+    metadata_ref_iea43_model: MetadataIEA43ModelRef | None = Field(
+        None,
+        title="Metadata Reference (IEA Task 43 WRA Data Model)",
+        description=(
+            "Reference to a json document with measurement metadata "
+            "according to the IEA Task 43 WRA data model."),
+        examples=["https://foo.com/bar/example_iea43.json"])
+
+    def dict(self, *args, **kwargs) -> dict:
+        """A `dict` representation of the model instance.
+
+        :param args: any positional arguments for `BaseModel.json`
+        :param kwargs: any key-worded arguments for `BaseModel.json`
+        :return: a `dict` representing the model instance
+        """
+        dict_repr = super(WindMeasurementCampaign, self).dict(*args, **kwargs)
+        dict_repr['metadata_ref_iea43_model'] = (
+            self.metadata_ref_iea43_model.json())
+        return dict_repr
+
+    def json(self, *args, **kwargs) -> str:
+        """A json `str` representation of the model instance.
+
+        :param args: any positional arguments for `BaseModel.json`
+        :param kwargs: any key-worded arguments for `BaseModel.json`
+        :return: a json `str` representing the model instance
+        """
+        json_repr = super(WindMeasurementCampaign, self).json(*args, **kwargs)
+        raw_metadata_ref_iea43_model = (
+            '"' + self.metadata_ref_iea43_model.format() + '"')
+        metadata_ref_iea43_model = self.metadata_ref_iea43_model.json()
+        json_repr = json_repr.replace(
+            raw_metadata_ref_iea43_model, metadata_ref_iea43_model)
+        return json_repr
 
 
 class TurbineModel(BaseModel):
@@ -259,6 +374,9 @@ class Scenario(BaseModel):
         gt=1.0,
         lt=100.0,
         examples=[10.0, 20.0, 30.0])
+    wind_measurement_campaigns: list[WindMeasurementCampaign] = Field(
+        ...,
+        description="Details of the wind measurement campaign.")
     wind_farms_configuration: SiteWindFarmsConfiguration = Field(
         ...,
         description="Configuration of all relevant wind farms for the site.")
@@ -275,20 +393,21 @@ class EnergyAssessmentReport(BaseModel):
 
     class Config:
         """EnergyAssessmentReport data model configurations."""
-        schema_extra = {
-            '$schema': "https://json-schema.org/draft/2020-12/schema",
-            '$id': ("https://raw.githubusercontent.com/IEC-61400-15/"
-                    "energy_yield_reporting_DEF/blob/main/"
-                    "iec_61400-15-2_reporting_def.schema.json"),
-            '$version': get_json_schema_version(),
-            'title': "IEC 61400-15-2 Reporting DEF data model",
-            'additionalProperties': True}
 
-    project_name: str = Field(
-        ...,
-        description="Name of the project under assessment.",
-        examples=["Barefoot Wind Farm"])
-    report_title: str = Field(
+        schema_extra = {
+            '$schema': get_json_schema_reference_uri(),
+            '$id': get_json_schema_uri(),
+            '$version': get_json_schema_version(),
+            'title': get_json_schema_title()}
+
+    json_doc_id: str | None = Field(
+        None,
+        description="Unique ID of json document.",
+        examples=[(
+            "https://foo.bar.com/api/eya_report?"
+            "id=8f46a815-8b6d-4870-8e92-c031b20320c6.json")],
+        alias='$id')
+    title: str = Field(
         ...,
         description="Title of the energy assessment report.",
         examples=["Energy yield assessment of the Barefoot Wind Farm"])
@@ -298,13 +417,20 @@ class EnergyAssessmentReport(BaseModel):
     report_comments: str | None = Field(
         None,
         description="Comments on the energy assessment report.")
+    project_name: str = Field(
+        ...,
+        description="Name of the project under assessment.",
+        examples=["Barefoot Wind Farm"])
     document_id: str | None = Field(
         None,
-        description="Report document ID.",
-        examples=["C385945/A/UK/R/002/E"])
+        title="Document ID",
+        description=(
+            "The ID of the report document; when including a "
+            "document_version, do not duplicate the version here"),
+        examples=["C385945/A/UK/R/002", "0345.923454.0001"])
     document_version: str = Field(
         None,
-        description="Report version (avoid duplicating from `document_id`).",
+        description="Version of the report document.",
         examples=["1.2.3", "A", "Rev. A"])
     issue_date: date = Field(
         ...,
@@ -347,32 +473,27 @@ class EnergyAssessmentReport(BaseModel):
         ...,
         description="List of scenarios included in the report")
 
+    @classmethod
+    def final_json_schema(cls) -> dict:
+        """Get a json schema representation of the top-level data model.
 
-def export_json_schema(filepath: Path) -> None:
-    """Export the top-level data model to a json schema.
-
-    NOTE: there is a known issue with the json schema export
-    functionality in pydantic where variables that can be set to `None`
-    are not correctly set to nullable in the json schema. This will
-    likely be resolved in the near term. In the meanwhile, json
-    documents should not include `null` values, but properties with a
-    `null` value should rather be excluded.
-
-    :param filepath: the path of the file to export to
-    """
-    schema_dict = EnergyAssessmentReport.schema()
-    schema_key_order = [
-        '$schema', '$id', '$version', 'title', 'description', 'type',
-        'properties', 'required', 'additionalProperties', 'definitions']
-    sorted_schema_dict = {}
-    for key in schema_key_order:
-        if key in schema_dict:
-            sorted_schema_dict[key] = schema_dict.pop(key)
-    for key, val in schema_dict.items():
-        sorted_schema_dict[key] = val
-        print(key, val)
-    with open(filepath, 'w') as f:
-        f.write(json.dumps(sorted_schema_dict, indent=2))
-
-
-# export_json_schema(Path("../iec_61400-15-2_reporting_def.schema.json"))
+        NOTE: there is a known issue with the json schema export
+        functionality in pydantic where variables that can be set to `None`
+        are not correctly set to nullable in the json schema. This will
+        likely be resolved in the near term. In the meanwhile, json
+        documents should not include `null` values, but properties with a
+        `null` value should rather be excluded.
+        """
+        schema_dict = cls.schema(by_alias=True)
+        schema_key_order = [
+            '$schema', '$id', '$version', 'title', 'description', 'type',
+            'properties', 'required', 'additionalProperties', 'definitions']
+        updated_schema_dict = {}
+        for key in schema_key_order:
+            if key in schema_dict:
+                updated_schema_dict[key] = schema_dict.pop(key)
+        properties_exclude = ['$id', 'json_doc_id']
+        for property_exclude in properties_exclude:
+            if property_exclude in updated_schema_dict['properties'].keys():
+                del updated_schema_dict['properties'][property_exclude]
+        return updated_schema_dict

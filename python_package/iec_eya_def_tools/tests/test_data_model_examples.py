@@ -39,6 +39,15 @@ def build_energy_assessment_report_a() -> data_model.EnergyAssessmentReport:
         system_label="WGS 84 / UTM zone 30N",
         epsg_number=32630)
 
+    wind_measurement_campaign = data_model.WindMeasurementCampaign(
+        measurement_id="BF_M01",
+        measurement_name="M1",
+        measurement_description=(
+            "Barefoot Wind Farm on-site meteorological mast"),
+        measurement_comments="",
+        metadata_ref_iea43_model=data_model.MetadataIEA43ModelRef(
+            "/foo/bar/metadata_ref_iea43_model.json"))
+
     wind_spatial_model = data_model.WindSpatialModel(
         model_name="VENTOS/M",
         model_description="VENTOS/M is a coupled CFD-mesoscale model",
@@ -134,6 +143,7 @@ def build_energy_assessment_report_a() -> data_model.EnergyAssessmentReport:
         scenario_description="ABC165-5.5MW turbine model scenario",
         is_main_scenario=True,
         operational_lifetime_length_years=30,
+        wind_measurement_campaigns=[wind_measurement_campaign],
         wind_farms_configuration=wind_farms_configuration_a,
         wind_spatial_models=[wind_spatial_model],
         energy_assessment_results=energy_assessment_results_a)
@@ -205,6 +215,7 @@ def build_energy_assessment_report_a() -> data_model.EnergyAssessmentReport:
             "The site suitability of turbine model has not yet investigated."),
         is_main_scenario=False,
         operational_lifetime_length_years=30,
+        wind_measurement_campaigns=[wind_measurement_campaign],
         wind_farms_configuration=wind_farms_configuration_b,
         wind_spatial_models=[wind_spatial_model],
         energy_assessment_results=energy_assessment_results_b)
@@ -212,14 +223,17 @@ def build_energy_assessment_report_a() -> data_model.EnergyAssessmentReport:
     scenarios = [scenario_a, scenario_b]
 
     energy_assessment_report = data_model.EnergyAssessmentReport(
-        project_name="Barefoot Wind Farm",
-        report_title="Energy yield assessment of the Barefoot Wind Farm",
+        **{'$id': (
+            "https://example.naturalpower.com/api/v2/eya/report/"
+            "id=b1396029-e9af-49f7-9599-534db175e53c")},
+        title="Energy yield assessment of the Barefoot Wind Farm",
         report_description=(
             "Wind resource and energy yield assessment of the Barefoot "
             "Wind Farm based on two on-site meteorological masts and "
             "considering two different turbine scenarios"),
         report_comments=(
             "Update to consider further on-site measurement data"),
+        project_name="Barefoot Wind Farm",
         document_id="12345678",
         document_version="B",
         issue_date="2022-10-07",  # type: ignore
@@ -238,31 +252,58 @@ def build_energy_assessment_report_a() -> data_model.EnergyAssessmentReport:
     return energy_assessment_report
 
 
-def export_energy_assessment_report_examples_as_json(
-        filepath: Path,
-        exclude_none: bool) -> None:
-    """Export example instance 'a' of `EnergyAssessmentReport` to json.
-
-    :param filepath: the path to export the json file to
-    :param exclude_none: whether to exclude variables set to `None` from
-        the json document
-    """
-    with open(filepath, 'w') as f:
-        f.write(build_energy_assessment_report_a().json(
-            indent=2, exclude_none=exclude_none))
-
-
 @pytest.fixture(scope='module')
 def energy_assessment_report_a() -> data_model.EnergyAssessmentReport:
     """Get test case instance 'a' of `EnergyAssessmentReport`."""
     return build_energy_assessment_report_a()
 
 
+@pytest.fixture(scope='module')
+def energy_assessment_report_a_tmp_filepath(
+        energy_assessment_report_a, examples_tmp_dirpath) -> Path:
+    """Get the temporary path of the test case instance 'a' json file."""
+    filepath = (
+            examples_tmp_dirpath
+            / "iec_61400-15-2_reporting_def_example_a.json")
+    with open(filepath, 'w') as f:
+        f.write(energy_assessment_report_a.json(
+            indent=2, exclude_none=True, by_alias=True))
+    return filepath
+
+
 def test_initiate_energy_assessment_report_a(energy_assessment_report_a):
+    """Assert test case instance 'a' is successfully initiated."""
     assert isinstance(
         energy_assessment_report_a, data_model.EnergyAssessmentReport)
 
 
-# export_energy_assessment_report_examples_as_json(
-#     Path("iec_61400-15-2_reporting_def_example_a.json"),
-#     exclude_none=True)
+# TEMPORARY CODE
+# def export_json_schema(filepath: Path):
+#     from iec_eya_def_tools import data_model
+#     import json
+#     json_schema = data_model.EnergyAssessmentReport.final_json_schema()
+#     with open(filepath, 'w') as f:
+#         f.write(json.dumps(json_schema, indent=2))
+#
+#
+# def export_energy_assessment_report_example_as_json_file(
+#     filepath: Path,
+#     exclude_none: bool = True,
+#     by_alias: bool = True) -> None:
+#     """Export example instance 'a' of `EnergyAssessmentReport` to json.
+#
+#     :param filepath: the path to export the json file to
+#     :param exclude_none: whether to exclude variables set to `None` from
+#         the json document
+#     :param by_alias: whether to use model variable aliases as property
+#         names
+#     """
+#     with open(filepath, 'w') as f:
+#         f.write(build_energy_assessment_report_a().json(
+#             indent=2, exclude_none=exclude_none, by_alias=by_alias))
+#
+#
+# export_json_schema(Path("iec_61400-15-2_reporting_def.schema.json"))
+#
+# export_energy_assessment_report_example_as_json_file(
+#     Path("iec_61400-15-2_reporting_def_example_a.json"))
