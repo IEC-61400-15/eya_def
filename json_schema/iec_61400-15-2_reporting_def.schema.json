@@ -207,115 +207,6 @@
         "contributor_type"
       ]
     },
-    "WindMeasurementCampaign": {
-      "title": "WindMeasurementCampaign",
-      "description": "Details of a wind measurement campaign.",
-      "type": "object",
-      "properties": {
-        "measurement_id": {
-          "title": "Measurement Id",
-          "description": "Measurement unique ID.",
-          "type": "string"
-        },
-        "measurement_name": {
-          "title": "Measurement Name",
-          "description": "Measurement name for use as label; when including a metadata_ref_iea43_model, ensure this value matches the name field of the measurement_location.",
-          "type": "string"
-        },
-        "measurement_description": {
-          "title": "Measurement Description",
-          "description": "Measurement description.",
-          "type": "string"
-        },
-        "measurement_comments": {
-          "title": "Measurement Comments",
-          "description": "Measurement comments.",
-          "type": "string"
-        },
-        "metadata_ref_iea43_model": {
-          "$ref": "https://raw.githubusercontent.com/IEA-Task-43/digital_wra_data_standard/master/schema/iea43_wra_data_model.schema.json",
-          "title": "Metadata Reference (IEA Task 43 WRA Data Model)",
-          "description": "Reference to a json document with measurement metadata according to the IEA Task 43 WRA data model.",
-          "examples": [
-            "https://foo.com/bar/example_iea43.json"
-          ]
-        }
-      },
-      "required": [
-        "measurement_id",
-        "measurement_name"
-      ]
-    },
-    "TurbineModel": {
-      "title": "TurbineModel",
-      "description": "Specification of a wind turbine model.",
-      "type": "object",
-      "properties": {
-        "turbine_model_label": {
-          "title": "Turbine Model Label",
-          "description": "Label of the turbine model.",
-          "examples": [
-            "V172-7.2 MW",
-            "N175/6.X",
-            "SG 6.6-170",
-            "E-175 EP5"
-          ],
-          "type": "string"
-        }
-      },
-      "required": [
-        "turbine_model_label"
-      ]
-    },
-    "Turbine": {
-      "title": "Turbine",
-      "description": "Turbine representation with location and performance data.",
-      "type": "object",
-      "properties": {
-        "turbine_label": {
-          "title": "Turbine Label",
-          "description": "Label of the turbine.",
-          "examples": [
-            "T1",
-            "WTG02",
-            "WEA_003"
-          ],
-          "type": "string"
-        },
-        "x": {
-          "title": "X",
-          "description": "Wind turbine x-coordinate.",
-          "type": "number"
-        },
-        "y": {
-          "title": "Y",
-          "description": "Wind turbine y-coordinate.",
-          "type": "number"
-        },
-        "hub_height": {
-          "title": "Hub Height",
-          "description": "Hub height of the turbine.",
-          "examples": [
-            80.0,
-            145.0,
-            169.5
-          ],
-          "type": "number"
-        },
-        "turbine_model": {
-          "title": "Turbine Model",
-          "description": "Specification of the turbine model.",
-          "$ref": "#/definitions/TurbineModel"
-        }
-      },
-      "required": [
-        "turbine_label",
-        "x",
-        "y",
-        "hub_height",
-        "turbine_model"
-      ]
-    },
     "CoordinateSystem": {
       "title": "CoordinateSystem",
       "description": "Specification of a coordinate reference system for GIS data.",
@@ -344,9 +235,174 @@
         "system_label"
       ]
     },
+    "Location": {
+      "title": "Location",
+      "description": "Specification of a horizontal location in space (x and y).",
+      "type": "object",
+      "properties": {
+        "location_id": {
+          "title": "Location Id",
+          "description": "Unique identifier of the location.",
+          "examples": [
+            "ee15ff84-6733-4858-9656-ba995d9b1022"
+          ],
+          "type": "string"
+        },
+        "location_type": {
+          "title": "Location Type",
+          "description": "The type of location.",
+          "enum": [
+            "turbine",
+            "measurement",
+            "other"
+          ],
+          "type": "string"
+        },
+        "label": {
+          "title": "Label",
+          "description": "Label of the location.",
+          "examples": [
+            "M1",
+            "T1",
+            "WTG02",
+            "WEA_003"
+          ],
+          "type": "string"
+        },
+        "description": {
+          "title": "Description",
+          "description": "Description of the location.",
+          "examples": [
+            "Verified location of Mast M1"
+          ],
+          "type": "string"
+        },
+        "comments": {
+          "title": "Comments",
+          "description": "Comments regarding the location.",
+          "examples": [
+            "Documented in installation report and independently confirmed"
+          ],
+          "type": "string"
+        },
+        "x": {
+          "title": "X",
+          "description": "Location x-coordinate (typically easing).",
+          "examples": [
+            419665.0
+          ],
+          "type": "number"
+        },
+        "y": {
+          "title": "Y",
+          "description": "Location y-coordinate (typically northing).",
+          "examples": [
+            6195240.0
+          ],
+          "type": "number"
+        },
+        "coordinate_system": {
+          "title": "Coordinate System",
+          "description": "Specification of the coordinate reference system used.",
+          "$ref": "#/definitions/CoordinateSystem"
+        }
+      },
+      "required": [
+        "label",
+        "x",
+        "y",
+        "coordinate_system"
+      ]
+    },
+    "WindMeasurementCampaign": {
+      "title": "WindMeasurementCampaign",
+      "description": "Details of a wind measurement campaign.",
+      "type": "object",
+      "properties": {
+        "measurement_id": {
+          "title": "Measurement Id",
+          "description": "Measurement unique ID.",
+          "examples": [
+            "BF_M1_1.0.0"
+          ],
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "description": "Measurement name for use as label; when including a 'metadata_ref_iea43_model', it is recommended this value matches the 'name' field of the 'measurement_location'.",
+          "examples": [
+            "Mast M1"
+          ],
+          "type": "string"
+        },
+        "label": {
+          "title": "Label",
+          "description": "Measurement label (if not provided name is used).",
+          "examples": [
+            "M1"
+          ],
+          "type": "string"
+        },
+        "description": {
+          "title": "Description",
+          "description": "Measurement description.",
+          "examples": [
+            "Barefoot Wind Farm on-site meteorological mast"
+          ],
+          "type": "string"
+        },
+        "comments": {
+          "title": "Comments",
+          "description": "Measurement comments.",
+          "examples": [
+            "Measurements were still ongoing at time of assessment"
+          ],
+          "type": "string"
+        },
+        "location": {
+          "title": "Location",
+          "description": "Horizontal location of the measurement equipment.",
+          "$ref": "#/definitions/Location"
+        },
+        "metadata_ref_iea43_model": {
+          "$ref": "https://raw.githubusercontent.com/IEA-Task-43/digital_wra_data_standard/master/schema/iea43_wra_data_model.schema.json",
+          "title": "Metadata Reference (IEA Task 43 WRA Data Model)",
+          "description": "Reference to a json document with measurement metadata according to the IEA Task 43 WRA data model.",
+          "examples": [
+            "https://foo.com/bar/example_iea43.json"
+          ]
+        }
+      },
+      "required": [
+        "measurement_id",
+        "name",
+        "location"
+      ]
+    },
+    "TurbineModel": {
+      "title": "TurbineModel",
+      "description": "Specification of a wind turbine model.",
+      "type": "object",
+      "properties": {
+        "turbine_model_label": {
+          "title": "Turbine Model Label",
+          "description": "Label of the turbine model.",
+          "examples": [
+            "V172-7.2 MW",
+            "N175/6.X",
+            "SG 6.6-170",
+            "E-175 EP5"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "turbine_model_label"
+      ]
+    },
     "WindFarm": {
       "title": "WindFarm",
-      "description": "A collection of wind turbines considered as one unit (plant).\n\n:ivar label: wind farm label\n:ivar turbines: list of the `Turbine` instances belonging to the\n    wind farm\n:ivar relevance: whether the wind farm is relevant as is internal,\n    external or future",
+      "description": "A collection of wind turbines considered as one unit (plant).",
       "type": "object",
       "properties": {
         "wind_farm_name": {
@@ -410,25 +466,61 @@
           "type": "string",
           "format": "date"
         },
-        "turbines": {
-          "title": "Turbines",
-          "description": "List of turbines that form part of the wind farm.",
+        "turbine_ids": {
+          "title": "Turbine Ids",
+          "description": "List of turbine IDs that form part of the wind farm.",
+          "examples": [
+            [
+              "WTG01-V1.0",
+              "WTG02-V1.0"
+            ]
+          ],
           "type": "array",
           "items": {
-            "$ref": "#/definitions/Turbine"
+            "type": "string"
           }
         },
-        "coordinate_system": {
-          "title": "Coordinate System",
-          "description": "Specification of the coordinate reference system used.",
-          "$ref": "#/definitions/CoordinateSystem"
+        "turbine_location_maps": {
+          "title": "Turbine Location Maps",
+          "description": "Maps to associate each turbine IDs with a location.TO REPLACE OBJECT BY REFERENCE.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/definitions/Location"
+            }
+          }
+        },
+        "turbine_model_maps": {
+          "title": "Turbine Model Maps",
+          "description": "Maps to associate each turbine IDs with a model. TO REPLACE OBJECT BY REFERENCE.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/definitions/TurbineModel"
+            }
+          }
+        },
+        "turbine_hub_height_maps": {
+          "title": "Turbine Hub Height Maps",
+          "description": "Maps to associate each turbine IDs with a hub height.TO REPLACE OBJECT BY REFERENCE.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "number"
+            }
+          }
         }
       },
       "required": [
         "wind_farm_name",
         "relevance",
-        "turbines",
-        "coordinate_system"
+        "turbine_ids",
+        "turbine_location_maps",
+        "turbine_model_maps",
+        "turbine_hub_height_maps"
       ]
     },
     "SiteWindFarmsConfiguration": {

@@ -51,10 +51,24 @@
       "operational_lifetime_length_years": 30.0,
       "wind_measurement_campaigns": [
         {
-          "measurement_id": "BF_M01",
-          "measurement_name": "M1",
-          "measurement_description": "Barefoot Wind Farm on-site meteorological mast",
-          "measurement_comments": "",
+          "measurement_id": "BF_M1_1.0.0",
+          "name": "Mast M1",
+          "label": "M1",
+          "description": "Barefoot Wind Farm on-site meteorological mast",
+          "comments": "Measurements were still ongoing at time of assessment",
+          "location": {
+            "location_id": "ee15ff84-6733-4858-9656-ba995d9b1022",
+            "location_type": "measurement",
+            "label": "M1",
+            "description": "Verified location of Mast M1",
+            "comments": "Documented in installation report and independently confirmed",
+            "x": 420165.0,
+            "y": 6194740.0,
+            "coordinate_system": {
+              "system_label": "WGS 84 / UTM zone 30N",
+              "epsg_number": 32630
+            }
+          },
           "metadata_ref_iea43_model": "{\"$ref\": \"/foo/bar/metadata_ref_iea43_model.json\"}"
         }
       ],
@@ -66,30 +80,52 @@
             "wind_farm_name": "Barefoot Wind Farm",
             "relevance": "internal",
             "operational_lifetime_start_date": "2024-01-01",
-            "turbines": [
+            "turbine_ids": [
+              "WTG01",
+              "WTG02"
+            ],
+            "turbine_location_maps": [
               {
-                "turbine_label": "WTG01",
-                "x": 419665.0,
-                "y": 6194240.0,
-                "hub_height": 150.0,
-                "turbine_model": {
-                  "turbine_model_label": "ABC165-5.5MW"
+                "WTG01": {
+                  "location_id": "c697566d-cf38-4626-9cda-bc7a77230d48",
+                  "location_type": "turbine",
+                  "label": "WTG01",
+                  "x": 419665.0,
+                  "y": 6194240.0,
+                  "coordinate_system": {
+                    "system_label": "WGS 84 / UTM zone 30N",
+                    "epsg_number": 32630
+                  }
+                },
+                "WTG02": {
+                  "location_id": "c73f2e46-ba0b-4775-a2f3-b76e3c3b5012",
+                  "location_type": "turbine",
+                  "label": "WTG02",
+                  "x": 420665.0,
+                  "y": 6194240.0,
+                  "coordinate_system": {
+                    "system_label": "WGS 84 / UTM zone 30N",
+                    "epsg_number": 32630
+                  }
                 }
-              },
+              }
+            ],
+            "turbine_model_maps": [
               {
-                "turbine_label": "WTG02",
-                "x": 420665.0,
-                "y": 6194240.0,
-                "hub_height": 160.0,
-                "turbine_model": {
+                "Mu_T1": {
+                  "turbine_model_label": "ABC165-5.5MW"
+                },
+                "Mu_T2": {
                   "turbine_model_label": "ABC165-5.5MW"
                 }
               }
             ],
-            "coordinate_system": {
-              "system_label": "WGS 84 / UTM zone 30N",
-              "epsg_number": 32630
-            }
+            "turbine_hub_height_maps": [
+              {
+                "Mu_T1": 150.0,
+                "Mu_T2": 160.0
+              }
+            ]
           },
           {
             "wind_farm_name": "Munro Wind Farm",
@@ -99,30 +135,52 @@
             "relevance": "external",
             "operational_lifetime_start_date": "2018-07-01",
             "operational_lifetime_end_date": "2038-06-30",
-            "turbines": [
+            "turbine_ids": [
+              "Mu_T1",
+              "Mu_T2"
+            ],
+            "turbine_location_maps": [
               {
-                "turbine_label": "Mu_T1",
-                "x": 419665.0,
-                "y": 6195240.0,
-                "hub_height": 125.0,
-                "turbine_model": {
-                  "turbine_model_label": "XYZ-3.2/140"
+                "Mu_T1": {
+                  "location_id": "79166b5c-7e55-485b-b7e7-24f835c5e40a",
+                  "location_type": "turbine",
+                  "label": "Mu_T1",
+                  "x": 419665.0,
+                  "y": 6195240.0,
+                  "coordinate_system": {
+                    "system_label": "WGS 84 / UTM zone 30N",
+                    "epsg_number": 32630
+                  }
+                },
+                "Mu_T2": {
+                  "location_id": "dc4dba73-8f1c-494f-868e-e548f2a3923f",
+                  "location_type": "turbine",
+                  "label": "Mu_T2",
+                  "x": 419665.0,
+                  "y": 6195240.0,
+                  "coordinate_system": {
+                    "system_label": "WGS 84 / UTM zone 30N",
+                    "epsg_number": 32630
+                  }
                 }
-              },
+              }
+            ],
+            "turbine_model_maps": [
               {
-                "turbine_label": "Mu_T2",
-                "x": 420665.0,
-                "y": 6195240.0,
-                "hub_height": 125.0,
-                "turbine_model": {
+                "Mu_T1": {
+                  "turbine_model_label": "XYZ-3.2/140"
+                },
+                "Mu_T2": {
                   "turbine_model_label": "XYZ-3.2/140"
                 }
               }
             ],
-            "coordinate_system": {
-              "system_label": "WGS 84 / UTM zone 30N",
-              "epsg_number": 32630
-            }
+            "turbine_hub_height_maps": [
+              {
+                "Mu_T1": 125.0,
+                "Mu_T2": 125.0
+              }
+            ]
           }
         ]
       },
@@ -169,10 +227,24 @@
       "operational_lifetime_length_years": 30.0,
       "wind_measurement_campaigns": [
         {
-          "measurement_id": "BF_M01",
-          "measurement_name": "M1",
-          "measurement_description": "Barefoot Wind Farm on-site meteorological mast",
-          "measurement_comments": "",
+          "measurement_id": "BF_M1_1.0.0",
+          "name": "Mast M1",
+          "label": "M1",
+          "description": "Barefoot Wind Farm on-site meteorological mast",
+          "comments": "Measurements were still ongoing at time of assessment",
+          "location": {
+            "location_id": "ee15ff84-6733-4858-9656-ba995d9b1022",
+            "location_type": "measurement",
+            "label": "M1",
+            "description": "Verified location of Mast M1",
+            "comments": "Documented in installation report and independently confirmed",
+            "x": 420165.0,
+            "y": 6194740.0,
+            "coordinate_system": {
+              "system_label": "WGS 84 / UTM zone 30N",
+              "epsg_number": 32630
+            }
+          },
           "metadata_ref_iea43_model": "{\"$ref\": \"/foo/bar/metadata_ref_iea43_model.json\"}"
         }
       ],
@@ -184,30 +256,52 @@
           {
             "wind_farm_name": "Barefoot Wind Farm",
             "relevance": "internal",
-            "turbines": [
+            "turbine_ids": [
+              "WTG01",
+              "WTG02"
+            ],
+            "turbine_location_maps": [
               {
-                "turbine_label": "WTG01",
-                "x": 419665.0,
-                "y": 6194240.0,
-                "hub_height": 148.0,
-                "turbine_model": {
-                  "turbine_model_label": "PQR169-5.8MW"
+                "WTG01": {
+                  "location_id": "c697566d-cf38-4626-9cda-bc7a77230d48",
+                  "location_type": "turbine",
+                  "label": "WTG01",
+                  "x": 419665.0,
+                  "y": 6194240.0,
+                  "coordinate_system": {
+                    "system_label": "WGS 84 / UTM zone 30N",
+                    "epsg_number": 32630
+                  }
+                },
+                "WTG02": {
+                  "location_id": "c73f2e46-ba0b-4775-a2f3-b76e3c3b5012",
+                  "location_type": "turbine",
+                  "label": "WTG02",
+                  "x": 420665.0,
+                  "y": 6194240.0,
+                  "coordinate_system": {
+                    "system_label": "WGS 84 / UTM zone 30N",
+                    "epsg_number": 32630
+                  }
                 }
-              },
+              }
+            ],
+            "turbine_model_maps": [
               {
-                "turbine_label": "WTG02",
-                "x": 420665.0,
-                "y": 6194240.0,
-                "hub_height": 158.0,
-                "turbine_model": {
+                "Mu_T1": {
+                  "turbine_model_label": "PQR169-5.8MW"
+                },
+                "Mu_T2": {
                   "turbine_model_label": "PQR169-5.8MW"
                 }
               }
             ],
-            "coordinate_system": {
-              "system_label": "WGS 84 / UTM zone 30N",
-              "epsg_number": 32630
-            }
+            "turbine_hub_height_maps": [
+              {
+                "Mu_T1": 148.0,
+                "Mu_T2": 158.0
+              }
+            ]
           },
           {
             "wind_farm_name": "Munro Wind Farm",
@@ -217,30 +311,52 @@
             "relevance": "external",
             "operational_lifetime_start_date": "2018-07-01",
             "operational_lifetime_end_date": "2038-06-30",
-            "turbines": [
+            "turbine_ids": [
+              "Mu_T1",
+              "Mu_T2"
+            ],
+            "turbine_location_maps": [
               {
-                "turbine_label": "Mu_T1",
-                "x": 419665.0,
-                "y": 6195240.0,
-                "hub_height": 125.0,
-                "turbine_model": {
-                  "turbine_model_label": "XYZ-3.2/140"
+                "Mu_T1": {
+                  "location_id": "79166b5c-7e55-485b-b7e7-24f835c5e40a",
+                  "location_type": "turbine",
+                  "label": "Mu_T1",
+                  "x": 419665.0,
+                  "y": 6195240.0,
+                  "coordinate_system": {
+                    "system_label": "WGS 84 / UTM zone 30N",
+                    "epsg_number": 32630
+                  }
+                },
+                "Mu_T2": {
+                  "location_id": "dc4dba73-8f1c-494f-868e-e548f2a3923f",
+                  "location_type": "turbine",
+                  "label": "Mu_T2",
+                  "x": 419665.0,
+                  "y": 6195240.0,
+                  "coordinate_system": {
+                    "system_label": "WGS 84 / UTM zone 30N",
+                    "epsg_number": 32630
+                  }
                 }
-              },
+              }
+            ],
+            "turbine_model_maps": [
               {
-                "turbine_label": "Mu_T2",
-                "x": 420665.0,
-                "y": 6195240.0,
-                "hub_height": 125.0,
-                "turbine_model": {
+                "Mu_T1": {
+                  "turbine_model_label": "XYZ-3.2/140"
+                },
+                "Mu_T2": {
                   "turbine_model_label": "XYZ-3.2/140"
                 }
               }
             ],
-            "coordinate_system": {
-              "system_label": "WGS 84 / UTM zone 30N",
-              "epsg_number": 32630
-            }
+            "turbine_hub_height_maps": [
+              {
+                "Mu_T1": 125.0,
+                "Mu_T2": 125.0
+              }
+            ]
           }
         ]
       },

@@ -114,6 +114,41 @@ class CoordinateSystem(BaseModel):
         examples=[27700, 3006])
 
 
+class Location(BaseModel):
+    """Specification of a horizontal location in space (x and y)."""
+    location_id: str | None = Field(
+        None,
+        description="Unique identifier of the location.",
+        examples=["ee15ff84-6733-4858-9656-ba995d9b1022"])
+    location_type: Literal['turbine', 'measurement', 'other'] | None = Field(
+        None,
+        description="The type of location.")
+    label: str = Field(
+        ...,
+        description="Label of the location.",
+        examples=['M1', 'T1', 'WTG02', 'WEA_003', ])
+    description: str | None = Field(
+        None,
+        description="Description of the location.",
+        examples=["Verified location of Mast M1", ])
+    comments: str | None = Field(
+        None,
+        description="Comments regarding the location.",
+        examples=[(
+            "Documented in installation report and independently confirmed")])
+    x: float = Field(
+        ...,
+        description="Location x-coordinate (typically easing).",
+        examples=[419665.0])
+    y: float = Field(
+        ...,
+        description="Location y-coordinate (typically northing).",
+        examples=[6195240.0])
+    coordinate_system: CoordinateSystem = Field(
+        ...,
+        description="Specification of the coordinate reference system used.")
+
+
 class MetadataIEA43ModelRef(str):
     """Specification of an IEA Task 43 WRA Data Model reference."""
 
@@ -144,19 +179,30 @@ class WindMeasurementCampaign(BaseModel):
     """Details of a wind measurement campaign."""
     measurement_id: str = Field(
         ...,
-        description="Measurement unique ID.")
-    measurement_name: str = Field(
+        description="Measurement unique ID.",
+        examples=["BF_M1_1.0.0"])
+    name: str = Field(
         ...,
         description=(
             "Measurement name for use as label; when including a "
-            "metadata_ref_iea43_model, ensure this value matches the "
-            "name field of the measurement_location."))
-    measurement_description: str | None = Field(
+            "'metadata_ref_iea43_model', it is recommended this value "
+            "matches the 'name' field of the 'measurement_location'."),
+        examples=["Mast M1"])
+    label: str | None = Field(
         None,
-        description="Measurement description.")
-    measurement_comments: str | None = Field(
+        description="Measurement label (if not provided name is used).",
+        examples=["M1"])
+    description: str | None = Field(
         None,
-        description="Measurement comments.")
+        description="Measurement description.",
+        examples=["Barefoot Wind Farm on-site meteorological mast"])
+    comments: str | None = Field(
+        None,
+        description="Measurement comments.",
+        examples=["Measurements were still ongoing at time of assessment"])
+    location: Location = Field(
+        ...,
+        description="Horizontal location of the measurement equipment.")
     metadata_ref_iea43_model: MetadataIEA43ModelRef | None = Field(
         None,
         title="Metadata Reference (IEA Task 43 WRA Data Model)",
@@ -201,36 +247,8 @@ class TurbineModel(BaseModel):
         examples=["V172-7.2 MW", "N175/6.X", "SG 6.6-170", "E-175 EP5"])
 
 
-class Turbine(BaseModel):
-    """Turbine representation with location and performance data."""
-    turbine_label: str = Field(
-        ...,
-        description="Label of the turbine.",
-        examples=['T1', 'WTG02', 'WEA_003'])
-    x: float = Field(
-        ...,
-        description="Wind turbine x-coordinate.")
-    y: float = Field(
-        ...,
-        description="Wind turbine y-coordinate.")
-    hub_height: float = Field(
-        ...,
-        description="Hub height of the turbine.",
-        examples=[80.0, 145.0, 169.5])
-    turbine_model: TurbineModel = Field(
-        ...,
-        description="Specification of the turbine model.")
-
-
 class WindFarm(BaseModel):
-    """A collection of wind turbines considered as one unit (plant).
-
-    :ivar label: wind farm label
-    :ivar turbines: list of the `Turbine` instances belonging to the
-        wind farm
-    :ivar relevance: whether the wind farm is relevant as is internal,
-        external or future
-    """
+    """A collection of wind turbines considered as one unit (plant)."""
     wind_farm_name: str = Field(
         ...,
         description="Name of the wind farm.",
@@ -257,12 +275,25 @@ class WindFarm(BaseModel):
         None,
         description="Operational lifetime end date (format YYYY-MM-DD).",
         examples=["2051-03-31", "2025-12-31"])
-    turbines: list[Turbine] = Field(
+    turbine_ids: list[str] = Field(
         ...,
-        description="List of turbines that form part of the wind farm.")
-    coordinate_system: CoordinateSystem = Field(
+        description="List of turbine IDs that form part of the wind farm.",
+        examples=[['WTG01-V1.0', 'WTG02-V1.0']])
+    turbine_location_maps: list[dict[str, Location]] = Field(
         ...,
-        description="Specification of the coordinate reference system used.")
+        description=(
+            "Maps to associate each turbine IDs with a location."
+            "TO REPLACE OBJECT BY REFERENCE."))
+    turbine_model_maps: list[dict[str, TurbineModel]] = Field(
+        ...,
+        description=(
+            "Maps to associate each turbine IDs with a model. "
+            "TO REPLACE OBJECT BY REFERENCE."))
+    turbine_hub_height_maps: list[dict[str, float]] = Field(
+        ...,
+        description=(
+            "Maps to associate each turbine IDs with a hub height."
+            "TO REPLACE OBJECT BY REFERENCE."))
 
 
 class SiteWindFarmsConfiguration(BaseModel):
