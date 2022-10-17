@@ -9,6 +9,7 @@ from pathlib import Path
 
 import iec_eya_def_tools.data_model as data_model
 
+
 TEST_INPUT_DATA_DIRNAME = "test_input_data"
 """Directory name of test input data."""
 
@@ -54,7 +55,7 @@ def build_energy_assessment_report_a() -> data_model.EnergyAssessmentReport:
         label="M1",
         description=(
             "Barefoot Wind Farm on-site meteorological mast"),
-        comments="Measurements were still ongoing at time of assessment",
+        comments="Measurements were still ongoing at time of assessment.",
         location=data_model.Location(
             location_id="ee15ff84-6733-4858-9656-ba995d9b1022",
             location_type='measurement',
@@ -86,14 +87,24 @@ def build_energy_assessment_report_a() -> data_model.EnergyAssessmentReport:
             y=6194240.0,
             coordinate_system=coordinate_system)}
 
-    wind_spatial_model = data_model.WindSpatialModel(
-        model_name="VENTOS/M",
-        model_description="VENTOS/M is a coupled CFD-mesoscale model",
-        model_comments=(
+    measurement_wind_resource_results = [
+        data_model.Results(
+            label="Measurement-height long-term wind",
+            unit="m/s",
+            applicability_type='lifetime',
+            results_dimensions=['location'],
+            result_components=[data_model.ResultsComponent(
+                component_type='mean',
+                values={
+                    'BF_M1_1.0.0': 6.83})])]
+    wind_spatial_model = data_model.CalculationModelSpecification(
+        name="VENTOS/M",
+        description="VENTOS/M is a coupled CFD-mesoscale model.",
+        comments=(
             "The simulations were run using 60 representative days."))
 
     neighbouring_turbine_model = data_model.TurbineModel(
-        turbine_model_label="XYZ-3.2/140")
+        label="XYZ-3.2/140")
     neighbouring_turbine_location_map = {
         'Mu_T1': data_model.Location(
             location_id="79166b5c-7e55-485b-b7e7-24f835c5e40a",
@@ -116,11 +127,11 @@ def build_energy_assessment_report_a() -> data_model.EnergyAssessmentReport:
         'Mu_T1': 125.0,
         'Mu_T2': 125.0}
     neighbouring_wind_farm = data_model.WindFarm(
-        wind_farm_name="Munro Wind Farm",
-        wind_farm_label="MWF",
-        wind_farm_description="The operational Munro Wind Farm",
-        wind_farm_comments=(
-            "Specifications taken from publicly available information"),
+        name="Munro Wind Farm",
+        label="MWF",
+        description="The operational Munro Wind Farm",
+        comments=(
+            "Specifications taken from publicly available information."),
         relevance='external',
         operational_lifetime_start_date="2018-07-01",  # type: ignore
         operational_lifetime_end_date="2038-06-30",  # type: ignore
@@ -130,77 +141,209 @@ def build_energy_assessment_report_a() -> data_model.EnergyAssessmentReport:
         turbine_hub_height_maps=[neighbouring_turbine_hub_height_map])
 
     turbine_model_a = data_model.TurbineModel(
-        turbine_model_label="ABC165-5.5MW")
+        label="ABC165-5.5MW")
     turbine_model_map_a = {
-        'Mu_T1': turbine_model_a,
-        'Mu_T2': turbine_model_a}
+        'WTG01': turbine_model_a,
+        'WTG02': turbine_model_a}
     turbine_hub_height_map_a = {
-        'Mu_T1': 150.0,
-        'Mu_T2': 160.0}
+        'WTG01': 150.0,
+        'WTG02': 160.0}
     project_wind_farm_a = data_model.WindFarm(
-        wind_farm_name="Barefoot Wind Farm",
+        name="Barefoot Wind Farm",
         operational_lifetime_start_date="2024-01-01",  # type: ignore
         relevance='internal',
         turbine_ids=turbine_ids,
         turbine_location_maps=[turbine_location_map],
         turbine_model_maps=[turbine_model_map_a],
-        turbine_hub_height_maps=[turbine_hub_height_map_a])
+        turbine_hub_height_maps=[turbine_hub_height_map_a],
+        operational_restrictions=[data_model.OperationalRestriction(
+            label="WSM curtailment",
+            description=(
+                "Wind sector management (WSM) curtailment as specified"
+                "by the turbine manufacturer"))])
     wind_farms_a = [project_wind_farm_a, neighbouring_wind_farm]
     wind_farms_configuration_a = data_model.SiteWindFarmsConfiguration(
-        wind_farms_configuration_label="A",
-        wind_farms_configuration_description=(
-            "Wind farms configuration for turbine model scenario A"),
+        label="A",
+        description=(
+            "Wind farms configuration for turbine model scenario A."),
         wind_farms=wind_farms_a)
-    energy_assessment_results_a_lifetime = data_model.EnergyAssessmentResults(
-        results_type='lifetime',
-        results_label="30-year",
-        results_description=(
-            "Results for the full operational lifetime of 30 years"),
-        mast_wind_resource_results=data_model.MastWindResourceResults(),
-        turbine_wind_resource_results=data_model.TurbineWindResourceResults(),
-        gross_energy_results=data_model.GrossEnergyResults(),
-        plant_performance_results=data_model.PlantPerformanceResults(),
-        net_energy_results=data_model.NetEnergyResults(),
-        uncertainty_results=data_model.UncertaintyResults(),
-        confidence_limit_results=data_model.ConfidenceLimitResults())
-    energy_assessment_results_a_1year = data_model.EnergyAssessmentResults(
-        results_type='any_one_year',
-        results_label="1-year",
-        results_description=(
-            "Results for any one operational year"),
-        results_comments=(
-            "Results consider mean of losses that vary over the "
-            "operational lifetime."),
-        mast_wind_resource_results=data_model.MastWindResourceResults(),
-        turbine_wind_resource_results=data_model.TurbineWindResourceResults(),
-        gross_energy_results=data_model.GrossEnergyResults(),
-        plant_performance_results=data_model.PlantPerformanceResults(),
-        net_energy_results=data_model.NetEnergyResults(),
-        uncertainty_results=data_model.UncertaintyResults(),
-        confidence_limit_results=data_model.ConfidenceLimitResults())
-    energy_assessment_results_a = [
-        energy_assessment_results_a_lifetime,
-        energy_assessment_results_a_1year]
+    turbine_wind_resource_results_a = [
+        data_model.Results(
+            label="Turbine-location hub-height long-term wind",
+            unit="m/s",
+            applicability_type='lifetime',
+            results_dimensions=['location'],
+            result_components=[data_model.ResultsComponent(
+                component_type='mean',
+                values={
+                    'WTG01': 6.91,
+                    'WTG02': 6.95})])]
+    wind_uncertainty_assessment_a = data_model.WindUncertaintyAssessment(
+        categories={
+            'historical': data_model.WindUncertaintyCategory(
+                components=[
+                    data_model.WindUncertaintyComponent(
+                        results=data_model.Results(
+                                label="Regression model uncertainty",
+                                unit="dimensionless",
+                                applicability_type='lifetime',
+                                results_dimensions=['location'],
+                                result_components=[data_model.ResultsComponent(
+                                    component_type='std',
+                                    values={
+                                        'BF_M1_1.0.0': 0.025})])),
+                    data_model.WindUncertaintyComponent(
+                        results=data_model.Results(
+                            label="Long-term consistency uncertainty",
+                            unit="dimensionless",
+                            applicability_type='lifetime',
+                            results_dimensions=['location'],
+                            result_components=[data_model.ResultsComponent(
+                                component_type='std',
+                                values={
+                                    'BF_M1_1.0.0': 0.02})]))],
+                category_results=[
+                    data_model.Results(
+                        label="Historical wind resource uncertainty",
+                        unit="dimensionless",
+                        applicability_type='lifetime',
+                        results_dimensions=['location'],
+                        result_components=[data_model.ResultsComponent(
+                            component_type='std',
+                            values={
+                                'BF_M1_1.0.0': 0.03201})])])})
+    wind_resource_assessment_a = data_model.WindResourceAssessment(
+        measurement_wind_resource_results=measurement_wind_resource_results,
+        turbine_wind_resource_results=turbine_wind_resource_results_a,
+        wind_spatial_models=[wind_spatial_model],
+        uncertainty_assessment=wind_uncertainty_assessment_a)
+    gross_energy_assessment_a = data_model.GrossEnergyAssessment(
+        results=[
+            data_model.Results(
+                label="Gross yield",
+                unit="MWh/annum",
+                applicability_type='lifetime',
+                results_dimensions=['location'],
+                result_components=[data_model.ResultsComponent(
+                    component_type='mean',
+                    values={
+                        'WTG01': 15500.,
+                        'WTG02': 16700.})]),
+            data_model.Results(
+                label="Gross yield",
+                unit="MWh/annum",
+                applicability_type='lifetime',
+                results_dimensions=['none'],
+                result_components=[data_model.ResultsComponent(
+                    component_type='mean',
+                    values=32200.)])])
+    plant_performance_assessment_a = data_model.PlantPerformanceAssessment(
+        categories={
+            'curtailment': data_model.PlantPerformanceCategory(
+                components=[data_model.PlantPerformanceComponent(
+                    basis='timeseries_calculation',
+                    variability='static_process',
+                    calculation_models=[
+                        data_model.CalculationModelSpecification(
+                            name="Timeseries tool",
+                            comments="Internal toolset")],
+                    results=data_model.Results(
+                        label="Loads curtailment",
+                        description=(
+                            "Curtailment due to a wind sector management "
+                            "strategy to reduce turbine loads."),
+                        comments=(
+                            "Considering curtailment strategy as specified by "
+                            "the turbine manufacturer."),
+                        unit='dimensionless',
+                        applicability_type='lifetime',
+                        results_dimensions=['location'],
+                        result_components=[
+                            data_model.ResultsComponent(
+                                component_type='mean',
+                                values={
+                                    'WTG01': 0.975,
+                                    'WTG02': 0.983}),
+                            data_model.ResultsComponent(
+                                component_type='std',
+                                values={
+                                    'WTG01': 0.005,
+                                    'WTG02': 0.005})]))],
+                category_results=[data_model.Results(
+                    label="Curtailment",
+                    description="Curtailment losses.",
+                    unit='dimensionless',
+                    applicability_type='lifetime',
+                    results_dimensions=['location'],
+                    result_components=[
+                        data_model.ResultsComponent(
+                            component_type='mean',
+                            values={
+                                'WTG01': 0.975,
+                                'WTG02': 0.983}),
+                        data_model.ResultsComponent(
+                            component_type='std',
+                            values={
+                                'WTG01': 0.005,
+                                'WTG02': 0.005})])])})
+    net_energy_assessment_a = data_model.NetEnergyAssessment(
+        results=[
+            data_model.Results(
+                    label="Net yield",
+                    unit="MWh/annum",
+                    applicability_type='lifetime',
+                    results_dimensions=['none'],
+                    result_components=[
+                        data_model.ResultsComponent(
+                            component_type='median',
+                            values=31528.6),
+                        data_model.ResultsComponent(
+                            component_type='std',
+                            values=3468.1),
+                        data_model.ResultsComponent(
+                            component_type='P90',
+                            values=27089.4)]),
+            data_model.Results(
+                label="Net yield",
+                unit="MWh/annum",
+                applicability_type='any_one_year',
+                results_dimensions=['none'],
+                result_components=[
+                    data_model.ResultsComponent(
+                        component_type='median',
+                        values=31528.6),
+                    data_model.ResultsComponent(
+                        component_type='std',
+                        values=4729.3),
+                    data_model.ResultsComponent(
+                        component_type='P90',
+                        values=25475.1)])])
+    energy_assessment_a = data_model.EnergyAssessment(
+        label="Scenario A EYA",
+        description="Energy yield assessment details for Scenario A.",
+        wind_resource_assessment=wind_resource_assessment_a,
+        gross_energy_assessment=gross_energy_assessment_a,
+        plant_performance_assessment=plant_performance_assessment_a,
+        net_energy_assessment=net_energy_assessment_a)
     scenario_a = data_model.Scenario(
-        scenario_label="A",
-        scenario_description="ABC165-5.5MW turbine model scenario",
+        label="A",
+        description="ABC165-5.5MW turbine model scenario",
         is_main_scenario=True,
         operational_lifetime_length_years=30,
         wind_measurement_campaigns=[wind_measurement_campaign],
         wind_farms_configuration=wind_farms_configuration_a,
-        wind_spatial_models=[wind_spatial_model],
-        energy_assessment_results=energy_assessment_results_a)
+        energy_assessment=energy_assessment_a)
 
     turbine_model_b = data_model.TurbineModel(
-        turbine_model_label="PQR169-5.8MW")
+        label="PQR169-5.8MW")
     turbine_model_map_b = {
-        'Mu_T1': turbine_model_b,
-        'Mu_T2': turbine_model_b}
+        'WTG01': turbine_model_b,
+        'WTG02': turbine_model_b}
     turbine_hub_height_map_b = {
-        'Mu_T1': 148.0,
-        'Mu_T2': 158.0}
+        'WTG01': 148.0,
+        'WTG02': 158.0}
     project_wind_farm_b = data_model.WindFarm(
-        wind_farm_name="Barefoot Wind Farm",
+        name="Barefoot Wind Farm",
         relevance='internal',
         turbine_ids=turbine_ids,
         turbine_location_maps=[turbine_location_map],
@@ -208,55 +351,182 @@ def build_energy_assessment_report_a() -> data_model.EnergyAssessmentReport:
         turbine_hub_height_maps=[turbine_hub_height_map_b])
     wind_farms_b = [project_wind_farm_b, neighbouring_wind_farm]
     wind_farms_configuration_b = data_model.SiteWindFarmsConfiguration(
-        wind_farms_configuration_label="B",
-        wind_farms_configuration_description=(
-            "Wind farms configuration for turbine model scenario B"),
-        wind_farms_configuration_comments=(
-            "The wind farms configuration is identical to that for "
-            "scenario A, except for the different turbine model "
-            "configuration"),
+        label="B",
+        description=(
+            "Wind farms configuration for turbine model scenario B."),
+        comments=(
+            "This wind farms configuration is identical to that for "
+            "Scenario A, except for the different turbine model "
+            "configuration."),
         wind_farms=wind_farms_b)
-    energy_assessment_results_b_lifetime = data_model.EnergyAssessmentResults(
-        results_type='lifetime',
-        results_label="30-year",
-        results_description=(
-            "Results for the full operational lifetime of 30 years"),
-        mast_wind_resource_results=data_model.MastWindResourceResults(),
-        turbine_wind_resource_results=data_model.TurbineWindResourceResults(),
-        gross_energy_results=data_model.GrossEnergyResults(),
-        plant_performance_results=data_model.PlantPerformanceResults(),
-        net_energy_results=data_model.NetEnergyResults(),
-        uncertainty_results=data_model.UncertaintyResults(),
-        confidence_limit_results=data_model.ConfidenceLimitResults())
-    energy_assessment_results_b_1year = data_model.EnergyAssessmentResults(
-        results_type='any_one_year',
-        results_label="1-year",
-        results_description=(
-            "Results for any one operational year"),
-        results_comments=(
-            "Results consider mean of losses that vary over the "
-            "operational lifetime."),
-        mast_wind_resource_results=data_model.MastWindResourceResults(),
-        turbine_wind_resource_results=data_model.TurbineWindResourceResults(),
-        gross_energy_results=data_model.GrossEnergyResults(),
-        plant_performance_results=data_model.PlantPerformanceResults(),
-        net_energy_results=data_model.NetEnergyResults(),
-        uncertainty_results=data_model.UncertaintyResults(),
-        confidence_limit_results=data_model.ConfidenceLimitResults())
-    energy_assessment_results_b = [
-        energy_assessment_results_b_lifetime,
-        energy_assessment_results_b_1year]
+    turbine_wind_resource_results_b = [
+        data_model.Results(
+            label="Turbine-location hub-height long-term wind",
+            unit="m/s",
+            applicability_type='lifetime',
+            results_dimensions=['location'],
+            result_components=[data_model.ResultsComponent(
+                component_type='mean',
+                values={
+                    'WTG01': 6.91,
+                    'WTG02': 6.95})])]
+    wind_uncertainty_assessment_b = data_model.WindUncertaintyAssessment(
+        categories={
+            'historical': data_model.WindUncertaintyCategory(
+                components=[
+                    data_model.WindUncertaintyComponent(
+                        results=data_model.Results(
+                                label="Regression model uncertainty",
+                                unit="dimensionless",
+                                applicability_type='lifetime',
+                                results_dimensions=['location'],
+                                result_components=[data_model.ResultsComponent(
+                                    component_type='std',
+                                    values={
+                                        'BF_M1_1.0.0': 0.025})])),
+                    data_model.WindUncertaintyComponent(
+                        results=data_model.Results(
+                            label="Long-term consistency uncertainty",
+                            unit="dimensionless",
+                            applicability_type='lifetime',
+                            results_dimensions=['location'],
+                            result_components=[data_model.ResultsComponent(
+                                component_type='std',
+                                values={
+                                    'BF_M1_1.0.0': 0.02})]))],
+                category_results=[
+                    data_model.Results(
+                        label="Historical wind resource uncertainty",
+                        unit="dimensionless",
+                        applicability_type='lifetime',
+                        results_dimensions=['location'],
+                        result_components=[data_model.ResultsComponent(
+                            component_type='std',
+                            values={
+                                'BF_M1_1.0.0': 0.03201})])])})
+    wind_resource_assessment_b = data_model.WindResourceAssessment(
+        measurement_wind_resource_results=measurement_wind_resource_results,
+        turbine_wind_resource_results=turbine_wind_resource_results_b,
+        wind_spatial_models=[wind_spatial_model],
+        uncertainty_assessment=wind_uncertainty_assessment_b)
+    gross_energy_assessment_b = data_model.GrossEnergyAssessment(
+        results=[
+            data_model.Results(
+                label="Gross yield",
+                unit="MWh/annum",
+                applicability_type='lifetime',
+                results_dimensions=['location'],
+                result_components=[data_model.ResultsComponent(
+                    component_type='mean',
+                    values={
+                        'WTG01': 18100.,
+                        'WTG02': 18900.})]),
+            data_model.Results(
+                label="Gross yield",
+                unit="MWh/annum",
+                applicability_type='lifetime',
+                results_dimensions=['none'],
+                result_components=[data_model.ResultsComponent(
+                    component_type='mean',
+                    values=37000.)])])
+    plant_performance_assessment_b = data_model.PlantPerformanceAssessment(
+        categories={
+            'curtailment': data_model.PlantPerformanceCategory(
+                components=[data_model.PlantPerformanceComponent(
+                    basis='project_specific_estimate',
+                    variability='static_process',
+                    results=data_model.Results(
+                        label="Loads curtailment",
+                        description=(
+                            "Expected curtailment due to a wind sector "
+                            "management to reduce turbine loads."),
+                        comments=(
+                            "A broad estimate of curtailment losses in "
+                            "the absence of details from the turbine "
+                            "manufacturer."),
+                        unit='dimensionless',
+                        applicability_type='lifetime',
+                        results_dimensions=['location'],
+                        result_components=[
+                            data_model.ResultsComponent(
+                                component_type='mean',
+                                values={
+                                    'WTG01': 0.95,
+                                    'WTG02': 0.95}),
+                            data_model.ResultsComponent(
+                                component_type='std',
+                                values={
+                                    'WTG01': 0.05,
+                                    'WTG02': 0.05})]))],
+                category_results=[data_model.Results(
+                    label="Curtailment",
+                    description="Curtailment losses.",
+                    unit='dimensionless',
+                    applicability_type='lifetime',
+                    results_dimensions=['location'],
+                    result_components=[
+                        data_model.ResultsComponent(
+                            component_type='mean',
+                            values={
+                                'WTG01': 0.95,
+                                'WTG02': 0.95}),
+                        data_model.ResultsComponent(
+                            component_type='std',
+                            values={
+                                'WTG01': 0.05,
+                                'WTG02': 0.05})])])})
+    net_energy_assessment_b = data_model.NetEnergyAssessment(
+        results=[
+            data_model.Results(
+                    label="Net yield",
+                    unit="MWh/annum",
+                    applicability_type='lifetime',
+                    results_dimensions=['none'],
+                    result_components=[
+                        data_model.ResultsComponent(
+                            component_type='median',
+                            values=35150.0),
+                        data_model.ResultsComponent(
+                            component_type='std',
+                            values=4569.5),
+                        data_model.ResultsComponent(
+                            component_type='P90',
+                            values=29301.0)]),
+            data_model.Results(
+                label="Net yield",
+                unit="MWh/annum",
+                applicability_type='any_one_year',
+                results_dimensions=['none'],
+                result_components=[
+                    data_model.ResultsComponent(
+                        component_type='median',
+                        values=35150.0),
+                    data_model.ResultsComponent(
+                        component_type='std',
+                        values=5799.8),
+                    data_model.ResultsComponent(
+                        component_type='P90',
+                        values=27726.3)])])
+    energy_assessment_b = data_model.EnergyAssessment(
+        label="Scenario B EYA",
+        description="Energy yield assessment details for Scenario B.",
+        comments=(
+            "The Scenario B assessment should be considered indicative "
+            "only due to potentially inaccurate assumptions."),
+        wind_resource_assessment=wind_resource_assessment_b,
+        gross_energy_assessment=gross_energy_assessment_b,
+        plant_performance_assessment=plant_performance_assessment_b,
+        net_energy_assessment=net_energy_assessment_b)
     scenario_b = data_model.Scenario(
-        scenario_label="B",
-        scenario_description="PQR169-5.8MW turbine model scenario",
-        scenario_comments=(
+        label="B",
+        description="PQR169-5.8MW turbine model scenario",
+        comments=(
             "The site suitability of turbine model has not yet investigated."),
         is_main_scenario=False,
         operational_lifetime_length_years=30,
         wind_measurement_campaigns=[wind_measurement_campaign],
         wind_farms_configuration=wind_farms_configuration_b,
-        wind_spatial_models=[wind_spatial_model],
-        energy_assessment_results=energy_assessment_results_b)
+        energy_assessment=energy_assessment_b)
 
     scenarios = [scenario_a, scenario_b]
 
@@ -265,12 +535,12 @@ def build_energy_assessment_report_a() -> data_model.EnergyAssessmentReport:
             "https://example.naturalpower.com/api/v2/eya/report/"
             "id=b1396029-e9af-49f7-9599-534db175e53c")},
         title="Energy yield assessment of the Barefoot Wind Farm",
-        report_description=(
+        description=(
             "Wind resource and energy yield assessment of the Barefoot "
-            "Wind Farm based on two on-site meteorological masts and "
-            "considering two different turbine scenarios"),
-        report_comments=(
-            "Update to consider further on-site measurement data"),
+            "Wind Farm based on one on-site meteorological mast and "
+            "considering two different turbine scenarios."),
+        comments=(
+            "Update to consider further on-site measurement data."),
         project_name="Barefoot Wind Farm",
         document_id="12345678",
         document_version="B",
@@ -285,7 +555,7 @@ def build_energy_assessment_report_a() -> data_model.EnergyAssessmentReport:
         receiving_organisation_address=(
             "70 St Mary Axe, London, EC3A 8BE, UK"),
         contributors=contributors,
-        report_confidentiality_classification="Confidential",
+        confidentiality_classification="Confidential",
         scenarios=scenarios)
     return energy_assessment_report
 

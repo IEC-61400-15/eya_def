@@ -1,8 +1,8 @@
 {
   "$id": "https://example.naturalpower.com/api/v2/eya/report/id=b1396029-e9af-49f7-9599-534db175e53c",
   "title": "Energy yield assessment of the Barefoot Wind Farm",
-  "report_description": "Wind resource and energy yield assessment of the Barefoot Wind Farm based on two on-site meteorological masts and considering two different turbine scenarios",
-  "report_comments": "Update to consider further on-site measurement data",
+  "description": "Wind resource and energy yield assessment of the Barefoot Wind Farm based on one on-site meteorological mast and considering two different turbine scenarios.",
+  "comments": "Update to consider further on-site measurement data.",
   "project_name": "Barefoot Wind Farm",
   "document_id": "12345678",
   "document_version": "B",
@@ -42,11 +42,11 @@
       "completion_date": "2022-10-07"
     }
   ],
-  "report_confidentiality_classification": "Confidential",
+  "confidentiality_classification": "Confidential",
   "scenarios": [
     {
-      "scenario_label": "A",
-      "scenario_description": "ABC165-5.5MW turbine model scenario",
+      "label": "A",
+      "description": "ABC165-5.5MW turbine model scenario",
       "is_main_scenario": true,
       "operational_lifetime_length_years": 30.0,
       "wind_measurement_campaigns": [
@@ -55,7 +55,7 @@
           "name": "Mast M1",
           "label": "M1",
           "description": "Barefoot Wind Farm on-site meteorological mast",
-          "comments": "Measurements were still ongoing at time of assessment",
+          "comments": "Measurements were still ongoing at time of assessment.",
           "location": {
             "location_id": "ee15ff84-6733-4858-9656-ba995d9b1022",
             "location_type": "measurement",
@@ -73,11 +73,11 @@
         }
       ],
       "wind_farms_configuration": {
-        "wind_farms_configuration_label": "A",
-        "wind_farms_configuration_description": "Wind farms configuration for turbine model scenario A",
+        "label": "A",
+        "description": "Wind farms configuration for turbine model scenario A.",
         "wind_farms": [
           {
-            "wind_farm_name": "Barefoot Wind Farm",
+            "name": "Barefoot Wind Farm",
             "relevance": "internal",
             "operational_lifetime_start_date": "2024-01-01",
             "turbine_ids": [
@@ -112,26 +112,32 @@
             ],
             "turbine_model_maps": [
               {
-                "Mu_T1": {
-                  "turbine_model_label": "ABC165-5.5MW"
+                "WTG01": {
+                  "label": "ABC165-5.5MW"
                 },
-                "Mu_T2": {
-                  "turbine_model_label": "ABC165-5.5MW"
+                "WTG02": {
+                  "label": "ABC165-5.5MW"
                 }
               }
             ],
             "turbine_hub_height_maps": [
               {
-                "Mu_T1": 150.0,
-                "Mu_T2": 160.0
+                "WTG01": 150.0,
+                "WTG02": 160.0
+              }
+            ],
+            "operational_restrictions": [
+              {
+                "label": "WSM curtailment",
+                "description": "Wind sector management (WSM) curtailment as specifiedby the turbine manufacturer"
               }
             ]
           },
           {
-            "wind_farm_name": "Munro Wind Farm",
-            "wind_farm_label": "MWF",
-            "wind_farm_description": "The operational Munro Wind Farm",
-            "wind_farm_comments": "Specifications taken from publicly available information",
+            "name": "Munro Wind Farm",
+            "label": "MWF",
+            "description": "The operational Munro Wind Farm",
+            "comments": "Specifications taken from publicly available information.",
             "relevance": "external",
             "operational_lifetime_start_date": "2018-07-01",
             "operational_lifetime_end_date": "2038-06-30",
@@ -168,10 +174,10 @@
             "turbine_model_maps": [
               {
                 "Mu_T1": {
-                  "turbine_model_label": "XYZ-3.2/140"
+                  "label": "XYZ-3.2/140"
                 },
                 "Mu_T2": {
-                  "turbine_model_label": "XYZ-3.2/140"
+                  "label": "XYZ-3.2/140"
                 }
               }
             ],
@@ -184,45 +190,277 @@
           }
         ]
       },
-      "wind_spatial_models": [
-        {
-          "model_name": "VENTOS/M",
-          "model_description": "VENTOS/M is a coupled CFD-mesoscale model",
-          "model_comments": "The simulations were run using 60 representative days."
-        }
-      ],
-      "energy_assessment_results": [
-        {
-          "results_type": "lifetime",
-          "results_label": "30-year",
-          "results_description": "Results for the full operational lifetime of 30 years",
-          "mast_wind_resource_results": {},
-          "turbine_wind_resource_results": {},
-          "gross_energy_results": {},
-          "plant_performance_results": {},
-          "net_energy_results": {},
-          "uncertainty_results": {},
-          "confidence_limit_results": {}
+      "energy_assessment": {
+        "label": "Scenario A EYA",
+        "description": "Energy yield assessment details for Scenario A.",
+        "wind_resource_assessment": {
+          "measurement_wind_resource_results": [
+            {
+              "label": "Measurement-height long-term wind",
+              "unit": "m/s",
+              "applicability_type": "lifetime",
+              "results_dimensions": [
+                "location"
+              ],
+              "result_components": [
+                {
+                  "component_type": "mean",
+                  "values": {
+                    "BF_M1_1.0.0": 6.83
+                  }
+                }
+              ]
+            }
+          ],
+          "turbine_wind_resource_results": [
+            {
+              "label": "Turbine-location hub-height long-term wind",
+              "unit": "m/s",
+              "applicability_type": "lifetime",
+              "results_dimensions": [
+                "location"
+              ],
+              "result_components": [
+                {
+                  "component_type": "mean",
+                  "values": {
+                    "WTG01": 6.91,
+                    "WTG02": 6.95
+                  }
+                }
+              ]
+            }
+          ],
+          "wind_spatial_models": [
+            {
+              "name": "VENTOS/M",
+              "description": "VENTOS/M is a coupled CFD-mesoscale model.",
+              "comments": "The simulations were run using 60 representative days."
+            }
+          ],
+          "uncertainty_assessment": {
+            "categories": {
+              "historical": {
+                "components": [
+                  {
+                    "results": {
+                      "label": "Regression model uncertainty",
+                      "unit": "dimensionless",
+                      "applicability_type": "lifetime",
+                      "results_dimensions": [
+                        "location"
+                      ],
+                      "result_components": [
+                        {
+                          "component_type": "std",
+                          "values": {
+                            "BF_M1_1.0.0": 0.025
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "results": {
+                      "label": "Long-term consistency uncertainty",
+                      "unit": "dimensionless",
+                      "applicability_type": "lifetime",
+                      "results_dimensions": [
+                        "location"
+                      ],
+                      "result_components": [
+                        {
+                          "component_type": "std",
+                          "values": {
+                            "BF_M1_1.0.0": 0.02
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "category_results": [
+                  {
+                    "label": "Historical wind resource uncertainty",
+                    "unit": "dimensionless",
+                    "applicability_type": "lifetime",
+                    "results_dimensions": [
+                      "location"
+                    ],
+                    "result_components": [
+                      {
+                        "component_type": "std",
+                        "values": {
+                          "BF_M1_1.0.0": 0.03201
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
         },
-        {
-          "results_type": "any_one_year",
-          "results_label": "1-year",
-          "results_description": "Results for any one operational year",
-          "results_comments": "Results consider mean of losses that vary over the operational lifetime.",
-          "mast_wind_resource_results": {},
-          "turbine_wind_resource_results": {},
-          "gross_energy_results": {},
-          "plant_performance_results": {},
-          "net_energy_results": {},
-          "uncertainty_results": {},
-          "confidence_limit_results": {}
+        "gross_energy_assessment": {
+          "results": [
+            {
+              "label": "Gross yield",
+              "unit": "MWh/annum",
+              "applicability_type": "lifetime",
+              "results_dimensions": [
+                "location"
+              ],
+              "result_components": [
+                {
+                  "component_type": "mean",
+                  "values": {
+                    "WTG01": 15500.0,
+                    "WTG02": 16700.0
+                  }
+                }
+              ]
+            },
+            {
+              "label": "Gross yield",
+              "unit": "MWh/annum",
+              "applicability_type": "lifetime",
+              "results_dimensions": [
+                "none"
+              ],
+              "result_components": [
+                {
+                  "component_type": "mean",
+                  "values": 32200.0
+                }
+              ]
+            }
+          ]
+        },
+        "plant_performance_assessment": {
+          "categories": {
+            "curtailment": {
+              "components": [
+                {
+                  "basis": "timeseries_calculation",
+                  "variability": "static_process",
+                  "calculation_models": [
+                    {
+                      "name": "Timeseries tool",
+                      "comments": "Internal toolset"
+                    }
+                  ],
+                  "results": {
+                    "label": "Loads curtailment",
+                    "description": "Curtailment due to a wind sector management strategy to reduce turbine loads.",
+                    "comments": "Considering curtailment strategy as specified by the turbine manufacturer.",
+                    "unit": "dimensionless",
+                    "applicability_type": "lifetime",
+                    "results_dimensions": [
+                      "location"
+                    ],
+                    "result_components": [
+                      {
+                        "component_type": "mean",
+                        "values": {
+                          "WTG01": 0.975,
+                          "WTG02": 0.983
+                        }
+                      },
+                      {
+                        "component_type": "std",
+                        "values": {
+                          "WTG01": 0.005,
+                          "WTG02": 0.005
+                        }
+                      }
+                    ]
+                  }
+                }
+              ],
+              "category_results": [
+                {
+                  "label": "Curtailment",
+                  "description": "Curtailment losses.",
+                  "unit": "dimensionless",
+                  "applicability_type": "lifetime",
+                  "results_dimensions": [
+                    "location"
+                  ],
+                  "result_components": [
+                    {
+                      "component_type": "mean",
+                      "values": {
+                        "WTG01": 0.975,
+                        "WTG02": 0.983
+                      }
+                    },
+                    {
+                      "component_type": "std",
+                      "values": {
+                        "WTG01": 0.005,
+                        "WTG02": 0.005
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "net_energy_assessment": {
+          "results": [
+            {
+              "label": "Net yield",
+              "unit": "MWh/annum",
+              "applicability_type": "lifetime",
+              "results_dimensions": [
+                "none"
+              ],
+              "result_components": [
+                {
+                  "component_type": "median",
+                  "values": 31528.6
+                },
+                {
+                  "component_type": "std",
+                  "values": 3468.1
+                },
+                {
+                  "component_type": "P90",
+                  "values": 27089.4
+                }
+              ]
+            },
+            {
+              "label": "Net yield",
+              "unit": "MWh/annum",
+              "applicability_type": "any_one_year",
+              "results_dimensions": [
+                "none"
+              ],
+              "result_components": [
+                {
+                  "component_type": "median",
+                  "values": 31528.6
+                },
+                {
+                  "component_type": "std",
+                  "values": 4729.3
+                },
+                {
+                  "component_type": "P90",
+                  "values": 25475.1
+                }
+              ]
+            }
+          ]
         }
-      ]
+      }
     },
     {
-      "scenario_label": "B",
-      "scenario_description": "PQR169-5.8MW turbine model scenario",
-      "scenario_comments": "The site suitability of turbine model has not yet investigated.",
+      "label": "B",
+      "description": "PQR169-5.8MW turbine model scenario",
+      "comments": "The site suitability of turbine model has not yet investigated.",
       "is_main_scenario": false,
       "operational_lifetime_length_years": 30.0,
       "wind_measurement_campaigns": [
@@ -231,7 +469,7 @@
           "name": "Mast M1",
           "label": "M1",
           "description": "Barefoot Wind Farm on-site meteorological mast",
-          "comments": "Measurements were still ongoing at time of assessment",
+          "comments": "Measurements were still ongoing at time of assessment.",
           "location": {
             "location_id": "ee15ff84-6733-4858-9656-ba995d9b1022",
             "location_type": "measurement",
@@ -249,12 +487,12 @@
         }
       ],
       "wind_farms_configuration": {
-        "wind_farms_configuration_label": "B",
-        "wind_farms_configuration_description": "Wind farms configuration for turbine model scenario B",
-        "wind_farms_configuration_comments": "The wind farms configuration is identical to that for scenario A, except for the different turbine model configuration",
+        "label": "B",
+        "description": "Wind farms configuration for turbine model scenario B.",
+        "comments": "This wind farms configuration is identical to that for Scenario A, except for the different turbine model configuration.",
         "wind_farms": [
           {
-            "wind_farm_name": "Barefoot Wind Farm",
+            "name": "Barefoot Wind Farm",
             "relevance": "internal",
             "turbine_ids": [
               "WTG01",
@@ -288,26 +526,26 @@
             ],
             "turbine_model_maps": [
               {
-                "Mu_T1": {
-                  "turbine_model_label": "PQR169-5.8MW"
+                "WTG01": {
+                  "label": "PQR169-5.8MW"
                 },
-                "Mu_T2": {
-                  "turbine_model_label": "PQR169-5.8MW"
+                "WTG02": {
+                  "label": "PQR169-5.8MW"
                 }
               }
             ],
             "turbine_hub_height_maps": [
               {
-                "Mu_T1": 148.0,
-                "Mu_T2": 158.0
+                "WTG01": 148.0,
+                "WTG02": 158.0
               }
             ]
           },
           {
-            "wind_farm_name": "Munro Wind Farm",
-            "wind_farm_label": "MWF",
-            "wind_farm_description": "The operational Munro Wind Farm",
-            "wind_farm_comments": "Specifications taken from publicly available information",
+            "name": "Munro Wind Farm",
+            "label": "MWF",
+            "description": "The operational Munro Wind Farm",
+            "comments": "Specifications taken from publicly available information.",
             "relevance": "external",
             "operational_lifetime_start_date": "2018-07-01",
             "operational_lifetime_end_date": "2038-06-30",
@@ -344,10 +582,10 @@
             "turbine_model_maps": [
               {
                 "Mu_T1": {
-                  "turbine_model_label": "XYZ-3.2/140"
+                  "label": "XYZ-3.2/140"
                 },
                 "Mu_T2": {
-                  "turbine_model_label": "XYZ-3.2/140"
+                  "label": "XYZ-3.2/140"
                 }
               }
             ],
@@ -360,40 +598,267 @@
           }
         ]
       },
-      "wind_spatial_models": [
-        {
-          "model_name": "VENTOS/M",
-          "model_description": "VENTOS/M is a coupled CFD-mesoscale model",
-          "model_comments": "The simulations were run using 60 representative days."
-        }
-      ],
-      "energy_assessment_results": [
-        {
-          "results_type": "lifetime",
-          "results_label": "30-year",
-          "results_description": "Results for the full operational lifetime of 30 years",
-          "mast_wind_resource_results": {},
-          "turbine_wind_resource_results": {},
-          "gross_energy_results": {},
-          "plant_performance_results": {},
-          "net_energy_results": {},
-          "uncertainty_results": {},
-          "confidence_limit_results": {}
+      "energy_assessment": {
+        "label": "Scenario B EYA",
+        "description": "Energy yield assessment details for Scenario B.",
+        "comments": "The Scenario B assessment should be considered indicative only due to potentially inaccurate assumptions.",
+        "wind_resource_assessment": {
+          "measurement_wind_resource_results": [
+            {
+              "label": "Measurement-height long-term wind",
+              "unit": "m/s",
+              "applicability_type": "lifetime",
+              "results_dimensions": [
+                "location"
+              ],
+              "result_components": [
+                {
+                  "component_type": "mean",
+                  "values": {
+                    "BF_M1_1.0.0": 6.83
+                  }
+                }
+              ]
+            }
+          ],
+          "turbine_wind_resource_results": [
+            {
+              "label": "Turbine-location hub-height long-term wind",
+              "unit": "m/s",
+              "applicability_type": "lifetime",
+              "results_dimensions": [
+                "location"
+              ],
+              "result_components": [
+                {
+                  "component_type": "mean",
+                  "values": {
+                    "WTG01": 6.91,
+                    "WTG02": 6.95
+                  }
+                }
+              ]
+            }
+          ],
+          "wind_spatial_models": [
+            {
+              "name": "VENTOS/M",
+              "description": "VENTOS/M is a coupled CFD-mesoscale model.",
+              "comments": "The simulations were run using 60 representative days."
+            }
+          ],
+          "uncertainty_assessment": {
+            "categories": {
+              "historical": {
+                "components": [
+                  {
+                    "results": {
+                      "label": "Regression model uncertainty",
+                      "unit": "dimensionless",
+                      "applicability_type": "lifetime",
+                      "results_dimensions": [
+                        "location"
+                      ],
+                      "result_components": [
+                        {
+                          "component_type": "std",
+                          "values": {
+                            "BF_M1_1.0.0": 0.025
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "results": {
+                      "label": "Long-term consistency uncertainty",
+                      "unit": "dimensionless",
+                      "applicability_type": "lifetime",
+                      "results_dimensions": [
+                        "location"
+                      ],
+                      "result_components": [
+                        {
+                          "component_type": "std",
+                          "values": {
+                            "BF_M1_1.0.0": 0.02
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "category_results": [
+                  {
+                    "label": "Historical wind resource uncertainty",
+                    "unit": "dimensionless",
+                    "applicability_type": "lifetime",
+                    "results_dimensions": [
+                      "location"
+                    ],
+                    "result_components": [
+                      {
+                        "component_type": "std",
+                        "values": {
+                          "BF_M1_1.0.0": 0.03201
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
         },
-        {
-          "results_type": "any_one_year",
-          "results_label": "1-year",
-          "results_description": "Results for any one operational year",
-          "results_comments": "Results consider mean of losses that vary over the operational lifetime.",
-          "mast_wind_resource_results": {},
-          "turbine_wind_resource_results": {},
-          "gross_energy_results": {},
-          "plant_performance_results": {},
-          "net_energy_results": {},
-          "uncertainty_results": {},
-          "confidence_limit_results": {}
+        "gross_energy_assessment": {
+          "results": [
+            {
+              "label": "Gross yield",
+              "unit": "MWh/annum",
+              "applicability_type": "lifetime",
+              "results_dimensions": [
+                "location"
+              ],
+              "result_components": [
+                {
+                  "component_type": "mean",
+                  "values": {
+                    "WTG01": 18100.0,
+                    "WTG02": 18900.0
+                  }
+                }
+              ]
+            },
+            {
+              "label": "Gross yield",
+              "unit": "MWh/annum",
+              "applicability_type": "lifetime",
+              "results_dimensions": [
+                "none"
+              ],
+              "result_components": [
+                {
+                  "component_type": "mean",
+                  "values": 37000.0
+                }
+              ]
+            }
+          ]
+        },
+        "plant_performance_assessment": {
+          "categories": {
+            "curtailment": {
+              "components": [
+                {
+                  "basis": "project_specific_estimate",
+                  "variability": "static_process",
+                  "results": {
+                    "label": "Loads curtailment",
+                    "description": "Expected curtailment due to a wind sector management to reduce turbine loads.",
+                    "comments": "A broad estimate of curtailment losses in the absence of details from the turbine manufacturer.",
+                    "unit": "dimensionless",
+                    "applicability_type": "lifetime",
+                    "results_dimensions": [
+                      "location"
+                    ],
+                    "result_components": [
+                      {
+                        "component_type": "mean",
+                        "values": {
+                          "WTG01": 0.95,
+                          "WTG02": 0.95
+                        }
+                      },
+                      {
+                        "component_type": "std",
+                        "values": {
+                          "WTG01": 0.05,
+                          "WTG02": 0.05
+                        }
+                      }
+                    ]
+                  }
+                }
+              ],
+              "category_results": [
+                {
+                  "label": "Curtailment",
+                  "description": "Curtailment losses.",
+                  "unit": "dimensionless",
+                  "applicability_type": "lifetime",
+                  "results_dimensions": [
+                    "location"
+                  ],
+                  "result_components": [
+                    {
+                      "component_type": "mean",
+                      "values": {
+                        "WTG01": 0.95,
+                        "WTG02": 0.95
+                      }
+                    },
+                    {
+                      "component_type": "std",
+                      "values": {
+                        "WTG01": 0.05,
+                        "WTG02": 0.05
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "net_energy_assessment": {
+          "results": [
+            {
+              "label": "Net yield",
+              "unit": "MWh/annum",
+              "applicability_type": "lifetime",
+              "results_dimensions": [
+                "none"
+              ],
+              "result_components": [
+                {
+                  "component_type": "median",
+                  "values": 35150.0
+                },
+                {
+                  "component_type": "std",
+                  "values": 4569.5
+                },
+                {
+                  "component_type": "P90",
+                  "values": 29301.0
+                }
+              ]
+            },
+            {
+              "label": "Net yield",
+              "unit": "MWh/annum",
+              "applicability_type": "any_one_year",
+              "results_dimensions": [
+                "none"
+              ],
+              "result_components": [
+                {
+                  "component_type": "median",
+                  "values": 35150.0
+                },
+                {
+                  "component_type": "std",
+                  "values": 5799.8
+                },
+                {
+                  "component_type": "P90",
+                  "values": 27726.3
+                }
+              ]
+            }
+          ]
         }
-      ]
+      }
     }
   ]
 }

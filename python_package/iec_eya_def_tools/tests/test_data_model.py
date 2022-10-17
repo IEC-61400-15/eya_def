@@ -7,6 +7,7 @@
 def test_initiate_energy_assessment_report_a(energy_assessment_report_a):
     """Assert test case instance 'a' is successfully initiated."""
     from iec_eya_def_tools.data_model import EnergyAssessmentReport
+    assert bool(energy_assessment_report_a)
     assert isinstance(
         energy_assessment_report_a, EnergyAssessmentReport)
 
