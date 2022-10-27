@@ -581,7 +581,7 @@ def energy_assessment_report_a_tmp_filepath(
     """
     filepath = (
             json_examples_tmp_dirpath
-            / "iec_61400-15-2_reporting_def_example_a.json")
+            / "iec_61400-15-2_eya_def_example_a.json")
     with open(filepath, 'w') as f:
         f.write(energy_assessment_report_a.json(
             indent=2, exclude_none=True, by_alias=True))
@@ -639,7 +639,7 @@ def master_json_schema_filepath(master_json_schema_dirpath) -> Path:
     """
     filepath = (
         master_json_schema_dirpath
-        / "iec_61400-15-2_reporting_def.schema.json")
+        / "iec_61400-15-2_eya_def.schema.json")
     if not filepath.is_file():
         raise ValueError(
             f"the expected json schema file '{filepath}' does not exist")
@@ -690,7 +690,7 @@ def pydantic_json_schema_tmp_path(
         of the pydantic data model
     """
     tmp_dirpath = tmp_path_factory.mktemp("schema")
-    filepath = tmp_dirpath / "iec_61400-15-2_reporting_def.schema.json"
+    filepath = tmp_dirpath / "iec_61400-15-2_eya_def.schema.json"
     with open(filepath, 'w') as f:
         f.write(json.dumps(pydantic_json_schema, indent=2))
     return filepath
@@ -737,7 +737,7 @@ def json_example_filepaths(json_examples_dirpath) -> list[Path]:
     :raises ValueError: if no example json files exist at the expected
         location
     """
-    filename_pattern = "iec_61400-15-2_reporting_def_example*.json"
+    filename_pattern = "iec_61400-15-2_eya_def_example*.json"
     json_example_filepaths = list(json_examples_dirpath.glob(filename_pattern))
     if len(json_example_filepaths) < 1:
         raise ValueError(
@@ -806,7 +806,7 @@ def json_examples_tmp_dirpath(tmp_path_factory) -> Path:
 #             indent=2, exclude_none=exclude_none, by_alias=by_alias))
 #
 #
-# export_json_schema(Path("iec_61400-15-2_reporting_def.schema.json"))
+# export_json_schema(Path("iec_61400-15-2_eya_def.schema.json"))
 #
 # export_energy_assessment_report_example_as_json_file(
-#     Path("iec_61400-15-2_reporting_def_example_a.json"))
+#     Path("iec_61400-15-2_eya_def_example_a.json"))

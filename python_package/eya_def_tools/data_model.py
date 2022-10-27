@@ -94,7 +94,7 @@ def get_json_schema_uri() -> str:
     return (
         "https://raw.githubusercontent.com/IEC-61400-15/"
         "energy_yield_reporting_DEF/blob/main/"
-        "iec_61400-15-2_reporting_def.schema.json")
+        "iec_61400-15-2_eya_def.schema.json")
 
 
 def get_json_schema_version() -> str:
