@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Setup and fixtures for the entire `iec_eya_def_tools` test module.
+"""Setup and fixtures for the entire `eya_def_tools` test module.
 
 """
 
@@ -7,7 +7,7 @@ import pytest
 import json
 from pathlib import Path
 
-import iec_eya_def_tools.data_model as data_model
+import eya_def_tools.data_model as data_model
 
 
 TEST_INPUT_DATA_DIRNAME = "test_input_data"
@@ -782,7 +782,7 @@ def json_examples_tmp_dirpath(tmp_path_factory) -> Path:
 #
 #     :param filepath: the path to export the json schema file to
 #     """
-#     from iec_eya_def_tools import data_model
+#     from eya_def_tools import data_model
 #     import json
 #     json_schema = data_model.EnergyAssessmentReport.final_json_schema()
 #     with open(filepath, 'w') as f:

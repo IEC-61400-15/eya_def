@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Test the `iec_eya_def_tools.data_model` module on example datasets.
+"""Test the `eya_def_tools.data_model` module on example datasets.
 
 """
 import pytest
@@ -42,7 +42,7 @@ def test_validate_pydantic_model_json_schema(
 
 def test_validate_pydantic_model(json_example_dict):
     """Test validate all json file examples against pydantic model."""
-    from iec_eya_def_tools.data_model import EnergyAssessmentReport
+    from eya_def_tools.data_model import EnergyAssessmentReport
     for json_filename, json_example in json_example_dict.items():
         try:
             energy_assessment_report = EnergyAssessmentReport(**json_example)

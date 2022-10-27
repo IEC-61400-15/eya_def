@@ -22,4 +22,4 @@ source code.
    :template: custom-module-template.rst
    :recursive:
 
-   iec_eya_def_tools
+   eya_def_tools

@@ -3,7 +3,7 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "iec_eya_def_tools"
+name = "eya_def_tools"
 version = "0.0.1a1"
 authors = [
   {name="M. Jason Fields", email="michael.fields@nrel.gov"},

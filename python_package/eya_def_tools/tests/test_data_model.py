@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-"""Test the `iec_eya_def_tools.data_model` module.
+"""Test the `eya_def_tools.data_model` module.
 
 """
 
 
 def test_initiate_energy_assessment_report_a(energy_assessment_report_a):
     """Assert test case instance 'a' is successfully initiated."""
-    from iec_eya_def_tools.data_model import EnergyAssessmentReport
+    from eya_def_tools.data_model import EnergyAssessmentReport
     assert bool(energy_assessment_report_a)
     assert isinstance(
         energy_assessment_report_a, EnergyAssessmentReport)
