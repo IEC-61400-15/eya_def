@@ -69,7 +69,9 @@
               "epsg_number": 32630
             }
           },
-          "metadata_ref_iea43_model": "{\"$ref\": \"/foo/bar/metadata_ref_iea43_model.json\"}"
+          "metadata_ref_iea43_model": {
+            "$ref": "/foo/bar/metadata_ref_iea43_model.json"
+          }
         }
       ],
       "wind_farms_configuration": {
@@ -483,7 +485,9 @@
               "epsg_number": 32630
             }
           },
-          "metadata_ref_iea43_model": "{\"$ref\": \"/foo/bar/metadata_ref_iea43_model.json\"}"
+          "metadata_ref_iea43_model": {
+            "$ref": "/foo/bar/metadata_ref_iea43_model.json"
+          }
         }
       ],
       "wind_farms_configuration": {

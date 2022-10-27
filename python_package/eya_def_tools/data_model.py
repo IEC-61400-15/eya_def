@@ -190,6 +190,13 @@ class Location(BaseModel):
 class JsonPointerRef(str):
     """Json pointer reference."""
 
+    def dict(self) -> dict[str, str]:
+        """Get a `dict` representation of the reference.
+
+        :return: a dict of the form `{"$ref": "<reference_uri>"}`
+        """
+        return {'$ref': self.format()}
+
     def json(self) -> str:
         """Get a json `str` representation of the reference.
 
@@ -263,7 +270,7 @@ class WindMeasurementCampaign(BaseModel):
         dict_repr = super(WindMeasurementCampaign, self).dict(*args, **kwargs)
         if self.metadata_ref_iea43_model:
             dict_repr['metadata_ref_iea43_model'] = (
-                self.metadata_ref_iea43_model.json())
+                self.metadata_ref_iea43_model.dict())
         return dict_repr
 
     def json(self, *args, **kwargs) -> str:
