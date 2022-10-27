@@ -2,6 +2,7 @@
 """Test the `eya_def_tools.data_model` module on example datasets.
 
 """
+
 import pytest
 import pydantic
 import jsonschema
@@ -17,7 +18,7 @@ def test_validate_master_json_schema(master_json_schema, json_example_dict):
             pytest.fail(
                 f"the json example '{json_filename}' did not pass the "
                 f"master json schema validation ({exc})")
-        except jsonschema.exceptions.RefResolutionError as exc:
+        except jsonschema.exceptions.RefResolutionError:
             # Several examples have dummy references, so we accept that
             # some references cannot be resolved
             pass
@@ -34,7 +35,7 @@ def test_validate_pydantic_model_json_schema(
             pytest.fail(
                 f"the json example '{json_filename}' did not pass the "
                 f"pydantic model json schema validation ({exc})")
-        except jsonschema.exceptions.RefResolutionError as exc:
+        except jsonschema.exceptions.RefResolutionError:
             # Several examples have dummy references, so we accept that
             # some references cannot be resolved
             pass

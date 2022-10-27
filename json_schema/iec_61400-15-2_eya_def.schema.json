@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://raw.githubusercontent.com/IEC-61400-15/energy_yield_reporting_DEF/blob/main/iec_61400-15-2_reporting_def.schema.json",
+  "$id": "https://raw.githubusercontent.com/IEC-61400-15/energy_yield_reporting_DEF/blob/main/iec_61400-15-2_eya_def.schema.json",
   "$version": "0.0.1",
   "title": "IEC 61400-15-2 Reporting DEF data model",
   "description": "IEC 61400-15-2 Reporting DEF energy assessment report data model.",

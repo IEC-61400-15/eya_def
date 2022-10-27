@@ -14,9 +14,59 @@ TEST_INPUT_DATA_DIRNAME = "test_input_data"
 """Directory name of test input data."""
 
 
-def build_energy_assessment_report_a() -> data_model.EnergyAssessmentReport:
-    """Build example instance 'a' of `EnergyAssessmentReport`.
+@pytest.fixture(scope='session')
+def coordinate_system_a():
+    """Get test case instance 'a' of `CoordinateSystem`.
 
+    :return: an example of a complete and valid `CoordinateSystem`
+        instance
+    """
+    return data_model.CoordinateSystem(
+        system_label="WGS 84 / UTM zone 30N",
+        epsg_number=32630)
+
+
+@pytest.fixture(scope='session')
+def wind_measurement_campaign_a(coordinate_system_a):
+    """Get test case instance 'a' of `WindMeasurementCampaign`.
+
+    :param coordinate_system_a: test case instance 'a' of
+        `CoordinateSystem`
+    :return: an example of a complete and valid
+        `WindMeasurementCampaign` instance
+    """
+    return data_model.WindMeasurementCampaign(
+        measurement_id="BF_M1_1.0.0",
+        name="Mast M1",
+        label="M1",
+        description=(
+            "Barefoot Wind Farm on-site meteorological mast"),
+        comments="Measurements were still ongoing at time of assessment.",
+        location=data_model.Location(
+            location_id="ee15ff84-6733-4858-9656-ba995d9b1022",
+            location_type='measurement',
+            label='M1',
+            description="Verified location of Mast M1",
+            comments=(
+                "Documented in installation report and independently "
+                "confirmed"),
+            x=420165.0,
+            y=6194740.0,
+            coordinate_system=coordinate_system_a),
+        metadata_ref_iea43_model=data_model.MetadataIEA43ModelRef(
+            "/foo/bar/metadata_ref_iea43_model.json"))
+
+
+@pytest.fixture(scope='session')
+def energy_assessment_report_a(
+        coordinate_system_a,
+        wind_measurement_campaign_a) -> data_model.EnergyAssessmentReport:
+    """Get test case instance 'a' of `EnergyAssessmentReport`.
+
+    :param coordinate_system_a: test case instance 'a' of
+        `CoordinateSystem`
+    :param wind_measurement_campaign_a: test case instance 'a' of
+        `WindMeasurementCampaign`
     :return: the complete example test instance 'a' of the top-level
         `EnergyAssessmentReport` data model, for use as the primary
         test case
@@ -45,10 +95,6 @@ def build_energy_assessment_report_a() -> data_model.EnergyAssessmentReport:
         completion_date="2022-10-07")  # type: ignore
     contributors = [main_author, second_author, verifier, approver]
 
-    coordinate_system = data_model.CoordinateSystem(
-        system_label="WGS 84 / UTM zone 30N",
-        epsg_number=32630)
-
     wind_measurement_campaign = data_model.WindMeasurementCampaign(
         measurement_id="BF_M1_1.0.0",
         name="Mast M1",
@@ -66,7 +112,7 @@ def build_energy_assessment_report_a() -> data_model.EnergyAssessmentReport:
                 "confirmed"),
             x=420165.0,
             y=6194740.0,
-            coordinate_system=coordinate_system),
+            coordinate_system=coordinate_system_a),
         metadata_ref_iea43_model=data_model.MetadataIEA43ModelRef(
             "/foo/bar/metadata_ref_iea43_model.json"))
 
@@ -78,14 +124,14 @@ def build_energy_assessment_report_a() -> data_model.EnergyAssessmentReport:
             label='WTG01',
             x=419665.0,
             y=6194240.0,
-            coordinate_system=coordinate_system),
+            coordinate_system=coordinate_system_a),
         'WTG02': data_model.Location(
             location_id="c73f2e46-ba0b-4775-a2f3-b76e3c3b5012",
             location_type='turbine',
             label='WTG02',
             x=420665.0,
             y=6194240.0,
-            coordinate_system=coordinate_system)}
+            coordinate_system=coordinate_system_a)}
 
     measurement_wind_resource_results = [
         data_model.Results(
@@ -112,14 +158,14 @@ def build_energy_assessment_report_a() -> data_model.EnergyAssessmentReport:
             label='Mu_T1',
             x=419665.0,
             y=6195240.0,
-            coordinate_system=coordinate_system),
+            coordinate_system=coordinate_system_a),
         'Mu_T2': data_model.Location(
             location_id="dc4dba73-8f1c-494f-868e-e548f2a3923f",
             location_type='turbine',
             label='Mu_T2',
             x=419665.0,
             y=6195240.0,
-            coordinate_system=coordinate_system)}
+            coordinate_system=coordinate_system_a)}
     neighbouring_turbine_model_map = {
         'Mu_T1': neighbouring_turbine_model,
         'Mu_T2': neighbouring_turbine_model}
@@ -184,14 +230,14 @@ def build_energy_assessment_report_a() -> data_model.EnergyAssessmentReport:
                 components=[
                     data_model.WindUncertaintyComponent(
                         results=data_model.Results(
-                                label="Regression model uncertainty",
-                                unit="dimensionless",
-                                applicability_type='lifetime',
-                                results_dimensions=['location'],
-                                result_components=[data_model.ResultsComponent(
-                                    component_type='std',
-                                    values={
-                                        'BF_M1_1.0.0': 0.025})])),
+                            label="Regression model uncertainty",
+                            unit="dimensionless",
+                            applicability_type='lifetime',
+                            results_dimensions=['location'],
+                            result_components=[data_model.ResultsComponent(
+                                component_type='std',
+                                values={
+                                    'BF_M1_1.0.0': 0.025})])),
                     data_model.WindUncertaintyComponent(
                         results=data_model.Results(
                             label="Long-term consistency uncertainty",
@@ -289,20 +335,20 @@ def build_energy_assessment_report_a() -> data_model.EnergyAssessmentReport:
     net_energy_assessment_a = data_model.NetEnergyAssessment(
         results=[
             data_model.Results(
-                    label="Net yield",
-                    unit="MWh/annum",
-                    applicability_type='lifetime',
-                    results_dimensions=['none'],
-                    result_components=[
-                        data_model.ResultsComponent(
-                            component_type='median',
-                            values=31528.6),
-                        data_model.ResultsComponent(
-                            component_type='std',
-                            values=3468.1),
-                        data_model.ResultsComponent(
-                            component_type='P90',
-                            values=27089.4)]),
+                label="Net yield",
+                unit="MWh/annum",
+                applicability_type='lifetime',
+                results_dimensions=['none'],
+                result_components=[
+                    data_model.ResultsComponent(
+                        component_type='median',
+                        values=31528.6),
+                    data_model.ResultsComponent(
+                        component_type='std',
+                        values=3468.1),
+                    data_model.ResultsComponent(
+                        component_type='P90',
+                        values=27089.4)]),
             data_model.Results(
                 label="Net yield",
                 unit="MWh/annum",
@@ -376,14 +422,14 @@ def build_energy_assessment_report_a() -> data_model.EnergyAssessmentReport:
                 components=[
                     data_model.WindUncertaintyComponent(
                         results=data_model.Results(
-                                label="Regression model uncertainty",
-                                unit="dimensionless",
-                                applicability_type='lifetime',
-                                results_dimensions=['location'],
-                                result_components=[data_model.ResultsComponent(
-                                    component_type='std',
-                                    values={
-                                        'BF_M1_1.0.0': 0.025})])),
+                            label="Regression model uncertainty",
+                            unit="dimensionless",
+                            applicability_type='lifetime',
+                            results_dimensions=['location'],
+                            result_components=[data_model.ResultsComponent(
+                                component_type='std',
+                                values={
+                                    'BF_M1_1.0.0': 0.025})])),
                     data_model.WindUncertaintyComponent(
                         results=data_model.Results(
                             label="Long-term consistency uncertainty",
@@ -478,20 +524,20 @@ def build_energy_assessment_report_a() -> data_model.EnergyAssessmentReport:
     net_energy_assessment_b = data_model.NetEnergyAssessment(
         results=[
             data_model.Results(
-                    label="Net yield",
-                    unit="MWh/annum",
-                    applicability_type='lifetime',
-                    results_dimensions=['none'],
-                    result_components=[
-                        data_model.ResultsComponent(
-                            component_type='median',
-                            values=35150.0),
-                        data_model.ResultsComponent(
-                            component_type='std',
-                            values=4569.5),
-                        data_model.ResultsComponent(
-                            component_type='P90',
-                            values=29301.0)]),
+                label="Net yield",
+                unit="MWh/annum",
+                applicability_type='lifetime',
+                results_dimensions=['none'],
+                result_components=[
+                    data_model.ResultsComponent(
+                        component_type='median',
+                        values=35150.0),
+                    data_model.ResultsComponent(
+                        component_type='std',
+                        values=4569.5),
+                    data_model.ResultsComponent(
+                        component_type='P90',
+                        values=29301.0)]),
             data_model.Results(
                 label="Net yield",
                 unit="MWh/annum",
@@ -561,17 +607,6 @@ def build_energy_assessment_report_a() -> data_model.EnergyAssessmentReport:
 
 
 @pytest.fixture(scope='session')
-def energy_assessment_report_a() -> data_model.EnergyAssessmentReport:
-    """Get test case instance 'a' of `EnergyAssessmentReport`.
-
-    :return: the complete example test instance 'a' of the top-level
-        `EnergyAssessmentReport` data model, for use as the primary
-        test case
-    """
-    return build_energy_assessment_report_a()
-
-
-@pytest.fixture(scope='session')
 def energy_assessment_report_a_tmp_filepath(
         energy_assessment_report_a, json_examples_tmp_dirpath) -> Path:
     """Get the temporary path of the test case instance 'a' json file.
@@ -638,8 +673,8 @@ def master_json_schema_filepath(master_json_schema_dirpath) -> Path:
         location
     """
     filepath = (
-        master_json_schema_dirpath
-        / "iec_61400-15-2_eya_def.schema.json")
+            master_json_schema_dirpath
+            / "iec_61400-15-2_eya_def.schema.json")
     if not filepath.is_file():
         raise ValueError(
             f"the expected json schema file '{filepath}' does not exist")
@@ -774,39 +809,3 @@ def json_examples_tmp_dirpath(tmp_path_factory) -> Path:
         examples directory
     """
     return tmp_path_factory.mktemp("examples")
-
-
-# TEMPORARY CODE
-# def export_json_schema(filepath: Path):
-#     """Export the top-level json schema from the pydantic model.
-#
-#     :param filepath: the path to export the json schema file to
-#     """
-#     from eya_def_tools import data_model
-#     import json
-#     json_schema = data_model.EnergyAssessmentReport.final_json_schema()
-#     with open(filepath, 'w') as f:
-#         f.write(json.dumps(json_schema, indent=2))
-#
-#
-# def export_energy_assessment_report_example_as_json_file(
-#         filepath: Path,
-#         exclude_none: bool = True,
-#         by_alias: bool = True) -> None:
-#     """Export example instance 'a' of `EnergyAssessmentReport` to json.
-#
-#     :param filepath: the path to export the json file to
-#     :param exclude_none: whether to exclude variables set to `None` from
-#         the json document
-#     :param by_alias: whether to use model variable aliases as property
-#         names
-#     """
-#     with open(filepath, 'w') as f:
-#         f.write(build_energy_assessment_report_a().json(
-#             indent=2, exclude_none=exclude_none, by_alias=by_alias))
-#
-#
-# export_json_schema(Path("iec_61400-15-2_eya_def.schema.json"))
-#
-# export_energy_assessment_report_example_as_json_file(
-#     Path("iec_61400-15-2_eya_def_example_a.json"))

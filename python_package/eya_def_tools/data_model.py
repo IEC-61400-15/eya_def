@@ -16,7 +16,7 @@ likely solve most of these issues in a more robust way.
 
 from datetime import date
 from typing import Literal
-from pydantic import BaseModel, Field, EmailStr
+from pydantic import BaseModel, Field, EmailStr, validator
 
 
 ResultsApplicabilityType = Literal[  # TODO consider using Enum
@@ -259,6 +259,25 @@ class WindMeasurementCampaign(BaseModel):
             "Reference to a json document with measurement metadata "
             "according to the IEA Task 43 WRA data model."),
         examples=["https://foo.com/bar/example_iea43.json"])
+
+    @validator('metadata_ref_iea43_model', pre=True)
+    def convert_json_pointer_to_str(cls, v):
+        """Convert `metadata_ref_iea43_model` json pointer to ´str´.
+
+        :param v: the pre-validation value of `metadata_ref_iea43_model`
+            passed to the constructor
+        :return: the `str` representation of the `<reference_uri>` if
+            `v` is a `dict` of the form `{"$ref": "<reference_uri>"}`,
+            otherwise `v`
+        """
+        if (isinstance(v, dict)
+                and len(v) == 1
+                and isinstance(list(v.keys())[0], str)
+                and list(v.keys())[0] == '$ref'
+                and isinstance(list(v.values())[0], str)):
+            return list(v.values())[0]
+        else:
+            return v
 
     def dict(self, *args, **kwargs) -> dict:
         """A `dict` representation of the model instance.
