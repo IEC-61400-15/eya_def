@@ -142,6 +142,15 @@
       "description": "Coordinate reference system used for all location data.",
       "$ref": "#/definitions/CoordinateReferenceSystem"
     },
+    "turbine_models": {
+      "title": "Turbine Models",
+      "description": "List of wind turbine model specifications.",
+      "default": [],
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/TurbineModel"
+      }
+    },
     "wind_measurement_campaigns": {
       "title": "Wind Measurement Campaigns",
       "description": "List of wind measurement campaign details.",
@@ -279,6 +288,46 @@
         "system_label"
       ]
     },
+    "TurbineModel": {
+      "title": "TurbineModel",
+      "description": "Specification of a wind turbine model.",
+      "type": "object",
+      "properties": {
+        "turbine_model_id": {
+          "title": "Turbine Model Id",
+          "description": "Unique identifier of the turbine model.",
+          "examples": [
+            "dbb25743-60f4-4eab-866f-31d5f8af69d6",
+            "XYZ199-8.5MW v004"
+          ],
+          "type": "string"
+        },
+        "label": {
+          "title": "Label",
+          "description": "Label of the turbine model.",
+          "examples": [
+            "V172-7.2 MW",
+            "N175/6.X",
+            "SG 6.6-170",
+            "E-175 EP5"
+          ],
+          "type": "string"
+        },
+        "perf_spec_ref": {
+          "type": "string",
+          "$ref": "https://foo.bar.com/baz/wtg_model.schema.json",
+          "title": "Turbine Model Performance Specification Reference",
+          "description": "Reference to a json document with turbine model performance specification (PLACEHOLDER).",
+          "examples": [
+            "https://foo.com/bar/example_wtg_model.json"
+          ]
+        }
+      },
+      "required": [
+        "turbine_model_id",
+        "label"
+      ]
+    },
     "Location": {
       "title": "Location",
       "description": "Specification of a horizontal location in space.",
@@ -403,7 +452,8 @@
       "required": [
         "measurement_id",
         "name",
-        "location"
+        "location",
+        "metadata_ref"
       ]
     },
     "ResultsComponent": {
@@ -483,24 +533,6 @@
                     "type": "object",
                     "additionalProperties": {
                       "type": "number"
-                    }
-                  }
-                }
-              }
-            },
-            {
-              "type": "object",
-              "additionalProperties": {
-                "type": "object",
-                "additionalProperties": {
-                  "type": "object",
-                  "additionalProperties": {
-                    "type": "object",
-                    "additionalProperties": {
-                      "type": "object",
-                      "additionalProperties": {
-                        "type": "number"
-                      }
                     }
                   }
                 }
@@ -704,36 +736,6 @@
       "type": "object",
       "properties": {}
     },
-    "TurbineModel": {
-      "title": "TurbineModel",
-      "description": "Specification of a wind turbine model.",
-      "type": "object",
-      "properties": {
-        "label": {
-          "title": "Label",
-          "description": "Label of the turbine model.",
-          "examples": [
-            "V172-7.2 MW",
-            "N175/6.X",
-            "SG 6.6-170",
-            "E-175 EP5"
-          ],
-          "type": "string"
-        },
-        "perf_spec_ref": {
-          "type": "string",
-          "$ref": "https://foo.bar.com/baz/wtg_model.schema.json",
-          "title": "Turbine Model Performance Specification Reference",
-          "description": "Reference to a json document with turbine model performance specification (PLACEHOLDER).",
-          "examples": [
-            "https://foo.com/bar/example_wtg_model.json"
-          ]
-        }
-      },
-      "required": [
-        "label"
-      ]
-    },
     "OperationalRestriction": {
       "title": "OperationalRestriction",
       "description": "Specifications of an operational restriction.",
@@ -817,10 +819,10 @@
           "description": "Turbine hub height.",
           "type": "number"
         },
-        "model": {
-          "title": "Model",
-          "description": "Turbine model.",
-          "$ref": "#/definitions/TurbineModel"
+        "turbine_model_id": {
+          "title": "Turbine Model Id",
+          "description": "Unique identifier of the turbine model.",
+          "type": "string"
         },
         "restrictions": {
           "title": "Restrictions",
@@ -835,7 +837,7 @@
         "label",
         "location",
         "hub_height",
-        "model"
+        "turbine_model_id"
       ]
     },
     "WindFarm": {

@@ -55,9 +55,8 @@ NestedAnnotFloatDict = (
     dict[str, float]
     | dict[str, dict[str, float]]
     | dict[str, dict[str, dict[str, float]]]
-    | dict[str, dict[str, dict[str, dict[str, float]]]]
-    | dict[str, dict[str, dict[str, dict[str, dict[str, float]]]]])
-"""Custom type of annotated floats of up to five dimensions."""
+    | dict[str, dict[str, dict[str, dict[str, float]]]])
+"""Custom type of annotated floats of up to four dimensions."""
 
 
 def reduce_json_all_of(json_dict: dict) -> dict:
@@ -303,8 +302,8 @@ class WindMeasurementCampaign(BaseModelWithRefs):
     location: Location = pdt.Field(
         ...,
         description="Horizontal location of the measurement equipment.")
-    metadata_ref: MeasurementMetadataRef | None = pdt.Field(
-        None,
+    metadata_ref: MeasurementMetadataRef = pdt.Field(
+        ...,
         title="Metadata Reference (IEA Task 43 WRA Data Model)",
         description=(
             "Reference to a json document with measurement metadata "
@@ -339,6 +338,10 @@ class TurbineModelPerfSpecRef(JsonPointerRef):
 class TurbineModel(BaseModelWithRefs):
     """Specification of a wind turbine model."""
 
+    turbine_model_id: str = pdt.Field(
+        ...,
+        description="Unique identifier of the turbine model.",
+        examples=["dbb25743-60f4-4eab-866f-31d5f8af69d6", "XYZ199-8.5MW v004"])
     label: str = pdt.Field(
         ...,
         description="Label of the turbine model.",
@@ -398,9 +401,9 @@ class TurbineSpecification(pdt.BaseModel):
     hub_height: float = pdt.Field(
         ...,
         description="Turbine hub height.")
-    model: TurbineModel = pdt.Field(
+    turbine_model_id: str = pdt.Field(
         ...,
-        description="Turbine model.")
+        description="Unique identifier of the turbine model.")
     restrictions: list[OperationalRestriction] | None = pdt.Field(
         None,
         description="List of operational restrictions at the turbine level.")
@@ -836,12 +839,16 @@ class EnergyAssessmentReport(pdt.BaseModel):
     coordinate_reference_system: CoordinateReferenceSystem = pdt.Field(
         ...,
         description="Coordinate reference system used for all location data.")
+    turbine_models: list[TurbineModel] = pdt.Field(
+        [],
+        description="List of wind turbine model specifications.")
     wind_measurement_campaigns: list[WindMeasurementCampaign] = pdt.Field(
         [],
         description="List of wind measurement campaign details.")
-    measurement_wind_resource_assessments: list[MeasurementWindResourceAssessment] = pdt.Field(
-        [],
-        description="List of measurement location wind resource assessment details.")
+    measurement_wind_resource_assessments: list[
+        MeasurementWindResourceAssessment] = pdt.Field(
+            [],
+            description="List of measurement location wind resource assessment details.")
     reference_turbine_assessments: list[ReferenceTurbineAssessment] = pdt.Field(
         [],
         description="List of reference operational turbine assessment details.")

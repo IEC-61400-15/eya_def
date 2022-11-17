@@ -348,6 +348,7 @@ def wind_measurement_campaign_basis_a() -> data_model.WindMeasurementCampaignBas
 def turbine_model_a() -> data_model.TurbineModel:
     """Test case instance 'a' of `TurbineModel`."""
     return data_model.TurbineModel(
+        turbine_model_id="6ca5bc01-04b1-421a-a033-133304d6cc7f",
         label="ABC165-5.5MW")
 
 
@@ -356,6 +357,7 @@ def turbine_model_a() -> data_model.TurbineModel:
 def turbine_model_b() -> data_model.TurbineModel:
     """Test case instance 'b' of `TurbineModel`."""
     return data_model.TurbineModel(
+        turbine_model_id="e2914c83-f355-4cf2-9051-8e0f34aa3c03",
         label="PQR169-5.8MW")
 
 
@@ -364,6 +366,7 @@ def turbine_model_b() -> data_model.TurbineModel:
 def turbine_model_c() -> data_model.TurbineModel:
     """Test case instance 'c' of `TurbineModel`."""
     return data_model.TurbineModel(
+        turbine_model_id="e3288cbd-fa3b-4241-8a4c-3856fc10c55e",
         label="XYZ-3.2/140")
 
 
@@ -381,7 +384,6 @@ def operational_restriction_a() -> data_model.OperationalRestriction:
 @pytest.fixture(scope='session')
 def turbine_specification_wtg01_a(
     turbine_location_wtg01_a,
-    turbine_model_a,
     operational_restriction_a
 ) -> data_model.TurbineSpecification:
     """Test case instance 'WTG01_a' of `TurbineSpecification`."""
@@ -391,7 +393,7 @@ def turbine_specification_wtg01_a(
         description="Configuration of WTG01 in Scenario A",
         location=turbine_location_wtg01_a,
         hub_height=150.0,
-        model=turbine_model_a,
+        turbine_model_id="6ca5bc01-04b1-421a-a033-133304d6cc7f",
         restrictions=[operational_restriction_a]
     )
 
@@ -399,7 +401,6 @@ def turbine_specification_wtg01_a(
 @pytest.fixture(scope='session')
 def turbine_specification_wtg01_b(
     turbine_location_wtg01_b,
-    turbine_model_b
 ) -> data_model.TurbineSpecification:
     """Test case instance 'WTG01_b' of `TurbineSpecification`."""
     return data_model.TurbineSpecification(
@@ -408,14 +409,13 @@ def turbine_specification_wtg01_b(
         description="Configuration of WTG01 in Scenario B",
         location=turbine_location_wtg01_b,
         hub_height=148.0,
-        model=turbine_model_b,
+        turbine_model_id="e2914c83-f355-4cf2-9051-8e0f34aa3c03",
     )
 
 
 @pytest.fixture(scope='session')
 def turbine_specification_wtg02_a(
     turbine_location_wtg02_a,
-    turbine_model_a,
     operational_restriction_a
 ) -> data_model.TurbineSpecification:
     """Test case instance 'WTG02_a' of `TurbineSpecification`."""
@@ -425,7 +425,7 @@ def turbine_specification_wtg02_a(
         description="Configuration of WTG02 in Scenario A",
         location=turbine_location_wtg02_a,
         hub_height=160.0,
-        model=turbine_model_a,
+        turbine_model_id="6ca5bc01-04b1-421a-a033-133304d6cc7f",
         restrictions=[operational_restriction_a]
     )
 
@@ -433,7 +433,6 @@ def turbine_specification_wtg02_a(
 @pytest.fixture(scope='session')
 def turbine_specification_wtg02_b(
     turbine_location_wtg02_b,
-    turbine_model_b,
 ) -> data_model.TurbineSpecification:
     """Test case instance 'WTG02_b' of `TurbineSpecification`."""
     return data_model.TurbineSpecification(
@@ -442,14 +441,13 @@ def turbine_specification_wtg02_b(
         description="Configuration of WTG02 in Scenario B",
         location=turbine_location_wtg02_b,
         hub_height=158.0,
-        model=turbine_model_b,
+        turbine_model_id="e2914c83-f355-4cf2-9051-8e0f34aa3c03",
     )
 
 
 @pytest.fixture(scope='session')
 def turbine_specification_mu_t1_a(
     turbine_location_mu_t1_a,
-    turbine_model_c,
 ) -> data_model.TurbineSpecification:
     """Test case instance 'Mu_T1_a' of `TurbineSpecification`."""
     return data_model.TurbineSpecification(
@@ -458,14 +456,13 @@ def turbine_specification_mu_t1_a(
         description="Configuration of the neighbouring Mu_T1_a turbine",
         location=turbine_location_mu_t1_a,
         hub_height=125.0,
-        model=turbine_model_c,
+        turbine_model_id="e3288cbd-fa3b-4241-8a4c-3856fc10c55e",
     )
 
 
 @pytest.fixture(scope='session')
 def turbine_specification_mu_t2_a(
     turbine_location_mu_t2_a,
-    turbine_model_c,
 ) -> data_model.TurbineSpecification:
     """Test case instance 'Mu_T2_a' of `TurbineSpecification`."""
     return data_model.TurbineSpecification(
@@ -474,7 +471,7 @@ def turbine_specification_mu_t2_a(
         description="Configuration of the neighbouring Mu_T2_a turbine",
         location=turbine_location_mu_t2_a,
         hub_height=125.0,
-        model=turbine_model_c,
+        turbine_model_id="e3288cbd-fa3b-4241-8a4c-3856fc10c55e",
     )
 
 
@@ -969,6 +966,9 @@ def approver_a() -> data_model.ReportContributor:
 def energy_assessment_report_a(
     coordinate_reference_system_a,
     wind_measurement_campaign_a,
+    turbine_model_a,
+    turbine_model_b,
+    turbine_model_c,
     measurement_wind_resource_assessment_a,
     scenario_a,
     scenario_b,
@@ -1008,6 +1008,7 @@ def energy_assessment_report_a(
         receiving_organisation_contact_name="Luis Bunuel",
         confidentiality_classification="Confidential",
         coordinate_reference_system=coordinate_reference_system_a,
+        turbine_models=[turbine_model_a, turbine_model_b, turbine_model_c],
         wind_measurement_campaigns=[wind_measurement_campaign_a],
         measurement_wind_resource_assessments=[measurement_wind_resource_assessment_a],
         scenarios=[scenario_a, scenario_b])

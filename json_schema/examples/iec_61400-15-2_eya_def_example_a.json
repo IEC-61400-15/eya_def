@@ -48,6 +48,20 @@
     "epsg_srid": 32630,
     "wkt": "PROJCS[\"WGS 84 / UTM zone 30N\",GEOGCS[\"WGS 84\",DATUM[\"WGS_1984\",SPHEROID[\"WGS 84\",6378137,298.257223563,AUTHORITY[\"EPSG\",\"7030\"]],AUTHORITY[\"EPSG\",\"6326\"]],PRIMEM[\"Greenwich\",0,AUTHORITY[\"EPSG\",\"8901\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AUTHORITY[\"EPSG\",\"4326\"]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"latitude_of_origin\",0],PARAMETER[\"central_meridian\",-3],PARAMETER[\"scale_factor\",0.9996],PARAMETER[\"false_easting\",500000],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH],AUTHORITY[\"EPSG\",\"32630\"]]))"
   },
+  "turbine_models": [
+    {
+      "turbine_model_id": "6ca5bc01-04b1-421a-a033-133304d6cc7f",
+      "label": "ABC165-5.5MW"
+    },
+    {
+      "turbine_model_id": "e2914c83-f355-4cf2-9051-8e0f34aa3c03",
+      "label": "PQR169-5.8MW"
+    },
+    {
+      "turbine_model_id": "e3288cbd-fa3b-4241-8a4c-3856fc10c55e",
+      "label": "XYZ-3.2/140"
+    }
+  ],
   "wind_measurement_campaigns": [
     {
       "measurement_id": "BF_M1_1.0.0",
@@ -180,9 +194,7 @@
                 "y": 6194240.0
               },
               "hub_height": 150.0,
-              "model": {
-                "label": "ABC165-5.5MW"
-              },
+              "turbine_model_id": "6ca5bc01-04b1-421a-a033-133304d6cc7f",
               "restrictions": [
                 {
                   "label": "WSM curtailment",
@@ -202,9 +214,7 @@
                 "y": 6194240.0
               },
               "hub_height": 160.0,
-              "model": {
-                "label": "ABC165-5.5MW"
-              },
+              "turbine_model_id": "6ca5bc01-04b1-421a-a033-133304d6cc7f",
               "restrictions": [
                 {
                   "label": "WSM curtailment",
@@ -235,9 +245,7 @@
                 "y": 6195240.0
               },
               "hub_height": 125.0,
-              "model": {
-                "label": "XYZ-3.2/140"
-              }
+              "turbine_model_id": "e3288cbd-fa3b-4241-8a4c-3856fc10c55e"
             },
             {
               "turbine_id": "b87f21bc-e1d8-4150-a2f4-d7f019bf96fc",
@@ -252,9 +260,7 @@
                 "y": 6195240.0
               },
               "hub_height": 125.0,
-              "model": {
-                "label": "XYZ-3.2/140"
-              }
+              "turbine_model_id": "e3288cbd-fa3b-4241-8a4c-3856fc10c55e"
             }
           ],
           "relevance": "external",
@@ -472,9 +478,7 @@
                 "y": 6194260.0
               },
               "hub_height": 148.0,
-              "model": {
-                "label": "PQR169-5.8MW"
-              }
+              "turbine_model_id": "e2914c83-f355-4cf2-9051-8e0f34aa3c03"
             },
             {
               "turbine_id": "a5ee87e3-5254-45fb-a057-4548b8c0424c",
@@ -489,9 +493,7 @@
                 "y": 6194220.0
               },
               "hub_height": 158.0,
-              "model": {
-                "label": "PQR169-5.8MW"
-              }
+              "turbine_model_id": "e2914c83-f355-4cf2-9051-8e0f34aa3c03"
             }
           ],
           "relevance": "internal",
@@ -516,9 +518,7 @@
                 "y": 6195240.0
               },
               "hub_height": 125.0,
-              "model": {
-                "label": "XYZ-3.2/140"
-              }
+              "turbine_model_id": "e3288cbd-fa3b-4241-8a4c-3856fc10c55e"
             },
             {
               "turbine_id": "b87f21bc-e1d8-4150-a2f4-d7f019bf96fc",
@@ -533,9 +533,7 @@
                 "y": 6195240.0
               },
               "hub_height": 125.0,
-              "model": {
-                "label": "XYZ-3.2/140"
-              }
+              "turbine_model_id": "e3288cbd-fa3b-4241-8a4c-3856fc10c55e"
             }
           ],
           "relevance": "external",
