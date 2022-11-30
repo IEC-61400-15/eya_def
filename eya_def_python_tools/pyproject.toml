@@ -1,29 +1,41 @@
 [build-system]
-requires = ["setuptools>=61.0", "wheel"]
-build-backend = "setuptools.build_meta"
+requires = ["setuptools~=65.6.3", "wheel~=0.38.4"]
 
 [project]
 name = "eya_def_tools"
-version = "0.0.1a1"
+version = "0.0.1a3"
 authors = [
-  {name="M. Jason Fields", email="michael.fields@nrel.gov"},
-  {name="Andrew Henderson", email="arh@cop.dk"},
-  {name="Mark Stoelinga", email="mark.stoelinga@arcvera.com"},
+  {name="Christian Jonsson", email="christianj@naturalpower.com"},
   {name="Stephen Holleran", email="stephen@brightwindanalysis.com"},
   {name="Thomas van Delft", email="thomas.vandelft@dnv.com"},
-  {name="Tassia Penha", email="tassia.penha@apexcleanenergy.com"},
   {name="Charlie Plumley", email="charlie.plumley@cubicoinvest.com"},
   {name="Bjarke Tobias Olsen", email="btol@dtu.dk"},
-  {name="Christian Jonsson", email="christianj@naturalpower.com"},
+  {name="M. Jason Fields", email="michael.fields@nrel.gov"},
+  {name="Mark Stoelinga", email="mark.stoelinga@arcvera.com"},
+  {name="Andrew Henderson", email="arh@cop.dk"},
 ]
-description = "IEC 61400-15-2 Reporting Digital Exchange Format (DEF) toolset"
+description = "IEC 61400-15-2 Energy Yield Assessment (EYA) Digital Exchange Format (DEF) toolset"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 classifiers = [
+    "Programming Language :: Python",
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
     "Operating System :: OS Independent",
 ]
-dynamic = ["dependencies"]
+dynamic = ["dependencies", "optional-dependencies"]
+
+[tool.setuptools]
+packages = ["eya_def_tools"]
 
 [tool.setuptools.dynamic]
 dependencies = {file = ["requirements.txt"]}
+optional-dependencies.dev = {file = ["requirements-dev.txt"]}
+
+[tool.black]
+line-length = 120
+target-version = "py311"
+
+[tool.isort]
+profile = "black"
+line_length = 120
