@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Setup and fixtures for the `eya_def_tools` test module.
+"""Setup and fixtures for the ``eya_def_tools`` test module.
 
 The data model component fixtures all have the scope of the entire test
 session to avoid having to build them for every individual test. The
@@ -82,7 +82,7 @@ def master_json_schema_filepath(master_json_schema_dirpath) -> Path:
 
 @pytest.fixture(scope='session')
 def master_json_schema(master_json_schema_filepath) -> dict:
-    """A `dict` representation of the master json schema.
+    """A ``dict`` representation of the master json schema.
 
     Note that this function returns a representation of the master
     IEC 61400-15-2 Reporting DEF json schema and not a json schema
@@ -90,7 +90,7 @@ def master_json_schema(master_json_schema_filepath) -> dict:
 
     :param master_json_schema_filepath: file path of the master json
         schema
-    :return: a `dict` representation of the master IEC 61400-15-2
+    :return: a ``dict`` representation of the master IEC 61400-15-2
         Reporting DEF json schema
     """
     with open(master_json_schema_filepath) as f:
@@ -99,17 +99,17 @@ def master_json_schema(master_json_schema_filepath) -> dict:
 
 
 @pytest.fixture(scope='session')
-def pydantic_json_schema(energy_assessment_report_a) -> dict:
-    """A `dict` representation of the pydantic json schema.
+def pydantic_json_schema(energy_yield_assessment_a) -> dict:
+    """A ``dict`` representation of the pydantic json schema.
 
-    :param energy_assessment_report_a: the complete example test
-        instance 'a' of the top-level `EnergyAssessmentReport` data
+    :param energy_yield_assessment_a: the complete example test
+        instance 'a' of the top-level ``EnergyYieldAssessment`` data
         model used as the primary test case
-    :return: a `dict` representation of the pydantic data model json
-        schema exported from the `data_model.EnergyAssessmentReport`
+    :return: a ``dict`` representation of the pydantic data model json
+        schema exported from the ``data_model.EnergyYieldAssessment``
         class
     """
-    return energy_assessment_report_a.final_json_schema()
+    return energy_yield_assessment_a.final_json_schema()
 
 
 @pytest.fixture(scope='session')
@@ -117,9 +117,9 @@ def pydantic_json_schema_tmp_path(
         pydantic_json_schema, tmp_path_factory) -> Path:
     """The path to the temporary pydantic json schema file.
 
-    :param pydantic_json_schema: a `dict` representation of the pydantic
-        json schema exported from `data_model.EnergyAssessmentReport`
-    :param tmp_path_factory: the `pytest` `tmp_path_factory`
+    :param pydantic_json_schema: a ``dict`` representation of the pydantic
+        json schema exported from ``data_model.EnergyYieldAssessment``
+    :param tmp_path_factory: the ``pytest`` ``tmp_path_factory``
     :return: the path to the temporary json schema file representation
         of the pydantic data model
     """
@@ -136,7 +136,7 @@ def pydantic_json_schema_from_file(pydantic_json_schema_tmp_path) -> dict:
 
     :param pydantic_json_schema_tmp_path: the path to the temporary json
         schema file representation of the pydantic data model
-    :return: a `dict` representation of the pydantic data model json
+    :return: a ``dict`` representation of the pydantic data model json
         schema read back from the temporary file
     """
     with open(pydantic_json_schema_tmp_path) as f:
@@ -182,11 +182,11 @@ def json_example_filepaths(json_examples_dirpath) -> list[Path]:
 
 @pytest.fixture(scope='session')
 def json_example_dict(json_example_filepaths) -> dict[str, dict]:
-    """A `dict` of the IEC 61400-15-2 Reporting DEF json examples.
+    """A ``dict`` of the IEC 61400-15-2 Reporting DEF json examples.
 
     :param json_example_filepaths: list of paths to the json example
         files
-    :return: a `dict` of the form {<filename>: <example_dict>}
+    :return: a ``dict`` of the form ``{<filename>: <example_dict>}``
     """
     json_example_dict = {}
     for json_example_filepath in json_example_filepaths:
@@ -201,10 +201,10 @@ def json_examples_tmp_dirpath(tmp_path_factory) -> Path:
 
     This directory path is used for json schema example files that are
     generated during the test session (not for the permanent example
-    files that are located in `json_examples_dirpath`).
+    files that are located in ``json_examples_dirpath``).
 
-    :param tmp_path_factory: the `pytest` `tmp_path_factory`
-    :return: a `Path` representation of the temporary json schema
+    :param tmp_path_factory: the ``pytest`` ``tmp_path_factory``
+    :return: a ``Path`` representation of the temporary json schema
         examples directory
     """
     return tmp_path_factory.mktemp("examples")
@@ -212,7 +212,7 @@ def json_examples_tmp_dirpath(tmp_path_factory) -> Path:
 
 @pytest.fixture(scope='session')
 def coordinate_reference_system_a() -> data_model.CoordinateReferenceSystem:
-    """Test case instance 'a' of `CoordinateReferenceSystem`."""
+    """Test case instance 'a' of ``CoordinateReferenceSystem``."""
     return data_model.CoordinateReferenceSystem(
         system_label="WGS 84 / UTM zone 30N",
         epsg_srid=32630,
@@ -230,22 +230,8 @@ def coordinate_reference_system_a() -> data_model.CoordinateReferenceSystem:
 
 
 @pytest.fixture(scope='session')
-def measurement_location_a() -> data_model.Location:
-    """Wind measurement test case instance 'a' of `Location`."""
-    return data_model.Location(
-        location_id="ee15ff84-6733-4858-9656-ba995d9b1022",
-        label='M1',
-        description="Verified location of Mast M1",
-        comments=(
-            "Documented in installation report and independently "
-            "confirmed"),
-        x=420165.0,
-        y=6194740.0)
-
-
-@pytest.fixture(scope='session')
 def turbine_location_wtg01_a() -> data_model.Location:
-    """Turbine test case instance 'WTG01_a' of `Location`."""
+    """Turbine test case instance 'WTG01_a' of ``Location``."""
     return data_model.Location(
         location_id="c697566d-cf38-4626-9cda-bc7a77230d48",
         label='WTG01',
@@ -256,7 +242,7 @@ def turbine_location_wtg01_a() -> data_model.Location:
 
 @pytest.fixture(scope='session')
 def turbine_location_wtg01_b() -> data_model.Location:
-    """Turbine test case instance 'WTG01_b' of `Location`."""
+    """Turbine test case instance 'WTG01_b' of ``Location``."""
     return data_model.Location(
         location_id="ac230650-a5dc-42c7-b10c-c5a88b0e78e9",
         label='WTG01_b',
@@ -267,7 +253,7 @@ def turbine_location_wtg01_b() -> data_model.Location:
 
 @pytest.fixture(scope='session')
 def turbine_location_wtg02_a() -> data_model.Location:
-    """Turbine test case instance 'WTG02_a' of `Location`."""
+    """Turbine test case instance 'WTG02_a' of ``Location``."""
     return data_model.Location(
         location_id="c73f2e46-ba0b-4775-a2f3-b76e3c3b5012",
         label='WTG02',
@@ -278,7 +264,7 @@ def turbine_location_wtg02_a() -> data_model.Location:
 
 @pytest.fixture(scope='session')
 def turbine_location_wtg02_b() -> data_model.Location:
-    """Turbine test case instance 'WTG02_b' of `Location`."""
+    """Turbine test case instance 'WTG02_b' of ``Location``."""
     return data_model.Location(
         location_id="c73f2e46-ba0b-4775-a2f3-b76e3c3b5012",
         label='WTG02_b',
@@ -292,7 +278,7 @@ def turbine_location_wtg02_b() -> data_model.Location:
 
 @pytest.fixture(scope='session')
 def turbine_location_mu_t1_a() -> data_model.Location:
-    """Turbine test case instance 'Mu_T1_a' of `Location`."""
+    """Turbine test case instance 'Mu_T1_a' of ``Location``."""
     return data_model.Location(
         location_id="79166b5c-7e55-485b-b7e7-24f835c5e40a",
         label='Mu_T1',
@@ -306,7 +292,7 @@ def turbine_location_mu_t1_a() -> data_model.Location:
 
 @pytest.fixture(scope='session')
 def turbine_location_mu_t2_a() -> data_model.Location:
-    """Turbine test case instance 'Mu_T2_a' of `Location`."""
+    """Turbine test case instance 'Mu_T2_a' of ``Location``."""
     return data_model.Location(
         location_id="dc4dba73-8f1c-494f-868e-e548f2a3923f",
         label='Mu_T2',
@@ -318,35 +304,56 @@ def turbine_location_mu_t2_a() -> data_model.Location:
         y=6195240.0)
 
 
+# TODO translate to IEA43 metadata model
+# @pytest.fixture(scope='session')
+# def measurement_location_a() -> data_model.Location:
+#     """Wind measurement test case instance 'a' of ``Location``."""
+#     return data_model.Location(
+#         location_id="ee15ff84-6733-4858-9656-ba995d9b1022",
+#         label='M1',
+#         description="Verified location of Mast M1",
+#         comments=(
+#             "Documented in installation report and independently "
+#             "confirmed"),
+#         x=420165.0,
+#         y=6194740.0)
+#
+#
+# @pytest.fixture(scope='session')
+# def measurement_station_a(
+#     measurement_location_a
+# ) -> data_model.WindMeasurementCampaign:
+#     """Test case instance 'a' of ``WindMeasurementCampaign``."""
+#     return data_model.WindMeasurementCampaign(
+#         measurement_id="BF_M1_1.0.0",
+#         name="Mast M1",
+#         label="M1",
+#         description=(
+#             "Barefoot Wind Farm on-site meteorological mast"),
+#         comments="Measurements were still ongoing at time of assessment.",
+#         location=measurement_location_a,
+#         metadata_ref=data_model.MeasurementStationMetadata(
+#             "/foo/bar/metadata_ref.json"))
+
+
 # TODO add valid IEA43 metadata reference
 @pytest.fixture(scope='session')
-def wind_measurement_campaign_a(
-    measurement_location_a
-) -> data_model.WindMeasurementCampaign:
-    """Test case instance 'a' of `WindMeasurementCampaign`."""
-    return data_model.WindMeasurementCampaign(
-        measurement_id="BF_M1_1.0.0",
-        name="Mast M1",
-        label="M1",
-        description=(
-            "Barefoot Wind Farm on-site meteorological mast"),
-        comments="Measurements were still ongoing at time of assessment.",
-        location=measurement_location_a,
-        metadata_ref=data_model.MeasurementMetadataRef(
-            "/foo/bar/metadata_ref.json"))
+def measurement_station_a() -> data_model.MeasurementStationMetadata:
+    """Dummy test case instance 'a' of ``MeasurementStationMetadata``."""
+    return data_model.MeasurementStationMetadata("/foo/bar/metadata_ref.json")
 
 
 # TODO - placeholder to be implemented
 @pytest.fixture(scope='session')
-def wind_measurement_campaign_basis_a() -> data_model.WindMeasurementCampaignBasis:
-    """Test case instance 'a' of `WindMeasurementCampaignBasis`."""
-    return data_model.WindMeasurementCampaignBasis()
+def measurement_station_basis_a() -> data_model.MeasurementStationBasis:
+    """Test case instance 'a' of ``MeasurementStationBasis``."""
+    return data_model.MeasurementStationBasis()
 
 
 # TODO add valid turbine model performance specification reference
 @pytest.fixture(scope='session')
 def turbine_model_a() -> data_model.TurbineModel:
-    """Test case instance 'a' of `TurbineModel`."""
+    """Test case instance 'a' of ``TurbineModel``."""
     return data_model.TurbineModel(
         turbine_model_id="6ca5bc01-04b1-421a-a033-133304d6cc7f",
         label="ABC165-5.5MW")
@@ -355,7 +362,7 @@ def turbine_model_a() -> data_model.TurbineModel:
 # TODO add valid turbine model performance specification reference
 @pytest.fixture(scope='session')
 def turbine_model_b() -> data_model.TurbineModel:
-    """Test case instance 'b' of `TurbineModel`."""
+    """Test case instance 'b' of ``TurbineModel``."""
     return data_model.TurbineModel(
         turbine_model_id="e2914c83-f355-4cf2-9051-8e0f34aa3c03",
         label="PQR169-5.8MW")
@@ -364,7 +371,7 @@ def turbine_model_b() -> data_model.TurbineModel:
 # TODO add valid turbine model performance specification reference
 @pytest.fixture(scope='session')
 def turbine_model_c() -> data_model.TurbineModel:
-    """Test case instance 'c' of `TurbineModel`."""
+    """Test case instance 'c' of ``TurbineModel``."""
     return data_model.TurbineModel(
         turbine_model_id="e3288cbd-fa3b-4241-8a4c-3856fc10c55e",
         label="XYZ-3.2/140")
@@ -373,7 +380,7 @@ def turbine_model_c() -> data_model.TurbineModel:
 # TODO expand definition of operational restriction
 @pytest.fixture(scope='session')
 def operational_restriction_a() -> data_model.OperationalRestriction:
-    """Test case instance 'a' of `OperationalRestriction`."""
+    """Test case instance 'a' of ``OperationalRestriction``."""
     return data_model.OperationalRestriction(
         label="WSM curtailment",
         description=(
@@ -386,7 +393,7 @@ def turbine_specification_wtg01_a(
     turbine_location_wtg01_a,
     operational_restriction_a
 ) -> data_model.TurbineSpecification:
-    """Test case instance 'WTG01_a' of `TurbineSpecification`."""
+    """Test case instance 'WTG01_a' of ``TurbineSpecification``."""
     return data_model.TurbineSpecification(
         turbine_id="2bbe1cb3-e9f3-42ad-be61-3657ea2ac174",
         label="WTG01_scenA",
@@ -402,7 +409,7 @@ def turbine_specification_wtg01_a(
 def turbine_specification_wtg01_b(
     turbine_location_wtg01_b,
 ) -> data_model.TurbineSpecification:
-    """Test case instance 'WTG01_b' of `TurbineSpecification`."""
+    """Test case instance 'WTG01_b' of ``TurbineSpecification``."""
     return data_model.TurbineSpecification(
         turbine_id="f5cfd507-5550-4fbb-bdca-3dc6b1c6323c",
         label="WTG01_scenB",
@@ -418,7 +425,7 @@ def turbine_specification_wtg02_a(
     turbine_location_wtg02_a,
     operational_restriction_a
 ) -> data_model.TurbineSpecification:
-    """Test case instance 'WTG02_a' of `TurbineSpecification`."""
+    """Test case instance 'WTG02_a' of ``TurbineSpecification``."""
     return data_model.TurbineSpecification(
         turbine_id="39f9dd43-6322-4738-81af-6a65766b26e3",
         label="WTG02_scenA",
@@ -434,7 +441,7 @@ def turbine_specification_wtg02_a(
 def turbine_specification_wtg02_b(
     turbine_location_wtg02_b,
 ) -> data_model.TurbineSpecification:
-    """Test case instance 'WTG02_b' of `TurbineSpecification`."""
+    """Test case instance 'WTG02_b' of ``TurbineSpecification``."""
     return data_model.TurbineSpecification(
         turbine_id="a5ee87e3-5254-45fb-a057-4548b8c0424c",
         label="WTG02_scenB",
@@ -449,7 +456,7 @@ def turbine_specification_wtg02_b(
 def turbine_specification_mu_t1_a(
     turbine_location_mu_t1_a,
 ) -> data_model.TurbineSpecification:
-    """Test case instance 'Mu_T1_a' of `TurbineSpecification`."""
+    """Test case instance 'Mu_T1_a' of ``TurbineSpecification``."""
     return data_model.TurbineSpecification(
         turbine_id="f08b05bd-f90b-4833-91a5-4284b64c80db",
         label="Mu_T1_a",
@@ -464,7 +471,7 @@ def turbine_specification_mu_t1_a(
 def turbine_specification_mu_t2_a(
     turbine_location_mu_t2_a,
 ) -> data_model.TurbineSpecification:
-    """Test case instance 'Mu_T2_a' of `TurbineSpecification`."""
+    """Test case instance 'Mu_T2_a' of ``TurbineSpecification``."""
     return data_model.TurbineSpecification(
         turbine_id="b87f21bc-e1d8-4150-a2f4-d7f019bf96fc",
         label="Mu_T2_a",
@@ -480,7 +487,7 @@ def wind_farm_a(
     turbine_specification_wtg01_a,
     turbine_specification_wtg02_a
 ) -> data_model.WindFarm:
-    """Test case instance 'a' of `WindFarm`."""
+    """Test case instance 'a' of ``WindFarm``."""
     return data_model.WindFarm(
         name="Barefoot Wind Farm",
         label="Barefoot",
@@ -495,7 +502,7 @@ def wind_farm_b(
     turbine_specification_wtg01_b,
     turbine_specification_wtg02_b
 ) -> data_model.WindFarm:
-    """Test case instance 'b' of `WindFarm`."""
+    """Test case instance 'b' of ``WindFarm``."""
     return data_model.WindFarm(
         name="Barefoot Wind Farm",
         label="Barefoot",
@@ -511,7 +518,7 @@ def neighbouring_wind_farm_a(
     turbine_specification_mu_t1_a,
     turbine_specification_mu_t2_a
 ) -> data_model.WindFarm:
-    """Neighboring project test case instance 'a' of `WindFarm`."""
+    """Neighboring project test case instance 'a' of ``WindFarm``."""
     return data_model.WindFarm(
         name="Munro Wind Farm",
         label="MWF",
@@ -525,7 +532,7 @@ def neighbouring_wind_farm_a(
 
 @pytest.fixture(scope='session')
 def wind_spatial_model_a() -> data_model.CalculationModelSpecification:
-    """Spatial model test case instance 'a' of `CalculationModelSpecification`."""
+    """Spatial model test case instance 'a' of ``CalculationModelSpecification``."""
     return data_model.CalculationModelSpecification(
         name="VENTOS/M",
         description="VENTOS/M is a coupled CFD-mesoscale model.",
@@ -534,7 +541,7 @@ def wind_spatial_model_a() -> data_model.CalculationModelSpecification:
 
 @pytest.fixture(scope='session')
 def measurement_wind_uncertainty_assessment_a() -> data_model.UncertaintyAssessment:
-    """Measurement test case instance 'a' of `UncertaintyAssessment`."""
+    """Measurement test case instance 'a' of ``UncertaintyAssessment``."""
     return data_model.UncertaintyAssessment(
         categories={
             'historical': data_model.UncertaintyCategory(
@@ -575,11 +582,11 @@ def measurement_wind_uncertainty_assessment_a() -> data_model.UncertaintyAssessm
 
 
 @pytest.fixture(scope='session')
-def measurement_wind_resource_assessment_a(
+def wind_resource_assessment_a(
     measurement_wind_uncertainty_assessment_a
-) -> data_model.MeasurementWindResourceAssessment:
-    """Test case instance 'a' of `MeasurementWindResourceAssessment`."""
-    return data_model.MeasurementWindResourceAssessment(
+) -> data_model.WindResourceAssessment:
+    """Test case instance 'a' of ``WindResourceAssessment``."""
+    return data_model.WindResourceAssessment(
         results=[
             data_model.Results(
                 label="Measurement-height long-term wind",
@@ -595,16 +602,16 @@ def measurement_wind_resource_assessment_a(
 
 # TODO - placeholder to be implemented
 @pytest.fixture(scope='session')
-def measurement_wind_resource_basis_a() -> data_model.MeasurementWindResourceBasis:
-    """Test case instance 'a' of `MeasurementWindResourceBasis`."""
-    return data_model.MeasurementWindResourceBasis()
+def wind_resource_assessment_basis_a() -> data_model.WindResourceAssessmentBasis:
+    """Test case instance 'a' of ``WindResourceAssessmentBasis``."""
+    return data_model.WindResourceAssessmentBasis()
 
 
 @pytest.fixture(scope='session')
 def turbine_wind_resource_assessment_a(
     wind_spatial_model_a
 ) -> data_model.TurbineWindResourceAssessment:
-    """Test case instance 'a' of `TurbineWindResourceAssessment`."""
+    """Test case instance 'a' of ``TurbineWindResourceAssessment``."""
     return data_model.TurbineWindResourceAssessment(
         turbine_wind_resource_results=[
             data_model.Results(
@@ -624,7 +631,7 @@ def turbine_wind_resource_assessment_a(
 def turbine_wind_resource_assessment_b(
     wind_spatial_model_a
 ) -> data_model.TurbineWindResourceAssessment:
-    """Test case instance 'b' of `TurbineWindResourceAssessment`."""
+    """Test case instance 'b' of ``TurbineWindResourceAssessment``."""
     return data_model.TurbineWindResourceAssessment(
         turbine_wind_resource_results=[
             data_model.Results(
@@ -642,7 +649,7 @@ def turbine_wind_resource_assessment_b(
 
 @pytest.fixture(scope='session')
 def gross_energy_assessment_a() -> data_model.GrossEnergyAssessment:
-    """Test case instance 'a' of `GrossEnergyAssessment`."""
+    """Test case instance 'a' of ``GrossEnergyAssessment``."""
     return data_model.GrossEnergyAssessment(
         results=[
             data_model.Results(
@@ -667,7 +674,7 @@ def gross_energy_assessment_a() -> data_model.GrossEnergyAssessment:
 
 @pytest.fixture(scope='session')
 def gross_energy_assessment_b() -> data_model.GrossEnergyAssessment:
-    """Test case instance 'b' of `GrossEnergyAssessment`."""
+    """Test case instance 'b' of ``GrossEnergyAssessment``."""
     return data_model.GrossEnergyAssessment(
         results=[
             data_model.Results(
@@ -692,7 +699,7 @@ def gross_energy_assessment_b() -> data_model.GrossEnergyAssessment:
 
 @pytest.fixture(scope='session')
 def plant_performance_assessment_a() -> data_model.PlantPerformanceAssessment:
-    """Test case instance 'a' of `PlantPerformanceAssessment`."""
+    """Test case instance 'a' of ``PlantPerformanceAssessment``."""
     return data_model.PlantPerformanceAssessment(
         categories={
             'curtailment': data_model.PlantPerformanceCategory(
@@ -746,7 +753,7 @@ def plant_performance_assessment_a() -> data_model.PlantPerformanceAssessment:
 
 @pytest.fixture(scope='session')
 def plant_performance_assessment_b() -> data_model.PlantPerformanceAssessment:
-    """Test case instance 'b' of `PlantPerformanceAssessment`."""
+    """Test case instance 'b' of ``PlantPerformanceAssessment``."""
     return data_model.PlantPerformanceAssessment(
         categories={
             'curtailment': data_model.PlantPerformanceCategory(
@@ -797,7 +804,7 @@ def plant_performance_assessment_b() -> data_model.PlantPerformanceAssessment:
 
 @pytest.fixture(scope='session')
 def net_energy_assessment_a() -> data_model.NetEnergyAssessment:
-    """Test case instance 'a' of `NetEnergyAssessment`."""
+    """Test case instance 'a' of ``NetEnergyAssessment``."""
     return data_model.NetEnergyAssessment(
         results=[
             data_model.Results(
@@ -834,7 +841,7 @@ def net_energy_assessment_a() -> data_model.NetEnergyAssessment:
 
 @pytest.fixture(scope='session')
 def net_energy_assessment_b() -> data_model.NetEnergyAssessment:
-    """Test case instance 'b' of `NetEnergyAssessment`."""
+    """Test case instance 'b' of ``NetEnergyAssessment``."""
     return data_model.NetEnergyAssessment(
         results=[
             data_model.Results(
@@ -871,7 +878,7 @@ def net_energy_assessment_b() -> data_model.NetEnergyAssessment:
 
 @pytest.fixture(scope='session')
 def scenario_a(
-    measurement_wind_resource_basis_a,
+    wind_resource_assessment_basis_a,
     wind_farm_a,
     neighbouring_wind_farm_a,
     turbine_wind_resource_assessment_a,
@@ -879,7 +886,7 @@ def scenario_a(
     plant_performance_assessment_a,
     net_energy_assessment_a
 ) -> data_model.Scenario:
-    """Test case instance 'a' of `Scenario`."""
+    """Test case instance 'a' of ``Scenario``."""
     return data_model.Scenario(
         scenario_id="b6953ecb-f88b-4660-9f69-bedbbe4c240b",
         label="A",
@@ -887,7 +894,7 @@ def scenario_a(
         is_main_scenario=True,
         operational_lifetime_length_years=30,
         wind_farms=[wind_farm_a, neighbouring_wind_farm_a],
-        measurement_wind_resource_basis=measurement_wind_resource_basis_a,
+        wind_resource_assessment_basis=wind_resource_assessment_basis_a,
         turbine_wind_resource_assessment=turbine_wind_resource_assessment_a,
         gross_energy_assessment=gross_energy_assessment_a,
         plant_performance_assessment=plant_performance_assessment_a,
@@ -896,7 +903,7 @@ def scenario_a(
 
 @pytest.fixture(scope='session')
 def scenario_b(
-    measurement_wind_resource_basis_a,
+    wind_resource_assessment_basis_a,
     wind_farm_b,
     neighbouring_wind_farm_a,
     turbine_wind_resource_assessment_b,
@@ -904,7 +911,7 @@ def scenario_b(
     plant_performance_assessment_b,
     net_energy_assessment_b
 ) -> data_model.Scenario:
-    """Test case instance 'b' of `Scenario`."""
+    """Test case instance 'b' of ``Scenario``."""
     return data_model.Scenario(
         scenario_id="e27fefdf-cdd7-441f-a7a7-c4347514b4f7",
         label="B",
@@ -913,7 +920,7 @@ def scenario_b(
         is_main_scenario=False,
         operational_lifetime_length_years=30,
         wind_farms=[wind_farm_b, neighbouring_wind_farm_a],
-        measurement_wind_resource_basis=measurement_wind_resource_basis_a,
+        wind_resource_assessment_basis=wind_resource_assessment_basis_a,
         turbine_wind_resource_assessment=turbine_wind_resource_assessment_b,
         gross_energy_assessment=gross_energy_assessment_b,
         plant_performance_assessment=plant_performance_assessment_b,
@@ -921,30 +928,49 @@ def scenario_b(
 
 
 @pytest.fixture(scope='session')
+def issuing_organisation_a() -> data_model.Organisation:
+    """Issuing organisation test case instance 'a' of ``Organisation``."""
+    return data_model.Organisation(
+        name="The Torre Egger Consultants Limited",
+        abbreviation="Torre Egger",
+        address="5 Munro Road, Sgurrsville, G12 0YE, UK")
+
+
+@pytest.fixture(scope='session')
+def receiving_organisation_a() -> data_model.Organisation:
+    """receiving organisation test case instance 'a' of ``Organisation``."""
+    return data_model.Organisation(
+        name="Miranda Investments Limited",
+        abbreviation="Miranda",
+        address="9 Acosta St., Ivanslake, Republic of Miranda",
+        contact_name="Luis Bunuel")
+
+
+@pytest.fixture(scope='session')
 def main_author_a() -> data_model.ReportContributor:
-    """Main author test case instance 'a' of `ReportContributor`."""
+    """Main author test case instance 'a' of ``ReportContributor``."""
     return data_model.ReportContributor(
         name="Joan Miro",
         email_address=pdt.EmailStr("j.miro@art.cat"),
         contributor_type='author',
-        contribution_notes="Main author",
+        contribution_comments="Main author",
         completion_date=dt.date(2022, 10, 5))
 
 
 @pytest.fixture(scope='session')
 def second_author_a() -> data_model.ReportContributor:
-    """Second author test case instance 'a' of `ReportContributor`."""
+    """Second author test case instance 'a' of ``ReportContributor``."""
     return data_model.ReportContributor(
         name="Andrei Tarkovsky",
         email_address=pdt.EmailStr("andrei.tarkovsky@cinema.com"),
         contributor_type='author',
-        contribution_notes="Second author",
+        contribution_comments="Second author",
         completion_date=dt.date(2022, 10, 5))
 
 
 @pytest.fixture(scope='session')
 def verifier_a() -> data_model.ReportContributor:
-    """Verifier test case instance 'a' of `ReportContributor`."""
+    """Verifier test case instance 'a' of ``ReportContributor``."""
     return data_model.ReportContributor(
         name="Hanns Eisler",
         email_address=pdt.EmailStr("hannseisler@udk-berlin.de"),
@@ -954,7 +980,7 @@ def verifier_a() -> data_model.ReportContributor:
 
 @pytest.fixture(scope='session')
 def approver_a() -> data_model.ReportContributor:
-    """Approver test case instance 'a' of `ReportContributor`."""
+    """Approver test case instance 'a' of ``ReportContributor``."""
     return data_model.ReportContributor(
         name="Kurt Weill",
         email_address=pdt.EmailStr("weill@broadway.com"),
@@ -963,25 +989,27 @@ def approver_a() -> data_model.ReportContributor:
 
 
 @pytest.fixture(scope='session')
-def energy_assessment_report_a(
+def energy_yield_assessment_a(
     coordinate_reference_system_a,
-    wind_measurement_campaign_a,
+    measurement_station_a,
     turbine_model_a,
     turbine_model_b,
     turbine_model_c,
-    measurement_wind_resource_assessment_a,
+    wind_resource_assessment_a,
     scenario_a,
     scenario_b,
+    issuing_organisation_a,
+    receiving_organisation_a,
     main_author_a,
     second_author_a,
     verifier_a,
     approver_a
-) -> data_model.EnergyAssessmentReport:
-    """Test case instance 'a' of `EnergyAssessmentReport`."""
-    return data_model.EnergyAssessmentReport(
+) -> data_model.EnergyYieldAssessment:
+    """Test case instance 'a' of ``EnergyYieldAssessment``."""
+    return data_model.EnergyYieldAssessment(
         **{'$id': (
             "https://example.com/api/v2/eya/report/"
-            "id=b1396029-e9af-49f7-9599-534db175e53c")},
+            "id=b1396029-e9af-49f7-9599-534db175e53c.json")},
         title="Energy yield assessment of the Barefoot Wind Farm",
         description=(
             "Wind resource and energy yield assessment of the Barefoot "
@@ -993,30 +1021,27 @@ def energy_assessment_report_a(
         document_id="12345678",
         document_version="B",
         issue_date=dt.date(2022, 10, 7),
-        issuing_organisation_name="The Torre Egger Consultants Limited",
-        issuing_organisation_abbreviation="Torre Egger",
-        issuing_organisation_address="5 Munro Road, Sgurrsville, G12 0YE, UK",
         contributors=[
             main_author_a,
             second_author_a,
             verifier_a,
             approver_a
         ],
-        receiving_organisation_name="Miranda Investments Limited",
-        receiving_organisation_abbreviation="Miranda",
-        receiving_organisation_address="9 Acosta St., Ivanslake, Republic of Miranda",
-        receiving_organisation_contact_name="Luis Bunuel",
+        issuing_organisations=[issuing_organisation_a],
+        receiving_organisation=[receiving_organisation_a],
+        contract_reference="P/UK/000765/001/B, 2022-11-30",
         confidentiality_classification="Confidential",
         coordinate_reference_system=coordinate_reference_system_a,
+        measurement_stations=[],
+        reference_wind_farms=[],
+        wind_resource_assessments=[wind_resource_assessment_a],
         turbine_models=[turbine_model_a, turbine_model_b, turbine_model_c],
-        wind_measurement_campaigns=[wind_measurement_campaign_a],
-        measurement_wind_resource_assessments=[measurement_wind_resource_assessment_a],
         scenarios=[scenario_a, scenario_b])
 
 
 @pytest.fixture(scope='session')
-def energy_assessment_report_a_tmp_filepath(
-        energy_assessment_report_a, json_examples_tmp_dirpath) -> Path:
+def energy_yield_assessment_a_tmp_filepath(
+        energy_yield_assessment_a, json_examples_tmp_dirpath) -> Path:
     """The temporary path of the test case instance 'a' json file.
 
     :return: the directory path of the temporary json file
@@ -1024,6 +1049,6 @@ def energy_assessment_report_a_tmp_filepath(
     """
     filepath = json_examples_tmp_dirpath / "iec_61400-15-2_eya_def_example_a.json"
     with open(filepath, 'w') as f:
-        f.write(energy_assessment_report_a.json(
+        f.write(energy_yield_assessment_a.json(
             indent=2, exclude_none=True, by_alias=True))
     return filepath

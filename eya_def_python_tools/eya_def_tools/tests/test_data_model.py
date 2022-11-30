@@ -1,32 +1,31 @@
 # -*- coding: utf-8 -*-
-"""Test the `eya_def_tools.data_model` module.
+"""Test the ``eya_def_tools.data_model`` module.
 
 """
 
 import json
 
 
-def test_metadata_ref_json_round_trip_conversion(
-        wind_measurement_campaign_a):
-    """Test `metadata_ref_iea43_mode` json round-trip conversion."""
-    from eya_def_tools.data_model import WindMeasurementCampaign
-    wind_measurement_campaign_a_conv = WindMeasurementCampaign(
-        **json.loads(wind_measurement_campaign_a.json()))
-    assert (wind_measurement_campaign_a.metadata_ref
-            == wind_measurement_campaign_a_conv.metadata_ref)
-
-
-def test_initiate_energy_assessment_report_a(energy_assessment_report_a):
+def test_initiate_energy_yield_assessment_a(energy_yield_assessment_a):
     """Assert test case instance 'a' is successfully initiated."""
-    from eya_def_tools.data_model import EnergyAssessmentReport
-    assert bool(energy_assessment_report_a)
+    from eya_def_tools.data_model import EnergyYieldAssessment
+    assert bool(energy_yield_assessment_a)
     assert isinstance(
-        energy_assessment_report_a, EnergyAssessmentReport)
+        energy_yield_assessment_a, EnergyYieldAssessment)
 
 
-def test_make_model_raw_schema(energy_assessment_report_a):
+def test_energy_yield_assessment_round_trip_conversion(energy_yield_assessment_a):
+    """Test ``EnergyYieldAssessment`` example json round-trip conversion."""
+    from eya_def_tools.data_model import EnergyYieldAssessment
+    energy_yield_assessment_a_conv = EnergyYieldAssessment(
+        **json.loads(energy_yield_assessment_a.json(
+            exclude_none=True, by_alias=True)))
+    assert energy_yield_assessment_a == energy_yield_assessment_a_conv
+
+
+def test_make_model_raw_schema(energy_yield_assessment_a):
     """Test that the raw schema is successfully created."""
-    schema = energy_assessment_report_a.schema()
+    schema = energy_yield_assessment_a.schema()
     assert bool(schema)
     assert isinstance(schema, dict)
 
@@ -53,11 +52,11 @@ def test_export_json_schema(pydantic_json_schema_tmp_path):
 #
 #
 # # TODO: TEMPORARY CODE
-# def test_copy_energy_assessment_report_a(
-#         energy_assessment_report_a_tmp_filepath):
+# def test_copy_energy_yield_assessment_a(
+#         energy_yield_assessment_a_tmp_filepath):
 #     """Temporary test to copy pydantic example 'a'."""
 #     from pathlib import Path
 #     import shutil
 #     shutil.copy(
-#         energy_assessment_report_a_tmp_filepath,
+#         energy_yield_assessment_a_tmp_filepath,
 #         Path("iec_61400-15-2_eya_def_example_a.json"))

@@ -4,7 +4,7 @@
 This module defines a comprehensive data model for describing an energy
 yield assessment (EYA) according to the IEC 61400-15-2 Reporting Digital
 Exchange Format (DEF), which is referred to the "EYA DEF data model".
-The python implementation makes use of the `pydantic` package to define
+The python implementation makes use of the ``pydantic`` package to define
 the model and supports export as a json schema.
 
 Note that a few somewhat ugly temporary fixes have been implemented for
@@ -65,8 +65,8 @@ def reduce_json_all_of(json_dict: dict) -> dict:
     This is a temporary fix and should be resolved when moving to
     pydantic version 2.
 
-    :param json_dict: the original json `dict`
-    :return: a `dict` where superfluous ollOf definitions are removed
+    :param json_dict: the original json ``dict``
+    :return: a ``dict`` where superfluous ollOf definitions are removed
     """
     reduced_json_dict = {}
     for key, val in json_dict.items():
@@ -83,16 +83,16 @@ class JsonPointerRef(str):
     """JSON Pointer reference."""
 
     def dict(self) -> dict[str, str]:
-        """Get a `dict` representation of the reference.
+        """Get a ``dict`` representation of the reference.
 
-        :return: a dict of the form `{"$ref": "<reference_uri>"}`
+        :return: a dict of the form ``{"$ref": "<reference_uri>"}``
         """
         return {'$ref': self.format()}
 
     def json(self) -> str:
-        """Get a json `str` representation of the reference.
+        """Get a json ``str`` representation of the reference.
 
-        :return: a string of the form `{"$ref": "<reference_uri>"}`
+        :return: a string of the form ``{"$ref": "<reference_uri>"}``
         """
         return '{"$ref": "' + self.format() + '"}'
 
@@ -100,7 +100,6 @@ class JsonPointerRef(str):
 class BaseModelWithRefs(pdt.BaseModel):
     """Base model variant that includes JSON Pointer references."""
 
-    # TODO this may not be a stable solution and should be re-examined
     @classmethod
     def get_ref_field_labels(cls) -> list[str]:
         """Get a list of the field labels that are references."""
@@ -118,9 +117,9 @@ class BaseModelWithRefs(pdt.BaseModel):
 
         :param values: the pre-validation values (arguments) passed to
             the constructor
-        :return: a `dict` copy of `values` where each JSON Pointer
-            reference value of the form `{"$ref": "<reference>"}` is
-            replaced by the `str` value of `<reference>`
+        :return: a ``dict`` copy of ``values`` where each JSON Pointer
+            reference value of the form ``{"$ref": "<reference>"}`` is
+            replaced by the ``str`` value of ``<reference>``
         """
         validated_values = {}
         for key, value in values.items():
@@ -128,46 +127,73 @@ class BaseModelWithRefs(pdt.BaseModel):
                     and isinstance(value, dict)
                     and len(value) == 1
                     and isinstance(list(value.keys())[0], str)
-                    and list(value.keys())[0] == '$ref'
+                    and list(value.keys())[0] == "$ref"
                     and isinstance(list(value.values())[0], str)):
                 validated_values[key] = list(value.values())[0]
+            elif (key in cls.get_ref_field_labels()
+                    and isinstance(value, list)):
+                for item in value:
+                    if (isinstance(item, dict)
+                            and len(item) == 1
+                            and isinstance(list(item.keys())[0], str)
+                            and list(item.keys())[0] == "$ref"
+                            and isinstance(list(item.values())[0], str)):
+                        if key not in validated_values:
+                            validated_values[key] = [list(item.values())[0]]
+                        else:
+                            validated_values[key].append(list(item.values())[0])
+                    else:
+                        if key not in validated_values:
+                            validated_values[key] = [item]
+                        else:
+                            validated_values[key].append(item)
             else:
                 validated_values[key] = value
         return validated_values
 
     def dict(self, *args, **kwargs) -> dict:
-        """A `dict` representation of the model instance.
+        """A ``dict`` representation of the model instance.
 
         :param args: any positional arguments for
-            `pydantic.BaseModel.json`
+            ``pydantic.BaseModel.json``
         :param kwargs: any key-worded arguments for
-            `pydantic.BaseModel.json`
-        :return: a `dict` representing the model instance
+            ``pydantic.BaseModel.json``
+        :return: a ``dict`` representing the model instance
         """
         dict_repr = super().dict(*args, **kwargs)
         for ref_field_label in self.get_ref_field_labels():
             if (ref_field_label in dict_repr.keys()
                     and dict_repr[ref_field_label] is not None):
-                dict_repr[ref_field_label] = (
-                    getattr(self, ref_field_label).dict())
+                field = getattr(self, ref_field_label)
+                if isinstance(field, list):
+                    dict_repr[ref_field_label] = []
+                    for item in field:
+                        dict_repr[ref_field_label].append(item.dict())
+                else:
+                    dict_repr[ref_field_label] = field.dict()
         return dict_repr
 
     def json(self, *args, **kwargs) -> str:
-        """A json `str` representation of the model instance.
+        """A json ``str`` representation of the model instance.
 
         :param args: any positional arguments for
-            `pydantic.BaseModel.json`
+            ``pydantic.BaseModel.json``
         :param kwargs: any key-worded arguments for
-            `pydantic.BaseModel.json`
-        :return: a json `str` representing the model instance
+            ``pydantic.BaseModel.json``
+        :return: a json ``str`` representing the model instance
         """
         json_repr = super().json(*args, **kwargs)
-        print(json_repr)
         for ref_field_label in self.get_ref_field_labels():
-            raw_ref_str = ('"' + getattr(self, ref_field_label).format() + '"')
-            ref_str = getattr(self, ref_field_label).json()
-            json_repr = json_repr.replace(raw_ref_str, ref_str)
-        print(json_repr)
+            field = getattr(self, ref_field_label)
+            if isinstance(field, list):
+                for item in set(field):
+                    raw_ref_str = ('"' + item.format() + '"')
+                    ref_str = item.json()
+                    json_repr = json_repr.replace(raw_ref_str, ref_str)
+            else:
+                raw_ref_str = ('"' + getattr(self, ref_field_label).format() + '"')
+                ref_str = getattr(self, ref_field_label).json()
+                json_repr = json_repr.replace(raw_ref_str, ref_str)
         return json_repr
 
 
@@ -254,8 +280,8 @@ class Location(pdt.BaseModel):
         examples=[6195240.0])
 
 
-class MeasurementMetadataRef(JsonPointerRef):
-    """IEA Task 43 WRA Data Model reference."""
+class MeasurementStationMetadata(JsonPointerRef):
+    """Measurement metadata according to the IEA Task 43 WRA data model."""
 
     @classmethod
     def __modify_schema__(cls, field_schema: dict) -> None:
@@ -266,53 +292,29 @@ class MeasurementMetadataRef(JsonPointerRef):
                 "iea43_wra_data_model.schema.json"),
             'title': "Metadata Reference (IEA Task 43 WRA Data Model)",
             'description': (
-                "Reference to a json document with measurement metadata "
-                "according to the IEA Task 43 WRA data model."),
+                "A measurement metadata JSON document according to the "
+                "IEA Task 43 WRA data model."),
             'examples': ["https://foo.com/bar/example_iea43.json"]})
         if "type" in field_schema.keys():
             del field_schema["type"]
 
 
-class WindMeasurementCampaign(BaseModelWithRefs):
-    """Details of a wind measurement campaign."""
+class MeasurementStationBasis(pdt.BaseModel):
+    """Measurement station basis in a wind resource assessment."""
 
-    measurement_id: str = pdt.Field(
-        ...,
-        description="Measurement unique ID.",
-        examples=["BF_M1_1.0.0"])
-    name: str = pdt.Field(
-        ...,
-        description=(
-            "Measurement name for use as label; when including a "
-            "'metadata_ref', it is recommended this value "
-            "matches the 'name' field of the 'measurement_location'."),
-        examples=["Mast M1"])
-    label: str | None = pdt.Field(
-        None,
-        description="Measurement label (if not provided name is used).",
-        examples=["M1"])
-    description: str | None = pdt.Field(
-        None,
-        description="Measurement description.",
-        examples=["Barefoot Wind Farm on-site meteorological mast"])
-    comments: str | None = pdt.Field(
-        None,
-        description="Measurement comments.",
-        examples=["Measurements were still ongoing at time of assessment"])
-    location: Location = pdt.Field(
-        ...,
-        description="Horizontal location of the measurement equipment.")
-    metadata_ref: MeasurementMetadataRef = pdt.Field(
-        ...,
-        title="Metadata Reference (IEA Task 43 WRA Data Model)",
-        description=(
-            "Reference to a json document with measurement metadata "
-            "according to the IEA Task 43 WRA data model."),
-        examples=["https://foo.com/bar/example_iea43.json"])
+    # TODO - placeholder to be implemented
+    pass
 
 
-class WindMeasurementCampaignBasis(pdt.BaseModel):
-    """Wind measurement campaign basis in a wind resource assessment."""
+class ReferenceWindFarm(pdt.BaseModel):
+    """Reference wind farm metadata."""
+
+    # TODO - placeholder to be implemented
+    pass
+
+
+class ReferenceWindFarmBasis(pdt.BaseModel):
+    """Reference wind farm basis in a wind resource assessment."""
 
     # TODO - placeholder to be implemented
     pass
@@ -335,6 +337,7 @@ class TurbineModelPerfSpecRef(JsonPointerRef):
             del field_schema['type']
 
 
+# TODO consider only using external schema
 class TurbineModel(BaseModelWithRefs):
     """Specification of a wind turbine model."""
 
@@ -557,10 +560,11 @@ class UncertaintyAssessment(pdt.BaseModel):
 
 
 # TODO - to be extended
-class MeasurementWindResourceAssessment(pdt.BaseModel):
+class WindResourceAssessment(pdt.BaseModel):
     """Wind resource assessment at the measurement locations."""
 
-    # wind_measurement_campaign_basis: WindMeasurementCampaignBasis
+    # measurement_station_basis: MeasurementStationBasis
+    # reference_wind_farm_basis: ReferenceWindFarmBasis
     # data_filtering
     # sensor_data_availability_results
     # sensor_results
@@ -579,22 +583,8 @@ class MeasurementWindResourceAssessment(pdt.BaseModel):
         description="Measurement wind resource uncertainty assessment.")
 
 
-class MeasurementWindResourceBasis(pdt.BaseModel):
+class WindResourceAssessmentBasis(pdt.BaseModel):
     """Measurement wind resource assessment basis in a scenario."""
-
-    # TODO - placeholder to be implemented
-    pass
-
-
-class ReferenceTurbineAssessment(pdt.BaseModel):
-    """Reference operational turbine assessment."""
-
-    # TODO - placeholder to be implemented
-    pass
-
-
-class ReferenceTurbineBasis(pdt.BaseModel):
-    """Reference operational turbine assessment basis in a scenario."""
 
     # TODO - placeholder to be implemented
     pass
@@ -616,6 +606,7 @@ class TurbineWindResourceAssessment(pdt.BaseModel):
         description="Turbine wind resource uncertainty assessment.")
 
 
+# TODO this needs to be completed with more fields for relevant details
 class GrossEnergyAssessment(pdt.BaseModel):
     """Gross energy yield assessment."""
 
@@ -704,12 +695,9 @@ class Scenario(pdt.BaseModel):
     wind_farms: list[WindFarm] = pdt.Field(
         [],
         description="List of all wind farms included in the scenario.")
-    measurement_wind_resource_basis: MeasurementWindResourceBasis | None = pdt.Field(
+    wind_resource_assessment_basis: WindResourceAssessmentBasis | None = pdt.Field(
         None,
         description="Measurement wind resource assessment basis for the scenario.")
-    reference_turbine_basis: ReferenceTurbineBasis | None = pdt.Field(
-        None,
-        description="Reference operational turbine assessment basis for the scenario.")
     turbine_wind_resource_assessment: TurbineWindResourceAssessment | None = pdt.Field(
         None,
         description="Wind resource assessment at the turbine locations.")
@@ -724,8 +712,29 @@ class Scenario(pdt.BaseModel):
         description="Net energy yield assessment.")
 
 
+class Organisation(pdt.BaseModel):
+    """Issuing or receiving organisation of an energy yield assessment."""
+
+    name: str = pdt.Field(
+        ...,
+        description="Entity name of the organisation.",
+        examples=["The Torre Egger Consultants Limited", "Miranda Investments Limited"])
+    abbreviation: str | None = pdt.Field(
+        None,
+        description="Abbreviated name of the organisation.",
+        examples=["Torre Egger", "Miranda"])
+    address: str | None = pdt.Field(
+        None,
+        description="Address of the organisation.",
+        examples=["5 Munro Road, Summit Centre, Sgurrsville, G12 0YE, UK"])
+    contact_name: str | None = pdt.Field(
+        None,
+        description="Name(s) of contact person(s) in the organisation.",
+        examples=["Luis Bunuel", "Miles Davis, John Coltrane"])
+
+
 class ReportContributor(pdt.BaseModel):
-    """Contributor to a report ."""
+    """Contributor to an energy yield assessment."""
 
     name: str = pdt.Field(
         ...,
@@ -739,9 +748,9 @@ class ReportContributor(pdt.BaseModel):
         'author', 'verifier', 'approver', 'other'] = pdt.Field(
             ...,
             description="Type of contributor.")
-    contribution_notes: str | None = pdt.Field(
+    contribution_comments: str | None = pdt.Field(
         None,
-        description="Notes to clarify contribution.",
+        description="Comments to clarify contribution.",
         examples=["Second author"])
     completion_date: dt.date | None = pdt.Field(
         None,
@@ -749,11 +758,11 @@ class ReportContributor(pdt.BaseModel):
         examples=["2022-10-04"])
 
 
-class EnergyAssessmentReport(pdt.BaseModel):
-    """IEC 61400-15-2 EYA DEF energy assessment report data model."""
+class EnergyYieldAssessment(BaseModelWithRefs):
+    """IEC 61400-15-2 EYA DEF energy yield assessment data model."""
 
     class Config:
-        """EnergyAssessmentReport data model configurations."""
+        """``EnergyYieldAssessment`` data model configurations."""
 
         schema_extra = {
             '$schema': get_json_schema_reference_uri(),
@@ -761,12 +770,11 @@ class EnergyAssessmentReport(pdt.BaseModel):
             '$version': get_json_schema_version(),
             'title': get_json_schema_title()}
 
-    json_doc_id: str | None = pdt.Field(
+    json_uri: str | None = pdt.Field(
         None,
-        description="Unique ID of json document.",
+        description="Unique URI of the JSON document.",
         examples=[(
-            "https://foo.bar.com/api/eya_report?"
-            "id=8f46a815-8b6d-4870-8e92-c031b20320c6.json")],
+            "https://foo.com/api/eya?id=8f46a815-8b6d-4870-8e92-c031b20320c6.json")],
         alias='$id')
     title: str = pdt.Field(
         ...,
@@ -791,8 +799,8 @@ class EnergyAssessmentReport(pdt.BaseModel):
         None,
         title="Document ID",
         description=(
-            "The ID of the report document; when including a "
-            "document_version, do not duplicate the version here"),
+            "The ID of the report document; not including the version "
+            "when 'document_version' is used"),
         examples=["C385945/A/UK/R/002", "0345.923454.0001"])
     document_version: str | None = pdt.Field(
         None,
@@ -802,59 +810,56 @@ class EnergyAssessmentReport(pdt.BaseModel):
         ...,
         description="Report issue date (format YYYY-MM-DD).",
         examples=["2022-10-05"])
-    issuing_organisation_name: str = pdt.Field(
-        ...,
-        description="Entity name of the organisation issuing the report.",
-        examples=["The Torre Egger Consultants Limited"])
-    issuing_organisation_abbreviation: str | None = pdt.Field(
-        None,
-        description="Abbreviated name of issuing organisation.",
-        examples=["Torre Egger"])
-    issuing_organisation_address: str | None = pdt.Field(
-        None,
-        description="Address of organisation issuing the report.",
-        examples=["5 Munro Road, Summit Centre, Sgurrsville, G12 0YE, UK"])
     contributors: list[ReportContributor] = pdt.Field(
         ...,
         description="List of report contributors (e.g. author and verifier)")
-    receiving_organisation_name: str | None = pdt.Field(
+    issuing_organisations: list[Organisation] = pdt.Field(
+        [],
+        description="The organisation(s) issuing the report (e.g. consultant).")
+    receiving_organisation: list[Organisation] = pdt.Field(
+        [],
+        description=(
+            "The organisation(s) receiving the report (e.g. client), if relevant."))
+    contract_reference: str | None = pdt.Field(
         None,
-        description="Entity name of the organisation receiving the report.",
-        examples=["Miranda Investments Limited"])
-    receiving_organisation_abbreviation: str | None = pdt.Field(
-        None,
-        description="Abbreviated name of receiving organisation.",
-        examples=["Miranda"])
-    receiving_organisation_address: str | None = pdt.Field(
-        None,
-        description="Address of organisation receiving the report.")
-    receiving_organisation_contact_name: str | None = pdt.Field(
-        None,
-        description="Name(s) of contact person(s) in receiving organisation.",
-        examples=["Luis Bunuel", "Miles Davis, John Coltrane"])
+        description=(
+            "Reference to contract between the issuing and receiving "
+            "organisations that governs the energy yield assessment."),
+        examples=["Contract ID.: P-MIR-00239432-0001-C, dated 2022-11-30"])
     confidentiality_classification: str | None = pdt.Field(
         None,
         description="Confidentiality classification of the report.",
-        examples=["Confidential", "Commercial in confidence"])
+        examples=["Strictly confidential", "Commercial in confidence", "Public"])
     coordinate_reference_system: CoordinateReferenceSystem = pdt.Field(
         ...,
         description="Coordinate reference system used for all location data.")
+    measurement_stations: list[MeasurementStationMetadata] = pdt.Field(
+        [],
+        description=(
+            "List of measurement station metadata JSON document(s) "
+            "according to the IEA Task 43 WRA data model."))
+    reference_wind_farms: list[ReferenceWindFarm] = pdt.Field(
+        [],
+        description="List of reference operational wind farms.")
+    wind_resource_assessments: list[WindResourceAssessment] = pdt.Field(
+            [],
+            description="List of measurement location wind resource assessments.")
     turbine_models: list[TurbineModel] = pdt.Field(
         [],
         description="List of wind turbine model specifications.")
-    wind_measurement_campaigns: list[WindMeasurementCampaign] = pdt.Field(
-        [],
-        description="List of wind measurement campaign details.")
-    measurement_wind_resource_assessments: list[
-        MeasurementWindResourceAssessment] = pdt.Field(
-            [],
-            description="List of measurement location wind resource assessment details.")
-    reference_turbine_assessments: list[ReferenceTurbineAssessment] = pdt.Field(
-        [],
-        description="List of reference operational turbine assessment details.")
     scenarios: list[Scenario] = pdt.Field(
         [],
-        description="List of scenarios included in the report")
+        description="List of energy yield assessment scenarios.")
+
+    @pdt.validator("measurement_stations", each_item=True)
+    def cast_measurement_stations(cls, v):
+        """Cast ``measurement_stations`` as ``MeasurementStationMetadata``.
+
+        :param v: each value passed in the ``measurement_stations`` list
+            to the ``EnergyYieldAssessment`` constructor
+        :return: the value of ``v`` cast as ``MeasurementStationMetadata``
+        """
+        return MeasurementStationMetadata(v)
 
     @classmethod
     def final_json_schema(cls) -> dict:
@@ -862,10 +867,10 @@ class EnergyAssessmentReport(pdt.BaseModel):
 
         NOTE: there is a known issue with the JSON Schema export
         functionality in pydantic where variables that can be set to
-        `None` are not correctly set to nullable in the json schema.
+        ``None`` are not correctly set to nullable in the json schema.
         This will likely be resolved in the near term. In the meanwhile,
-        json documents should not include `null` values, but properties
-        with a `null` value should rather be excluded.
+        json documents should not include ``null`` values, but properties
+        with a ``null`` value should rather be excluded.
         """
         schema_dict = cls.schema(by_alias=True)
         assert bool(schema_dict)
@@ -877,7 +882,7 @@ class EnergyAssessmentReport(pdt.BaseModel):
         for key in schema_key_order:
             if key in schema_dict:
                 updated_schema_dict[key] = schema_dict.pop(key)
-        properties_exclude = ['$id', 'json_doc_id']
+        properties_exclude = ['$id', 'json_uri']
         for property_exclude in properties_exclude:
             if property_exclude in updated_schema_dict['properties'].keys():
                 del updated_schema_dict['properties'][property_exclude]

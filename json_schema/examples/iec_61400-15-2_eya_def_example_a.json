@@ -1,5 +1,5 @@
 {
-  "$id": "https://example.com/api/v2/eya/report/id=b1396029-e9af-49f7-9599-534db175e53c",
+  "$id": "https://example.com/api/v2/eya/report/id=b1396029-e9af-49f7-9599-534db175e53c.json",
   "title": "Energy yield assessment of the Barefoot Wind Farm",
   "description": "Wind resource and energy yield assessment of the Barefoot Wind Farm based on one on-site meteorological mast and considering two different turbine scenarios.",
   "comments": "Update to consider further on-site measurement data.",
@@ -7,22 +7,19 @@
   "document_id": "12345678",
   "document_version": "B",
   "issue_date": "2022-10-07",
-  "issuing_organisation_name": "The Torre Egger Consultants Limited",
-  "issuing_organisation_abbreviation": "Torre Egger",
-  "issuing_organisation_address": "5 Munro Road, Sgurrsville, G12 0YE, UK",
   "contributors": [
     {
       "name": "Joan Miro",
       "email_address": "j.miro@art.cat",
       "contributor_type": "author",
-      "contribution_notes": "Main author",
+      "contribution_comments": "Main author",
       "completion_date": "2022-10-05"
     },
     {
       "name": "Andrei Tarkovsky",
       "email_address": "andrei.tarkovsky@cinema.com",
       "contributor_type": "author",
-      "contribution_notes": "Second author",
+      "contribution_comments": "Second author",
       "completion_date": "2022-10-05"
     },
     {
@@ -38,51 +35,33 @@
       "completion_date": "2022-10-07"
     }
   ],
-  "receiving_organisation_name": "Miranda Investments Limited",
-  "receiving_organisation_abbreviation": "Miranda",
-  "receiving_organisation_address": "9 Acosta St., Ivanslake, Republic of Miranda",
-  "receiving_organisation_contact_name": "Luis Bunuel",
+  "issuing_organisations": [
+    {
+      "name": "The Torre Egger Consultants Limited",
+      "abbreviation": "Torre Egger",
+      "address": "5 Munro Road, Sgurrsville, G12 0YE, UK"
+    }
+  ],
+  "receiving_organisation": [
+    {
+      "name": "Miranda Investments Limited",
+      "abbreviation": "Miranda",
+      "address": "9 Acosta St., Ivanslake, Republic of Miranda",
+      "contact_name": "Luis Bunuel"
+    }
+  ],
+  "contract_reference": "P/UK/000765/001/B, 2022-11-30",
   "confidentiality_classification": "Confidential",
   "coordinate_reference_system": {
     "system_label": "WGS 84 / UTM zone 30N",
     "epsg_srid": 32630,
     "wkt": "PROJCS[\"WGS 84 / UTM zone 30N\",GEOGCS[\"WGS 84\",DATUM[\"WGS_1984\",SPHEROID[\"WGS 84\",6378137,298.257223563,AUTHORITY[\"EPSG\",\"7030\"]],AUTHORITY[\"EPSG\",\"6326\"]],PRIMEM[\"Greenwich\",0,AUTHORITY[\"EPSG\",\"8901\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AUTHORITY[\"EPSG\",\"4326\"]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"latitude_of_origin\",0],PARAMETER[\"central_meridian\",-3],PARAMETER[\"scale_factor\",0.9996],PARAMETER[\"false_easting\",500000],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH],AUTHORITY[\"EPSG\",\"32630\"]]))"
   },
-  "turbine_models": [
-    {
-      "turbine_model_id": "6ca5bc01-04b1-421a-a033-133304d6cc7f",
-      "label": "ABC165-5.5MW"
-    },
-    {
-      "turbine_model_id": "e2914c83-f355-4cf2-9051-8e0f34aa3c03",
-      "label": "PQR169-5.8MW"
-    },
-    {
-      "turbine_model_id": "e3288cbd-fa3b-4241-8a4c-3856fc10c55e",
-      "label": "XYZ-3.2/140"
-    }
+  "measurement_stations": [
+    {"$ref": "/foo/bar/metadata_ref.json"}
   ],
-  "wind_measurement_campaigns": [
-    {
-      "measurement_id": "BF_M1_1.0.0",
-      "name": "Mast M1",
-      "label": "M1",
-      "description": "Barefoot Wind Farm on-site meteorological mast",
-      "comments": "Measurements were still ongoing at time of assessment.",
-      "location": {
-        "location_id": "ee15ff84-6733-4858-9656-ba995d9b1022",
-        "label": "M1",
-        "description": "Verified location of Mast M1",
-        "comments": "Documented in installation report and independently confirmed",
-        "x": 420165.0,
-        "y": 6194740.0
-      },
-      "metadata_ref": {
-        "$ref": "/foo/bar/metadata_ref.json"
-      }
-    }
-  ],
-  "measurement_wind_resource_assessments": [
+  "reference_wind_farms": [],
+  "wind_resource_assessments": [
     {
       "results": [
         {
@@ -168,7 +147,20 @@
       }
     }
   ],
-  "reference_turbine_assessments": [],
+  "turbine_models": [
+    {
+      "turbine_model_id": "6ca5bc01-04b1-421a-a033-133304d6cc7f",
+      "label": "ABC165-5.5MW"
+    },
+    {
+      "turbine_model_id": "e2914c83-f355-4cf2-9051-8e0f34aa3c03",
+      "label": "PQR169-5.8MW"
+    },
+    {
+      "turbine_model_id": "e3288cbd-fa3b-4241-8a4c-3856fc10c55e",
+      "label": "XYZ-3.2/140"
+    }
+  ],
   "scenarios": [
     {
       "scenario_id": "b6953ecb-f88b-4660-9f69-bedbbe4c240b",
@@ -268,7 +260,7 @@
           "operational_lifetime_end_date": "2038-06-30"
         }
       ],
-      "measurement_wind_resource_basis": {},
+      "wind_resource_assessment_basis": {},
       "turbine_wind_resource_assessment": {
         "turbine_wind_resource_results": [
           {
@@ -541,7 +533,7 @@
           "operational_lifetime_end_date": "2038-06-30"
         }
       ],
-      "measurement_wind_resource_basis": {},
+      "wind_resource_assessment_basis": {},
       "turbine_wind_resource_assessment": {
         "turbine_wind_resource_results": [
           {
