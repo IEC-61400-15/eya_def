@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Pydantic data model for the IEC 61400-15-2 EYA DEF.
 
 This module defines a comprehensive data model for describing an energy
@@ -907,7 +906,7 @@ class EnergyYieldAssessment(BaseModelWithRefs):
     issuing_organisations: list[Organisation] = pdt.Field(
         [], description="The organisation(s) issuing the report (e.g. consultant)."
     )
-    receiving_organisation: list[Organisation] = pdt.Field(
+    receiving_organisations: list[Organisation] = pdt.Field(
         [],
         description=(
             "The organisation(s) receiving the report (e.g. client), if relevant."

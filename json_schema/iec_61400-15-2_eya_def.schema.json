@@ -1125,7 +1125,7 @@
       "title": "Project Name",
       "type": "string"
     },
-    "receiving_organisation": {
+    "receiving_organisations": {
       "default": [],
       "description": "The organisation(s) receiving the report (e.g. client), if relevant.",
       "items": {

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Setup and fixtures for the ``eya_def_tools`` test module.
 
 The data model component fixtures all have the scope of the entire test
@@ -1006,7 +1005,7 @@ def issuing_organisation_a() -> data_model.Organisation:
 
 
 @pytest.fixture(scope="session")
-def receiving_organisation_a() -> data_model.Organisation:
+def receiving_organisations_a() -> data_model.Organisation:
     """receiving organisation test case instance 'a' of ``Organisation``."""
     return data_model.Organisation(
         name="Miranda Investments Limited",
@@ -1073,7 +1072,7 @@ def energy_yield_assessment_a(
     scenario_a,
     scenario_b,
     issuing_organisation_a,
-    receiving_organisation_a,
+    receiving_organisations_a,
     main_author_a,
     second_author_a,
     verifier_a,
@@ -1100,7 +1099,7 @@ def energy_yield_assessment_a(
         issue_date=dt.date(2022, 10, 7),
         contributors=[main_author_a, second_author_a, verifier_a, approver_a],
         issuing_organisations=[issuing_organisation_a],
-        receiving_organisation=[receiving_organisation_a],
+        receiving_organisations=[receiving_organisations_a],
         contract_reference="P/UK/000765/001/B, 2022-11-30",
         confidentiality_classification="Confidential",
         coordinate_reference_system=coordinate_reference_system_a,
