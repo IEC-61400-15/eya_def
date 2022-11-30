@@ -12,9 +12,7 @@ from eya_def_tools import data_model
 
 
 def draw_eya_def_top_level() -> None:
-    """Draw diagram representation of the top level data model.
-
-    """
+    """Draw diagram representation of the top level data model."""
     data_model.EnergyYieldAssessment.update_forward_refs(**locals())
 
     diagram = erd.create(
@@ -27,15 +25,14 @@ def draw_eya_def_top_level() -> None:
             data_model.WindResourceAssessment,
             data_model.TurbineModel,
             data_model.Scenario,
-        ])
+        ],
+    )
     diagram.draw("eya_def_top_level.png")
     diagram.draw("eya_def_top_level.svg")
 
 
 def draw_results() -> None:
-    """Draw diagram representation of the results level data model.
-
-    """
+    """Draw diagram representation of the results level data model."""
     diagram = erd.create(data_model.Results)
     diagram.draw("results.png")
     diagram.draw("results.svg")

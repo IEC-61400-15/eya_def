@@ -32,10 +32,5 @@ packages = ["eya_def_tools"]
 dependencies = {file = ["requirements.txt"]}
 optional-dependencies.dev = {file = ["requirements-dev.txt"]}
 
-[tool.black]
-line-length = 120
-target-version = ["py311"]
-
 [tool.isort]
 profile = "black"
-line_length = 120

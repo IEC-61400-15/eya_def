@@ -9,17 +9,18 @@ import json
 def test_initiate_energy_yield_assessment_a(energy_yield_assessment_a):
     """Assert test case instance 'a' is successfully initiated."""
     from eya_def_tools.data_model import EnergyYieldAssessment
+
     assert bool(energy_yield_assessment_a)
-    assert isinstance(
-        energy_yield_assessment_a, EnergyYieldAssessment)
+    assert isinstance(energy_yield_assessment_a, EnergyYieldAssessment)
 
 
 def test_energy_yield_assessment_round_trip_conversion(energy_yield_assessment_a):
     """Test ``EnergyYieldAssessment`` example json round-trip conversion."""
     from eya_def_tools.data_model import EnergyYieldAssessment
+
     energy_yield_assessment_a_conv = EnergyYieldAssessment(
-        **json.loads(energy_yield_assessment_a.json(
-            exclude_none=True, by_alias=True)))
+        **json.loads(energy_yield_assessment_a.json(exclude_none=True, by_alias=True))
+    )
     assert energy_yield_assessment_a == energy_yield_assessment_a_conv
 
 
