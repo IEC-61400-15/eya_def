@@ -27,5 +27,5 @@ info about GitHub and draw.io functionality.
 ## Python package
 
 This repo includes the python package `eya_def_tools` for working with
-the EYA DEF data model. This package is located [here](python_package)
-and has a separate README located [here](python_package/README.md).
+the EYA DEF data model. This package is located [here](eya_def_python_tools)
+and has a separate README located [here](eya_def_python_tools/README.md).
