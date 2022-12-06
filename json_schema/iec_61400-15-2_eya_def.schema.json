@@ -1025,7 +1025,10 @@
         "Update to consider further on-site measurement data."
       ],
       "title": "Comments",
-      "type": "string"
+      "type": [
+        "string",
+        "null"
+      ]
     },
     "confidentiality_classification": {
       "description": "Confidentiality classification of the report.",
@@ -1035,7 +1038,10 @@
         "Public"
       ],
       "title": "Confidentiality Classification",
-      "type": "string"
+      "type": [
+        "string",
+        "null"
+      ]
     },
     "contract_reference": {
       "description": "Reference to contract between the issuing and receiving organisations that governs the energy yield assessment.",
@@ -1043,7 +1049,10 @@
         "Contract ID.: P-MIR-00239432-0001-C, dated 2022-11-30"
       ],
       "title": "Contract Reference",
-      "type": "string"
+      "type": [
+        "string",
+        "null"
+      ]
     },
     "contributors": {
       "description": "List of report contributors (e.g. author and verifier)",
@@ -1064,7 +1073,10 @@
         "Wind resource and energy yield assessment of the Barefoot Wind Farm based on one on-site meteorological mast and considering two different turbine scenarios."
       ],
       "title": "Description",
-      "type": "string"
+      "type": [
+        "string",
+        "null"
+      ]
     },
     "document_id": {
       "description": "The ID of the report document; not including the version when 'document_version' is used",
@@ -1073,20 +1085,26 @@
         "0345.923454.0001"
       ],
       "title": "Document ID",
-      "type": "string"
+      "type": [
+        "string",
+        "null"
+      ]
     },
     "document_version": {
-      "description": "Version of the report document.",
+      "description": "Version of the report document. Also known as Revision.",
       "examples": [
         "1.2.3",
         "A",
         "Rev. A"
       ],
       "title": "Document Version",
-      "type": "string"
+      "type": [
+        "string",
+        "null"
+      ]
     },
     "issue_date": {
-      "description": "Report issue date (format YYYY-MM-DD).",
+      "description": "Report issue date. Format must follow the ISO 8601 standard for a calendar date i.e. YYYY-MM-DD.",
       "examples": [
         "2022-10-05"
       ],
@@ -1101,21 +1119,26 @@
         "$ref": "#/definitions/Organisation"
       },
       "title": "Issuing Organisations",
-      "type": "array"
+      "type": [
+        "array",
+        "null"
+      ]
     },
     "measurement_stations": {
       "default": [],
-      "description": "List of measurement station metadata JSON document(s) according to the IEA Task 43 WRA data model.",
+      "description": "List of measurement station metadata JSON document(s) according to the IEA Task 43 WRA Data Model.",
       "items": {
         "$ref": "https://raw.githubusercontent.com/IEA-Task-43/digital_wra_data_standard/master/schema/iea43_wra_data_model.schema.json1",
-        "description": "A measurement metadata JSON document according to the IEA Task 43 WRA data model.",
+        "description": "A measurement metadata JSON document according to the IEA Task 43 WRA Data Model.",
         "examples": [
           "https://foo.com/bar/example_iea43.json"
-        ],
-        "title": "Metadata Reference (IEA Task 43 WRA Data Model)"
+        ]
       },
       "title": "Measurement Stations",
-      "type": "array"
+      "type": [
+        "array",
+        "null"
+      ]
     },
     "project_name": {
       "description": "Name of the project under assessment.",
@@ -1132,7 +1155,10 @@
         "$ref": "#/definitions/Organisation"
       },
       "title": "Receiving Organisation",
-      "type": "array"
+      "type": [
+        "array",
+        "null"
+      ]
     },
     "reference_wind_farms": {
       "default": [],
@@ -1141,7 +1167,10 @@
         "$ref": "#/definitions/ReferenceWindFarm"
       },
       "title": "Reference Wind Farms",
-      "type": "array"
+      "type": [
+        "array",
+        "null"
+      ]
     },
     "scenarios": {
       "default": [],
@@ -1150,7 +1179,10 @@
         "$ref": "#/definitions/Scenario"
       },
       "title": "Scenarios",
-      "type": "array"
+      "type": [
+        "array",
+        "null"
+      ]
     },
     "title": {
       "description": "Title of the energy assessment report.",
@@ -1162,21 +1194,27 @@
     },
     "turbine_models": {
       "default": [],
-      "description": "List of wind turbine model specifications.",
+      "description": "List of wind turbine model specifications used in this assessment.",
       "items": {
         "$ref": "#/definitions/TurbineModel"
       },
       "title": "Turbine Models",
-      "type": "array"
+      "type": [
+        "array",
+        "null"
+      ]
     },
     "wind_resource_assessments": {
       "default": [],
-      "description": "List of measurement location wind resource assessments.",
+      "description": "List of measurement location wind resource assessments. This contains the wind resource assessment results at the measurement station location.",
       "items": {
         "$ref": "#/definitions/WindResourceAssessment"
       },
       "title": "Wind Resource Assessments",
-      "type": "array"
+      "type": [
+        "array",
+        "null"
+      ]
     }
   },
   "required": [
