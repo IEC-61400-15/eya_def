@@ -326,10 +326,9 @@ class MeasurementStationMetadata(JsonPointerRef):
                     "digital_wra_data_standard/master/schema/"
                     "iea43_wra_data_model.schema.json"
                 ),
-                "title": "Metadata Reference (IEA Task 43 WRA Data Model)",
                 "description": (
-                    "A measurement metadata JSON document according to the "
-                    "IEA Task 43 WRA data model."
+                    "A measurement metadata JSON document according to "
+                    "the IEA Task 43 WRA Data Model."
                 ),
                 "examples": ["https://foo.com/bar/example_iea43.json"],
             }
@@ -366,7 +365,7 @@ class TurbineModelPerfSpecRef(JsonPointerRef):
     def __modify_schema__(cls, field_schema: dict) -> None:
         field_schema.update(
             **{
-                "$ref": ("https://foo.bar.com/baz/wtg_model.schema.json"),
+                "$ref": "https://foo.bar.com/baz/wtg_model.schema.json",
                 "title": "Turbine Model Performance Specification Reference",
                 "description": (
                     "Reference to a json document with turbine model "
@@ -845,13 +844,14 @@ class EnergyYieldAssessment(BaseModelWithRefs):
             "$id": get_json_schema_uri(),
             "$version": get_json_schema_version(),
             "title": get_json_schema_title(),
+            "additionalProperties": False,
         }
 
     json_uri: str | None = pdt.Field(
         None,
         description="Unique URI of the JSON document.",
         examples=[
-            ("https://foo.com/api/eya?id=8f46a815-8b6d-4870-8e92-c031b20320c6.json")
+            "https://foo.com/api/eya?id=8f46a815-8b6d-4870-8e92-c031b20320c6.json"
         ],
         alias="$id",
     )
@@ -886,28 +886,31 @@ class EnergyYieldAssessment(BaseModelWithRefs):
         title="Document ID",
         description=(
             "The ID of the report document; not including the version "
-            "when 'document_version' is used"
+            "when 'document_version' is used."
         ),
         examples=["C385945/A/UK/R/002", "0345.923454.0001"],
     )
     document_version: str | None = pdt.Field(
         None,
-        description="Version of the report document.",
+        description="Version of the report document, also known as revision.",
         examples=["1.2.3", "A", "Rev. A"],
     )
     issue_date: dt.date = pdt.Field(
         ...,
-        description="Report issue date (format YYYY-MM-DD).",
+        description=(
+            "Report issue date in the ISO 8601 standard format for a "
+            "calendar date, i.e. YYYY-MM-DD."
+        ),
         examples=["2022-10-05"],
     )
     contributors: list[ReportContributor] = pdt.Field(
         ..., description="List of report contributors (e.g. author and verifier)"
     )
     issuing_organisations: list[Organisation] = pdt.Field(
-        [], description="The organisation(s) issuing the report (e.g. consultant)."
+        ..., description="The organisation(s) issuing the report (e.g. consultant)."
     )
-    receiving_organisations: list[Organisation] = pdt.Field(
-        [],
+    receiving_organisations: list[Organisation] | None = pdt.Field(
+        None,
         description=(
             "The organisation(s) receiving the report (e.g. client), if relevant."
         ),
@@ -932,20 +935,24 @@ class EnergyYieldAssessment(BaseModelWithRefs):
         [],
         description=(
             "List of measurement station metadata JSON document(s) "
-            "according to the IEA Task 43 WRA data model."
+            "according to the IEA Task 43 WRA Data Model."
         ),
     )
-    reference_wind_farms: list[ReferenceWindFarm] = pdt.Field(
-        [], description="List of reference operational wind farms."
+    reference_wind_farms: list[ReferenceWindFarm] | None = pdt.Field(
+        None, description="List of reference operational wind farms."
     )
-    wind_resource_assessments: list[WindResourceAssessment] = pdt.Field(
-        [], description="List of measurement location wind resource assessments."
+    wind_resource_assessments: list[WindResourceAssessment] | None = pdt.Field(
+        None,
+        description=(
+            "List of wind resource assessments, including results, at "
+            "the measurement station locations."
+        ),
     )
-    turbine_models: list[TurbineModel] = pdt.Field(
-        [], description="List of wind turbine model specifications."
+    turbine_models: list[TurbineModel] | None = pdt.Field(
+        None, description="List of wind turbine model specifications."
     )
-    scenarios: list[Scenario] = pdt.Field(
-        [], description="List of energy yield assessment scenarios."
+    scenarios: list[Scenario] | None = pdt.Field(
+        None, description="List of energy yield assessment scenarios."
     )
 
     @pdt.validator("measurement_stations", each_item=True)

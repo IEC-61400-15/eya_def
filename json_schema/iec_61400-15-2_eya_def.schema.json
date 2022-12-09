@@ -2,6 +2,7 @@
   "$id": "https://raw.githubusercontent.com/IEC-61400-15/eya_def/blob/main/iec_61400-15-2_eya_def.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$version": "0.0.1",
+  "additionalProperties": false,
   "definitions": {
     "CalculationModelSpecification": {
       "description": "Specification of a model used in an energy assessment.",
@@ -648,7 +649,6 @@
           "title": "Turbine Wind Resource Assessment"
         },
         "wind_farms": {
-          "default": [],
           "description": "List of all wind farms included in the scenario.",
           "items": {
             "$ref": "#/definitions/WindFarm"
@@ -1079,7 +1079,7 @@
       ]
     },
     "document_id": {
-      "description": "The ID of the report document; not including the version when 'document_version' is used",
+      "description": "The ID of the report document; not including the version when 'document_version' is used.",
       "examples": [
         "C385945/A/UK/R/002",
         "0345.923454.0001"
@@ -1091,7 +1091,7 @@
       ]
     },
     "document_version": {
-      "description": "Version of the report document. Also known as Revision.",
+      "description": "Version of the report document, also known as revision.",
       "examples": [
         "1.2.3",
         "A",
@@ -1104,7 +1104,7 @@
       ]
     },
     "issue_date": {
-      "description": "Report issue date. Format must follow the ISO 8601 standard for a calendar date i.e. YYYY-MM-DD.",
+      "description": "Report issue date in the ISO 8601 standard format for a calendar date, i.e. YYYY-MM-DD.",
       "examples": [
         "2022-10-05"
       ],
@@ -1113,19 +1113,14 @@
       "type": "string"
     },
     "issuing_organisations": {
-      "default": [],
       "description": "The organisation(s) issuing the report (e.g. consultant).",
       "items": {
         "$ref": "#/definitions/Organisation"
       },
       "title": "Issuing Organisations",
-      "type": [
-        "array",
-        "null"
-      ]
+      "type": "array"
     },
     "measurement_stations": {
-      "default": [],
       "description": "List of measurement station metadata JSON document(s) according to the IEA Task 43 WRA Data Model.",
       "items": {
         "$ref": "https://raw.githubusercontent.com/IEA-Task-43/digital_wra_data_standard/master/schema/iea43_wra_data_model.schema.json1",
@@ -1149,7 +1144,6 @@
       "type": "string"
     },
     "receiving_organisations": {
-      "default": [],
       "description": "The organisation(s) receiving the report (e.g. client), if relevant.",
       "items": {
         "$ref": "#/definitions/Organisation"
@@ -1161,7 +1155,6 @@
       ]
     },
     "reference_wind_farms": {
-      "default": [],
       "description": "List of reference operational wind farms.",
       "items": {
         "$ref": "#/definitions/ReferenceWindFarm"
@@ -1173,7 +1166,6 @@
       ]
     },
     "scenarios": {
-      "default": [],
       "description": "List of energy yield assessment scenarios.",
       "items": {
         "$ref": "#/definitions/Scenario"
@@ -1193,7 +1185,6 @@
       "type": "string"
     },
     "turbine_models": {
-      "default": [],
       "description": "List of wind turbine model specifications used in this assessment.",
       "items": {
         "$ref": "#/definitions/TurbineModel"
@@ -1205,8 +1196,7 @@
       ]
     },
     "wind_resource_assessments": {
-      "default": [],
-      "description": "List of measurement location wind resource assessments. This contains the wind resource assessment results at the measurement station location.",
+      "description": "List of wind resource assessments, including results, at the measurement station locations.",
       "items": {
         "$ref": "#/definitions/WindResourceAssessment"
       },
@@ -1221,6 +1211,7 @@
     "title",
     "project_name",
     "issue_date",
+    "issuing_organisations",
     "contributors",
     "coordinate_reference_system"
   ],
