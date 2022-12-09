@@ -35,6 +35,21 @@ optional-dependencies.dev = {file = ["requirements-dev.txt"]}
 [tool.isort]
 profile = "black"
 
+[tool.flake8]
+max_line_length = 88
+extend-ignore = "E203"
+
+[tool.mypy]
+files = "eya_def_tools"
+exclude = ["build"]
+show_error_codes = true
+warn_unused_ignores = true
+ignore_missing_imports = true
+
 [tool.pytest.ini_options]
 addopts = [
     "--import-mode=importlib"]
+
+[tool.coverage.run]
+source = ["eya_def_tools"]
+omit = ["*/eya_def_tools/tests/*"]
