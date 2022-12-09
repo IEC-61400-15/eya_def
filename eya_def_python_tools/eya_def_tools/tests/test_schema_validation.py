@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Test the ``eya_def_tools.data_model`` module on example datasets.
 
 """

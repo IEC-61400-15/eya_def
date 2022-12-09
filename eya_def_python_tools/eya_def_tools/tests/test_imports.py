@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Test ``eya_def_tools`` module and submodule imports.
 
 """
