@@ -1,6 +1,8 @@
 # The IEC 61400-15-2 EYA DEF python toolset
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![Imports: isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336)](https://pycqa.github.io/isort/)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)
+](https://github.com/psf/black)
+[![Imports: isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336
+)](https://pycqa.github.io/isort/)
 
 The `eya_def_tools` package provides a toolset for working with the
 IEC 61400-15-2 EYA Reporting Digital Exchange Format (DEF) in the python
@@ -8,7 +10,7 @@ programming language.
 
 ## Installation
 
-Installation of the `eya_def_tools` package requires python version 3.10
+Installation of the `eya_def_tools` package requires python version 3.11
 or higher. It is recommended to install it into a virtual environment,
 using for example [virtualenv](https://virtualenv.pypa.io/en/latest/)
 or [miniforge](https://github.com/conda-forge/miniforge).
@@ -23,13 +25,13 @@ git clone -b main https://github.com/IEC-61400-15/eya_def.git
 
 # Activate your virtual environment or conda environment prior to
 # installing, e.g. with a virtualenv environment in Windows:
-path_to_virtual_environment\Scripts\activate
+<path_to_virtual_environment>\Scripts\activate
 # or with a conda environment:
-conda activate environment_name
+conda activate <environment_name>
 
 # Navigate to python package directory
 cd eya_def
-cd python_package
+cd eya_def_python_tools
 
 # Install `eya_def_tools`
 pip install .
@@ -63,11 +65,11 @@ The test suite is built using [pytest](https://docs.pytest.org). The
 is installed automatically (together with other dependencies) upon
 installation of `eya_def_tools`.
 
-To run the test suite, simply execute the following at the top-level
-python package directory.
+To run the test suite with coverage reporting, simply execute the
+following at the top-level python package directory.
 
 ```bash
-pytest .
+pytest --cov=eya_def_tools --pyargs eya_def_tools
 ```
 
 Contributors are encouraged to write tests to cover new features.
