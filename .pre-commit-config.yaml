@@ -58,11 +58,11 @@ repos:
     hooks:
       - id: pip-audit
         name: pip-audit-requirements
-        args: [-r, requirements.txt]
+        args: [-r, eya_def_python_tools/requirements.txt]
         always_run: true
         stages: [push]
       - id: pip-audit
         name: pip-audit-requirements-dev
-        args: [-r, requirements-dev.txt]
+        args: [-r, eya_def_python_tools/requirements-dev.txt]
         always_run: true
         stages: [push]
