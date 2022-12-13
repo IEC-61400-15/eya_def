@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools>=65.6", "wheel>=0.38"]
+
+[project]
+name = "eya_def_tools"
+version = "0.0.1a3"
+authors = [
+  {name="Christian Jonsson", email="christianj@naturalpower.com"},
+  {name="Stephen Holleran", email="stephen@brightwindanalysis.com"},
+  {name="Thomas van Delft", email="thomas.vandelft@dnv.com"},
+  {name="Charlie Plumley", email="charlie.plumley@cubicoinvest.com"},
+  {name="Bjarke Tobias Olsen", email="btol@dtu.dk"},
+  {name="M. Jason Fields", email="michael.fields@nrel.gov"},
+  {name="Mark Stoelinga", email="mark.stoelinga@arcvera.com"},
+  {name="Andrew Henderson", email="arh@cop.dk"},
+]
+description = "IEC 61400-15-2 Energy Yield Assessment (EYA) Digital Exchange Format (DEF) toolset"
+readme = "README.md"
+requires-python = ">=3.11"
+classifiers = [
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Operating System :: OS Independent",
+]
+dynamic = ["dependencies", "optional-dependencies"]
+
+[tool.setuptools]
+packages = ["eya_def_tools"]
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
+optional-dependencies.dev = {file = ["requirements-dev.txt"]}
+optional-dependencies.erd = {file = ["requirements-erd.txt"]}
+
+[tool.isort]
+profile = "black"
+
+[tool.flake8]
+max_line_length = 88
+extend-ignore = "E203"
+
+[tool.mypy]
+files = "eya_def_tools"
+exclude = ["build"]
+show_error_codes = true
+warn_unused_ignores = true
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+addopts = [
+    "--import-mode=importlib"]
+
+[tool.coverage.run]
+source = ["eya_def_tools"]
+omit = ["*/eya_def_tools/tests/*"]
