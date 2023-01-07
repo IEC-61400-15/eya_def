@@ -979,25 +979,9 @@ class EnergyYieldAssessment(BaseModelWithRefs):
         schema_dict = cls.schema(by_alias=True)
         if schema_dict is None:
             raise ValueError("the 'schema' method on the class returned 'None'")
-        schema_key_order = [
-            "$schema",
-            "$id",
-            "$version",
-            "title",
-            "description",
-            "type",
-            "properties",
-            "required",
-            "additionalProperties",
-            "definitions",
-        ]
-        updated_schema_dict = {}
-        for key in schema_key_order:
-            if key in schema_dict:
-                updated_schema_dict[key] = schema_dict.pop(key)
         properties_exclude = ["$id", "json_uri"]
         for property_exclude in properties_exclude:
-            if property_exclude in updated_schema_dict["properties"].keys():
-                del updated_schema_dict["properties"][property_exclude]
-        updated_schema_dict = reduce_json_all_of(updated_schema_dict)
-        return updated_schema_dict
+            if property_exclude in schema_dict["properties"].keys():
+                del schema_dict["properties"][property_exclude]
+        schema_dict = reduce_json_all_of(schema_dict)
+        return schema_dict
