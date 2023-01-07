@@ -15,10 +15,13 @@ until this package moves to rely on pydantic v2.
 
 """
 
+
 import datetime as dt
 from typing import Any, Literal, Mapping
 
 import pydantic as pdt
+
+from eya_def_tools.utils.json_utils import reduce_json_all_of
 
 ResultsApplicabilityType = Literal[
     "lifetime", "any_one_year", "one_operational_year", "other"
@@ -70,26 +73,6 @@ NestedAnnotFloatDict = (
     | dict[str, dict[str, dict[str, dict[str, float]]]]
 )
 """Custom type of annotated floats of up to four dimensions."""
-
-
-def reduce_json_all_of(json_dict: dict) -> dict:
-    """Get a copy of a json dict without superfluous ollOf definitions.
-
-    This is a temporary fix and should be resolved when moving to
-    pydantic version 2.
-
-    :param json_dict: the original json ``dict``
-    :return: a ``dict`` where superfluous ollOf definitions are removed
-    """
-    reduced_json_dict = {}
-    for key, val in json_dict.items():
-        if isinstance(val, dict):
-            reduced_json_dict[key] = reduce_json_all_of(val)
-        elif key == "allOf" and isinstance(val, list) and len(val) == 1:
-            reduced_json_dict.update(val[0].items())
-        else:
-            reduced_json_dict[key] = val
-    return reduced_json_dict
 
 
 class JsonPointerRef(str):
