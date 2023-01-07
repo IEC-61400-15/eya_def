@@ -1092,7 +1092,7 @@ def energy_yield_assessment_a(
             "Wind Farm based on one on-site meteorological mast and "
             "considering two different turbine scenarios."
         ),
-        comments=("Update to consider further on-site measurement data."),
+        comments="Update to consider further on-site measurement data.",
         project_name="Barefoot Wind Farm",
         document_id="12345678",
         document_version="B",
