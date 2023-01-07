@@ -977,8 +977,8 @@ class EnergyYieldAssessment(BaseModelWithRefs):
         with a ``null`` value should rather be excluded.
         """
         schema_dict = cls.schema(by_alias=True)
-        assert bool(schema_dict)
-        assert isinstance(schema_dict, dict)
+        if schema_dict is None:
+            raise ValueError("the 'schema' method on the class returned 'None'")
         schema_key_order = [
             "$schema",
             "$id",
