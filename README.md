@@ -8,12 +8,11 @@ working group, please see the progress update presentation
 
 ## JSON Schema and examples
 
-The `eya_def` takes the form of a JSON Schema
-([iec_61400-15-2_eya_def.schema.json](
-json_schema/iec_61400-15-2_eya_def.schema.json)).
+The `eya_def` takes the form of a [JSON Schema](
+json_schema/iec_61400-15-2_eya_def.schema.json).
 
-Examples of JSON files that implement (comply with) the JSON Schema are
-found [here](json_schema/examples).
+Examples of JSON document files that implement (comply with) the JSON
+Schema are found [here](json_schema/examples).
 
 ## Schema diagrams
 
@@ -27,5 +26,5 @@ info about GitHub and draw.io functionality.
 ## Python package
 
 This repo includes the python package `eya_def_tools` for working with
-the EYA DEF data model. This package is located [here](eya_def_python_tools)
-and has a separate README located [here](eya_def_python_tools/README.md).
+the EYA DEF data model. This package is located [here](eya_def_tools)
+and has a separate README located [here](eya_def_tools/README.md).

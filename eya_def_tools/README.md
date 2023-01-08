@@ -31,7 +31,7 @@ conda activate <environment_name>
 
 # Navigate to python package directory
 cd eya_def
-cd eya_def_python_tools
+cd eya_def_tools
 
 # Install `eya_def_tools`
 pip install .
@@ -65,11 +65,12 @@ The test suite is built using [pytest](https://docs.pytest.org). The
 is installed automatically (together with other dependencies) upon
 installation of `eya_def_tools`.
 
-To run the test suite with coverage reporting, simply execute the
-following at the top-level python package directory.
+To run the test suite with coverage reporting, including details on
+statements with missing coverage, simply execute the following at the
+top-level python package directory.
 
 ```bash
-pytest --cov=eya_def_tools --pyargs eya_def_tools
+pytest --cov=eya_def_tools --pyargs eya_def_tools --cov-report term-missing
 ```
 
 Contributors are encouraged to write tests to cover new features.
