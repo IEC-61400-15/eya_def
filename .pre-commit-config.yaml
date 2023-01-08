@@ -66,3 +66,7 @@ repos:
         args: [-r, eya_def_python_tools/requirements-dev.txt]
         always_run: true
         stages: [push]
+ci:
+  # Leave pip-audit to only run locally and not in CI since the
+  # pre-commit.ci does not allow network calls
+  skip: [pip-audit]
