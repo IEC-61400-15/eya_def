@@ -15,64 +15,20 @@ until this package moves to rely on pydantic v2.
 
 """
 
-
 import datetime as dt
 from typing import Any, Literal, Mapping
 
 import pydantic as pdt
 
-from eya_def_tools.utils.json_utils import reduce_json_all_of
-
-ResultsApplicabilityType = Literal[
-    "lifetime", "any_one_year", "one_operational_year", "other"
-]  # TODO use Enum
-"""Period of/in time that a set of results are applicable."""
-
-
-UncertaintyCategoryLabel = Literal[
-    "measurement", "historical", "vertical", "horizontal"
-]  # TODO use Enum
-"""Category labels in the wind resource uncertainty assessment."""
-
-
-PlantPerformanceCategoryLabel = Literal[  # TODO use Enum
-    "turbine_interaction",
-    "availability",
-    "electrical",
-    "turbine_performance",
-    "environmental",
-    "curtailment",
-    "other",
-]
-"""Category labels in the plant performance assessment."""
-
-
-PlantPerformanceComponentBasis = Literal[  # TODO use Enum
-    "timeseries_calculation",
-    "distribution_calculation",
-    "other_calculation",
-    "project_specific_estimate",
-    "regional_assumption",
-    "generic_assumption",
-    "not_considered",
-    "other",
-]
-"""Basis of component in the plant performance assessment."""
-
-
-PlantPerformanceComponentVariabilityClass = Literal[
-    "static_process", "annual_variable", "other"
-]  # TODO use Enum
-"""Variability class of component in the plant performance assessment."""
-
-
-NestedAnnotFloatDict = (
-    dict[str, float]
-    | dict[str, dict[str, float]]
-    | dict[str, dict[str, dict[str, float]]]
-    | dict[str, dict[str, dict[str, dict[str, float]]]]
+from eya_def_tools.enums import (
+    ComponentAssessmentBasis,
+    ComponentVariabilityType,
+    PlantPerformanceCategoryLabel,
+    ResultsApplicabilityType,
+    UncertaintyCategoryLabel,
 )
-"""Custom type of annotated floats of up to four dimensions."""
+from eya_def_tools.typing import NestedAnnotatedFloatDict
+from eya_def_tools.utils.json_utils import reduce_json_all_of
 
 
 class JsonPointerRef(str):
@@ -528,7 +484,7 @@ class ResultsComponent(pdt.BaseModel):
     comments: str | None = pdt.Field(
         None, description="Comments on the results component."
     )
-    values: float | NestedAnnotFloatDict = pdt.Field(
+    values: float | NestedAnnotatedFloatDict = pdt.Field(
         ...,
         description="Result value(s) as simple float or labeled map.",
         examples=[123.4, {"WTG01": 123.4, "WTG02": 143.2}],
@@ -670,10 +626,10 @@ class GrossEnergyAssessment(pdt.BaseModel):
 class PlantPerformanceComponent(pdt.BaseModel):
     """Plant performance assessment component."""
 
-    basis: PlantPerformanceComponentBasis = pdt.Field(
+    basis: ComponentAssessmentBasis = pdt.Field(
         ..., description="Basis of plant performance element assessment."
     )
-    variability: PlantPerformanceComponentVariabilityClass = pdt.Field(
+    variability: ComponentVariabilityType = pdt.Field(
         ..., description="Considered variability in plant performance element."
     )
     calculation_models: list[CalculationModelSpecification] | None = pdt.Field(

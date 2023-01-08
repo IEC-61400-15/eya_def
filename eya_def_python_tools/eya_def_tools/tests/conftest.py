@@ -16,9 +16,15 @@ import pydantic as pdt
 import pytest
 
 from eya_def_tools import data_model
+from eya_def_tools.enums import (
+    ComponentAssessmentBasis,
+    ComponentVariabilityType,
+    PlantPerformanceCategoryLabel,
+    ResultsApplicabilityType,
+    UncertaintyCategoryLabel,
+)
 
 TEST_INPUT_DATA_DIRNAME = "test_input_data"
-"""Name of the test input data directory."""
 
 
 @pytest.fixture(scope="session")
@@ -554,7 +560,7 @@ def measurement_wind_uncertainty_assessment_a() -> data_model.UncertaintyAssessm
     """Measurement test case instance 'a' of ``UncertaintyAssessment``."""
     return data_model.UncertaintyAssessment(
         categories={
-            "historical": data_model.UncertaintyCategory(
+            UncertaintyCategoryLabel.HISTORICAL: data_model.UncertaintyCategory(
                 components=[
                     data_model.UncertaintyComponent(
                         label="Regression model uncertainty",
@@ -564,7 +570,7 @@ def measurement_wind_uncertainty_assessment_a() -> data_model.UncertaintyAssessm
                                 "per measurement location"
                             ),
                             unit="dimensionless",
-                            applicability_type="lifetime",
+                            applicability_type=ResultsApplicabilityType.LIFETIME,
                             results_dimensions=["location"],
                             result_components=[
                                 data_model.ResultsComponent(
@@ -581,7 +587,7 @@ def measurement_wind_uncertainty_assessment_a() -> data_model.UncertaintyAssessm
                                 "per measurement location"
                             ),
                             unit="dimensionless",
-                            applicability_type="lifetime",
+                            applicability_type=ResultsApplicabilityType.LIFETIME,
                             results_dimensions=["location"],
                             result_components=[
                                 data_model.ResultsComponent(
@@ -595,7 +601,7 @@ def measurement_wind_uncertainty_assessment_a() -> data_model.UncertaintyAssessm
                     data_model.Results(
                         label="Historical wind resource uncertainty",
                         unit="dimensionless",
-                        applicability_type="lifetime",
+                        applicability_type=ResultsApplicabilityType.LIFETIME,
                         results_dimensions=["location"],
                         result_components=[
                             data_model.ResultsComponent(
@@ -619,7 +625,7 @@ def wind_resource_assessment_a(
             data_model.Results(
                 label="Measurement-height long-term wind",
                 unit="m/s",
-                applicability_type="lifetime",
+                applicability_type=ResultsApplicabilityType.LIFETIME,
                 results_dimensions=["location"],
                 result_components=[
                     data_model.ResultsComponent(
@@ -649,7 +655,7 @@ def turbine_wind_resource_assessment_a(
             data_model.Results(
                 label="Turbine-location hub-height long-term wind",
                 unit="m/s",
-                applicability_type="lifetime",
+                applicability_type=ResultsApplicabilityType.LIFETIME,
                 results_dimensions=["location"],
                 result_components=[
                     data_model.ResultsComponent(
@@ -672,7 +678,7 @@ def turbine_wind_resource_assessment_b(
             data_model.Results(
                 label="Turbine-location hub-height long-term wind",
                 unit="m/s",
-                applicability_type="lifetime",
+                applicability_type=ResultsApplicabilityType.LIFETIME,
                 results_dimensions=["location"],
                 result_components=[
                     data_model.ResultsComponent(
@@ -693,7 +699,7 @@ def gross_energy_assessment_a() -> data_model.GrossEnergyAssessment:
             data_model.Results(
                 label="Gross yield",
                 unit="MWh/annum",
-                applicability_type="lifetime",
+                applicability_type=ResultsApplicabilityType.LIFETIME,
                 results_dimensions=["location"],
                 result_components=[
                     data_model.ResultsComponent(
@@ -705,7 +711,7 @@ def gross_energy_assessment_a() -> data_model.GrossEnergyAssessment:
             data_model.Results(
                 label="Gross yield",
                 unit="MWh/annum",
-                applicability_type="lifetime",
+                applicability_type=ResultsApplicabilityType.LIFETIME,
                 results_dimensions=["none"],
                 result_components=[
                     data_model.ResultsComponent(component_type="mean", values=32200.0)
@@ -723,7 +729,7 @@ def gross_energy_assessment_b() -> data_model.GrossEnergyAssessment:
             data_model.Results(
                 label="Gross yield",
                 unit="MWh/annum",
-                applicability_type="lifetime",
+                applicability_type=ResultsApplicabilityType.LIFETIME,
                 results_dimensions=["location"],
                 result_components=[
                     data_model.ResultsComponent(
@@ -735,7 +741,7 @@ def gross_energy_assessment_b() -> data_model.GrossEnergyAssessment:
             data_model.Results(
                 label="Gross yield",
                 unit="MWh/annum",
-                applicability_type="lifetime",
+                applicability_type=ResultsApplicabilityType.LIFETIME,
                 results_dimensions=["none"],
                 result_components=[
                     data_model.ResultsComponent(component_type="mean", values=37000.0)
@@ -748,13 +754,14 @@ def gross_energy_assessment_b() -> data_model.GrossEnergyAssessment:
 @pytest.fixture(scope="session")
 def plant_performance_assessment_a() -> data_model.PlantPerformanceAssessment:
     """Test case instance 'a' of ``PlantPerformanceAssessment``."""
+    category_label = PlantPerformanceCategoryLabel.CURTAILMENT
     return data_model.PlantPerformanceAssessment(
         categories={
-            "curtailment": data_model.PlantPerformanceCategory(
+            category_label: data_model.PlantPerformanceCategory(
                 components=[
                     data_model.PlantPerformanceComponent(
-                        basis="timeseries_calculation",
-                        variability="static_process",
+                        basis=ComponentAssessmentBasis.TIMESERIES_CALCULATION,
+                        variability=ComponentVariabilityType.STATIC_PROCESS,
                         calculation_models=[
                             data_model.CalculationModelSpecification(
                                 name="Timeseries tool", comments="Internal toolset"
@@ -771,7 +778,7 @@ def plant_performance_assessment_a() -> data_model.PlantPerformanceAssessment:
                                 "the turbine manufacturer."
                             ),
                             unit="dimensionless",
-                            applicability_type="lifetime",
+                            applicability_type=ResultsApplicabilityType.LIFETIME,
                             results_dimensions=["location"],
                             result_components=[
                                 data_model.ResultsComponent(
@@ -791,7 +798,7 @@ def plant_performance_assessment_a() -> data_model.PlantPerformanceAssessment:
                         label="Curtailment",
                         description="Curtailment losses.",
                         unit="dimensionless",
-                        applicability_type="lifetime",
+                        applicability_type=ResultsApplicabilityType.LIFETIME,
                         results_dimensions=["location"],
                         result_components=[
                             data_model.ResultsComponent(
@@ -813,13 +820,14 @@ def plant_performance_assessment_a() -> data_model.PlantPerformanceAssessment:
 @pytest.fixture(scope="session")
 def plant_performance_assessment_b() -> data_model.PlantPerformanceAssessment:
     """Test case instance 'b' of ``PlantPerformanceAssessment``."""
+    category_label = PlantPerformanceCategoryLabel.CURTAILMENT
     return data_model.PlantPerformanceAssessment(
         categories={
-            "curtailment": data_model.PlantPerformanceCategory(
+            category_label: data_model.PlantPerformanceCategory(
                 components=[
                     data_model.PlantPerformanceComponent(
-                        basis="project_specific_estimate",
-                        variability="static_process",
+                        basis=ComponentAssessmentBasis.PROJECT_SPECIFIC_ESTIMATE,
+                        variability=ComponentVariabilityType.STATIC_PROCESS,
                         results=data_model.Results(
                             label="Loads curtailment",
                             description=(
@@ -832,7 +840,7 @@ def plant_performance_assessment_b() -> data_model.PlantPerformanceAssessment:
                                 "manufacturer."
                             ),
                             unit="dimensionless",
-                            applicability_type="lifetime",
+                            applicability_type=ResultsApplicabilityType.LIFETIME,
                             results_dimensions=["location"],
                             result_components=[
                                 data_model.ResultsComponent(
@@ -852,7 +860,7 @@ def plant_performance_assessment_b() -> data_model.PlantPerformanceAssessment:
                         label="Curtailment",
                         description="Curtailment losses.",
                         unit="dimensionless",
-                        applicability_type="lifetime",
+                        applicability_type=ResultsApplicabilityType.LIFETIME,
                         results_dimensions=["location"],
                         result_components=[
                             data_model.ResultsComponent(
@@ -879,7 +887,7 @@ def net_energy_assessment_a() -> data_model.NetEnergyAssessment:
             data_model.Results(
                 label="Net yield",
                 unit="MWh/annum",
-                applicability_type="lifetime",
+                applicability_type=ResultsApplicabilityType.LIFETIME,
                 results_dimensions=["none"],
                 result_components=[
                     data_model.ResultsComponent(
@@ -892,7 +900,7 @@ def net_energy_assessment_a() -> data_model.NetEnergyAssessment:
             data_model.Results(
                 label="Net yield",
                 unit="MWh/annum",
-                applicability_type="any_one_year",
+                applicability_type=ResultsApplicabilityType.ANY_ONE_YEAR,
                 results_dimensions=["none"],
                 result_components=[
                     data_model.ResultsComponent(
@@ -914,7 +922,7 @@ def net_energy_assessment_b() -> data_model.NetEnergyAssessment:
             data_model.Results(
                 label="Net yield",
                 unit="MWh/annum",
-                applicability_type="lifetime",
+                applicability_type=ResultsApplicabilityType.LIFETIME,
                 results_dimensions=["none"],
                 result_components=[
                     data_model.ResultsComponent(
@@ -927,7 +935,7 @@ def net_energy_assessment_b() -> data_model.NetEnergyAssessment:
             data_model.Results(
                 label="Net yield",
                 unit="MWh/annum",
-                applicability_type="any_one_year",
+                applicability_type=ResultsApplicabilityType.ANY_ONE_YEAR,
                 results_dimensions=["none"],
                 result_components=[
                     data_model.ResultsComponent(
