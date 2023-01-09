@@ -3,7 +3,7 @@ requires = ["setuptools>=65.6", "wheel>=0.38"]
 
 [project]
 name = "eya_def_tools"
-version = "0.0.1a3"
+version = "0.0.1a4"
 authors = [
   {name="Christian Jonsson", email="christianj@naturalpower.com"},
   {name="Stephen Holleran", email="stephen@brightwindanalysis.com"},
