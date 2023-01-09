@@ -15,6 +15,8 @@ until this package moves to rely on pydantic v2.
 
 """
 
+from __future__ import annotations
+
 import datetime as dt
 from typing import Any, Literal, Mapping, Type
 
@@ -28,7 +30,10 @@ from eya_def_tools.enums import (
     UncertaintyCategoryLabel,
 )
 from eya_def_tools.typing import NestedAnnotatedFloatDict
-from eya_def_tools.utils.json_utils import reduce_json_all_of
+from eya_def_tools.utils.json_schema_utils import (
+    add_null_type_to_schema_optional_fields,
+    reduce_json_schema_all_of,
+)
 
 
 class JsonPointerRef(str):
@@ -780,15 +785,10 @@ class EnergyYieldAssessment(BaseModelWithRefs):
 
         @staticmethod
         def schema_extra(
-            schema: dict[str, Any], model: Type["EnergyYieldAssessment"]
+            schema: dict[str, Any], model: Type[EnergyYieldAssessment]
         ) -> None:
             """Additional items for the model schema."""
-            for prop, value in schema.get("properties", {}).items():
-                field = [x for x in model.__fields__.values() if x.alias == prop][0]
-                if field.allow_none:
-                    if "type" in value:
-                        value["type"] = [value["type"], "null"]
-
+            add_null_type_to_schema_optional_fields(schema=schema, model=model)
             schema.update(
                 {
                     "$schema": get_json_schema_reference_uri(),
@@ -935,5 +935,5 @@ class EnergyYieldAssessment(BaseModelWithRefs):
         for property_exclude in properties_exclude:
             if property_exclude in schema_dict["properties"].keys():
                 del schema_dict["properties"][property_exclude]
-        schema_dict = reduce_json_all_of(schema_dict)
+        schema_dict = reduce_json_schema_all_of(schema_dict)
         return schema_dict
