@@ -16,7 +16,7 @@ until this package moves to rely on pydantic v2.
 """
 
 import datetime as dt
-from typing import Any, Literal, Mapping
+from typing import Any, Literal, Mapping, Type
 
 import pydantic as pdt
 
@@ -778,13 +778,26 @@ class EnergyYieldAssessment(BaseModelWithRefs):
     class Config:
         """``EnergyYieldAssessment`` data model configurations."""
 
-        schema_extra = {
-            "$schema": get_json_schema_reference_uri(),
-            "$id": get_json_schema_uri(),
-            "$version": get_json_schema_version(),
-            "title": get_json_schema_title(),
-            "additionalProperties": False,
-        }
+        @staticmethod
+        def schema_extra(
+            schema: dict[str, Any], model: Type["EnergyYieldAssessment"]
+        ) -> None:
+            """Additional items for the model schema."""
+            for prop, value in schema.get("properties", {}).items():
+                field = [x for x in model.__fields__.values() if x.alias == prop][0]
+                if field.allow_none:
+                    if "type" in value:
+                        value["type"] = [value["type"], "null"]
+
+            schema.update(
+                {
+                    "$schema": get_json_schema_reference_uri(),
+                    "$id": get_json_schema_uri(),
+                    "$version": get_json_schema_version(),
+                    "title": get_json_schema_title(),
+                    "additionalProperties": False,
+                }
+            )
 
     json_uri: str | None = pdt.Field(
         None,
@@ -871,7 +884,7 @@ class EnergyYieldAssessment(BaseModelWithRefs):
         ..., description="Coordinate reference system used for all location data."
     )
     measurement_stations: list[MeasurementStationMetadata] = pdt.Field(
-        [],
+        [],  # TODO update to required when example is included
         description=(
             "List of measurement station metadata JSON document(s) "
             "according to the IEA Task 43 WRA Data Model."
