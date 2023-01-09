@@ -33,20 +33,6 @@ dependencies = {file = ["requirements.txt"]}
 optional-dependencies.dev = {file = ["requirements-dev.txt"]}
 optional-dependencies.erd = {file = ["requirements-erd.txt"]}
 
-[tool.isort]
-profile = "black"
-
-[tool.flake8]
-max_line_length = 88
-extend-ignore = "E203"
-
-[tool.mypy]
-files = "eya_def_tools"
-exclude = ["build"]
-show_error_codes = true
-warn_unused_ignores = true
-ignore_missing_imports = true
-
 [tool.pytest.ini_options]
 addopts = [
     "--import-mode=importlib"]
@@ -54,3 +40,25 @@ addopts = [
 [tool.coverage.run]
 source = ["eya_def_tools"]
 omit = ["*/eya_def_tools/tests/*"]
+
+[tool.black]
+color = true
+target-version = ["py311"]
+
+[tool.isort]
+profile = "black"
+
+[tool.flake8]
+max_line_length = 88
+max_complexity = 14
+extend-ignore = "E203"
+
+[tool.mypy]
+files = "eya_def_tools"
+exclude = ["build"]
+show_error_codes = true
+warn_unused_ignores = true
+
+[[tool.mypy.overrides]]
+module = ["erdantic.*"]
+ignore_missing_imports = true
