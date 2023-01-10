@@ -39,12 +39,10 @@ def move_field_to_definitions(
     )
     if field_definition is None:
         raise ValueError(f"the field {field_label} was not found in the schema")
-    field_title = field_label.title()
-    updated_json_dict["definitions"][field_title] = field_definition
-    for key, value in json_dict.items():
-        if isinstance(value, dict):
-            if key == "properties" and field_label in value.keys():
-                value[field_label] = {"$ref": f"#/definitions/{field_title}"}
+    updated_json_dict["definitions"][field_label.title()] = field_definition
+    _recursive_replace_field_definition(
+        json_dict=json_dict, field_label=field_label, field_definition=field_definition
+    )
     return updated_json_dict
 
 
@@ -76,3 +74,18 @@ def _find_field_definition(
             else:
                 return _find_field_definition(json_dict=value, field_label=field_label)
     return None
+
+
+def _recursive_replace_field_definition(
+    json_dict: dict[str, Any], field_label: str, field_definition: dict[str, Any]
+) -> None:
+    for key, value in json_dict.items():
+        if isinstance(value, dict):
+            if key == "properties" and field_label in value.keys():
+                value[field_label] = {"$ref": f"#/definitions/{field_label.title()}"}
+            else:
+                _recursive_replace_field_definition(
+                    json_dict=value,
+                    field_label=field_label,
+                    field_definition=field_definition,
+                )

@@ -813,7 +813,31 @@ def plant_performance_assessment_a() -> eya.PlantPerformanceAssessment:
                     )
                 ],
             )
-        }
+        },
+        net_energy_results=[
+            eya.Results(
+                label="Net yield",
+                unit="MWh/annum",
+                applicability_type=ResultsApplicabilityType.LIFETIME,
+                results_dimensions=["none"],
+                result_components=[
+                    eya.ResultsComponent(component_type="median", values=31528.6),
+                    eya.ResultsComponent(component_type="std", values=3468.1),
+                    eya.ResultsComponent(component_type="P90", values=27089.4),
+                ],
+            ),
+            eya.Results(
+                label="Net yield",
+                unit="MWh/annum",
+                applicability_type=ResultsApplicabilityType.ANY_ONE_YEAR,
+                results_dimensions=["none"],
+                result_components=[
+                    eya.ResultsComponent(component_type="median", values=31528.6),
+                    eya.ResultsComponent(component_type="std", values=4729.3),
+                    eya.ResultsComponent(component_type="P90", values=25475.1),
+                ],
+            ),
+        ],
     )
 
 
@@ -875,46 +899,8 @@ def plant_performance_assessment_b() -> eya.PlantPerformanceAssessment:
                     )
                 ],
             )
-        }
-    )
-
-
-@pytest.fixture(scope="session")
-def net_energy_assessment_a() -> eya.NetEnergyAssessment:
-    """Test case instance 'a' of ``NetEnergyAssessment``."""
-    return eya.NetEnergyAssessment(
-        results=[
-            eya.Results(
-                label="Net yield",
-                unit="MWh/annum",
-                applicability_type=ResultsApplicabilityType.LIFETIME,
-                results_dimensions=["none"],
-                result_components=[
-                    eya.ResultsComponent(component_type="median", values=31528.6),
-                    eya.ResultsComponent(component_type="std", values=3468.1),
-                    eya.ResultsComponent(component_type="P90", values=27089.4),
-                ],
-            ),
-            eya.Results(
-                label="Net yield",
-                unit="MWh/annum",
-                applicability_type=ResultsApplicabilityType.ANY_ONE_YEAR,
-                results_dimensions=["none"],
-                result_components=[
-                    eya.ResultsComponent(component_type="median", values=31528.6),
-                    eya.ResultsComponent(component_type="std", values=4729.3),
-                    eya.ResultsComponent(component_type="P90", values=25475.1),
-                ],
-            ),
-        ]
-    )
-
-
-@pytest.fixture(scope="session")
-def net_energy_assessment_b() -> eya.NetEnergyAssessment:
-    """Test case instance 'b' of ``NetEnergyAssessment``."""
-    return eya.NetEnergyAssessment(
-        results=[
+        },
+        net_energy_results=[
             eya.Results(
                 label="Net yield",
                 unit="MWh/annum",
@@ -937,7 +923,7 @@ def net_energy_assessment_b() -> eya.NetEnergyAssessment:
                     eya.ResultsComponent(component_type="P90", values=27726.3),
                 ],
             ),
-        ]
+        ],
     )
 
 
@@ -949,7 +935,6 @@ def scenario_a(
     turbine_wind_resource_assessment_a,
     gross_energy_assessment_a,
     plant_performance_assessment_a,
-    net_energy_assessment_a,
 ) -> eya.Scenario:
     """Test case instance 'a' of ``Scenario``."""
     return eya.Scenario(
@@ -963,7 +948,6 @@ def scenario_a(
         turbine_wind_resource_assessment=turbine_wind_resource_assessment_a,
         gross_energy_assessment=gross_energy_assessment_a,
         plant_performance_assessment=plant_performance_assessment_a,
-        net_energy_assessment=net_energy_assessment_a,
     )
 
 
@@ -975,7 +959,6 @@ def scenario_b(
     turbine_wind_resource_assessment_b,
     gross_energy_assessment_b,
     plant_performance_assessment_b,
-    net_energy_assessment_b,
 ) -> eya.Scenario:
     """Test case instance 'b' of ``Scenario``."""
     return eya.Scenario(
@@ -990,7 +973,6 @@ def scenario_b(
         turbine_wind_resource_assessment=turbine_wind_resource_assessment_b,
         gross_energy_assessment=gross_energy_assessment_b,
         plant_performance_assessment=plant_performance_assessment_b,
-        net_energy_assessment=net_energy_assessment_b,
     )
 
 

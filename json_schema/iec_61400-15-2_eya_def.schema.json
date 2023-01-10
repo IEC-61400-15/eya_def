@@ -8,14 +8,10 @@
       "description": "Specification of a model used in an energy assessment.",
       "properties": {
         "comments": {
-          "description": "Comments on the model.",
-          "title": "Comments",
-          "type": "string"
+          "$ref": "#/definitions/Comments"
         },
         "description": {
-          "description": "Description of the model.",
-          "title": "Description",
-          "type": "string"
+          "$ref": "#/definitions/Description"
         },
         "name": {
           "description": "Name of the model.",
@@ -34,6 +30,39 @@
       ],
       "title": "CalculationModelSpecification",
       "type": "object"
+    },
+    "Comments": {
+      "description": "Comments on the data object.",
+      "title": "Comments",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "ComponentAssessmentBasis": {
+      "description": "Basis of plant performance assessment component.",
+      "enum": [
+        "timeseries_calculation",
+        "distribution_calculation",
+        "other_calculation",
+        "project_specific_estimate",
+        "regional_assumption",
+        "generic_assumption",
+        "not_considered",
+        "other"
+      ],
+      "title": "ComponentAssessmentBasis",
+      "type": "string"
+    },
+    "ComponentVariabilityType": {
+      "description": "Variability type of plant performance assessment component.",
+      "enum": [
+        "static_process",
+        "annual_variable",
+        "other"
+      ],
+      "title": "ComponentVariabilityType",
+      "type": "string"
     },
     "CoordinateReferenceSystem": {
       "description": "Specification of a coordinate reference system for GIS data.",
@@ -68,6 +97,14 @@
       "title": "CoordinateReferenceSystem",
       "type": "object"
     },
+    "Description": {
+      "description": "Description of the data object.",
+      "title": "Description",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
     "GrossEnergyAssessment": {
       "description": "Gross energy yield assessment.",
       "properties": {
@@ -90,20 +127,10 @@
       "description": "Specification of a horizontal location in space.",
       "properties": {
         "comments": {
-          "description": "Comments regarding the location.",
-          "examples": [
-            "Pending ground investigations"
-          ],
-          "title": "Comments",
-          "type": "string"
+          "$ref": "#/definitions/Comments"
         },
         "description": {
-          "description": "Description of the location.",
-          "examples": [
-            "Preliminary location of T1"
-          ],
-          "title": "Description",
-          "type": "string"
+          "$ref": "#/definitions/Description"
         },
         "label": {
           "description": "Label of the location.",
@@ -148,44 +175,14 @@
       "title": "Location",
       "type": "object"
     },
-    "NetEnergyAssessment": {
-      "description": "Net energy yield results.",
-      "properties": {
-        "results": {
-          "description": "Energy yield results at different confidence limits.",
-          "items": {
-            "$ref": "#/definitions/Results"
-          },
-          "title": "Results",
-          "type": "array"
-        },
-        "uncertainty_assessment": {
-          "$ref": "#/definitions/UncertaintyAssessment",
-          "description": "Net energy uncertainty assessment.",
-          "title": "Uncertainty Assessment"
-        }
-      },
-      "required": [
-        "results"
-      ],
-      "title": "NetEnergyAssessment",
-      "type": "object"
-    },
     "OperationalRestriction": {
       "description": "Specifications of an operational restriction.",
       "properties": {
         "comments": {
-          "description": "Comments regarding the operational restriction.",
-          "title": "Comments",
-          "type": "string"
+          "$ref": "#/definitions/Comments"
         },
         "description": {
-          "description": "Description of the operational restriction.",
-          "examples": [
-            "Wind sector management (WSM) curtailment as specified by the turbine manufacturer"
-          ],
-          "title": "Description",
-          "type": "string"
+          "$ref": "#/definitions/Description"
         },
         "label": {
           "description": "Label of the operational restriction.",
@@ -198,8 +195,7 @@
         }
       },
       "required": [
-        "label",
-        "description"
+        "label"
       ],
       "title": "OperationalRestriction",
       "type": "object"
@@ -259,10 +255,24 @@
           "description": "Plant performance assessment categories.",
           "title": "Categories",
           "type": "object"
+        },
+        "net_energy_results": {
+          "description": "Net energy yield results at different confidence limits.",
+          "items": {
+            "$ref": "#/definitions/Results"
+          },
+          "title": "Net Energy Results",
+          "type": "array"
+        },
+        "net_energy_uncertainty_assessment": {
+          "$ref": "#/definitions/UncertaintyAssessment",
+          "description": "Net energy uncertainty assessment.",
+          "title": "Net Energy Uncertainty Assessment"
         }
       },
       "required": [
-        "categories"
+        "categories",
+        "net_energy_results"
       ],
       "title": "PlantPerformanceAssessment",
       "type": "object"
@@ -298,19 +308,8 @@
       "description": "Plant performance assessment component.",
       "properties": {
         "basis": {
-          "description": "Basis of plant performance element assessment.",
-          "enum": [
-            "timeseries_calculation",
-            "distribution_calculation",
-            "other_calculation",
-            "project_specific_estimate",
-            "regional_assumption",
-            "generic_assumption",
-            "not_considered",
-            "other"
-          ],
-          "title": "Basis",
-          "type": "string"
+          "$ref": "#/definitions/ComponentAssessmentBasis",
+          "description": "Basis of plant performance element assessment."
         },
         "calculation_models": {
           "description": "Calculation models used in the assessment.",
@@ -326,14 +325,8 @@
           "title": "Results"
         },
         "variability": {
-          "description": "Considered variability in plant performance element.",
-          "enum": [
-            "static_process",
-            "annual_variable",
-            "other"
-          ],
-          "title": "Variability",
-          "type": "string"
+          "$ref": "#/definitions/ComponentVariabilityType",
+          "description": "Considered variability in plant performance element."
         }
       },
       "required": [
@@ -412,31 +405,14 @@
       "description": "Single set of results for an element of an energy assessment.",
       "properties": {
         "applicability_type": {
-          "description": "Applicability type of energy assessment results.",
-          "enum": [
-            "lifetime",
-            "any_one_year",
-            "one_operational_year",
-            "other"
-          ],
-          "title": "Applicability Type",
-          "type": "string"
+          "$ref": "#/definitions/ResultsApplicabilityType",
+          "description": "Applicability type of energy assessment results."
         },
         "comments": {
-          "description": "Comments on the results.",
-          "examples": [
-            "Corresponds to first 10 years of operation."
-          ],
-          "title": "Comments",
-          "type": "string"
+          "$ref": "#/definitions/Comments"
         },
         "description": {
-          "description": "Description of the results.",
-          "examples": [
-            "10-year wind farm net P50 energy yield."
-          ],
-          "title": "Description",
-          "type": "string"
+          "$ref": "#/definitions/Description"
         },
         "label": {
           "description": "Label of the results.",
@@ -486,13 +462,22 @@
       "title": "Results",
       "type": "object"
     },
+    "ResultsApplicabilityType": {
+      "description": "Period of or in time that a set of results are applicable.",
+      "enum": [
+        "lifetime",
+        "any_one_year",
+        "one_operational_year",
+        "other"
+      ],
+      "title": "ResultsApplicabilityType",
+      "type": "string"
+    },
     "ResultsComponent": {
       "description": "Component of a set of results.",
       "properties": {
         "comments": {
-          "description": "Comments on the results component.",
-          "title": "Comments",
-          "type": "string"
+          "$ref": "#/definitions/Comments"
         },
         "component_type": {
           "description": "Type of results component.",
@@ -506,9 +491,7 @@
           "type": "string"
         },
         "description": {
-          "description": "Description of the results component.",
-          "title": "Description",
-          "type": "string"
+          "$ref": "#/definitions/Description"
         },
         "values": {
           "anyOf": [
@@ -580,18 +563,10 @@
       "description": "Single unique energy yield assessment scenario.",
       "properties": {
         "comments": {
-          "description": "Comments on the scenario.",
-          "title": "Comments",
-          "type": "string"
+          "$ref": "#/definitions/Comments"
         },
         "description": {
-          "description": "Description of the scenario.",
-          "examples": [
-            "Main scenario",
-            "XZY220-7.2MW turbine model scenario"
-          ],
-          "title": "Description",
-          "type": "string"
+          "$ref": "#/definitions/Description"
         },
         "gross_energy_assessment": {
           "$ref": "#/definitions/GrossEnergyAssessment",
@@ -613,11 +588,6 @@
           "title": "Label",
           "type": "string"
         },
-        "net_energy_assessment": {
-          "$ref": "#/definitions/NetEnergyAssessment",
-          "description": "Net energy yield assessment.",
-          "title": "Net Energy Assessment"
-        },
         "operational_lifetime_length_years": {
           "description": "Number of years of project operational lifetime.",
           "examples": [
@@ -632,7 +602,7 @@
         },
         "plant_performance_assessment": {
           "$ref": "#/definitions/PlantPerformanceAssessment",
-          "description": "Plant performance assessment including all losses.",
+          "description": "Plant performance assessment including net energy results.",
           "title": "Plant Performance Assessment"
         },
         "scenario_id": {
@@ -666,8 +636,7 @@
         "label",
         "operational_lifetime_length_years",
         "gross_energy_assessment",
-        "plant_performance_assessment",
-        "net_energy_assessment"
+        "plant_performance_assessment"
       ],
       "title": "Scenario",
       "type": "object"
@@ -692,8 +661,7 @@
           "examples": [
             "https://foo.com/bar/example_wtg_model.json"
           ],
-          "title": "Turbine Model Performance Specification Reference",
-          "type": "string"
+          "title": "Turbine Model Performance Specification Reference"
         },
         "turbine_model_id": {
           "description": "Unique identifier of the turbine model.",
@@ -716,20 +684,10 @@
       "description": "Specification of all details for a turbine configuration.",
       "properties": {
         "comments": {
-          "description": "Comments regarding the turbine configuration.",
-          "examples": [
-            "Preliminary alternative configuration with Unconfirmed turbine suitability"
-          ],
-          "title": "Comments",
-          "type": "string"
+          "$ref": "#/definitions/Comments"
         },
         "description": {
-          "description": "Description of the turbine configuration.",
-          "examples": [
-            "Turbine specification for T1 in Scenario B"
-          ],
-          "title": "Description",
-          "type": "string"
+          "$ref": "#/definitions/Description"
         },
         "hub_height": {
           "description": "Turbine hub height.",
@@ -864,17 +822,10 @@
       "description": "Wind resource uncertainty assessment component.",
       "properties": {
         "comments": {
-          "description": "Comments on the wind uncertainty component.",
-          "title": "Comments",
-          "type": "string"
+          "$ref": "#/definitions/Comments"
         },
         "description": {
-          "description": "Description of the wind uncertainty component.",
-          "examples": [
-            "Uncertainty associated with the consistency of the long-term reference data"
-          ],
-          "title": "Description",
-          "type": "string"
+          "$ref": "#/definitions/Description"
         },
         "label": {
           "description": "Label of the wind uncertainty component.",
@@ -901,17 +852,10 @@
       "description": "A collection of wind turbines considered as one unit (plant).",
       "properties": {
         "comments": {
-          "description": "Comments regarding the wind farm.",
-          "title": "Comments",
-          "type": "string"
+          "$ref": "#/definitions/Comments"
         },
         "description": {
-          "description": "Description of the wind farm.",
-          "examples": [
-            "The third phase of the Summit project"
-          ],
-          "title": "Description",
-          "type": "string"
+          "$ref": "#/definitions/Description"
         },
         "label": {
           "description": "Abbreviated label of the wind farm.",
@@ -952,14 +896,8 @@
           "type": "string"
         },
         "relevance": {
-          "description": "The relevance of the wind farm for the assessment.",
-          "enum": [
-            "internal",
-            "external",
-            "future"
-          ],
-          "title": "Relevance",
-          "type": "string"
+          "$ref": "#/definitions/WindFarmRelevance",
+          "description": "The relevance of the wind farm for the assessment."
         },
         "turbines": {
           "description": "List of specifications for constituent turbines.",
@@ -985,6 +923,16 @@
       ],
       "title": "WindFarm",
       "type": "object"
+    },
+    "WindFarmRelevance": {
+      "description": "The relevance of a wind farm in the context of an EYA.",
+      "enum": [
+        "internal",
+        "external",
+        "future"
+      ],
+      "title": "WindFarmRelevance",
+      "type": "string"
     },
     "WindResourceAssessment": {
       "description": "Wind resource assessment at the measurement locations.",
@@ -1017,18 +965,10 @@
       "type": "object"
     }
   },
-  "description": "IEC 61400-15-2 EYA DEF energy assessment report data model.",
+  "description": "IEC 61400-15-2 EYA DEF energy yield assessment data model.",
   "properties": {
     "comments": {
-      "description": "Comments on the energy assessment report.",
-      "examples": [
-        "Update to consider further on-site measurement data."
-      ],
-      "title": "Comments",
-      "type": [
-        "string",
-        "null"
-      ]
+      "$ref": "#/definitions/Comments"
     },
     "confidentiality_classification": {
       "description": "Confidentiality classification of the report.",
@@ -1068,15 +1008,7 @@
       "title": "Coordinate Reference System"
     },
     "description": {
-      "description": "Description of the energy assessment report.",
-      "examples": [
-        "Wind resource and energy yield assessment of the Barefoot Wind Farm based on one on-site meteorological mast and considering two different turbine scenarios."
-      ],
-      "title": "Description",
-      "type": [
-        "string",
-        "null"
-      ]
+      "$ref": "#/definitions/Description"
     },
     "document_id": {
       "description": "The ID of the report document; not including the version when 'document_version' is used.",
@@ -1123,17 +1055,14 @@
     "measurement_stations": {
       "description": "List of measurement station metadata JSON document(s) according to the IEA Task 43 WRA Data Model.",
       "items": {
-        "$ref": "https://raw.githubusercontent.com/IEA-Task-43/digital_wra_data_standard/master/schema/iea43_wra_data_model.schema.json1",
+        "$ref": "https://raw.githubusercontent.com/IEA-Task-43/digital_wra_data_standard/master/schema/iea43_wra_data_model.schema.json",
         "description": "A measurement metadata JSON document according to the IEA Task 43 WRA Data Model.",
         "examples": [
           "https://foo.com/bar/example_iea43.json"
         ]
       },
       "title": "Measurement Stations",
-      "type": [
-        "array",
-        "null"
-      ]
+      "type": "array"
     },
     "project_name": {
       "description": "Name of the project under assessment.",
@@ -1148,7 +1077,7 @@
       "items": {
         "$ref": "#/definitions/Organisation"
       },
-      "title": "Receiving Organisation",
+      "title": "Receiving Organisations",
       "type": [
         "array",
         "null"
@@ -1185,7 +1114,7 @@
       "type": "string"
     },
     "turbine_models": {
-      "description": "List of wind turbine model specifications used in this assessment.",
+      "description": "List of wind turbine model specifications.",
       "items": {
         "$ref": "#/definitions/TurbineModel"
       },
@@ -1211,8 +1140,8 @@
     "title",
     "project_name",
     "issue_date",
-    "issuing_organisations",
     "contributors",
+    "issuing_organisations",
     "coordinate_reference_system"
   ],
   "title": "IEC 61400-15-2 EYA DEF Data Model",

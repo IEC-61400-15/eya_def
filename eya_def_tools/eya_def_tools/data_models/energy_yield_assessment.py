@@ -441,18 +441,12 @@ class PlantPerformanceAssessment(pdt.BaseModel):
     categories: dict[
         PlantPerformanceCategoryLabel, PlantPerformanceCategory
     ] = pdt.Field(..., description="Plant performance assessment categories.")
-
-
-# TODO this needs to be completed with more fields for relevant details
-class NetEnergyAssessment(pdt.BaseModel):
-    """Net energy yield results."""
-
-    results: list[Results] = pdt.Field(
-        ..., description="Energy yield results at different confidence limits."
-    )
     # TODO remove optional
-    uncertainty_assessment: UncertaintyAssessment | None = pdt.Field(
+    net_energy_uncertainty_assessment: UncertaintyAssessment | None = pdt.Field(
         None, description="Net energy uncertainty assessment."
+    )
+    net_energy_results: list[Results] = pdt.Field(
+        ..., description="Net energy yield results at different confidence limits."
     )
 
 
@@ -492,10 +486,7 @@ class Scenario(pdt.BaseModel):
         ..., description="Gross energy yield assessment."
     )
     plant_performance_assessment: PlantPerformanceAssessment = pdt.Field(
-        ..., description="Plant performance assessment including all losses."
-    )
-    net_energy_assessment: NetEnergyAssessment = pdt.Field(
-        ..., description="Net energy yield assessment."
+        ..., description="Plant performance assessment including net energy results."
     )
 
 
