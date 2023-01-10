@@ -16,12 +16,18 @@ Schema are found [here](json_schema/examples).
 
 ## Schema diagrams
 
-Visit [Draw.io](https://draw.io) to edit the data tables.
+The top levels of the current draft of the data model is illustrated
+below.
 
-Also see https://www.diagrams.net/blog/single-repository-diagrams for
-info about GitHub and draw.io functionality.
+  ![data_model_top_levels_diagram](https://github.com/IEC-61400-15/energy_yield_reporting_DEF/blob/main/eya_def_top_level.svg)
 
-  ![Diagram](https://github.com/IEC-61400-15/energy_yield_reporting_DEF/blob/main/SVG_IEC%2061400-15-2%20DEF.drawio.svg)
+The python package (see [below](#python-package)) uses [erdantic](
+https://erdantic.drivendata.org/stable/) to generate graphical
+representations of the data model.
+
+The website [Draw.io](https://draw.io) can also be used to visualise
+data tables. See https://www.diagrams.net/blog/single-repository-diagrams
+for info about GitHub and draw.io functionality.
 
 ## Python package
 
