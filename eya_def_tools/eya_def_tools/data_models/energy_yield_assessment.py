@@ -31,6 +31,7 @@ from eya_def_tools.data_models.enums import (
     UncertaintyCategoryLabel,
     WindFarmRelevance,
 )
+from eya_def_tools.data_models.fields import comments_field, description_field
 from eya_def_tools.data_models.types import NestedAnnotatedFloatDict
 from eya_def_tools.utils.json_schema_utils import (
     add_null_type_to_schema_optional_fields,
@@ -79,18 +80,8 @@ class Location(pdt.BaseModel):
             "WEA_003/R2",
         ],
     )
-    description: str | None = pdt.Field(
-        None,
-        description="Description of the location.",
-        examples=[
-            "Preliminary location of T1",
-        ],
-    )
-    comments: str | None = pdt.Field(
-        None,
-        description="Comments regarding the location.",
-        examples=["Pending ground investigations"],
-    )
+    description: str | None = description_field
+    comments: str | None = comments_field
     x: float = pdt.Field(
         ...,
         description="Location x-coordinate (typically easing).",
@@ -201,19 +192,8 @@ class OperationalRestriction(pdt.BaseModel):
         description="Label of the operational restriction.",
         examples=["WSM curtailment", "MEC curtailment"],
     )
-    description: str = pdt.Field(
-        ...,
-        description="Description of the operational restriction.",
-        examples=[
-            (
-                "Wind sector management (WSM) curtailment as specified by "
-                "the turbine manufacturer"
-            )
-        ],
-    )
-    comments: str | None = pdt.Field(
-        None, description="Comments regarding the operational restriction."
-    )
+    description: str | None = description_field
+    comments: str | None = comments_field
 
 
 class TurbineSpecification(pdt.BaseModel):
@@ -233,23 +213,8 @@ class TurbineSpecification(pdt.BaseModel):
             "WEA_003",
         ],
     )
-    description: str | None = pdt.Field(
-        None,
-        description="Description of the turbine configuration.",
-        examples=[
-            "Turbine specification for T1 in Scenario B",
-        ],
-    )
-    comments: str | None = pdt.Field(
-        None,
-        description="Comments regarding the turbine configuration.",
-        examples=[
-            (
-                "Preliminary alternative configuration with Unconfirmed "
-                "turbine suitability"
-            )
-        ],
-    )
+    description: str | None = description_field
+    comments: str | None = comments_field
     location: Location = pdt.Field(
         ..., description="Horizontal location of the turbine."
     )
@@ -275,14 +240,8 @@ class WindFarm(pdt.BaseModel):
         description="Abbreviated label of the wind farm.",
         examples=["BWF", "Summit PhIII"],
     )
-    description: str | None = pdt.Field(
-        None,
-        description="Description of the wind farm.",
-        examples=["The third phase of the Summit project"],
-    )
-    comments: str | None = pdt.Field(
-        None, description="Comments regarding the wind farm."
-    )
+    description: str | None = description_field
+    comments: str | None = comments_field
     turbines: list[TurbineSpecification] = pdt.Field(
         ..., description="List of specifications for constituent turbines."
     )
@@ -313,11 +272,8 @@ class CalculationModelSpecification(pdt.BaseModel):
         description="Name of the model.",
         examples=["WAsP", "VORTEX BLOCKS", "DNV CFD", "VENTOS/M"],
     )
-    description: str | None = pdt.Field(
-        None,
-        description="Description of the model.",
-    )
-    comments: str | None = pdt.Field(None, description="Comments on the model.")
+    description: str | None = description_field
+    comments: str | None = comments_field
 
 
 class ResultsComponent(pdt.BaseModel):
@@ -328,12 +284,8 @@ class ResultsComponent(pdt.BaseModel):
         description="Type of results component.",
         examples=["mean", "median", "std", "P90"],
     )
-    description: str | None = pdt.Field(
-        None, description="Description of the results component."
-    )
-    comments: str | None = pdt.Field(
-        None, description="Comments on the results component."
-    )
+    description: str | None = description_field
+    comments: str | None = comments_field
     values: float | NestedAnnotatedFloatDict = pdt.Field(
         ...,
         description="Result value(s) as simple float or labeled map.",
@@ -347,16 +299,8 @@ class Results(pdt.BaseModel):
     label: str = pdt.Field(
         ..., description="Label of the results.", examples=["10-year P50"]
     )
-    description: str | None = pdt.Field(
-        None,
-        description="Description of the results.",
-        examples=["10-year wind farm net P50 energy yield."],
-    )
-    comments: str | None = pdt.Field(
-        None,
-        description="Comments on the results.",
-        examples=["Corresponds to first 10 years of operation."],
-    )
+    description: str | None = description_field
+    comments: str | None = comments_field
     unit: str = pdt.Field(
         ..., description="Unit of result values (TO REPLACE BY LITERAL)."
     )
@@ -382,19 +326,8 @@ class UncertaintyComponent(pdt.BaseModel):
         description="Label of the wind uncertainty component.",
         examples=["Long-term consistency"],
     )
-    description: str | None = pdt.Field(
-        None,
-        description="Description of the wind uncertainty component.",
-        examples=[
-            (
-                "Uncertainty associated with the consistency of the "
-                "long-term reference data"
-            )
-        ],
-    )
-    comments: str | None = pdt.Field(
-        None, description="Comments on the wind uncertainty component."
-    )
+    description: str | None = description_field
+    comments: str | None = comments_field
     results: Results = pdt.Field(
         ..., description="Wind resource uncertainty assessment component results."
     )
@@ -533,12 +466,8 @@ class Scenario(pdt.BaseModel):
     label: str = pdt.Field(
         ..., description="Label of the scenario.", examples=["Sc1", "A", "B01"]
     )
-    description: str | None = pdt.Field(
-        None,
-        description="Description of the scenario.",
-        examples=["Main scenario", "XZY220-7.2MW turbine model scenario"],
-    )
-    comments: str | None = pdt.Field(None, description="Comments on the scenario.")
+    description: str | None = description_field
+    comments: str | None = comments_field
     is_main_scenario: bool | None = pdt.Field(
         None, description="Whether or not this is the main scenario in the report."
     )
@@ -657,22 +586,8 @@ class EnergyYieldAssessment(BaseModelWithRefs):
         description="Title of the energy assessment report.",
         examples=["Energy yield assessment of the Barefoot Wind Farm"],
     )
-    description: str | None = pdt.Field(
-        None,
-        description="Description of the energy assessment report.",
-        examples=[
-            (
-                "Wind resource and energy yield assessment of the Barefoot "
-                "Wind Farm based on one on-site meteorological mast and "
-                "considering two different turbine scenarios."
-            )
-        ],
-    )
-    comments: str | None = pdt.Field(
-        None,
-        description="Comments on the energy assessment report.",
-        examples=["Update to consider further on-site measurement data."],
-    )
+    description: str | None = description_field
+    comments: str | None = comments_field
     project_name: str = pdt.Field(
         ...,
         description="Name of the project under assessment.",
