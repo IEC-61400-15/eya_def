@@ -3,7 +3,6 @@ isort~=5.11.4
 mypy~=0.991
 pip_audit~=2.4.12
 pre-commit~=2.21.0
-pytest~=7.2.0
 pytest-cov~=4.0.0
 sphinx~=6.1.1
 types-jsonschema~=4.17.0.2
