@@ -55,3 +55,11 @@ class UncertaintyCategoryLabel(StrEnum):
     VERTICAL = auto()
     HORIZONTAL = auto()
     OTHER = auto()
+
+
+class WindFarmRelevance(StrEnum):
+    """The relevance of a wind farm in the context of an EYA."""
+
+    INTERNAL = auto()
+    EXTERNAL = auto()
+    FUTURE = auto()

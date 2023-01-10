@@ -22,6 +22,7 @@ from eya_def_tools.data_models.enums import (
     PlantPerformanceCategoryLabel,
     ResultsApplicabilityType,
     UncertaintyCategoryLabel,
+    WindFarmRelevance,
 )
 
 TEST_INPUT_DATA_DIRNAME = "test_input_data"
@@ -506,7 +507,7 @@ def wind_farm_a(
         label="Barefoot",
         description="Barefoot Wind Farm configuration for Scenario A",
         turbines=[turbine_specification_wtg01_a, turbine_specification_wtg02_a],
-        relevance="internal",
+        relevance=WindFarmRelevance.INTERNAL,
         operational_lifetime_start_date=dt.date(2024, 1, 1),
     )
 
@@ -522,7 +523,7 @@ def wind_farm_b(
         description="Barefoot Wind Farm configuration for Scenario B",
         comments="Secondary wind farm scenario",
         turbines=[turbine_specification_wtg01_b, turbine_specification_wtg02_b],
-        relevance="internal",
+        relevance=WindFarmRelevance.INTERNAL,
         operational_lifetime_start_date=dt.date(2024, 1, 1),
     )
 
@@ -538,7 +539,7 @@ def neighbouring_wind_farm_a(
         description="The operational Munro Wind Farm",
         comments="Details taken from publicly available information.",
         turbines=[turbine_specification_mu_t1_a, turbine_specification_mu_t2_a],
-        relevance="external",
+        relevance=WindFarmRelevance.EXTERNAL,
         operational_lifetime_start_date=dt.date(2018, 7, 1),
         operational_lifetime_end_date=dt.date(2038, 6, 30),
     )
