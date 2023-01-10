@@ -41,24 +41,24 @@ def test_export_json_schema(pydantic_json_schema_tmp_path):
     assert pydantic_json_schema_tmp_path.is_file()
 
 
-# # TODO: TEMPORARY CODE
-# def test_copy_pydantic_json_schema(pydantic_json_schema_tmp_path):
-#     """Temporary test to copy pydantic schema."""
-#     import shutil
-#     from pathlib import Path
-#
-#     shutil.copy(
-#         pydantic_json_schema_tmp_path, Path("iec_61400-15-2_eya_def.schema.json")
-#     )
-#
-#
-# # TODO: TEMPORARY CODE
-# def test_copy_energy_yield_assessment_a(energy_yield_assessment_a_tmp_filepath):
-#     """Temporary test to copy pydantic example 'a'."""
-#     import shutil
-#     from pathlib import Path
-#
-#     shutil.copy(
-#         energy_yield_assessment_a_tmp_filepath,
-#         Path("iec_61400-15-2_eya_def_example_a.json"),
-#     )
+# TODO: TEMPORARY CODE
+def test_copy_pydantic_json_schema(pydantic_json_schema_tmp_path):
+    """Temporary test to copy pydantic schema."""
+    import shutil
+    from pathlib import Path
+
+    shutil.copy(
+        pydantic_json_schema_tmp_path, Path("iec_61400-15-2_eya_def.schema.json")
+    )
+
+
+# TODO: TEMPORARY CODE
+def test_copy_energy_yield_assessment_a(energy_yield_assessment_a_tmp_filepath):
+    """Temporary test to copy pydantic example 'a'."""
+    import shutil
+    from pathlib import Path
+
+    shutil.copy(
+        energy_yield_assessment_a_tmp_filepath,
+        Path("iec_61400-15-2_eya_def_example_a.json"),
+    )

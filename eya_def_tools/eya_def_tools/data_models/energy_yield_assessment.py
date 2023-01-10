@@ -35,6 +35,7 @@ from eya_def_tools.data_models.fields import comments_field, description_field
 from eya_def_tools.data_models.types import NestedAnnotatedFloatDict
 from eya_def_tools.utils.json_schema_utils import (
     add_null_type_to_schema_optional_fields,
+    move_field_to_definitions,
     reduce_json_schema_all_of,
 )
 from eya_def_tools.utils.reference_utils import (
@@ -694,4 +695,9 @@ class EnergyYieldAssessment(BaseModelWithRefs):
             if property_exclude in schema_dict["properties"].keys():
                 del schema_dict["properties"][property_exclude]
         schema_dict = reduce_json_schema_all_of(schema_dict)
+        defined_fields = ["description", "comments"]
+        for field_label in defined_fields:
+            schema_dict = move_field_to_definitions(
+                json_dict=schema_dict, field_label=field_label
+            )
         return schema_dict

@@ -1,28 +1,10 @@
-"""JSON Schema utilities.
+"""JSON Schema utilities related to the ``pydantic`` package.
 
 """
 
 from typing import Any, Type
 
 import pydantic as pdt
-
-
-def reduce_json_schema_all_of(json_dict: dict) -> dict:
-    """Get copy of JSON ``dict`` without superfluous ``allOf``.
-
-    :param json_dict: the original ``dict`` in JSON format
-    :return: a copy of ``json_dict`` where ``allOf`` definitions are
-        removed for instanced where there is only one item
-    """
-    reduced_json_dict = {}
-    for key, val in json_dict.items():
-        if isinstance(val, dict):
-            reduced_json_dict[key] = reduce_json_schema_all_of(val)
-        elif key == "allOf" and isinstance(val, list) and len(val) == 1:
-            reduced_json_dict.update(val[0].items())
-        else:
-            reduced_json_dict[key] = val
-    return reduced_json_dict
 
 
 def add_null_type_to_schema_optional_fields(
@@ -38,3 +20,59 @@ def add_null_type_to_schema_optional_fields(
         if field.allow_none:
             if "type" in value:
                 value["type"] = [value["type"], "null"]
+
+
+def move_field_to_definitions(
+    json_dict: dict[str, Any], field_label: str
+) -> dict[str, Any]:
+    """Move the details of a field to the ``definitions`` section.
+
+    :param json_dict: the model schema dictionary to modify
+    :param field_label: the label of the model field to move to the
+        ``definitions`` section
+    :return: a copy of ``json_dict`` where the ``properties`` and
+        ``definitions`` sections have been updated
+    """
+    updated_json_dict = json_dict.copy()
+    field_definition = _find_field_definition(
+        json_dict=json_dict, field_label=field_label
+    )
+    if field_definition is None:
+        raise ValueError(f"the field {field_label} was not found in the schema")
+    field_title = field_label.title()
+    updated_json_dict["definitions"][field_title] = field_definition
+    for key, value in json_dict.items():
+        if isinstance(value, dict):
+            if key == "properties" and field_label in value.keys():
+                value[field_label] = {"$ref": f"#/definitions/{field_title}"}
+    return updated_json_dict
+
+
+def reduce_json_schema_all_of(json_dict: dict[str, Any]) -> dict[str, Any]:
+    """Get copy of JSON Schema ``dict`` without superfluous ``allOf``.
+
+    :param json_dict: the original ``dict`` in JSON format
+    :return: a copy of ``json_dict`` where ``allOf`` definitions are
+        removed for instanced where there is only one item
+    """
+    reduced_json_dict = {}
+    for key, value in json_dict.items():
+        if isinstance(value, dict):
+            reduced_json_dict[key] = reduce_json_schema_all_of(value)
+        elif key == "allOf" and isinstance(value, list) and len(value) == 1:
+            reduced_json_dict.update(value[0].items())
+        else:
+            reduced_json_dict[key] = value
+    return reduced_json_dict
+
+
+def _find_field_definition(
+    json_dict: dict[str, Any], field_label: str
+) -> dict[str, Any] | None:
+    for key, value in json_dict.items():
+        if isinstance(value, dict):
+            if key == "properties" and field_label in value.keys():
+                return value[field_label]
+            else:
+                return _find_field_definition(json_dict=value, field_label=field_label)
+    return None
