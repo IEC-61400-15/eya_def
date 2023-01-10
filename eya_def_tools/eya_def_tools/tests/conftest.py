@@ -15,8 +15,8 @@ from pathlib import Path
 import pydantic as pdt
 import pytest
 
-from eya_def_tools import data_model
-from eya_def_tools.enums import (
+from eya_def_tools.data_models import energy_yield_assessment as eya
+from eya_def_tools.data_models.enums import (
     ComponentAssessmentBasis,
     ComponentVariabilityType,
     PlantPerformanceCategoryLabel,
@@ -108,9 +108,8 @@ def pydantic_json_schema(energy_yield_assessment_a) -> dict:
     :param energy_yield_assessment_a: the complete example test
         instance 'a' of the top-level ``EnergyYieldAssessment`` data
         model used as the primary test case
-    :return: a ``dict`` representation of the pydantic data model json
-        schema exported from the ``data_model.EnergyYieldAssessment``
-        class
+    :return: a ``dict`` representation of the pydantic data model JSON
+        Schema exported from the ``EnergyYieldAssessment`` class
     """
     return energy_yield_assessment_a.final_json_schema()
 
@@ -120,7 +119,7 @@ def pydantic_json_schema_tmp_path(pydantic_json_schema, tmp_path_factory) -> Pat
     """The path to the temporary pydantic json schema file.
 
     :param pydantic_json_schema: a ``dict`` representation of the pydantic
-        json schema exported from ``data_model.EnergyYieldAssessment``
+        JSON Schema exported from the ``EnergyYieldAssessment`` class
     :param tmp_path_factory: the ``pytest`` ``tmp_path_factory``
     :return: the path to the temporary json schema file representation
         of the pydantic data model
@@ -215,9 +214,9 @@ def json_examples_tmp_dirpath(tmp_path_factory) -> Path:
 
 
 @pytest.fixture(scope="session")
-def coordinate_reference_system_a() -> data_model.CoordinateReferenceSystem:
+def coordinate_reference_system_a() -> eya.CoordinateReferenceSystem:
     """Test case instance 'a' of ``CoordinateReferenceSystem``."""
-    return data_model.CoordinateReferenceSystem(
+    return eya.CoordinateReferenceSystem(
         system_label="WGS 84 / UTM zone 30N",
         epsg_srid=32630,
         wkt=(
@@ -236,9 +235,9 @@ def coordinate_reference_system_a() -> data_model.CoordinateReferenceSystem:
 
 
 @pytest.fixture(scope="session")
-def turbine_location_wtg01_a() -> data_model.Location:
+def turbine_location_wtg01_a() -> eya.Location:
     """Turbine test case instance 'WTG01_a' of ``Location``."""
-    return data_model.Location(
+    return eya.Location(
         location_id="c697566d-cf38-4626-9cda-bc7a77230d48",
         label="WTG01",
         description="Planned location of WTG01",
@@ -248,9 +247,9 @@ def turbine_location_wtg01_a() -> data_model.Location:
 
 
 @pytest.fixture(scope="session")
-def turbine_location_wtg01_b() -> data_model.Location:
+def turbine_location_wtg01_b() -> eya.Location:
     """Turbine test case instance 'WTG01_b' of ``Location``."""
-    return data_model.Location(
+    return eya.Location(
         location_id="ac230650-a5dc-42c7-b10c-c5a88b0e78e9",
         label="WTG01_b",
         description="Alternative location of WTG01",
@@ -260,9 +259,9 @@ def turbine_location_wtg01_b() -> data_model.Location:
 
 
 @pytest.fixture(scope="session")
-def turbine_location_wtg02_a() -> data_model.Location:
+def turbine_location_wtg02_a() -> eya.Location:
     """Turbine test case instance 'WTG02_a' of ``Location``."""
-    return data_model.Location(
+    return eya.Location(
         location_id="c73f2e46-ba0b-4775-a2f3-b76e3c3b5012",
         label="WTG02",
         description="Planned location of WTG02",
@@ -272,9 +271,9 @@ def turbine_location_wtg02_a() -> data_model.Location:
 
 
 @pytest.fixture(scope="session")
-def turbine_location_wtg02_b() -> data_model.Location:
+def turbine_location_wtg02_b() -> eya.Location:
     """Turbine test case instance 'WTG02_b' of ``Location``."""
-    return data_model.Location(
+    return eya.Location(
         location_id="c73f2e46-ba0b-4775-a2f3-b76e3c3b5012",
         label="WTG02_b",
         description="Alternative location of WTG02",
@@ -288,9 +287,9 @@ def turbine_location_wtg02_b() -> data_model.Location:
 
 
 @pytest.fixture(scope="session")
-def turbine_location_mu_t1_a() -> data_model.Location:
+def turbine_location_mu_t1_a() -> eya.Location:
     """Turbine test case instance 'Mu_T1_a' of ``Location``."""
-    return data_model.Location(
+    return eya.Location(
         location_id="79166b5c-7e55-485b-b7e7-24f835c5e40a",
         label="Mu_T1",
         description="Turbine T1 of the operational Munro Wind Farm",
@@ -304,9 +303,9 @@ def turbine_location_mu_t1_a() -> data_model.Location:
 
 
 @pytest.fixture(scope="session")
-def turbine_location_mu_t2_a() -> data_model.Location:
+def turbine_location_mu_t2_a() -> eya.Location:
     """Turbine test case instance 'Mu_T2_a' of ``Location``."""
-    return data_model.Location(
+    return eya.Location(
         location_id="dc4dba73-8f1c-494f-868e-e548f2a3923f",
         label="Mu_T2",
         description="Turbine T2 of the operational Munro Wind Farm",
@@ -321,9 +320,9 @@ def turbine_location_mu_t2_a() -> data_model.Location:
 
 # TODO translate to IEA43 metadata model
 # @pytest.fixture(scope='session')
-# def measurement_location_a() -> data_model.Location:
+# def measurement_location_a() -> eya.Location:
 #     """Wind measurement test case instance 'a' of ``Location``."""
-#     return data_model.Location(
+#     return eya.Location(
 #         location_id="ee15ff84-6733-4858-9656-ba995d9b1022",
 #         label='M1',
 #         description="Verified location of Mast M1",
@@ -337,9 +336,9 @@ def turbine_location_mu_t2_a() -> data_model.Location:
 # @pytest.fixture(scope='session')
 # def measurement_station_a(
 #     measurement_location_a
-# ) -> data_model.WindMeasurementCampaign:
+# ) -> eya.WindMeasurementCampaign:
 #     """Test case instance 'a' of ``WindMeasurementCampaign``."""
-#     return data_model.WindMeasurementCampaign(
+#     return eya.WindMeasurementCampaign(
 #         measurement_id="BF_M1_1.0.0",
 #         name="Mast M1",
 #         label="M1",
@@ -347,56 +346,56 @@ def turbine_location_mu_t2_a() -> data_model.Location:
 #             "Barefoot Wind Farm on-site meteorological mast"),
 #         comments="Measurements were still ongoing at time of assessment.",
 #         location=measurement_location_a,
-#         metadata_ref=data_model.MeasurementStationMetadata(
+#         metadata_ref=eya.MeasurementStationMetadata(
 #             "/foo/bar/metadata_ref.json"))
 
 
 # TODO add valid IEA43 metadata reference
 @pytest.fixture(scope="session")
-def measurement_station_a() -> data_model.MeasurementStationMetadata:
+def measurement_station_a() -> eya.MeasurementStationMetadata:
     """Dummy test case instance 'a' of ``MeasurementStationMetadata``."""
-    return data_model.MeasurementStationMetadata("/foo/bar/metadata_ref.json")
+    return eya.MeasurementStationMetadata("/foo/bar/metadata_ref.json")
 
 
 # TODO - placeholder to be implemented
 @pytest.fixture(scope="session")
-def measurement_station_basis_a() -> data_model.MeasurementStationBasis:
+def measurement_station_basis_a() -> eya.MeasurementStationBasis:
     """Test case instance 'a' of ``MeasurementStationBasis``."""
-    return data_model.MeasurementStationBasis()
+    return eya.MeasurementStationBasis()
 
 
 # TODO add valid turbine model performance specification reference
 @pytest.fixture(scope="session")
-def turbine_model_a() -> data_model.TurbineModel:
+def turbine_model_a() -> eya.TurbineModel:
     """Test case instance 'a' of ``TurbineModel``."""
-    return data_model.TurbineModel(
+    return eya.TurbineModel(
         turbine_model_id="6ca5bc01-04b1-421a-a033-133304d6cc7f", label="ABC165-5.5MW"
     )
 
 
 # TODO add valid turbine model performance specification reference
 @pytest.fixture(scope="session")
-def turbine_model_b() -> data_model.TurbineModel:
+def turbine_model_b() -> eya.TurbineModel:
     """Test case instance 'b' of ``TurbineModel``."""
-    return data_model.TurbineModel(
+    return eya.TurbineModel(
         turbine_model_id="e2914c83-f355-4cf2-9051-8e0f34aa3c03", label="PQR169-5.8MW"
     )
 
 
 # TODO add valid turbine model performance specification reference
 @pytest.fixture(scope="session")
-def turbine_model_c() -> data_model.TurbineModel:
+def turbine_model_c() -> eya.TurbineModel:
     """Test case instance 'c' of ``TurbineModel``."""
-    return data_model.TurbineModel(
+    return eya.TurbineModel(
         turbine_model_id="e3288cbd-fa3b-4241-8a4c-3856fc10c55e", label="XYZ-3.2/140"
     )
 
 
 # TODO expand definition of operational restriction
 @pytest.fixture(scope="session")
-def operational_restriction_a() -> data_model.OperationalRestriction:
+def operational_restriction_a() -> eya.OperationalRestriction:
     """Test case instance 'a' of ``OperationalRestriction``."""
-    return data_model.OperationalRestriction(
+    return eya.OperationalRestriction(
         label="WSM curtailment",
         description=(
             "Wind sector management (WSM) curtailment as specified"
@@ -408,9 +407,9 @@ def operational_restriction_a() -> data_model.OperationalRestriction:
 @pytest.fixture(scope="session")
 def turbine_specification_wtg01_a(
     turbine_location_wtg01_a, operational_restriction_a
-) -> data_model.TurbineSpecification:
+) -> eya.TurbineSpecification:
     """Test case instance 'WTG01_a' of ``TurbineSpecification``."""
-    return data_model.TurbineSpecification(
+    return eya.TurbineSpecification(
         turbine_id="2bbe1cb3-e9f3-42ad-be61-3657ea2ac174",
         label="WTG01_scenA",
         description="Configuration of WTG01 in Scenario A",
@@ -424,9 +423,9 @@ def turbine_specification_wtg01_a(
 @pytest.fixture(scope="session")
 def turbine_specification_wtg01_b(
     turbine_location_wtg01_b,
-) -> data_model.TurbineSpecification:
+) -> eya.TurbineSpecification:
     """Test case instance 'WTG01_b' of ``TurbineSpecification``."""
-    return data_model.TurbineSpecification(
+    return eya.TurbineSpecification(
         turbine_id="f5cfd507-5550-4fbb-bdca-3dc6b1c6323c",
         label="WTG01_scenB",
         description="Configuration of WTG01 in Scenario B",
@@ -439,9 +438,9 @@ def turbine_specification_wtg01_b(
 @pytest.fixture(scope="session")
 def turbine_specification_wtg02_a(
     turbine_location_wtg02_a, operational_restriction_a
-) -> data_model.TurbineSpecification:
+) -> eya.TurbineSpecification:
     """Test case instance 'WTG02_a' of ``TurbineSpecification``."""
-    return data_model.TurbineSpecification(
+    return eya.TurbineSpecification(
         turbine_id="39f9dd43-6322-4738-81af-6a65766b26e3",
         label="WTG02_scenA",
         description="Configuration of WTG02 in Scenario A",
@@ -455,9 +454,9 @@ def turbine_specification_wtg02_a(
 @pytest.fixture(scope="session")
 def turbine_specification_wtg02_b(
     turbine_location_wtg02_b,
-) -> data_model.TurbineSpecification:
+) -> eya.TurbineSpecification:
     """Test case instance 'WTG02_b' of ``TurbineSpecification``."""
-    return data_model.TurbineSpecification(
+    return eya.TurbineSpecification(
         turbine_id="a5ee87e3-5254-45fb-a057-4548b8c0424c",
         label="WTG02_scenB",
         description="Configuration of WTG02 in Scenario B",
@@ -470,9 +469,9 @@ def turbine_specification_wtg02_b(
 @pytest.fixture(scope="session")
 def turbine_specification_mu_t1_a(
     turbine_location_mu_t1_a,
-) -> data_model.TurbineSpecification:
+) -> eya.TurbineSpecification:
     """Test case instance 'Mu_T1_a' of ``TurbineSpecification``."""
-    return data_model.TurbineSpecification(
+    return eya.TurbineSpecification(
         turbine_id="f08b05bd-f90b-4833-91a5-4284b64c80db",
         label="Mu_T1_a",
         description="Configuration of the neighbouring Mu_T1_a turbine",
@@ -485,9 +484,9 @@ def turbine_specification_mu_t1_a(
 @pytest.fixture(scope="session")
 def turbine_specification_mu_t2_a(
     turbine_location_mu_t2_a,
-) -> data_model.TurbineSpecification:
+) -> eya.TurbineSpecification:
     """Test case instance 'Mu_T2_a' of ``TurbineSpecification``."""
-    return data_model.TurbineSpecification(
+    return eya.TurbineSpecification(
         turbine_id="b87f21bc-e1d8-4150-a2f4-d7f019bf96fc",
         label="Mu_T2_a",
         description="Configuration of the neighbouring Mu_T2_a turbine",
@@ -500,9 +499,9 @@ def turbine_specification_mu_t2_a(
 @pytest.fixture(scope="session")
 def wind_farm_a(
     turbine_specification_wtg01_a, turbine_specification_wtg02_a
-) -> data_model.WindFarm:
+) -> eya.WindFarm:
     """Test case instance 'a' of ``WindFarm``."""
-    return data_model.WindFarm(
+    return eya.WindFarm(
         name="Barefoot Wind Farm",
         label="Barefoot",
         description="Barefoot Wind Farm configuration for Scenario A",
@@ -515,9 +514,9 @@ def wind_farm_a(
 @pytest.fixture(scope="session")
 def wind_farm_b(
     turbine_specification_wtg01_b, turbine_specification_wtg02_b
-) -> data_model.WindFarm:
+) -> eya.WindFarm:
     """Test case instance 'b' of ``WindFarm``."""
-    return data_model.WindFarm(
+    return eya.WindFarm(
         name="Barefoot Wind Farm",
         label="Barefoot",
         description="Barefoot Wind Farm configuration for Scenario B",
@@ -531,9 +530,9 @@ def wind_farm_b(
 @pytest.fixture(scope="session")
 def neighbouring_wind_farm_a(
     turbine_specification_mu_t1_a, turbine_specification_mu_t2_a
-) -> data_model.WindFarm:
+) -> eya.WindFarm:
     """Neighboring project test case instance 'a' of ``WindFarm``."""
-    return data_model.WindFarm(
+    return eya.WindFarm(
         name="Munro Wind Farm",
         label="MWF",
         description="The operational Munro Wind Farm",
@@ -546,9 +545,9 @@ def neighbouring_wind_farm_a(
 
 
 @pytest.fixture(scope="session")
-def wind_spatial_model_a() -> data_model.CalculationModelSpecification:
+def wind_spatial_model_a() -> eya.CalculationModelSpecification:
     """Spatial model test case instance 'a' of ``CalculationModelSpecification``."""
-    return data_model.CalculationModelSpecification(
+    return eya.CalculationModelSpecification(
         name="VENTOS/M",
         description="VENTOS/M is a coupled CFD-mesoscale model.",
         comments="The simulations were run using 60 representative days.",
@@ -556,15 +555,15 @@ def wind_spatial_model_a() -> data_model.CalculationModelSpecification:
 
 
 @pytest.fixture(scope="session")
-def measurement_wind_uncertainty_assessment_a() -> data_model.UncertaintyAssessment:
+def measurement_wind_uncertainty_assessment_a() -> eya.UncertaintyAssessment:
     """Measurement test case instance 'a' of ``UncertaintyAssessment``."""
-    return data_model.UncertaintyAssessment(
+    return eya.UncertaintyAssessment(
         categories={
-            UncertaintyCategoryLabel.HISTORICAL: data_model.UncertaintyCategory(
+            UncertaintyCategoryLabel.HISTORICAL: eya.UncertaintyCategory(
                 components=[
-                    data_model.UncertaintyComponent(
+                    eya.UncertaintyComponent(
                         label="Regression model uncertainty",
-                        results=data_model.Results(
+                        results=eya.Results(
                             label=(
                                 "Regression model wind speed uncertainty "
                                 "per measurement location"
@@ -573,15 +572,15 @@ def measurement_wind_uncertainty_assessment_a() -> data_model.UncertaintyAssessm
                             applicability_type=ResultsApplicabilityType.LIFETIME,
                             results_dimensions=["location"],
                             result_components=[
-                                data_model.ResultsComponent(
+                                eya.ResultsComponent(
                                     component_type="std", values={"BF_M1_1.0.0": 0.025}
                                 )
                             ],
                         ),
                     ),
-                    data_model.UncertaintyComponent(
+                    eya.UncertaintyComponent(
                         label="Long-term consistency uncertainty",
-                        results=data_model.Results(
+                        results=eya.Results(
                             label=(
                                 "Long-term consistency wind speed uncertainty "
                                 "per measurement location"
@@ -590,7 +589,7 @@ def measurement_wind_uncertainty_assessment_a() -> data_model.UncertaintyAssessm
                             applicability_type=ResultsApplicabilityType.LIFETIME,
                             results_dimensions=["location"],
                             result_components=[
-                                data_model.ResultsComponent(
+                                eya.ResultsComponent(
                                     component_type="std", values={"BF_M1_1.0.0": 0.02}
                                 )
                             ],
@@ -598,13 +597,13 @@ def measurement_wind_uncertainty_assessment_a() -> data_model.UncertaintyAssessm
                     ),
                 ],
                 category_results=[
-                    data_model.Results(
+                    eya.Results(
                         label="Historical wind resource uncertainty",
                         unit="dimensionless",
                         applicability_type=ResultsApplicabilityType.LIFETIME,
                         results_dimensions=["location"],
                         result_components=[
-                            data_model.ResultsComponent(
+                            eya.ResultsComponent(
                                 component_type="std", values={"BF_M1_1.0.0": 0.03201}
                             )
                         ],
@@ -618,17 +617,17 @@ def measurement_wind_uncertainty_assessment_a() -> data_model.UncertaintyAssessm
 @pytest.fixture(scope="session")
 def wind_resource_assessment_a(
     measurement_wind_uncertainty_assessment_a,
-) -> data_model.WindResourceAssessment:
+) -> eya.WindResourceAssessment:
     """Test case instance 'a' of ``WindResourceAssessment``."""
-    return data_model.WindResourceAssessment(
+    return eya.WindResourceAssessment(
         results=[
-            data_model.Results(
+            eya.Results(
                 label="Measurement-height long-term wind",
                 unit="m/s",
                 applicability_type=ResultsApplicabilityType.LIFETIME,
                 results_dimensions=["location"],
                 result_components=[
-                    data_model.ResultsComponent(
+                    eya.ResultsComponent(
                         component_type="mean", values={"BF_M1_1.0.0": 6.83}
                     )
                 ],
@@ -640,25 +639,25 @@ def wind_resource_assessment_a(
 
 # TODO - placeholder to be implemented
 @pytest.fixture(scope="session")
-def wind_resource_assessment_basis_a() -> data_model.WindResourceAssessmentBasis:
+def wind_resource_assessment_basis_a() -> eya.WindResourceAssessmentBasis:
     """Test case instance 'a' of ``WindResourceAssessmentBasis``."""
-    return data_model.WindResourceAssessmentBasis()
+    return eya.WindResourceAssessmentBasis()
 
 
 @pytest.fixture(scope="session")
 def turbine_wind_resource_assessment_a(
     wind_spatial_model_a,
-) -> data_model.TurbineWindResourceAssessment:
+) -> eya.TurbineWindResourceAssessment:
     """Test case instance 'a' of ``TurbineWindResourceAssessment``."""
-    return data_model.TurbineWindResourceAssessment(
+    return eya.TurbineWindResourceAssessment(
         turbine_wind_resource_results=[
-            data_model.Results(
+            eya.Results(
                 label="Turbine-location hub-height long-term wind",
                 unit="m/s",
                 applicability_type=ResultsApplicabilityType.LIFETIME,
                 results_dimensions=["location"],
                 result_components=[
-                    data_model.ResultsComponent(
+                    eya.ResultsComponent(
                         component_type="mean", values={"WTG01": 6.91, "WTG02": 6.95}
                     )
                 ],
@@ -671,17 +670,17 @@ def turbine_wind_resource_assessment_a(
 @pytest.fixture(scope="session")
 def turbine_wind_resource_assessment_b(
     wind_spatial_model_a,
-) -> data_model.TurbineWindResourceAssessment:
+) -> eya.TurbineWindResourceAssessment:
     """Test case instance 'b' of ``TurbineWindResourceAssessment``."""
-    return data_model.TurbineWindResourceAssessment(
+    return eya.TurbineWindResourceAssessment(
         turbine_wind_resource_results=[
-            data_model.Results(
+            eya.Results(
                 label="Turbine-location hub-height long-term wind",
                 unit="m/s",
                 applicability_type=ResultsApplicabilityType.LIFETIME,
                 results_dimensions=["location"],
                 result_components=[
-                    data_model.ResultsComponent(
+                    eya.ResultsComponent(
                         component_type="mean", values={"WTG01": 6.90, "WTG02": 6.94}
                     )
                 ],
@@ -692,29 +691,29 @@ def turbine_wind_resource_assessment_b(
 
 
 @pytest.fixture(scope="session")
-def gross_energy_assessment_a() -> data_model.GrossEnergyAssessment:
+def gross_energy_assessment_a() -> eya.GrossEnergyAssessment:
     """Test case instance 'a' of ``GrossEnergyAssessment``."""
-    return data_model.GrossEnergyAssessment(
+    return eya.GrossEnergyAssessment(
         results=[
-            data_model.Results(
+            eya.Results(
                 label="Gross yield",
                 unit="MWh/annum",
                 applicability_type=ResultsApplicabilityType.LIFETIME,
                 results_dimensions=["location"],
                 result_components=[
-                    data_model.ResultsComponent(
+                    eya.ResultsComponent(
                         component_type="mean",
                         values={"WTG01": 15500.0, "WTG02": 16700.0},
                     )
                 ],
             ),
-            data_model.Results(
+            eya.Results(
                 label="Gross yield",
                 unit="MWh/annum",
                 applicability_type=ResultsApplicabilityType.LIFETIME,
                 results_dimensions=["none"],
                 result_components=[
-                    data_model.ResultsComponent(component_type="mean", values=32200.0)
+                    eya.ResultsComponent(component_type="mean", values=32200.0)
                 ],
             ),
         ]
@@ -722,29 +721,29 @@ def gross_energy_assessment_a() -> data_model.GrossEnergyAssessment:
 
 
 @pytest.fixture(scope="session")
-def gross_energy_assessment_b() -> data_model.GrossEnergyAssessment:
+def gross_energy_assessment_b() -> eya.GrossEnergyAssessment:
     """Test case instance 'b' of ``GrossEnergyAssessment``."""
-    return data_model.GrossEnergyAssessment(
+    return eya.GrossEnergyAssessment(
         results=[
-            data_model.Results(
+            eya.Results(
                 label="Gross yield",
                 unit="MWh/annum",
                 applicability_type=ResultsApplicabilityType.LIFETIME,
                 results_dimensions=["location"],
                 result_components=[
-                    data_model.ResultsComponent(
+                    eya.ResultsComponent(
                         component_type="mean",
                         values={"WTG01": 18100.0, "WTG02": 18900.0},
                     )
                 ],
             ),
-            data_model.Results(
+            eya.Results(
                 label="Gross yield",
                 unit="MWh/annum",
                 applicability_type=ResultsApplicabilityType.LIFETIME,
                 results_dimensions=["none"],
                 result_components=[
-                    data_model.ResultsComponent(component_type="mean", values=37000.0)
+                    eya.ResultsComponent(component_type="mean", values=37000.0)
                 ],
             ),
         ]
@@ -752,22 +751,22 @@ def gross_energy_assessment_b() -> data_model.GrossEnergyAssessment:
 
 
 @pytest.fixture(scope="session")
-def plant_performance_assessment_a() -> data_model.PlantPerformanceAssessment:
+def plant_performance_assessment_a() -> eya.PlantPerformanceAssessment:
     """Test case instance 'a' of ``PlantPerformanceAssessment``."""
     category_label = PlantPerformanceCategoryLabel.CURTAILMENT
-    return data_model.PlantPerformanceAssessment(
+    return eya.PlantPerformanceAssessment(
         categories={
-            category_label: data_model.PlantPerformanceCategory(
+            category_label: eya.PlantPerformanceCategory(
                 components=[
-                    data_model.PlantPerformanceComponent(
+                    eya.PlantPerformanceComponent(
                         basis=ComponentAssessmentBasis.TIMESERIES_CALCULATION,
                         variability=ComponentVariabilityType.STATIC_PROCESS,
                         calculation_models=[
-                            data_model.CalculationModelSpecification(
+                            eya.CalculationModelSpecification(
                                 name="Timeseries tool", comments="Internal toolset"
                             )
                         ],
-                        results=data_model.Results(
+                        results=eya.Results(
                             label="Loads curtailment",
                             description=(
                                 "Curtailment due to a wind sector management "
@@ -781,11 +780,11 @@ def plant_performance_assessment_a() -> data_model.PlantPerformanceAssessment:
                             applicability_type=ResultsApplicabilityType.LIFETIME,
                             results_dimensions=["location"],
                             result_components=[
-                                data_model.ResultsComponent(
+                                eya.ResultsComponent(
                                     component_type="mean",
                                     values={"WTG01": 0.975, "WTG02": 0.983},
                                 ),
-                                data_model.ResultsComponent(
+                                eya.ResultsComponent(
                                     component_type="std",
                                     values={"WTG01": 0.005, "WTG02": 0.005},
                                 ),
@@ -794,18 +793,18 @@ def plant_performance_assessment_a() -> data_model.PlantPerformanceAssessment:
                     )
                 ],
                 category_results=[
-                    data_model.Results(
+                    eya.Results(
                         label="Curtailment",
                         description="Curtailment losses.",
                         unit="dimensionless",
                         applicability_type=ResultsApplicabilityType.LIFETIME,
                         results_dimensions=["location"],
                         result_components=[
-                            data_model.ResultsComponent(
+                            eya.ResultsComponent(
                                 component_type="mean",
                                 values={"WTG01": 0.975, "WTG02": 0.983},
                             ),
-                            data_model.ResultsComponent(
+                            eya.ResultsComponent(
                                 component_type="std",
                                 values={"WTG01": 0.005, "WTG02": 0.005},
                             ),
@@ -818,17 +817,17 @@ def plant_performance_assessment_a() -> data_model.PlantPerformanceAssessment:
 
 
 @pytest.fixture(scope="session")
-def plant_performance_assessment_b() -> data_model.PlantPerformanceAssessment:
+def plant_performance_assessment_b() -> eya.PlantPerformanceAssessment:
     """Test case instance 'b' of ``PlantPerformanceAssessment``."""
     category_label = PlantPerformanceCategoryLabel.CURTAILMENT
-    return data_model.PlantPerformanceAssessment(
+    return eya.PlantPerformanceAssessment(
         categories={
-            category_label: data_model.PlantPerformanceCategory(
+            category_label: eya.PlantPerformanceCategory(
                 components=[
-                    data_model.PlantPerformanceComponent(
+                    eya.PlantPerformanceComponent(
                         basis=ComponentAssessmentBasis.PROJECT_SPECIFIC_ESTIMATE,
                         variability=ComponentVariabilityType.STATIC_PROCESS,
-                        results=data_model.Results(
+                        results=eya.Results(
                             label="Loads curtailment",
                             description=(
                                 "Expected curtailment due to a wind sector "
@@ -843,11 +842,11 @@ def plant_performance_assessment_b() -> data_model.PlantPerformanceAssessment:
                             applicability_type=ResultsApplicabilityType.LIFETIME,
                             results_dimensions=["location"],
                             result_components=[
-                                data_model.ResultsComponent(
+                                eya.ResultsComponent(
                                     component_type="mean",
                                     values={"WTG01": 0.95, "WTG02": 0.95},
                                 ),
-                                data_model.ResultsComponent(
+                                eya.ResultsComponent(
                                     component_type="std",
                                     values={"WTG01": 0.05, "WTG02": 0.05},
                                 ),
@@ -856,18 +855,18 @@ def plant_performance_assessment_b() -> data_model.PlantPerformanceAssessment:
                     )
                 ],
                 category_results=[
-                    data_model.Results(
+                    eya.Results(
                         label="Curtailment",
                         description="Curtailment losses.",
                         unit="dimensionless",
                         applicability_type=ResultsApplicabilityType.LIFETIME,
                         results_dimensions=["location"],
                         result_components=[
-                            data_model.ResultsComponent(
+                            eya.ResultsComponent(
                                 component_type="mean",
                                 values={"WTG01": 0.95, "WTG02": 0.95},
                             ),
-                            data_model.ResultsComponent(
+                            eya.ResultsComponent(
                                 component_type="std",
                                 values={"WTG01": 0.05, "WTG02": 0.05},
                             ),
@@ -880,34 +879,30 @@ def plant_performance_assessment_b() -> data_model.PlantPerformanceAssessment:
 
 
 @pytest.fixture(scope="session")
-def net_energy_assessment_a() -> data_model.NetEnergyAssessment:
+def net_energy_assessment_a() -> eya.NetEnergyAssessment:
     """Test case instance 'a' of ``NetEnergyAssessment``."""
-    return data_model.NetEnergyAssessment(
+    return eya.NetEnergyAssessment(
         results=[
-            data_model.Results(
+            eya.Results(
                 label="Net yield",
                 unit="MWh/annum",
                 applicability_type=ResultsApplicabilityType.LIFETIME,
                 results_dimensions=["none"],
                 result_components=[
-                    data_model.ResultsComponent(
-                        component_type="median", values=31528.6
-                    ),
-                    data_model.ResultsComponent(component_type="std", values=3468.1),
-                    data_model.ResultsComponent(component_type="P90", values=27089.4),
+                    eya.ResultsComponent(component_type="median", values=31528.6),
+                    eya.ResultsComponent(component_type="std", values=3468.1),
+                    eya.ResultsComponent(component_type="P90", values=27089.4),
                 ],
             ),
-            data_model.Results(
+            eya.Results(
                 label="Net yield",
                 unit="MWh/annum",
                 applicability_type=ResultsApplicabilityType.ANY_ONE_YEAR,
                 results_dimensions=["none"],
                 result_components=[
-                    data_model.ResultsComponent(
-                        component_type="median", values=31528.6
-                    ),
-                    data_model.ResultsComponent(component_type="std", values=4729.3),
-                    data_model.ResultsComponent(component_type="P90", values=25475.1),
+                    eya.ResultsComponent(component_type="median", values=31528.6),
+                    eya.ResultsComponent(component_type="std", values=4729.3),
+                    eya.ResultsComponent(component_type="P90", values=25475.1),
                 ],
             ),
         ]
@@ -915,34 +910,30 @@ def net_energy_assessment_a() -> data_model.NetEnergyAssessment:
 
 
 @pytest.fixture(scope="session")
-def net_energy_assessment_b() -> data_model.NetEnergyAssessment:
+def net_energy_assessment_b() -> eya.NetEnergyAssessment:
     """Test case instance 'b' of ``NetEnergyAssessment``."""
-    return data_model.NetEnergyAssessment(
+    return eya.NetEnergyAssessment(
         results=[
-            data_model.Results(
+            eya.Results(
                 label="Net yield",
                 unit="MWh/annum",
                 applicability_type=ResultsApplicabilityType.LIFETIME,
                 results_dimensions=["none"],
                 result_components=[
-                    data_model.ResultsComponent(
-                        component_type="median", values=35150.0
-                    ),
-                    data_model.ResultsComponent(component_type="std", values=4569.5),
-                    data_model.ResultsComponent(component_type="P90", values=29301.0),
+                    eya.ResultsComponent(component_type="median", values=35150.0),
+                    eya.ResultsComponent(component_type="std", values=4569.5),
+                    eya.ResultsComponent(component_type="P90", values=29301.0),
                 ],
             ),
-            data_model.Results(
+            eya.Results(
                 label="Net yield",
                 unit="MWh/annum",
                 applicability_type=ResultsApplicabilityType.ANY_ONE_YEAR,
                 results_dimensions=["none"],
                 result_components=[
-                    data_model.ResultsComponent(
-                        component_type="median", values=35150.0
-                    ),
-                    data_model.ResultsComponent(component_type="std", values=5799.8),
-                    data_model.ResultsComponent(component_type="P90", values=27726.3),
+                    eya.ResultsComponent(component_type="median", values=35150.0),
+                    eya.ResultsComponent(component_type="std", values=5799.8),
+                    eya.ResultsComponent(component_type="P90", values=27726.3),
                 ],
             ),
         ]
@@ -958,9 +949,9 @@ def scenario_a(
     gross_energy_assessment_a,
     plant_performance_assessment_a,
     net_energy_assessment_a,
-) -> data_model.Scenario:
+) -> eya.Scenario:
     """Test case instance 'a' of ``Scenario``."""
-    return data_model.Scenario(
+    return eya.Scenario(
         scenario_id="b6953ecb-f88b-4660-9f69-bedbbe4c240b",
         label="A",
         description="ABC165-5.5MW turbine model scenario",
@@ -984,9 +975,9 @@ def scenario_b(
     gross_energy_assessment_b,
     plant_performance_assessment_b,
     net_energy_assessment_b,
-) -> data_model.Scenario:
+) -> eya.Scenario:
     """Test case instance 'b' of ``Scenario``."""
-    return data_model.Scenario(
+    return eya.Scenario(
         scenario_id="e27fefdf-cdd7-441f-a7a7-c4347514b4f7",
         label="B",
         description="PQR169-5.8MW turbine model scenario",
@@ -1003,9 +994,9 @@ def scenario_b(
 
 
 @pytest.fixture(scope="session")
-def issuing_organisation_a() -> data_model.Organisation:
+def issuing_organisation_a() -> eya.Organisation:
     """Issuing organisation test case instance 'a' of ``Organisation``."""
-    return data_model.Organisation(
+    return eya.Organisation(
         name="The Torre Egger Consultants Limited",
         abbreviation="Torre Egger",
         address="5 Munro Road, Sgurrsville, G12 0YE, UK",
@@ -1013,9 +1004,9 @@ def issuing_organisation_a() -> data_model.Organisation:
 
 
 @pytest.fixture(scope="session")
-def receiving_organisations_a() -> data_model.Organisation:
+def receiving_organisations_a() -> eya.Organisation:
     """receiving organisation test case instance 'a' of ``Organisation``."""
-    return data_model.Organisation(
+    return eya.Organisation(
         name="Miranda Investments Limited",
         abbreviation="Miranda",
         address="9 Acosta St., Ivanslake, Republic of Miranda",
@@ -1024,9 +1015,9 @@ def receiving_organisations_a() -> data_model.Organisation:
 
 
 @pytest.fixture(scope="session")
-def main_author_a() -> data_model.ReportContributor:
+def main_author_a() -> eya.ReportContributor:
     """Main author test case instance 'a' of ``ReportContributor``."""
-    return data_model.ReportContributor(
+    return eya.ReportContributor(
         name="Joan Miro",
         email_address=pdt.EmailStr("j.miro@art.cat"),
         contributor_type="author",
@@ -1036,9 +1027,9 @@ def main_author_a() -> data_model.ReportContributor:
 
 
 @pytest.fixture(scope="session")
-def second_author_a() -> data_model.ReportContributor:
+def second_author_a() -> eya.ReportContributor:
     """Second author test case instance 'a' of ``ReportContributor``."""
-    return data_model.ReportContributor(
+    return eya.ReportContributor(
         name="Andrei Tarkovsky",
         email_address=pdt.EmailStr("andrei.tarkovsky@cinema.com"),
         contributor_type="author",
@@ -1048,9 +1039,9 @@ def second_author_a() -> data_model.ReportContributor:
 
 
 @pytest.fixture(scope="session")
-def verifier_a() -> data_model.ReportContributor:
+def verifier_a() -> eya.ReportContributor:
     """Verifier test case instance 'a' of ``ReportContributor``."""
-    return data_model.ReportContributor(
+    return eya.ReportContributor(
         name="Hanns Eisler",
         email_address=pdt.EmailStr("hannseisler@udk-berlin.de"),
         contributor_type="verifier",
@@ -1059,9 +1050,9 @@ def verifier_a() -> data_model.ReportContributor:
 
 
 @pytest.fixture(scope="session")
-def approver_a() -> data_model.ReportContributor:
+def approver_a() -> eya.ReportContributor:
     """Approver test case instance 'a' of ``ReportContributor``."""
-    return data_model.ReportContributor(
+    return eya.ReportContributor(
         name="Kurt Weill",
         email_address=pdt.EmailStr("weill@broadway.com"),
         contributor_type="approver",
@@ -1085,9 +1076,9 @@ def energy_yield_assessment_a(
     second_author_a,
     verifier_a,
     approver_a,
-) -> data_model.EnergyYieldAssessment:
+) -> eya.EnergyYieldAssessment:
     """Test case instance 'a' of ``EnergyYieldAssessment``."""
-    return data_model.EnergyYieldAssessment(
+    return eya.EnergyYieldAssessment(
         **{
             "$id": (
                 "https://example.com/api/v2/eya/report/"

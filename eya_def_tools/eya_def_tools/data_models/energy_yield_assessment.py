@@ -6,8 +6,8 @@ Exchange Format (DEF), which is referred to the "EYA DEF data model".
 The python implementation makes use of the ``pydantic`` package to
 define the model and supports export as a json schema.
 
-Note that a few somewhat ugly temporary fixes have been implemented for
-the translation between this data model and json representations of the
+Note that a few temporary fixes have been implemented for the
+translation between this data model and JSON representations of the
 schema and model instances. Pydantic version 2 is due to be released
 soon, which will likely allow solving some of these issues in a more
 robust and elegant way. There will be no effort to improve these fixes
@@ -22,17 +22,22 @@ from typing import Any, Literal, Mapping, Type
 
 import pydantic as pdt
 
-from eya_def_tools.enums import (
+from eya_def_tools.data_models.enums import (
     ComponentAssessmentBasis,
     ComponentVariabilityType,
     PlantPerformanceCategoryLabel,
     ResultsApplicabilityType,
     UncertaintyCategoryLabel,
 )
-from eya_def_tools.typing import NestedAnnotatedFloatDict
+from eya_def_tools.data_models.types import NestedAnnotatedFloatDict
 from eya_def_tools.utils.json_schema_utils import (
     add_null_type_to_schema_optional_fields,
     reduce_json_schema_all_of,
+)
+from eya_def_tools.utils.reference_utils import (
+    get_json_schema_reference_uri,
+    get_json_schema_uri,
+    get_json_schema_version,
 )
 
 
@@ -157,45 +162,6 @@ class BaseModelWithRefs(pdt.BaseModel):
                 ref_str = getattr(self, ref_field_label).json()
                 json_repr = json_repr.replace(raw_ref_str, ref_str)
         return json_repr
-
-
-def get_json_schema_reference_uri() -> str:
-    """Get the reference JSON Schema URI of the EYA DEF JSON Schema.
-
-    :return: the public URI of the JSON Schema reference used
-    """
-    return "https://json-schema.org/draft/2020-12/schema"
-
-
-def get_json_schema_uri() -> str:
-    """Get the URI of the EYA DEF JSON Schema.
-
-    :return: the public URI of the latest released version of the JSON
-        Schema
-    """
-    # TODO this is a placeholder to be updated (and consider including
-    #      version in URI)
-    return (
-        "https://raw.githubusercontent.com/IEC-61400-15/eya_def/blob/main/"
-        "iec_61400-15-2_eya_def.schema.json"
-    )
-
-
-def get_json_schema_version() -> str:
-    """Get the current version string of the EYA DEF JSON Schema.
-
-    :return: the semantic version string of the JSON Schema, following
-        the format <major>.<minor>.<patch> (e.g. '1.2.3')
-    """
-    # TODO this is a placeholder to be updated (consider linking to git
-    #      repo tags and consider how to distinguish JSON Schema and
-    #      python package versions)
-    return "0.0.1"
-
-
-def get_json_schema_title() -> str:
-    """Get the EYA DEF JSON Schema title."""
-    return "IEC 61400-15-2 EYA DEF Data Model"
 
 
 class CoordinateReferenceSystem(pdt.BaseModel):
@@ -794,7 +760,7 @@ class EnergyYieldAssessment(BaseModelWithRefs):
                     "$schema": get_json_schema_reference_uri(),
                     "$id": get_json_schema_uri(),
                     "$version": get_json_schema_version(),
-                    "title": get_json_schema_title(),
+                    "title": "IEC 61400-15-2 EYA DEF Data Model",
                     "additionalProperties": False,
                 }
             )

@@ -1,4 +1,4 @@
-"""Test the ``eya_def_tools.data_model`` module on example datasets.
+"""Test ``eya_def_tools.data_model.energy_yield_assessment`` on examples.
 
 """
 
@@ -41,7 +41,7 @@ def test_validate_pydantic_model_json_schema(pydantic_json_schema, json_example_
 
 def test_validate_pydantic_model(json_example_dict):
     """Test validate all json file examples against pydantic model."""
-    from eya_def_tools.data_model import EnergyYieldAssessment
+    from eya_def_tools.data_models.energy_yield_assessment import EnergyYieldAssessment
 
     for json_filename, json_example in json_example_dict.items():
         try:
