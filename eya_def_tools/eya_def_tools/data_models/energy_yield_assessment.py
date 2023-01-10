@@ -33,7 +33,7 @@ from eya_def_tools.data_models.enums import (
 )
 from eya_def_tools.data_models.fields import comments_field, description_field
 from eya_def_tools.data_models.types import NestedAnnotatedFloatDict
-from eya_def_tools.utils.json_schema_utils import (
+from eya_def_tools.utils.pydantic_json_schema_utils import (
     add_null_type_to_schema_optional_fields,
     move_field_to_definitions,
     reduce_json_schema_all_of,
