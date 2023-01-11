@@ -2,6 +2,8 @@
 
 """
 
+from __future__ import annotations
+
 from enum import StrEnum, auto
 
 
@@ -16,6 +18,27 @@ class PlantPerformanceCategoryLabel(StrEnum):
     ENVIRONMENTAL = auto()
     CURTAILMENT = auto()
     OTHER = auto()
+
+    def is_turbine_interaction(self) -> bool:
+        """Whether the label enum corresponds to turbine interaction.
+
+        See also ``turbine_interaction_category_labels``.
+        """
+        if self in self.turbine_interaction_category_labels():
+            return True
+        else:
+            return False
+
+    @classmethod
+    def turbine_interaction_category_labels(
+        cls,
+    ) -> tuple[PlantPerformanceCategoryLabel, ...]:
+        """Get the label enums that correspond to turbine interaction.
+
+        Turbine interaction is a 'super-category' that includes both
+        wakes and blockage.
+        """
+        return cls.WAKES, cls.BLOCKAGE
 
 
 class ComponentAssessmentBasis(StrEnum):
