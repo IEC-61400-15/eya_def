@@ -41,6 +41,132 @@ class PlantPerformanceCategoryLabel(StrEnum):
         return cls.WAKES, cls.BLOCKAGE
 
 
+class PlantPerformanceComponentLabel(StrEnum):
+    """Component labels in the plant performance assessment."""
+
+    # Wakes
+    INTERNAL_WAKES = auto()
+    EXTERNAL_WAKES = auto()
+    FUTURE_WAKES = auto()
+
+    # Blockage
+    INTERNAL_BLOCKAGE = auto()
+    EXTERNAL_BLOCKAGE = auto()
+    FUTURE_BLOCKAGE = auto()
+
+    # Availability
+    TURBINE_AVAILABILITY = auto()
+    BOP_AVAILABILITY = auto()
+    GRID_AVAILABILITY = auto()
+
+    # Electrical
+    ELECTRICAL_EFFICIENCY = auto()
+    FACILITY_PARASITIC_CONSUMPTION = auto()
+
+    # Turbine performance
+    SUB_OPTIMAL_PERFORMANCE = auto()
+    GENERIC_POWER_CURVE_ADJUSTMENT = auto()
+    SITE_SPECIFIC_POWER_CURVE_ADJUSTMENT = auto()
+    HIGH_WIND_HYSTERESIS = auto()
+
+    # Environmental
+    ICING = auto()
+    DEGRADATION = auto()
+    EXTERNAL_CONDITIONS = auto()
+    EXPOSURE_CHANGES = auto()
+
+    # Curtailment
+    LOAD_CURTAILMENT = auto()
+    GRID_CURTAILMENT = auto()
+    ENVIRONMENTAL_CURTAILMENT = auto()
+    OPERATIONAL_STRATEGIES = auto()
+
+    # Other
+    OTHER = auto()
+
+    def category(self) -> PlantPerformanceCategoryLabel:
+        """Get the category corresponding to the component.
+
+        :return: The ``PlantPerformanceCategoryLabel`` that the
+            component label belongs to.
+        """
+        component_to_category_map: dict[
+            PlantPerformanceComponentLabel, PlantPerformanceCategoryLabel
+        ] = {
+            PlantPerformanceComponentLabel.INTERNAL_WAKES: (
+                PlantPerformanceCategoryLabel.WAKES
+            ),
+            PlantPerformanceComponentLabel.EXTERNAL_WAKES: (
+                PlantPerformanceCategoryLabel.WAKES
+            ),
+            PlantPerformanceComponentLabel.FUTURE_WAKES: (
+                PlantPerformanceCategoryLabel.WAKES
+            ),
+            PlantPerformanceComponentLabel.INTERNAL_BLOCKAGE: (
+                PlantPerformanceCategoryLabel.BLOCKAGE
+            ),
+            PlantPerformanceComponentLabel.EXTERNAL_BLOCKAGE: (
+                PlantPerformanceCategoryLabel.BLOCKAGE
+            ),
+            PlantPerformanceComponentLabel.FUTURE_BLOCKAGE: (
+                PlantPerformanceCategoryLabel.BLOCKAGE
+            ),
+            PlantPerformanceComponentLabel.TURBINE_AVAILABILITY: (
+                PlantPerformanceCategoryLabel.AVAILABILITY
+            ),
+            PlantPerformanceComponentLabel.BOP_AVAILABILITY: (
+                PlantPerformanceCategoryLabel.AVAILABILITY
+            ),
+            PlantPerformanceComponentLabel.GRID_AVAILABILITY: (
+                PlantPerformanceCategoryLabel.AVAILABILITY
+            ),
+            PlantPerformanceComponentLabel.ELECTRICAL_EFFICIENCY: (
+                PlantPerformanceCategoryLabel.ELECTRICAL
+            ),
+            PlantPerformanceComponentLabel.FACILITY_PARASITIC_CONSUMPTION: (
+                PlantPerformanceCategoryLabel.ELECTRICAL
+            ),
+            PlantPerformanceComponentLabel.SUB_OPTIMAL_PERFORMANCE: (
+                PlantPerformanceCategoryLabel.TURBINE_PERFORMANCE
+            ),
+            PlantPerformanceComponentLabel.GENERIC_POWER_CURVE_ADJUSTMENT: (
+                PlantPerformanceCategoryLabel.TURBINE_PERFORMANCE
+            ),
+            PlantPerformanceComponentLabel.SITE_SPECIFIC_POWER_CURVE_ADJUSTMENT: (
+                PlantPerformanceCategoryLabel.TURBINE_PERFORMANCE
+            ),
+            PlantPerformanceComponentLabel.HIGH_WIND_HYSTERESIS: (
+                PlantPerformanceCategoryLabel.TURBINE_PERFORMANCE
+            ),
+            PlantPerformanceComponentLabel.ICING: (
+                PlantPerformanceCategoryLabel.ENVIRONMENTAL
+            ),
+            PlantPerformanceComponentLabel.DEGRADATION: (
+                PlantPerformanceCategoryLabel.ENVIRONMENTAL
+            ),
+            PlantPerformanceComponentLabel.EXTERNAL_CONDITIONS: (
+                PlantPerformanceCategoryLabel.ENVIRONMENTAL
+            ),
+            PlantPerformanceComponentLabel.EXPOSURE_CHANGES: (
+                PlantPerformanceCategoryLabel.ENVIRONMENTAL
+            ),
+            PlantPerformanceComponentLabel.LOAD_CURTAILMENT: (
+                PlantPerformanceCategoryLabel.CURTAILMENT
+            ),
+            PlantPerformanceComponentLabel.GRID_CURTAILMENT: (
+                PlantPerformanceCategoryLabel.CURTAILMENT
+            ),
+            PlantPerformanceComponentLabel.ENVIRONMENTAL_CURTAILMENT: (
+                PlantPerformanceCategoryLabel.CURTAILMENT
+            ),
+            PlantPerformanceComponentLabel.OPERATIONAL_STRATEGIES: (
+                PlantPerformanceCategoryLabel.CURTAILMENT
+            ),
+            PlantPerformanceComponentLabel.OTHER: (PlantPerformanceCategoryLabel.OTHER),
+        }
+        return component_to_category_map[self]
+
+
 class ComponentAssessmentBasis(StrEnum):
     """Basis of plant performance assessment component."""
 
