@@ -8,7 +8,8 @@ from enum import StrEnum, auto
 class PlantPerformanceCategoryLabel(StrEnum):
     """Category labels in the plant performance assessment."""
 
-    TURBINE_INTERACTION = auto()
+    WAKES = auto()
+    BLOCKAGE = auto()
     AVAILABILITY = auto()
     ELECTRICAL = auto()
     TURBINE_PERFORMANCE = auto()
