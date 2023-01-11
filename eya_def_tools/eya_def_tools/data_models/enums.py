@@ -168,7 +168,7 @@ class PlantPerformanceComponentLabel(StrEnum):
 
 
 class ComponentAssessmentBasis(StrEnum):
-    """Basis of plant performance assessment component."""
+    """Basis on which a component has been assessed."""
 
     TIMESERIES_CALCULATION = auto()
     DISTRIBUTION_CALCULATION = auto()
@@ -181,7 +181,7 @@ class ComponentAssessmentBasis(StrEnum):
 
 
 class ComponentVariabilityType(StrEnum):
-    """Variability type of plant performance assessment component."""
+    """Type of variability considered for a component."""
 
     STATIC_PROCESS = auto()
     ANNUAL_VARIABLE = auto()
