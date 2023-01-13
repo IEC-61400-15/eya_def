@@ -162,7 +162,7 @@ class PlantPerformanceComponentLabel(StrEnum):
             PlantPerformanceComponentLabel.OPERATIONAL_STRATEGIES: (
                 PlantPerformanceCategoryLabel.CURTAILMENT
             ),
-            PlantPerformanceComponentLabel.OTHER: (PlantPerformanceCategoryLabel.OTHER),
+            PlantPerformanceComponentLabel.OTHER: PlantPerformanceCategoryLabel.OTHER,
         }
         return component_to_category_map[self]
 
