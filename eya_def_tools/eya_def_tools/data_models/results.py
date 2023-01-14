@@ -12,10 +12,9 @@ from eya_def_tools.data_models import enums, fields, types
 class ResultsComponent(pdt.BaseModel):
     """Component of a set of results."""
 
-    component_type: str = pdt.Field(  # TODO use Enum
+    component_type: enums.StatisticType = pdt.Field(
         ...,
-        description="Type of results component.",
-        examples=["mean", "median", "std", "P90"],
+        description="Type of statistic in the results component.",
     )
     description: str | None = fields.description_field
     comments: str | None = fields.comments_field

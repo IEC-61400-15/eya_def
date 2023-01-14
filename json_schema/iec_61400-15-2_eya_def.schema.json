@@ -40,7 +40,7 @@
       ]
     },
     "ComponentAssessmentBasis": {
-      "description": "Basis of plant performance assessment component.",
+      "description": "Basis on which a component has been assessed.",
       "enum": [
         "timeseries_calculation",
         "distribution_calculation",
@@ -55,7 +55,7 @@
       "type": "string"
     },
     "ComponentVariabilityType": {
-      "description": "Variability type of plant performance assessment component.",
+      "description": "Type of variability considered for a component.",
       "enum": [
         "static_process",
         "annual_variable",
@@ -480,15 +480,8 @@
           "$ref": "#/definitions/Comments"
         },
         "component_type": {
-          "description": "Type of results component.",
-          "examples": [
-            "mean",
-            "median",
-            "std",
-            "P90"
-          ],
-          "title": "Component Type",
-          "type": "string"
+          "$ref": "#/definitions/StatisticType",
+          "description": "Type of statistic in the results component."
         },
         "description": {
           "$ref": "#/definitions/Description"
@@ -640,6 +633,23 @@
       ],
       "title": "Scenario",
       "type": "object"
+    },
+    "StatisticType": {
+      "description": "Type of statistical measure or parameter reported in a result.",
+      "enum": [
+        "mean",
+        "median",
+        "standard_deviation",
+        "minimum",
+        "maximum",
+        "p10",
+        "p25",
+        "p75",
+        "p90",
+        "p99"
+      ],
+      "title": "StatisticType",
+      "type": "string"
     },
     "TurbineModel": {
       "description": "Specification of a wind turbine model.",

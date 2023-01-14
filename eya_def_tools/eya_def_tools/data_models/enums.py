@@ -7,6 +7,27 @@ from __future__ import annotations
 from enum import StrEnum, auto
 
 
+class ComponentAssessmentBasis(StrEnum):
+    """Basis on which a component has been assessed."""
+
+    TIMESERIES_CALCULATION = auto()
+    DISTRIBUTION_CALCULATION = auto()
+    OTHER_CALCULATION = auto()
+    PROJECT_SPECIFIC_ESTIMATE = auto()
+    REGIONAL_ASSUMPTION = auto()
+    GENERIC_ASSUMPTION = auto()
+    NOT_CONSIDERED = auto()
+    OTHER = auto()
+
+
+class ComponentVariabilityType(StrEnum):
+    """Type of variability considered for a component."""
+
+    STATIC_PROCESS = auto()
+    ANNUAL_VARIABLE = auto()
+    OTHER = auto()
+
+
 class PlantPerformanceCategoryLabel(StrEnum):
     """Category labels in the plant performance assessment."""
 
@@ -167,27 +188,6 @@ class PlantPerformanceComponentLabel(StrEnum):
         return component_to_category_map[self]
 
 
-class ComponentAssessmentBasis(StrEnum):
-    """Basis on which a component has been assessed."""
-
-    TIMESERIES_CALCULATION = auto()
-    DISTRIBUTION_CALCULATION = auto()
-    OTHER_CALCULATION = auto()
-    PROJECT_SPECIFIC_ESTIMATE = auto()
-    REGIONAL_ASSUMPTION = auto()
-    GENERIC_ASSUMPTION = auto()
-    NOT_CONSIDERED = auto()
-    OTHER = auto()
-
-
-class ComponentVariabilityType(StrEnum):
-    """Type of variability considered for a component."""
-
-    STATIC_PROCESS = auto()
-    ANNUAL_VARIABLE = auto()
-    OTHER = auto()
-
-
 class ResultsApplicabilityType(StrEnum):
     """Period of or in time that a set of results are applicable."""
 
@@ -195,6 +195,21 @@ class ResultsApplicabilityType(StrEnum):
     ANY_ONE_YEAR = auto()
     ONE_OPERATIONAL_YEAR = auto()
     OTHER = auto()
+
+
+class StatisticType(StrEnum):
+    """Type of statistical measure or parameter reported in a result."""
+
+    MEAN = auto()
+    MEDIAN = auto()
+    STANDARD_DEVIATION = auto()
+    MINIMUM = auto()
+    MAXIMUM = auto()
+    P10 = auto()
+    P25 = auto()
+    P75 = auto()
+    P90 = auto()
+    P99 = auto()
 
 
 class UncertaintyCategoryLabel(StrEnum):

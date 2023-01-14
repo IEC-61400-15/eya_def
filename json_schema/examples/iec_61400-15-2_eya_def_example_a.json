@@ -47,11 +47,7 @@
       "name": "The Torre Egger Consultants Limited"
     }
   ],
-  "measurement_stations": [
-    {
-      "$ref": "/foo/bar/metadata_ref.json"
-    }
-  ],
+  "measurement_stations": [],
   "project_name": "Barefoot Wind Farm",
   "receiving_organisations": [
     {
@@ -120,7 +116,7 @@
                     }
                   },
                   {
-                    "component_type": "std",
+                    "component_type": "standard_deviation",
                     "values": {
                       "WTG01": 0.005,
                       "WTG02": 0.005
@@ -156,7 +152,7 @@
                       }
                     },
                     {
-                      "component_type": "std",
+                      "component_type": "standard_deviation",
                       "values": {
                         "WTG01": 0.005,
                         "WTG02": 0.005
@@ -183,11 +179,11 @@
                 "values": 31528.6
               },
               {
-                "component_type": "std",
+                "component_type": "standard_deviation",
                 "values": 3468.1
               },
               {
-                "component_type": "P90",
+                "component_type": "p90",
                 "values": 27089.4
               }
             ],
@@ -205,11 +201,11 @@
                 "values": 31528.6
               },
               {
-                "component_type": "std",
+                "component_type": "standard_deviation",
                 "values": 4729.3
               },
               {
-                "component_type": "P90",
+                "component_type": "p90",
                 "values": 25475.1
               }
             ],
@@ -401,7 +397,7 @@
                     }
                   },
                   {
-                    "component_type": "std",
+                    "component_type": "standard_deviation",
                     "values": {
                       "WTG01": 0.05,
                       "WTG02": 0.05
@@ -431,7 +427,7 @@
                       }
                     },
                     {
-                      "component_type": "std",
+                      "component_type": "standard_deviation",
                       "values": {
                         "WTG01": 0.05,
                         "WTG02": 0.05
@@ -458,11 +454,11 @@
                 "values": 35150.0
               },
               {
-                "component_type": "std",
+                "component_type": "standard_deviation",
                 "values": 4569.5
               },
               {
-                "component_type": "P90",
+                "component_type": "p90",
                 "values": 29301.0
               }
             ],
@@ -480,11 +476,11 @@
                 "values": 35150.0
               },
               {
-                "component_type": "std",
+                "component_type": "standard_deviation",
                 "values": 5799.8
               },
               {
-                "component_type": "P90",
+                "component_type": "p90",
                 "values": 27726.3
               }
             ],
@@ -653,7 +649,7 @@
                 "label": "Historical wind resource uncertainty",
                 "result_components": [
                   {
-                    "component_type": "std",
+                    "component_type": "standard_deviation",
                     "values": {
                       "BF_M1_1.0.0": 0.03201
                     }
@@ -673,7 +669,7 @@
                   "label": "Regression model wind speed uncertainty per measurement location",
                   "result_components": [
                     {
-                      "component_type": "std",
+                      "component_type": "standard_deviation",
                       "values": {
                         "BF_M1_1.0.0": 0.025
                       }
@@ -692,7 +688,7 @@
                   "label": "Long-term consistency wind speed uncertainty per measurement location",
                   "result_components": [
                     {
-                      "component_type": "std",
+                      "component_type": "standard_deviation",
                       "values": {
                         "BF_M1_1.0.0": 0.02
                       }
