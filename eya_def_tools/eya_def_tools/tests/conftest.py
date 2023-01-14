@@ -15,15 +15,8 @@ from pathlib import Path
 import pydantic as pdt
 import pytest
 
-from eya_def_tools.data_models import energy_yield_assessment as eya
-from eya_def_tools.data_models.enums import (
-    ComponentAssessmentBasis,
-    ComponentVariabilityType,
-    PlantPerformanceCategoryLabel,
-    ResultsApplicabilityType,
-    UncertaintyCategoryLabel,
-    WindFarmRelevance,
-)
+import eya_def_tools.data_models.energy_yield_assessment as eya
+from eya_def_tools.data_models import enums, results
 
 TEST_INPUT_DATA_DIRNAME = "test_input_data"
 
@@ -507,7 +500,7 @@ def wind_farm_a(
         label="Barefoot",
         description="Barefoot Wind Farm configuration for Scenario A",
         turbines=[turbine_specification_wtg01_a, turbine_specification_wtg02_a],
-        relevance=WindFarmRelevance.INTERNAL,
+        relevance=enums.WindFarmRelevance.INTERNAL,
         operational_lifetime_start_date=dt.date(2024, 1, 1),
     )
 
@@ -523,7 +516,7 @@ def wind_farm_b(
         description="Barefoot Wind Farm configuration for Scenario B",
         comments="Secondary wind farm scenario",
         turbines=[turbine_specification_wtg01_b, turbine_specification_wtg02_b],
-        relevance=WindFarmRelevance.INTERNAL,
+        relevance=enums.WindFarmRelevance.INTERNAL,
         operational_lifetime_start_date=dt.date(2024, 1, 1),
     )
 
@@ -539,7 +532,7 @@ def neighbouring_wind_farm_a(
         description="The operational Munro Wind Farm",
         comments="Details taken from publicly available information.",
         turbines=[turbine_specification_mu_t1_a, turbine_specification_mu_t2_a],
-        relevance=WindFarmRelevance.EXTERNAL,
+        relevance=enums.WindFarmRelevance.EXTERNAL,
         operational_lifetime_start_date=dt.date(2018, 7, 1),
         operational_lifetime_end_date=dt.date(2038, 6, 30),
     )
@@ -560,20 +553,20 @@ def measurement_wind_uncertainty_assessment_a() -> eya.UncertaintyAssessment:
     """Measurement test case instance 'a' of ``UncertaintyAssessment``."""
     return eya.UncertaintyAssessment(
         categories={
-            UncertaintyCategoryLabel.HISTORICAL: eya.UncertaintyCategory(
+            enums.UncertaintyCategoryLabel.HISTORICAL: eya.UncertaintyCategory(
                 components=[
                     eya.UncertaintyComponent(
                         label="Regression model uncertainty",
-                        results=eya.Results(
+                        results=results.Results(
                             label=(
                                 "Regression model wind speed uncertainty "
                                 "per measurement location"
                             ),
                             unit="dimensionless",
-                            applicability_type=ResultsApplicabilityType.LIFETIME,
+                            applicability_type=enums.ResultsApplicabilityType.LIFETIME,
                             results_dimensions=["location"],
                             result_components=[
-                                eya.ResultsComponent(
+                                results.ResultsComponent(
                                     component_type="std", values={"BF_M1_1.0.0": 0.025}
                                 )
                             ],
@@ -581,16 +574,16 @@ def measurement_wind_uncertainty_assessment_a() -> eya.UncertaintyAssessment:
                     ),
                     eya.UncertaintyComponent(
                         label="Long-term consistency uncertainty",
-                        results=eya.Results(
+                        results=results.Results(
                             label=(
                                 "Long-term consistency wind speed uncertainty "
                                 "per measurement location"
                             ),
                             unit="dimensionless",
-                            applicability_type=ResultsApplicabilityType.LIFETIME,
+                            applicability_type=enums.ResultsApplicabilityType.LIFETIME,
                             results_dimensions=["location"],
                             result_components=[
-                                eya.ResultsComponent(
+                                results.ResultsComponent(
                                     component_type="std", values={"BF_M1_1.0.0": 0.02}
                                 )
                             ],
@@ -598,13 +591,13 @@ def measurement_wind_uncertainty_assessment_a() -> eya.UncertaintyAssessment:
                     ),
                 ],
                 category_results=[
-                    eya.Results(
+                    results.Results(
                         label="Historical wind resource uncertainty",
                         unit="dimensionless",
-                        applicability_type=ResultsApplicabilityType.LIFETIME,
+                        applicability_type=enums.ResultsApplicabilityType.LIFETIME,
                         results_dimensions=["location"],
                         result_components=[
-                            eya.ResultsComponent(
+                            results.ResultsComponent(
                                 component_type="std", values={"BF_M1_1.0.0": 0.03201}
                             )
                         ],
@@ -622,13 +615,13 @@ def wind_resource_assessment_a(
     """Test case instance 'a' of ``WindResourceAssessment``."""
     return eya.WindResourceAssessment(
         results=[
-            eya.Results(
+            results.Results(
                 label="Measurement-height long-term wind",
                 unit="m/s",
-                applicability_type=ResultsApplicabilityType.LIFETIME,
+                applicability_type=enums.ResultsApplicabilityType.LIFETIME,
                 results_dimensions=["location"],
                 result_components=[
-                    eya.ResultsComponent(
+                    results.ResultsComponent(
                         component_type="mean", values={"BF_M1_1.0.0": 6.83}
                     )
                 ],
@@ -652,13 +645,13 @@ def turbine_wind_resource_assessment_a(
     """Test case instance 'a' of ``TurbineWindResourceAssessment``."""
     return eya.TurbineWindResourceAssessment(
         turbine_wind_resource_results=[
-            eya.Results(
+            results.Results(
                 label="Turbine-location hub-height long-term wind",
                 unit="m/s",
-                applicability_type=ResultsApplicabilityType.LIFETIME,
+                applicability_type=enums.ResultsApplicabilityType.LIFETIME,
                 results_dimensions=["location"],
                 result_components=[
-                    eya.ResultsComponent(
+                    results.ResultsComponent(
                         component_type="mean", values={"WTG01": 6.91, "WTG02": 6.95}
                     )
                 ],
@@ -675,13 +668,13 @@ def turbine_wind_resource_assessment_b(
     """Test case instance 'b' of ``TurbineWindResourceAssessment``."""
     return eya.TurbineWindResourceAssessment(
         turbine_wind_resource_results=[
-            eya.Results(
+            results.Results(
                 label="Turbine-location hub-height long-term wind",
                 unit="m/s",
-                applicability_type=ResultsApplicabilityType.LIFETIME,
+                applicability_type=enums.ResultsApplicabilityType.LIFETIME,
                 results_dimensions=["location"],
                 result_components=[
-                    eya.ResultsComponent(
+                    results.ResultsComponent(
                         component_type="mean", values={"WTG01": 6.90, "WTG02": 6.94}
                     )
                 ],
@@ -696,25 +689,25 @@ def gross_energy_assessment_a() -> eya.GrossEnergyAssessment:
     """Test case instance 'a' of ``GrossEnergyAssessment``."""
     return eya.GrossEnergyAssessment(
         results=[
-            eya.Results(
+            results.Results(
                 label="Gross yield",
                 unit="MWh/annum",
-                applicability_type=ResultsApplicabilityType.LIFETIME,
+                applicability_type=enums.ResultsApplicabilityType.LIFETIME,
                 results_dimensions=["location"],
                 result_components=[
-                    eya.ResultsComponent(
+                    results.ResultsComponent(
                         component_type="mean",
                         values={"WTG01": 15500.0, "WTG02": 16700.0},
                     )
                 ],
             ),
-            eya.Results(
+            results.Results(
                 label="Gross yield",
                 unit="MWh/annum",
-                applicability_type=ResultsApplicabilityType.LIFETIME,
+                applicability_type=enums.ResultsApplicabilityType.LIFETIME,
                 results_dimensions=["none"],
                 result_components=[
-                    eya.ResultsComponent(component_type="mean", values=32200.0)
+                    results.ResultsComponent(component_type="mean", values=32200.0)
                 ],
             ),
         ]
@@ -726,25 +719,25 @@ def gross_energy_assessment_b() -> eya.GrossEnergyAssessment:
     """Test case instance 'b' of ``GrossEnergyAssessment``."""
     return eya.GrossEnergyAssessment(
         results=[
-            eya.Results(
+            results.Results(
                 label="Gross yield",
                 unit="MWh/annum",
-                applicability_type=ResultsApplicabilityType.LIFETIME,
+                applicability_type=enums.ResultsApplicabilityType.LIFETIME,
                 results_dimensions=["location"],
                 result_components=[
-                    eya.ResultsComponent(
+                    results.ResultsComponent(
                         component_type="mean",
                         values={"WTG01": 18100.0, "WTG02": 18900.0},
                     )
                 ],
             ),
-            eya.Results(
+            results.Results(
                 label="Gross yield",
                 unit="MWh/annum",
-                applicability_type=ResultsApplicabilityType.LIFETIME,
+                applicability_type=enums.ResultsApplicabilityType.LIFETIME,
                 results_dimensions=["none"],
                 result_components=[
-                    eya.ResultsComponent(component_type="mean", values=37000.0)
+                    results.ResultsComponent(component_type="mean", values=37000.0)
                 ],
             ),
         ]
@@ -754,20 +747,20 @@ def gross_energy_assessment_b() -> eya.GrossEnergyAssessment:
 @pytest.fixture(scope="session")
 def plant_performance_assessment_a() -> eya.PlantPerformanceAssessment:
     """Test case instance 'a' of ``PlantPerformanceAssessment``."""
-    category_label = PlantPerformanceCategoryLabel.CURTAILMENT
+    category_label = enums.PlantPerformanceCategoryLabel.CURTAILMENT
     return eya.PlantPerformanceAssessment(
         categories={
             category_label: eya.PlantPerformanceCategory(
                 components=[
                     eya.PlantPerformanceComponent(
-                        basis=ComponentAssessmentBasis.TIMESERIES_CALCULATION,
-                        variability=ComponentVariabilityType.STATIC_PROCESS,
+                        basis=enums.ComponentAssessmentBasis.TIMESERIES_CALCULATION,
+                        variability=enums.ComponentVariabilityType.STATIC_PROCESS,
                         calculation_models=[
                             eya.CalculationModelSpecification(
                                 name="Timeseries tool", comments="Internal toolset"
                             )
                         ],
-                        results=eya.Results(
+                        results=results.Results(
                             label="Loads curtailment",
                             description=(
                                 "Curtailment due to a wind sector management "
@@ -778,14 +771,14 @@ def plant_performance_assessment_a() -> eya.PlantPerformanceAssessment:
                                 "the turbine manufacturer."
                             ),
                             unit="dimensionless",
-                            applicability_type=ResultsApplicabilityType.LIFETIME,
+                            applicability_type=enums.ResultsApplicabilityType.LIFETIME,
                             results_dimensions=["location"],
                             result_components=[
-                                eya.ResultsComponent(
+                                results.ResultsComponent(
                                     component_type="mean",
                                     values={"WTG01": 0.975, "WTG02": 0.983},
                                 ),
-                                eya.ResultsComponent(
+                                results.ResultsComponent(
                                     component_type="std",
                                     values={"WTG01": 0.005, "WTG02": 0.005},
                                 ),
@@ -794,18 +787,18 @@ def plant_performance_assessment_a() -> eya.PlantPerformanceAssessment:
                     )
                 ],
                 category_results=[
-                    eya.Results(
+                    results.Results(
                         label="Curtailment",
                         description="Curtailment losses.",
                         unit="dimensionless",
-                        applicability_type=ResultsApplicabilityType.LIFETIME,
+                        applicability_type=enums.ResultsApplicabilityType.LIFETIME,
                         results_dimensions=["location"],
                         result_components=[
-                            eya.ResultsComponent(
+                            results.ResultsComponent(
                                 component_type="mean",
                                 values={"WTG01": 0.975, "WTG02": 0.983},
                             ),
-                            eya.ResultsComponent(
+                            results.ResultsComponent(
                                 component_type="std",
                                 values={"WTG01": 0.005, "WTG02": 0.005},
                             ),
@@ -815,26 +808,26 @@ def plant_performance_assessment_a() -> eya.PlantPerformanceAssessment:
             )
         },
         net_energy_results=[
-            eya.Results(
+            results.Results(
                 label="Net yield",
                 unit="MWh/annum",
-                applicability_type=ResultsApplicabilityType.LIFETIME,
+                applicability_type=enums.ResultsApplicabilityType.LIFETIME,
                 results_dimensions=["none"],
                 result_components=[
-                    eya.ResultsComponent(component_type="median", values=31528.6),
-                    eya.ResultsComponent(component_type="std", values=3468.1),
-                    eya.ResultsComponent(component_type="P90", values=27089.4),
+                    results.ResultsComponent(component_type="median", values=31528.6),
+                    results.ResultsComponent(component_type="std", values=3468.1),
+                    results.ResultsComponent(component_type="P90", values=27089.4),
                 ],
             ),
-            eya.Results(
+            results.Results(
                 label="Net yield",
                 unit="MWh/annum",
-                applicability_type=ResultsApplicabilityType.ANY_ONE_YEAR,
+                applicability_type=enums.ResultsApplicabilityType.ANY_ONE_YEAR,
                 results_dimensions=["none"],
                 result_components=[
-                    eya.ResultsComponent(component_type="median", values=31528.6),
-                    eya.ResultsComponent(component_type="std", values=4729.3),
-                    eya.ResultsComponent(component_type="P90", values=25475.1),
+                    results.ResultsComponent(component_type="median", values=31528.6),
+                    results.ResultsComponent(component_type="std", values=4729.3),
+                    results.ResultsComponent(component_type="P90", values=25475.1),
                 ],
             ),
         ],
@@ -844,15 +837,15 @@ def plant_performance_assessment_a() -> eya.PlantPerformanceAssessment:
 @pytest.fixture(scope="session")
 def plant_performance_assessment_b() -> eya.PlantPerformanceAssessment:
     """Test case instance 'b' of ``PlantPerformanceAssessment``."""
-    category_label = PlantPerformanceCategoryLabel.CURTAILMENT
+    category_label = enums.PlantPerformanceCategoryLabel.CURTAILMENT
     return eya.PlantPerformanceAssessment(
         categories={
             category_label: eya.PlantPerformanceCategory(
                 components=[
                     eya.PlantPerformanceComponent(
-                        basis=ComponentAssessmentBasis.PROJECT_SPECIFIC_ESTIMATE,
-                        variability=ComponentVariabilityType.STATIC_PROCESS,
-                        results=eya.Results(
+                        basis=enums.ComponentAssessmentBasis.PROJECT_SPECIFIC_ESTIMATE,
+                        variability=enums.ComponentVariabilityType.STATIC_PROCESS,
+                        results=results.Results(
                             label="Loads curtailment",
                             description=(
                                 "Expected curtailment due to a wind sector "
@@ -864,14 +857,14 @@ def plant_performance_assessment_b() -> eya.PlantPerformanceAssessment:
                                 "manufacturer."
                             ),
                             unit="dimensionless",
-                            applicability_type=ResultsApplicabilityType.LIFETIME,
+                            applicability_type=enums.ResultsApplicabilityType.LIFETIME,
                             results_dimensions=["location"],
                             result_components=[
-                                eya.ResultsComponent(
+                                results.ResultsComponent(
                                     component_type="mean",
                                     values={"WTG01": 0.95, "WTG02": 0.95},
                                 ),
-                                eya.ResultsComponent(
+                                results.ResultsComponent(
                                     component_type="std",
                                     values={"WTG01": 0.05, "WTG02": 0.05},
                                 ),
@@ -880,18 +873,18 @@ def plant_performance_assessment_b() -> eya.PlantPerformanceAssessment:
                     )
                 ],
                 category_results=[
-                    eya.Results(
+                    results.Results(
                         label="Curtailment",
                         description="Curtailment losses.",
                         unit="dimensionless",
-                        applicability_type=ResultsApplicabilityType.LIFETIME,
+                        applicability_type=enums.ResultsApplicabilityType.LIFETIME,
                         results_dimensions=["location"],
                         result_components=[
-                            eya.ResultsComponent(
+                            results.ResultsComponent(
                                 component_type="mean",
                                 values={"WTG01": 0.95, "WTG02": 0.95},
                             ),
-                            eya.ResultsComponent(
+                            results.ResultsComponent(
                                 component_type="std",
                                 values={"WTG01": 0.05, "WTG02": 0.05},
                             ),
@@ -901,26 +894,26 @@ def plant_performance_assessment_b() -> eya.PlantPerformanceAssessment:
             )
         },
         net_energy_results=[
-            eya.Results(
+            results.Results(
                 label="Net yield",
                 unit="MWh/annum",
-                applicability_type=ResultsApplicabilityType.LIFETIME,
+                applicability_type=enums.ResultsApplicabilityType.LIFETIME,
                 results_dimensions=["none"],
                 result_components=[
-                    eya.ResultsComponent(component_type="median", values=35150.0),
-                    eya.ResultsComponent(component_type="std", values=4569.5),
-                    eya.ResultsComponent(component_type="P90", values=29301.0),
+                    results.ResultsComponent(component_type="median", values=35150.0),
+                    results.ResultsComponent(component_type="std", values=4569.5),
+                    results.ResultsComponent(component_type="P90", values=29301.0),
                 ],
             ),
-            eya.Results(
+            results.Results(
                 label="Net yield",
                 unit="MWh/annum",
-                applicability_type=ResultsApplicabilityType.ANY_ONE_YEAR,
+                applicability_type=enums.ResultsApplicabilityType.ANY_ONE_YEAR,
                 results_dimensions=["none"],
                 result_components=[
-                    eya.ResultsComponent(component_type="median", values=35150.0),
-                    eya.ResultsComponent(component_type="std", values=5799.8),
-                    eya.ResultsComponent(component_type="P90", values=27726.3),
+                    results.ResultsComponent(component_type="median", values=35150.0),
+                    results.ResultsComponent(component_type="std", values=5799.8),
+                    results.ResultsComponent(component_type="P90", values=27726.3),
                 ],
             ),
         ],

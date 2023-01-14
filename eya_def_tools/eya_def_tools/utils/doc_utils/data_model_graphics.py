@@ -8,7 +8,7 @@ The graphics are rendered based on the ``pydantic`` data models in
 
 import erdantic as erd
 
-from eya_def_tools.data_models import energy_yield_assessment
+from eya_def_tools.data_models import energy_yield_assessment, results
 
 
 def draw_eya_def_all_levels() -> None:
@@ -47,7 +47,7 @@ def draw_scenario() -> None:
 
 def draw_results() -> None:
     """Draw diagram representation of the results level data model."""
-    diagram = erd.create(energy_yield_assessment.Results)
+    diagram = erd.create(results.Results)
     diagram.draw("results.png")
     diagram.draw("results.svg")
 

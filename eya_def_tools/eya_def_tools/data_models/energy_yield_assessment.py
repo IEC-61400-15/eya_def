@@ -1,17 +1,4 @@
-"""Pydantic data model for the IEC 61400-15-2 EYA DEF.
-
-This module defines a comprehensive data model for describing an energy
-yield assessment (EYA) according to the IEC 61400-15-2 Reporting Digital
-Exchange Format (DEF), which is referred to the "EYA DEF data model".
-The python implementation makes use of the ``pydantic`` package to
-define the model and supports export as a json schema.
-
-Note that a few temporary fixes have been implemented for the
-translation between this data model and JSON representations of the
-schema and model instances. Pydantic version 2 is due to be released
-soon, which will likely allow solving some of these issues in a more
-robust and elegant way. There will be no effort to improve these fixes
-until this package moves to rely on pydantic v2.
+"""Top level pydantic data model for the IEC 61400-15-2 EYA DEF.
 
 """
 
@@ -27,12 +14,11 @@ from eya_def_tools.data_models.enums import (
     ComponentAssessmentBasis,
     ComponentVariabilityType,
     PlantPerformanceCategoryLabel,
-    ResultsApplicabilityType,
     UncertaintyCategoryLabel,
     WindFarmRelevance,
 )
 from eya_def_tools.data_models.fields import comments_field, description_field
-from eya_def_tools.data_models.types import NestedAnnotatedFloatDict
+from eya_def_tools.data_models.results import Results
 from eya_def_tools.utils.pydantic_json_schema_utils import (
     add_null_type_to_schema_optional_fields,
     move_field_to_definitions,
@@ -275,45 +261,6 @@ class CalculationModelSpecification(pdt.BaseModel):
     )
     description: str | None = description_field
     comments: str | None = comments_field
-
-
-class ResultsComponent(pdt.BaseModel):
-    """Component of a set of results."""
-
-    component_type: str = pdt.Field(  # TODO use Enum
-        ...,
-        description="Type of results component.",
-        examples=["mean", "median", "std", "P90"],
-    )
-    description: str | None = description_field
-    comments: str | None = comments_field
-    values: float | NestedAnnotatedFloatDict = pdt.Field(
-        ...,
-        description="Result value(s) as simple float or labeled map.",
-        examples=[123.4, {"WTG01": 123.4, "WTG02": 143.2}],
-    )
-
-
-class Results(pdt.BaseModel):
-    """Single set of results for an element of an energy assessment."""
-
-    label: str = pdt.Field(
-        ..., description="Label of the results.", examples=["10-year P50"]
-    )
-    description: str | None = description_field
-    comments: str | None = comments_field
-    unit: str = pdt.Field(
-        ..., description="Unit of result values (TO REPLACE BY LITERAL)."
-    )
-    applicability_type: ResultsApplicabilityType = pdt.Field(
-        ..., description="Applicability type of energy assessment results."
-    )
-    results_dimensions: list[
-        Literal["none", "location", "hub_height", "year", "month", "month_of_year"]
-    ] = pdt.Field(..., description="Type of energy assessment results.")
-    result_components: list[ResultsComponent] = pdt.Field(
-        ..., description="List of result components."
-    )
 
 
 # TODO - this needs to be completed with more fields for relevant details
