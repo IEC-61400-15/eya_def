@@ -79,7 +79,7 @@ statements with missing coverage, simply execute the following at the
 top-level python package directory.
 
 ```bash
-pytest --cov=eya_def_tools --pyargs eya_def_tools --cov-report term-missing
+pytest --pyargs eya_def_tools --cov=eya_def_tools --cov-report term-missing
 ```
 
 Contributors are encouraged to write tests to cover new features.
