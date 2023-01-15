@@ -74,7 +74,10 @@
             3006
           ],
           "title": "Epsg Srid",
-          "type": "integer"
+          "type": [
+            "integer",
+            "null"
+          ]
         },
         "system_label": {
           "description": "Label of the coordinate system.",
@@ -88,7 +91,10 @@
         "wkt": {
           "description": "Well-known text (WKT) string definition of the coordinate system.",
           "title": "Wkt",
-          "type": "string"
+          "type": [
+            "string",
+            "null"
+          ]
         }
       },
       "required": [
@@ -140,7 +146,10 @@
             "WEA_003/R2"
           ],
           "title": "Label",
-          "type": "string"
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "location_id": {
           "description": "Unique identifier of the location.",
@@ -149,7 +158,10 @@
             "WTG02-loc1"
           ],
           "title": "Location Id",
-          "type": "string"
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "x": {
           "description": "Location x-coordinate (typically easing).",
@@ -222,7 +234,10 @@
             "Miranda"
           ],
           "title": "Abbreviation",
-          "type": "string"
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "address": {
           "description": "Address of the organisation.",
@@ -230,7 +245,10 @@
             "5 Munro Road, Summit Centre, Sgurrsville, G12 0YE, UK"
           ],
           "title": "Address",
-          "type": "string"
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "contact_name": {
           "description": "Name(s) of contact person(s) in the organisation.",
@@ -239,7 +257,10 @@
             "Miles Davis, John Coltrane"
           ],
           "title": "Contact Name",
-          "type": "string"
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "name": {
           "description": "Entity name of the organisation.",
@@ -329,7 +350,10 @@
             "$ref": "#/definitions/CalculationModelSpecification"
           },
           "title": "Calculation Models",
-          "type": "array"
+          "type": [
+            "array",
+            "null"
+          ]
         },
         "results": {
           "$ref": "#/definitions/Results",
@@ -365,7 +389,10 @@
           ],
           "format": "date",
           "title": "Completion Date",
-          "type": "string"
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "contribution_comments": {
           "description": "Comments to clarify contribution.",
@@ -373,7 +400,10 @@
             "Second author"
           ],
           "title": "Contribution Comments",
-          "type": "string"
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "contributor_type": {
           "description": "Type of contributor.",
@@ -394,7 +424,10 @@
           ],
           "format": "email",
           "title": "Email Address",
-          "type": "string"
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "name": {
           "description": "Name of the contributor.",
@@ -592,7 +625,10 @@
         "is_main_scenario": {
           "description": "Whether or not this is the main scenario in the report.",
           "title": "Is Main Scenario",
-          "type": "boolean"
+          "type": [
+            "boolean",
+            "null"
+          ]
         },
         "label": {
           "description": "Label of the scenario.",
@@ -627,7 +663,10 @@
             "3613a846-1e74-4535-ad40-7368f7ad452d"
           ],
           "title": "Scenario Id",
-          "type": "string"
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "turbine_wind_resource_assessment": {
           "$ref": "#/definitions/TurbineWindResourceAssessment",
@@ -748,7 +787,10 @@
             "$ref": "#/definitions/OperationalRestriction"
           },
           "title": "Restrictions",
-          "type": "array"
+          "type": [
+            "array",
+            "null"
+          ]
         },
         "turbine_id": {
           "description": "Unique identifier of the turbine specification.",
@@ -757,7 +799,10 @@
             "T1-scen1"
           ],
           "title": "Turbine Id",
-          "type": "string"
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "turbine_model_id": {
           "description": "Unique identifier of the turbine model.",
@@ -897,7 +942,10 @@
             "Summit PhIII"
           ],
           "title": "Label",
-          "type": "string"
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "name": {
           "description": "Name of the wind farm.",
@@ -916,7 +964,10 @@
           ],
           "format": "date",
           "title": "Operational Lifetime End Date",
-          "type": "string"
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "operational_lifetime_start_date": {
           "description": "Operational lifetime start date (format YYYY-MM-DD).",
@@ -926,7 +977,10 @@
           ],
           "format": "date",
           "title": "Operational Lifetime Start Date",
-          "type": "string"
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "relevance": {
           "$ref": "#/definitions/WindFarmRelevance",
@@ -946,7 +1000,10 @@
             "$ref": "#/definitions/OperationalRestriction"
           },
           "title": "Wind Farm Restrictions",
-          "type": "array"
+          "type": [
+            "array",
+            "null"
+          ]
         }
       },
       "required": [

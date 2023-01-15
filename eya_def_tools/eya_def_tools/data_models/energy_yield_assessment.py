@@ -9,7 +9,11 @@ from typing import Any, Literal, Type
 
 import pydantic as pdt
 
-from eya_def_tools.data_models.base_models import BaseModelWithRefs, JsonPointerRef
+from eya_def_tools.data_models.base_models import (
+    BaseModelWithRefs,
+    EyaDefBaseModel,
+    JsonPointerRef,
+)
 from eya_def_tools.data_models.enums import (
     ComponentAssessmentBasis,
     ComponentVariabilityType,
@@ -30,7 +34,7 @@ from eya_def_tools.utils.reference_utils import (
 )
 
 
-class CoordinateReferenceSystem(pdt.BaseModel):
+class CoordinateReferenceSystem(EyaDefBaseModel):
     """Specification of a coordinate reference system for GIS data."""
 
     system_label: str = pdt.Field(
@@ -49,7 +53,7 @@ class CoordinateReferenceSystem(pdt.BaseModel):
     )
 
 
-class Location(pdt.BaseModel):
+class Location(EyaDefBaseModel):
     """Specification of a horizontal location in space."""
 
     location_id: str | None = pdt.Field(
@@ -103,21 +107,21 @@ class MeasurementStationMetadata(JsonPointerRef):
             del field_schema["type"]
 
 
-class MeasurementStationBasis(pdt.BaseModel):
+class MeasurementStationBasis(EyaDefBaseModel):
     """Measurement station basis in a wind resource assessment."""
 
     # TODO - placeholder to be implemented
     pass
 
 
-class ReferenceWindFarm(pdt.BaseModel):
+class ReferenceWindFarm(EyaDefBaseModel):
     """Reference wind farm metadata."""
 
     # TODO - placeholder to be implemented
     pass
 
 
-class ReferenceWindFarmBasis(pdt.BaseModel):
+class ReferenceWindFarmBasis(EyaDefBaseModel):
     """Reference wind farm basis in a wind resource assessment."""
 
     # TODO - placeholder to be implemented
@@ -170,7 +174,7 @@ class TurbineModel(BaseModelWithRefs):
 
 
 # TODO expand definition of operational restriction
-class OperationalRestriction(pdt.BaseModel):
+class OperationalRestriction(EyaDefBaseModel):
     """Specifications of an operational restriction."""
 
     label: str = pdt.Field(
@@ -182,7 +186,7 @@ class OperationalRestriction(pdt.BaseModel):
     comments: str | None = comments_field
 
 
-class TurbineSpecification(pdt.BaseModel):
+class TurbineSpecification(EyaDefBaseModel):
     """Specification of all details for a turbine configuration."""
 
     turbine_id: str | None = pdt.Field(
@@ -213,7 +217,7 @@ class TurbineSpecification(pdt.BaseModel):
     )
 
 
-class WindFarm(pdt.BaseModel):
+class WindFarm(EyaDefBaseModel):
     """A collection of wind turbines considered as one unit (plant)."""
 
     name: str = pdt.Field(
@@ -250,7 +254,7 @@ class WindFarm(pdt.BaseModel):
 
 
 # TODO add input data sources specification
-class CalculationModelSpecification(pdt.BaseModel):
+class CalculationModelSpecification(EyaDefBaseModel):
     """Specification of a model used in an energy assessment."""
 
     name: str = pdt.Field(
@@ -265,7 +269,7 @@ class CalculationModelSpecification(pdt.BaseModel):
 # TODO - this needs to be completed with more fields for relevant details
 #      - it may need to be separated for the measurement wind resource
 #        assessment and the turbine wind resource assessment
-class UncertaintyComponent(pdt.BaseModel):
+class UncertaintyComponent(EyaDefBaseModel):
     """Wind resource uncertainty assessment component."""
 
     label: str = pdt.Field(
@@ -280,7 +284,7 @@ class UncertaintyComponent(pdt.BaseModel):
     )
 
 
-class UncertaintyCategory(pdt.BaseModel):
+class UncertaintyCategory(EyaDefBaseModel):
     """Wind resource uncertainty assessment category."""
 
     components: list[UncertaintyComponent] = pdt.Field(
@@ -291,7 +295,7 @@ class UncertaintyCategory(pdt.BaseModel):
     )
 
 
-class UncertaintyAssessment(pdt.BaseModel):
+class UncertaintyAssessment(EyaDefBaseModel):
     """Wind resource uncertainty assessment including all components."""
 
     categories: dict[UncertaintyCategoryLabel, UncertaintyCategory] = pdt.Field(
@@ -300,7 +304,7 @@ class UncertaintyAssessment(pdt.BaseModel):
 
 
 # TODO - to be extended
-class WindResourceAssessment(pdt.BaseModel):
+class WindResourceAssessment(EyaDefBaseModel):
     """Wind resource assessment at the measurement locations."""
 
     # measurement_station_basis: MeasurementStationBasis
@@ -323,7 +327,7 @@ class WindResourceAssessment(pdt.BaseModel):
     )
 
 
-class WindResourceAssessmentBasis(pdt.BaseModel):
+class WindResourceAssessmentBasis(EyaDefBaseModel):
     """Measurement wind resource assessment basis in a scenario."""
 
     # TODO - placeholder to be implemented
@@ -331,7 +335,7 @@ class WindResourceAssessmentBasis(pdt.BaseModel):
 
 
 # TODO this needs to be completed with more fields for relevant details
-class TurbineWindResourceAssessment(pdt.BaseModel):
+class TurbineWindResourceAssessment(EyaDefBaseModel):
     """Wind resource assessment at the turbine locations."""
 
     turbine_wind_resource_results: list[Results] = pdt.Field(
@@ -347,13 +351,13 @@ class TurbineWindResourceAssessment(pdt.BaseModel):
 
 
 # TODO this needs to be completed with more fields for relevant details
-class GrossEnergyAssessment(pdt.BaseModel):
+class GrossEnergyAssessment(EyaDefBaseModel):
     """Gross energy yield assessment."""
 
     results: list[Results] = pdt.Field(..., description="Gross energy yield results.")
 
 
-class PlantPerformanceComponent(pdt.BaseModel):
+class PlantPerformanceComponent(EyaDefBaseModel):
     """Plant performance assessment component."""
 
     basis: ComponentAssessmentBasis = pdt.Field(
@@ -370,7 +374,7 @@ class PlantPerformanceComponent(pdt.BaseModel):
     )
 
 
-class PlantPerformanceCategory(pdt.BaseModel):
+class PlantPerformanceCategory(EyaDefBaseModel):
     """Plant performance assessment category."""
 
     components: list[PlantPerformanceComponent] = pdt.Field(
@@ -381,7 +385,7 @@ class PlantPerformanceCategory(pdt.BaseModel):
     )
 
 
-class PlantPerformanceAssessment(pdt.BaseModel):
+class PlantPerformanceAssessment(EyaDefBaseModel):
     """Plant performance assessment details and results."""
 
     categories: dict[
@@ -396,7 +400,7 @@ class PlantPerformanceAssessment(pdt.BaseModel):
     )
 
 
-class Scenario(pdt.BaseModel):
+class Scenario(EyaDefBaseModel):
     """Single unique energy yield assessment scenario."""
 
     scenario_id: str | None = pdt.Field(
@@ -436,7 +440,7 @@ class Scenario(pdt.BaseModel):
     )
 
 
-class Organisation(pdt.BaseModel):
+class Organisation(EyaDefBaseModel):
     """Issuing or receiving organisation of an energy yield assessment."""
 
     name: str = pdt.Field(
@@ -461,7 +465,7 @@ class Organisation(pdt.BaseModel):
     )
 
 
-class ReportContributor(pdt.BaseModel):
+class ReportContributor(EyaDefBaseModel):
     """Contributor to an energy yield assessment."""
 
     name: str = pdt.Field(
