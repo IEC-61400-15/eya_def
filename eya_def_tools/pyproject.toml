@@ -60,5 +60,5 @@ show_error_codes = true
 warn_unused_ignores = true
 
 [[tool.mypy.overrides]]
-module = ["erdantic.*"]
+module = ["erdantic.*", "pandas.*"]
 ignore_missing_imports = true
