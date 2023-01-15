@@ -20,7 +20,6 @@ from eya_def_tools.data_models.enums import (
 from eya_def_tools.data_models.fields import comments_field, description_field
 from eya_def_tools.data_models.results import Results
 from eya_def_tools.utils.pydantic_json_schema_utils import (
-    add_null_type_to_schema_optional_fields,
     move_field_to_definitions,
     reduce_json_schema_all_of,
 )
@@ -501,19 +500,20 @@ class EnergyYieldAssessment(BaseModelWithRefs):
             schema: dict[str, Any], model: Type[EnergyYieldAssessment]
         ) -> None:
             """Additional items for the model schema."""
-            add_null_type_to_schema_optional_fields(schema=schema, model=model)
+            BaseModelWithRefs.Config.schema_extra(schema=schema, model=model)
             schema.update(
                 {
                     "$schema": get_json_schema_reference_uri(),
                     "$id": get_json_schema_uri(),
                     "$version": get_json_schema_version(),
-                    "title": "IEC 61400-15-2 EYA DEF Data Model",
+                    "title": "IEC 61400-15-2 EYA DEF Schema",
                     "additionalProperties": False,
                 }
             )
 
     json_uri: str | None = pdt.Field(
         None,
+        title="ID",
         description="Unique URI of the JSON document.",
         examples=[
             "https://foo.com/api/eya?id=8f46a815-8b6d-4870-8e92-c031b20320c6.json"
@@ -627,15 +627,9 @@ class EnergyYieldAssessment(BaseModelWithRefs):
         json documents should not include ``null`` values, but properties
         with a ``null`` value should rather be excluded.
         """
-        schema_dict = cls.schema(by_alias=True)
-        properties_exclude = ["$id", "json_uri"]
-        for property_exclude in properties_exclude:
-            if property_exclude in schema_dict["properties"].keys():
-                del schema_dict["properties"][property_exclude]
-        schema_dict = reduce_json_schema_all_of(schema_dict)
+        schema = cls.schema(by_alias=True)
+        reduce_json_schema_all_of(schema)
         defined_fields = ["description", "comments"]
         for field_label in defined_fields:
-            schema_dict = move_field_to_definitions(
-                json_dict=schema_dict, field_label=field_label
-            )
-        return schema_dict
+            move_field_to_definitions(schema=schema, field_label=field_label)
+        return schema

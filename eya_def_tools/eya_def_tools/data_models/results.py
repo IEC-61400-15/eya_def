@@ -2,46 +2,78 @@
 
 """
 
-from typing import Literal
+from __future__ import annotations
+
+from typing import TypeAlias
 
 import pydantic as pdt
 
-from eya_def_tools.data_models import enums, fields, types
+from eya_def_tools.data_models import enums, fields
+from eya_def_tools.data_models.base_models import EyaDefBaseModel
+
+ResultCoordinate: TypeAlias = tuple[float | int | str, ...]
 
 
-class ResultsComponent(pdt.BaseModel):
+ResultValue: TypeAlias = float
+
+
+ResultValueAtCoordinate: TypeAlias = tuple[ResultCoordinate, ResultValue]
+
+
+class ResultsComponent(EyaDefBaseModel):
     """Component of a set of results."""
 
     component_type: enums.StatisticType = pdt.Field(
         ...,
         description="Type of statistic in the results component.",
+        examples=[enums.StatisticType.MEDIAN, enums.StatisticType.P90],
     )
     description: str | None = fields.description_field
     comments: str | None = fields.comments_field
-    values: float | types.NestedAnnotatedFloatDict = pdt.Field(
+    values: ResultValue | list[ResultValueAtCoordinate] = pdt.Field(
         ...,
-        description="Result value(s) as simple float or labeled map.",
-        examples=[123.4, {"WTG01": 123.4, "WTG02": 143.2}],
+        description="Result as a single number or values at coordinates.",
     )
 
 
-class Results(pdt.BaseModel):
-    """Single set of results for an element of an energy assessment."""
+class Results(EyaDefBaseModel):
+    """Set of results for an element of an energy assessment."""
 
-    label: str = pdt.Field(
-        ..., description="Label of the results.", examples=["10-year P50"]
+    label: str | None = pdt.Field(
+        ...,
+        description="Label of the results.",
+        examples=["Seasonal distribution of net energy."],
     )
     description: str | None = fields.description_field
     comments: str | None = fields.comments_field
-    unit: str = pdt.Field(
-        ..., description="Unit of result values (TO REPLACE BY LITERAL)."
+    unit: enums.MeasurementUnit = pdt.Field(
+        ...,
+        description="Unit in which the result values are measured.",
+        examples=[
+            enums.MeasurementUnit.METRE_PER_SECOND,
+            enums.MeasurementUnit.MEGAWATT_HOUR,
+        ],
     )
     applicability_type: enums.ResultsApplicabilityType = pdt.Field(
-        ..., description="Applicability type of energy assessment results."
+        ...,
+        description="Applicability type of the results.",
+        examples=[
+            enums.ResultsApplicabilityType.LIFETIME,
+            enums.ResultsApplicabilityType.ANY_ONE_YEAR,
+        ],
     )
-    results_dimensions: list[
-        Literal["none", "location", "hub_height", "year", "month", "month_of_year"]
-    ] = pdt.Field(..., description="Type of energy assessment results.")
+    results_dimensions: tuple[enums.ResultsDimension, ...] | None = pdt.Field(
+        None,
+        description="Dimensions along which the results are binned.",
+        examples=[
+            (
+                enums.ResultsDimension.TURBINE,
+                enums.ResultsDimension.YEAR,
+            ),
+            (enums.ResultsDimension.MEASUREMENT, enums.ResultsDimension.HEIGHT),
+        ],
+    )
     result_components: list[ResultsComponent] = pdt.Field(
-        ..., description="List of result components."
+        ...,
+        description="List of result components.",
     )

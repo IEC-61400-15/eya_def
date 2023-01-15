@@ -2,10 +2,29 @@
 
 """
 
+from __future__ import annotations
 
-from typing import Any, Mapping
+from typing import Any, Mapping, Type
 
 import pydantic as pdt
+
+from eya_def_tools.utils.pydantic_json_schema_utils import (
+    add_null_type_to_schema_optional_fields,
+    tuple_fields_to_prefix_items,
+)
+
+
+class EyaDefBaseModel(pdt.BaseModel):
+    """Refined pydantic base model for the EYA DEF."""
+
+    class Config:
+        """``EyaDefBaseModel`` data model configurations."""
+
+        @staticmethod
+        def schema_extra(schema: dict[str, Any], model: Type[EyaDefBaseModel]) -> None:
+            """Modifications to the default model schema."""
+            add_null_type_to_schema_optional_fields(schema=schema, model=model)
+            tuple_fields_to_prefix_items(schema=schema)
 
 
 class JsonPointerRef(str):
@@ -26,8 +45,16 @@ class JsonPointerRef(str):
         return '{"$ref": "' + self.format() + '"}'
 
 
-class BaseModelWithRefs(pdt.BaseModel):
+class BaseModelWithRefs(EyaDefBaseModel):
     """Base model variant that includes JSON Pointer references."""
+
+    class Config:
+        """``BaseModelWithRefs`` data model configurations."""
+
+        @staticmethod
+        def schema_extra(schema: dict[str, Any], model: Type[EyaDefBaseModel]) -> None:
+            """Modifications to the default model schema."""
+            EyaDefBaseModel.Config.schema_extra(schema=schema, model=model)
 
     @classmethod
     def get_ref_field_labels(cls) -> list[str]:

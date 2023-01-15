@@ -175,6 +175,18 @@
       "title": "Location",
       "type": "object"
     },
+    "MeasurementUnit": {
+      "description": "Unit in which a quantity is measured.",
+      "enum": [
+        "1",
+        "kW",
+        "MW h",
+        "MW h year-1",
+        "m s-1"
+      ],
+      "title": "MeasurementUnit",
+      "type": "string"
+    },
     "OperationalRestriction": {
       "description": "Specifications of an operational restriction.",
       "properties": {
@@ -402,11 +414,15 @@
       "type": "object"
     },
     "Results": {
-      "description": "Single set of results for an element of an energy assessment.",
+      "description": "Set of results for an element of an energy assessment.",
       "properties": {
         "applicability_type": {
           "$ref": "#/definitions/ResultsApplicabilityType",
-          "description": "Applicability type of energy assessment results."
+          "description": "Applicability type of the results.",
+          "examples": [
+            "lifetime",
+            "any_one_year"
+          ]
         },
         "comments": {
           "$ref": "#/definitions/Comments"
@@ -417,10 +433,13 @@
         "label": {
           "description": "Label of the results.",
           "examples": [
-            "10-year P50"
+            "Seasonal distribution of net energy."
           ],
           "title": "Label",
-          "type": "string"
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "result_components": {
           "description": "List of result components.",
@@ -431,32 +450,38 @@
           "type": "array"
         },
         "results_dimensions": {
-          "description": "Type of energy assessment results.",
-          "items": {
-            "enum": [
-              "none",
-              "location",
-              "hub_height",
-              "year",
-              "month",
-              "month_of_year"
+          "description": "Dimensions along which the results are binned.",
+          "examples": [
+            [
+              "turbine",
+              "year"
             ],
-            "type": "string"
+            [
+              "measurement",
+              "height"
+            ]
+          ],
+          "items": {
+            "$ref": "#/definitions/ResultsDimension"
           },
-          "title": "Results Dimensions",
-          "type": "array"
+          "type": [
+            "array",
+            "null"
+          ]
         },
         "unit": {
-          "description": "Unit of result values (TO REPLACE BY LITERAL).",
-          "title": "Unit",
-          "type": "string"
+          "$ref": "#/definitions/MeasurementUnit",
+          "description": "Unit in which the result values are measured.",
+          "examples": [
+            "m s-1",
+            "MW h"
+          ]
         }
       },
       "required": [
         "label",
         "unit",
         "applicability_type",
-        "results_dimensions",
         "result_components"
       ],
       "title": "Results",
@@ -481,7 +506,11 @@
         },
         "component_type": {
           "$ref": "#/definitions/StatisticType",
-          "description": "Type of statistic in the results component."
+          "description": "Type of statistic in the results component.",
+          "examples": [
+            "median",
+            "p90"
+          ]
         },
         "description": {
           "$ref": "#/definitions/Description"
@@ -492,56 +521,37 @@
               "type": "number"
             },
             {
-              "additionalProperties": {
-                "type": "number"
-              },
-              "type": "object"
-            },
-            {
-              "additionalProperties": {
-                "additionalProperties": {
-                  "type": "number"
-                },
-                "type": "object"
-              },
-              "type": "object"
-            },
-            {
-              "additionalProperties": {
-                "additionalProperties": {
-                  "additionalProperties": {
-                    "type": "number"
-                  },
-                  "type": "object"
-                },
-                "type": "object"
-              },
-              "type": "object"
-            },
-            {
-              "additionalProperties": {
-                "additionalProperties": {
-                  "additionalProperties": {
-                    "additionalProperties": {
-                      "type": "number"
+              "items": {
+                "items": false,
+                "maxItems": 2,
+                "minItems": 2,
+                "prefixItems": [
+                  {
+                    "items": {
+                      "anyOf": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "integer"
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
                     },
-                    "type": "object"
+                    "type": "array"
                   },
-                  "type": "object"
-                },
-                "type": "object"
+                  {
+                    "type": "number"
+                  }
+                ],
+                "type": "array"
               },
-              "type": "object"
+              "type": "array"
             }
           ],
-          "description": "Result value(s) as simple float or labeled map.",
-          "examples": [
-            123.4,
-            {
-              "WTG01": 123.4,
-              "WTG02": 143.2
-            }
-          ],
+          "description": "Result as a single number or values at coordinates.",
           "title": "Values"
         }
       },
@@ -551,6 +561,19 @@
       ],
       "title": "ResultsComponent",
       "type": "object"
+    },
+    "ResultsDimension": {
+      "description": "Dimension along which results are assigned.",
+      "enum": [
+        "height",
+        "hour",
+        "measurement",
+        "month",
+        "turbine",
+        "year"
+      ],
+      "title": "ResultsDimension",
+      "type": "string"
     },
     "Scenario": {
       "description": "Single unique energy yield assessment scenario.",
@@ -977,6 +1000,17 @@
   },
   "description": "IEC 61400-15-2 EYA DEF energy yield assessment data model.",
   "properties": {
+    "$id": {
+      "description": "Unique URI of the JSON document.",
+      "examples": [
+        "https://foo.com/api/eya?id=8f46a815-8b6d-4870-8e92-c031b20320c6.json"
+      ],
+      "title": "ID",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
     "comments": {
       "$ref": "#/definitions/Comments"
     },
@@ -1154,6 +1188,6 @@
     "issuing_organisations",
     "coordinate_reference_system"
   ],
-  "title": "IEC 61400-15-2 EYA DEF Data Model",
+  "title": "IEC 61400-15-2 EYA DEF Schema",
   "type": "object"
 }

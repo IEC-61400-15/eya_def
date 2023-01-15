@@ -69,16 +69,26 @@
             "result_components": [
               {
                 "component_type": "mean",
-                "values": {
-                  "WTG01": 15500.0,
-                  "WTG02": 16700.0
-                }
+                "values": [
+                  [
+                    [
+                      "WTG01"
+                    ],
+                    15500.0
+                  ],
+                  [
+                    [
+                      "WTG02"
+                    ],
+                    16700.0
+                  ]
+                ]
               }
             ],
             "results_dimensions": [
-              "location"
+              "turbine"
             ],
-            "unit": "MWh/annum"
+            "unit": "MW h year-1"
           },
           {
             "applicability_type": "lifetime",
@@ -89,10 +99,7 @@
                 "values": 32200.0
               }
             ],
-            "results_dimensions": [
-              "none"
-            ],
-            "unit": "MWh/annum"
+            "unit": "MW h year-1"
           }
         ]
       },
@@ -110,23 +117,43 @@
                 "result_components": [
                   {
                     "component_type": "mean",
-                    "values": {
-                      "WTG01": 0.975,
-                      "WTG02": 0.983
-                    }
+                    "values": [
+                      [
+                        [
+                          "WTG01"
+                        ],
+                        0.975
+                      ],
+                      [
+                        [
+                          "WTG02"
+                        ],
+                        0.983
+                      ]
+                    ]
                   },
                   {
                     "component_type": "standard_deviation",
-                    "values": {
-                      "WTG01": 0.005,
-                      "WTG02": 0.005
-                    }
+                    "values": [
+                      [
+                        [
+                          "WTG01"
+                        ],
+                        0.005
+                      ],
+                      [
+                        [
+                          "WTG02"
+                        ],
+                        0.005
+                      ]
+                    ]
                   }
                 ],
                 "results_dimensions": [
-                  "location"
+                  "turbine"
                 ],
-                "unit": "dimensionless"
+                "unit": "1"
               }
             ],
             "components": [
@@ -146,23 +173,43 @@
                   "result_components": [
                     {
                       "component_type": "mean",
-                      "values": {
-                        "WTG01": 0.975,
-                        "WTG02": 0.983
-                      }
+                      "values": [
+                        [
+                          [
+                            "WTG01"
+                          ],
+                          0.975
+                        ],
+                        [
+                          [
+                            "WTG02"
+                          ],
+                          0.983
+                        ]
+                      ]
                     },
                     {
                       "component_type": "standard_deviation",
-                      "values": {
-                        "WTG01": 0.005,
-                        "WTG02": 0.005
-                      }
+                      "values": [
+                        [
+                          [
+                            "WTG01"
+                          ],
+                          0.005
+                        ],
+                        [
+                          [
+                            "WTG02"
+                          ],
+                          0.005
+                        ]
+                      ]
                     }
                   ],
                   "results_dimensions": [
-                    "location"
+                    "turbine"
                   ],
-                  "unit": "dimensionless"
+                  "unit": "1"
                 },
                 "variability": "static_process"
               }
@@ -187,10 +234,7 @@
                 "values": 27089.4
               }
             ],
-            "results_dimensions": [
-              "none"
-            ],
-            "unit": "MWh/annum"
+            "unit": "MW h year-1"
           },
           {
             "applicability_type": "any_one_year",
@@ -209,10 +253,7 @@
                 "values": 25475.1
               }
             ],
-            "results_dimensions": [
-              "none"
-            ],
-            "unit": "MWh/annum"
+            "unit": "MW h year-1"
           }
         ]
       },
@@ -225,16 +266,26 @@
             "result_components": [
               {
                 "component_type": "mean",
-                "values": {
-                  "WTG01": 6.91,
-                  "WTG02": 6.95
-                }
+                "values": [
+                  [
+                    [
+                      "WTG01"
+                    ],
+                    6.91
+                  ],
+                  [
+                    [
+                      "WTG02"
+                    ],
+                    6.95
+                  ]
+                ]
               }
             ],
             "results_dimensions": [
-              "location"
+              "turbine"
             ],
-            "unit": "m/s"
+            "unit": "m s-1"
           }
         ],
         "wind_spatial_models": [
@@ -350,16 +401,26 @@
             "result_components": [
               {
                 "component_type": "mean",
-                "values": {
-                  "WTG01": 18100.0,
-                  "WTG02": 18900.0
-                }
+                "values": [
+                  [
+                    [
+                      "WTG01"
+                    ],
+                    18100.0
+                  ],
+                  [
+                    [
+                      "WTG02"
+                    ],
+                    18900.0
+                  ]
+                ]
               }
             ],
             "results_dimensions": [
-              "location"
+              "turbine"
             ],
-            "unit": "MWh/annum"
+            "unit": "MW h year-1"
           },
           {
             "applicability_type": "lifetime",
@@ -370,10 +431,7 @@
                 "values": 37000.0
               }
             ],
-            "results_dimensions": [
-              "none"
-            ],
-            "unit": "MWh/annum"
+            "unit": "MW h year-1"
           }
         ]
       },
@@ -391,23 +449,43 @@
                 "result_components": [
                   {
                     "component_type": "mean",
-                    "values": {
-                      "WTG01": 0.95,
-                      "WTG02": 0.95
-                    }
+                    "values": [
+                      [
+                        [
+                          "WTG01"
+                        ],
+                        0.95
+                      ],
+                      [
+                        [
+                          "WTG02"
+                        ],
+                        0.95
+                      ]
+                    ]
                   },
                   {
                     "component_type": "standard_deviation",
-                    "values": {
-                      "WTG01": 0.05,
-                      "WTG02": 0.05
-                    }
+                    "values": [
+                      [
+                        [
+                          "WTG01"
+                        ],
+                        0.05
+                      ],
+                      [
+                        [
+                          "WTG02"
+                        ],
+                        0.05
+                      ]
+                    ]
                   }
                 ],
                 "results_dimensions": [
-                  "location"
+                  "turbine"
                 ],
-                "unit": "dimensionless"
+                "unit": "1"
               }
             ],
             "components": [
@@ -421,23 +499,43 @@
                   "result_components": [
                     {
                       "component_type": "mean",
-                      "values": {
-                        "WTG01": 0.95,
-                        "WTG02": 0.95
-                      }
+                      "values": [
+                        [
+                          [
+                            "WTG01"
+                          ],
+                          0.95
+                        ],
+                        [
+                          [
+                            "WTG02"
+                          ],
+                          0.95
+                        ]
+                      ]
                     },
                     {
                       "component_type": "standard_deviation",
-                      "values": {
-                        "WTG01": 0.05,
-                        "WTG02": 0.05
-                      }
+                      "values": [
+                        [
+                          [
+                            "WTG01"
+                          ],
+                          0.05
+                        ],
+                        [
+                          [
+                            "WTG02"
+                          ],
+                          0.05
+                        ]
+                      ]
                     }
                   ],
                   "results_dimensions": [
-                    "location"
+                    "turbine"
                   ],
-                  "unit": "dimensionless"
+                  "unit": "1"
                 },
                 "variability": "static_process"
               }
@@ -462,10 +560,7 @@
                 "values": 29301.0
               }
             ],
-            "results_dimensions": [
-              "none"
-            ],
-            "unit": "MWh/annum"
+            "unit": "MW h year-1"
           },
           {
             "applicability_type": "any_one_year",
@@ -484,10 +579,7 @@
                 "values": 27726.3
               }
             ],
-            "results_dimensions": [
-              "none"
-            ],
-            "unit": "MWh/annum"
+            "unit": "MW h year-1"
           }
         ]
       },
@@ -500,16 +592,26 @@
             "result_components": [
               {
                 "component_type": "mean",
-                "values": {
-                  "WTG01": 6.9,
-                  "WTG02": 6.94
-                }
+                "values": [
+                  [
+                    [
+                      "WTG01"
+                    ],
+                    6.9
+                  ],
+                  [
+                    [
+                      "WTG02"
+                    ],
+                    6.94
+                  ]
+                ]
               }
             ],
             "results_dimensions": [
-              "location"
+              "turbine"
             ],
-            "unit": "m/s"
+            "unit": "m s-1"
           }
         ],
         "wind_spatial_models": [
@@ -629,15 +731,20 @@
           "result_components": [
             {
               "component_type": "mean",
-              "values": {
-                "BF_M1_1.0.0": 6.83
-              }
+              "values": [
+                [
+                  [
+                    "BF_M1_1.0.0"
+                  ],
+                  6.83
+                ]
+              ]
             }
           ],
           "results_dimensions": [
-            "location"
+            "measurement"
           ],
-          "unit": "m/s"
+          "unit": "m s-1"
         }
       ],
       "uncertainty_assessment": {
@@ -650,15 +757,20 @@
                 "result_components": [
                   {
                     "component_type": "standard_deviation",
-                    "values": {
-                      "BF_M1_1.0.0": 0.03201
-                    }
+                    "values": [
+                      [
+                        [
+                          "BF_M1_1.0.0"
+                        ],
+                        0.03201
+                      ]
+                    ]
                   }
                 ],
                 "results_dimensions": [
-                  "location"
+                  "measurement"
                 ],
-                "unit": "dimensionless"
+                "unit": "1"
               }
             ],
             "components": [
@@ -666,38 +778,48 @@
                 "label": "Regression model uncertainty",
                 "results": {
                   "applicability_type": "lifetime",
-                  "label": "Regression model wind speed uncertainty per measurement location",
+                  "label": "Regression model wind speed uncertainty per measurement station",
                   "result_components": [
                     {
                       "component_type": "standard_deviation",
-                      "values": {
-                        "BF_M1_1.0.0": 0.025
-                      }
+                      "values": [
+                        [
+                          [
+                            "BF_M1_1.0.0"
+                          ],
+                          0.025
+                        ]
+                      ]
                     }
                   ],
                   "results_dimensions": [
-                    "location"
+                    "measurement"
                   ],
-                  "unit": "dimensionless"
+                  "unit": "1"
                 }
               },
               {
                 "label": "Long-term consistency uncertainty",
                 "results": {
                   "applicability_type": "lifetime",
-                  "label": "Long-term consistency wind speed uncertainty per measurement location",
+                  "label": "Long-term consistency wind speed uncertainty per measurement station",
                   "result_components": [
                     {
                       "component_type": "standard_deviation",
-                      "values": {
-                        "BF_M1_1.0.0": 0.02
-                      }
+                      "values": [
+                        [
+                          [
+                            "BF_M1_1.0.0"
+                          ],
+                          0.02
+                        ]
+                      ]
                     }
                   ],
                   "results_dimensions": [
-                    "location"
+                    "measurement"
                   ],
-                  "unit": "dimensionless"
+                  "unit": "1"
                 }
               }
             ]

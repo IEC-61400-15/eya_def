@@ -28,6 +28,16 @@ class ComponentVariabilityType(StrEnum):
     OTHER = auto()
 
 
+class MeasurementUnit(StrEnum):
+    """Unit in which a quantity is measured."""
+
+    DIMENSIONLESS = "1"
+    KILOWATT = "kW"
+    MEGAWATT_HOUR = "MW h"
+    MEGAWATT_HOUR_PER_ANNUM = "MW h year-1"
+    METRE_PER_SECOND = "m s-1"
+
+
 class PlantPerformanceCategoryLabel(StrEnum):
     """Category labels in the plant performance assessment."""
 
@@ -195,6 +205,17 @@ class ResultsApplicabilityType(StrEnum):
     ANY_ONE_YEAR = auto()
     ONE_OPERATIONAL_YEAR = auto()
     OTHER = auto()
+
+
+class ResultsDimension(StrEnum):
+    """Dimension along which results are assigned."""
+
+    HEIGHT = auto()
+    HOUR = auto()
+    MEASUREMENT = auto()
+    MONTH = auto()
+    TURBINE = auto()
+    YEAR = auto()
 
 
 class StatisticType(StrEnum):

@@ -22,70 +22,84 @@ def add_null_type_to_schema_optional_fields(
                 value["type"] = [value["type"], "null"]
 
 
-def move_field_to_definitions(
-    json_dict: dict[str, Any], field_label: str
-) -> dict[str, Any]:
+def move_field_to_definitions(schema: dict[str, Any], field_label: str) -> None:
     """Move the details of a field to the ``definitions`` section.
 
-    :param json_dict: the model schema dictionary to modify
+    :param schema: the model schema dictionary to modify
     :param field_label: the label of the model field to move to the
         ``definitions`` section
-    :return: a copy of ``json_dict`` where the ``properties`` and
+    :return: a copy of ``schema`` where the ``properties`` and
         ``definitions`` sections have been updated
     """
-    updated_json_dict = json_dict.copy()
-    field_definition = _find_field_definition(
-        json_dict=json_dict, field_label=field_label
-    )
+    field_definition = _find_field_definition(schema=schema, field_label=field_label)
     if field_definition is None:
         raise ValueError(f"the field {field_label} was not found in the schema")
-    updated_json_dict["definitions"][field_label.title()] = field_definition
+    schema["definitions"][field_label.title()] = field_definition
     _recursive_replace_field_definition(
-        json_dict=json_dict, field_label=field_label, field_definition=field_definition
+        schema=schema, field_label=field_label, field_definition=field_definition
     )
-    return updated_json_dict
 
 
-def reduce_json_schema_all_of(json_dict: dict[str, Any]) -> dict[str, Any]:
+def reduce_json_schema_all_of(schema: dict[str, Any]) -> None:
     """Get copy of JSON Schema ``dict`` without superfluous ``allOf``.
 
-    :param json_dict: the original ``dict`` in JSON format
-    :return: a copy of ``json_dict`` where ``allOf`` definitions are
+    :param schema: the original schema ``dict``
+    :return: a copy of ``schema`` where ``allOf`` definitions are
         removed for instanced where there is only one item
     """
-    reduced_json_dict = {}
-    for key, value in json_dict.items():
+    for key, value in schema.copy().items():
         if isinstance(value, dict):
-            reduced_json_dict[key] = reduce_json_schema_all_of(value)
+            reduce_json_schema_all_of(value)
         elif key == "allOf" and isinstance(value, list) and len(value) == 1:
-            reduced_json_dict.update(value[0].items())
-        else:
-            reduced_json_dict[key] = value
-    return reduced_json_dict
+            schema.update(value[0].items())
+            del schema["allOf"]
+
+
+def tuple_fields_to_prefix_items(schema: dict[str, Any]) -> None:
+    """Convert ``items`` to ``prefixItems`` for tuple fields.
+
+    :param schema: the model schema dictionary to modify
+    """
+    if (
+        "items" in schema
+        and "minItems" in schema
+        and "maxItems" in schema
+        and schema["minItems"] == schema["maxItems"]
+    ):
+        schema["prefixItems"] = schema["items"]
+        schema["items"] = False
+    else:
+        for key, value in schema.items():
+            if isinstance(value, dict):
+                tuple_fields_to_prefix_items(schema=value)
+            elif isinstance(value, list):
+                for list_value in value:
+                    if isinstance(list_value, dict):
+                        tuple_fields_to_prefix_items(schema=list_value)
 
 
 def _find_field_definition(
-    json_dict: dict[str, Any], field_label: str
+    schema: dict[str, Any], field_label: str
 ) -> dict[str, Any] | None:
-    for key, value in json_dict.items():
+    for key, value in schema.items():
         if isinstance(value, dict):
             if key == "properties" and field_label in value.keys():
                 return value[field_label]
             else:
-                return _find_field_definition(json_dict=value, field_label=field_label)
+                return _find_field_definition(schema=value, field_label=field_label)
     return None
 
 
 def _recursive_replace_field_definition(
-    json_dict: dict[str, Any], field_label: str, field_definition: dict[str, Any]
+    schema: dict[str, Any], field_label: str, field_definition: dict[str, Any]
 ) -> None:
-    for key, value in json_dict.items():
+    for key, value in schema.items():
         if isinstance(value, dict):
             if key == "properties" and field_label in value.keys():
                 value[field_label] = {"$ref": f"#/definitions/{field_label.title()}"}
             else:
                 _recursive_replace_field_definition(
-                    json_dict=value,
+                    schema=value,
                     field_label=field_label,
                     field_definition=field_definition,
                 )
