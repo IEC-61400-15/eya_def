@@ -69,6 +69,7 @@
             "result_components": [
               {
                 "component_type": "mean",
+                "unit": "MW h year-1",
                 "values": [
                   [
                     [
@@ -87,8 +88,7 @@
             ],
             "results_dimensions": [
               "turbine"
-            ],
-            "unit": "MW h year-1"
+            ]
           },
           {
             "applicability_type": "lifetime",
@@ -96,10 +96,10 @@
             "result_components": [
               {
                 "component_type": "mean",
+                "unit": "MW h year-1",
                 "values": 32200.0
               }
-            ],
-            "unit": "MW h year-1"
+            ]
           }
         ]
       },
@@ -117,6 +117,7 @@
                 "result_components": [
                   {
                     "component_type": "mean",
+                    "unit": "1",
                     "values": [
                       [
                         [
@@ -134,6 +135,7 @@
                   },
                   {
                     "component_type": "standard_deviation",
+                    "unit": "1",
                     "values": [
                       [
                         [
@@ -152,8 +154,7 @@
                 ],
                 "results_dimensions": [
                   "turbine"
-                ],
-                "unit": "1"
+                ]
               }
             ],
             "components": [
@@ -173,6 +174,7 @@
                   "result_components": [
                     {
                       "component_type": "mean",
+                      "unit": "1",
                       "values": [
                         [
                           [
@@ -190,6 +192,7 @@
                     },
                     {
                       "component_type": "standard_deviation",
+                      "unit": "1",
                       "values": [
                         [
                           [
@@ -208,8 +211,7 @@
                   ],
                   "results_dimensions": [
                     "turbine"
-                  ],
-                  "unit": "1"
+                  ]
                 },
                 "variability": "static_process"
               }
@@ -223,18 +225,20 @@
             "result_components": [
               {
                 "component_type": "median",
+                "unit": "MW h year-1",
                 "values": 31528.6
               },
               {
                 "component_type": "standard_deviation",
+                "unit": "MW h year-1",
                 "values": 3468.1
               },
               {
                 "component_type": "p90",
+                "unit": "MW h year-1",
                 "values": 27089.4
               }
-            ],
-            "unit": "MW h year-1"
+            ]
           },
           {
             "applicability_type": "any_one_year",
@@ -242,18 +246,20 @@
             "result_components": [
               {
                 "component_type": "median",
+                "unit": "MW h year-1",
                 "values": 31528.6
               },
               {
                 "component_type": "standard_deviation",
+                "unit": "MW h year-1",
                 "values": 4729.3
               },
               {
                 "component_type": "p90",
+                "unit": "MW h year-1",
                 "values": 25475.1
               }
-            ],
-            "unit": "MW h year-1"
+            ]
           }
         ]
       },
@@ -266,6 +272,7 @@
             "result_components": [
               {
                 "component_type": "mean",
+                "unit": "m s-1",
                 "values": [
                   [
                     [
@@ -284,8 +291,7 @@
             ],
             "results_dimensions": [
               "turbine"
-            ],
-            "unit": "m s-1"
+            ]
           }
         ],
         "wind_spatial_models": [
@@ -401,6 +407,7 @@
             "result_components": [
               {
                 "component_type": "mean",
+                "unit": "MW h year-1",
                 "values": [
                   [
                     [
@@ -419,8 +426,7 @@
             ],
             "results_dimensions": [
               "turbine"
-            ],
-            "unit": "MW h year-1"
+            ]
           },
           {
             "applicability_type": "lifetime",
@@ -428,10 +434,10 @@
             "result_components": [
               {
                 "component_type": "mean",
+                "unit": "MW h year-1",
                 "values": 37000.0
               }
-            ],
-            "unit": "MW h year-1"
+            ]
           }
         ]
       },
@@ -449,6 +455,7 @@
                 "result_components": [
                   {
                     "component_type": "mean",
+                    "unit": "1",
                     "values": [
                       [
                         [
@@ -466,6 +473,7 @@
                   },
                   {
                     "component_type": "standard_deviation",
+                    "unit": "1",
                     "values": [
                       [
                         [
@@ -484,8 +492,7 @@
                 ],
                 "results_dimensions": [
                   "turbine"
-                ],
-                "unit": "1"
+                ]
               }
             ],
             "components": [
@@ -499,6 +506,7 @@
                   "result_components": [
                     {
                       "component_type": "mean",
+                      "unit": "1",
                       "values": [
                         [
                           [
@@ -516,6 +524,7 @@
                     },
                     {
                       "component_type": "standard_deviation",
+                      "unit": "1",
                       "values": [
                         [
                           [
@@ -534,8 +543,7 @@
                   ],
                   "results_dimensions": [
                     "turbine"
-                  ],
-                  "unit": "1"
+                  ]
                 },
                 "variability": "static_process"
               }
@@ -549,18 +557,20 @@
             "result_components": [
               {
                 "component_type": "median",
+                "unit": "MW h year-1",
                 "values": 35150.0
               },
               {
                 "component_type": "standard_deviation",
+                "unit": "MW h year-1",
                 "values": 4569.5
               },
               {
                 "component_type": "p90",
+                "unit": "MW h year-1",
                 "values": 29301.0
               }
-            ],
-            "unit": "MW h year-1"
+            ]
           },
           {
             "applicability_type": "any_one_year",
@@ -568,18 +578,20 @@
             "result_components": [
               {
                 "component_type": "median",
+                "unit": "MW h year-1",
                 "values": 35150.0
               },
               {
                 "component_type": "standard_deviation",
+                "unit": "MW h year-1",
                 "values": 5799.8
               },
               {
                 "component_type": "p90",
+                "unit": "MW h year-1",
                 "values": 27726.3
               }
-            ],
-            "unit": "MW h year-1"
+            ]
           }
         ]
       },
@@ -592,6 +604,7 @@
             "result_components": [
               {
                 "component_type": "mean",
+                "unit": "m s-1",
                 "values": [
                   [
                     [
@@ -610,8 +623,7 @@
             ],
             "results_dimensions": [
               "turbine"
-            ],
-            "unit": "m s-1"
+            ]
           }
         ],
         "wind_spatial_models": [
@@ -731,6 +743,7 @@
           "result_components": [
             {
               "component_type": "mean",
+              "unit": "m s-1",
               "values": [
                 [
                   [
@@ -743,8 +756,7 @@
           ],
           "results_dimensions": [
             "measurement"
-          ],
-          "unit": "m s-1"
+          ]
         }
       ],
       "uncertainty_assessment": {
@@ -757,6 +769,7 @@
                 "result_components": [
                   {
                     "component_type": "standard_deviation",
+                    "unit": "1",
                     "values": [
                       [
                         [
@@ -769,8 +782,7 @@
                 ],
                 "results_dimensions": [
                   "measurement"
-                ],
-                "unit": "1"
+                ]
               }
             ],
             "components": [
@@ -782,6 +794,7 @@
                   "result_components": [
                     {
                       "component_type": "standard_deviation",
+                      "unit": "1",
                       "values": [
                         [
                           [
@@ -794,8 +807,7 @@
                   ],
                   "results_dimensions": [
                     "measurement"
-                  ],
-                  "unit": "1"
+                  ]
                 }
               },
               {
@@ -806,6 +818,7 @@
                   "result_components": [
                     {
                       "component_type": "standard_deviation",
+                      "unit": "1",
                       "values": [
                         [
                           [
@@ -818,8 +831,7 @@
                   ],
                   "results_dimensions": [
                     "measurement"
-                  ],
-                  "unit": "1"
+                  ]
                 }
               }
             ]

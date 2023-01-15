@@ -555,12 +555,12 @@ def regression_model_uncertainty_component_a() -> eya.UncertaintyComponent:
         label="Regression model uncertainty",
         results=results.Results(
             label="Regression model wind speed uncertainty per measurement station",
-            unit=enums.MeasurementUnit.DIMENSIONLESS,
             applicability_type=enums.ResultsApplicabilityType.LIFETIME,
             results_dimensions=(enums.ResultsDimension.MEASUREMENT,),
             result_components=[
                 results.ResultsComponent(
                     component_type=enums.StatisticType.STANDARD_DEVIATION,
+                    unit=enums.MeasurementUnit.DIMENSIONLESS,
                     values=[
                         (
                             ("BF_M1_1.0.0",),
@@ -583,12 +583,12 @@ def long_term_consistency_uncertainty_component_a() -> eya.UncertaintyComponent:
                 "Long-term consistency wind speed uncertainty "
                 "per measurement station"
             ),
-            unit=enums.MeasurementUnit.DIMENSIONLESS,
             applicability_type=enums.ResultsApplicabilityType.LIFETIME,
             results_dimensions=(enums.ResultsDimension.MEASUREMENT,),
             result_components=[
                 results.ResultsComponent(
                     component_type=enums.StatisticType.STANDARD_DEVIATION,
+                    unit=enums.MeasurementUnit.DIMENSIONLESS,
                     values=[
                         (
                             ("BF_M1_1.0.0",),
@@ -617,12 +617,12 @@ def measurement_wind_uncertainty_assessment_a(
                 category_results=[
                     results.Results(
                         label="Historical wind resource uncertainty",
-                        unit=enums.MeasurementUnit.DIMENSIONLESS,
                         applicability_type=enums.ResultsApplicabilityType.LIFETIME,
                         results_dimensions=(enums.ResultsDimension.MEASUREMENT,),
                         result_components=[
                             results.ResultsComponent(
                                 component_type=enums.StatisticType.STANDARD_DEVIATION,
+                                unit=enums.MeasurementUnit.DIMENSIONLESS,
                                 values=[
                                     (
                                         ("BF_M1_1.0.0",),
@@ -647,12 +647,12 @@ def wind_resource_assessment_a(
         results=[
             results.Results(
                 label="Measurement-height long-term wind",
-                unit=enums.MeasurementUnit.METRE_PER_SECOND,
                 applicability_type=enums.ResultsApplicabilityType.LIFETIME,
                 results_dimensions=(enums.ResultsDimension.MEASUREMENT,),
                 result_components=[
                     results.ResultsComponent(
                         component_type=enums.StatisticType.MEAN,
+                        unit=enums.MeasurementUnit.METRE_PER_SECOND,
                         values=[
                             (
                                 ("BF_M1_1.0.0",),
@@ -683,12 +683,12 @@ def turbine_wind_resource_assessment_a(
         turbine_wind_resource_results=[
             results.Results(
                 label="Turbine-location hub-height long-term wind",
-                unit=enums.MeasurementUnit.METRE_PER_SECOND,
                 applicability_type=enums.ResultsApplicabilityType.LIFETIME,
                 results_dimensions=(enums.ResultsDimension.TURBINE,),
                 result_components=[
                     results.ResultsComponent(
                         component_type=enums.StatisticType.MEAN,
+                        unit=enums.MeasurementUnit.METRE_PER_SECOND,
                         values=[
                             (
                                 ("WTG01",),
@@ -716,12 +716,12 @@ def turbine_wind_resource_assessment_b(
         turbine_wind_resource_results=[
             results.Results(
                 label="Turbine-location hub-height long-term wind",
-                unit=enums.MeasurementUnit.METRE_PER_SECOND,
                 applicability_type=enums.ResultsApplicabilityType.LIFETIME,
                 results_dimensions=(enums.ResultsDimension.TURBINE,),
                 result_components=[
                     results.ResultsComponent(
                         component_type=enums.StatisticType.MEAN,
+                        unit=enums.MeasurementUnit.METRE_PER_SECOND,
                         values=[
                             (
                                 ("WTG01",),
@@ -747,12 +747,12 @@ def gross_energy_assessment_a() -> eya.GrossEnergyAssessment:
         results=[
             results.Results(
                 label="Gross yield",
-                unit=enums.MeasurementUnit.MEGAWATT_HOUR_PER_ANNUM,
                 applicability_type=enums.ResultsApplicabilityType.LIFETIME,
                 results_dimensions=(enums.ResultsDimension.TURBINE,),
                 result_components=[
                     results.ResultsComponent(
                         component_type=enums.StatisticType.MEAN,
+                        unit=enums.MeasurementUnit.MEGAWATT_HOUR_PER_ANNUM,
                         values=[
                             (
                                 ("WTG01",),
@@ -768,12 +768,13 @@ def gross_energy_assessment_a() -> eya.GrossEnergyAssessment:
             ),
             results.Results(
                 label="Gross yield",
-                unit=enums.MeasurementUnit.MEGAWATT_HOUR_PER_ANNUM,
                 applicability_type=enums.ResultsApplicabilityType.LIFETIME,
                 results_dimensions=None,
                 result_components=[
                     results.ResultsComponent(
-                        component_type=enums.StatisticType.MEAN, values=32200.0
+                        component_type=enums.StatisticType.MEAN,
+                        unit=enums.MeasurementUnit.MEGAWATT_HOUR_PER_ANNUM,
+                        values=32200.0,
                     )
                 ],
             ),
@@ -788,12 +789,12 @@ def gross_energy_assessment_b() -> eya.GrossEnergyAssessment:
         results=[
             results.Results(
                 label="Gross yield",
-                unit=enums.MeasurementUnit.MEGAWATT_HOUR_PER_ANNUM,
                 applicability_type=enums.ResultsApplicabilityType.LIFETIME,
                 results_dimensions=(enums.ResultsDimension.TURBINE,),
                 result_components=[
                     results.ResultsComponent(
                         component_type=enums.StatisticType.MEAN,
+                        unit=enums.MeasurementUnit.MEGAWATT_HOUR_PER_ANNUM,
                         values=[
                             (
                                 ("WTG01",),
@@ -809,12 +810,13 @@ def gross_energy_assessment_b() -> eya.GrossEnergyAssessment:
             ),
             results.Results(
                 label="Gross yield",
-                unit=enums.MeasurementUnit.MEGAWATT_HOUR_PER_ANNUM,
                 applicability_type=enums.ResultsApplicabilityType.LIFETIME,
                 results_dimensions=None,
                 result_components=[
                     results.ResultsComponent(
-                        component_type=enums.StatisticType.MEAN, values=37000.0
+                        component_type=enums.StatisticType.MEAN,
+                        unit=enums.MeasurementUnit.MEGAWATT_HOUR_PER_ANNUM,
+                        values=37000.0,
                     )
                 ],
             ),
@@ -828,6 +830,7 @@ def plant_performance_curtailment_category_a() -> eya.PlantPerformanceCategory:
     result_components = [
         results.ResultsComponent(
             component_type=enums.StatisticType.MEAN,
+            unit=enums.MeasurementUnit.DIMENSIONLESS,
             values=[
                 (
                     ("WTG01",),
@@ -841,6 +844,7 @@ def plant_performance_curtailment_category_a() -> eya.PlantPerformanceCategory:
         ),
         results.ResultsComponent(
             component_type=enums.StatisticType.STANDARD_DEVIATION,
+            unit=enums.MeasurementUnit.DIMENSIONLESS,
             values=[
                 (
                     ("WTG01",),
@@ -873,7 +877,6 @@ def plant_performance_curtailment_category_a() -> eya.PlantPerformanceCategory:
                         "Considering curtailment strategy as specified by "
                         "the turbine manufacturer."
                     ),
-                    unit=enums.MeasurementUnit.DIMENSIONLESS,
                     applicability_type=enums.ResultsApplicabilityType.LIFETIME,
                     results_dimensions=(enums.ResultsDimension.TURBINE,),
                     result_components=result_components,
@@ -884,7 +887,6 @@ def plant_performance_curtailment_category_a() -> eya.PlantPerformanceCategory:
             results.Results(
                 label="Curtailment",
                 description="Curtailment losses.",
-                unit=enums.MeasurementUnit.DIMENSIONLESS,
                 applicability_type=enums.ResultsApplicabilityType.LIFETIME,
                 results_dimensions=(enums.ResultsDimension.TURBINE,),
                 result_components=result_components,
@@ -899,6 +901,7 @@ def plant_performance_curtailment_category_b() -> eya.PlantPerformanceCategory:
     result_components = [
         results.ResultsComponent(
             component_type=enums.StatisticType.MEAN,
+            unit=enums.MeasurementUnit.DIMENSIONLESS,
             values=[
                 (
                     ("WTG01",),
@@ -912,6 +915,7 @@ def plant_performance_curtailment_category_b() -> eya.PlantPerformanceCategory:
         ),
         results.ResultsComponent(
             component_type=enums.StatisticType.STANDARD_DEVIATION,
+            unit=enums.MeasurementUnit.DIMENSIONLESS,
             values=[
                 (
                     ("WTG01",),
@@ -940,7 +944,6 @@ def plant_performance_curtailment_category_b() -> eya.PlantPerformanceCategory:
                         "the absence of details from the turbine "
                         "manufacturer."
                     ),
-                    unit=enums.MeasurementUnit.DIMENSIONLESS,
                     applicability_type=enums.ResultsApplicabilityType.LIFETIME,
                     results_dimensions=(enums.ResultsDimension.TURBINE,),
                     result_components=result_components,
@@ -951,7 +954,6 @@ def plant_performance_curtailment_category_b() -> eya.PlantPerformanceCategory:
             results.Results(
                 label="Curtailment",
                 description="Curtailment losses.",
-                unit=enums.MeasurementUnit.DIMENSIONLESS,
                 applicability_type=enums.ResultsApplicabilityType.LIFETIME,
                 results_dimensions=(enums.ResultsDimension.TURBINE,),
                 result_components=result_components,
@@ -973,37 +975,45 @@ def plant_performance_assessment_a(
         net_energy_results=[
             results.Results(
                 label="Net yield",
-                unit=enums.MeasurementUnit.MEGAWATT_HOUR_PER_ANNUM,
                 applicability_type=enums.ResultsApplicabilityType.LIFETIME,
                 results_dimensions=None,
                 result_components=[
                     results.ResultsComponent(
-                        component_type=enums.StatisticType.MEDIAN, values=31528.6
+                        component_type=enums.StatisticType.MEDIAN,
+                        unit=enums.MeasurementUnit.MEGAWATT_HOUR_PER_ANNUM,
+                        values=31528.6,
                     ),
                     results.ResultsComponent(
                         component_type=enums.StatisticType.STANDARD_DEVIATION,
+                        unit=enums.MeasurementUnit.MEGAWATT_HOUR_PER_ANNUM,
                         values=3468.1,
                     ),
                     results.ResultsComponent(
-                        component_type=enums.StatisticType.P90, values=27089.4
+                        component_type=enums.StatisticType.P90,
+                        unit=enums.MeasurementUnit.MEGAWATT_HOUR_PER_ANNUM,
+                        values=27089.4,
                     ),
                 ],
             ),
             results.Results(
                 label="Net yield",
-                unit=enums.MeasurementUnit.MEGAWATT_HOUR_PER_ANNUM,
                 applicability_type=enums.ResultsApplicabilityType.ANY_ONE_YEAR,
                 results_dimensions=None,
                 result_components=[
                     results.ResultsComponent(
-                        component_type=enums.StatisticType.MEDIAN, values=31528.6
+                        component_type=enums.StatisticType.MEDIAN,
+                        unit=enums.MeasurementUnit.MEGAWATT_HOUR_PER_ANNUM,
+                        values=31528.6,
                     ),
                     results.ResultsComponent(
                         component_type=enums.StatisticType.STANDARD_DEVIATION,
+                        unit=enums.MeasurementUnit.MEGAWATT_HOUR_PER_ANNUM,
                         values=4729.3,
                     ),
                     results.ResultsComponent(
-                        component_type=enums.StatisticType.P90, values=25475.1
+                        component_type=enums.StatisticType.P90,
+                        unit=enums.MeasurementUnit.MEGAWATT_HOUR_PER_ANNUM,
+                        values=25475.1,
                     ),
                 ],
             ),
@@ -1024,37 +1034,45 @@ def plant_performance_assessment_b(
         net_energy_results=[
             results.Results(
                 label="Net yield",
-                unit=enums.MeasurementUnit.MEGAWATT_HOUR_PER_ANNUM,
                 applicability_type=enums.ResultsApplicabilityType.LIFETIME,
                 results_dimensions=None,
                 result_components=[
                     results.ResultsComponent(
-                        component_type=enums.StatisticType.MEDIAN, values=35150.0
+                        component_type=enums.StatisticType.MEDIAN,
+                        unit=enums.MeasurementUnit.MEGAWATT_HOUR_PER_ANNUM,
+                        values=35150.0,
                     ),
                     results.ResultsComponent(
                         component_type=enums.StatisticType.STANDARD_DEVIATION,
+                        unit=enums.MeasurementUnit.MEGAWATT_HOUR_PER_ANNUM,
                         values=4569.5,
                     ),
                     results.ResultsComponent(
-                        component_type=enums.StatisticType.P90, values=29301.0
+                        component_type=enums.StatisticType.P90,
+                        unit=enums.MeasurementUnit.MEGAWATT_HOUR_PER_ANNUM,
+                        values=29301.0,
                     ),
                 ],
             ),
             results.Results(
                 label="Net yield",
-                unit=enums.MeasurementUnit.MEGAWATT_HOUR_PER_ANNUM,
                 applicability_type=enums.ResultsApplicabilityType.ANY_ONE_YEAR,
                 results_dimensions=None,
                 result_components=[
                     results.ResultsComponent(
-                        component_type=enums.StatisticType.MEDIAN, values=35150.0
+                        component_type=enums.StatisticType.MEDIAN,
+                        unit=enums.MeasurementUnit.MEGAWATT_HOUR_PER_ANNUM,
+                        values=35150.0,
                     ),
                     results.ResultsComponent(
                         component_type=enums.StatisticType.STANDARD_DEVIATION,
+                        unit=enums.MeasurementUnit.MEGAWATT_HOUR_PER_ANNUM,
                         values=5799.8,
                     ),
                     results.ResultsComponent(
-                        component_type=enums.StatisticType.P90, values=27726.3
+                        component_type=enums.StatisticType.P90,
+                        unit=enums.MeasurementUnit.MEGAWATT_HOUR_PER_ANNUM,
+                        values=27726.3,
                     ),
                 ],
             ),

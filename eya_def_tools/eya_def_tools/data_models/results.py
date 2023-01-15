@@ -23,13 +23,21 @@ ResultValueAtCoordinate: TypeAlias = tuple[ResultCoordinate, ResultValue]
 class ResultsComponent(EyaDefBaseModel):
     """Component of a set of results."""
 
+    description: str | None = fields.description_field
+    comments: str | None = fields.comments_field
     component_type: enums.StatisticType = pdt.Field(
         ...,
         description="Type of statistic in the results component.",
         examples=[enums.StatisticType.MEDIAN, enums.StatisticType.P90],
     )
-    description: str | None = fields.description_field
-    comments: str | None = fields.comments_field
+    unit: enums.MeasurementUnit = pdt.Field(
+        ...,
+        description="Unit in which the result values are measured.",
+        examples=[
+            enums.MeasurementUnit.METRE_PER_SECOND,
+            enums.MeasurementUnit.MEGAWATT_HOUR,
+        ],
+    )
     values: ResultValue | list[ResultValueAtCoordinate] = pdt.Field(
         ...,
         description="Result as a single number or values at coordinates.",
@@ -46,14 +54,6 @@ class Results(EyaDefBaseModel):
     )
     description: str | None = fields.description_field
     comments: str | None = fields.comments_field
-    unit: enums.MeasurementUnit = pdt.Field(
-        ...,
-        description="Unit in which the result values are measured.",
-        examples=[
-            enums.MeasurementUnit.METRE_PER_SECOND,
-            enums.MeasurementUnit.MEGAWATT_HOUR,
-        ],
-    )
     applicability_type: enums.ResultsApplicabilityType = pdt.Field(
         ...,
         description="Applicability type of the results.",

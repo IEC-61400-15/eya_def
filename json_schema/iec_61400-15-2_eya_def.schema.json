@@ -501,19 +501,10 @@
             "array",
             "null"
           ]
-        },
-        "unit": {
-          "$ref": "#/definitions/MeasurementUnit",
-          "description": "Unit in which the result values are measured.",
-          "examples": [
-            "m s-1",
-            "MW h"
-          ]
         }
       },
       "required": [
         "label",
-        "unit",
         "applicability_type",
         "result_components"
       ],
@@ -547,6 +538,14 @@
         },
         "description": {
           "$ref": "#/definitions/Description"
+        },
+        "unit": {
+          "$ref": "#/definitions/MeasurementUnit",
+          "description": "Unit in which the result values are measured.",
+          "examples": [
+            "m s-1",
+            "MW h"
+          ]
         },
         "values": {
           "anyOf": [
@@ -590,6 +589,7 @@
       },
       "required": [
         "component_type",
+        "unit",
         "values"
       ],
       "title": "ResultsComponent",
