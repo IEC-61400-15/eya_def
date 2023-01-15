@@ -23,6 +23,7 @@ from eya_def_tools.data_models.enums import (
 )
 from eya_def_tools.data_models.fields import comments_field, description_field
 from eya_def_tools.data_models.results import Results
+from eya_def_tools.data_models.spatial import CoordinateReferenceSystem, Location
 from eya_def_tools.utils.pydantic_json_schema_utils import (
     move_field_to_definitions,
     reduce_json_schema_all_of,
@@ -32,56 +33,6 @@ from eya_def_tools.utils.reference_utils import (
     get_json_schema_uri,
     get_json_schema_version,
 )
-
-
-class CoordinateReferenceSystem(EyaDefBaseModel):
-    """Specification of a coordinate reference system for GIS data."""
-
-    system_label: str = pdt.Field(
-        ...,
-        description="Label of the coordinate system.",
-        examples=["OSGB36 / British National Grid", "SWEREF99 TM"],
-    )
-    epsg_srid: int | None = pdt.Field(
-        None,
-        description="EPSG Spatial Reference System Identifier (SRID).",
-        examples=[27700, 3006],
-    )
-    wkt: str | None = pdt.Field(
-        None,
-        description="Well-known text (WKT) string definition of the coordinate system.",
-    )
-
-
-class Location(EyaDefBaseModel):
-    """Specification of a horizontal location in space."""
-
-    location_id: str | None = pdt.Field(
-        None,
-        description="Unique identifier of the location.",
-        examples=["ee15ff84-6733-4858-9656-ba995d9b1022", "WTG02-loc1"],
-    )
-    label: str | None = pdt.Field(
-        None,
-        description="Label of the location.",
-        examples=[
-            "T1",
-            "WTG02-loc1",
-            "WEA_003/R2",
-        ],
-    )
-    description: str | None = description_field
-    comments: str | None = comments_field
-    x: float = pdt.Field(
-        ...,
-        description="Location x-coordinate (typically easing).",
-        examples=[419665.0],
-    )
-    y: float = pdt.Field(
-        ...,
-        description="Location y-coordinate (typically northing).",
-        examples=[6195240.0],
-    )
 
 
 class MeasurementStationMetadata(JsonPointerRef):

@@ -8,7 +8,7 @@ The graphics are rendered based on the ``pydantic`` data models in
 
 import erdantic as erd
 
-from eya_def_tools.data_models import energy_yield_assessment, results
+from eya_def_tools.data_models import energy_yield_assessment, results, spatial
 
 
 def draw_eya_def_all_levels() -> None:
@@ -27,7 +27,7 @@ def draw_eya_def_top_level() -> None:
         termini=[
             energy_yield_assessment.ReportContributor,
             energy_yield_assessment.Organisation,
-            energy_yield_assessment.CoordinateReferenceSystem,
+            spatial.CoordinateReferenceSystem,
             energy_yield_assessment.ReferenceWindFarm,
             energy_yield_assessment.WindResourceAssessment,
             energy_yield_assessment.TurbineModel,

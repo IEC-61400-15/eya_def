@@ -16,7 +16,7 @@ import pydantic as pdt
 import pytest
 
 import eya_def_tools.data_models.energy_yield_assessment as eya
-from eya_def_tools.data_models import enums, results
+from eya_def_tools.data_models import enums, results, spatial
 
 TEST_INPUT_DATA_DIRNAME = "test_input_data"
 
@@ -208,9 +208,9 @@ def json_examples_tmp_dirpath(tmp_path_factory) -> Path:
 
 
 @pytest.fixture(scope="session")
-def coordinate_reference_system_a() -> eya.CoordinateReferenceSystem:
+def coordinate_reference_system_a() -> spatial.CoordinateReferenceSystem:
     """Test case instance 'a' of ``CoordinateReferenceSystem``."""
-    return eya.CoordinateReferenceSystem(
+    return spatial.CoordinateReferenceSystem(
         system_label="WGS 84 / UTM zone 30N",
         epsg_srid=32630,
         wkt=(
@@ -229,9 +229,9 @@ def coordinate_reference_system_a() -> eya.CoordinateReferenceSystem:
 
 
 @pytest.fixture(scope="session")
-def turbine_location_wtg01_a() -> eya.Location:
+def turbine_location_wtg01_a() -> spatial.Location:
     """Turbine test case instance 'WTG01_a' of ``Location``."""
-    return eya.Location(
+    return spatial.Location(
         location_id="c697566d-cf38-4626-9cda-bc7a77230d48",
         label="WTG01",
         description="Planned location of WTG01",
@@ -241,9 +241,9 @@ def turbine_location_wtg01_a() -> eya.Location:
 
 
 @pytest.fixture(scope="session")
-def turbine_location_wtg01_b() -> eya.Location:
+def turbine_location_wtg01_b() -> spatial.Location:
     """Turbine test case instance 'WTG01_b' of ``Location``."""
-    return eya.Location(
+    return spatial.Location(
         location_id="ac230650-a5dc-42c7-b10c-c5a88b0e78e9",
         label="WTG01_b",
         description="Alternative location of WTG01",
@@ -253,9 +253,9 @@ def turbine_location_wtg01_b() -> eya.Location:
 
 
 @pytest.fixture(scope="session")
-def turbine_location_wtg02_a() -> eya.Location:
+def turbine_location_wtg02_a() -> spatial.Location:
     """Turbine test case instance 'WTG02_a' of ``Location``."""
-    return eya.Location(
+    return spatial.Location(
         location_id="c73f2e46-ba0b-4775-a2f3-b76e3c3b5012",
         label="WTG02",
         description="Planned location of WTG02",
@@ -265,9 +265,9 @@ def turbine_location_wtg02_a() -> eya.Location:
 
 
 @pytest.fixture(scope="session")
-def turbine_location_wtg02_b() -> eya.Location:
+def turbine_location_wtg02_b() -> spatial.Location:
     """Turbine test case instance 'WTG02_b' of ``Location``."""
-    return eya.Location(
+    return spatial.Location(
         location_id="c73f2e46-ba0b-4775-a2f3-b76e3c3b5012",
         label="WTG02_b",
         description="Alternative location of WTG02",
@@ -281,9 +281,9 @@ def turbine_location_wtg02_b() -> eya.Location:
 
 
 @pytest.fixture(scope="session")
-def turbine_location_mu_t1_a() -> eya.Location:
+def turbine_location_mu_t1_a() -> spatial.Location:
     """Turbine test case instance 'Mu_T1_a' of ``Location``."""
-    return eya.Location(
+    return spatial.Location(
         location_id="79166b5c-7e55-485b-b7e7-24f835c5e40a",
         label="Mu_T1",
         description="Turbine T1 of the operational Munro Wind Farm",
@@ -297,9 +297,9 @@ def turbine_location_mu_t1_a() -> eya.Location:
 
 
 @pytest.fixture(scope="session")
-def turbine_location_mu_t2_a() -> eya.Location:
+def turbine_location_mu_t2_a() -> spatial.Location:
     """Turbine test case instance 'Mu_T2_a' of ``Location``."""
-    return eya.Location(
+    return spatial.Location(
         location_id="dc4dba73-8f1c-494f-868e-e548f2a3923f",
         label="Mu_T2",
         description="Turbine T2 of the operational Munro Wind Farm",
