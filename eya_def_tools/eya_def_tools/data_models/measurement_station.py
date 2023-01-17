@@ -2,6 +2,8 @@
 
 """
 
+from typing import Any
+
 from eya_def_tools.data_models.base_models import EyaDefBaseModel, JsonPointerRef
 
 
@@ -9,7 +11,7 @@ class MeasurementStationMetadata(JsonPointerRef):
     """Measurement metadata according to the IEA Task 43 WRA data model."""
 
     @classmethod
-    def __modify_schema__(cls, field_schema: dict) -> None:
+    def __modify_schema__(cls, field_schema: dict[str, Any]) -> None:
         field_schema.update(
             **{
                 "$ref": (

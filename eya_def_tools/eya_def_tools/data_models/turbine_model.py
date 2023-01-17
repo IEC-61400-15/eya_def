@@ -2,16 +2,18 @@
 
 """
 
+from typing import Any
+
 import pydantic as pdt
 
 from eya_def_tools.data_models.base_models import BaseModelWithRefs, JsonPointerRef
 
 
-class TurbineModelPerfSpecRef(JsonPointerRef):
+class TurbineModelSpecification(JsonPointerRef):
     """Turbine model performance specification reference (PLACEHOLDER)."""
 
     @classmethod
-    def __modify_schema__(cls, field_schema: dict) -> None:
+    def __modify_schema__(cls, field_schema: dict[str, Any]) -> None:
         field_schema.update(
             **{
                 "$ref": "https://foo.bar.com/baz/wtg_model.schema.json",
@@ -41,7 +43,7 @@ class TurbineModel(BaseModelWithRefs):
         description="Label of the turbine model.",
         examples=["V172-7.2 MW", "N175/6.X", "SG 6.6-170", "E-175 EP5"],
     )
-    perf_spec_ref: TurbineModelPerfSpecRef | None = pdt.Field(
+    perf_spec_ref: TurbineModelSpecification | None = pdt.Field(
         None,
         title="Turbine Model Performance Specification Reference",
         description=(

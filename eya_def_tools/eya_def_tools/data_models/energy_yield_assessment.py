@@ -405,7 +405,7 @@ class EnergyYieldAssessment(BaseModelWithRefs):
     )
 
     @pdt.validator("measurement_stations", each_item=True)
-    def cast_measurement_stations(cls, v):
+    def cast_measurement_stations(cls, v: Any) -> MeasurementStationMetadata:
         """Cast ``measurement_stations`` as ``MeasurementStationMetadata``.
 
         :param v: each value passed in the ``measurement_stations`` list
@@ -415,7 +415,7 @@ class EnergyYieldAssessment(BaseModelWithRefs):
         return MeasurementStationMetadata(v)
 
     @classmethod
-    def final_json_schema(cls) -> dict:
+    def final_json_schema(cls) -> dict[str, Any]:
         """Get a json schema representation of the top-level data model.
 
         NOTE: there is a known issue with the JSON Schema export

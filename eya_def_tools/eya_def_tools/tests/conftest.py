@@ -11,6 +11,7 @@ involve modifications should create their own instances or make copies.
 import datetime as dt
 import json
 from pathlib import Path
+from typing import Any
 
 import pydantic as pdt
 import pytest
@@ -29,7 +30,7 @@ TEST_INPUT_DATA_DIRNAME = "test_input_data"
 
 
 @pytest.fixture(scope="session")
-def test_input_data_dirpath():
+def test_input_data_dirpath() -> Path:
     """The path of the directory where test input data is located.
 
     :return: the directory path of test input data
@@ -51,7 +52,7 @@ def top_level_dirpath() -> Path:
 
 
 @pytest.fixture(scope="session")
-def master_json_schema_dirpath(top_level_dirpath) -> Path:
+def master_json_schema_dirpath(top_level_dirpath: Path) -> Path:
     """The path of the JSON Schema directory.
 
     :param top_level_dirpath: path to the project top-level directory
@@ -69,7 +70,7 @@ def master_json_schema_dirpath(top_level_dirpath) -> Path:
 
 
 @pytest.fixture(scope="session")
-def master_json_schema_filepath(master_json_schema_dirpath) -> Path:
+def master_json_schema_filepath(master_json_schema_dirpath: Path) -> Path:
     """The path of the IEC 61400-15-2 EYA DEF JSON Schema.
 
     :param master_json_schema_dirpath: directory path where the master
@@ -85,7 +86,7 @@ def master_json_schema_filepath(master_json_schema_dirpath) -> Path:
 
 
 @pytest.fixture(scope="session")
-def master_json_schema(master_json_schema_filepath) -> dict:
+def master_json_schema(master_json_schema_filepath: Path) -> dict[str, Any]:
     """A ``dict`` representation of the master json schema.
 
     Note that this function returns a representation of the master
@@ -103,7 +104,9 @@ def master_json_schema(master_json_schema_filepath) -> dict:
 
 
 @pytest.fixture(scope="session")
-def pydantic_json_schema(energy_yield_assessment_a) -> dict:
+def pydantic_json_schema(
+    energy_yield_assessment_a: eya.EnergyYieldAssessment,
+) -> dict[str, Any]:
     """A ``dict`` representation of the pydantic JSON Schema.
 
     :param energy_yield_assessment_a: the complete example test
@@ -116,7 +119,9 @@ def pydantic_json_schema(energy_yield_assessment_a) -> dict:
 
 
 @pytest.fixture(scope="session")
-def pydantic_json_schema_tmp_path(pydantic_json_schema, tmp_path_factory) -> Path:
+def pydantic_json_schema_tmp_path(
+    pydantic_json_schema: dict[str, Any], tmp_path_factory: pytest.TempPathFactory
+) -> Path:
     """The path to the temporary pydantic JSON Schema file.
 
     :param pydantic_json_schema: a ``dict`` representation of the pydantic
@@ -133,7 +138,9 @@ def pydantic_json_schema_tmp_path(pydantic_json_schema, tmp_path_factory) -> Pat
 
 
 @pytest.fixture(scope="session")
-def pydantic_json_schema_from_file(pydantic_json_schema_tmp_path) -> dict:
+def pydantic_json_schema_from_file(
+    pydantic_json_schema_tmp_path: Path,
+) -> dict[str, Any]:
     """A `dict` representation of the pydantic JSON Schema from file.
 
     :param pydantic_json_schema_tmp_path: the path to the temporary JSON
@@ -147,7 +154,7 @@ def pydantic_json_schema_from_file(pydantic_json_schema_tmp_path) -> dict:
 
 
 @pytest.fixture(scope="session")
-def json_examples_dirpath(top_level_dirpath) -> Path:
+def json_examples_dirpath(top_level_dirpath: Path) -> Path:
     """The path of the JSON examples permanent directory.
 
     :param top_level_dirpath: path to the project top-level directory
@@ -165,7 +172,7 @@ def json_examples_dirpath(top_level_dirpath) -> Path:
 
 
 @pytest.fixture(scope="session")
-def json_example_filepaths(json_examples_dirpath) -> list[Path]:
+def json_example_filepaths(json_examples_dirpath: Path) -> list[Path]:
     """The paths of the IEC 61400-15-2 EYA DEF JSON example files.
 
     :param json_examples_dirpath: directory path where the JSON example
@@ -185,7 +192,7 @@ def json_example_filepaths(json_examples_dirpath) -> list[Path]:
 
 
 @pytest.fixture(scope="session")
-def json_example_dict(json_example_filepaths) -> dict[str, dict]:
+def json_example_dict(json_example_filepaths: list[Path]) -> dict[str, Any]:
     """A ``dict`` of the IEC 61400-15-2 EYA DEF JSON examples.
 
     :param json_example_filepaths: list of paths to the JSON example
@@ -200,7 +207,7 @@ def json_example_dict(json_example_filepaths) -> dict[str, dict]:
 
 
 @pytest.fixture(scope="session")
-def json_examples_tmp_dirpath(tmp_path_factory) -> Path:
+def json_examples_tmp_dirpath(tmp_path_factory: pytest.TempPathFactory) -> Path:
     """A temporary directory path for JSON Schema example files.
 
     This directory path is used for JSON Schema example files that are
@@ -407,7 +414,8 @@ def operational_restriction_a() -> wind_farm.OperationalRestriction:
 
 @pytest.fixture(scope="session")
 def turbine_specification_wtg01_a(
-    turbine_location_wtg01_a, operational_restriction_a
+    turbine_location_wtg01_a: spatial.Location,
+    operational_restriction_a: wind_farm.OperationalRestriction,
 ) -> wind_farm.TurbineConfiguration:
     """Test case instance 'WTG01_a' of ``TurbineSpecification``."""
     return wind_farm.TurbineConfiguration(
@@ -423,7 +431,7 @@ def turbine_specification_wtg01_a(
 
 @pytest.fixture(scope="session")
 def turbine_specification_wtg01_b(
-    turbine_location_wtg01_b,
+    turbine_location_wtg01_b: spatial.Location,
 ) -> wind_farm.TurbineConfiguration:
     """Test case instance 'WTG01_b' of ``TurbineSpecification``."""
     return wind_farm.TurbineConfiguration(
@@ -438,7 +446,8 @@ def turbine_specification_wtg01_b(
 
 @pytest.fixture(scope="session")
 def turbine_specification_wtg02_a(
-    turbine_location_wtg02_a, operational_restriction_a
+    turbine_location_wtg02_a: spatial.Location,
+    operational_restriction_a: wind_farm.OperationalRestriction,
 ) -> wind_farm.TurbineConfiguration:
     """Test case instance 'WTG02_a' of ``TurbineSpecification``."""
     return wind_farm.TurbineConfiguration(
@@ -454,7 +463,7 @@ def turbine_specification_wtg02_a(
 
 @pytest.fixture(scope="session")
 def turbine_specification_wtg02_b(
-    turbine_location_wtg02_b,
+    turbine_location_wtg02_b: spatial.Location,
 ) -> wind_farm.TurbineConfiguration:
     """Test case instance 'WTG02_b' of ``TurbineSpecification``."""
     return wind_farm.TurbineConfiguration(
@@ -469,7 +478,7 @@ def turbine_specification_wtg02_b(
 
 @pytest.fixture(scope="session")
 def turbine_specification_mu_t1_a(
-    turbine_location_mu_t1_a,
+    turbine_location_mu_t1_a: spatial.Location,
 ) -> wind_farm.TurbineConfiguration:
     """Test case instance 'Mu_T1_a' of ``TurbineSpecification``."""
     return wind_farm.TurbineConfiguration(
@@ -484,7 +493,7 @@ def turbine_specification_mu_t1_a(
 
 @pytest.fixture(scope="session")
 def turbine_specification_mu_t2_a(
-    turbine_location_mu_t2_a,
+    turbine_location_mu_t2_a: spatial.Location,
 ) -> wind_farm.TurbineConfiguration:
     """Test case instance 'Mu_T2_a' of ``TurbineSpecification``."""
     return wind_farm.TurbineConfiguration(
@@ -499,7 +508,8 @@ def turbine_specification_mu_t2_a(
 
 @pytest.fixture(scope="session")
 def wind_farm_a(
-    turbine_specification_wtg01_a, turbine_specification_wtg02_a
+    turbine_specification_wtg01_a: wind_farm.TurbineConfiguration,
+    turbine_specification_wtg02_a: wind_farm.TurbineConfiguration,
 ) -> wind_farm.WindFarmConfiguration:
     """Test case instance 'a' of ``WindFarm``."""
     return wind_farm.WindFarmConfiguration(
@@ -514,7 +524,8 @@ def wind_farm_a(
 
 @pytest.fixture(scope="session")
 def wind_farm_b(
-    turbine_specification_wtg01_b, turbine_specification_wtg02_b
+    turbine_specification_wtg01_b: wind_farm.TurbineConfiguration,
+    turbine_specification_wtg02_b: wind_farm.TurbineConfiguration,
 ) -> wind_farm.WindFarmConfiguration:
     """Test case instance 'b' of ``WindFarm``."""
     return wind_farm.WindFarmConfiguration(
@@ -530,7 +541,8 @@ def wind_farm_b(
 
 @pytest.fixture(scope="session")
 def neighbouring_wind_farm_a(
-    turbine_specification_mu_t1_a, turbine_specification_mu_t2_a
+    turbine_specification_mu_t1_a: wind_farm.TurbineConfiguration,
+    turbine_specification_mu_t2_a: wind_farm.TurbineConfiguration,
 ) -> wind_farm.WindFarmConfiguration:
     """Neighboring project test case instance 'a' of ``WindFarm``."""
     return wind_farm.WindFarmConfiguration(
@@ -647,7 +659,7 @@ def measurement_wind_uncertainty_assessment_a(
 
 @pytest.fixture(scope="session")
 def wind_resource_assessment_a(
-    measurement_wind_uncertainty_assessment_a,
+    measurement_wind_uncertainty_assessment_a: eya.UncertaintyAssessment,
 ) -> eya.WindResourceAssessment:
     """Test case instance 'a' of ``WindResourceAssessment``."""
     return eya.WindResourceAssessment(
@@ -683,7 +695,7 @@ def wind_resource_assessment_basis_a() -> eya.WindResourceAssessmentBasis:
 
 @pytest.fixture(scope="session")
 def turbine_wind_resource_assessment_a(
-    wind_spatial_model_a,
+    wind_spatial_model_a: eya.CalculationModelSpecification,
 ) -> eya.TurbineWindResourceAssessment:
     """Test case instance 'a' of ``TurbineWindResourceAssessment``."""
     return eya.TurbineWindResourceAssessment(
@@ -716,7 +728,7 @@ def turbine_wind_resource_assessment_a(
 
 @pytest.fixture(scope="session")
 def turbine_wind_resource_assessment_b(
-    wind_spatial_model_a,
+    wind_spatial_model_a: eya.CalculationModelSpecification,
 ) -> eya.TurbineWindResourceAssessment:
     """Test case instance 'b' of ``TurbineWindResourceAssessment``."""
     return eya.TurbineWindResourceAssessment(
@@ -1089,12 +1101,12 @@ def plant_performance_assessment_b(
 
 @pytest.fixture(scope="session")
 def scenario_a(
-    wind_resource_assessment_basis_a,
-    wind_farm_a,
-    neighbouring_wind_farm_a,
-    turbine_wind_resource_assessment_a,
-    gross_energy_assessment_a,
-    plant_performance_assessment_a,
+    wind_resource_assessment_basis_a: eya.WindResourceAssessmentBasis,
+    wind_farm_a: wind_farm.WindFarmConfiguration,
+    neighbouring_wind_farm_a: wind_farm.WindFarmConfiguration,
+    turbine_wind_resource_assessment_a: eya.TurbineWindResourceAssessment,
+    gross_energy_assessment_a: eya.GrossEnergyAssessment,
+    plant_performance_assessment_a: eya.PlantPerformanceAssessment,
 ) -> eya.Scenario:
     """Test case instance 'a' of ``Scenario``."""
     return eya.Scenario(
@@ -1113,12 +1125,12 @@ def scenario_a(
 
 @pytest.fixture(scope="session")
 def scenario_b(
-    wind_resource_assessment_basis_a,
-    wind_farm_b,
-    neighbouring_wind_farm_a,
-    turbine_wind_resource_assessment_b,
-    gross_energy_assessment_b,
-    plant_performance_assessment_b,
+    wind_resource_assessment_basis_a: eya.WindResourceAssessmentBasis,
+    wind_farm_b: wind_farm.WindFarmConfiguration,
+    neighbouring_wind_farm_a: wind_farm.WindFarmConfiguration,
+    turbine_wind_resource_assessment_b: eya.TurbineWindResourceAssessment,
+    gross_energy_assessment_b: eya.GrossEnergyAssessment,
+    plant_performance_assessment_b: eya.PlantPerformanceAssessment,
 ) -> eya.Scenario:
     """Test case instance 'b' of ``Scenario``."""
     return eya.Scenario(
@@ -1205,20 +1217,20 @@ def approver_a() -> eya.ReportContributor:
 
 @pytest.fixture(scope="session")
 def energy_yield_assessment_a(
-    coordinate_reference_system_a,
-    measurement_station_a,
-    turbine_model_a,
-    turbine_model_b,
-    turbine_model_c,
-    wind_resource_assessment_a,
-    scenario_a,
-    scenario_b,
-    issuing_organisation_a,
-    receiving_organisations_a,
-    main_author_a,
-    second_author_a,
-    verifier_a,
-    approver_a,
+    coordinate_reference_system_a: spatial.CoordinateReferenceSystem,
+    measurement_station_a: measurement_station.MeasurementStationMetadata,
+    turbine_model_a: turbine_model.TurbineModel,
+    turbine_model_b: turbine_model.TurbineModel,
+    turbine_model_c: turbine_model.TurbineModel,
+    wind_resource_assessment_a: eya.WindResourceAssessment,
+    scenario_a: eya.Scenario,
+    scenario_b: eya.Scenario,
+    issuing_organisation_a: eya.Organisation,
+    receiving_organisations_a: eya.Organisation,
+    main_author_a: eya.ReportContributor,
+    second_author_a: eya.ReportContributor,
+    verifier_a: eya.ReportContributor,
+    approver_a: eya.ReportContributor,
 ) -> eya.EnergyYieldAssessment:
     """Test case instance 'a' of ``EnergyYieldAssessment``."""
     return eya.EnergyYieldAssessment(
@@ -1255,7 +1267,8 @@ def energy_yield_assessment_a(
 
 @pytest.fixture(scope="session")
 def energy_yield_assessment_a_tmp_filepath(
-    energy_yield_assessment_a, json_examples_tmp_dirpath
+    energy_yield_assessment_a: eya.EnergyYieldAssessment,
+    json_examples_tmp_dirpath: Path,
 ) -> Path:
     """The temporary path of the test case instance 'a' json file.
 

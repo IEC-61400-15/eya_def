@@ -54,9 +54,22 @@ max_complexity = 14
 extend-ignore = "E203"
 
 [tool.mypy]
-files = "eya_def_tools"
-exclude = ["build"]
+files = ["eya_def_tools"]
+python_version = "3.11"
+follow_imports = "normal"
+check_untyped_defs = true
+disallow_any_generics = true
+disallow_incomplete_defs = true
+disallow_subclassing_any = true
+disallow_untyped_calls = true
+disallow_untyped_defs = true
+disallow_untyped_decorators = true
+ignore_missing_imports = false
+no_implicit_reexport = true
 show_error_codes = true
+strict_optional = true
+warn_redundant_casts = true
+warn_unused_configs = true
 warn_unused_ignores = true
 
 [[tool.mypy.overrides]]

@@ -110,7 +110,7 @@ class BaseModelWithRefs(EyaDefBaseModel):
                 validated_values[key] = value
         return validated_values
 
-    def dict(self, *args, **kwargs) -> dict:
+    def dict(self, *args: Any, **kwargs: Any) -> dict[str, Any]:
         """A ``dict`` representation of the model instance.
 
         :param args: any positional arguments for
@@ -134,7 +134,7 @@ class BaseModelWithRefs(EyaDefBaseModel):
                     dict_repr[ref_field_label] = field.dict()
         return dict_repr
 
-    def json(self, *args, **kwargs) -> str:
+    def json(self, *args: Any, **kwargs: Any) -> str:
         """A json ``str`` representation of the model instance.
 
         :param args: any positional arguments for

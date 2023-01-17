@@ -2,12 +2,16 @@
 
 """
 
+from typing import Any
+
 import jsonschema
-import pydantic
+import pydantic as pdt
 import pytest
 
 
-def test_validate_master_json_schema(master_json_schema, json_example_dict):
+def test_validate_master_json_schema(
+    master_json_schema: dict[str, Any], json_example_dict: dict[str, Any]
+) -> None:
     """Test validate all json file examples against master schema."""
     for json_filename, json_example in json_example_dict.items():
         try:
@@ -23,7 +27,9 @@ def test_validate_master_json_schema(master_json_schema, json_example_dict):
             pass
 
 
-def test_validate_pydantic_model_json_schema(pydantic_json_schema, json_example_dict):
+def test_validate_pydantic_model_json_schema(
+    pydantic_json_schema: dict[str, Any], json_example_dict: dict[str, Any]
+) -> None:
     """Test validate all json file examples against pydantic schema."""
     for json_filename, json_example in json_example_dict.items():
         try:
@@ -39,7 +45,7 @@ def test_validate_pydantic_model_json_schema(pydantic_json_schema, json_example_
             pass
 
 
-def test_validate_pydantic_model(json_example_dict):
+def test_validate_pydantic_model(json_example_dict: dict[str, Any]) -> None:
     """Test validate all json file examples against pydantic model."""
     from eya_def_tools.data_models.energy_yield_assessment import EnergyYieldAssessment
 
@@ -47,7 +53,7 @@ def test_validate_pydantic_model(json_example_dict):
         try:
             energy_yield_assessment = EnergyYieldAssessment(**json_example)
             assert isinstance(energy_yield_assessment, EnergyYieldAssessment)
-        except pydantic.ValidationError as exc:
+        except pdt.ValidationError as exc:
             pytest.fail(
                 f"the json example '{json_filename}' did not pass the "
                 f"pydantic model json schema validation ({exc})"
