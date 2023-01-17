@@ -451,6 +451,7 @@
       "properties": {
         "applicability_type": {
           "$ref": "#/definitions/ResultsApplicabilityType",
+          "default": "lifetime",
           "description": "Applicability type of the results.",
           "examples": [
             "lifetime",
@@ -505,7 +506,6 @@
       },
       "required": [
         "label",
-        "applicability_type",
         "result_components"
       ],
       "title": "Results",
@@ -676,7 +676,7 @@
         "wind_farms": {
           "description": "List of all wind farms included in the scenario.",
           "items": {
-            "$ref": "#/definitions/WindFarm"
+            "$ref": "#/definitions/WindFarmConfiguration"
           },
           "title": "Wind Farms",
           "type": "array"
@@ -713,46 +713,7 @@
       "title": "StatisticType",
       "type": "string"
     },
-    "TurbineModel": {
-      "description": "Specification of a wind turbine model.",
-      "properties": {
-        "label": {
-          "description": "Label of the turbine model.",
-          "examples": [
-            "V172-7.2 MW",
-            "N175/6.X",
-            "SG 6.6-170",
-            "E-175 EP5"
-          ],
-          "title": "Label",
-          "type": "string"
-        },
-        "perf_spec_ref": {
-          "$ref": "https://foo.bar.com/baz/wtg_model.schema.json",
-          "description": "Reference to a json document with turbine model performance specification (PLACEHOLDER).",
-          "examples": [
-            "https://foo.com/bar/example_wtg_model.json"
-          ],
-          "title": "Turbine Model Performance Specification Reference"
-        },
-        "turbine_model_id": {
-          "description": "Unique identifier of the turbine model.",
-          "examples": [
-            "dbb25743-60f4-4eab-866f-31d5f8af69d6",
-            "XYZ199-8.5MW v004"
-          ],
-          "title": "Turbine Model Id",
-          "type": "string"
-        }
-      },
-      "required": [
-        "turbine_model_id",
-        "label"
-      ],
-      "title": "TurbineModel",
-      "type": "object"
-    },
-    "TurbineSpecification": {
+    "TurbineConfiguration": {
       "description": "Specification of all details for a turbine configuration.",
       "properties": {
         "comments": {
@@ -816,7 +777,46 @@
         "hub_height",
         "turbine_model_id"
       ],
-      "title": "TurbineSpecification",
+      "title": "TurbineConfiguration",
+      "type": "object"
+    },
+    "TurbineModel": {
+      "description": "Specification of a wind turbine model.",
+      "properties": {
+        "label": {
+          "description": "Label of the turbine model.",
+          "examples": [
+            "V172-7.2 MW",
+            "N175/6.X",
+            "SG 6.6-170",
+            "E-175 EP5"
+          ],
+          "title": "Label",
+          "type": "string"
+        },
+        "perf_spec_ref": {
+          "$ref": "https://foo.bar.com/baz/wtg_model.schema.json",
+          "description": "Reference to a json document with turbine model performance specification (PLACEHOLDER).",
+          "examples": [
+            "https://foo.com/bar/example_wtg_model.json"
+          ],
+          "title": "Turbine Model Performance Specification Reference"
+        },
+        "turbine_model_id": {
+          "description": "Unique identifier of the turbine model.",
+          "examples": [
+            "dbb25743-60f4-4eab-866f-31d5f8af69d6",
+            "XYZ199-8.5MW v004"
+          ],
+          "title": "Turbine Model Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "turbine_model_id",
+        "label"
+      ],
+      "title": "TurbineModel",
       "type": "object"
     },
     "TurbineWindResourceAssessment": {
@@ -926,7 +926,7 @@
       "title": "UncertaintyComponent",
       "type": "object"
     },
-    "WindFarm": {
+    "WindFarmConfiguration": {
       "description": "A collection of wind turbines considered as one unit (plant).",
       "properties": {
         "comments": {
@@ -989,7 +989,7 @@
         "turbines": {
           "description": "List of specifications for constituent turbines.",
           "items": {
-            "$ref": "#/definitions/TurbineSpecification"
+            "$ref": "#/definitions/TurbineConfiguration"
           },
           "title": "Turbines",
           "type": "array"
@@ -1011,7 +1011,7 @@
         "turbines",
         "relevance"
       ],
-      "title": "WindFarm",
+      "title": "WindFarmConfiguration",
       "type": "object"
     },
     "WindFarmRelevance": {

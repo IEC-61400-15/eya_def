@@ -1,4 +1,4 @@
-"""Enum class definitions for the EYA DEF data model.
+"""Enum class definitions for the EYA DEF schema.
 
 """
 

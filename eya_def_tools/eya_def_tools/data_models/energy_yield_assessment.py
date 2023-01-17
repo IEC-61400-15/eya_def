@@ -9,21 +9,19 @@ from typing import Any, Literal, Type
 
 import pydantic as pdt
 
-from eya_def_tools.data_models.base_models import (
-    BaseModelWithRefs,
-    EyaDefBaseModel,
-    JsonPointerRef,
-)
+from eya_def_tools.data_models.base_models import BaseModelWithRefs, EyaDefBaseModel
 from eya_def_tools.data_models.enums import (
     ComponentAssessmentBasis,
     ComponentVariabilityType,
     PlantPerformanceCategoryLabel,
     UncertaintyCategoryLabel,
-    WindFarmRelevance,
 )
 from eya_def_tools.data_models.fields import comments_field, description_field
+from eya_def_tools.data_models.measurement_station import MeasurementStationMetadata
 from eya_def_tools.data_models.results import Results
-from eya_def_tools.data_models.spatial import CoordinateReferenceSystem, Location
+from eya_def_tools.data_models.spatial import CoordinateReferenceSystem
+from eya_def_tools.data_models.turbine_model import TurbineModel
+from eya_def_tools.data_models.wind_farm import WindFarmConfiguration
 from eya_def_tools.utils.pydantic_json_schema_utils import (
     move_field_to_definitions,
     reduce_json_schema_all_of,
@@ -33,36 +31,6 @@ from eya_def_tools.utils.reference_utils import (
     get_json_schema_uri,
     get_json_schema_version,
 )
-
-
-class MeasurementStationMetadata(JsonPointerRef):
-    """Measurement metadata according to the IEA Task 43 WRA data model."""
-
-    @classmethod
-    def __modify_schema__(cls, field_schema: dict) -> None:
-        field_schema.update(
-            **{
-                "$ref": (
-                    "https://raw.githubusercontent.com/IEA-Task-43/"
-                    "digital_wra_data_standard/master/schema/"
-                    "iea43_wra_data_model.schema.json"
-                ),
-                "description": (
-                    "A measurement metadata JSON document according to "
-                    "the IEA Task 43 WRA Data Model."
-                ),
-                "examples": ["https://foo.com/bar/example_iea43.json"],
-            }
-        )
-        if "type" in field_schema.keys():
-            del field_schema["type"]
-
-
-class MeasurementStationBasis(EyaDefBaseModel):
-    """Measurement station basis in a wind resource assessment."""
-
-    # TODO - placeholder to be implemented
-    pass
 
 
 class ReferenceWindFarm(EyaDefBaseModel):
@@ -77,131 +45,6 @@ class ReferenceWindFarmBasis(EyaDefBaseModel):
 
     # TODO - placeholder to be implemented
     pass
-
-
-class TurbineModelPerfSpecRef(JsonPointerRef):
-    """Turbine model performance specification reference (PLACEHOLDER)."""
-
-    @classmethod
-    def __modify_schema__(cls, field_schema: dict) -> None:
-        field_schema.update(
-            **{
-                "$ref": "https://foo.bar.com/baz/wtg_model.schema.json",
-                "title": "Turbine Model Performance Specification Reference",
-                "description": (
-                    "Reference to a json document with turbine model "
-                    "performance specification (PLACEHOLDER)."
-                ),
-                "examples": ["https://foo.com/bar/example_wtg_model.json"],
-            }
-        )
-        if "type" in field_schema.keys():
-            del field_schema["type"]
-
-
-# TODO consider only using external schema
-class TurbineModel(BaseModelWithRefs):
-    """Specification of a wind turbine model."""
-
-    turbine_model_id: str = pdt.Field(
-        ...,
-        description="Unique identifier of the turbine model.",
-        examples=["dbb25743-60f4-4eab-866f-31d5f8af69d6", "XYZ199-8.5MW v004"],
-    )
-    label: str = pdt.Field(
-        ...,
-        description="Label of the turbine model.",
-        examples=["V172-7.2 MW", "N175/6.X", "SG 6.6-170", "E-175 EP5"],
-    )
-    perf_spec_ref: TurbineModelPerfSpecRef | None = pdt.Field(
-        None,
-        title="Turbine Model Performance Specification Reference",
-        description=(
-            "Reference to a json document with turbine model "
-            "performance specification (PLACEHOLDER)."
-        ),
-        examples=["https://foo.com/bar/example_wtg_model.json"],
-    )
-
-
-# TODO expand definition of operational restriction
-class OperationalRestriction(EyaDefBaseModel):
-    """Specifications of an operational restriction."""
-
-    label: str = pdt.Field(
-        ...,
-        description="Label of the operational restriction.",
-        examples=["WSM curtailment", "MEC curtailment"],
-    )
-    description: str | None = description_field
-    comments: str | None = comments_field
-
-
-class TurbineSpecification(EyaDefBaseModel):
-    """Specification of all details for a turbine configuration."""
-
-    turbine_id: str | None = pdt.Field(
-        None,
-        description="Unique identifier of the turbine specification.",
-        examples=["b55caeac-f152-4b13-8217-3fddeab792cf", "T1-scen1"],
-    )
-    label: str = pdt.Field(
-        ...,
-        description="Label of the turbine.",
-        examples=[
-            "T1",
-            "WTG02",
-            "WEA_003",
-        ],
-    )
-    description: str | None = description_field
-    comments: str | None = comments_field
-    location: Location = pdt.Field(
-        ..., description="Horizontal location of the turbine."
-    )
-    hub_height: float = pdt.Field(..., description="Turbine hub height.")
-    turbine_model_id: str = pdt.Field(
-        ..., description="Unique identifier of the turbine model."
-    )
-    restrictions: list[OperationalRestriction] | None = pdt.Field(
-        None, description="List of operational restrictions at the turbine level."
-    )
-
-
-class WindFarm(EyaDefBaseModel):
-    """A collection of wind turbines considered as one unit (plant)."""
-
-    name: str = pdt.Field(
-        ...,
-        description="Name of the wind farm.",
-        examples=["Barefoot Wind Farm", "Project Summit Phase III"],
-    )
-    label: str | None = pdt.Field(
-        None,
-        description="Abbreviated label of the wind farm.",
-        examples=["BWF", "Summit PhIII"],
-    )
-    description: str | None = description_field
-    comments: str | None = comments_field
-    turbines: list[TurbineSpecification] = pdt.Field(
-        ..., description="List of specifications for constituent turbines."
-    )
-    relevance: WindFarmRelevance = pdt.Field(
-        ..., description="The relevance of the wind farm for the assessment."
-    )
-    operational_lifetime_start_date: dt.date | None = pdt.Field(
-        None,
-        description="Operational lifetime start date (format YYYY-MM-DD).",
-        examples=["2026-01-01", "2017-04-01"],
-    )
-    operational_lifetime_end_date: dt.date | None = pdt.Field(
-        None,
-        description="Operational lifetime end date (format YYYY-MM-DD).",
-        examples=["2051-03-31", "2025-12-31"],
-    )
-    wind_farm_restrictions: list[OperationalRestriction] | None = pdt.Field(
-        None, description="List of operational restrictions at the wind farm level."
-    )
 
 
 # TODO add input data sources specification
@@ -374,7 +217,7 @@ class Scenario(EyaDefBaseModel):
         lt=100.0,
         examples=[10.0, 20.0, 30.0],
     )
-    wind_farms: list[WindFarm] = pdt.Field(
+    wind_farms: list[WindFarmConfiguration] = pdt.Field(
         [], description="List of all wind farms included in the scenario."
     )
     wind_resource_assessment_basis: WindResourceAssessmentBasis | None = pdt.Field(

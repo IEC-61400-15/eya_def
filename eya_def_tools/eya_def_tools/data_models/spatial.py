@@ -1,4 +1,4 @@
-"""EYA DEF pydantic data model for spatial data.
+"""Pydantic data models for spatial data.
 
 """
 

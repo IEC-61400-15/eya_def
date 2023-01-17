@@ -1,4 +1,4 @@
-"""Model field definitions for the EYA DEF data model.
+"""Model field definitions for the EYA DEF schema.
 
 """
 

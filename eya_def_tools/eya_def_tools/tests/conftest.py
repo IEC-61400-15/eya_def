@@ -15,8 +15,15 @@ from pathlib import Path
 import pydantic as pdt
 import pytest
 
-import eya_def_tools.data_models.energy_yield_assessment as eya
-from eya_def_tools.data_models import enums, results, spatial
+from eya_def_tools.data_models import energy_yield_assessment as eya
+from eya_def_tools.data_models import (
+    enums,
+    measurement_station,
+    results,
+    spatial,
+    turbine_model,
+    wind_farm,
+)
 
 TEST_INPUT_DATA_DIRNAME = "test_input_data"
 
@@ -346,50 +353,50 @@ def turbine_location_mu_t2_a() -> spatial.Location:
 
 # TODO add valid IEA43 metadata reference
 @pytest.fixture(scope="session")
-def measurement_station_a() -> eya.MeasurementStationMetadata:
+def measurement_station_a() -> measurement_station.MeasurementStationMetadata:
     """Dummy test case instance 'a' of ``MeasurementStationMetadata``."""
-    return eya.MeasurementStationMetadata("/foo/bar/metadata_ref.json")
+    return measurement_station.MeasurementStationMetadata("/foo/bar/metadata_ref.json")
 
 
 # TODO - placeholder to be implemented
 @pytest.fixture(scope="session")
-def measurement_station_basis_a() -> eya.MeasurementStationBasis:
+def measurement_station_basis_a() -> measurement_station.MeasurementStationBasis:
     """Test case instance 'a' of ``MeasurementStationBasis``."""
-    return eya.MeasurementStationBasis()
+    return measurement_station.MeasurementStationBasis()
 
 
 # TODO add valid turbine model performance specification reference
 @pytest.fixture(scope="session")
-def turbine_model_a() -> eya.TurbineModel:
+def turbine_model_a() -> turbine_model.TurbineModel:
     """Test case instance 'a' of ``TurbineModel``."""
-    return eya.TurbineModel(
+    return turbine_model.TurbineModel(
         turbine_model_id="6ca5bc01-04b1-421a-a033-133304d6cc7f", label="ABC165-5.5MW"
     )
 
 
 # TODO add valid turbine model performance specification reference
 @pytest.fixture(scope="session")
-def turbine_model_b() -> eya.TurbineModel:
+def turbine_model_b() -> turbine_model.TurbineModel:
     """Test case instance 'b' of ``TurbineModel``."""
-    return eya.TurbineModel(
+    return turbine_model.TurbineModel(
         turbine_model_id="e2914c83-f355-4cf2-9051-8e0f34aa3c03", label="PQR169-5.8MW"
     )
 
 
 # TODO add valid turbine model performance specification reference
 @pytest.fixture(scope="session")
-def turbine_model_c() -> eya.TurbineModel:
+def turbine_model_c() -> turbine_model.TurbineModel:
     """Test case instance 'c' of ``TurbineModel``."""
-    return eya.TurbineModel(
+    return turbine_model.TurbineModel(
         turbine_model_id="e3288cbd-fa3b-4241-8a4c-3856fc10c55e", label="XYZ-3.2/140"
     )
 
 
 # TODO expand definition of operational restriction
 @pytest.fixture(scope="session")
-def operational_restriction_a() -> eya.OperationalRestriction:
+def operational_restriction_a() -> wind_farm.OperationalRestriction:
     """Test case instance 'a' of ``OperationalRestriction``."""
-    return eya.OperationalRestriction(
+    return wind_farm.OperationalRestriction(
         label="WSM curtailment",
         description=(
             "Wind sector management (WSM) curtailment as specified"
@@ -401,9 +408,9 @@ def operational_restriction_a() -> eya.OperationalRestriction:
 @pytest.fixture(scope="session")
 def turbine_specification_wtg01_a(
     turbine_location_wtg01_a, operational_restriction_a
-) -> eya.TurbineSpecification:
+) -> wind_farm.TurbineConfiguration:
     """Test case instance 'WTG01_a' of ``TurbineSpecification``."""
-    return eya.TurbineSpecification(
+    return wind_farm.TurbineConfiguration(
         turbine_id="2bbe1cb3-e9f3-42ad-be61-3657ea2ac174",
         label="WTG01_scenA",
         description="Configuration of WTG01 in Scenario A",
@@ -417,9 +424,9 @@ def turbine_specification_wtg01_a(
 @pytest.fixture(scope="session")
 def turbine_specification_wtg01_b(
     turbine_location_wtg01_b,
-) -> eya.TurbineSpecification:
+) -> wind_farm.TurbineConfiguration:
     """Test case instance 'WTG01_b' of ``TurbineSpecification``."""
-    return eya.TurbineSpecification(
+    return wind_farm.TurbineConfiguration(
         turbine_id="f5cfd507-5550-4fbb-bdca-3dc6b1c6323c",
         label="WTG01_scenB",
         description="Configuration of WTG01 in Scenario B",
@@ -432,9 +439,9 @@ def turbine_specification_wtg01_b(
 @pytest.fixture(scope="session")
 def turbine_specification_wtg02_a(
     turbine_location_wtg02_a, operational_restriction_a
-) -> eya.TurbineSpecification:
+) -> wind_farm.TurbineConfiguration:
     """Test case instance 'WTG02_a' of ``TurbineSpecification``."""
-    return eya.TurbineSpecification(
+    return wind_farm.TurbineConfiguration(
         turbine_id="39f9dd43-6322-4738-81af-6a65766b26e3",
         label="WTG02_scenA",
         description="Configuration of WTG02 in Scenario A",
@@ -448,9 +455,9 @@ def turbine_specification_wtg02_a(
 @pytest.fixture(scope="session")
 def turbine_specification_wtg02_b(
     turbine_location_wtg02_b,
-) -> eya.TurbineSpecification:
+) -> wind_farm.TurbineConfiguration:
     """Test case instance 'WTG02_b' of ``TurbineSpecification``."""
-    return eya.TurbineSpecification(
+    return wind_farm.TurbineConfiguration(
         turbine_id="a5ee87e3-5254-45fb-a057-4548b8c0424c",
         label="WTG02_scenB",
         description="Configuration of WTG02 in Scenario B",
@@ -463,9 +470,9 @@ def turbine_specification_wtg02_b(
 @pytest.fixture(scope="session")
 def turbine_specification_mu_t1_a(
     turbine_location_mu_t1_a,
-) -> eya.TurbineSpecification:
+) -> wind_farm.TurbineConfiguration:
     """Test case instance 'Mu_T1_a' of ``TurbineSpecification``."""
-    return eya.TurbineSpecification(
+    return wind_farm.TurbineConfiguration(
         turbine_id="f08b05bd-f90b-4833-91a5-4284b64c80db",
         label="Mu_T1_a",
         description="Configuration of the neighbouring Mu_T1_a turbine",
@@ -478,9 +485,9 @@ def turbine_specification_mu_t1_a(
 @pytest.fixture(scope="session")
 def turbine_specification_mu_t2_a(
     turbine_location_mu_t2_a,
-) -> eya.TurbineSpecification:
+) -> wind_farm.TurbineConfiguration:
     """Test case instance 'Mu_T2_a' of ``TurbineSpecification``."""
-    return eya.TurbineSpecification(
+    return wind_farm.TurbineConfiguration(
         turbine_id="b87f21bc-e1d8-4150-a2f4-d7f019bf96fc",
         label="Mu_T2_a",
         description="Configuration of the neighbouring Mu_T2_a turbine",
@@ -493,9 +500,9 @@ def turbine_specification_mu_t2_a(
 @pytest.fixture(scope="session")
 def wind_farm_a(
     turbine_specification_wtg01_a, turbine_specification_wtg02_a
-) -> eya.WindFarm:
+) -> wind_farm.WindFarmConfiguration:
     """Test case instance 'a' of ``WindFarm``."""
-    return eya.WindFarm(
+    return wind_farm.WindFarmConfiguration(
         name="Barefoot Wind Farm",
         label="Barefoot",
         description="Barefoot Wind Farm configuration for Scenario A",
@@ -508,9 +515,9 @@ def wind_farm_a(
 @pytest.fixture(scope="session")
 def wind_farm_b(
     turbine_specification_wtg01_b, turbine_specification_wtg02_b
-) -> eya.WindFarm:
+) -> wind_farm.WindFarmConfiguration:
     """Test case instance 'b' of ``WindFarm``."""
-    return eya.WindFarm(
+    return wind_farm.WindFarmConfiguration(
         name="Barefoot Wind Farm",
         label="Barefoot",
         description="Barefoot Wind Farm configuration for Scenario B",
@@ -524,9 +531,9 @@ def wind_farm_b(
 @pytest.fixture(scope="session")
 def neighbouring_wind_farm_a(
     turbine_specification_mu_t1_a, turbine_specification_mu_t2_a
-) -> eya.WindFarm:
+) -> wind_farm.WindFarmConfiguration:
     """Neighboring project test case instance 'a' of ``WindFarm``."""
-    return eya.WindFarm(
+    return wind_farm.WindFarmConfiguration(
         name="Munro Wind Farm",
         label="MWF",
         description="The operational Munro Wind Farm",

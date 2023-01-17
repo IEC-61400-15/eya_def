@@ -1,4 +1,4 @@
-"""EYA DEF pydantic data model for results.
+"""Pydantic data models for results.
 
 """
 
@@ -55,7 +55,7 @@ class Results(EyaDefBaseModel):
     description: str | None = fields.description_field
     comments: str | None = fields.comments_field
     applicability_type: enums.ResultsApplicabilityType = pdt.Field(
-        ...,
+        enums.ResultsApplicabilityType.LIFETIME,
         description="Applicability type of the results.",
         examples=[
             enums.ResultsApplicabilityType.LIFETIME,

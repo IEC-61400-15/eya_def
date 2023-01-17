@@ -1,4 +1,4 @@
-"""Base models for the IEC 61400-15-2 EYA DEF.
+"""Modified pydantic base models for the IEC 61400-15-2 EYA DEF.
 
 """
 
