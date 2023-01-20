@@ -187,18 +187,6 @@
       "title": "Location",
       "type": "object"
     },
-    "MeasurementUnit": {
-      "description": "Unit in which a quantity is measured.",
-      "enum": [
-        "1",
-        "kW",
-        "MW h",
-        "MW h year-1",
-        "m s-1"
-      ],
-      "title": "MeasurementUnit",
-      "type": "string"
-    },
     "OperationalRestriction": {
       "description": "Specifications of an operational restriction.",
       "properties": {
@@ -539,14 +527,6 @@
         "description": {
           "$ref": "#/definitions/Description"
         },
-        "unit": {
-          "$ref": "#/definitions/MeasurementUnit",
-          "description": "Unit in which the result values are measured.",
-          "examples": [
-            "m s-1",
-            "MW h"
-          ]
-        },
         "values": {
           "anyOf": [
             {
@@ -589,7 +569,6 @@
       },
       "required": [
         "component_type",
-        "unit",
         "values"
       ],
       "title": "ResultsComponent",

@@ -69,7 +69,6 @@
             "result_components": [
               {
                 "component_type": "mean",
-                "unit": "MW h year-1",
                 "values": [
                   [
                     [
@@ -96,7 +95,6 @@
             "result_components": [
               {
                 "component_type": "mean",
-                "unit": "MW h year-1",
                 "values": 32200.0
               }
             ]
@@ -117,7 +115,6 @@
                 "result_components": [
                   {
                     "component_type": "mean",
-                    "unit": "1",
                     "values": [
                       [
                         [
@@ -135,7 +132,6 @@
                   },
                   {
                     "component_type": "standard_deviation",
-                    "unit": "1",
                     "values": [
                       [
                         [
@@ -174,7 +170,6 @@
                   "result_components": [
                     {
                       "component_type": "mean",
-                      "unit": "1",
                       "values": [
                         [
                           [
@@ -192,7 +187,6 @@
                     },
                     {
                       "component_type": "standard_deviation",
-                      "unit": "1",
                       "values": [
                         [
                           [
@@ -225,17 +219,14 @@
             "result_components": [
               {
                 "component_type": "median",
-                "unit": "MW h year-1",
                 "values": 31528.6
               },
               {
                 "component_type": "standard_deviation",
-                "unit": "MW h year-1",
                 "values": 3468.1
               },
               {
                 "component_type": "p90",
-                "unit": "MW h year-1",
                 "values": 27089.4
               }
             ]
@@ -246,17 +237,14 @@
             "result_components": [
               {
                 "component_type": "median",
-                "unit": "MW h year-1",
                 "values": 31528.6
               },
               {
                 "component_type": "standard_deviation",
-                "unit": "MW h year-1",
                 "values": 4729.3
               },
               {
                 "component_type": "p90",
-                "unit": "MW h year-1",
                 "values": 25475.1
               }
             ]
@@ -272,7 +260,6 @@
             "result_components": [
               {
                 "component_type": "mean",
-                "unit": "m s-1",
                 "values": [
                   [
                     [
@@ -407,7 +394,6 @@
             "result_components": [
               {
                 "component_type": "mean",
-                "unit": "MW h year-1",
                 "values": [
                   [
                     [
@@ -434,7 +420,6 @@
             "result_components": [
               {
                 "component_type": "mean",
-                "unit": "MW h year-1",
                 "values": 37000.0
               }
             ]
@@ -455,7 +440,6 @@
                 "result_components": [
                   {
                     "component_type": "mean",
-                    "unit": "1",
                     "values": [
                       [
                         [
@@ -473,7 +457,6 @@
                   },
                   {
                     "component_type": "standard_deviation",
-                    "unit": "1",
                     "values": [
                       [
                         [
@@ -506,7 +489,6 @@
                   "result_components": [
                     {
                       "component_type": "mean",
-                      "unit": "1",
                       "values": [
                         [
                           [
@@ -524,7 +506,6 @@
                     },
                     {
                       "component_type": "standard_deviation",
-                      "unit": "1",
                       "values": [
                         [
                           [
@@ -557,17 +538,14 @@
             "result_components": [
               {
                 "component_type": "median",
-                "unit": "MW h year-1",
                 "values": 35150.0
               },
               {
                 "component_type": "standard_deviation",
-                "unit": "MW h year-1",
                 "values": 4569.5
               },
               {
                 "component_type": "p90",
-                "unit": "MW h year-1",
                 "values": 29301.0
               }
             ]
@@ -578,17 +556,14 @@
             "result_components": [
               {
                 "component_type": "median",
-                "unit": "MW h year-1",
                 "values": 35150.0
               },
               {
                 "component_type": "standard_deviation",
-                "unit": "MW h year-1",
                 "values": 5799.8
               },
               {
                 "component_type": "p90",
-                "unit": "MW h year-1",
                 "values": 27726.3
               }
             ]
@@ -604,7 +579,6 @@
             "result_components": [
               {
                 "component_type": "mean",
-                "unit": "m s-1",
                 "values": [
                   [
                     [
@@ -743,7 +717,6 @@
           "result_components": [
             {
               "component_type": "mean",
-              "unit": "m s-1",
               "values": [
                 [
                   [
@@ -769,7 +742,6 @@
                 "result_components": [
                   {
                     "component_type": "standard_deviation",
-                    "unit": "1",
                     "values": [
                       [
                         [
@@ -794,7 +766,6 @@
                   "result_components": [
                     {
                       "component_type": "standard_deviation",
-                      "unit": "1",
                       "values": [
                         [
                           [
@@ -818,7 +789,6 @@
                   "result_components": [
                     {
                       "component_type": "standard_deviation",
-                      "unit": "1",
                       "values": [
                         [
                           [

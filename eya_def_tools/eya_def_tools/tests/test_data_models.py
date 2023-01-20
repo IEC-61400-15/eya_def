@@ -58,7 +58,7 @@ def test_export_json_schema(pydantic_json_schema_tmp_path: Path) -> None:
 #
 # # TODO: TEMPORARY CODE
 # def test_copy_energy_yield_assessment_a(
-#     energy_yield_assessment_a_tmp_filepath: Path
+#     energy_yield_assessment_a_tmp_filepath: Path,
 # ) -> None:
 #     """Temporary test to copy pydantic example 'a'."""
 #     import shutil

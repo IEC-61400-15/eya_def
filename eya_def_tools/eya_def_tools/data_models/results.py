@@ -30,14 +30,6 @@ class ResultsComponent(EyaDefBaseModel):
         description="Type of statistic in the results component.",
         examples=[enums.StatisticType.MEDIAN, enums.StatisticType.P90],
     )
-    unit: enums.MeasurementUnit = pdt.Field(
-        ...,
-        description="Unit in which the result values are measured.",
-        examples=[
-            enums.MeasurementUnit.METRE_PER_SECOND,
-            enums.MeasurementUnit.MEGAWATT_HOUR,
-        ],
-    )
     values: ResultValue | list[ResultValueAtCoordinate] = pdt.Field(
         ...,
         description="Result as a single number or values at coordinates.",
