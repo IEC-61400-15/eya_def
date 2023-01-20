@@ -83,3 +83,22 @@ pytest --pyargs eya_def_tools --cov=eya_def_tools --cov-report term-missing
 ```
 
 Contributors are encouraged to write tests to cover new features.
+
+## Type hints and static type checking
+
+Type hints and static type checking are optional in Python, but make
+code dramatically more readable and can help identify type issues that
+would otherwise trigger errors at runtime. This project enforces the use
+of type hints and runs static type checking using the
+[mypy](https://mypy.readthedocs.io/en/stable/) tool, which is part of
+the `pre-commit` hooks
+
+The `mypy` static type checking can also be run by executing the
+following at the root of the repository directory.
+
+```bash
+mypy --config-file pyproject.toml
+```
+
+The mypy configurations are contained in the
+[pyproject.toml file](pyproject.toml).
