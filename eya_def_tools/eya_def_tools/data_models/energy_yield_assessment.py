@@ -25,6 +25,7 @@ from eya_def_tools.data_models.wind_farm import WindFarmConfiguration
 from eya_def_tools.utils.pydantic_json_schema_utils import (
     move_field_to_definitions,
     reduce_json_schema_all_of,
+    reduce_json_schema_single_use_definitions,
 )
 from eya_def_tools.utils.reference_utils import (
     get_json_schema_reference_uri,
@@ -416,20 +417,20 @@ class EnergyYieldAssessment(BaseModelWithRefs):
 
     @classmethod
     def final_json_schema(cls) -> dict[str, Any]:
-        """Get a json schema representation of the top-level data model.
-
-        NOTE: there is a known issue with the JSON Schema export
-        functionality in pydantic where variables that can be set to
-        ``None`` are not correctly set to nullable in the json schema.
-        This will likely be resolved in the near term. In the meanwhile,
-        json documents should not include ``null`` values, but properties
-        with a ``null`` value should rather be excluded.
-        """
+        """Get a json schema representation of the top-level data model."""
         schema = cls.schema(by_alias=True)
+
+        # Remove redundant ``allOf`` elements
         reduce_json_schema_all_of(schema)
+
+        # Move description and comments field to the definitions section
         defined_field_dict = {
             "description": "DescriptionField",
             "comments": "CommentsField",
         }
         move_field_to_definitions(schema=schema, defined_field_dict=defined_field_dict)
+
+        # Move single use JSON Schema definitions to where they are used
+        reduce_json_schema_single_use_definitions(schema=schema)
+
         return schema

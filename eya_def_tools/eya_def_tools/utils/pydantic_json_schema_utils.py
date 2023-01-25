@@ -2,6 +2,7 @@
 
 """
 
+import re
 from typing import Any, Type
 
 import pydantic as pdt
@@ -32,7 +33,7 @@ def move_field_to_definitions(
         onto definition labels
     """
     for field_label, definition_label in defined_field_dict.items():
-        field_definition = _find_field_definition(
+        field_definition = _recursive_find_field_definition(
             schema=schema, field_label=field_label
         )
         if field_definition is None:
@@ -41,16 +42,17 @@ def move_field_to_definitions(
             )
         schema["definitions"][definition_label] = field_definition
         _recursive_replace_field_definition(
-            schema=schema, field_label=field_label, field_definition=field_definition
+            schema=schema,
+            field_label=field_label,
+            definition_label=definition_label,
+            field_definition=field_definition,
         )
 
 
 def reduce_json_schema_all_of(schema: dict[str, Any]) -> None:
-    """Get copy of JSON Schema ``dict`` without superfluous ``allOf``.
+    """Remove superfluous ``allOf`` elements from a JSON Schema ``dict``.
 
-    :param schema: the original schema ``dict``
-    :return: a copy of ``schema`` where ``allOf`` definitions are
-        removed for instanced where there is only one item
+    :param schema: the model schema dictionary to modify
     """
     for key, value in schema.copy().items():
         if isinstance(value, dict):
@@ -58,6 +60,24 @@ def reduce_json_schema_all_of(schema: dict[str, Any]) -> None:
         elif key == "allOf" and isinstance(value, list) and len(value) == 1:
             schema.update(value[0].items())
             del schema["allOf"]
+
+
+def reduce_json_schema_single_use_definitions(schema: dict[str, Any]) -> None:
+    """Move single use JSON Schema definitions to where they are used.
+
+    :param schema: the model schema dictionary to modify
+    """
+    for definition_label in schema["definitions"].copy().keys():
+        definition_count = _recursive_get_definition_count(
+            schema=schema, definition_label=definition_label
+        )
+        if definition_count < 2:
+            _recursive_move_definition_to_tree(
+                schema=schema,
+                definition_label=definition_label,
+                definition=schema["definitions"][definition_label],
+            )
+            del schema["definitions"][definition_label]
 
 
 def tuple_fields_to_prefix_items(schema: dict[str, Any]) -> None:
@@ -83,7 +103,7 @@ def tuple_fields_to_prefix_items(schema: dict[str, Any]) -> None:
                         tuple_fields_to_prefix_items(schema=list_value)
 
 
-def _find_field_definition(
+def _recursive_find_field_definition(
     schema: dict[str, Any], field_label: str
 ) -> dict[str, Any] | None:
     for key, value in schema.items():
@@ -91,20 +111,62 @@ def _find_field_definition(
             if key == "properties" and field_label in value.keys():
                 return value[field_label]
             else:
-                return _find_field_definition(schema=value, field_label=field_label)
+                return _recursive_find_field_definition(
+                    schema=value, field_label=field_label
+                )
     return None
 
 
+def _recursive_get_definition_count(
+    schema: dict[str, Any], definition_label: str
+) -> int:
+    count = 0
+    for key, value in schema.items():
+        if key == "$ref" and value == f"#/definitions/{definition_label}":
+            return count + 1
+        elif isinstance(value, dict):
+            count = count + _recursive_get_definition_count(
+                schema=value, definition_label=definition_label
+            )
+    return count
+
+
+def _recursive_move_definition_to_tree(
+    schema: dict[str, Any], definition_label: str, definition: dict[str, Any]
+) -> None:
+    for key, value in schema.copy().items():
+        if (
+            len(schema) == 1
+            and key == "$ref"
+            and value == f"#/definitions/{definition_label}"
+        ):
+            schema.update(definition)
+            schema["title"] = re.sub(
+                r"((?<=[a-z])[A-Z]|(?<!\A)[A-Z](?=[a-z]))", r" \1", schema["title"]
+            )
+            del schema["$ref"]
+        elif isinstance(value, dict):
+            _recursive_move_definition_to_tree(
+                schema=value,
+                definition_label=definition_label,
+                definition=definition,
+            )
+
+
 def _recursive_replace_field_definition(
-    schema: dict[str, Any], field_label: str, field_definition: dict[str, Any]
+    schema: dict[str, Any],
+    field_label: str,
+    definition_label: str,
+    field_definition: dict[str, Any],
 ) -> None:
     for key, value in schema.items():
         if isinstance(value, dict):
             if key == "properties" and field_label in value.keys():
-                value[field_label] = {"$ref": f"#/definitions/{field_label.title()}"}
+                value[field_label] = {"$ref": f"#/definitions/{definition_label}"}
             else:
                 _recursive_replace_field_definition(
                     schema=value,
                     field_label=field_label,
+                    definition_label=definition_label,
                     field_definition=field_definition,
                 )
