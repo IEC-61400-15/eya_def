@@ -572,22 +572,24 @@ def regression_model_uncertainty_component_a() -> eya.UncertaintyComponent:
     """Regression model test case 'a' of ``UncertaintyComponent``."""
     return eya.UncertaintyComponent(
         label="Regression model uncertainty",
-        results=result.Result(
-            label="Regression model wind speed uncertainty per measurement station",
-            assessment_period=enums.AssessmentPeriod.LIFETIME,
-            dimensions=(enums.ResultsDimension.MEASUREMENT,),
-            statistics=[
-                result.ResultStatistic(
-                    statistic_type=enums.StatisticType.STANDARD_DEVIATION,
-                    values=[
-                        (
-                            ("BF_M1_1.0.0",),
-                            0.025,
-                        )
-                    ],
-                )
-            ],
-        ),
+        results=[
+            result.Result(
+                label="Regression model wind speed uncertainty per measurement station",
+                assessment_period=enums.AssessmentPeriod.LIFETIME,
+                dimensions=(enums.ResultsDimension.MEASUREMENT,),
+                statistics=[
+                    result.ResultStatistic(
+                        statistic_type=enums.StatisticType.STANDARD_DEVIATION,
+                        values=[
+                            (
+                                ("BF_M1_1.0.0",),
+                                0.025,
+                            )
+                        ],
+                    )
+                ],
+            ),
+        ],
     )
 
 
@@ -596,25 +598,27 @@ def long_term_consistency_uncertainty_component_a() -> eya.UncertaintyComponent:
     """Long-term consistency test case 'a' of ``UncertaintyComponent``."""
     return eya.UncertaintyComponent(
         label="Long-term consistency uncertainty",
-        results=result.Result(
-            label=(
-                "Long-term consistency wind speed uncertainty "
-                "per measurement station"
+        results=[
+            result.Result(
+                label=(
+                    "Long-term consistency wind speed uncertainty "
+                    "per measurement station"
+                ),
+                assessment_period=enums.AssessmentPeriod.LIFETIME,
+                dimensions=(enums.ResultsDimension.MEASUREMENT,),
+                statistics=[
+                    result.ResultStatistic(
+                        statistic_type=enums.StatisticType.STANDARD_DEVIATION,
+                        values=[
+                            (
+                                ("BF_M1_1.0.0",),
+                                0.02,
+                            )
+                        ],
+                    )
+                ],
             ),
-            assessment_period=enums.AssessmentPeriod.LIFETIME,
-            dimensions=(enums.ResultsDimension.MEASUREMENT,),
-            statistics=[
-                result.ResultStatistic(
-                    statistic_type=enums.StatisticType.STANDARD_DEVIATION,
-                    values=[
-                        (
-                            ("BF_M1_1.0.0",),
-                            0.02,
-                        )
-                    ],
-                )
-            ],
-        ),
+        ],
     )
 
 

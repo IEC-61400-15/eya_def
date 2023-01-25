@@ -760,49 +760,53 @@
             "components": [
               {
                 "label": "Regression model uncertainty",
-                "results": {
-                  "assessment_period": "lifetime",
-                  "dimensions": [
-                    "measurement"
-                  ],
-                  "label": "Regression model wind speed uncertainty per measurement station",
-                  "statistics": [
-                    {
-                      "statistic_type": "standard_deviation",
-                      "values": [
-                        [
+                "results": [
+                  {
+                    "assessment_period": "lifetime",
+                    "dimensions": [
+                      "measurement"
+                    ],
+                    "label": "Regression model wind speed uncertainty per measurement station",
+                    "statistics": [
+                      {
+                        "statistic_type": "standard_deviation",
+                        "values": [
                           [
-                            "BF_M1_1.0.0"
-                          ],
-                          0.025
+                            [
+                              "BF_M1_1.0.0"
+                            ],
+                            0.025
+                          ]
                         ]
-                      ]
-                    }
-                  ]
-                }
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "label": "Long-term consistency uncertainty",
-                "results": {
-                  "assessment_period": "lifetime",
-                  "dimensions": [
-                    "measurement"
-                  ],
-                  "label": "Long-term consistency wind speed uncertainty per measurement station",
-                  "statistics": [
-                    {
-                      "statistic_type": "standard_deviation",
-                      "values": [
-                        [
+                "results": [
+                  {
+                    "assessment_period": "lifetime",
+                    "dimensions": [
+                      "measurement"
+                    ],
+                    "label": "Long-term consistency wind speed uncertainty per measurement station",
+                    "statistics": [
+                      {
+                        "statistic_type": "standard_deviation",
+                        "values": [
                           [
-                            "BF_M1_1.0.0"
-                          ],
-                          0.02
+                            [
+                              "BF_M1_1.0.0"
+                            ],
+                            0.02
+                          ]
                         ]
-                      ]
-                    }
-                  ]
-                }
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           }

@@ -73,7 +73,7 @@ class UncertaintyComponent(EyaDefBaseModel):
     )
     description: str | None = description_field
     comments: str | None = comments_field
-    results: Result = pdt.Field(
+    results: list[Result] = pdt.Field(
         ..., description="Wind resource uncertainty assessment component results."
     )
 

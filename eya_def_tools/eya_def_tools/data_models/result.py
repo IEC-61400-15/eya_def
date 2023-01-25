@@ -73,5 +73,8 @@ class Result(EyaDefBaseModel):
     )
     statistics: list[ResultStatistic] = pdt.Field(
         ...,
-        description="List of result statistic.",
+        description=(
+            "List of result statistic objects that each include result "
+            "values for a specific statistic type."
+        ),
     )

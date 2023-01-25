@@ -485,7 +485,7 @@
           ]
         },
         "statistics": {
-          "description": "List of result statistic.",
+          "description": "List of result statistic objects that each include result values for a specific statistic type.",
           "items": {
             "$ref": "#/definitions/ResultStatistic"
           },
@@ -883,9 +883,12 @@
           "type": "string"
         },
         "results": {
-          "$ref": "#/definitions/Result",
           "description": "Wind resource uncertainty assessment component results.",
-          "title": "Results"
+          "items": {
+            "$ref": "#/definitions/Result"
+          },
+          "title": "Results",
+          "type": "array"
         }
       },
       "required": [
