@@ -283,10 +283,11 @@
       "type": "object"
     },
     "UncertaintyAssessment": {
-      "description": "Wind resource uncertainty assessment including all components.",
+      "description": "Wind resource uncertainty assessment.",
       "properties": {
         "categories": {
-          "additionalProperties": {
+          "description": "List of wind resource uncertainty assessment categories.",
+          "items": {
             "description": "Wind resource uncertainty assessment category.",
             "properties": {
               "category_results": {
@@ -297,10 +298,22 @@
                 "title": "Category Results",
                 "type": "array"
               },
-              "components": {
-                "description": "Wind resource uncertainty assessment components.",
+              "label": {
+                "description": "Label of the uncertainty category.",
+                "enum": [
+                  "measurement",
+                  "historical",
+                  "vertical",
+                  "horizontal",
+                  "other"
+                ],
+                "title": "Uncertainty Category Label",
+                "type": "string"
+              },
+              "subcategories": {
+                "description": "Wind resource uncertainty assessment subcategories.",
                 "items": {
-                  "description": "Wind resource uncertainty assessment component.",
+                  "description": "Wind resource uncertainty assessment subcategory.",
                   "properties": {
                     "comments": {
                       "$ref": "#/definitions/CommentsField"
@@ -309,7 +322,7 @@
                       "$ref": "#/definitions/DescriptionField"
                     },
                     "label": {
-                      "description": "Label of the wind uncertainty component.",
+                      "description": "Label of the wind resource uncertainty subcategory.",
                       "examples": [
                         "Long-term consistency"
                       ],
@@ -317,7 +330,7 @@
                       "type": "string"
                     },
                     "results": {
-                      "description": "Wind resource uncertainty assessment component results.",
+                      "description": "Wind resource uncertainty assessment subcategory results.",
                       "items": {
                         "$ref": "#/definitions/Result"
                       },
@@ -329,23 +342,23 @@
                     "label",
                     "results"
                   ],
-                  "title": "Uncertainty Component",
+                  "title": "Uncertainty Subcategory",
                   "type": "object"
                 },
-                "title": "Components",
+                "title": "Subcategories",
                 "type": "array"
               }
             },
             "required": [
-              "components",
+              "label",
+              "subcategories",
               "category_results"
             ],
             "title": "Uncertainty Category",
             "type": "object"
           },
-          "description": "Wind resource uncertainty assessment categories.",
           "title": "Categories",
-          "type": "object"
+          "type": "array"
         }
       },
       "required": [
@@ -659,7 +672,8 @@
             "description": "Plant performance assessment including net energy results.",
             "properties": {
               "categories": {
-                "additionalProperties": {
+                "description": "Plant performance assessment categories.",
+                "items": {
                   "description": "Plant performance assessment category.",
                   "properties": {
                     "category_results": {
@@ -670,10 +684,25 @@
                       "title": "Category Results",
                       "type": "array"
                     },
-                    "components": {
-                      "description": "Plant performance assessment category components.",
+                    "label": {
+                      "description": "Label of the plant performance category.",
+                      "enum": [
+                        "wakes",
+                        "blockage",
+                        "availability",
+                        "electrical",
+                        "turbine_performance",
+                        "environmental",
+                        "curtailment",
+                        "other"
+                      ],
+                      "title": "Plant Performance Category Label",
+                      "type": "string"
+                    },
+                    "subcategories": {
+                      "description": "Plant performance assessment subcategories that fall under the category.",
                       "items": {
-                        "description": "Plant performance assessment component.",
+                        "description": "Plant performance assessment subcategory.",
                         "properties": {
                           "basis": {
                             "description": "Basis of plant performance element assessment.",
@@ -701,9 +730,40 @@
                               "null"
                             ]
                           },
+                          "label": {
+                            "description": "Label of the plant performance category.",
+                            "enum": [
+                              "internal_wakes",
+                              "external_wakes",
+                              "future_wakes",
+                              "internal_blockage",
+                              "external_blockage",
+                              "future_blockage",
+                              "turbine_availability",
+                              "bop_availability",
+                              "grid_availability",
+                              "electrical_efficiency",
+                              "facility_parasitic_consumption",
+                              "sub_optimal_performance",
+                              "generic_power_curve_adjustment",
+                              "site_specific_power_curve_adjustment",
+                              "high_wind_hysteresis",
+                              "icing",
+                              "degradation",
+                              "external_conditions",
+                              "exposure_changes",
+                              "load_curtailment",
+                              "grid_curtailment",
+                              "environmental_curtailment",
+                              "operational_strategies",
+                              "other"
+                            ],
+                            "title": "Plant Performance Subcategory Label",
+                            "type": "string"
+                          },
                           "results": {
                             "$ref": "#/definitions/Result",
-                            "description": "Plant performance assessment component results.",
+                            "description": "Plant performance assessment subcategory results.",
                             "title": "Results"
                           },
                           "variability": {
@@ -718,27 +778,28 @@
                           }
                         },
                         "required": [
+                          "label",
                           "basis",
                           "variability",
                           "results"
                         ],
-                        "title": "Plant Performance Component",
+                        "title": "Plant Performance Subcategory",
                         "type": "object"
                       },
-                      "title": "Components",
+                      "title": "Subcategories",
                       "type": "array"
                     }
                   },
                   "required": [
-                    "components",
+                    "label",
+                    "subcategories",
                     "category_results"
                   ],
                   "title": "Plant Performance Category",
                   "type": "object"
                 },
-                "description": "Plant performance assessment categories.",
                 "title": "Categories",
-                "type": "object"
+                "type": "array"
               },
               "net_energy_results": {
                 "description": "Net energy yield results at different confidence limits.",
