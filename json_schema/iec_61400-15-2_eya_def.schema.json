@@ -130,13 +130,20 @@
       "description": "Set of results for an element of an energy assessment.",
       "properties": {
         "assessment_period": {
-          "$ref": "#/definitions/AssessmentPeriod",
           "default": "lifetime",
           "description": "Period of or in time that has been assessed and for which the results are applicable.",
+          "enum": [
+            "lifetime",
+            "any_one_year",
+            "one_operational_year",
+            "other"
+          ],
           "examples": [
             "lifetime",
             "any_one_year"
-          ]
+          ],
+          "title": "Assessment Period",
+          "type": "string"
         },
         "comments": {
           "$ref": "#/definitions/CommentsField"
@@ -197,12 +204,25 @@
                 "$ref": "#/definitions/DescriptionField"
               },
               "statistic_type": {
-                "$ref": "#/definitions/StatisticType",
                 "description": "Type of statistic in the results component.",
+                "enum": [
+                  "mean",
+                  "median",
+                  "standard_deviation",
+                  "minimum",
+                  "maximum",
+                  "p10",
+                  "p25",
+                  "p75",
+                  "p90",
+                  "p99"
+                ],
                 "examples": [
                   "median",
                   "p90"
-                ]
+                ],
+                "title": "Statistic Type",
+                "type": "string"
               },
               "values": {
                 "anyOf": [
@@ -448,9 +468,43 @@
       "type": "array"
     },
     "coordinate_reference_system": {
-      "$ref": "#/definitions/CoordinateReferenceSystem",
       "description": "Coordinate reference system used for all location data.",
-      "title": "Coordinate Reference System"
+      "properties": {
+        "epsg_srid": {
+          "description": "EPSG Spatial Reference System Identifier (SRID).",
+          "examples": [
+            27700,
+            3006
+          ],
+          "title": "Epsg Srid",
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "system_label": {
+          "description": "Label of the coordinate system.",
+          "examples": [
+            "OSGB36 / British National Grid",
+            "SWEREF99 TM"
+          ],
+          "title": "System Label",
+          "type": "string"
+        },
+        "wkt": {
+          "description": "Well-known text (WKT) string definition of the coordinate system.",
+          "title": "Wkt",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "system_label"
+      ],
+      "title": "Coordinate Reference System",
+      "type": "object"
     },
     "description": {
       "$ref": "#/definitions/DescriptionField"
@@ -554,9 +608,22 @@
             "$ref": "#/definitions/DescriptionField"
           },
           "gross_energy_assessment": {
-            "$ref": "#/definitions/GrossEnergyAssessment",
             "description": "Gross energy yield assessment.",
-            "title": "Gross Energy Assessment"
+            "properties": {
+              "results": {
+                "description": "Gross energy yield results.",
+                "items": {
+                  "$ref": "#/definitions/Result"
+                },
+                "title": "Results",
+                "type": "array"
+              }
+            },
+            "required": [
+              "results"
+            ],
+            "title": "Gross Energy Assessment",
+            "type": "object"
           },
           "is_main_scenario": {
             "description": "Whether or not this is the main scenario in the report.",
@@ -589,9 +656,110 @@
             "type": "number"
           },
           "plant_performance_assessment": {
-            "$ref": "#/definitions/PlantPerformanceAssessment",
             "description": "Plant performance assessment including net energy results.",
-            "title": "Plant Performance Assessment"
+            "properties": {
+              "categories": {
+                "additionalProperties": {
+                  "description": "Plant performance assessment category.",
+                  "properties": {
+                    "category_results": {
+                      "description": "Category level assessment results.",
+                      "items": {
+                        "$ref": "#/definitions/Result"
+                      },
+                      "title": "Category Results",
+                      "type": "array"
+                    },
+                    "components": {
+                      "description": "Plant performance assessment category components.",
+                      "items": {
+                        "description": "Plant performance assessment component.",
+                        "properties": {
+                          "basis": {
+                            "description": "Basis of plant performance element assessment.",
+                            "enum": [
+                              "timeseries_calculation",
+                              "distribution_calculation",
+                              "other_calculation",
+                              "project_specific_estimate",
+                              "regional_assumption",
+                              "generic_assumption",
+                              "not_considered",
+                              "other"
+                            ],
+                            "title": "Assessment Basis",
+                            "type": "string"
+                          },
+                          "calculation_models": {
+                            "description": "Calculation models used in the assessment.",
+                            "items": {
+                              "$ref": "#/definitions/CalculationModelSpecification"
+                            },
+                            "title": "Calculation Models",
+                            "type": [
+                              "array",
+                              "null"
+                            ]
+                          },
+                          "results": {
+                            "$ref": "#/definitions/Result",
+                            "description": "Plant performance assessment component results.",
+                            "title": "Results"
+                          },
+                          "variability": {
+                            "description": "Considered variability in plant performance element.",
+                            "enum": [
+                              "static_process",
+                              "annual_variable",
+                              "other"
+                            ],
+                            "title": "Variability Type",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "basis",
+                          "variability",
+                          "results"
+                        ],
+                        "title": "Plant Performance Component",
+                        "type": "object"
+                      },
+                      "title": "Components",
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "components",
+                    "category_results"
+                  ],
+                  "title": "Plant Performance Category",
+                  "type": "object"
+                },
+                "description": "Plant performance assessment categories.",
+                "title": "Categories",
+                "type": "object"
+              },
+              "net_energy_results": {
+                "description": "Net energy yield results at different confidence limits.",
+                "items": {
+                  "$ref": "#/definitions/Result"
+                },
+                "title": "Net Energy Results",
+                "type": "array"
+              },
+              "net_energy_uncertainty_assessment": {
+                "$ref": "#/definitions/UncertaintyAssessment",
+                "description": "Net energy uncertainty assessment.",
+                "title": "Net Energy Uncertainty Assessment"
+              }
+            },
+            "required": [
+              "categories",
+              "net_energy_results"
+            ],
+            "title": "Plant Performance Assessment",
+            "type": "object"
           },
           "scenario_id": {
             "description": "Unique identifier of the scenario.",
@@ -605,9 +773,36 @@
             ]
           },
           "turbine_wind_resource_assessment": {
-            "$ref": "#/definitions/TurbineWindResourceAssessment",
             "description": "Wind resource assessment at the turbine locations.",
-            "title": "Turbine Wind Resource Assessment"
+            "properties": {
+              "turbine_wind_resource_results": {
+                "description": "Assessment results at the turbine location(s).",
+                "items": {
+                  "$ref": "#/definitions/Result"
+                },
+                "title": "Turbine Wind Resource Results",
+                "type": "array"
+              },
+              "uncertainty_assessment": {
+                "$ref": "#/definitions/UncertaintyAssessment",
+                "description": "Turbine wind resource uncertainty assessment.",
+                "title": "Uncertainty Assessment"
+              },
+              "wind_spatial_models": {
+                "description": "Wind spatial models used in the assessment.",
+                "items": {
+                  "$ref": "#/definitions/CalculationModelSpecification"
+                },
+                "title": "Wind Spatial Models",
+                "type": "array"
+              }
+            },
+            "required": [
+              "turbine_wind_resource_results",
+              "wind_spatial_models"
+            ],
+            "title": "Turbine Wind Resource Assessment",
+            "type": "object"
           },
           "wind_farms": {
             "description": "List of all wind farms included in the scenario.",
@@ -668,8 +863,14 @@
                   ]
                 },
                 "relevance": {
-                  "$ref": "#/definitions/WindFarmRelevance",
-                  "description": "The relevance of the wind farm for the assessment."
+                  "description": "The relevance of the wind farm for the assessment.",
+                  "enum": [
+                    "internal",
+                    "external",
+                    "future"
+                  ],
+                  "title": "Wind Farm Relevance",
+                  "type": "string"
                 },
                 "turbines": {
                   "description": "List of specifications for constituent turbines.",
@@ -698,9 +899,62 @@
                         "type": "string"
                       },
                       "location": {
-                        "$ref": "#/definitions/Location",
                         "description": "Horizontal location of the turbine.",
-                        "title": "Location"
+                        "properties": {
+                          "comments": {
+                            "$ref": "#/definitions/CommentsField"
+                          },
+                          "description": {
+                            "$ref": "#/definitions/DescriptionField"
+                          },
+                          "label": {
+                            "description": "Label of the location.",
+                            "examples": [
+                              "T1",
+                              "WTG02-loc1",
+                              "WEA_003/R2"
+                            ],
+                            "title": "Label",
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "location_id": {
+                            "description": "Unique identifier of the location.",
+                            "examples": [
+                              "ee15ff84-6733-4858-9656-ba995d9b1022",
+                              "WTG02-loc1"
+                            ],
+                            "title": "Location Id",
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "x": {
+                            "description": "Location x-coordinate (typically easing).",
+                            "examples": [
+                              419665.0
+                            ],
+                            "title": "X",
+                            "type": "number"
+                          },
+                          "y": {
+                            "description": "Location y-coordinate (typically northing).",
+                            "examples": [
+                              6195240.0
+                            ],
+                            "title": "Y",
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "x",
+                          "y"
+                        ],
+                        "title": "Location",
+                        "type": "object"
                       },
                       "restrictions": {
                         "description": "List of operational restrictions at the turbine level.",
@@ -767,9 +1021,10 @@
             "type": "array"
           },
           "wind_resource_assessment_basis": {
-            "$ref": "#/definitions/WindResourceAssessmentBasis",
             "description": "Measurement wind resource assessment basis for the scenario.",
-            "title": "Wind Resource Assessment Basis"
+            "properties": {},
+            "title": "Wind Resource Assessment Basis",
+            "type": "object"
           }
         },
         "required": [

@@ -135,16 +135,17 @@ def _recursive_move_definition_to_tree(
     schema: dict[str, Any], definition_label: str, definition: dict[str, Any]
 ) -> None:
     for key, value in schema.copy().items():
-        if (
-            len(schema) == 1
-            and key == "$ref"
-            and value == f"#/definitions/{definition_label}"
-        ):
+        if key == "$ref" and value == f"#/definitions/{definition_label}":
+            schema_copy = schema.copy()
             schema.update(definition)
             schema["title"] = re.sub(
                 r"((?<=[a-z])[A-Z]|(?<!\A)[A-Z](?=[a-z]))", r" \1", schema["title"]
             )
             del schema["$ref"]
+            for field_attribute in ["title", "description"]:
+                if field_attribute in schema_copy.keys():
+                    schema[field_attribute] = schema_copy[field_attribute]
+
         elif isinstance(value, dict):
             _recursive_move_definition_to_tree(
                 schema=value,
