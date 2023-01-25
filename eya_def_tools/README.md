@@ -1,8 +1,17 @@
 # The IEC 61400-15-2 EYA DEF python toolset
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)
-](https://github.com/psf/black)
-[![Imports: isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336
-)](https://pycqa.github.io/isort/)
+[![Checked with mypy](
+http://www.mypy-lang.org/static/mypy_badge.svg)](
+http://mypy-lang.org/)
+[![Code style: black](
+https://img.shields.io/badge/code%20style-black-000000.svg)](
+https://github.com/psf/black)
+[![Imports: isort](
+https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336)](
+https://pycqa.github.io/isort/)
+[![pre-commit](
+https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](
+https://github.com/pre-commit/pre-commit)
+
 
 The `eya_def_tools` package provides a toolset for working with the
 IEC 61400-15-2 EYA Reporting Digital Exchange Format (DEF) in the python
@@ -31,7 +40,7 @@ conda activate <environment_name>
 
 # Navigate to python package directory
 cd eya_def
-cd eya_def_python_tools
+cd eya_def_tools
 
 # Install `eya_def_tools`
 pip install .
@@ -65,58 +74,31 @@ The test suite is built using [pytest](https://docs.pytest.org). The
 is installed automatically (together with other dependencies) upon
 installation of `eya_def_tools`.
 
-To run the test suite with coverage reporting, simply execute the
-following at the top-level python package directory.
+To run the test suite with coverage reporting, including details on
+statements with missing coverage, simply execute the following at the
+top-level python package directory.
 
 ```bash
-pytest --cov=eya_def_tools --pyargs eya_def_tools
+pytest --pyargs eya_def_tools --cov=eya_def_tools --cov-report term-missing
 ```
 
 Contributors are encouraged to write tests to cover new features.
 
-## Pre-commit hooks
+## Type hints and static type checking
 
-The [pre-commit](https://pre-commit.com/) package is used for managing  
-git hooks. This is part of the python package development (`dev`)
-dependencies and is installed automatically during the `eya_def_tools`
-package development installation (when using the `[dev]` option). You
-can check it has been installed successfully by executing the following.
+Type hints and static type checking are optional in Python, but make
+code dramatically more readable and can help identify type issues that
+would otherwise trigger errors at runtime. This project enforces the use
+of type hints and runs static type checking using the
+[mypy](https://mypy.readthedocs.io/en/stable/) tool, which is part of
+the `pre-commit` hooks
 
-```bash
-pre-commit --version
-```
-
-The project configurations for the git hooks are contained within the
-file `.pre-commit-config.yaml` at the root repository directory.
-
-Only lint checks are run on both `git commit` and `git push`. Tests
-are (currently) not included.
-
-To install `pre-commit` in your local repository for the 'pre-commit'
-and 'pre-push' stages, execute the following from the root of the git
-repository in an environment where all dependencies are installed.
+The `mypy` static type checking can also be run by executing the
+following at the root of the repository directory.
 
 ```bash
-pre-commit install --hook-type pre-commit --hook-type pre-push
+mypy --config-file pyproject.toml
 ```
 
-After installation, `pre-commit` will run automatically on `git commit`
-and `git push`. Note that some hooks related to formatting (e.g.
-`requirements-txt-fixer` and `trailing-whitespace`) will auto-fix files
-but return an error on doing so. In these cases the fixed files need to
-be staged again and the commit attempt repeated. It should then pass the
-second time.
-
-If you want to run `pre-commit` manually on all files in the repository,
-including all the hooks, execute the following command.
-
-```bash
-pre-commit run --all-files --hook-stage push
-```
-
-The `pre-commit` hook dependencies can be updated by executing the
-following.
-
-```bash
-pre-commit autoupdate
-```
+The mypy configurations are contained in the
+[pyproject.toml file](pyproject.toml).
