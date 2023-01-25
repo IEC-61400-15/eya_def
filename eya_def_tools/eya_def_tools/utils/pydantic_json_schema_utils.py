@@ -22,22 +22,27 @@ def add_null_type_to_schema_optional_fields(
                 value["type"] = [value["type"], "null"]
 
 
-def move_field_to_definitions(schema: dict[str, Any], field_label: str) -> None:
+def move_field_to_definitions(
+    schema: dict[str, Any], defined_field_dict: dict[str, str]
+) -> None:
     """Move the details of a field to the ``definitions`` section.
 
     :param schema: the model schema dictionary to modify
-    :param field_label: the label of the model field to move to the
-        ``definitions`` section
-    :return: a copy of ``schema`` where the ``properties`` and
-        ``definitions`` sections have been updated
+    :param defined_field_dict: a dictionary mapping model field labels
+        onto definition labels
     """
-    field_definition = _find_field_definition(schema=schema, field_label=field_label)
-    if field_definition is None:
-        raise ValueError(f"the field {field_label} was not found in the schema")
-    schema["definitions"][field_label.title()] = field_definition
-    _recursive_replace_field_definition(
-        schema=schema, field_label=field_label, field_definition=field_definition
-    )
+    for field_label, definition_label in defined_field_dict.items():
+        field_definition = _find_field_definition(
+            schema=schema, field_label=field_label
+        )
+        if field_definition is None:
+            raise ValueError(
+                f"the field {defined_field_dict} was not found in the schema"
+            )
+        schema["definitions"][definition_label] = field_definition
+        _recursive_replace_field_definition(
+            schema=schema, field_label=field_label, field_definition=field_definition
+        )
 
 
 def reduce_json_schema_all_of(schema: dict[str, Any]) -> None:

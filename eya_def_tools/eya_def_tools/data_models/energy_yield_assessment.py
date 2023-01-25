@@ -427,7 +427,9 @@ class EnergyYieldAssessment(BaseModelWithRefs):
         """
         schema = cls.schema(by_alias=True)
         reduce_json_schema_all_of(schema)
-        defined_fields = ["description", "comments"]
-        for field_label in defined_fields:
-            move_field_to_definitions(schema=schema, field_label=field_label)
+        defined_field_dict = {
+            "description": "DescriptionField",
+            "comments": "CommentsField",
+        }
+        move_field_to_definitions(schema=schema, defined_field_dict=defined_field_dict)
         return schema

@@ -31,7 +31,7 @@
       "title": "CalculationModelSpecification",
       "type": "object"
     },
-    "Comments": {
+    "CommentsField": {
       "description": "Comments on the data object.",
       "title": "Comments",
       "type": [
@@ -103,7 +103,7 @@
       "title": "CoordinateReferenceSystem",
       "type": "object"
     },
-    "Description": {
+    "DescriptionField": {
       "description": "Description of the data object.",
       "title": "Description",
       "type": [
