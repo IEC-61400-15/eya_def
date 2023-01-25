@@ -20,12 +20,12 @@ ResultValue: TypeAlias = float
 ResultValueAtCoordinate: TypeAlias = tuple[ResultCoordinate, ResultValue]
 
 
-class ResultsComponent(EyaDefBaseModel):
-    """Component of a set of results."""
+class ResultStatistic(EyaDefBaseModel):
+    """Result values for one specific statistic type."""
 
     description: str | None = fields.description_field
     comments: str | None = fields.comments_field
-    component_type: enums.StatisticType = pdt.Field(
+    statistic_type: enums.StatisticType = pdt.Field(
         ...,
         description="Type of statistic in the results component.",
         examples=[enums.StatisticType.MEDIAN, enums.StatisticType.P90],
@@ -36,7 +36,7 @@ class ResultsComponent(EyaDefBaseModel):
     )
 
 
-class Results(EyaDefBaseModel):
+class Result(EyaDefBaseModel):
     """Set of results for an element of an energy assessment."""
 
     label: str | None = pdt.Field(
@@ -46,17 +46,23 @@ class Results(EyaDefBaseModel):
     )
     description: str | None = fields.description_field
     comments: str | None = fields.comments_field
-    applicability_type: enums.ResultsApplicabilityType = pdt.Field(
-        enums.ResultsApplicabilityType.LIFETIME,
-        description="Applicability type of the results.",
+    assessment_period: enums.AssessmentPeriod = pdt.Field(
+        enums.AssessmentPeriod.LIFETIME,
+        description=(
+            "Period of or in time that has been assessed and for which "
+            "the results are applicable."
+        ),
         examples=[
-            enums.ResultsApplicabilityType.LIFETIME,
-            enums.ResultsApplicabilityType.ANY_ONE_YEAR,
+            enums.AssessmentPeriod.LIFETIME,
+            enums.AssessmentPeriod.ANY_ONE_YEAR,
         ],
     )
-    results_dimensions: tuple[enums.ResultsDimension, ...] | None = pdt.Field(
+    dimensions: tuple[enums.ResultsDimension, ...] | None = pdt.Field(
         None,
-        description="Dimensions along which the results are binned.",
+        description=(
+            "Dimensions along which the results are binned (all result values "
+            "in the same results object must have the same dimensions)."
+        ),
         examples=[
             (
                 enums.ResultsDimension.TURBINE,
@@ -65,7 +71,7 @@ class Results(EyaDefBaseModel):
             (enums.ResultsDimension.MEASUREMENT, enums.ResultsDimension.HEIGHT),
         ],
     )
-    result_components: list[ResultsComponent] = pdt.Field(
+    statistics: list[ResultStatistic] = pdt.Field(
         ...,
-        description="List of result components.",
+        description="List of result statistic.",
     )

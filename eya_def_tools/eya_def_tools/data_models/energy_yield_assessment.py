@@ -11,14 +11,14 @@ import pydantic as pdt
 
 from eya_def_tools.data_models.base_models import BaseModelWithRefs, EyaDefBaseModel
 from eya_def_tools.data_models.enums import (
-    ComponentAssessmentBasis,
-    ComponentVariabilityType,
+    AssessmentBasis,
     PlantPerformanceCategoryLabel,
     UncertaintyCategoryLabel,
+    VariabilityType,
 )
 from eya_def_tools.data_models.fields import comments_field, description_field
 from eya_def_tools.data_models.measurement_station import MeasurementStationMetadata
-from eya_def_tools.data_models.results import Results
+from eya_def_tools.data_models.result import Result
 from eya_def_tools.data_models.spatial import CoordinateReferenceSystem
 from eya_def_tools.data_models.turbine_model import TurbineModel
 from eya_def_tools.data_models.wind_farm import WindFarmConfiguration
@@ -73,7 +73,7 @@ class UncertaintyComponent(EyaDefBaseModel):
     )
     description: str | None = description_field
     comments: str | None = comments_field
-    results: Results = pdt.Field(
+    results: Result = pdt.Field(
         ..., description="Wind resource uncertainty assessment component results."
     )
 
@@ -84,7 +84,7 @@ class UncertaintyCategory(EyaDefBaseModel):
     components: list[UncertaintyComponent] = pdt.Field(
         ..., description="Wind resource uncertainty assessment components."
     )
-    category_results: list[Results] = pdt.Field(
+    category_results: list[Result] = pdt.Field(
         ..., description="Category level assessment results."
     )
 
@@ -113,7 +113,7 @@ class WindResourceAssessment(EyaDefBaseModel):
     # long_term_results
     # vertical_extrapolation
     # hub_height_results
-    results: list[Results] = pdt.Field(
+    results: list[Result] = pdt.Field(
         ..., description="Assessment results at the measurement location(s)."
     )
     uncertainty_assessment: UncertaintyAssessment = pdt.Field(
@@ -132,7 +132,7 @@ class WindResourceAssessmentBasis(EyaDefBaseModel):
 class TurbineWindResourceAssessment(EyaDefBaseModel):
     """Wind resource assessment at the turbine locations."""
 
-    turbine_wind_resource_results: list[Results] = pdt.Field(
+    turbine_wind_resource_results: list[Result] = pdt.Field(
         ..., description="Assessment results at the turbine location(s)."
     )
     wind_spatial_models: list[CalculationModelSpecification] = pdt.Field(
@@ -148,22 +148,22 @@ class TurbineWindResourceAssessment(EyaDefBaseModel):
 class GrossEnergyAssessment(EyaDefBaseModel):
     """Gross energy yield assessment."""
 
-    results: list[Results] = pdt.Field(..., description="Gross energy yield results.")
+    results: list[Result] = pdt.Field(..., description="Gross energy yield results.")
 
 
 class PlantPerformanceComponent(EyaDefBaseModel):
     """Plant performance assessment component."""
 
-    basis: ComponentAssessmentBasis = pdt.Field(
+    basis: AssessmentBasis = pdt.Field(
         ..., description="Basis of plant performance element assessment."
     )
-    variability: ComponentVariabilityType = pdt.Field(
+    variability: VariabilityType = pdt.Field(
         ..., description="Considered variability in plant performance element."
     )
     calculation_models: list[CalculationModelSpecification] | None = pdt.Field(
         None, description="Calculation models used in the assessment."
     )
-    results: Results = pdt.Field(
+    results: Result = pdt.Field(
         ..., description="Plant performance assessment component results."
     )
 
@@ -174,7 +174,7 @@ class PlantPerformanceCategory(EyaDefBaseModel):
     components: list[PlantPerformanceComponent] = pdt.Field(
         ..., description="Plant performance assessment category components."
     )
-    category_results: list[Results] = pdt.Field(
+    category_results: list[Result] = pdt.Field(
         ..., description="Category level assessment results."
     )
 
@@ -189,7 +189,7 @@ class PlantPerformanceAssessment(EyaDefBaseModel):
     net_energy_uncertainty_assessment: UncertaintyAssessment | None = pdt.Field(
         None, description="Net energy uncertainty assessment."
     )
-    net_energy_results: list[Results] = pdt.Field(
+    net_energy_results: list[Result] = pdt.Field(
         ..., description="Net energy yield results at different confidence limits."
     )
 

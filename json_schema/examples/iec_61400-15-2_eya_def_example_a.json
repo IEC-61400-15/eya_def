@@ -64,11 +64,14 @@
       "gross_energy_assessment": {
         "results": [
           {
-            "applicability_type": "lifetime",
+            "assessment_period": "lifetime",
+            "dimensions": [
+              "turbine"
+            ],
             "label": "Gross yield",
-            "result_components": [
+            "statistics": [
               {
-                "component_type": "mean",
+                "statistic_type": "mean",
                 "values": [
                   [
                     [
@@ -84,17 +87,14 @@
                   ]
                 ]
               }
-            ],
-            "results_dimensions": [
-              "turbine"
             ]
           },
           {
-            "applicability_type": "lifetime",
+            "assessment_period": "lifetime",
             "label": "Gross yield",
-            "result_components": [
+            "statistics": [
               {
-                "component_type": "mean",
+                "statistic_type": "mean",
                 "values": 32200.0
               }
             ]
@@ -109,12 +109,15 @@
           "curtailment": {
             "category_results": [
               {
-                "applicability_type": "lifetime",
+                "assessment_period": "lifetime",
                 "description": "Curtailment losses.",
+                "dimensions": [
+                  "turbine"
+                ],
                 "label": "Curtailment",
-                "result_components": [
+                "statistics": [
                   {
-                    "component_type": "mean",
+                    "statistic_type": "mean",
                     "values": [
                       [
                         [
@@ -131,7 +134,7 @@
                     ]
                   },
                   {
-                    "component_type": "standard_deviation",
+                    "statistic_type": "standard_deviation",
                     "values": [
                       [
                         [
@@ -147,9 +150,6 @@
                       ]
                     ]
                   }
-                ],
-                "results_dimensions": [
-                  "turbine"
                 ]
               }
             ],
@@ -163,13 +163,16 @@
                   }
                 ],
                 "results": {
-                  "applicability_type": "lifetime",
+                  "assessment_period": "lifetime",
                   "comments": "Considering curtailment strategy as specified by the turbine manufacturer.",
                   "description": "Curtailment due to a wind sector management strategy to reduce turbine loads.",
+                  "dimensions": [
+                    "turbine"
+                  ],
                   "label": "Loads curtailment",
-                  "result_components": [
+                  "statistics": [
                     {
-                      "component_type": "mean",
+                      "statistic_type": "mean",
                       "values": [
                         [
                           [
@@ -186,7 +189,7 @@
                       ]
                     },
                     {
-                      "component_type": "standard_deviation",
+                      "statistic_type": "standard_deviation",
                       "values": [
                         [
                           [
@@ -202,9 +205,6 @@
                         ]
                       ]
                     }
-                  ],
-                  "results_dimensions": [
-                    "turbine"
                   ]
                 },
                 "variability": "static_process"
@@ -214,37 +214,37 @@
         },
         "net_energy_results": [
           {
-            "applicability_type": "lifetime",
+            "assessment_period": "lifetime",
             "label": "Net yield",
-            "result_components": [
+            "statistics": [
               {
-                "component_type": "median",
+                "statistic_type": "median",
                 "values": 31528.6
               },
               {
-                "component_type": "standard_deviation",
+                "statistic_type": "standard_deviation",
                 "values": 3468.1
               },
               {
-                "component_type": "p90",
+                "statistic_type": "p90",
                 "values": 27089.4
               }
             ]
           },
           {
-            "applicability_type": "any_one_year",
+            "assessment_period": "any_one_year",
             "label": "Net yield",
-            "result_components": [
+            "statistics": [
               {
-                "component_type": "median",
+                "statistic_type": "median",
                 "values": 31528.6
               },
               {
-                "component_type": "standard_deviation",
+                "statistic_type": "standard_deviation",
                 "values": 4729.3
               },
               {
-                "component_type": "p90",
+                "statistic_type": "p90",
                 "values": 25475.1
               }
             ]
@@ -255,11 +255,14 @@
       "turbine_wind_resource_assessment": {
         "turbine_wind_resource_results": [
           {
-            "applicability_type": "lifetime",
+            "assessment_period": "lifetime",
+            "dimensions": [
+              "turbine"
+            ],
             "label": "Turbine-location hub-height long-term wind",
-            "result_components": [
+            "statistics": [
               {
-                "component_type": "mean",
+                "statistic_type": "mean",
                 "values": [
                   [
                     [
@@ -275,9 +278,6 @@
                   ]
                 ]
               }
-            ],
-            "results_dimensions": [
-              "turbine"
             ]
           }
         ],
@@ -389,11 +389,14 @@
       "gross_energy_assessment": {
         "results": [
           {
-            "applicability_type": "lifetime",
+            "assessment_period": "lifetime",
+            "dimensions": [
+              "turbine"
+            ],
             "label": "Gross yield",
-            "result_components": [
+            "statistics": [
               {
-                "component_type": "mean",
+                "statistic_type": "mean",
                 "values": [
                   [
                     [
@@ -409,17 +412,14 @@
                   ]
                 ]
               }
-            ],
-            "results_dimensions": [
-              "turbine"
             ]
           },
           {
-            "applicability_type": "lifetime",
+            "assessment_period": "lifetime",
             "label": "Gross yield",
-            "result_components": [
+            "statistics": [
               {
-                "component_type": "mean",
+                "statistic_type": "mean",
                 "values": 37000.0
               }
             ]
@@ -434,12 +434,15 @@
           "curtailment": {
             "category_results": [
               {
-                "applicability_type": "lifetime",
+                "assessment_period": "lifetime",
                 "description": "Curtailment losses.",
+                "dimensions": [
+                  "turbine"
+                ],
                 "label": "Curtailment",
-                "result_components": [
+                "statistics": [
                   {
-                    "component_type": "mean",
+                    "statistic_type": "mean",
                     "values": [
                       [
                         [
@@ -456,7 +459,7 @@
                     ]
                   },
                   {
-                    "component_type": "standard_deviation",
+                    "statistic_type": "standard_deviation",
                     "values": [
                       [
                         [
@@ -472,9 +475,6 @@
                       ]
                     ]
                   }
-                ],
-                "results_dimensions": [
-                  "turbine"
                 ]
               }
             ],
@@ -482,13 +482,16 @@
               {
                 "basis": "project_specific_estimate",
                 "results": {
-                  "applicability_type": "lifetime",
+                  "assessment_period": "lifetime",
                   "comments": "A broad estimate of curtailment losses in the absence of details from the turbine manufacturer.",
                   "description": "Expected curtailment due to a wind sector management to reduce turbine loads.",
+                  "dimensions": [
+                    "turbine"
+                  ],
                   "label": "Loads curtailment",
-                  "result_components": [
+                  "statistics": [
                     {
-                      "component_type": "mean",
+                      "statistic_type": "mean",
                       "values": [
                         [
                           [
@@ -505,7 +508,7 @@
                       ]
                     },
                     {
-                      "component_type": "standard_deviation",
+                      "statistic_type": "standard_deviation",
                       "values": [
                         [
                           [
@@ -521,9 +524,6 @@
                         ]
                       ]
                     }
-                  ],
-                  "results_dimensions": [
-                    "turbine"
                   ]
                 },
                 "variability": "static_process"
@@ -533,37 +533,37 @@
         },
         "net_energy_results": [
           {
-            "applicability_type": "lifetime",
+            "assessment_period": "lifetime",
             "label": "Net yield",
-            "result_components": [
+            "statistics": [
               {
-                "component_type": "median",
+                "statistic_type": "median",
                 "values": 35150.0
               },
               {
-                "component_type": "standard_deviation",
+                "statistic_type": "standard_deviation",
                 "values": 4569.5
               },
               {
-                "component_type": "p90",
+                "statistic_type": "p90",
                 "values": 29301.0
               }
             ]
           },
           {
-            "applicability_type": "any_one_year",
+            "assessment_period": "any_one_year",
             "label": "Net yield",
-            "result_components": [
+            "statistics": [
               {
-                "component_type": "median",
+                "statistic_type": "median",
                 "values": 35150.0
               },
               {
-                "component_type": "standard_deviation",
+                "statistic_type": "standard_deviation",
                 "values": 5799.8
               },
               {
-                "component_type": "p90",
+                "statistic_type": "p90",
                 "values": 27726.3
               }
             ]
@@ -574,11 +574,14 @@
       "turbine_wind_resource_assessment": {
         "turbine_wind_resource_results": [
           {
-            "applicability_type": "lifetime",
+            "assessment_period": "lifetime",
+            "dimensions": [
+              "turbine"
+            ],
             "label": "Turbine-location hub-height long-term wind",
-            "result_components": [
+            "statistics": [
               {
-                "component_type": "mean",
+                "statistic_type": "mean",
                 "values": [
                   [
                     [
@@ -594,9 +597,6 @@
                   ]
                 ]
               }
-            ],
-            "results_dimensions": [
-              "turbine"
             ]
           }
         ],
@@ -712,11 +712,14 @@
     {
       "results": [
         {
-          "applicability_type": "lifetime",
+          "assessment_period": "lifetime",
+          "dimensions": [
+            "measurement"
+          ],
           "label": "Measurement-height long-term wind",
-          "result_components": [
+          "statistics": [
             {
-              "component_type": "mean",
+              "statistic_type": "mean",
               "values": [
                 [
                   [
@@ -726,9 +729,6 @@
                 ]
               ]
             }
-          ],
-          "results_dimensions": [
-            "measurement"
           ]
         }
       ],
@@ -737,11 +737,14 @@
           "historical": {
             "category_results": [
               {
-                "applicability_type": "lifetime",
+                "assessment_period": "lifetime",
+                "dimensions": [
+                  "measurement"
+                ],
                 "label": "Historical wind resource uncertainty",
-                "result_components": [
+                "statistics": [
                   {
-                    "component_type": "standard_deviation",
+                    "statistic_type": "standard_deviation",
                     "values": [
                       [
                         [
@@ -751,9 +754,6 @@
                       ]
                     ]
                   }
-                ],
-                "results_dimensions": [
-                  "measurement"
                 ]
               }
             ],
@@ -761,11 +761,14 @@
               {
                 "label": "Regression model uncertainty",
                 "results": {
-                  "applicability_type": "lifetime",
+                  "assessment_period": "lifetime",
+                  "dimensions": [
+                    "measurement"
+                  ],
                   "label": "Regression model wind speed uncertainty per measurement station",
-                  "result_components": [
+                  "statistics": [
                     {
-                      "component_type": "standard_deviation",
+                      "statistic_type": "standard_deviation",
                       "values": [
                         [
                           [
@@ -775,20 +778,20 @@
                         ]
                       ]
                     }
-                  ],
-                  "results_dimensions": [
-                    "measurement"
                   ]
                 }
               },
               {
                 "label": "Long-term consistency uncertainty",
                 "results": {
-                  "applicability_type": "lifetime",
+                  "assessment_period": "lifetime",
+                  "dimensions": [
+                    "measurement"
+                  ],
                   "label": "Long-term consistency wind speed uncertainty per measurement station",
-                  "result_components": [
+                  "statistics": [
                     {
-                      "component_type": "standard_deviation",
+                      "statistic_type": "standard_deviation",
                       "values": [
                         [
                           [
@@ -798,9 +801,6 @@
                         ]
                       ]
                     }
-                  ],
-                  "results_dimensions": [
-                    "measurement"
                   ]
                 }
               }

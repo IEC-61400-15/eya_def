@@ -7,7 +7,7 @@ from __future__ import annotations
 from enum import StrEnum, auto
 
 
-class ComponentAssessmentBasis(StrEnum):
+class AssessmentBasis(StrEnum):
     """Basis on which a component has been assessed."""
 
     TIMESERIES_CALCULATION = auto()
@@ -20,11 +20,12 @@ class ComponentAssessmentBasis(StrEnum):
     OTHER = auto()
 
 
-class ComponentVariabilityType(StrEnum):
-    """Type of variability considered for a component."""
+class AssessmentPeriod(StrEnum):
+    """Period of or in time that a set of results are applicable."""
 
-    STATIC_PROCESS = auto()
-    ANNUAL_VARIABLE = auto()
+    LIFETIME = auto()
+    ANY_ONE_YEAR = auto()
+    ONE_OPERATIONAL_YEAR = auto()
     OTHER = auto()
 
 
@@ -72,8 +73,8 @@ class PlantPerformanceCategoryLabel(StrEnum):
         return cls.WAKES, cls.BLOCKAGE
 
 
-class PlantPerformanceComponentLabel(StrEnum):
-    """Component labels in the plant performance assessment."""
+class PlantPerformanceSubcategoryLabel(StrEnum):
+    """Subcategory labels in the plant performance assessment."""
 
     # Wakes
     INTERNAL_WAKES = auto()
@@ -122,89 +123,80 @@ class PlantPerformanceComponentLabel(StrEnum):
             component label belongs to.
         """
         component_to_category_map: dict[
-            PlantPerformanceComponentLabel, PlantPerformanceCategoryLabel
+            PlantPerformanceSubcategoryLabel, PlantPerformanceCategoryLabel
         ] = {
-            PlantPerformanceComponentLabel.INTERNAL_WAKES: (
+            PlantPerformanceSubcategoryLabel.INTERNAL_WAKES: (
                 PlantPerformanceCategoryLabel.WAKES
             ),
-            PlantPerformanceComponentLabel.EXTERNAL_WAKES: (
+            PlantPerformanceSubcategoryLabel.EXTERNAL_WAKES: (
                 PlantPerformanceCategoryLabel.WAKES
             ),
-            PlantPerformanceComponentLabel.FUTURE_WAKES: (
+            PlantPerformanceSubcategoryLabel.FUTURE_WAKES: (
                 PlantPerformanceCategoryLabel.WAKES
             ),
-            PlantPerformanceComponentLabel.INTERNAL_BLOCKAGE: (
+            PlantPerformanceSubcategoryLabel.INTERNAL_BLOCKAGE: (
                 PlantPerformanceCategoryLabel.BLOCKAGE
             ),
-            PlantPerformanceComponentLabel.EXTERNAL_BLOCKAGE: (
+            PlantPerformanceSubcategoryLabel.EXTERNAL_BLOCKAGE: (
                 PlantPerformanceCategoryLabel.BLOCKAGE
             ),
-            PlantPerformanceComponentLabel.FUTURE_BLOCKAGE: (
+            PlantPerformanceSubcategoryLabel.FUTURE_BLOCKAGE: (
                 PlantPerformanceCategoryLabel.BLOCKAGE
             ),
-            PlantPerformanceComponentLabel.TURBINE_AVAILABILITY: (
+            PlantPerformanceSubcategoryLabel.TURBINE_AVAILABILITY: (
                 PlantPerformanceCategoryLabel.AVAILABILITY
             ),
-            PlantPerformanceComponentLabel.BOP_AVAILABILITY: (
+            PlantPerformanceSubcategoryLabel.BOP_AVAILABILITY: (
                 PlantPerformanceCategoryLabel.AVAILABILITY
             ),
-            PlantPerformanceComponentLabel.GRID_AVAILABILITY: (
+            PlantPerformanceSubcategoryLabel.GRID_AVAILABILITY: (
                 PlantPerformanceCategoryLabel.AVAILABILITY
             ),
-            PlantPerformanceComponentLabel.ELECTRICAL_EFFICIENCY: (
+            PlantPerformanceSubcategoryLabel.ELECTRICAL_EFFICIENCY: (
                 PlantPerformanceCategoryLabel.ELECTRICAL
             ),
-            PlantPerformanceComponentLabel.FACILITY_PARASITIC_CONSUMPTION: (
+            PlantPerformanceSubcategoryLabel.FACILITY_PARASITIC_CONSUMPTION: (
                 PlantPerformanceCategoryLabel.ELECTRICAL
             ),
-            PlantPerformanceComponentLabel.SUB_OPTIMAL_PERFORMANCE: (
+            PlantPerformanceSubcategoryLabel.SUB_OPTIMAL_PERFORMANCE: (
                 PlantPerformanceCategoryLabel.TURBINE_PERFORMANCE
             ),
-            PlantPerformanceComponentLabel.GENERIC_POWER_CURVE_ADJUSTMENT: (
+            PlantPerformanceSubcategoryLabel.GENERIC_POWER_CURVE_ADJUSTMENT: (
                 PlantPerformanceCategoryLabel.TURBINE_PERFORMANCE
             ),
-            PlantPerformanceComponentLabel.SITE_SPECIFIC_POWER_CURVE_ADJUSTMENT: (
+            PlantPerformanceSubcategoryLabel.SITE_SPECIFIC_POWER_CURVE_ADJUSTMENT: (
                 PlantPerformanceCategoryLabel.TURBINE_PERFORMANCE
             ),
-            PlantPerformanceComponentLabel.HIGH_WIND_HYSTERESIS: (
+            PlantPerformanceSubcategoryLabel.HIGH_WIND_HYSTERESIS: (
                 PlantPerformanceCategoryLabel.TURBINE_PERFORMANCE
             ),
-            PlantPerformanceComponentLabel.ICING: (
+            PlantPerformanceSubcategoryLabel.ICING: (
                 PlantPerformanceCategoryLabel.ENVIRONMENTAL
             ),
-            PlantPerformanceComponentLabel.DEGRADATION: (
+            PlantPerformanceSubcategoryLabel.DEGRADATION: (
                 PlantPerformanceCategoryLabel.ENVIRONMENTAL
             ),
-            PlantPerformanceComponentLabel.EXTERNAL_CONDITIONS: (
+            PlantPerformanceSubcategoryLabel.EXTERNAL_CONDITIONS: (
                 PlantPerformanceCategoryLabel.ENVIRONMENTAL
             ),
-            PlantPerformanceComponentLabel.EXPOSURE_CHANGES: (
+            PlantPerformanceSubcategoryLabel.EXPOSURE_CHANGES: (
                 PlantPerformanceCategoryLabel.ENVIRONMENTAL
             ),
-            PlantPerformanceComponentLabel.LOAD_CURTAILMENT: (
+            PlantPerformanceSubcategoryLabel.LOAD_CURTAILMENT: (
                 PlantPerformanceCategoryLabel.CURTAILMENT
             ),
-            PlantPerformanceComponentLabel.GRID_CURTAILMENT: (
+            PlantPerformanceSubcategoryLabel.GRID_CURTAILMENT: (
                 PlantPerformanceCategoryLabel.CURTAILMENT
             ),
-            PlantPerformanceComponentLabel.ENVIRONMENTAL_CURTAILMENT: (
+            PlantPerformanceSubcategoryLabel.ENVIRONMENTAL_CURTAILMENT: (
                 PlantPerformanceCategoryLabel.CURTAILMENT
             ),
-            PlantPerformanceComponentLabel.OPERATIONAL_STRATEGIES: (
+            PlantPerformanceSubcategoryLabel.OPERATIONAL_STRATEGIES: (
                 PlantPerformanceCategoryLabel.CURTAILMENT
             ),
-            PlantPerformanceComponentLabel.OTHER: PlantPerformanceCategoryLabel.OTHER,
+            PlantPerformanceSubcategoryLabel.OTHER: PlantPerformanceCategoryLabel.OTHER,
         }
         return component_to_category_map[self]
-
-
-class ResultsApplicabilityType(StrEnum):
-    """Period of or in time that a set of results are applicable."""
-
-    LIFETIME = auto()
-    ANY_ONE_YEAR = auto()
-    ONE_OPERATIONAL_YEAR = auto()
-    OTHER = auto()
 
 
 class ResultsDimension(StrEnum):
@@ -231,6 +223,14 @@ class StatisticType(StrEnum):
     P75 = auto()
     P90 = auto()
     P99 = auto()
+
+
+class VariabilityType(StrEnum):
+    """Type of time variability considered for an assessment element."""
+
+    STATIC_PROCESS = auto()
+    ANNUAL_VARIABLE = auto()
+    OTHER = auto()
 
 
 class UncertaintyCategoryLabel(StrEnum):

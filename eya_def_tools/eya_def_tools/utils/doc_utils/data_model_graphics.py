@@ -10,7 +10,7 @@ import erdantic as erd
 
 import eya_def_tools.data_models.turbine_model
 import eya_def_tools.data_models.wind_farm
-from eya_def_tools.data_models import energy_yield_assessment, results, spatial
+from eya_def_tools.data_models import energy_yield_assessment, result, spatial
 
 
 def draw_eya_def_all_levels() -> None:
@@ -49,7 +49,7 @@ def draw_scenario() -> None:
 
 def draw_results() -> None:
     """Draw diagram representation of the results level data model."""
-    diagram = erd.create(results.Results)
+    diagram = erd.create(result.Result)
     diagram.draw("results.png")
     diagram.draw("results.svg")
 

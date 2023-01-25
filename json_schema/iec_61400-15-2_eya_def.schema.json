@@ -4,6 +4,32 @@
   "$version": "0.0.1",
   "additionalProperties": false,
   "definitions": {
+    "AssessmentBasis": {
+      "description": "Basis on which a component has been assessed.",
+      "enum": [
+        "timeseries_calculation",
+        "distribution_calculation",
+        "other_calculation",
+        "project_specific_estimate",
+        "regional_assumption",
+        "generic_assumption",
+        "not_considered",
+        "other"
+      ],
+      "title": "AssessmentBasis",
+      "type": "string"
+    },
+    "AssessmentPeriod": {
+      "description": "Period of or in time that a set of results are applicable.",
+      "enum": [
+        "lifetime",
+        "any_one_year",
+        "one_operational_year",
+        "other"
+      ],
+      "title": "AssessmentPeriod",
+      "type": "string"
+    },
     "CalculationModelSpecification": {
       "description": "Specification of a model used in an energy assessment.",
       "properties": {
@@ -38,31 +64,6 @@
         "string",
         "null"
       ]
-    },
-    "ComponentAssessmentBasis": {
-      "description": "Basis on which a component has been assessed.",
-      "enum": [
-        "timeseries_calculation",
-        "distribution_calculation",
-        "other_calculation",
-        "project_specific_estimate",
-        "regional_assumption",
-        "generic_assumption",
-        "not_considered",
-        "other"
-      ],
-      "title": "ComponentAssessmentBasis",
-      "type": "string"
-    },
-    "ComponentVariabilityType": {
-      "description": "Type of variability considered for a component.",
-      "enum": [
-        "static_process",
-        "annual_variable",
-        "other"
-      ],
-      "title": "ComponentVariabilityType",
-      "type": "string"
     },
     "CoordinateReferenceSystem": {
       "description": "Specification of a coordinate reference system for GIS data.",
@@ -117,7 +118,7 @@
         "results": {
           "description": "Gross energy yield results.",
           "items": {
-            "$ref": "#/definitions/Results"
+            "$ref": "#/definitions/Result"
           },
           "title": "Results",
           "type": "array"
@@ -280,7 +281,7 @@
         "net_energy_results": {
           "description": "Net energy yield results at different confidence limits.",
           "items": {
-            "$ref": "#/definitions/Results"
+            "$ref": "#/definitions/Result"
           },
           "title": "Net Energy Results",
           "type": "array"
@@ -304,7 +305,7 @@
         "category_results": {
           "description": "Category level assessment results.",
           "items": {
-            "$ref": "#/definitions/Results"
+            "$ref": "#/definitions/Result"
           },
           "title": "Category Results",
           "type": "array"
@@ -329,7 +330,7 @@
       "description": "Plant performance assessment component.",
       "properties": {
         "basis": {
-          "$ref": "#/definitions/ComponentAssessmentBasis",
+          "$ref": "#/definitions/AssessmentBasis",
           "description": "Basis of plant performance element assessment."
         },
         "calculation_models": {
@@ -344,12 +345,12 @@
           ]
         },
         "results": {
-          "$ref": "#/definitions/Results",
+          "$ref": "#/definitions/Result",
           "description": "Plant performance assessment component results.",
           "title": "Results"
         },
         "variability": {
-          "$ref": "#/definitions/ComponentVariabilityType",
+          "$ref": "#/definitions/VariabilityType",
           "description": "Considered variability in plant performance element."
         }
       },
@@ -434,13 +435,13 @@
       "title": "ReportContributor",
       "type": "object"
     },
-    "Results": {
+    "Result": {
       "description": "Set of results for an element of an energy assessment.",
       "properties": {
-        "applicability_type": {
-          "$ref": "#/definitions/ResultsApplicabilityType",
+        "assessment_period": {
+          "$ref": "#/definitions/AssessmentPeriod",
           "default": "lifetime",
-          "description": "Applicability type of the results.",
+          "description": "Period of or in time that has been assessed and for which the results are applicable.",
           "examples": [
             "lifetime",
             "any_one_year"
@@ -452,27 +453,8 @@
         "description": {
           "$ref": "#/definitions/Description"
         },
-        "label": {
-          "description": "Label of the results.",
-          "examples": [
-            "Seasonal distribution of net energy."
-          ],
-          "title": "Label",
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "result_components": {
-          "description": "List of result components.",
-          "items": {
-            "$ref": "#/definitions/ResultsComponent"
-          },
-          "title": "Result Components",
-          "type": "array"
-        },
-        "results_dimensions": {
-          "description": "Dimensions along which the results are binned.",
+        "dimensions": {
+          "description": "Dimensions along which the results are binned (all result values in the same results object must have the same dimensions).",
           "examples": [
             [
               "turbine",
@@ -490,42 +472,50 @@
             "array",
             "null"
           ]
+        },
+        "label": {
+          "description": "Label of the results.",
+          "examples": [
+            "Seasonal distribution of net energy."
+          ],
+          "title": "Label",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "statistics": {
+          "description": "List of result statistic.",
+          "items": {
+            "$ref": "#/definitions/ResultStatistic"
+          },
+          "title": "Statistics",
+          "type": "array"
         }
       },
       "required": [
         "label",
-        "result_components"
+        "statistics"
       ],
-      "title": "Results",
+      "title": "Result",
       "type": "object"
     },
-    "ResultsApplicabilityType": {
-      "description": "Period of or in time that a set of results are applicable.",
-      "enum": [
-        "lifetime",
-        "any_one_year",
-        "one_operational_year",
-        "other"
-      ],
-      "title": "ResultsApplicabilityType",
-      "type": "string"
-    },
-    "ResultsComponent": {
-      "description": "Component of a set of results.",
+    "ResultStatistic": {
+      "description": "Result values for one specific statistic type.",
       "properties": {
         "comments": {
           "$ref": "#/definitions/Comments"
         },
-        "component_type": {
+        "description": {
+          "$ref": "#/definitions/Description"
+        },
+        "statistic_type": {
           "$ref": "#/definitions/StatisticType",
           "description": "Type of statistic in the results component.",
           "examples": [
             "median",
             "p90"
           ]
-        },
-        "description": {
-          "$ref": "#/definitions/Description"
         },
         "values": {
           "anyOf": [
@@ -568,10 +558,10 @@
         }
       },
       "required": [
-        "component_type",
+        "statistic_type",
         "values"
       ],
-      "title": "ResultsComponent",
+      "title": "ResultStatistic",
       "type": "object"
     },
     "ResultsDimension": {
@@ -804,7 +794,7 @@
         "turbine_wind_resource_results": {
           "description": "Assessment results at the turbine location(s).",
           "items": {
-            "$ref": "#/definitions/Results"
+            "$ref": "#/definitions/Result"
           },
           "title": "Turbine Wind Resource Results",
           "type": "array"
@@ -854,7 +844,7 @@
         "category_results": {
           "description": "Category level assessment results.",
           "items": {
-            "$ref": "#/definitions/Results"
+            "$ref": "#/definitions/Result"
           },
           "title": "Category Results",
           "type": "array"
@@ -893,7 +883,7 @@
           "type": "string"
         },
         "results": {
-          "$ref": "#/definitions/Results",
+          "$ref": "#/definitions/Result",
           "description": "Wind resource uncertainty assessment component results.",
           "title": "Results"
         }
@@ -904,6 +894,16 @@
       ],
       "title": "UncertaintyComponent",
       "type": "object"
+    },
+    "VariabilityType": {
+      "description": "Type of time variability considered for an assessment element.",
+      "enum": [
+        "static_process",
+        "annual_variable",
+        "other"
+      ],
+      "title": "VariabilityType",
+      "type": "string"
     },
     "WindFarmConfiguration": {
       "description": "A collection of wind turbines considered as one unit (plant).",
@@ -1009,7 +1009,7 @@
         "results": {
           "description": "Assessment results at the measurement location(s).",
           "items": {
-            "$ref": "#/definitions/Results"
+            "$ref": "#/definitions/Result"
           },
           "title": "Results",
           "type": "array"

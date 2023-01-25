@@ -6,7 +6,7 @@ import pytest
 
 from eya_def_tools.data_models.enums import (
     PlantPerformanceCategoryLabel,
-    PlantPerformanceComponentLabel,
+    PlantPerformanceSubcategoryLabel,
 )
 
 
@@ -28,21 +28,21 @@ def test_plant_performance_category_label_returns_correct_is_turbine_interaction
     "plant_performance_component_label, expected",
     [
         (
-            PlantPerformanceComponentLabel.INTERNAL_WAKES,
+            PlantPerformanceSubcategoryLabel.INTERNAL_WAKES,
             PlantPerformanceCategoryLabel.WAKES,
         ),
         (
-            PlantPerformanceComponentLabel.EXTERNAL_BLOCKAGE,
+            PlantPerformanceSubcategoryLabel.EXTERNAL_BLOCKAGE,
             PlantPerformanceCategoryLabel.BLOCKAGE,
         ),
         (
-            PlantPerformanceComponentLabel.TURBINE_AVAILABILITY,
+            PlantPerformanceSubcategoryLabel.TURBINE_AVAILABILITY,
             PlantPerformanceCategoryLabel.AVAILABILITY,
         ),
     ],
 )
 def test_plant_performance_component_label_returns_correct_category(
-    plant_performance_component_label: PlantPerformanceComponentLabel,
+    plant_performance_component_label: PlantPerformanceSubcategoryLabel,
     expected: PlantPerformanceCategoryLabel,
 ) -> None:
     assert plant_performance_component_label.category() == expected
