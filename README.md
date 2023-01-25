@@ -21,7 +21,7 @@ below.
 
   ![data_model_top_levels_diagram](https://github.com/IEC-61400-15/energy_yield_reporting_DEF/blob/main/eya_def_top_level.svg)
 
-The python package (see [below](#python-package)) uses [erdantic](
+The python package (see [below](#Python-package)) uses [erdantic](
 https://erdantic.drivendata.org/stable/) to generate graphical
 representations of the data model.
 
