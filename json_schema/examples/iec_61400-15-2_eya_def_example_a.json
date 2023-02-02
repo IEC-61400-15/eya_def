@@ -105,8 +105,8 @@
       "label": "A",
       "operational_lifetime_length_years": 30.0,
       "plant_performance_assessment": {
-        "categories": {
-          "curtailment": {
+        "categories": [
+          {
             "category_results": [
               {
                 "assessment_period": "lifetime",
@@ -153,7 +153,8 @@
                 ]
               }
             ],
-            "components": [
+            "label": "curtailment",
+            "subcategories": [
               {
                 "basis": "timeseries_calculation",
                 "calculation_models": [
@@ -162,6 +163,7 @@
                     "name": "Timeseries tool"
                   }
                 ],
+                "label": "load_curtailment",
                 "results": {
                   "assessment_period": "lifetime",
                   "comments": "Considering curtailment strategy as specified by the turbine manufacturer.",
@@ -211,7 +213,7 @@
               }
             ]
           }
-        },
+        ],
         "net_energy_results": [
           {
             "assessment_period": "lifetime",
@@ -430,8 +432,8 @@
       "label": "B",
       "operational_lifetime_length_years": 30.0,
       "plant_performance_assessment": {
-        "categories": {
-          "curtailment": {
+        "categories": [
+          {
             "category_results": [
               {
                 "assessment_period": "lifetime",
@@ -478,9 +480,11 @@
                 ]
               }
             ],
-            "components": [
+            "label": "curtailment",
+            "subcategories": [
               {
                 "basis": "project_specific_estimate",
+                "label": "load_curtailment",
                 "results": {
                   "assessment_period": "lifetime",
                   "comments": "A broad estimate of curtailment losses in the absence of details from the turbine manufacturer.",
@@ -530,7 +534,7 @@
               }
             ]
           }
-        },
+        ],
         "net_energy_results": [
           {
             "assessment_period": "lifetime",
@@ -733,8 +737,8 @@
         }
       ],
       "uncertainty_assessment": {
-        "categories": {
-          "historical": {
+        "categories": [
+          {
             "category_results": [
               {
                 "assessment_period": "lifetime",
@@ -757,7 +761,8 @@
                 ]
               }
             ],
-            "components": [
+            "label": "historical",
+            "subcategories": [
               {
                 "label": "Regression model uncertainty",
                 "results": [
@@ -810,7 +815,7 @@
               }
             ]
           }
-        }
+        ]
       }
     }
   ]

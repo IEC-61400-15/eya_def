@@ -568,9 +568,9 @@ def wind_spatial_model_a() -> eya.CalculationModelSpecification:
 
 
 @pytest.fixture(scope="session")
-def regression_model_uncertainty_component_a() -> eya.UncertaintyComponent:
+def regression_model_uncertainty_component_a() -> eya.UncertaintySubcategory:
     """Regression model test case 'a' of ``UncertaintyComponent``."""
-    return eya.UncertaintyComponent(
+    return eya.UncertaintySubcategory(
         label="Regression model uncertainty",
         results=[
             result.Result(
@@ -594,9 +594,9 @@ def regression_model_uncertainty_component_a() -> eya.UncertaintyComponent:
 
 
 @pytest.fixture(scope="session")
-def long_term_consistency_uncertainty_component_a() -> eya.UncertaintyComponent:
+def long_term_consistency_uncertainty_component_a() -> eya.UncertaintySubcategory:
     """Long-term consistency test case 'a' of ``UncertaintyComponent``."""
-    return eya.UncertaintyComponent(
+    return eya.UncertaintySubcategory(
         label="Long-term consistency uncertainty",
         results=[
             result.Result(
@@ -624,14 +624,15 @@ def long_term_consistency_uncertainty_component_a() -> eya.UncertaintyComponent:
 
 @pytest.fixture(scope="session")
 def measurement_wind_uncertainty_assessment_a(
-    regression_model_uncertainty_component_a: eya.UncertaintyComponent,
-    long_term_consistency_uncertainty_component_a: eya.UncertaintyComponent,
+    regression_model_uncertainty_component_a: eya.UncertaintySubcategory,
+    long_term_consistency_uncertainty_component_a: eya.UncertaintySubcategory,
 ) -> eya.UncertaintyAssessment:
     """Measurement test case instance 'a' of ``UncertaintyAssessment``."""
     return eya.UncertaintyAssessment(
-        categories={
-            enums.UncertaintyCategoryLabel.HISTORICAL: eya.UncertaintyCategory(
-                components=[
+        categories=[
+            eya.UncertaintyCategory(
+                label=enums.UncertaintyCategoryLabel.HISTORICAL,
+                subcategories=[
                     regression_model_uncertainty_component_a,
                     long_term_consistency_uncertainty_component_a,
                 ],
@@ -654,7 +655,7 @@ def measurement_wind_uncertainty_assessment_a(
                     )
                 ],
             )
-        }
+        ]
     )
 
 
@@ -869,8 +870,10 @@ def plant_performance_curtailment_category_a() -> eya.PlantPerformanceCategory:
         ),
     ]
     return eya.PlantPerformanceCategory(
-        components=[
-            eya.PlantPerformanceComponent(
+        label=enums.PlantPerformanceCategoryLabel.CURTAILMENT,
+        subcategories=[
+            eya.PlantPerformanceSubcategory(
+                label=enums.PlantPerformanceSubcategoryLabel.LOAD_CURTAILMENT,
                 basis=enums.AssessmentBasis.TIMESERIES_CALCULATION,
                 variability=enums.VariabilityType.STATIC_PROCESS,
                 calculation_models=[
@@ -938,8 +941,10 @@ def plant_performance_curtailment_category_b() -> eya.PlantPerformanceCategory:
         ),
     ]
     return eya.PlantPerformanceCategory(
-        components=[
-            eya.PlantPerformanceComponent(
+        label=enums.PlantPerformanceCategoryLabel.CURTAILMENT,
+        subcategories=[
+            eya.PlantPerformanceSubcategory(
+                label=enums.PlantPerformanceSubcategoryLabel.LOAD_CURTAILMENT,
                 basis=enums.AssessmentBasis.PROJECT_SPECIFIC_ESTIMATE,
                 variability=enums.VariabilityType.STATIC_PROCESS,
                 results=result.Result(
@@ -976,11 +981,8 @@ def plant_performance_assessment_a(
     plant_performance_curtailment_category_a: eya.PlantPerformanceCategory,
 ) -> eya.PlantPerformanceAssessment:
     """Test case instance 'a' of ``PlantPerformanceAssessment``."""
-    curtailment_category_label = enums.PlantPerformanceCategoryLabel.CURTAILMENT
     return eya.PlantPerformanceAssessment(
-        categories={
-            curtailment_category_label: plant_performance_curtailment_category_a
-        },
+        categories=[plant_performance_curtailment_category_a],
         net_energy_results=[
             result.Result(
                 label="Net yield",
@@ -1029,11 +1031,8 @@ def plant_performance_assessment_b(
     plant_performance_curtailment_category_b: eya.PlantPerformanceCategory,
 ) -> eya.PlantPerformanceAssessment:
     """Test case instance 'b' of ``PlantPerformanceAssessment``."""
-    curtailment_category_label = enums.PlantPerformanceCategoryLabel.CURTAILMENT
     return eya.PlantPerformanceAssessment(
-        categories={
-            curtailment_category_label: plant_performance_curtailment_category_b
-        },
+        categories=[plant_performance_curtailment_category_b],
         net_energy_results=[
             result.Result(
                 label="Net yield",

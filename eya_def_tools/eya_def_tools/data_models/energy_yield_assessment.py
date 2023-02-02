@@ -13,6 +13,7 @@ from eya_def_tools.data_models.base_models import BaseModelWithRefs, EyaDefBaseM
 from eya_def_tools.data_models.enums import (
     AssessmentBasis,
     PlantPerformanceCategoryLabel,
+    PlantPerformanceSubcategoryLabel,
     UncertaintyCategoryLabel,
     VariabilityType,
 )
@@ -64,26 +65,30 @@ class CalculationModelSpecification(EyaDefBaseModel):
 # TODO - this needs to be completed with more fields for relevant details
 #      - it may need to be separated for the measurement wind resource
 #        assessment and the turbine wind resource assessment
-class UncertaintyComponent(EyaDefBaseModel):
-    """Wind resource uncertainty assessment component."""
+class UncertaintySubcategory(EyaDefBaseModel):
+    """Wind resource uncertainty assessment subcategory."""
 
+    # TODO this should also be an enum
     label: str = pdt.Field(
         ...,
-        description="Label of the wind uncertainty component.",
+        description="Label of the wind resource uncertainty subcategory.",
         examples=["Long-term consistency"],
     )
     description: str | None = description_field
     comments: str | None = comments_field
     results: list[Result] = pdt.Field(
-        ..., description="Wind resource uncertainty assessment component results."
+        ..., description="Wind resource uncertainty assessment subcategory results."
     )
 
 
 class UncertaintyCategory(EyaDefBaseModel):
     """Wind resource uncertainty assessment category."""
 
-    components: list[UncertaintyComponent] = pdt.Field(
-        ..., description="Wind resource uncertainty assessment components."
+    label: UncertaintyCategoryLabel = pdt.Field(
+        ..., description="Label of the uncertainty category."
+    )
+    subcategories: list[UncertaintySubcategory] = pdt.Field(
+        ..., description="Wind resource uncertainty assessment subcategories."
     )
     category_results: list[Result] = pdt.Field(
         ..., description="Category level assessment results."
@@ -91,10 +96,10 @@ class UncertaintyCategory(EyaDefBaseModel):
 
 
 class UncertaintyAssessment(EyaDefBaseModel):
-    """Wind resource uncertainty assessment including all components."""
+    """Wind resource uncertainty assessment."""
 
-    categories: dict[UncertaintyCategoryLabel, UncertaintyCategory] = pdt.Field(
-        ..., description="Wind resource uncertainty assessment categories."
+    categories: list[UncertaintyCategory] = pdt.Field(
+        ..., description="List of wind resource uncertainty assessment categories."
     )
 
 
@@ -152,9 +157,12 @@ class GrossEnergyAssessment(EyaDefBaseModel):
     results: list[Result] = pdt.Field(..., description="Gross energy yield results.")
 
 
-class PlantPerformanceComponent(EyaDefBaseModel):
-    """Plant performance assessment component."""
+class PlantPerformanceSubcategory(EyaDefBaseModel):
+    """Plant performance assessment subcategory."""
 
+    label: PlantPerformanceSubcategoryLabel = pdt.Field(
+        ..., description="Label of the plant performance category."
+    )
     basis: AssessmentBasis = pdt.Field(
         ..., description="Basis of plant performance element assessment."
     )
@@ -165,15 +173,21 @@ class PlantPerformanceComponent(EyaDefBaseModel):
         None, description="Calculation models used in the assessment."
     )
     results: Result = pdt.Field(
-        ..., description="Plant performance assessment component results."
+        ..., description="Plant performance assessment subcategory results."
     )
 
 
 class PlantPerformanceCategory(EyaDefBaseModel):
     """Plant performance assessment category."""
 
-    components: list[PlantPerformanceComponent] = pdt.Field(
-        ..., description="Plant performance assessment category components."
+    label: PlantPerformanceCategoryLabel = pdt.Field(
+        ..., description="Label of the plant performance category."
+    )
+    subcategories: list[PlantPerformanceSubcategory] = pdt.Field(
+        ...,
+        description=(
+            "Plant performance assessment subcategories that fall under the category."
+        ),
     )
     category_results: list[Result] = pdt.Field(
         ..., description="Category level assessment results."
@@ -183,9 +197,9 @@ class PlantPerformanceCategory(EyaDefBaseModel):
 class PlantPerformanceAssessment(EyaDefBaseModel):
     """Plant performance assessment details and results."""
 
-    categories: dict[
-        PlantPerformanceCategoryLabel, PlantPerformanceCategory
-    ] = pdt.Field(..., description="Plant performance assessment categories.")
+    categories: list[PlantPerformanceCategory] = pdt.Field(
+        ..., description="Plant performance assessment categories."
+    )
     # TODO remove optional
     net_energy_uncertainty_assessment: UncertaintyAssessment | None = pdt.Field(
         None, description="Net energy uncertainty assessment."
