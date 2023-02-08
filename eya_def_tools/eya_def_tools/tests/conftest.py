@@ -20,6 +20,8 @@ from eya_def_tools.data_models import energy_yield_assessment as eya
 from eya_def_tools.data_models import (
     enums,
     measurement_station,
+    organisation,
+    report_metadata,
     result,
     spatial,
     turbine_model,
@@ -1126,9 +1128,9 @@ def scenario_b(
 
 
 @pytest.fixture(scope="session")
-def issuing_organisation_a() -> eya.Organisation:
+def issuing_organisation_a() -> organisation.Organisation:
     """Issuing organisation test case instance 'a' of ``Organisation``."""
-    return eya.Organisation(
+    return organisation.Organisation(
         name="The Torre Egger Consultants Limited",
         abbreviation="Torre Egger",
         address="5 Munro Road, Sgurrsville, G12 0YE, UK",
@@ -1136,9 +1138,9 @@ def issuing_organisation_a() -> eya.Organisation:
 
 
 @pytest.fixture(scope="session")
-def receiving_organisations_a() -> eya.Organisation:
+def receiving_organisations_a() -> organisation.Organisation:
     """receiving organisation test case instance 'a' of ``Organisation``."""
-    return eya.Organisation(
+    return organisation.Organisation(
         name="Miranda Investments Limited",
         abbreviation="Miranda",
         address="9 Acosta St., Ivanslake, Republic of Miranda",
@@ -1147,9 +1149,9 @@ def receiving_organisations_a() -> eya.Organisation:
 
 
 @pytest.fixture(scope="session")
-def main_author_a() -> eya.ReportContributor:
+def main_author_a() -> report_metadata.ReportContributor:
     """Main author test case instance 'a' of ``ReportContributor``."""
-    return eya.ReportContributor(
+    return report_metadata.ReportContributor(
         name="Joan Miro",
         email_address=pdt.EmailStr("j.miro@art.cat"),
         contributor_type="author",
@@ -1159,9 +1161,9 @@ def main_author_a() -> eya.ReportContributor:
 
 
 @pytest.fixture(scope="session")
-def second_author_a() -> eya.ReportContributor:
+def second_author_a() -> report_metadata.ReportContributor:
     """Second author test case instance 'a' of ``ReportContributor``."""
-    return eya.ReportContributor(
+    return report_metadata.ReportContributor(
         name="Andrei Tarkovsky",
         email_address=pdt.EmailStr("andrei.tarkovsky@cinema.com"),
         contributor_type="author",
@@ -1171,9 +1173,9 @@ def second_author_a() -> eya.ReportContributor:
 
 
 @pytest.fixture(scope="session")
-def verifier_a() -> eya.ReportContributor:
+def verifier_a() -> report_metadata.ReportContributor:
     """Verifier test case instance 'a' of ``ReportContributor``."""
-    return eya.ReportContributor(
+    return report_metadata.ReportContributor(
         name="Hanns Eisler",
         email_address=pdt.EmailStr("hannseisler@udk-berlin.de"),
         contributor_type="verifier",
@@ -1182,9 +1184,9 @@ def verifier_a() -> eya.ReportContributor:
 
 
 @pytest.fixture(scope="session")
-def approver_a() -> eya.ReportContributor:
+def approver_a() -> report_metadata.ReportContributor:
     """Approver test case instance 'a' of ``ReportContributor``."""
-    return eya.ReportContributor(
+    return report_metadata.ReportContributor(
         name="Kurt Weill",
         email_address=pdt.EmailStr("weill@broadway.com"),
         contributor_type="approver",
@@ -1202,12 +1204,12 @@ def energy_yield_assessment_a(
     wind_resource_assessment_a: eya.WindResourceAssessment,
     scenario_a: eya.Scenario,
     scenario_b: eya.Scenario,
-    issuing_organisation_a: eya.Organisation,
-    receiving_organisations_a: eya.Organisation,
-    main_author_a: eya.ReportContributor,
-    second_author_a: eya.ReportContributor,
-    verifier_a: eya.ReportContributor,
-    approver_a: eya.ReportContributor,
+    issuing_organisation_a: organisation.Organisation,
+    receiving_organisations_a: organisation.Organisation,
+    main_author_a: report_metadata.ReportContributor,
+    second_author_a: report_metadata.ReportContributor,
+    verifier_a: report_metadata.ReportContributor,
+    approver_a: report_metadata.ReportContributor,
 ) -> eya.EnergyYieldAssessment:
     """Test case instance 'a' of ``EnergyYieldAssessment``."""
     return eya.EnergyYieldAssessment(

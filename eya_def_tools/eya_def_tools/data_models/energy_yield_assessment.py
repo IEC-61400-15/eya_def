@@ -5,20 +5,24 @@
 from __future__ import annotations
 
 import datetime as dt
-from typing import Any, Literal, Type
+from typing import Any, Type
 
 import pydantic as pdt
 
 from eya_def_tools.data_models.base_models import BaseModelWithRefs, EyaDefBaseModel
 from eya_def_tools.data_models.enums import (
     AssessmentBasis,
+    OperationalDataType,
     PlantPerformanceCategoryLabel,
     PlantPerformanceSubcategoryLabel,
+    TimeResolution,
     UncertaintyCategoryLabel,
     VariabilityType,
 )
 from eya_def_tools.data_models.fields import comments_field, description_field
 from eya_def_tools.data_models.measurement_station import MeasurementStationMetadata
+from eya_def_tools.data_models.organisation import Organisation
+from eya_def_tools.data_models.report_metadata import ReportContributor
 from eya_def_tools.data_models.result import Result
 from eya_def_tools.data_models.spatial import CoordinateReferenceSystem
 from eya_def_tools.data_models.turbine_model import TurbineModel
@@ -35,18 +39,81 @@ from eya_def_tools.utils.reference_utils import (
 )
 
 
+class ReferenceWindFarmDataset(EyaDefBaseModel):
+    """Reference wind farm operational dataset metadata."""
+
+    data_supplier_organisation: Organisation = pdt.Field(
+        ...,
+        description="The organisation that supplied the data.",
+    )
+    data_type: OperationalDataType = pdt.Field(
+        ...,
+        description="The type of operational data.",
+    )
+    time_resolution: TimeResolution = pdt.Field(
+        ...,
+        description="Time resolution of the data.",
+    )
+    data_period_start: dt.date = pdt.Field(
+        ...,
+        description=(
+            "Start of the data period in the ISO 8601 standard format for a "
+            "calendar date, i.e. YYYY-MM-DD."
+        ),
+        examples=["2015-10-20"],
+    )
+    data_period_end: dt.date = pdt.Field(
+        ...,
+        description=(
+            "End of the data period in the ISO 8601 standard format for a "
+            "calendar date, i.e. YYYY-MM-DD."
+        ),
+        examples=["2021-11-30"],
+    )
+
+
 class ReferenceWindFarm(EyaDefBaseModel):
     """Reference wind farm metadata."""
 
-    # TODO - placeholder to be implemented
-    pass
+    reference_wind_farm_id: str = pdt.Field(
+        ...,
+        description="Unique ID for the reference wind farm within the EYA DEF document.",
+        examples=["fe1dba61-d6d6-45ef-beb4-ff569660fb14", "PharaohWindFarmPhIV"],
+    )
+    wind_farm_configuration: WindFarmConfiguration = pdt.Field(
+        ...,
+        description="The configuration data for the reference wind farm.",
+    )
+    datasets: list[ReferenceWindFarmDataset] = pdt.Field(
+        ...,
+        description="Metadata for the operational dataset.",
+    )
 
 
 class ReferenceWindFarmBasis(EyaDefBaseModel):
     """Reference wind farm basis in a wind resource assessment."""
 
-    # TODO - placeholder to be implemented
-    pass
+    reference_wind_farm_ids: list[str] = pdt.Field(
+        ...,
+        description="List of the IDs of all reference wind farms used in an assessment.",
+    )
+
+
+class ReferenceWindFarmAssessment(EyaDefBaseModel):
+    """Details of an assessment of reference wind farm data."""
+
+    raw_data_availability: list[Result] = pdt.Field(
+        ...,
+        description="Raw data availability results.",
+    )
+    filtered_data_availability: list[Result] = pdt.Field(
+        ...,
+        description="Filtered (post quality-control) data availability results.",
+    )
+    assessment_description: str = pdt.Field(
+        ...,
+        description="Description of the assessment process undertaken.",
+    )
 
 
 # TODO add input data sources specification
@@ -246,59 +313,6 @@ class Scenario(EyaDefBaseModel):
     )
     plant_performance_assessment: PlantPerformanceAssessment = pdt.Field(
         ..., description="Plant performance assessment including net energy results."
-    )
-
-
-class Organisation(EyaDefBaseModel):
-    """Issuing or receiving organisation of an energy yield assessment."""
-
-    name: str = pdt.Field(
-        ...,
-        description="Entity name of the organisation.",
-        examples=["The Torre Egger Consultants Limited", "Miranda Investments Limited"],
-    )
-    abbreviation: str | None = pdt.Field(
-        None,
-        description="Abbreviated name of the organisation.",
-        examples=["Torre Egger", "Miranda"],
-    )
-    address: str | None = pdt.Field(
-        None,
-        description="Address of the organisation.",
-        examples=["5 Munro Road, Summit Centre, Sgurrsville, G12 0YE, UK"],
-    )
-    contact_name: str | None = pdt.Field(
-        None,
-        description="Name(s) of contact person(s) in the organisation.",
-        examples=["Luis Bunuel", "Miles Davis, John Coltrane"],
-    )
-
-
-class ReportContributor(EyaDefBaseModel):
-    """Contributor to an energy yield assessment."""
-
-    name: str = pdt.Field(
-        ...,
-        description="Name of the contributor.",
-        examples=["Joan Miro", "Andrei Tarkovsky"],
-    )
-    email_address: pdt.EmailStr | None = pdt.Field(
-        None,
-        description="Email address of the contributor.",
-        examples=["j.miro@art.cat", "andrei.tarkovsky@cinema.com"],
-    )
-    contributor_type: Literal["author", "verifier", "approver", "other"] = pdt.Field(
-        ..., description="Type of contributor."
-    )
-    contribution_comments: str | None = pdt.Field(
-        None,
-        description="Comments to clarify contribution.",
-        examples=["Second author"],
-    )
-    completion_date: dt.date | None = pdt.Field(
-        None,
-        description="Contribution completion date (format YYYY-MM-DD).",
-        examples=["2022-10-04"],
     )
 
 
