@@ -1,7 +1,6 @@
 """Pydantic data models related to organisations.
 
 """
-from __future__ import annotations
 
 import pydantic as pdt
 

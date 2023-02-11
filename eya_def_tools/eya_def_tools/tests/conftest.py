@@ -16,6 +16,7 @@ from typing import Any
 import pydantic as pdt
 import pytest
 
+from eya_def_tools.data_models import calculation_model_specification
 from eya_def_tools.data_models import energy_yield_assessment as eya
 from eya_def_tools.data_models import (
     enums,
@@ -25,8 +26,10 @@ from eya_def_tools.data_models import (
     result,
     spatial,
     turbine_model,
-    wind_farm,
 )
+from eya_def_tools.data_models import turbine_wind_resource_assessment as turbine_wra
+from eya_def_tools.data_models import uncertainty_assessment, wind_farm
+from eya_def_tools.data_models import wind_resource_assessment as wra
 
 TEST_INPUT_DATA_DIRNAME = "test_input_data"
 
@@ -560,9 +563,11 @@ def neighbouring_wind_farm_a(
 
 
 @pytest.fixture(scope="session")
-def wind_spatial_model_a() -> eya.CalculationModelSpecification:
+def wind_spatial_model_a() -> (
+    calculation_model_specification.CalculationModelSpecification
+):
     """Spatial model test case instance 'a' of ``CalculationModelSpecification``."""
-    return eya.CalculationModelSpecification(
+    return calculation_model_specification.CalculationModelSpecification(
         name="VENTOS/M",
         description="VENTOS/M is a coupled CFD-mesoscale model.",
         comments="The simulations were run using 60 representative days.",
@@ -570,9 +575,9 @@ def wind_spatial_model_a() -> eya.CalculationModelSpecification:
 
 
 @pytest.fixture(scope="session")
-def regression_model_uncertainty_component_a() -> eya.UncertaintySubcategory:
+def regr_model_uncertainty_subcat_a() -> uncertainty_assessment.UncertaintySubcategory:
     """Regression model test case 'a' of ``UncertaintyComponent``."""
-    return eya.UncertaintySubcategory(
+    return uncertainty_assessment.UncertaintySubcategory(
         label="Regression model uncertainty",
         results=[
             result.Result(
@@ -596,9 +601,11 @@ def regression_model_uncertainty_component_a() -> eya.UncertaintySubcategory:
 
 
 @pytest.fixture(scope="session")
-def long_term_consistency_uncertainty_component_a() -> eya.UncertaintySubcategory:
+def lt_consistency_uncertainty_subcat_a() -> (
+    uncertainty_assessment.UncertaintySubcategory
+):
     """Long-term consistency test case 'a' of ``UncertaintyComponent``."""
-    return eya.UncertaintySubcategory(
+    return uncertainty_assessment.UncertaintySubcategory(
         label="Long-term consistency uncertainty",
         results=[
             result.Result(
@@ -625,18 +632,18 @@ def long_term_consistency_uncertainty_component_a() -> eya.UncertaintySubcategor
 
 
 @pytest.fixture(scope="session")
-def measurement_wind_uncertainty_assessment_a(
-    regression_model_uncertainty_component_a: eya.UncertaintySubcategory,
-    long_term_consistency_uncertainty_component_a: eya.UncertaintySubcategory,
-) -> eya.UncertaintyAssessment:
+def measurement_uncertainty_assessment_a(
+    regr_model_uncertainty_subcat_a: uncertainty_assessment.UncertaintySubcategory,
+    lt_consistency_uncertainty_subcat_a: uncertainty_assessment.UncertaintySubcategory,
+) -> uncertainty_assessment.UncertaintyAssessment:
     """Measurement test case instance 'a' of ``UncertaintyAssessment``."""
-    return eya.UncertaintyAssessment(
+    return uncertainty_assessment.UncertaintyAssessment(
         categories=[
-            eya.UncertaintyCategory(
+            uncertainty_assessment.UncertaintyCategory(
                 label=enums.UncertaintyCategoryLabel.HISTORICAL,
                 subcategories=[
-                    regression_model_uncertainty_component_a,
-                    long_term_consistency_uncertainty_component_a,
+                    regr_model_uncertainty_subcat_a,
+                    lt_consistency_uncertainty_subcat_a,
                 ],
                 category_results=[
                     result.Result(
@@ -663,10 +670,10 @@ def measurement_wind_uncertainty_assessment_a(
 
 @pytest.fixture(scope="session")
 def wind_resource_assessment_a(
-    measurement_wind_uncertainty_assessment_a: eya.UncertaintyAssessment,
-) -> eya.WindResourceAssessment:
+    measurement_uncertainty_assessment_a: uncertainty_assessment.UncertaintyAssessment,
+) -> wra.WindResourceAssessment:
     """Test case instance 'a' of ``WindResourceAssessment``."""
-    return eya.WindResourceAssessment(
+    return wra.WindResourceAssessment(
         results=[
             result.Result(
                 label="Measurement-height long-term wind",
@@ -685,23 +692,23 @@ def wind_resource_assessment_a(
                 ],
             )
         ],
-        uncertainty_assessment=measurement_wind_uncertainty_assessment_a,
+        uncertainty_assessment=measurement_uncertainty_assessment_a,
     )
 
 
 # TODO - placeholder to be implemented
 @pytest.fixture(scope="session")
-def wind_resource_assessment_basis_a() -> eya.WindResourceAssessmentBasis:
+def wind_resource_assessment_basis_a() -> wra.WindResourceAssessmentBasis:
     """Test case instance 'a' of ``WindResourceAssessmentBasis``."""
-    return eya.WindResourceAssessmentBasis()
+    return wra.WindResourceAssessmentBasis()
 
 
 @pytest.fixture(scope="session")
 def turbine_wind_resource_assessment_a(
-    wind_spatial_model_a: eya.CalculationModelSpecification,
-) -> eya.TurbineWindResourceAssessment:
+    wind_spatial_model_a: calculation_model_specification.CalculationModelSpecification,
+) -> turbine_wra.TurbineWindResourceAssessment:
     """Test case instance 'a' of ``TurbineWindResourceAssessment``."""
-    return eya.TurbineWindResourceAssessment(
+    return turbine_wra.TurbineWindResourceAssessment(
         turbine_wind_resource_results=[
             result.Result(
                 label="Turbine-location hub-height long-term wind",
@@ -730,10 +737,10 @@ def turbine_wind_resource_assessment_a(
 
 @pytest.fixture(scope="session")
 def turbine_wind_resource_assessment_b(
-    wind_spatial_model_a: eya.CalculationModelSpecification,
-) -> eya.TurbineWindResourceAssessment:
+    wind_spatial_model_a: calculation_model_specification.CalculationModelSpecification,
+) -> turbine_wra.TurbineWindResourceAssessment:
     """Test case instance 'b' of ``TurbineWindResourceAssessment``."""
-    return eya.TurbineWindResourceAssessment(
+    return turbine_wra.TurbineWindResourceAssessment(
         turbine_wind_resource_results=[
             result.Result(
                 label="Turbine-location hub-height long-term wind",
@@ -879,7 +886,7 @@ def plant_performance_curtailment_category_a() -> eya.PlantPerformanceCategory:
                 basis=enums.AssessmentBasis.TIMESERIES_CALCULATION,
                 variability=enums.VariabilityType.STATIC_PROCESS,
                 calculation_models=[
-                    eya.CalculationModelSpecification(
+                    calculation_model_specification.CalculationModelSpecification(
                         name="Timeseries tool", comments="Internal toolset"
                     )
                 ],
@@ -1080,10 +1087,10 @@ def plant_performance_assessment_b(
 
 @pytest.fixture(scope="session")
 def scenario_a(
-    wind_resource_assessment_basis_a: eya.WindResourceAssessmentBasis,
+    wind_resource_assessment_basis_a: wra.WindResourceAssessmentBasis,
     wind_farm_a: wind_farm.WindFarmConfiguration,
     neighbouring_wind_farm_a: wind_farm.WindFarmConfiguration,
-    turbine_wind_resource_assessment_a: eya.TurbineWindResourceAssessment,
+    turbine_wind_resource_assessment_a: turbine_wra.TurbineWindResourceAssessment,
     gross_energy_assessment_a: eya.GrossEnergyAssessment,
     plant_performance_assessment_a: eya.PlantPerformanceAssessment,
 ) -> eya.Scenario:
@@ -1104,10 +1111,10 @@ def scenario_a(
 
 @pytest.fixture(scope="session")
 def scenario_b(
-    wind_resource_assessment_basis_a: eya.WindResourceAssessmentBasis,
+    wind_resource_assessment_basis_a: wra.WindResourceAssessmentBasis,
     wind_farm_b: wind_farm.WindFarmConfiguration,
     neighbouring_wind_farm_a: wind_farm.WindFarmConfiguration,
-    turbine_wind_resource_assessment_b: eya.TurbineWindResourceAssessment,
+    turbine_wind_resource_assessment_b: turbine_wra.TurbineWindResourceAssessment,
     gross_energy_assessment_b: eya.GrossEnergyAssessment,
     plant_performance_assessment_b: eya.PlantPerformanceAssessment,
 ) -> eya.Scenario:
@@ -1201,7 +1208,7 @@ def energy_yield_assessment_a(
     turbine_model_a: turbine_model.TurbineModel,
     turbine_model_b: turbine_model.TurbineModel,
     turbine_model_c: turbine_model.TurbineModel,
-    wind_resource_assessment_a: eya.WindResourceAssessment,
+    wind_resource_assessment_a: wra.WindResourceAssessment,
     scenario_a: eya.Scenario,
     scenario_b: eya.Scenario,
     issuing_organisation_a: organisation.Organisation,
