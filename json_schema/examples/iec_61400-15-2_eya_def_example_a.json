@@ -61,8 +61,8 @@
     {
       "datasets": [
         {
-          "data_period_end": "2022-12-31",
-          "data_period_start": "2020-01-01",
+          "data_period_end_date": "2022-12-31",
+          "data_period_start_date": "2020-01-01",
           "data_supplier_organisation": {
             "abbreviation": "Munro Wind",
             "address": "High Munro Walk, Glasgow, G12 0YE, UK",

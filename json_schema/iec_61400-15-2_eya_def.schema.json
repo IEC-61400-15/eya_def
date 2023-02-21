@@ -48,7 +48,7 @@
       ]
     },
     "OperationalRestriction": {
-      "description": "Specifications of an operational restriction.",
+      "description": "Specifications of a restriction that limits power output. In the current draft of the schema, 'label', 'description' and 'comments' fields are available to describe the restriction with free text. This is intended to be expanded into a more comprehensive data model.",
       "properties": {
         "comments": {
           "$ref": "#/definitions/CommentsField"
@@ -57,7 +57,7 @@
           "$ref": "#/definitions/DescriptionField"
         },
         "label": {
-          "description": "Label of the operational restriction.",
+          "description": "Short label to indicate the type of operational restriction.",
           "examples": [
             "WSM curtailment",
             "MEC curtailment"
@@ -816,22 +816,22 @@
             "items": {
               "description": "Reference wind farm operational dataset metadata.",
               "properties": {
-                "data_period_end": {
+                "data_period_end_date": {
                   "description": "End of the data period in the ISO 8601 standard format for a calendar date, i.e. YYYY-MM-DD.",
                   "examples": [
                     "2021-11-30"
                   ],
                   "format": "date",
-                  "title": "Data Period End",
+                  "title": "Data Period End Date",
                   "type": "string"
                 },
-                "data_period_start": {
+                "data_period_start_date": {
                   "description": "Start of the data period in the ISO 8601 standard format for a calendar date, i.e. YYYY-MM-DD.",
                   "examples": [
                     "2015-10-20"
                   ],
                   "format": "date",
-                  "title": "Data Period Start",
+                  "title": "Data Period Start Date",
                   "type": "string"
                 },
                 "data_supplier_organisation": {
@@ -840,7 +840,7 @@
                   "title": "Data Supplier Organisation"
                 },
                 "data_type": {
-                  "description": "The type of operational data.",
+                  "description": "The type of the operational data. Primary SCADA data refers to data originating directly from the turbine OEM SCADA system. Secondary SCADA data is provided by a data management service provider who has processed the primary SCADA data and often makes it available in a harmonised format independent of OEM. Metered production refers to quantities measured by the project revenue meter.",
                   "enum": [
                     "primary_scada",
                     "secondary_scada",
@@ -865,8 +865,8 @@
                 "data_supplier_organisation",
                 "data_type",
                 "time_resolution",
-                "data_period_start",
-                "data_period_end"
+                "data_period_start_date",
+                "data_period_end_date"
               ],
               "title": "Reference Wind Farm Dataset",
               "type": "object"

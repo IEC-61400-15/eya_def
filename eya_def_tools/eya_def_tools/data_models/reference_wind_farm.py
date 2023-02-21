@@ -21,13 +21,20 @@ class ReferenceWindFarmDataset(EyaDefBaseModel):
     )
     data_type: OperationalDataType = pdt.Field(
         ...,
-        description="The type of operational data.",
+        description=(
+            "The type of the operational data. Primary SCADA data refers to data "
+            "originating directly from the turbine OEM SCADA system. Secondary SCADA "
+            "data is provided by a data management service provider who has processed "
+            "the primary SCADA data and often makes it available in a harmonised "
+            "format independent of OEM. Metered production refers to quantities "
+            "measured by the project revenue meter."
+        ),
     )
     time_resolution: TimeResolution = pdt.Field(
         ...,
         description="Time resolution of the data.",
     )
-    data_period_start: dt.date = pdt.Field(
+    data_period_start_date: dt.date = pdt.Field(
         ...,
         description=(
             "Start of the data period in the ISO 8601 standard format for a "
@@ -35,7 +42,7 @@ class ReferenceWindFarmDataset(EyaDefBaseModel):
         ),
         examples=["2015-10-20"],
     )
-    data_period_end: dt.date = pdt.Field(
+    data_period_end_date: dt.date = pdt.Field(
         ...,
         description=(
             "End of the data period in the ISO 8601 standard format for a "

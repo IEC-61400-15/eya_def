@@ -574,8 +574,8 @@ def reference_wind_farm_dataset_a() -> reference_wind_farm.ReferenceWindFarmData
         ),
         data_type=enums.OperationalDataType.SECONDARY_SCADA,
         time_resolution=enums.TimeResolution.TEN_MINUTELY,
-        data_period_start=dt.date(2020, 1, 1),
-        data_period_end=dt.date(2022, 12, 31),
+        data_period_start_date=dt.date(2020, 1, 1),
+        data_period_end_date=dt.date(2022, 12, 31),
     )
 
 
