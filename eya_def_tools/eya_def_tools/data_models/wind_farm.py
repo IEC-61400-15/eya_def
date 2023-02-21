@@ -12,13 +12,18 @@ from eya_def_tools.data_models.fields import comments_field, description_field
 from eya_def_tools.data_models.spatial import Location
 
 
-# TODO expand definition of operational restriction
 class OperationalRestriction(EyaDefBaseModel):
-    """Specifications of an operational restriction."""
+    """Specifications of a restriction that limits power output.
+
+    In the current draft of the schema, 'label', 'description' and
+    'comments' fields are available to describe the restriction with
+    free text. This is intended to be expanded into a more comprehensive
+    data model.
+    """
 
     label: str = pdt.Field(
         ...,
-        description="Label of the operational restriction.",
+        description="Short label to indicate the type of operational restriction.",
         examples=["WSM curtailment", "MEC curtailment"],
     )
     description: str | None = description_field

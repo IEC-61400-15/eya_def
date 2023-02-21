@@ -5,24 +5,37 @@
 from __future__ import annotations
 
 import datetime as dt
-from typing import Any, Literal, Type
+from typing import Any, Type
 
 import pydantic as pdt
 
 from eya_def_tools.data_models.base_models import BaseModelWithRefs, EyaDefBaseModel
+from eya_def_tools.data_models.calculation_model_specification import (
+    CalculationModelSpecification,
+)
 from eya_def_tools.data_models.enums import (
     AssessmentBasis,
     PlantPerformanceCategoryLabel,
     PlantPerformanceSubcategoryLabel,
-    UncertaintyCategoryLabel,
     VariabilityType,
 )
 from eya_def_tools.data_models.fields import comments_field, description_field
 from eya_def_tools.data_models.measurement_station import MeasurementStationMetadata
+from eya_def_tools.data_models.organisation import Organisation
+from eya_def_tools.data_models.reference_wind_farm import ReferenceWindFarm
+from eya_def_tools.data_models.report_metadata import ReportContributor
 from eya_def_tools.data_models.result import Result
 from eya_def_tools.data_models.spatial import CoordinateReferenceSystem
 from eya_def_tools.data_models.turbine_model import TurbineModel
+from eya_def_tools.data_models.turbine_wind_resource_assessment import (
+    TurbineWindResourceAssessment,
+)
+from eya_def_tools.data_models.uncertainty_assessment import UncertaintyAssessment
 from eya_def_tools.data_models.wind_farm import WindFarmConfiguration
+from eya_def_tools.data_models.wind_resource_assessment import (
+    WindResourceAssessment,
+    WindResourceAssessmentBasis,
+)
 from eya_def_tools.utils.pydantic_json_schema_utils import (
     move_field_to_definitions,
     reduce_json_schema_all_of,
@@ -33,121 +46,6 @@ from eya_def_tools.utils.reference_utils import (
     get_json_schema_uri,
     get_json_schema_version,
 )
-
-
-class ReferenceWindFarm(EyaDefBaseModel):
-    """Reference wind farm metadata."""
-
-    # TODO - placeholder to be implemented
-    pass
-
-
-class ReferenceWindFarmBasis(EyaDefBaseModel):
-    """Reference wind farm basis in a wind resource assessment."""
-
-    # TODO - placeholder to be implemented
-    pass
-
-
-# TODO add input data sources specification
-class CalculationModelSpecification(EyaDefBaseModel):
-    """Specification of a model used in an energy assessment."""
-
-    name: str = pdt.Field(
-        ...,
-        description="Name of the model.",
-        examples=["WAsP", "VORTEX BLOCKS", "DNV CFD", "VENTOS/M"],
-    )
-    description: str | None = description_field
-    comments: str | None = comments_field
-
-
-# TODO - this needs to be completed with more fields for relevant details
-#      - it may need to be separated for the measurement wind resource
-#        assessment and the turbine wind resource assessment
-class UncertaintySubcategory(EyaDefBaseModel):
-    """Wind resource uncertainty assessment subcategory."""
-
-    # TODO this should also be an enum
-    label: str = pdt.Field(
-        ...,
-        description="Label of the wind resource uncertainty subcategory.",
-        examples=["Long-term consistency"],
-    )
-    description: str | None = description_field
-    comments: str | None = comments_field
-    results: list[Result] = pdt.Field(
-        ..., description="Wind resource uncertainty assessment subcategory results."
-    )
-
-
-class UncertaintyCategory(EyaDefBaseModel):
-    """Wind resource uncertainty assessment category."""
-
-    label: UncertaintyCategoryLabel = pdt.Field(
-        ..., description="Label of the uncertainty category."
-    )
-    subcategories: list[UncertaintySubcategory] = pdt.Field(
-        ..., description="Wind resource uncertainty assessment subcategories."
-    )
-    category_results: list[Result] = pdt.Field(
-        ..., description="Category level assessment results."
-    )
-
-
-class UncertaintyAssessment(EyaDefBaseModel):
-    """Wind resource uncertainty assessment."""
-
-    categories: list[UncertaintyCategory] = pdt.Field(
-        ..., description="List of wind resource uncertainty assessment categories."
-    )
-
-
-# TODO - to be extended
-class WindResourceAssessment(EyaDefBaseModel):
-    """Wind resource assessment at the measurement locations."""
-
-    # measurement_station_basis: MeasurementStationBasis
-    # reference_wind_farm_basis: ReferenceWindFarmBasis
-    # data_filtering
-    # sensor_data_availability_results
-    # sensor_results
-    # gap_filling
-    # primary_data_availability_results
-    # primary_measurement_period_results
-    # long_term_correction
-    # long_term_results
-    # vertical_extrapolation
-    # hub_height_results
-    results: list[Result] = pdt.Field(
-        ..., description="Assessment results at the measurement location(s)."
-    )
-    uncertainty_assessment: UncertaintyAssessment = pdt.Field(
-        ..., description="Measurement wind resource uncertainty assessment."
-    )
-
-
-class WindResourceAssessmentBasis(EyaDefBaseModel):
-    """Measurement wind resource assessment basis in a scenario."""
-
-    # TODO - placeholder to be implemented
-    pass
-
-
-# TODO this needs to be completed with more fields for relevant details
-class TurbineWindResourceAssessment(EyaDefBaseModel):
-    """Wind resource assessment at the turbine locations."""
-
-    turbine_wind_resource_results: list[Result] = pdt.Field(
-        ..., description="Assessment results at the turbine location(s)."
-    )
-    wind_spatial_models: list[CalculationModelSpecification] = pdt.Field(
-        ..., description="Wind spatial models used in the assessment."
-    )
-    # TODO should not be optional
-    uncertainty_assessment: UncertaintyAssessment | None = pdt.Field(
-        None, description="Turbine wind resource uncertainty assessment."
-    )
 
 
 # TODO this needs to be completed with more fields for relevant details
@@ -233,7 +131,7 @@ class Scenario(EyaDefBaseModel):
         examples=[10.0, 20.0, 30.0],
     )
     wind_farms: list[WindFarmConfiguration] = pdt.Field(
-        [], description="List of all wind farms included in the scenario."
+        ..., description="List of all wind farms included in the scenario."
     )
     wind_resource_assessment_basis: WindResourceAssessmentBasis | None = pdt.Field(
         None, description="Measurement wind resource assessment basis for the scenario."
@@ -246,59 +144,6 @@ class Scenario(EyaDefBaseModel):
     )
     plant_performance_assessment: PlantPerformanceAssessment = pdt.Field(
         ..., description="Plant performance assessment including net energy results."
-    )
-
-
-class Organisation(EyaDefBaseModel):
-    """Issuing or receiving organisation of an energy yield assessment."""
-
-    name: str = pdt.Field(
-        ...,
-        description="Entity name of the organisation.",
-        examples=["The Torre Egger Consultants Limited", "Miranda Investments Limited"],
-    )
-    abbreviation: str | None = pdt.Field(
-        None,
-        description="Abbreviated name of the organisation.",
-        examples=["Torre Egger", "Miranda"],
-    )
-    address: str | None = pdt.Field(
-        None,
-        description="Address of the organisation.",
-        examples=["5 Munro Road, Summit Centre, Sgurrsville, G12 0YE, UK"],
-    )
-    contact_name: str | None = pdt.Field(
-        None,
-        description="Name(s) of contact person(s) in the organisation.",
-        examples=["Luis Bunuel", "Miles Davis, John Coltrane"],
-    )
-
-
-class ReportContributor(EyaDefBaseModel):
-    """Contributor to an energy yield assessment."""
-
-    name: str = pdt.Field(
-        ...,
-        description="Name of the contributor.",
-        examples=["Joan Miro", "Andrei Tarkovsky"],
-    )
-    email_address: pdt.EmailStr | None = pdt.Field(
-        None,
-        description="Email address of the contributor.",
-        examples=["j.miro@art.cat", "andrei.tarkovsky@cinema.com"],
-    )
-    contributor_type: Literal["author", "verifier", "approver", "other"] = pdt.Field(
-        ..., description="Type of contributor."
-    )
-    contribution_comments: str | None = pdt.Field(
-        None,
-        description="Comments to clarify contribution.",
-        examples=["Second author"],
-    )
-    completion_date: dt.date | None = pdt.Field(
-        None,
-        description="Contribution completion date (format YYYY-MM-DD).",
-        examples=["2022-10-04"],
     )
 
 

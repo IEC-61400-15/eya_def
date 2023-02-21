@@ -57,7 +57,65 @@
       "name": "Miranda Investments Limited"
     }
   ],
-  "reference_wind_farms": [],
+  "reference_wind_farms": [
+    {
+      "datasets": [
+        {
+          "data_period_end_date": "2022-12-31",
+          "data_period_start_date": "2020-01-01",
+          "data_supplier_organisation": {
+            "abbreviation": "Munro Wind",
+            "address": "High Munro Walk, Glasgow, G12 0YE, UK",
+            "name": "Munro Wind Limited"
+          },
+          "data_type": "secondary_scada",
+          "time_resolution": "10-minutely"
+        }
+      ],
+      "reference_wind_farm_id": "munro_wind_farm_reference",
+      "wind_farm_configuration": {
+        "comments": "Details taken from publicly available information.",
+        "description": "The operational Munro Wind Farm",
+        "label": "MWF",
+        "name": "Munro Wind Farm",
+        "operational_lifetime_end_date": "2038-06-30",
+        "operational_lifetime_start_date": "2018-07-01",
+        "relevance": "external",
+        "turbines": [
+          {
+            "description": "Configuration of the neighbouring Mu_T1_a turbine",
+            "hub_height": 125.0,
+            "label": "Mu_T1_a",
+            "location": {
+              "comments": "Location based on publicly available data and confirmed with satellite imagery",
+              "description": "Turbine T1 of the operational Munro Wind Farm",
+              "label": "Mu_T1",
+              "location_id": "79166b5c-7e55-485b-b7e7-24f835c5e40a",
+              "x": 419665.0,
+              "y": 6195240.0
+            },
+            "turbine_id": "f08b05bd-f90b-4833-91a5-4284b64c80db",
+            "turbine_model_id": "e3288cbd-fa3b-4241-8a4c-3856fc10c55e"
+          },
+          {
+            "description": "Configuration of the neighbouring Mu_T2_a turbine",
+            "hub_height": 125.0,
+            "label": "Mu_T2_a",
+            "location": {
+              "comments": "Location based on publicly available data and confirmed with satellite imagery",
+              "description": "Turbine T2 of the operational Munro Wind Farm",
+              "label": "Mu_T2",
+              "location_id": "dc4dba73-8f1c-494f-868e-e548f2a3923f",
+              "x": 419665.0,
+              "y": 6195240.0
+            },
+            "turbine_id": "b87f21bc-e1d8-4150-a2f4-d7f019bf96fc",
+            "turbine_model_id": "e3288cbd-fa3b-4241-8a4c-3856fc10c55e"
+          }
+        ]
+      }
+    }
+  ],
   "scenarios": [
     {
       "description": "ABC165-5.5MW turbine model scenario",

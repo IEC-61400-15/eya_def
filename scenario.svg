@@ -10,10 +10,10 @@
 <title>Entity Relationship Diagram</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-1004.09 3300,-1004.09 3300,4 -4,4"/>
 <text text-anchor="middle" x="1648" y="-6.8" font-family="Times New Roman,serif" font-size="9.00" fill="#a8a8a8">Created by erdantic v0.5.0 &lt;https://github.com/drivendataorg/erdantic&gt;</text>
-<!-- eya_def_tools.data_models.energy_yield_assessment.CalculationModelSpecification -->
+<!-- eya_def_tools.data_models.calculation_model_specification.CalculationModelSpecification -->
 <g id="node1" class="node">
-<title>eya_def_tools.data_models.energy_yield_assessment.CalculationModelSpecification</title>
-<g id="a_node1"><a xlink:title="eya_def_tools.data_models.energy_yield_assessment.CalculationModelSpecification&#10;&#10;Specification of a model used in an energy assessment.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;name (str): Name of the model.&#10; &#160;&#160;&#160;description (Optional[str]): Description of the data object. Default is None.&#10; &#160;&#160;&#160;comments (Optional[str]): Comments on the data object. Default is None.&#10;">
+<title>eya_def_tools.data_models.calculation_model_specification.CalculationModelSpecification</title>
+<g id="a_node1"><a xlink:title="eya_def_tools.data_models.calculation_model_specification.CalculationModelSpecification&#10;&#10;Specification of a model used in an energy assessment.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;name (str): Name of the model.&#10; &#160;&#160;&#160;description (Optional[str]): Description of the data object. Default is None.&#10; &#160;&#160;&#160;comments (Optional[str]): Comments on the data object. Default is None.&#10;">
 <polygon fill="none" stroke="black" points="2017.5,-284.59 2017.5,-305.59 2212.5,-305.59 2212.5,-284.59 2017.5,-284.59"/>
 <text text-anchor="start" x="2020.5" y="-292.39" font-family="Times New Roman,serif" font-weight="bold" font-size="14.00">CalculationModelSpecification</text>
 <polygon fill="none" stroke="black" points="2017.5,-263.59 2017.5,-284.59 2110.5,-284.59 2110.5,-263.59 2017.5,-263.59"/>
@@ -85,9 +85,9 @@
 <ellipse fill="none" stroke="black" cx="2305.5" cy="-351.59" rx="4" ry="4"/>
 </g>
 <!-- eya_def_tools.data_models.result.ResultStatistic -->
-<g id="node14" class="node">
+<g id="node12" class="node">
 <title>eya_def_tools.data_models.result.ResultStatistic</title>
-<g id="a_node14"><a xlink:title="eya_def_tools.data_models.result.ResultStatistic&#10;&#10;Result values for one specific statistic type.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;description (Optional[str]): Description of the data object. Default is None.&#10; &#160;&#160;&#160;comments (Optional[str]): Comments on the data object. Default is None.&#10; &#160;&#160;&#160;statistic_type (StatisticType(StrEnum)): Type of statistic in the results component.&#10; &#160;&#160;&#160;values (UnionType[float, list[tuple[tuple[UnionType[float, int, str], ...], float]]]): Result as a single number or values at coordinates.&#10;">
+<g id="a_node12"><a xlink:title="eya_def_tools.data_models.result.ResultStatistic&#10;&#10;Result values for one specific statistic type.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;description (Optional[str]): Description of the data object. Default is None.&#10; &#160;&#160;&#160;comments (Optional[str]): Comments on the data object. Default is None.&#10; &#160;&#160;&#160;statistic_type (StatisticType(StrEnum)): Type of statistic in the results component.&#10; &#160;&#160;&#160;values (UnionType[float, list[tuple[tuple[UnionType[float, int, str], ...], float]]]): Result as a single number or values at coordinates.&#10;">
 <polygon fill="none" stroke="black" points="2818,-213.59 2818,-234.59 3296,-234.59 3296,-213.59 2818,-213.59"/>
 <text text-anchor="start" x="3012.5" y="-221.39" font-family="Times New Roman,serif" font-weight="bold" font-size="14.00">ResultStatistic</text>
 <polygon fill="none" stroke="black" points="2818,-192.59 2818,-213.59 2898,-213.59 2898,-192.59 2818,-192.59"/>
@@ -110,7 +110,7 @@
 </g>
 </g>
 <!-- eya_def_tools.data_models.result.Result&#45;&gt;eya_def_tools.data_models.result.ResultStatistic -->
-<g id="edge21" class="edge">
+<g id="edge14" class="edge">
 <title>eya_def_tools.data_models.result.Result:e&#45;&gt;eya_def_tools.data_models.result.ResultStatistic:w</title>
 <path fill="none" stroke="black" d="M2710,-224.59C2751.06,-224.59 2765.78,-224.59 2799.23,-224.59"/>
 <polygon fill="black" stroke="black" points="2808,-224.59 2818,-229.09 2813,-224.59 2818,-224.59 2818,-224.59 2818,-224.59 2813,-224.59 2818,-220.09 2808,-224.59 2808,-224.59"/>
@@ -138,7 +138,7 @@
 </g>
 </g>
 <!-- eya_def_tools.data_models.energy_yield_assessment.PlantPerformanceAssessment&#45;&gt;eya_def_tools.data_models.result.Result -->
-<g id="edge4" class="edge">
+<g id="edge3" class="edge">
 <title>eya_def_tools.data_models.energy_yield_assessment.PlantPerformanceAssessment:e&#45;&gt;eya_def_tools.data_models.result.Result:w</title>
 <path fill="none" stroke="black" d="M971,-203.59C1023.71,-203.59 1029.16,-171.75 1079,-154.59 1273.99,-87.47 1325.23,-69.99 1530,-45.59 1697.26,-25.67 1740.58,-42.82 1909,-45.59 2043.72,-47.82 2102.89,23.46 2212,-55.59 2319.76,-133.66 2193.81,-330.62 2301.13,-350.05"/>
 <polygon fill="black" stroke="black" points="2310.03,-350.78 2319.63,-356.08 2315.02,-351.19 2320,-351.59 2320,-351.59 2320,-351.59 2315.02,-351.19 2320.37,-347.11 2310.03,-350.78 2310.03,-350.78"/>
@@ -172,10 +172,10 @@
 <polygon fill="black" stroke="black" points="1069,-246.59 1079,-251.09 1074,-246.59 1079,-246.59 1079,-246.59 1079,-246.59 1074,-246.59 1079,-242.09 1069,-246.59 1069,-246.59"/>
 <ellipse fill="none" stroke="black" cx="1064.5" cy="-246.59" rx="4" ry="4"/>
 </g>
-<!-- eya_def_tools.data_models.energy_yield_assessment.UncertaintyAssessment -->
+<!-- eya_def_tools.data_models.uncertainty_assessment.UncertaintyAssessment -->
 <g id="node6" class="node">
-<title>eya_def_tools.data_models.energy_yield_assessment.UncertaintyAssessment</title>
-<g id="a_node6"><a xlink:title="eya_def_tools.data_models.energy_yield_assessment.UncertaintyAssessment&#10;&#10;Wind resource uncertainty assessment.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;categories (list[UncertaintyCategory]): List of wind resource uncertainty assessment categories.&#10;">
+<title>eya_def_tools.data_models.uncertainty_assessment.UncertaintyAssessment</title>
+<g id="a_node6"><a xlink:title="eya_def_tools.data_models.uncertainty_assessment.UncertaintyAssessment&#10;&#10;Wind resource uncertainty assessment.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;categories (list[UncertaintyCategory]): List of wind resource uncertainty assessment categories.&#10;">
 <polygon fill="none" stroke="black" points="1146.5,-408.59 1146.5,-429.59 1355.5,-429.59 1355.5,-408.59 1146.5,-408.59"/>
 <text text-anchor="start" x="1180" y="-416.39" font-family="Times New Roman,serif" font-weight="bold" font-size="14.00">UncertaintyAssessment</text>
 <polygon fill="none" stroke="black" points="1146.5,-387.59 1146.5,-408.59 1209.5,-408.59 1209.5,-387.59 1146.5,-387.59"/>
@@ -185,9 +185,9 @@
 </a>
 </g>
 </g>
-<!-- eya_def_tools.data_models.energy_yield_assessment.PlantPerformanceAssessment&#45;&gt;eya_def_tools.data_models.energy_yield_assessment.UncertaintyAssessment -->
-<g id="edge3" class="edge">
-<title>eya_def_tools.data_models.energy_yield_assessment.PlantPerformanceAssessment:e&#45;&gt;eya_def_tools.data_models.energy_yield_assessment.UncertaintyAssessment:w</title>
+<!-- eya_def_tools.data_models.energy_yield_assessment.PlantPerformanceAssessment&#45;&gt;eya_def_tools.data_models.uncertainty_assessment.UncertaintyAssessment -->
+<g id="edge4" class="edge">
+<title>eya_def_tools.data_models.energy_yield_assessment.PlantPerformanceAssessment:e&#45;&gt;eya_def_tools.data_models.uncertainty_assessment.UncertaintyAssessment:w</title>
 <path fill="none" stroke="black" d="M971,-224.59C1080.49,-224.59 1035.41,-397.41 1126.78,-417.66"/>
 <polyline fill="none" stroke="black" points="1145.5,-419.59 1140.53,-419.08"/>
 <polygon fill="black" stroke="black" points="1140.04,-414.01 1139.02,-423.95 1137.03,-423.75 1138.06,-413.8 1140.04,-414.01"/>
@@ -237,10 +237,10 @@
 <polygon fill="black" stroke="black" points="1520.11,-266.11 1529.33,-272.04 1525.06,-266.85 1530,-267.59 1530,-267.59 1530,-267.59 1525.06,-266.85 1530.67,-263.14 1520.11,-266.11 1520.11,-266.11"/>
 <ellipse fill="none" stroke="black" cx="1515.66" cy="-265.45" rx="4" ry="4"/>
 </g>
-<!-- eya_def_tools.data_models.energy_yield_assessment.UncertaintyCategory -->
-<g id="node12" class="node">
-<title>eya_def_tools.data_models.energy_yield_assessment.UncertaintyCategory</title>
-<g id="a_node12"><a xlink:title="eya_def_tools.data_models.energy_yield_assessment.UncertaintyCategory&#10;&#10;Wind resource uncertainty assessment category.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;label (UncertaintyCategoryLabel(StrEnum)): Label of the uncertainty category.&#10; &#160;&#160;&#160;subcategories (list[UncertaintySubcategory]): Wind resource uncertainty assessment subcategories.&#10; &#160;&#160;&#160;category_results (list[Result]): Category level assessment results.&#10;">
+<!-- eya_def_tools.data_models.uncertainty_assessment.UncertaintyCategory -->
+<g id="node14" class="node">
+<title>eya_def_tools.data_models.uncertainty_assessment.UncertaintyCategory</title>
+<g id="a_node14"><a xlink:title="eya_def_tools.data_models.uncertainty_assessment.UncertaintyCategory&#10;&#10;Wind resource uncertainty assessment category.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;label (UncertaintyCategoryLabel(StrEnum)): Label of the uncertainty category.&#10; &#160;&#160;&#160;subcategories (list[UncertaintySubcategory]): Wind resource uncertainty assessment subcategories.&#10; &#160;&#160;&#160;category_results (list[Result]): Category level assessment results.&#10;">
 <polygon fill="none" stroke="black" points="1565.5,-578.59 1565.5,-599.59 1873.5,-599.59 1873.5,-578.59 1565.5,-578.59"/>
 <text text-anchor="start" x="1655" y="-586.39" font-family="Times New Roman,serif" font-weight="bold" font-size="14.00">UncertaintyCategory</text>
 <polygon fill="none" stroke="black" points="1565.5,-557.59 1565.5,-578.59 1663.5,-578.59 1663.5,-557.59 1565.5,-557.59"/>
@@ -258,16 +258,16 @@
 </a>
 </g>
 </g>
-<!-- eya_def_tools.data_models.energy_yield_assessment.UncertaintyAssessment&#45;&gt;eya_def_tools.data_models.energy_yield_assessment.UncertaintyCategory -->
-<g id="edge17" class="edge">
-<title>eya_def_tools.data_models.energy_yield_assessment.UncertaintyAssessment:e&#45;&gt;eya_def_tools.data_models.energy_yield_assessment.UncertaintyCategory:w</title>
+<!-- eya_def_tools.data_models.uncertainty_assessment.UncertaintyAssessment&#45;&gt;eya_def_tools.data_models.uncertainty_assessment.UncertaintyCategory -->
+<g id="edge18" class="edge">
+<title>eya_def_tools.data_models.uncertainty_assessment.UncertaintyAssessment:e&#45;&gt;eya_def_tools.data_models.uncertainty_assessment.UncertaintyCategory:w</title>
 <path fill="none" stroke="black" d="M1356.5,-397.59C1475.55,-397.59 1442.89,-569.52 1545.64,-587.99"/>
 <polygon fill="black" stroke="black" points="1554.54,-588.75 1564.12,-594.08 1559.52,-589.17 1564.5,-589.59 1564.5,-589.59 1564.5,-589.59 1559.52,-589.17 1564.88,-585.11 1554.54,-588.75 1554.54,-588.75"/>
 <ellipse fill="none" stroke="black" cx="1550.05" cy="-588.37" rx="4" ry="4"/>
 </g>
-<!-- eya_def_tools.data_models.energy_yield_assessment.PlantPerformanceSubcategory&#45;&gt;eya_def_tools.data_models.energy_yield_assessment.CalculationModelSpecification -->
+<!-- eya_def_tools.data_models.energy_yield_assessment.PlantPerformanceSubcategory&#45;&gt;eya_def_tools.data_models.calculation_model_specification.CalculationModelSpecification -->
 <g id="edge7" class="edge">
-<title>eya_def_tools.data_models.energy_yield_assessment.PlantPerformanceSubcategory:e&#45;&gt;eya_def_tools.data_models.energy_yield_assessment.CalculationModelSpecification:w</title>
+<title>eya_def_tools.data_models.energy_yield_assessment.PlantPerformanceSubcategory:e&#45;&gt;eya_def_tools.data_models.calculation_model_specification.CalculationModelSpecification:w</title>
 <path fill="none" stroke="black" d="M1909,-182.59C1971.28,-182.59 1952.86,-273.41 1998.43,-292.21"/>
 <polygon fill="black" stroke="black" points="2007.16,-293.8 2016.19,-300.02 2012.08,-294.7 2017,-295.59 2017,-295.59 2017,-295.59 2012.08,-294.7 2017.81,-291.17 2007.16,-293.8 2007.16,-293.8"/>
 <ellipse fill="none" stroke="black" cx="2002.73" cy="-293" rx="4" ry="4"/>
@@ -285,7 +285,7 @@
 <!-- eya_def_tools.data_models.energy_yield_assessment.Scenario -->
 <g id="node8" class="node">
 <title>eya_def_tools.data_models.energy_yield_assessment.Scenario</title>
-<g id="a_node8"><a xlink:title="eya_def_tools.data_models.energy_yield_assessment.Scenario&#10;&#10;Single unique energy yield assessment scenario.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;scenario_id (Optional[str]): Unique identifier of the scenario. Default is None.&#10; &#160;&#160;&#160;label (str): Label of the scenario.&#10; &#160;&#160;&#160;description (Optional[str]): Description of the data object. Default is None.&#10; &#160;&#160;&#160;comments (Optional[str]): Comments on the data object. Default is None.&#10; &#160;&#160;&#160;is_main_scenario (Optional[bool]): Whether or not this is the main scenario in the report. Default is None.&#10; &#160;&#160;&#160;operational_lifetime_length_years (ConstrainedFloatValue): Number of years of project operational lifetime.&#10; &#160;&#160;&#160;wind_farms (list[WindFarmConfiguration]): List of all wind farms included in the scenario. Default is [].&#10; &#160;&#160;&#160;wind_resource_assessment_basis (Optional[WindResourceAssessmentBasis]): Measurement wind resource assessment basis for the scenario. Default is None.&#10; &#160;&#160;&#160;turbine_wind_resource_assessment (Optional[TurbineWindResourceAssessment]): Wind resource assessment at the turbine locations. Default is None.&#10; &#160;&#160;&#160;gross_energy_assessment (GrossEnergyAssessment): Gross energy yield assessment.&#10; &#160;&#160;&#160;plant_performance_assessment (PlantPerformanceAssessment): Plant performance assessment including net energy results.&#10;">
+<g id="a_node8"><a xlink:title="eya_def_tools.data_models.energy_yield_assessment.Scenario&#10;&#10;Single unique energy yield assessment scenario.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;scenario_id (Optional[str]): Unique identifier of the scenario. Default is None.&#10; &#160;&#160;&#160;label (str): Label of the scenario.&#10; &#160;&#160;&#160;description (Optional[str]): Description of the data object. Default is None.&#10; &#160;&#160;&#160;comments (Optional[str]): Comments on the data object. Default is None.&#10; &#160;&#160;&#160;is_main_scenario (Optional[bool]): Whether or not this is the main scenario in the report. Default is None.&#10; &#160;&#160;&#160;operational_lifetime_length_years (ConstrainedFloatValue): Number of years of project operational lifetime.&#10; &#160;&#160;&#160;wind_farms (list[WindFarmConfiguration]): List of all wind farms included in the scenario.&#10; &#160;&#160;&#160;wind_resource_assessment_basis (Optional[WindResourceAssessmentBasis]): Measurement wind resource assessment basis for the scenario. Default is None.&#10; &#160;&#160;&#160;turbine_wind_resource_assessment (Optional[TurbineWindResourceAssessment]): Wind resource assessment at the turbine locations. Default is None.&#10; &#160;&#160;&#160;gross_energy_assessment (GrossEnergyAssessment): Gross energy yield assessment.&#10; &#160;&#160;&#160;plant_performance_assessment (PlantPerformanceAssessment): Plant performance assessment including net energy results.&#10;">
 <polygon fill="none" stroke="black" points="0.5,-684.59 0.5,-705.59 463.5,-705.59 463.5,-684.59 0.5,-684.59"/>
 <text text-anchor="start" x="204.5" y="-692.39" font-family="Times New Roman,serif" font-weight="bold" font-size="14.00">Scenario</text>
 <polygon fill="none" stroke="black" points="0.5,-663.59 0.5,-684.59 205.5,-684.59 205.5,-663.59 0.5,-663.59"/>
@@ -355,10 +355,10 @@
 <polygon fill="black" stroke="black" points="559.5,-263.89 560.65,-273.82 558.66,-274.05 557.51,-264.12 559.5,-263.89"/>
 <polyline fill="none" stroke="black" points="561.07,-268.74 556.1,-269.32"/>
 </g>
-<!-- eya_def_tools.data_models.energy_yield_assessment.TurbineWindResourceAssessment -->
+<!-- eya_def_tools.data_models.turbine_wind_resource_assessment.TurbineWindResourceAssessment -->
 <g id="node9" class="node">
-<title>eya_def_tools.data_models.energy_yield_assessment.TurbineWindResourceAssessment</title>
-<g id="a_node9"><a xlink:title="eya_def_tools.data_models.energy_yield_assessment.TurbineWindResourceAssessment&#10;&#10;Wind resource assessment at the turbine locations.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;turbine_wind_resource_results (list[Result]): Assessment results at the turbine location(s).&#10; &#160;&#160;&#160;wind_spatial_models (list[CalculationModelSpecification]): Wind spatial models used in the assessment.&#10; &#160;&#160;&#160;uncertainty_assessment (Optional[UncertaintyAssessment]): Turbine wind resource uncertainty assessment. Default is None.&#10;">
+<title>eya_def_tools.data_models.turbine_wind_resource_assessment.TurbineWindResourceAssessment</title>
+<g id="a_node9"><a xlink:title="eya_def_tools.data_models.turbine_wind_resource_assessment.TurbineWindResourceAssessment&#10;&#10;Wind resource assessment at the turbine locations.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;turbine_wind_resource_results (list[Result]): Assessment results at the turbine location(s).&#10; &#160;&#160;&#160;wind_spatial_models (list[CalculationModelSpecification]): Wind spatial models used in the assessment.&#10; &#160;&#160;&#160;uncertainty_assessment (Optional[UncertaintyAssessment]): Turbine wind resource uncertainty assessment. Default is None.&#10;">
 <polygon fill="none" stroke="black" points="581,-494.59 581,-515.59 961,-515.59 961,-494.59 581,-494.59"/>
 <text text-anchor="start" x="665.5" y="-502.39" font-family="Times New Roman,serif" font-weight="bold" font-size="14.00">TurbineWindResourceAssessment</text>
 <polygon fill="none" stroke="black" points="581,-473.59 581,-494.59 759,-494.59 759,-473.59 581,-473.59"/>
@@ -376,37 +376,19 @@
 </a>
 </g>
 </g>
-<!-- eya_def_tools.data_models.energy_yield_assessment.Scenario&#45;&gt;eya_def_tools.data_models.energy_yield_assessment.TurbineWindResourceAssessment -->
+<!-- eya_def_tools.data_models.energy_yield_assessment.Scenario&#45;&gt;eya_def_tools.data_models.turbine_wind_resource_assessment.TurbineWindResourceAssessment -->
 <g id="edge11" class="edge">
-<title>eya_def_tools.data_models.energy_yield_assessment.Scenario:e&#45;&gt;eya_def_tools.data_models.energy_yield_assessment.TurbineWindResourceAssessment:w</title>
+<title>eya_def_tools.data_models.energy_yield_assessment.Scenario:e&#45;&gt;eya_def_tools.data_models.turbine_wind_resource_assessment.TurbineWindResourceAssessment:w</title>
 <path fill="none" stroke="black" d="M463,-505.59C508.09,-505.59 523.86,-505.59 561.16,-505.59"/>
 <polyline fill="none" stroke="black" points="580,-505.59 575,-505.59"/>
 <polygon fill="black" stroke="black" points="574,-500.59 574,-510.59 572,-510.59 572,-500.59 574,-500.59"/>
 <polyline fill="none" stroke="black" points="575,-505.59 570,-505.59"/>
 <ellipse fill="none" stroke="black" cx="565.5" cy="-505.59" rx="4" ry="4"/>
 </g>
-<!-- eya_def_tools.data_models.energy_yield_assessment.WindResourceAssessmentBasis -->
-<g id="node10" class="node">
-<title>eya_def_tools.data_models.energy_yield_assessment.WindResourceAssessmentBasis</title>
-<g id="a_node10"><a xlink:title="eya_def_tools.data_models.energy_yield_assessment.WindResourceAssessmentBasis&#10;&#10;Measurement wind resource assessment basis in a scenario.&#10;">
-<polygon fill="none" stroke="black" points="670,-551.59 670,-572.59 872,-572.59 872,-551.59 670,-551.59"/>
-<text text-anchor="start" x="673.5" y="-559.39" font-family="Times New Roman,serif" font-weight="bold" font-size="14.00">WindResourceAssessmentBasis</text>
-</a>
-</g>
-</g>
-<!-- eya_def_tools.data_models.energy_yield_assessment.Scenario&#45;&gt;eya_def_tools.data_models.energy_yield_assessment.WindResourceAssessmentBasis -->
-<g id="edge12" class="edge">
-<title>eya_def_tools.data_models.energy_yield_assessment.Scenario:e&#45;&gt;eya_def_tools.data_models.energy_yield_assessment.WindResourceAssessmentBasis:w</title>
-<path fill="none" stroke="black" d="M463,-526.59C549.34,-526.59 572.92,-556.85 650.44,-561.1"/>
-<polyline fill="none" stroke="black" points="669,-561.59 664,-561.46"/>
-<polygon fill="black" stroke="black" points="663.14,-556.44 662.87,-566.43 660.87,-566.38 661.14,-556.38 663.14,-556.44"/>
-<polyline fill="none" stroke="black" points="664,-561.46 659,-561.33"/>
-<ellipse fill="none" stroke="black" cx="654.51" cy="-561.21" rx="4" ry="4"/>
-</g>
 <!-- eya_def_tools.data_models.wind_farm.WindFarmConfiguration -->
-<g id="node11" class="node">
+<g id="node10" class="node">
 <title>eya_def_tools.data_models.wind_farm.WindFarmConfiguration</title>
-<g id="a_node11"><a xlink:title="eya_def_tools.data_models.wind_farm.WindFarmConfiguration&#10;&#10;A collection of wind turbines considered as one unit (plant).&#10;&#10;Attributes:&#10; &#160;&#160;&#160;name (str): Name of the wind farm.&#10; &#160;&#160;&#160;label (Optional[str]): Abbreviated label of the wind farm. Default is None.&#10; &#160;&#160;&#160;description (Optional[str]): Description of the data object. Default is None.&#10; &#160;&#160;&#160;comments (Optional[str]): Comments on the data object. Default is None.&#10; &#160;&#160;&#160;turbines (list[TurbineConfiguration]): List of specifications for constituent turbines.&#10; &#160;&#160;&#160;relevance (WindFarmRelevance(StrEnum)): The relevance of the wind farm for the assessment.&#10; &#160;&#160;&#160;operational_lifetime_start_date (Optional[date]): Operational lifetime start date (format YYYY&#45;MM&#45;DD). Default is None.&#10; &#160;&#160;&#160;operational_lifetime_end_date (Optional[date]): Operational lifetime end date (format YYYY&#45;MM&#45;DD). Default is None.&#10; &#160;&#160;&#160;wind_farm_restrictions (Optional[list[OperationalRestriction]]): List of operational restrictions at the wind farm level. Default is None.&#10;">
+<g id="a_node10"><a xlink:title="eya_def_tools.data_models.wind_farm.WindFarmConfiguration&#10;&#10;A collection of wind turbines considered as one unit (plant).&#10;&#10;Attributes:&#10; &#160;&#160;&#160;name (str): Name of the wind farm.&#10; &#160;&#160;&#160;label (Optional[str]): Abbreviated label of the wind farm. Default is None.&#10; &#160;&#160;&#160;description (Optional[str]): Description of the data object. Default is None.&#10; &#160;&#160;&#160;comments (Optional[str]): Comments on the data object. Default is None.&#10; &#160;&#160;&#160;turbines (list[TurbineConfiguration]): List of specifications for constituent turbines.&#10; &#160;&#160;&#160;relevance (WindFarmRelevance(StrEnum)): The relevance of the wind farm for the assessment.&#10; &#160;&#160;&#160;operational_lifetime_start_date (Optional[date]): Operational lifetime start date (format YYYY&#45;MM&#45;DD). Default is None.&#10; &#160;&#160;&#160;operational_lifetime_end_date (Optional[date]): Operational lifetime end date (format YYYY&#45;MM&#45;DD). Default is None.&#10; &#160;&#160;&#160;wind_farm_restrictions (Optional[list[OperationalRestriction]]): List of operational restrictions at the wind farm level. Default is None.&#10;">
 <polygon fill="none" stroke="black" points="575,-934.59 575,-955.59 967,-955.59 967,-934.59 575,-934.59"/>
 <text text-anchor="start" x="694.5" y="-942.39" font-family="Times New Roman,serif" font-weight="bold" font-size="14.00">WindFarmConfiguration</text>
 <polygon fill="none" stroke="black" points="575,-913.59 575,-934.59 753,-934.59 753,-913.59 575,-913.59"/>
@@ -449,29 +431,47 @@
 </g>
 </g>
 <!-- eya_def_tools.data_models.energy_yield_assessment.Scenario&#45;&gt;eya_def_tools.data_models.wind_farm.WindFarmConfiguration -->
-<g id="edge13" class="edge">
+<g id="edge12" class="edge">
 <title>eya_def_tools.data_models.energy_yield_assessment.Scenario:e&#45;&gt;eya_def_tools.data_models.wind_farm.WindFarmConfiguration:w</title>
 <path fill="none" stroke="black" d="M463,-547.59C639.82,-547.59 408.78,-916.6 555.33,-943.99"/>
 <polygon fill="black" stroke="black" points="564.04,-944.74 573.61,-950.08 569.02,-945.17 574,-945.59 574,-945.59 574,-945.59 569.02,-945.17 574.39,-941.11 564.04,-944.74 564.04,-944.74"/>
 <ellipse fill="none" stroke="black" cx="559.55" cy="-944.35" rx="4" ry="4"/>
 </g>
-<!-- eya_def_tools.data_models.energy_yield_assessment.TurbineWindResourceAssessment&#45;&gt;eya_def_tools.data_models.energy_yield_assessment.CalculationModelSpecification -->
-<g id="edge14" class="edge">
-<title>eya_def_tools.data_models.energy_yield_assessment.TurbineWindResourceAssessment:e&#45;&gt;eya_def_tools.data_models.energy_yield_assessment.CalculationModelSpecification:w</title>
+<!-- eya_def_tools.data_models.wind_resource_assessment.WindResourceAssessmentBasis -->
+<g id="node11" class="node">
+<title>eya_def_tools.data_models.wind_resource_assessment.WindResourceAssessmentBasis</title>
+<g id="a_node11"><a xlink:title="eya_def_tools.data_models.wind_resource_assessment.WindResourceAssessmentBasis&#10;&#10;Measurement wind resource assessment basis in a scenario.&#10;">
+<polygon fill="none" stroke="black" points="670,-551.59 670,-572.59 872,-572.59 872,-551.59 670,-551.59"/>
+<text text-anchor="start" x="673.5" y="-559.39" font-family="Times New Roman,serif" font-weight="bold" font-size="14.00">WindResourceAssessmentBasis</text>
+</a>
+</g>
+</g>
+<!-- eya_def_tools.data_models.energy_yield_assessment.Scenario&#45;&gt;eya_def_tools.data_models.wind_resource_assessment.WindResourceAssessmentBasis -->
+<g id="edge13" class="edge">
+<title>eya_def_tools.data_models.energy_yield_assessment.Scenario:e&#45;&gt;eya_def_tools.data_models.wind_resource_assessment.WindResourceAssessmentBasis:w</title>
+<path fill="none" stroke="black" d="M463,-526.59C549.34,-526.59 572.92,-556.85 650.44,-561.1"/>
+<polyline fill="none" stroke="black" points="669,-561.59 664,-561.46"/>
+<polygon fill="black" stroke="black" points="663.14,-556.44 662.87,-566.43 660.87,-566.38 661.14,-556.38 663.14,-556.44"/>
+<polyline fill="none" stroke="black" points="664,-561.46 659,-561.33"/>
+<ellipse fill="none" stroke="black" cx="654.51" cy="-561.21" rx="4" ry="4"/>
+</g>
+<!-- eya_def_tools.data_models.turbine_wind_resource_assessment.TurbineWindResourceAssessment&#45;&gt;eya_def_tools.data_models.calculation_model_specification.CalculationModelSpecification -->
+<g id="edge15" class="edge">
+<title>eya_def_tools.data_models.turbine_wind_resource_assessment.TurbineWindResourceAssessment:e&#45;&gt;eya_def_tools.data_models.calculation_model_specification.CalculationModelSpecification:w</title>
 <path fill="none" stroke="black" d="M962,-462.59C1166.55,-462.59 1219.49,-476.41 1422,-447.59 1685.88,-410.04 1741.51,-300.88 1998.17,-295.78"/>
 <polygon fill="black" stroke="black" points="2007,-295.69 2017.04,-300.09 2012,-295.64 2017,-295.59 2017,-295.59 2017,-295.59 2012,-295.64 2016.96,-291.09 2007,-295.69 2007,-295.69"/>
 <ellipse fill="none" stroke="black" cx="2002.5" cy="-295.74" rx="4" ry="4"/>
 </g>
-<!-- eya_def_tools.data_models.energy_yield_assessment.TurbineWindResourceAssessment&#45;&gt;eya_def_tools.data_models.result.Result -->
+<!-- eya_def_tools.data_models.turbine_wind_resource_assessment.TurbineWindResourceAssessment&#45;&gt;eya_def_tools.data_models.result.Result -->
 <g id="edge16" class="edge">
-<title>eya_def_tools.data_models.energy_yield_assessment.TurbineWindResourceAssessment:e&#45;&gt;eya_def_tools.data_models.result.Result:w</title>
+<title>eya_def_tools.data_models.turbine_wind_resource_assessment.TurbineWindResourceAssessment:e&#45;&gt;eya_def_tools.data_models.result.Result:w</title>
 <path fill="none" stroke="black" d="M962,-484.59C1221.27,-484.59 1272.44,-587.84 1530,-617.59 1697.33,-636.92 1740.56,-617.87 1909,-617.59 2043.67,-617.37 2100.37,-691.91 2212,-616.59 2311.66,-549.35 2205.76,-372.43 2301.31,-353.28"/>
 <polygon fill="black" stroke="black" points="2310.04,-352.49 2320.4,-356.08 2315.02,-352.04 2320,-351.59 2320,-351.59 2320,-351.59 2315.02,-352.04 2319.6,-347.11 2310.04,-352.49 2310.04,-352.49"/>
 <ellipse fill="none" stroke="black" cx="2305.56" cy="-352.9" rx="4" ry="4"/>
 </g>
-<!-- eya_def_tools.data_models.energy_yield_assessment.TurbineWindResourceAssessment&#45;&gt;eya_def_tools.data_models.energy_yield_assessment.UncertaintyAssessment -->
-<g id="edge15" class="edge">
-<title>eya_def_tools.data_models.energy_yield_assessment.TurbineWindResourceAssessment:e&#45;&gt;eya_def_tools.data_models.energy_yield_assessment.UncertaintyAssessment:w</title>
+<!-- eya_def_tools.data_models.turbine_wind_resource_assessment.TurbineWindResourceAssessment&#45;&gt;eya_def_tools.data_models.uncertainty_assessment.UncertaintyAssessment -->
+<g id="edge17" class="edge">
+<title>eya_def_tools.data_models.turbine_wind_resource_assessment.TurbineWindResourceAssessment:e&#45;&gt;eya_def_tools.data_models.uncertainty_assessment.UncertaintyAssessment:w</title>
 <path fill="none" stroke="black" d="M962,-441.59C1037.56,-441.59 1059.88,-422.98 1126.91,-419.99"/>
 <polyline fill="none" stroke="black" points="1145.5,-419.59 1140.5,-419.7"/>
 <polygon fill="black" stroke="black" points="1139.39,-414.72 1139.61,-424.72 1137.61,-424.77 1137.39,-414.77 1139.39,-414.72"/>
@@ -554,56 +554,10 @@
 <polygon fill="black" stroke="black" points="1080.62,-988.07 1089.82,-994.04 1085.56,-988.83 1090.5,-989.59 1090.5,-989.59 1090.5,-989.59 1085.56,-988.83 1091.18,-985.15 1080.62,-988.07 1080.62,-988.07"/>
 <ellipse fill="none" stroke="black" cx="1076.17" cy="-987.39" rx="4" ry="4"/>
 </g>
-<!-- eya_def_tools.data_models.energy_yield_assessment.UncertaintyCategory&#45;&gt;eya_def_tools.data_models.result.Result -->
-<g id="edge19" class="edge">
-<title>eya_def_tools.data_models.energy_yield_assessment.UncertaintyCategory:e&#45;&gt;eya_def_tools.data_models.result.Result:w</title>
-<path fill="none" stroke="black" d="M1874.5,-525.59C1884.49,-525.59 2202.77,-405.42 2212,-401.59 2254.38,-384.03 2264.7,-359.33 2301.18,-353.08"/>
-<polygon fill="black" stroke="black" points="2310.03,-352.38 2320.35,-356.08 2315.02,-351.99 2320,-351.59 2320,-351.59 2320,-351.59 2315.02,-351.99 2319.65,-347.11 2310.03,-352.38 2310.03,-352.38"/>
-<ellipse fill="none" stroke="black" cx="2305.54" cy="-352.73" rx="4" ry="4"/>
-</g>
-<!-- eya_def_tools.data_models.energy_yield_assessment.UncertaintySubcategory -->
-<g id="node13" class="node">
-<title>eya_def_tools.data_models.energy_yield_assessment.UncertaintySubcategory</title>
-<g id="a_node13"><a xlink:title="eya_def_tools.data_models.energy_yield_assessment.UncertaintySubcategory&#10;&#10;Wind resource uncertainty assessment subcategory.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;label (str): Label of the wind resource uncertainty subcategory.&#10; &#160;&#160;&#160;description (Optional[str]): Description of the data object. Default is None.&#10; &#160;&#160;&#160;comments (Optional[str]): Comments on the data object. Default is None.&#10; &#160;&#160;&#160;results (list[Result]): Wind resource uncertainty assessment subcategory results.&#10;">
-<polygon fill="none" stroke="black" points="2037.5,-577.59 2037.5,-598.59 2191.5,-598.59 2191.5,-577.59 2037.5,-577.59"/>
-<text text-anchor="start" x="2040.5" y="-585.39" font-family="Times New Roman,serif" font-weight="bold" font-size="14.00">UncertaintySubcategory</text>
-<polygon fill="none" stroke="black" points="2037.5,-556.59 2037.5,-577.59 2109.5,-577.59 2109.5,-556.59 2037.5,-556.59"/>
-<text text-anchor="start" x="2060.5" y="-563.39" font-family="Times New Roman,serif" font-size="14.00">label</text>
-<polygon fill="none" stroke="black" points="2109.5,-556.59 2109.5,-577.59 2191.5,-577.59 2191.5,-556.59 2109.5,-556.59"/>
-<text text-anchor="start" x="2143" y="-563.39" font-family="Times New Roman,serif" font-size="14.00">str</text>
-<polygon fill="none" stroke="black" points="2037.5,-535.59 2037.5,-556.59 2109.5,-556.59 2109.5,-535.59 2037.5,-535.59"/>
-<text text-anchor="start" x="2042" y="-542.39" font-family="Times New Roman,serif" font-size="14.00">description</text>
-<polygon fill="none" stroke="black" points="2109.5,-535.59 2109.5,-556.59 2191.5,-556.59 2191.5,-535.59 2109.5,-535.59"/>
-<text text-anchor="start" x="2114.5" y="-542.39" font-family="Times New Roman,serif" font-size="14.00">Optional[str]</text>
-<polygon fill="none" stroke="black" points="2037.5,-514.59 2037.5,-535.59 2109.5,-535.59 2109.5,-514.59 2037.5,-514.59"/>
-<text text-anchor="start" x="2044.5" y="-521.39" font-family="Times New Roman,serif" font-size="14.00">comments</text>
-<polygon fill="none" stroke="black" points="2109.5,-514.59 2109.5,-535.59 2191.5,-535.59 2191.5,-514.59 2109.5,-514.59"/>
-<text text-anchor="start" x="2114.5" y="-521.39" font-family="Times New Roman,serif" font-size="14.00">Optional[str]</text>
-<polygon fill="none" stroke="black" points="2037.5,-493.59 2037.5,-514.59 2109.5,-514.59 2109.5,-493.59 2037.5,-493.59"/>
-<text text-anchor="start" x="2055" y="-500.39" font-family="Times New Roman,serif" font-size="14.00">results</text>
-<polygon fill="none" stroke="black" points="2109.5,-493.59 2109.5,-514.59 2191.5,-514.59 2191.5,-493.59 2109.5,-493.59"/>
-<text text-anchor="start" x="2120" y="-500.39" font-family="Times New Roman,serif" font-size="14.00">list[Result]</text>
-</a>
-</g>
-</g>
-<!-- eya_def_tools.data_models.energy_yield_assessment.UncertaintyCategory&#45;&gt;eya_def_tools.data_models.energy_yield_assessment.UncertaintySubcategory -->
-<g id="edge18" class="edge">
-<title>eya_def_tools.data_models.energy_yield_assessment.UncertaintyCategory:e&#45;&gt;eya_def_tools.data_models.energy_yield_assessment.UncertaintySubcategory:w</title>
-<path fill="none" stroke="black" d="M1874.5,-546.59C1942.2,-546.59 1959.25,-581.39 2017.84,-587.64"/>
-<polygon fill="black" stroke="black" points="2026.51,-588.08 2036.27,-593.09 2031.51,-588.34 2036.5,-588.59 2036.5,-588.59 2036.5,-588.59 2031.51,-588.34 2036.73,-584.1 2026.51,-588.08 2026.51,-588.08"/>
-<ellipse fill="none" stroke="black" cx="2022.02" cy="-587.85" rx="4" ry="4"/>
-</g>
-<!-- eya_def_tools.data_models.energy_yield_assessment.UncertaintySubcategory&#45;&gt;eya_def_tools.data_models.result.Result -->
-<g id="edge20" class="edge">
-<title>eya_def_tools.data_models.energy_yield_assessment.UncertaintySubcategory:e&#45;&gt;eya_def_tools.data_models.result.Result:w</title>
-<path fill="none" stroke="black" d="M2192.5,-503.59C2273.61,-503.59 2238.77,-374.96 2301.31,-354.36"/>
-<polygon fill="black" stroke="black" points="2310.11,-353.06 2320.66,-356.05 2315.05,-352.33 2320,-351.59 2320,-351.59 2320,-351.59 2315.05,-352.33 2319.34,-347.14 2310.11,-353.06 2310.11,-353.06"/>
-<ellipse fill="none" stroke="black" cx="2305.66" cy="-353.72" rx="4" ry="4"/>
-</g>
 <!-- eya_def_tools.data_models.spatial.Location -->
-<g id="node15" class="node">
+<g id="node13" class="node">
 <title>eya_def_tools.data_models.spatial.Location</title>
-<g id="a_node15"><a xlink:title="eya_def_tools.data_models.spatial.Location&#10;&#10;Specification of a horizontal location in space.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;location_id (Optional[str]): Unique identifier of the location. Default is None.&#10; &#160;&#160;&#160;label (Optional[str]): Label of the location. Default is None.&#10; &#160;&#160;&#160;description (Optional[str]): Description of the data object. Default is None.&#10; &#160;&#160;&#160;comments (Optional[str]): Comments on the data object. Default is None.&#10; &#160;&#160;&#160;x (float): Location x&#45;coordinate (typically easing).&#10; &#160;&#160;&#160;y (float): Location y&#45;coordinate (typically northing).&#10;">
+<g id="a_node13"><a xlink:title="eya_def_tools.data_models.spatial.Location&#10;&#10;Specification of a horizontal location in space.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;location_id (Optional[str]): Unique identifier of the location. Default is None.&#10; &#160;&#160;&#160;label (Optional[str]): Label of the location. Default is None.&#10; &#160;&#160;&#160;description (Optional[str]): Description of the data object. Default is None.&#10; &#160;&#160;&#160;comments (Optional[str]): Comments on the data object. Default is None.&#10; &#160;&#160;&#160;x (float): Location x&#45;coordinate (typically easing).&#10; &#160;&#160;&#160;y (float): Location y&#45;coordinate (typically northing).&#10;">
 <polygon fill="none" stroke="black" points="1646.5,-955.59 1646.5,-976.59 1793.5,-976.59 1793.5,-955.59 1646.5,-955.59"/>
 <text text-anchor="start" x="1692.5" y="-963.39" font-family="Times New Roman,serif" font-weight="bold" font-size="14.00">Location</text>
 <polygon fill="none" stroke="black" points="1646.5,-934.59 1646.5,-955.59 1715.5,-955.59 1715.5,-934.59 1646.5,-934.59"/>
@@ -632,6 +586,52 @@
 <text text-anchor="start" x="1742" y="-836.39" font-family="Times New Roman,serif" font-size="14.00">float</text>
 </a>
 </g>
+</g>
+<!-- eya_def_tools.data_models.uncertainty_assessment.UncertaintyCategory&#45;&gt;eya_def_tools.data_models.result.Result -->
+<g id="edge19" class="edge">
+<title>eya_def_tools.data_models.uncertainty_assessment.UncertaintyCategory:e&#45;&gt;eya_def_tools.data_models.result.Result:w</title>
+<path fill="none" stroke="black" d="M1874.5,-525.59C1884.49,-525.59 2202.77,-405.42 2212,-401.59 2254.38,-384.03 2264.7,-359.33 2301.18,-353.08"/>
+<polygon fill="black" stroke="black" points="2310.03,-352.38 2320.35,-356.08 2315.02,-351.99 2320,-351.59 2320,-351.59 2320,-351.59 2315.02,-351.99 2319.65,-347.11 2310.03,-352.38 2310.03,-352.38"/>
+<ellipse fill="none" stroke="black" cx="2305.54" cy="-352.73" rx="4" ry="4"/>
+</g>
+<!-- eya_def_tools.data_models.uncertainty_assessment.UncertaintySubcategory -->
+<g id="node15" class="node">
+<title>eya_def_tools.data_models.uncertainty_assessment.UncertaintySubcategory</title>
+<g id="a_node15"><a xlink:title="eya_def_tools.data_models.uncertainty_assessment.UncertaintySubcategory&#10;&#10;Wind resource uncertainty assessment subcategory.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;label (str): Label of the wind resource uncertainty subcategory.&#10; &#160;&#160;&#160;description (Optional[str]): Description of the data object. Default is None.&#10; &#160;&#160;&#160;comments (Optional[str]): Comments on the data object. Default is None.&#10; &#160;&#160;&#160;results (list[Result]): Wind resource uncertainty assessment subcategory results.&#10;">
+<polygon fill="none" stroke="black" points="2037.5,-577.59 2037.5,-598.59 2191.5,-598.59 2191.5,-577.59 2037.5,-577.59"/>
+<text text-anchor="start" x="2040.5" y="-585.39" font-family="Times New Roman,serif" font-weight="bold" font-size="14.00">UncertaintySubcategory</text>
+<polygon fill="none" stroke="black" points="2037.5,-556.59 2037.5,-577.59 2109.5,-577.59 2109.5,-556.59 2037.5,-556.59"/>
+<text text-anchor="start" x="2060.5" y="-563.39" font-family="Times New Roman,serif" font-size="14.00">label</text>
+<polygon fill="none" stroke="black" points="2109.5,-556.59 2109.5,-577.59 2191.5,-577.59 2191.5,-556.59 2109.5,-556.59"/>
+<text text-anchor="start" x="2143" y="-563.39" font-family="Times New Roman,serif" font-size="14.00">str</text>
+<polygon fill="none" stroke="black" points="2037.5,-535.59 2037.5,-556.59 2109.5,-556.59 2109.5,-535.59 2037.5,-535.59"/>
+<text text-anchor="start" x="2042" y="-542.39" font-family="Times New Roman,serif" font-size="14.00">description</text>
+<polygon fill="none" stroke="black" points="2109.5,-535.59 2109.5,-556.59 2191.5,-556.59 2191.5,-535.59 2109.5,-535.59"/>
+<text text-anchor="start" x="2114.5" y="-542.39" font-family="Times New Roman,serif" font-size="14.00">Optional[str]</text>
+<polygon fill="none" stroke="black" points="2037.5,-514.59 2037.5,-535.59 2109.5,-535.59 2109.5,-514.59 2037.5,-514.59"/>
+<text text-anchor="start" x="2044.5" y="-521.39" font-family="Times New Roman,serif" font-size="14.00">comments</text>
+<polygon fill="none" stroke="black" points="2109.5,-514.59 2109.5,-535.59 2191.5,-535.59 2191.5,-514.59 2109.5,-514.59"/>
+<text text-anchor="start" x="2114.5" y="-521.39" font-family="Times New Roman,serif" font-size="14.00">Optional[str]</text>
+<polygon fill="none" stroke="black" points="2037.5,-493.59 2037.5,-514.59 2109.5,-514.59 2109.5,-493.59 2037.5,-493.59"/>
+<text text-anchor="start" x="2055" y="-500.39" font-family="Times New Roman,serif" font-size="14.00">results</text>
+<polygon fill="none" stroke="black" points="2109.5,-493.59 2109.5,-514.59 2191.5,-514.59 2191.5,-493.59 2109.5,-493.59"/>
+<text text-anchor="start" x="2120" y="-500.39" font-family="Times New Roman,serif" font-size="14.00">list[Result]</text>
+</a>
+</g>
+</g>
+<!-- eya_def_tools.data_models.uncertainty_assessment.UncertaintyCategory&#45;&gt;eya_def_tools.data_models.uncertainty_assessment.UncertaintySubcategory -->
+<g id="edge20" class="edge">
+<title>eya_def_tools.data_models.uncertainty_assessment.UncertaintyCategory:e&#45;&gt;eya_def_tools.data_models.uncertainty_assessment.UncertaintySubcategory:w</title>
+<path fill="none" stroke="black" d="M1874.5,-546.59C1942.2,-546.59 1959.25,-581.39 2017.84,-587.64"/>
+<polygon fill="black" stroke="black" points="2026.51,-588.08 2036.27,-593.09 2031.51,-588.34 2036.5,-588.59 2036.5,-588.59 2036.5,-588.59 2031.51,-588.34 2036.73,-584.1 2026.51,-588.08 2026.51,-588.08"/>
+<ellipse fill="none" stroke="black" cx="2022.02" cy="-587.85" rx="4" ry="4"/>
+</g>
+<!-- eya_def_tools.data_models.uncertainty_assessment.UncertaintySubcategory&#45;&gt;eya_def_tools.data_models.result.Result -->
+<g id="edge21" class="edge">
+<title>eya_def_tools.data_models.uncertainty_assessment.UncertaintySubcategory:e&#45;&gt;eya_def_tools.data_models.result.Result:w</title>
+<path fill="none" stroke="black" d="M2192.5,-503.59C2273.61,-503.59 2238.77,-374.96 2301.31,-354.36"/>
+<polygon fill="black" stroke="black" points="2310.11,-353.06 2320.66,-356.05 2315.05,-352.33 2320,-351.59 2320,-351.59 2320,-351.59 2315.05,-352.33 2319.34,-347.14 2310.11,-353.06 2310.11,-353.06"/>
+<ellipse fill="none" stroke="black" cx="2305.66" cy="-353.72" rx="4" ry="4"/>
 </g>
 <!-- eya_def_tools.data_models.wind_farm.TurbineConfiguration&#45;&gt;eya_def_tools.data_models.spatial.Location -->
 <g id="edge22" class="edge">

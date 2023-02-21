@@ -39,6 +39,14 @@ class MeasurementUnit(StrEnum):
     METRE_PER_SECOND = "m s-1"
 
 
+class OperationalDataType(StrEnum):
+    """Type of data from an operational wind farm."""
+
+    PRIMARY_SCADA = auto()
+    SECONDARY_SCADA = auto()
+    METERED_PRODUCTION = auto()
+
+
 class PlantPerformanceCategoryLabel(StrEnum):
     """Category labels in the plant performance assessment."""
 
@@ -223,6 +231,15 @@ class StatisticType(StrEnum):
     P75 = auto()
     P90 = auto()
     P99 = auto()
+
+
+class TimeResolution(StrEnum):
+    """Resolution of time series data."""
+
+    TEN_MINUTELY = "10-minutely"
+    HOURLY = auto()
+    DAILY = auto()
+    MONTHLY = auto()
 
 
 class VariabilityType(StrEnum):
