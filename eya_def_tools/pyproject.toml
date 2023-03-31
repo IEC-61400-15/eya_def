@@ -55,6 +55,9 @@ extend-ignore = "E203"
 
 [tool.mypy]
 files = ["eya_def_tools"]
+plugins = [
+    "pydantic.mypy",
+]
 python_version = "3.11"
 follow_imports = "normal"
 check_untyped_defs = true
@@ -75,3 +78,9 @@ warn_unused_ignores = true
 [[tool.mypy.overrides]]
 module = ["erdantic.*", "pandas.*"]
 ignore_missing_imports = true
+
+[tool.pydantic-mypy]
+init_forbid_extra = true
+init_typed = false
+warn_required_dynamic_aliases = true
+warn_untyped_fields = true
