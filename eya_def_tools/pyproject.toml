@@ -66,7 +66,7 @@ disallow_incomplete_defs = true
 disallow_subclassing_any = true
 disallow_untyped_calls = true
 disallow_untyped_defs = true
-disallow_untyped_decorators = false
+disallow_untyped_decorators = true
 ignore_missing_imports = false
 no_implicit_reexport = true
 show_error_codes = true
@@ -82,6 +82,12 @@ module = [
     "pytest.*",
 ]
 ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = [
+    "eya_def_tools.tests.*",
+]
+disallow_untyped_decorators = false
 
 [tool.pydantic-mypy]
 init_forbid_extra = true
