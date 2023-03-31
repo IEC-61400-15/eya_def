@@ -53,7 +53,7 @@ repos:
     hooks:
       - id: mypy
         args: [--config-file, eya_def_tools/pyproject.toml]
-        additional_dependencies: [pydantic]
+        additional_dependencies: [pydantic, types-jsonschema]
   - repo: https://github.com/pypa/pip-audit
     rev: v2.4.15
     hooks:
