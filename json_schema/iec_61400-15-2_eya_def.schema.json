@@ -816,6 +816,16 @@
             "items": {
               "description": "Reference wind farm operational dataset metadata.",
               "properties": {
+                "data_level": {
+                  "description": "Whether the operational data is provided for each individual wind turbine, is aggregated at the wind farm level or corresponds to a different ('other') unit such as an environmental measurement station.",
+                  "enum": [
+                    "turbine_level",
+                    "wind_farm_level",
+                    "other"
+                  ],
+                  "title": "Operational Data Level",
+                  "type": "string"
+                },
                 "data_period_end_date": {
                   "description": "End of the data period in the ISO 8601 standard format for a calendar date, i.e. YYYY-MM-DD.",
                   "examples": [
@@ -834,17 +844,28 @@
                   "title": "Data Period Start Date",
                   "type": "string"
                 },
+                "data_source_type": {
+                  "description": "The type of the operational data source. Primary data, such as primary SCADA data, comes directly from the source without processing. Report data refers to data extracted from report document, such as monthly operational reports. Other secondary data comprises all other data source categories, such as secondary SCADA data provided in processed (harmonised) form by a data management service provider.originating directly from the turbine OEM SCADA system. Secondary SCADA data is provided by a data management service provider who has processed the primary SCADA data and often makes it available in a harmonised format independent of OEM. Metered production refers to quantities measured by the project revenue meter.",
+                  "enum": [
+                    "primary",
+                    "report",
+                    "other_secondary"
+                  ],
+                  "title": "Data Source Type",
+                  "type": "string"
+                },
                 "data_supplier_organisation": {
                   "$ref": "#/definitions/Organisation",
                   "description": "The organisation that supplied the data.",
                   "title": "Data Supplier Organisation"
                 },
                 "data_type": {
-                  "description": "The type of the operational data. Primary SCADA data refers to data originating directly from the turbine OEM SCADA system. Secondary SCADA data is provided by a data management service provider who has processed the primary SCADA data and often makes it available in a harmonised format independent of OEM. Metered production refers to quantities measured by the project revenue meter.",
+                  "description": "The type of data in the operational data, categorised as 'scada' for data from a Supervisory Control and Data Acquisition (SCADA) system, 'metered' for data from a production meter, 'environmental_measurement' for data from an (on-site) environmental measurement station such as a meteorological mast or a remote sensing device (RSD) and 'other' for any other type of unit.",
                   "enum": [
-                    "primary_scada",
-                    "secondary_scada",
-                    "metered_production"
+                    "environmental_measurement",
+                    "metered",
+                    "scada",
+                    "other"
                   ],
                   "title": "Operational Data Type",
                   "type": "string"
@@ -863,6 +884,8 @@
               },
               "required": [
                 "data_supplier_organisation",
+                "data_source_type",
+                "data_level",
                 "data_type",
                 "time_resolution",
                 "data_period_start_date",

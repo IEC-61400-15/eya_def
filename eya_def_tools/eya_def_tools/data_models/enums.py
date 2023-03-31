@@ -29,6 +29,14 @@ class AssessmentPeriod(StrEnum):
     OTHER = auto()
 
 
+class DataSourceType(StrEnum):
+    """Type of data source."""
+
+    PRIMARY = auto()
+    REPORT = auto()
+    OTHER_SECONDARY = auto()
+
+
 class MeasurementUnit(StrEnum):
     """Unit in which a quantity is measured."""
 
@@ -39,12 +47,21 @@ class MeasurementUnit(StrEnum):
     METRE_PER_SECOND = "m s-1"
 
 
+class OperationalDataLevel(StrEnum):
+    """Level of data from an operational wind farm."""
+
+    TURBINE_LEVEL = auto()
+    WIND_FARM_LEVEL = auto()
+    OTHER = auto()
+
+
 class OperationalDataType(StrEnum):
     """Type of data from an operational wind farm."""
 
-    PRIMARY_SCADA = auto()
-    SECONDARY_SCADA = auto()
-    METERED_PRODUCTION = auto()
+    ENVIRONMENTAL_MEASUREMENT = auto()
+    METERED = auto()
+    SCADA = auto()
+    OTHER = auto()
 
 
 class PlantPerformanceCategoryLabel(StrEnum):

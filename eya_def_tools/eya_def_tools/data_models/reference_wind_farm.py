@@ -7,7 +7,12 @@ import datetime as dt
 import pydantic as pdt
 
 from eya_def_tools.data_models.base_models import EyaDefBaseModel
-from eya_def_tools.data_models.enums import OperationalDataType, TimeResolution
+from eya_def_tools.data_models.enums import (
+    DataSourceType,
+    OperationalDataLevel,
+    OperationalDataType,
+    TimeResolution,
+)
 from eya_def_tools.data_models.organisation import Organisation
 from eya_def_tools.data_models.wind_farm import WindFarmConfiguration
 
@@ -19,15 +24,35 @@ class ReferenceWindFarmDataset(EyaDefBaseModel):
         ...,
         description="The organisation that supplied the data.",
     )
+    data_source_type: DataSourceType = pdt.Field(
+        ...,
+        description=(
+            "The type of the operational data source. Primary data, such as primary "
+            "SCADA data, comes directly from the source without processing. Report "
+            "data refers to data extracted from report document, such as monthly "
+            "operational reports. Other secondary data comprises all other data "
+            "source categories, such as secondary SCADA data provided in processed "
+            "(harmonised) form by a data management service provider."
+        ),
+    )
+    data_level: OperationalDataLevel = pdt.Field(
+        ...,
+        description=(
+            "Whether the operational data is provided for each individual wind "
+            "turbine, is aggregated at the wind farm level or corresponds to "
+            "a different ('other') unit such as an environmental measurement "
+            "station."
+        ),
+    )
     data_type: OperationalDataType = pdt.Field(
         ...,
         description=(
-            "The type of the operational data. Primary SCADA data refers to data "
-            "originating directly from the turbine OEM SCADA system. Secondary SCADA "
-            "data is provided by a data management service provider who has processed "
-            "the primary SCADA data and often makes it available in a harmonised "
-            "format independent of OEM. Metered production refers to quantities "
-            "measured by the project revenue meter."
+            "The type of data in the operational data, categorised as 'scada' for "
+            "data from a Supervisory Control and Data Acquisition (SCADA) system, "
+            "'metered' for data from a production meter, 'environmental_measurement' "
+            "for data from an (on-site) environmental measurement station such as a "
+            "meteorological mast or a remote sensing device (RSD) and 'other' for any "
+            "other type of unit."
         ),
     )
     time_resolution: TimeResolution = pdt.Field(

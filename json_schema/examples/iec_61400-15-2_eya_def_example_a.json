@@ -61,14 +61,16 @@
     {
       "datasets": [
         {
+          "data_level": "turbine_level",
           "data_period_end_date": "2022-12-31",
           "data_period_start_date": "2020-01-01",
+          "data_source_type": "other_secondary",
           "data_supplier_organisation": {
             "abbreviation": "Munro Wind",
             "address": "High Munro Walk, Glasgow, G12 0YE, UK",
             "name": "Munro Wind Limited"
           },
-          "data_type": "secondary_scada",
+          "data_type": "scada",
           "time_resolution": "10-minutely"
         }
       ],
