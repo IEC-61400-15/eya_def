@@ -76,8 +76,18 @@ warn_unused_configs = true
 warn_unused_ignores = true
 
 [[tool.mypy.overrides]]
-module = ["erdantic.*", "pandas.*"]
+module = [
+    "erdantic.*",
+    "pandas.*",
+    "pytest.*",
+]
 ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = [
+    "eya_def_tools.tests.*",
+]
+disallow_untyped_decorators = false
 
 [tool.pydantic-mypy]
 init_forbid_extra = true
