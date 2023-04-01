@@ -26,7 +26,6 @@ class ResultStatistic(EyaDefBaseModel):
     statistic_type: enums.StatisticType = pdt.Field(
         ...,
         description="Type of statistic in the results component.",
-        examples=[enums.StatisticType.MEDIAN, enums.StatisticType.P90],
     )
     values: ResultValue | list[ResultValueAtCoordinate] = pdt.Field(
         ...,

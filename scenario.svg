@@ -481,7 +481,7 @@
 <!-- eya_def_tools.data_models.wind_farm.OperationalRestriction -->
 <g id="node16" class="node">
 <title>eya_def_tools.data_models.wind_farm.OperationalRestriction</title>
-<g id="a_node16"><a xlink:title="eya_def_tools.data_models.wind_farm.OperationalRestriction&#10;&#10;Specifications of an operational restriction.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;label (str): Label of the operational restriction.&#10; &#160;&#160;&#160;description (Optional[str]): Description of the data object. Default is None.&#10; &#160;&#160;&#160;comments (Optional[str]): Comments on the data object. Default is None.&#10;">
+<g id="a_node16"><a xlink:title="eya_def_tools.data_models.wind_farm.OperationalRestriction&#10;&#10;Specifications of a restriction that limits power output.&#10;&#10;In the current draft of the schema, &#39;label&#39;, &#39;description&#39; and&#10;&#39;comments&#39; fields are available to describe the restriction with&#10;free text. This is intended to be expanded into a more comprehensive&#10;data model.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;label (str): Short label to indicate the type of operational restriction.&#10; &#160;&#160;&#160;description (Optional[str]): Description of the data object. Default is None.&#10; &#160;&#160;&#160;comments (Optional[str]): Comments on the data object. Default is None.&#10;">
 <polygon fill="none" stroke="black" points="1645.5,-772.59 1645.5,-793.59 1793.5,-793.59 1793.5,-772.59 1645.5,-772.59"/>
 <text text-anchor="start" x="1648.5" y="-780.39" font-family="Times New Roman,serif" font-weight="bold" font-size="14.00">OperationalRestriction</text>
 <polygon fill="none" stroke="black" points="1645.5,-751.59 1645.5,-772.59 1714.5,-772.59 1714.5,-751.59 1645.5,-751.59"/>
