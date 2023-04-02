@@ -112,7 +112,7 @@ def master_json_schema(master_json_schema_filepath: Path) -> dict[str, Any]:
 
 @pytest.fixture(scope="session")
 def pydantic_json_schema(
-    energy_yield_assessment_a: eya.EnergyYieldAssessment,
+    energy_yield_assessment_a: eya.EyaDef,
 ) -> dict[str, Any]:
     """A ``dict`` representation of the pydantic JSON Schema.
 
@@ -1247,9 +1247,9 @@ def energy_yield_assessment_a(
     second_author_a: report_metadata.ReportContributor,
     verifier_a: report_metadata.ReportContributor,
     approver_a: report_metadata.ReportContributor,
-) -> eya.EnergyYieldAssessment:
+) -> eya.EyaDef:
     """Test case instance 'a' of ``EnergyYieldAssessment``."""
-    return eya.EnergyYieldAssessment(
+    return eya.EyaDef(
         **{
             "$id": (
                 "https://example.com/api/v2/eya/report/"
@@ -1283,7 +1283,7 @@ def energy_yield_assessment_a(
 
 @pytest.fixture(scope="session")
 def energy_yield_assessment_a_tmp_filepath(
-    energy_yield_assessment_a: eya.EnergyYieldAssessment,
+    energy_yield_assessment_a: eya.EyaDef,
     json_examples_tmp_dirpath: Path,
 ) -> Path:
     """The temporary path of the test case instance 'a' json file.

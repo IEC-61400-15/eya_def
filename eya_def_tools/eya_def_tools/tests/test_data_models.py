@@ -6,28 +6,28 @@ import json
 from pathlib import Path
 from typing import Any
 
-from eya_def_tools.data_models.energy_yield_assessment import EnergyYieldAssessment
+from eya_def_tools.data_models.energy_yield_assessment import EyaDef
 
 
 def test_initiate_energy_yield_assessment_a(
-    energy_yield_assessment_a: EnergyYieldAssessment,
+    energy_yield_assessment_a: EyaDef,
 ) -> None:
     """Assert test case instance 'a' is successfully initiated."""
-    assert isinstance(energy_yield_assessment_a, EnergyYieldAssessment)
+    assert isinstance(energy_yield_assessment_a, EyaDef)
 
 
 def test_energy_yield_assessment_round_trip_conversion(
-    energy_yield_assessment_a: EnergyYieldAssessment,
+    energy_yield_assessment_a: EyaDef,
 ) -> None:
     """Test ``EnergyYieldAssessment`` example json round-trip conversion."""
-    energy_yield_assessment_a_conv = EnergyYieldAssessment(
+    energy_yield_assessment_a_conv = EyaDef(
         **json.loads(energy_yield_assessment_a.json(exclude_none=True, by_alias=True))
     )
     assert energy_yield_assessment_a == energy_yield_assessment_a_conv
 
 
 def test_make_model_raw_schema(
-    energy_yield_assessment_a: EnergyYieldAssessment,
+    energy_yield_assessment_a: EyaDef,
 ) -> None:
     """Test that the raw schema is successfully created."""
     schema = energy_yield_assessment_a.schema()

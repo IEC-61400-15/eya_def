@@ -21,7 +21,7 @@ class ReportingEngine:
         self.number_precision = number_precision
 
     def generate_tables(
-        self, energy_yield_assessment: eya.EnergyYieldAssessment
+        self, energy_yield_assessment: eya.EyaDef
     ) -> dict[table_definitions.ReportingTableKey, pd.DataFrame]:
         """Generate IEC 61400-15-2 tables from EYA DEF document.
 

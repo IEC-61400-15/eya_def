@@ -161,16 +161,14 @@ class Scenario(EyaDefBaseModel):
     )
 
 
-class EnergyYieldAssessment(BaseModelWithRefs):
+class EyaDef(BaseModelWithRefs):
     """IEC 61400-15-2 EYA DEF energy yield assessment data model."""
 
     class Config:
         """``EnergyYieldAssessment`` data model configurations."""
 
         @staticmethod
-        def schema_extra(
-            schema: dict[str, Any], model: Type[EnergyYieldAssessment]
-        ) -> None:
+        def schema_extra(schema: dict[str, Any], model: Type[EyaDef]) -> None:
             """Additional items for the model schema."""
             BaseModelWithRefs.Config.schema_extra(schema=schema, model=model)
             schema.update(

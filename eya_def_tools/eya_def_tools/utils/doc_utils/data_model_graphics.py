@@ -22,17 +22,17 @@ from eya_def_tools.data_models import (
 
 def draw_eya_def_all_levels() -> None:
     """Draw diagram of all levels of the schema."""
-    diagram = erd.create(eya.EnergyYieldAssessment)
+    diagram = erd.create(eya.EyaDef)
     diagram.draw("eya_def_all_levels.png")
     diagram.draw("eya_def_all_levels.svg")
 
 
 def draw_eya_def_top_level() -> None:
     """Draw diagram of the top level schema."""
-    eya.EnergyYieldAssessment.update_forward_refs(**locals())
+    eya.EyaDef.update_forward_refs(**locals())
 
     diagram = erd.create(
-        eya.EnergyYieldAssessment,
+        eya.EyaDef,
         termini=[
             report_metadata.ReportContributor,
             organisation.Organisation,
