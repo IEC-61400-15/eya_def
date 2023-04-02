@@ -914,61 +914,39 @@
           "description": {
             "$ref": "#/definitions/DescriptionField"
           },
-          "gross_energy_assessment": {
-            "description": "Gross energy yield assessment.",
+          "energy_assessment": {
+            "description": "Energy assessment details and results, including gross energy, plant performance, net energy and uncertainties.",
             "properties": {
-              "results": {
-                "description": "Gross energy yield results.",
+              "gross_aep_results": {
+                "description": "Gross Annual Energy Production (AEP) predictions in GWh.",
                 "items": {
                   "$ref": "#/definitions/Result"
                 },
-                "title": "Results",
+                "title": "Gross Aep Results",
                 "type": "array"
-              }
-            },
-            "required": [
-              "results"
-            ],
-            "title": "Gross Energy Assessment",
-            "type": "object"
-          },
-          "is_main_scenario": {
-            "description": "Whether or not this is the main scenario in the report.",
-            "title": "Is Main Scenario",
-            "type": [
-              "boolean",
-              "null"
-            ]
-          },
-          "label": {
-            "description": "Label of the scenario.",
-            "examples": [
-              "Sc1",
-              "A",
-              "B01"
-            ],
-            "title": "Label",
-            "type": "string"
-          },
-          "operational_lifetime_length_years": {
-            "description": "Number of years of project operational lifetime.",
-            "examples": [
-              10.0,
-              20.0,
-              30.0
-            ],
-            "exclusiveMaximum": 100.0,
-            "exclusiveMinimum": 1.0,
-            "title": "Operational Lifetime Length Years",
-            "type": "number"
-          },
-          "plant_performance_assessment": {
-            "description": "Plant performance assessment including net energy results.",
-            "properties": {
-              "categories": {
-                "description": "Plant performance assessment categories.",
+              },
+              "gross_energy_model_specification": {
+                "$ref": "#/definitions/CalculationModelSpecification",
+                "description": "Specification of the model used to calculate the gross AEP estimates.",
+                "title": "Gross Energy Model Specification"
+              },
+              "net_aep_results": {
+                "description": "Net Annual Energy Production (AEP) predictions in GWh, including overall uncertainties and results at different confidence levels.",
                 "items": {
-                  "description": "Plant performance assessment category.",
+                  "$ref": "#/definitions/Result"
+                },
+                "title": "Net Aep Results",
+                "type": "array"
+              },
+              "net_aep_uncertainty_assessment": {
+                "$ref": "#/definitions/UncertaintyAssessment",
+                "description": "Net Annual Energy Production (AEP) uncertainty assessment, including the conversion of the wind resource assessment uncertainty results from wind speed to energy quantities and results for all main energy uncertainty categories.",
+                "title": "Net Aep Uncertainty Assessment"
+              },
+              "plant_performance_loss_categories": {
+                "description": "Plant performance loss assessment categories including results.",
+                "items": {
+                  "description": "Plant performance loss assessment category.",
                   "properties": {
                     "category_results": {
                       "description": "Category level assessment results.",
@@ -996,7 +974,7 @@
                     "subcategories": {
                       "description": "Plant performance assessment subcategories that fall under the category.",
                       "items": {
-                        "description": "Plant performance assessment subcategory.",
+                        "description": "Plant performance loss assessment subcategory.",
                         "properties": {
                           "basis": {
                             "description": "Basis of plant performance element assessment.",
@@ -1092,29 +1070,48 @@
                   "title": "Plant Performance Category",
                   "type": "object"
                 },
-                "title": "Categories",
+                "title": "Plant Performance Loss Categories",
                 "type": "array"
-              },
-              "net_energy_results": {
-                "description": "Net energy yield results at different confidence limits.",
-                "items": {
-                  "$ref": "#/definitions/Result"
-                },
-                "title": "Net Energy Results",
-                "type": "array"
-              },
-              "net_energy_uncertainty_assessment": {
-                "$ref": "#/definitions/UncertaintyAssessment",
-                "description": "Net energy uncertainty assessment.",
-                "title": "Net Energy Uncertainty Assessment"
               }
             },
             "required": [
-              "categories",
-              "net_energy_results"
+              "gross_energy_model_specification",
+              "gross_aep_results",
+              "plant_performance_loss_categories",
+              "net_aep_results"
             ],
-            "title": "Plant Performance Assessment",
+            "title": "Energy Assessment",
             "type": "object"
+          },
+          "is_main_scenario": {
+            "description": "Whether or not this is the main scenario in the report.",
+            "title": "Is Main Scenario",
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "label": {
+            "description": "Label of the scenario.",
+            "examples": [
+              "Sc1",
+              "A",
+              "B01"
+            ],
+            "title": "Label",
+            "type": "string"
+          },
+          "operational_lifetime_length_years": {
+            "description": "Number of years of project operational lifetime.",
+            "examples": [
+              10.0,
+              20.0,
+              30.0
+            ],
+            "exclusiveMaximum": 100.0,
+            "exclusiveMinimum": 1.0,
+            "title": "Operational Lifetime Length Years",
+            "type": "number"
           },
           "scenario_id": {
             "description": "Unique identifier of the scenario.",
@@ -1178,8 +1175,7 @@
           "label",
           "operational_lifetime_length_years",
           "wind_farms",
-          "gross_energy_assessment",
-          "plant_performance_assessment"
+          "energy_assessment"
         ],
         "title": "Scenario",
         "type": "object"

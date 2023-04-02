@@ -48,15 +48,8 @@ from eya_def_tools.utils.reference_utils import (
 )
 
 
-# TODO this needs to be completed with more fields for relevant details
-class GrossEnergyAssessment(EyaDefBaseModel):
-    """Gross energy yield assessment."""
-
-    results: list[Result] = pdt.Field(..., description="Gross energy yield results.")
-
-
 class PlantPerformanceSubcategory(EyaDefBaseModel):
-    """Plant performance assessment subcategory."""
+    """Plant performance loss assessment subcategory."""
 
     label: PlantPerformanceSubcategoryLabel = pdt.Field(
         ..., description="Label of the plant performance category."
@@ -76,7 +69,7 @@ class PlantPerformanceSubcategory(EyaDefBaseModel):
 
 
 class PlantPerformanceCategory(EyaDefBaseModel):
-    """Plant performance assessment category."""
+    """Plant performance loss assessment category."""
 
     label: PlantPerformanceCategoryLabel = pdt.Field(
         ..., description="Label of the plant performance category."
@@ -92,18 +85,38 @@ class PlantPerformanceCategory(EyaDefBaseModel):
     )
 
 
-class PlantPerformanceAssessment(EyaDefBaseModel):
-    """Plant performance assessment details and results."""
+class EnergyAssessment(EyaDefBaseModel):
+    """Energy assessment details and results."""
 
-    categories: list[PlantPerformanceCategory] = pdt.Field(
-        ..., description="Plant performance assessment categories."
+    gross_energy_model_specification: CalculationModelSpecification = pdt.Field(
+        ...,
+        description=(
+            "Specification of the model used to calculate the gross AEP estimates."
+        ),
     )
-    # TODO remove optional
-    net_energy_uncertainty_assessment: UncertaintyAssessment | None = pdt.Field(
-        None, description="Net energy uncertainty assessment."
+    gross_aep_results: list[Result] = pdt.Field(
+        ...,
+        description="Gross Annual Energy Production (AEP) predictions in GWh.",
     )
-    net_energy_results: list[Result] = pdt.Field(
-        ..., description="Net energy yield results at different confidence limits."
+    plant_performance_loss_categories: list[PlantPerformanceCategory] = pdt.Field(
+        ...,
+        description="Plant performance loss assessment categories including results.",
+    )
+    net_aep_uncertainty_assessment: UncertaintyAssessment | None = pdt.Field(
+        None,  # TODO remove optional
+        description=(
+            "Net Annual Energy Production (AEP) uncertainty assessment, including "
+            "the conversion of the wind resource assessment uncertainty results from "
+            "wind speed to energy quantities and results for all main energy "
+            "uncertainty categories."
+        ),
+    )
+    net_aep_results: list[Result] = pdt.Field(
+        ...,
+        description=(
+            "Net Annual Energy Production (AEP) predictions in GWh, including "
+            "overall uncertainties and results at different confidence levels."
+        ),
     )
 
 
@@ -139,11 +152,12 @@ class Scenario(EyaDefBaseModel):
     turbine_wind_resource_assessment: TurbineWindResourceAssessment | None = pdt.Field(
         None, description="Wind resource assessment at the turbine locations."
     )
-    gross_energy_assessment: GrossEnergyAssessment = pdt.Field(
-        ..., description="Gross energy yield assessment."
-    )
-    plant_performance_assessment: PlantPerformanceAssessment = pdt.Field(
-        ..., description="Plant performance assessment including net energy results."
+    energy_assessment: EnergyAssessment = pdt.Field(
+        ...,
+        description=(
+            "Energy assessment details and results, including gross energy, plant "
+            "performance, net energy and uncertainties."
+        ),
     )
 
 

@@ -17,6 +17,7 @@ import pydantic as pdt
 import pytest
 
 from eya_def_tools.data_models import calculation_model_specification
+from eya_def_tools.data_models import calculation_model_specification as model_spec
 from eya_def_tools.data_models import energy_yield_assessment as eya
 from eya_def_tools.data_models import (
     enums,
@@ -806,86 +807,6 @@ def turbine_wind_resource_assessment_b(
 
 
 @pytest.fixture(scope="session")
-def gross_energy_assessment_a() -> eya.GrossEnergyAssessment:
-    """Test case instance 'a' of ``GrossEnergyAssessment``."""
-    return eya.GrossEnergyAssessment(
-        results=[
-            result.Result(
-                label="Gross yield",
-                assessment_period=enums.AssessmentPeriod.LIFETIME,
-                dimensions=(enums.ResultsDimension.TURBINE,),
-                statistics=[
-                    result.ResultStatistic(
-                        statistic_type=enums.StatisticType.MEAN,
-                        values=[
-                            (
-                                ("WTG01",),
-                                15500.0,
-                            ),
-                            (
-                                ("WTG02",),
-                                16700.0,
-                            ),
-                        ],
-                    )
-                ],
-            ),
-            result.Result(
-                label="Gross yield",
-                assessment_period=enums.AssessmentPeriod.LIFETIME,
-                dimensions=None,
-                statistics=[
-                    result.ResultStatistic(
-                        statistic_type=enums.StatisticType.MEAN,
-                        values=32200.0,
-                    )
-                ],
-            ),
-        ]
-    )
-
-
-@pytest.fixture(scope="session")
-def gross_energy_assessment_b() -> eya.GrossEnergyAssessment:
-    """Test case instance 'b' of ``GrossEnergyAssessment``."""
-    return eya.GrossEnergyAssessment(
-        results=[
-            result.Result(
-                label="Gross yield",
-                assessment_period=enums.AssessmentPeriod.LIFETIME,
-                dimensions=(enums.ResultsDimension.TURBINE,),
-                statistics=[
-                    result.ResultStatistic(
-                        statistic_type=enums.StatisticType.MEAN,
-                        values=[
-                            (
-                                ("WTG01",),
-                                18100.0,
-                            ),
-                            (
-                                ("WTG02",),
-                                18900.0,
-                            ),
-                        ],
-                    )
-                ],
-            ),
-            result.Result(
-                label="Gross yield",
-                assessment_period=enums.AssessmentPeriod.LIFETIME,
-                dimensions=None,
-                statistics=[
-                    result.ResultStatistic(
-                        statistic_type=enums.StatisticType.MEAN,
-                        values=37000.0,
-                    )
-                ],
-            ),
-        ]
-    )
-
-
-@pytest.fixture(scope="session")
 def plant_performance_curtailment_category_a() -> eya.PlantPerformanceCategory:
     """Curtailment test case instance 'a' of ``PlantPerformanceCategory``."""
     result_components = [
@@ -1024,13 +945,50 @@ def plant_performance_curtailment_category_b() -> eya.PlantPerformanceCategory:
 
 
 @pytest.fixture(scope="session")
-def plant_performance_assessment_a(
+def energy_assessment_a(
     plant_performance_curtailment_category_a: eya.PlantPerformanceCategory,
-) -> eya.PlantPerformanceAssessment:
-    """Test case instance 'a' of ``PlantPerformanceAssessment``."""
-    return eya.PlantPerformanceAssessment(
-        categories=[plant_performance_curtailment_category_a],
-        net_energy_results=[
+) -> eya.EnergyAssessment:
+    """Test case instance 'a' of ``EnergyAssessment``."""
+    return eya.EnergyAssessment(
+        gross_energy_model_specification=model_spec.CalculationModelSpecification(
+            name="TurboYield",
+            description="In-house calculation tool",
+        ),
+        gross_aep_results=[
+            result.Result(
+                label="Gross yield",
+                assessment_period=enums.AssessmentPeriod.LIFETIME,
+                dimensions=(enums.ResultsDimension.TURBINE,),
+                statistics=[
+                    result.ResultStatistic(
+                        statistic_type=enums.StatisticType.MEAN,
+                        values=[
+                            (
+                                ("WTG01",),
+                                15500.0,
+                            ),
+                            (
+                                ("WTG02",),
+                                16700.0,
+                            ),
+                        ],
+                    )
+                ],
+            ),
+            result.Result(
+                label="Gross yield",
+                assessment_period=enums.AssessmentPeriod.LIFETIME,
+                dimensions=None,
+                statistics=[
+                    result.ResultStatistic(
+                        statistic_type=enums.StatisticType.MEAN,
+                        values=32200.0,
+                    )
+                ],
+            ),
+        ],
+        plant_performance_loss_categories=[plant_performance_curtailment_category_a],
+        net_aep_results=[
             result.Result(
                 label="Net yield",
                 assessment_period=enums.AssessmentPeriod.LIFETIME,
@@ -1074,13 +1032,50 @@ def plant_performance_assessment_a(
 
 
 @pytest.fixture(scope="session")
-def plant_performance_assessment_b(
+def energy_assessment_b(
     plant_performance_curtailment_category_b: eya.PlantPerformanceCategory,
-) -> eya.PlantPerformanceAssessment:
-    """Test case instance 'b' of ``PlantPerformanceAssessment``."""
-    return eya.PlantPerformanceAssessment(
-        categories=[plant_performance_curtailment_category_b],
-        net_energy_results=[
+) -> eya.EnergyAssessment:
+    """Test case instance 'b' of ``EnergyAssessment``."""
+    return eya.EnergyAssessment(
+        gross_energy_model_specification=model_spec.CalculationModelSpecification(
+            name="TurboYield",
+            description="In-house calculation tool",
+        ),
+        gross_aep_results=[
+            result.Result(
+                label="Gross yield",
+                assessment_period=enums.AssessmentPeriod.LIFETIME,
+                dimensions=(enums.ResultsDimension.TURBINE,),
+                statistics=[
+                    result.ResultStatistic(
+                        statistic_type=enums.StatisticType.MEAN,
+                        values=[
+                            (
+                                ("WTG01",),
+                                18100.0,
+                            ),
+                            (
+                                ("WTG02",),
+                                18900.0,
+                            ),
+                        ],
+                    )
+                ],
+            ),
+            result.Result(
+                label="Gross yield",
+                assessment_period=enums.AssessmentPeriod.LIFETIME,
+                dimensions=None,
+                statistics=[
+                    result.ResultStatistic(
+                        statistic_type=enums.StatisticType.MEAN,
+                        values=37000.0,
+                    )
+                ],
+            ),
+        ],
+        plant_performance_loss_categories=[plant_performance_curtailment_category_b],
+        net_aep_results=[
             result.Result(
                 label="Net yield",
                 assessment_period=enums.AssessmentPeriod.LIFETIME,
@@ -1129,8 +1124,7 @@ def scenario_a(
     wind_farm_a: wind_farm.WindFarmConfiguration,
     neighbouring_wind_farm_a: wind_farm.WindFarmConfiguration,
     turbine_wind_resource_assessment_a: turbine_wra.TurbineWindResourceAssessment,
-    gross_energy_assessment_a: eya.GrossEnergyAssessment,
-    plant_performance_assessment_a: eya.PlantPerformanceAssessment,
+    energy_assessment_a: eya.EnergyAssessment,
 ) -> eya.Scenario:
     """Test case instance 'a' of ``Scenario``."""
     return eya.Scenario(
@@ -1142,8 +1136,7 @@ def scenario_a(
         wind_farms=[wind_farm_a, neighbouring_wind_farm_a],
         wind_resource_assessment_basis=wind_resource_assessment_basis_a,
         turbine_wind_resource_assessment=turbine_wind_resource_assessment_a,
-        gross_energy_assessment=gross_energy_assessment_a,
-        plant_performance_assessment=plant_performance_assessment_a,
+        energy_assessment=energy_assessment_a,
     )
 
 
@@ -1153,8 +1146,7 @@ def scenario_b(
     wind_farm_b: wind_farm.WindFarmConfiguration,
     neighbouring_wind_farm_a: wind_farm.WindFarmConfiguration,
     turbine_wind_resource_assessment_b: turbine_wra.TurbineWindResourceAssessment,
-    gross_energy_assessment_b: eya.GrossEnergyAssessment,
-    plant_performance_assessment_b: eya.PlantPerformanceAssessment,
+    energy_assessment_b: eya.EnergyAssessment,
 ) -> eya.Scenario:
     """Test case instance 'b' of ``Scenario``."""
     return eya.Scenario(
@@ -1167,8 +1159,7 @@ def scenario_b(
         wind_farms=[wind_farm_b, neighbouring_wind_farm_a],
         wind_resource_assessment_basis=wind_resource_assessment_basis_a,
         turbine_wind_resource_assessment=turbine_wind_resource_assessment_b,
-        gross_energy_assessment=gross_energy_assessment_b,
-        plant_performance_assessment=plant_performance_assessment_b,
+        energy_assessment=energy_assessment_b,
     )
 
 

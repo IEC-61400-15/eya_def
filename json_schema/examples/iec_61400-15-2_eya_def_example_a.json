@@ -119,8 +119,8 @@
   "scenarios": [
     {
       "description": "ABC165-5.5MW turbine model scenario",
-      "gross_energy_assessment": {
-        "results": [
+      "energy_assessment": {
+        "gross_aep_results": [
           {
             "assessment_period": "lifetime",
             "dimensions": [
@@ -157,13 +157,50 @@
               }
             ]
           }
-        ]
-      },
-      "is_main_scenario": true,
-      "label": "A",
-      "operational_lifetime_length_years": 30.0,
-      "plant_performance_assessment": {
-        "categories": [
+        ],
+        "gross_energy_model_specification": {
+          "description": "In-house calculation tool",
+          "name": "TurboYield"
+        },
+        "net_aep_results": [
+          {
+            "assessment_period": "lifetime",
+            "label": "Net yield",
+            "statistics": [
+              {
+                "statistic_type": "median",
+                "values": 31528.6
+              },
+              {
+                "statistic_type": "standard_deviation",
+                "values": 3468.1
+              },
+              {
+                "statistic_type": "p90",
+                "values": 27089.4
+              }
+            ]
+          },
+          {
+            "assessment_period": "any_one_year",
+            "label": "Net yield",
+            "statistics": [
+              {
+                "statistic_type": "median",
+                "values": 31528.6
+              },
+              {
+                "statistic_type": "standard_deviation",
+                "values": 4729.3
+              },
+              {
+                "statistic_type": "p90",
+                "values": 25475.1
+              }
+            ]
+          }
+        ],
+        "plant_performance_loss_categories": [
           {
             "category_results": [
               {
@@ -271,46 +308,11 @@
               }
             ]
           }
-        ],
-        "net_energy_results": [
-          {
-            "assessment_period": "lifetime",
-            "label": "Net yield",
-            "statistics": [
-              {
-                "statistic_type": "median",
-                "values": 31528.6
-              },
-              {
-                "statistic_type": "standard_deviation",
-                "values": 3468.1
-              },
-              {
-                "statistic_type": "p90",
-                "values": 27089.4
-              }
-            ]
-          },
-          {
-            "assessment_period": "any_one_year",
-            "label": "Net yield",
-            "statistics": [
-              {
-                "statistic_type": "median",
-                "values": 31528.6
-              },
-              {
-                "statistic_type": "standard_deviation",
-                "values": 4729.3
-              },
-              {
-                "statistic_type": "p90",
-                "values": 25475.1
-              }
-            ]
-          }
         ]
       },
+      "is_main_scenario": true,
+      "label": "A",
+      "operational_lifetime_length_years": 30.0,
       "scenario_id": "b6953ecb-f88b-4660-9f69-bedbbe4c240b",
       "turbine_wind_resource_assessment": {
         "turbine_wind_resource_results": [
@@ -446,8 +448,8 @@
     {
       "comments": "Site suitability of turbine model has not yet investigated.",
       "description": "PQR169-5.8MW turbine model scenario",
-      "gross_energy_assessment": {
-        "results": [
+      "energy_assessment": {
+        "gross_aep_results": [
           {
             "assessment_period": "lifetime",
             "dimensions": [
@@ -484,13 +486,50 @@
               }
             ]
           }
-        ]
-      },
-      "is_main_scenario": false,
-      "label": "B",
-      "operational_lifetime_length_years": 30.0,
-      "plant_performance_assessment": {
-        "categories": [
+        ],
+        "gross_energy_model_specification": {
+          "description": "In-house calculation tool",
+          "name": "TurboYield"
+        },
+        "net_aep_results": [
+          {
+            "assessment_period": "lifetime",
+            "label": "Net yield",
+            "statistics": [
+              {
+                "statistic_type": "median",
+                "values": 35150.0
+              },
+              {
+                "statistic_type": "standard_deviation",
+                "values": 4569.5
+              },
+              {
+                "statistic_type": "p90",
+                "values": 29301.0
+              }
+            ]
+          },
+          {
+            "assessment_period": "any_one_year",
+            "label": "Net yield",
+            "statistics": [
+              {
+                "statistic_type": "median",
+                "values": 35150.0
+              },
+              {
+                "statistic_type": "standard_deviation",
+                "values": 5799.8
+              },
+              {
+                "statistic_type": "p90",
+                "values": 27726.3
+              }
+            ]
+          }
+        ],
+        "plant_performance_loss_categories": [
           {
             "category_results": [
               {
@@ -592,46 +631,11 @@
               }
             ]
           }
-        ],
-        "net_energy_results": [
-          {
-            "assessment_period": "lifetime",
-            "label": "Net yield",
-            "statistics": [
-              {
-                "statistic_type": "median",
-                "values": 35150.0
-              },
-              {
-                "statistic_type": "standard_deviation",
-                "values": 4569.5
-              },
-              {
-                "statistic_type": "p90",
-                "values": 29301.0
-              }
-            ]
-          },
-          {
-            "assessment_period": "any_one_year",
-            "label": "Net yield",
-            "statistics": [
-              {
-                "statistic_type": "median",
-                "values": 35150.0
-              },
-              {
-                "statistic_type": "standard_deviation",
-                "values": 5799.8
-              },
-              {
-                "statistic_type": "p90",
-                "values": 27726.3
-              }
-            ]
-          }
         ]
       },
+      "is_main_scenario": false,
+      "label": "B",
+      "operational_lifetime_length_years": 30.0,
       "scenario_id": "e27fefdf-cdd7-441f-a7a7-c4347514b4f7",
       "turbine_wind_resource_assessment": {
         "turbine_wind_resource_results": [
