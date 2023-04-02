@@ -23,8 +23,8 @@ from eya_def_tools.data_models import (
 def draw_eya_def_all_levels() -> None:
     """Draw diagram of all levels of the schema."""
     diagram = erd.create(eya.EnergyYieldAssessment)
-    diagram.draw("eya_def_all_level.png")
-    diagram.draw("eya_def_all_level.svg")
+    diagram.draw("eya_def_all_levels.png")
+    diagram.draw("eya_def_all_levels.svg")
 
 
 def draw_eya_def_top_level() -> None:
