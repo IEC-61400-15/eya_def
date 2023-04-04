@@ -4,8 +4,8 @@
   "$version": "0.0.1",
   "additionalProperties": false,
   "definitions": {
-    "CalculationModelSpecification": {
-      "description": "Specification of a model used in an energy assessment.",
+    "AssessmentProcessDescription": {
+      "description": "Description of a process used in an energy yield assessment.",
       "properties": {
         "comments": {
           "$ref": "#/definitions/CommentsField"
@@ -14,7 +14,7 @@
           "$ref": "#/definitions/DescriptionField"
         },
         "name": {
-          "description": "Name of the model.",
+          "description": "Name of the process or model use in the process.",
           "examples": [
             "WAsP",
             "VORTEX BLOCKS",
@@ -28,7 +28,7 @@
       "required": [
         "name"
       ],
-      "title": "CalculationModelSpecification",
+      "title": "AssessmentProcessDescription",
       "type": "object"
     },
     "CommentsField": {
@@ -914,61 +914,39 @@
           "description": {
             "$ref": "#/definitions/DescriptionField"
           },
-          "gross_energy_assessment": {
-            "description": "Gross energy yield assessment.",
+          "energy_assessment": {
+            "description": "Energy assessment details and results, including gross energy, plant performance, net energy and uncertainties.",
             "properties": {
-              "results": {
-                "description": "Gross energy yield results.",
+              "gross_eya_process": {
+                "$ref": "#/definitions/AssessmentProcessDescription",
+                "description": "Specification of the model used to calculate the gross EYA estimates.",
+                "title": "Gross Eya Process"
+              },
+              "gross_eya_results": {
+                "description": "Gross energy production predictions in GWh.",
                 "items": {
                   "$ref": "#/definitions/Result"
                 },
-                "title": "Results",
+                "title": "Gross Eya Results",
                 "type": "array"
-              }
-            },
-            "required": [
-              "results"
-            ],
-            "title": "Gross Energy Assessment",
-            "type": "object"
-          },
-          "is_main_scenario": {
-            "description": "Whether or not this is the main scenario in the report.",
-            "title": "Is Main Scenario",
-            "type": [
-              "boolean",
-              "null"
-            ]
-          },
-          "label": {
-            "description": "Label of the scenario.",
-            "examples": [
-              "Sc1",
-              "A",
-              "B01"
-            ],
-            "title": "Label",
-            "type": "string"
-          },
-          "operational_lifetime_length_years": {
-            "description": "Number of years of project operational lifetime.",
-            "examples": [
-              10.0,
-              20.0,
-              30.0
-            ],
-            "exclusiveMaximum": 100.0,
-            "exclusiveMinimum": 1.0,
-            "title": "Operational Lifetime Length Years",
-            "type": "number"
-          },
-          "plant_performance_assessment": {
-            "description": "Plant performance assessment including net energy results.",
-            "properties": {
-              "categories": {
-                "description": "Plant performance assessment categories.",
+              },
+              "net_energy_uncertainty_assessment": {
+                "$ref": "#/definitions/UncertaintyAssessment",
+                "description": "Net energy production uncertainty assessment, including the conversion of the wind resource assessment uncertainty results from wind speed to energy quantities and results for all main energy uncertainty categories.",
+                "title": "Net Energy Uncertainty Assessment"
+              },
+              "net_eya_results": {
+                "description": "Net energy production predictions in GWh, including overall uncertainties and results at different confidence levels.",
                 "items": {
-                  "description": "Plant performance assessment category.",
+                  "$ref": "#/definitions/Result"
+                },
+                "title": "Net Eya Results",
+                "type": "array"
+              },
+              "plant_performance_loss_categories": {
+                "description": "Plant performance loss assessment categories including results.",
+                "items": {
+                  "description": "Plant performance loss assessment category.",
                   "properties": {
                     "category_results": {
                       "description": "Category level assessment results.",
@@ -996,8 +974,19 @@
                     "subcategories": {
                       "description": "Plant performance assessment subcategories that fall under the category.",
                       "items": {
-                        "description": "Plant performance assessment subcategory.",
+                        "description": "Plant performance loss assessment subcategory.",
                         "properties": {
+                          "assessment_processes": {
+                            "description": "Calculation models used in the assessment.",
+                            "items": {
+                              "$ref": "#/definitions/AssessmentProcessDescription"
+                            },
+                            "title": "Assessment Processes",
+                            "type": [
+                              "array",
+                              "null"
+                            ]
+                          },
                           "basis": {
                             "description": "Basis of plant performance element assessment.",
                             "enum": [
@@ -1012,17 +1001,6 @@
                             ],
                             "title": "Assessment Basis",
                             "type": "string"
-                          },
-                          "calculation_models": {
-                            "description": "Calculation models used in the assessment.",
-                            "items": {
-                              "$ref": "#/definitions/CalculationModelSpecification"
-                            },
-                            "title": "Calculation Models",
-                            "type": [
-                              "array",
-                              "null"
-                            ]
                           },
                           "label": {
                             "description": "Label of the plant performance category.",
@@ -1092,29 +1070,48 @@
                   "title": "Plant Performance Category",
                   "type": "object"
                 },
-                "title": "Categories",
+                "title": "Plant Performance Loss Categories",
                 "type": "array"
-              },
-              "net_energy_results": {
-                "description": "Net energy yield results at different confidence limits.",
-                "items": {
-                  "$ref": "#/definitions/Result"
-                },
-                "title": "Net Energy Results",
-                "type": "array"
-              },
-              "net_energy_uncertainty_assessment": {
-                "$ref": "#/definitions/UncertaintyAssessment",
-                "description": "Net energy uncertainty assessment.",
-                "title": "Net Energy Uncertainty Assessment"
               }
             },
             "required": [
-              "categories",
-              "net_energy_results"
+              "gross_eya_process",
+              "gross_eya_results",
+              "plant_performance_loss_categories",
+              "net_eya_results"
             ],
-            "title": "Plant Performance Assessment",
+            "title": "Energy Assessment",
             "type": "object"
+          },
+          "is_main_scenario": {
+            "description": "Whether or not this is the main scenario in the report.",
+            "title": "Is Main Scenario",
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "label": {
+            "description": "Label of the scenario.",
+            "examples": [
+              "Sc1",
+              "A",
+              "B01"
+            ],
+            "title": "Label",
+            "type": "string"
+          },
+          "operational_lifetime_length_years": {
+            "description": "Number of years of project operational lifetime.",
+            "examples": [
+              10.0,
+              20.0,
+              30.0
+            ],
+            "exclusiveMaximum": 100.0,
+            "exclusiveMinimum": 1.0,
+            "title": "Operational Lifetime Length Years",
+            "type": "number"
           },
           "scenario_id": {
             "description": "Unique identifier of the scenario.",
@@ -1143,18 +1140,18 @@
                 "description": "Turbine wind resource uncertainty assessment.",
                 "title": "Uncertainty Assessment"
               },
-              "wind_spatial_models": {
-                "description": "Wind spatial models used in the assessment.",
+              "wind_spatial_modelling_processes": {
+                "description": "Wind spatial modelling processes used in the assessment.",
                 "items": {
-                  "$ref": "#/definitions/CalculationModelSpecification"
+                  "$ref": "#/definitions/AssessmentProcessDescription"
                 },
-                "title": "Wind Spatial Models",
+                "title": "Wind Spatial Modelling Processes",
                 "type": "array"
               }
             },
             "required": [
               "turbine_wind_resource_results",
-              "wind_spatial_models"
+              "wind_spatial_modelling_processes"
             ],
             "title": "Turbine Wind Resource Assessment",
             "type": "object"
@@ -1167,10 +1164,10 @@
             "title": "Wind Farms",
             "type": "array"
           },
-          "wind_resource_assessment_basis": {
-            "description": "Measurement wind resource assessment basis for the scenario.",
+          "wind_resource_assessment_reference": {
+            "description": "Measurement wind resource assessment reference for the scenario.",
             "properties": {},
-            "title": "Wind Resource Assessment Basis",
+            "title": "Wind Resource Assessment Reference",
             "type": "object"
           }
         },
@@ -1178,8 +1175,7 @@
           "label",
           "operational_lifetime_length_years",
           "wind_farms",
-          "gross_energy_assessment",
-          "plant_performance_assessment"
+          "energy_assessment"
         ],
         "title": "Scenario",
         "type": "object"
@@ -1250,6 +1246,30 @@
       "items": {
         "description": "Wind resource assessment at the measurement locations.",
         "properties": {
+          "measurement_station_reference": {
+            "description": "Assessment results at the measurement location(s).",
+            "properties": {},
+            "title": "Measurement Station Reference",
+            "type": "object"
+          },
+          "reference_wind_farm_reference": {
+            "description": "Assessment results at the measurement location(s).",
+            "properties": {
+              "reference_wind_farm_ids": {
+                "description": "List of the IDs of all reference wind farms used in the assessment.",
+                "items": {
+                  "type": "string"
+                },
+                "title": "Reference Wind Farm Ids",
+                "type": "array"
+              }
+            },
+            "required": [
+              "reference_wind_farm_ids"
+            ],
+            "title": "Reference Wind Farm Reference",
+            "type": "object"
+          },
           "results": {
             "description": "Assessment results at the measurement location(s).",
             "items": {

@@ -4,10 +4,10 @@
 
 import pydantic as pdt
 
+from eya_def_tools.data_models.assessment_results import Result
 from eya_def_tools.data_models.base_models import EyaDefBaseModel
 from eya_def_tools.data_models.enums import UncertaintyCategoryLabel
 from eya_def_tools.data_models.fields import comments_field, description_field
-from eya_def_tools.data_models.result import Result
 
 
 # TODO - this needs to be completed with more fields for relevant details

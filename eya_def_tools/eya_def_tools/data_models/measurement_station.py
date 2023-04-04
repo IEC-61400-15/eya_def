@@ -30,7 +30,7 @@ class MeasurementStationMetadata(JsonPointerRef):
             del field_schema["type"]
 
 
-class MeasurementStationBasis(EyaDefBaseModel):
+class MeasurementStationReference(EyaDefBaseModel):
     """Measurement station basis in a wind resource assessment."""
 
     # TODO - placeholder to be implemented
