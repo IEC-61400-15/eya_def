@@ -9,33 +9,23 @@ from typing import Any, Type
 
 import pydantic as pdt
 
-from eya_def_tools.data_models.base_models import BaseModelWithRefs, EyaDefBaseModel
-from eya_def_tools.data_models.calculation_model_specification import (
-    CalculationModelSpecification,
-)
-from eya_def_tools.data_models.enums import (
-    AssessmentBasis,
-    PlantPerformanceCategoryLabel,
-    PlantPerformanceSubcategoryLabel,
-    VariabilityType,
+from eya_def_tools.data_models import assessment_process_description as eya_prcs_desc
+from eya_def_tools.data_models import (
+    assessment_results,
+    base_models,
+    enums,
+    wind_resource,
 )
 from eya_def_tools.data_models.fields import comments_field, description_field
 from eya_def_tools.data_models.measurement_station import MeasurementStationMetadata
 from eya_def_tools.data_models.organisation import Organisation
 from eya_def_tools.data_models.reference_wind_farm import ReferenceWindFarm
 from eya_def_tools.data_models.report_metadata import ReportContributor
-from eya_def_tools.data_models.result import Result
 from eya_def_tools.data_models.spatial import CoordinateReferenceSystem
 from eya_def_tools.data_models.turbine_model import TurbineModel
-from eya_def_tools.data_models.turbine_wind_resource_assessment import (
-    TurbineWindResourceAssessment,
-)
-from eya_def_tools.data_models.uncertainty_assessment import UncertaintyAssessment
+from eya_def_tools.data_models.uncertainty import UncertaintyAssessment
 from eya_def_tools.data_models.wind_farm import WindFarmConfiguration
-from eya_def_tools.data_models.wind_resource_assessment import (
-    WindResourceAssessment,
-    WindResourceAssessmentBasis,
-)
+from eya_def_tools.data_models.wind_resource import TurbineWindResourceAssessment
 from eya_def_tools.utils.pydantic_json_schema_utils import (
     move_field_to_definitions,
     reduce_json_schema_all_of,
@@ -48,30 +38,30 @@ from eya_def_tools.utils.reference_utils import (
 )
 
 
-class PlantPerformanceSubcategory(EyaDefBaseModel):
+class PlantPerformanceSubcategory(base_models.EyaDefBaseModel):
     """Plant performance loss assessment subcategory."""
 
-    label: PlantPerformanceSubcategoryLabel = pdt.Field(
+    label: enums.PlantPerformanceSubcategoryLabel = pdt.Field(
         ..., description="Label of the plant performance category."
     )
-    basis: AssessmentBasis = pdt.Field(
+    basis: enums.AssessmentBasis = pdt.Field(
         ..., description="Basis of plant performance element assessment."
     )
-    variability: VariabilityType = pdt.Field(
+    variability: enums.VariabilityType = pdt.Field(
         ..., description="Considered variability in plant performance element."
     )
-    calculation_models: list[CalculationModelSpecification] | None = pdt.Field(
-        None, description="Calculation models used in the assessment."
-    )
-    results: Result = pdt.Field(
+    assessment_processes: list[
+        eya_prcs_desc.AssessmentProcessDescription
+    ] | None = pdt.Field(None, description="Calculation models used in the assessment.")
+    results: assessment_results.Result = pdt.Field(
         ..., description="Plant performance assessment subcategory results."
     )
 
 
-class PlantPerformanceCategory(EyaDefBaseModel):
+class PlantPerformanceCategory(base_models.EyaDefBaseModel):
     """Plant performance loss assessment category."""
 
-    label: PlantPerformanceCategoryLabel = pdt.Field(
+    label: enums.PlantPerformanceCategoryLabel = pdt.Field(
         ..., description="Label of the plant performance category."
     )
     subcategories: list[PlantPerformanceSubcategory] = pdt.Field(
@@ -80,47 +70,47 @@ class PlantPerformanceCategory(EyaDefBaseModel):
             "Plant performance assessment subcategories that fall under the category."
         ),
     )
-    category_results: list[Result] = pdt.Field(
+    category_results: list[assessment_results.Result] = pdt.Field(
         ..., description="Category level assessment results."
     )
 
 
-class EnergyAssessment(EyaDefBaseModel):
+class EnergyAssessment(base_models.EyaDefBaseModel):
     """Energy assessment details and results."""
 
-    gross_energy_model_specification: CalculationModelSpecification = pdt.Field(
+    gross_eya_process: eya_prcs_desc.AssessmentProcessDescription = pdt.Field(
         ...,
         description=(
-            "Specification of the model used to calculate the gross AEP estimates."
+            "Specification of the model used to calculate the gross EYA estimates."
         ),
     )
-    gross_aep_results: list[Result] = pdt.Field(
+    gross_eya_results: list[assessment_results.Result] = pdt.Field(
         ...,
-        description="Gross Annual Energy Production (AEP) predictions in GWh.",
+        description="Gross energy production predictions in GWh.",
     )
     plant_performance_loss_categories: list[PlantPerformanceCategory] = pdt.Field(
         ...,
         description="Plant performance loss assessment categories including results.",
     )
-    net_aep_uncertainty_assessment: UncertaintyAssessment | None = pdt.Field(
+    net_energy_uncertainty_assessment: UncertaintyAssessment | None = pdt.Field(
         None,  # TODO remove optional
         description=(
-            "Net Annual Energy Production (AEP) uncertainty assessment, including "
-            "the conversion of the wind resource assessment uncertainty results from "
-            "wind speed to energy quantities and results for all main energy "
-            "uncertainty categories."
+            "Net energy production uncertainty assessment, including the "
+            "conversion of the wind resource assessment uncertainty results "
+            "from wind speed to energy quantities and results for all main "
+            "energy uncertainty categories."
         ),
     )
-    net_aep_results: list[Result] = pdt.Field(
+    net_eya_results: list[assessment_results.Result] = pdt.Field(
         ...,
         description=(
-            "Net Annual Energy Production (AEP) predictions in GWh, including "
-            "overall uncertainties and results at different confidence levels."
+            "Net energy production predictions in GWh, including overall "
+            "uncertainties and results at different confidence levels."
         ),
     )
 
 
-class Scenario(EyaDefBaseModel):
+class Scenario(base_models.EyaDefBaseModel):
     """Single unique energy yield assessment scenario."""
 
     scenario_id: str | None = pdt.Field(
@@ -146,8 +136,11 @@ class Scenario(EyaDefBaseModel):
     wind_farms: list[WindFarmConfiguration] = pdt.Field(
         ..., description="List of all wind farms included in the scenario."
     )
-    wind_resource_assessment_basis: WindResourceAssessmentBasis | None = pdt.Field(
-        None, description="Measurement wind resource assessment basis for the scenario."
+    wind_resource_assessment_reference: (
+        wind_resource.WindResourceAssessmentReference | None
+    ) = pdt.Field(
+        None,
+        description="Measurement wind resource assessment reference for the scenario.",
     )
     turbine_wind_resource_assessment: TurbineWindResourceAssessment | None = pdt.Field(
         None, description="Wind resource assessment at the turbine locations."
@@ -161,7 +154,7 @@ class Scenario(EyaDefBaseModel):
     )
 
 
-class EyaDef(BaseModelWithRefs):
+class EyaDef(base_models.BaseModelWithRefs):
     """IEC 61400-15-2 EYA DEF energy yield assessment data model."""
 
     class Config:
@@ -170,7 +163,9 @@ class EyaDef(BaseModelWithRefs):
         @staticmethod
         def schema_extra(schema: dict[str, Any], model: Type[EyaDef]) -> None:
             """Additional items for the model schema."""
-            BaseModelWithRefs.Config.schema_extra(schema=schema, model=model)
+            base_models.BaseModelWithRefs.Config.schema_extra(
+                schema=schema, model=model
+            )
             schema.update(
                 {
                     "$schema": get_json_schema_reference_uri(),
@@ -262,7 +257,9 @@ class EyaDef(BaseModelWithRefs):
     reference_wind_farms: list[ReferenceWindFarm] | None = pdt.Field(
         None, description="List of reference operational wind farms."
     )
-    wind_resource_assessments: list[WindResourceAssessment] | None = pdt.Field(
+    wind_resource_assessments: (
+        list[wind_resource.WindResourceAssessment] | None
+    ) = pdt.Field(
         None,
         description=(
             "List of wind resource assessments, including results, at "

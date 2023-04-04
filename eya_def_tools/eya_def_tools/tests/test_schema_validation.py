@@ -47,7 +47,7 @@ def test_validate_pydantic_model_json_schema(
 
 def test_validate_pydantic_model(json_example_dict: dict[str, Any]) -> None:
     """Test validate all json file examples against pydantic model."""
-    from eya_def_tools.data_models.energy_yield_assessment import EyaDef
+    from eya_def_tools.data_models.eya_def import EyaDef
 
     for json_filename, json_example in json_example_dict.items():
         try:

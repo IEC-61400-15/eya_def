@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from eya_def_tools.data_models.energy_yield_assessment import EyaDef
+from eya_def_tools.data_models.eya_def import EyaDef
 
 
 def test_initiate_energy_yield_assessment_a(

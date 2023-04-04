@@ -120,7 +120,11 @@
     {
       "description": "ABC165-5.5MW turbine model scenario",
       "energy_assessment": {
-        "gross_aep_results": [
+        "gross_eya_process": {
+          "description": "In-house calculation tool",
+          "name": "TurboYield"
+        },
+        "gross_eya_results": [
           {
             "assessment_period": "lifetime",
             "dimensions": [
@@ -158,11 +162,7 @@
             ]
           }
         ],
-        "gross_energy_model_specification": {
-          "description": "In-house calculation tool",
-          "name": "TurboYield"
-        },
-        "net_aep_results": [
+        "net_eya_results": [
           {
             "assessment_period": "lifetime",
             "label": "Net yield",
@@ -251,13 +251,13 @@
             "label": "curtailment",
             "subcategories": [
               {
-                "basis": "timeseries_calculation",
-                "calculation_models": [
+                "assessment_processes": [
                   {
                     "comments": "Internal toolset",
                     "name": "Timeseries tool"
                   }
                 ],
+                "basis": "timeseries_calculation",
                 "label": "load_curtailment",
                 "results": {
                   "assessment_period": "lifetime",
@@ -343,7 +343,7 @@
             ]
           }
         ],
-        "wind_spatial_models": [
+        "wind_spatial_modelling_processes": [
           {
             "comments": "The simulations were run using 60 representative days.",
             "description": "VENTOS/M is a coupled CFD-mesoscale model.",
@@ -443,13 +443,17 @@
           ]
         }
       ],
-      "wind_resource_assessment_basis": {}
+      "wind_resource_assessment_reference": {}
     },
     {
       "comments": "Site suitability of turbine model has not yet investigated.",
       "description": "PQR169-5.8MW turbine model scenario",
       "energy_assessment": {
-        "gross_aep_results": [
+        "gross_eya_process": {
+          "description": "In-house calculation tool",
+          "name": "TurboYield"
+        },
+        "gross_eya_results": [
           {
             "assessment_period": "lifetime",
             "dimensions": [
@@ -487,11 +491,7 @@
             ]
           }
         ],
-        "gross_energy_model_specification": {
-          "description": "In-house calculation tool",
-          "name": "TurboYield"
-        },
-        "net_aep_results": [
+        "net_eya_results": [
           {
             "assessment_period": "lifetime",
             "label": "Net yield",
@@ -666,7 +666,7 @@
             ]
           }
         ],
-        "wind_spatial_models": [
+        "wind_spatial_modelling_processes": [
           {
             "comments": "The simulations were run using 60 representative days.",
             "description": "VENTOS/M is a coupled CFD-mesoscale model.",
@@ -756,7 +756,7 @@
           ]
         }
       ],
-      "wind_resource_assessment_basis": {}
+      "wind_resource_assessment_reference": {}
     }
   ],
   "title": "Energy yield assessment of the Barefoot Wind Farm",
@@ -776,6 +776,11 @@
   ],
   "wind_resource_assessments": [
     {
+      "reference_wind_farm_reference": {
+        "reference_wind_farm_ids": [
+          "munro_wind_farm_reference"
+        ]
+      },
       "results": [
         {
           "assessment_period": "lifetime",

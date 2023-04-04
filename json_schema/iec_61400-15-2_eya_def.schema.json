@@ -4,8 +4,8 @@
   "$version": "0.0.1",
   "additionalProperties": false,
   "definitions": {
-    "CalculationModelSpecification": {
-      "description": "Specification of a model used in an energy assessment.",
+    "AssessmentProcessDescription": {
+      "description": "Description of a process used in an energy yield assessment.",
       "properties": {
         "comments": {
           "$ref": "#/definitions/CommentsField"
@@ -14,7 +14,7 @@
           "$ref": "#/definitions/DescriptionField"
         },
         "name": {
-          "description": "Name of the model.",
+          "description": "Name of the process or model use in the process.",
           "examples": [
             "WAsP",
             "VORTEX BLOCKS",
@@ -28,7 +28,7 @@
       "required": [
         "name"
       ],
-      "title": "CalculationModelSpecification",
+      "title": "AssessmentProcessDescription",
       "type": "object"
     },
     "CommentsField": {
@@ -917,31 +917,31 @@
           "energy_assessment": {
             "description": "Energy assessment details and results, including gross energy, plant performance, net energy and uncertainties.",
             "properties": {
-              "gross_aep_results": {
-                "description": "Gross Annual Energy Production (AEP) predictions in GWh.",
+              "gross_eya_process": {
+                "$ref": "#/definitions/AssessmentProcessDescription",
+                "description": "Specification of the model used to calculate the gross EYA estimates.",
+                "title": "Gross Eya Process"
+              },
+              "gross_eya_results": {
+                "description": "Gross energy production predictions in GWh.",
                 "items": {
                   "$ref": "#/definitions/Result"
                 },
-                "title": "Gross Aep Results",
+                "title": "Gross Eya Results",
                 "type": "array"
               },
-              "gross_energy_model_specification": {
-                "$ref": "#/definitions/CalculationModelSpecification",
-                "description": "Specification of the model used to calculate the gross AEP estimates.",
-                "title": "Gross Energy Model Specification"
-              },
-              "net_aep_results": {
-                "description": "Net Annual Energy Production (AEP) predictions in GWh, including overall uncertainties and results at different confidence levels.",
-                "items": {
-                  "$ref": "#/definitions/Result"
-                },
-                "title": "Net Aep Results",
-                "type": "array"
-              },
-              "net_aep_uncertainty_assessment": {
+              "net_energy_uncertainty_assessment": {
                 "$ref": "#/definitions/UncertaintyAssessment",
-                "description": "Net Annual Energy Production (AEP) uncertainty assessment, including the conversion of the wind resource assessment uncertainty results from wind speed to energy quantities and results for all main energy uncertainty categories.",
-                "title": "Net Aep Uncertainty Assessment"
+                "description": "Net energy production uncertainty assessment, including the conversion of the wind resource assessment uncertainty results from wind speed to energy quantities and results for all main energy uncertainty categories.",
+                "title": "Net Energy Uncertainty Assessment"
+              },
+              "net_eya_results": {
+                "description": "Net energy production predictions in GWh, including overall uncertainties and results at different confidence levels.",
+                "items": {
+                  "$ref": "#/definitions/Result"
+                },
+                "title": "Net Eya Results",
+                "type": "array"
               },
               "plant_performance_loss_categories": {
                 "description": "Plant performance loss assessment categories including results.",
@@ -976,6 +976,17 @@
                       "items": {
                         "description": "Plant performance loss assessment subcategory.",
                         "properties": {
+                          "assessment_processes": {
+                            "description": "Calculation models used in the assessment.",
+                            "items": {
+                              "$ref": "#/definitions/AssessmentProcessDescription"
+                            },
+                            "title": "Assessment Processes",
+                            "type": [
+                              "array",
+                              "null"
+                            ]
+                          },
                           "basis": {
                             "description": "Basis of plant performance element assessment.",
                             "enum": [
@@ -990,17 +1001,6 @@
                             ],
                             "title": "Assessment Basis",
                             "type": "string"
-                          },
-                          "calculation_models": {
-                            "description": "Calculation models used in the assessment.",
-                            "items": {
-                              "$ref": "#/definitions/CalculationModelSpecification"
-                            },
-                            "title": "Calculation Models",
-                            "type": [
-                              "array",
-                              "null"
-                            ]
                           },
                           "label": {
                             "description": "Label of the plant performance category.",
@@ -1075,10 +1075,10 @@
               }
             },
             "required": [
-              "gross_energy_model_specification",
-              "gross_aep_results",
+              "gross_eya_process",
+              "gross_eya_results",
               "plant_performance_loss_categories",
-              "net_aep_results"
+              "net_eya_results"
             ],
             "title": "Energy Assessment",
             "type": "object"
@@ -1140,18 +1140,18 @@
                 "description": "Turbine wind resource uncertainty assessment.",
                 "title": "Uncertainty Assessment"
               },
-              "wind_spatial_models": {
-                "description": "Wind spatial models used in the assessment.",
+              "wind_spatial_modelling_processes": {
+                "description": "Wind spatial modelling processes used in the assessment.",
                 "items": {
-                  "$ref": "#/definitions/CalculationModelSpecification"
+                  "$ref": "#/definitions/AssessmentProcessDescription"
                 },
-                "title": "Wind Spatial Models",
+                "title": "Wind Spatial Modelling Processes",
                 "type": "array"
               }
             },
             "required": [
               "turbine_wind_resource_results",
-              "wind_spatial_models"
+              "wind_spatial_modelling_processes"
             ],
             "title": "Turbine Wind Resource Assessment",
             "type": "object"
@@ -1164,10 +1164,10 @@
             "title": "Wind Farms",
             "type": "array"
           },
-          "wind_resource_assessment_basis": {
-            "description": "Measurement wind resource assessment basis for the scenario.",
+          "wind_resource_assessment_reference": {
+            "description": "Measurement wind resource assessment reference for the scenario.",
             "properties": {},
-            "title": "Wind Resource Assessment Basis",
+            "title": "Wind Resource Assessment Reference",
             "type": "object"
           }
         },
@@ -1246,6 +1246,30 @@
       "items": {
         "description": "Wind resource assessment at the measurement locations.",
         "properties": {
+          "measurement_station_reference": {
+            "description": "Assessment results at the measurement location(s).",
+            "properties": {},
+            "title": "Measurement Station Reference",
+            "type": "object"
+          },
+          "reference_wind_farm_reference": {
+            "description": "Assessment results at the measurement location(s).",
+            "properties": {
+              "reference_wind_farm_ids": {
+                "description": "List of the IDs of all reference wind farms used in the assessment.",
+                "items": {
+                  "type": "string"
+                },
+                "title": "Reference Wind Farm Ids",
+                "type": "array"
+              }
+            },
+            "required": [
+              "reference_wind_farm_ids"
+            ],
+            "title": "Reference Wind Farm Reference",
+            "type": "object"
+          },
           "results": {
             "description": "Assessment results at the measurement location(s).",
             "items": {

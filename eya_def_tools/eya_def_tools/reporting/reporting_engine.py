@@ -9,7 +9,7 @@ from pathlib import Path
 
 import pandas as pd
 
-import eya_def_tools.data_models.energy_yield_assessment as eya
+from eya_def_tools.data_models import eya_def
 from eya_def_tools.reporting import table_definitions
 
 
@@ -21,7 +21,7 @@ class ReportingEngine:
         self.number_precision = number_precision
 
     def generate_tables(
-        self, energy_yield_assessment: eya.EyaDef
+        self, energy_yield_assessment: eya_def.EyaDef
     ) -> dict[table_definitions.ReportingTableKey, pd.DataFrame]:
         """Generate IEC 61400-15-2 tables from EYA DEF document.
 
