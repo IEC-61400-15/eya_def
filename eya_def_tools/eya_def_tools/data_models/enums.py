@@ -50,8 +50,7 @@ class OperationalDataType(StrEnum):
 class PlantPerformanceCategoryLabel(StrEnum):
     """Category labels in the plant performance assessment."""
 
-    WAKES = auto()
-    BLOCKAGE = auto()
+    TURBINE_INTERACTION = auto()
     AVAILABILITY = auto()
     ELECTRICAL = auto()
     TURBINE_PERFORMANCE = auto()
@@ -59,40 +58,14 @@ class PlantPerformanceCategoryLabel(StrEnum):
     CURTAILMENT = auto()
     OTHER = auto()
 
-    def is_turbine_interaction(self) -> bool:
-        """Whether the label enum corresponds to turbine interaction.
-
-        See also ``turbine_interaction_category_labels``.
-        """
-        if self in self.turbine_interaction_category_labels():
-            return True
-        else:
-            return False
-
-    @classmethod
-    def turbine_interaction_category_labels(
-        cls,
-    ) -> tuple[PlantPerformanceCategoryLabel, ...]:
-        """Get the label enums that correspond to turbine interaction.
-
-        Turbine interaction is a 'super-category' that includes both
-        wakes and blockage.
-        """
-        return cls.WAKES, cls.BLOCKAGE
-
 
 class PlantPerformanceSubcategoryLabel(StrEnum):
     """Subcategory labels in the plant performance assessment."""
 
-    # Wakes
-    INTERNAL_WAKES = auto()
-    EXTERNAL_WAKES = auto()
-    FUTURE_WAKES = auto()
-
-    # Blockage
-    INTERNAL_BLOCKAGE = auto()
-    EXTERNAL_BLOCKAGE = auto()
-    FUTURE_BLOCKAGE = auto()
+    # Turbine interaction
+    INTERNAL_TURBINE_INTERACTION = auto()
+    EXTERNAL_TURBINE_INTERACTION = auto()
+    FUTURE_TURBINE_INTERACTION = auto()
 
     # Availability
     TURBINE_AVAILABILITY = auto()
@@ -122,34 +95,24 @@ class PlantPerformanceSubcategoryLabel(StrEnum):
     OPERATIONAL_STRATEGIES = auto()
 
     # Other
+    ASYMMETRIC_EFFECTS = auto()
+    UPSIDE_SCENARIOS = auto()
     OTHER = auto()
 
-    def category(self) -> PlantPerformanceCategoryLabel:
-        """Get the category corresponding to the component.
-
-        :return: The ``PlantPerformanceCategoryLabel`` that the
-            component label belongs to.
-        """
-        component_to_category_map: dict[
-            PlantPerformanceSubcategoryLabel, PlantPerformanceCategoryLabel
-        ] = {
-            PlantPerformanceSubcategoryLabel.INTERNAL_WAKES: (
-                PlantPerformanceCategoryLabel.WAKES
+    @classmethod
+    def subcategory_to_category_map(
+        cls,
+    ) -> dict[PlantPerformanceSubcategoryLabel, PlantPerformanceCategoryLabel]:
+        """Dictionary mapping each subcategory to the parent category."""
+        return {
+            PlantPerformanceSubcategoryLabel.INTERNAL_TURBINE_INTERACTION: (
+                PlantPerformanceCategoryLabel.TURBINE_INTERACTION
             ),
-            PlantPerformanceSubcategoryLabel.EXTERNAL_WAKES: (
-                PlantPerformanceCategoryLabel.WAKES
+            PlantPerformanceSubcategoryLabel.EXTERNAL_TURBINE_INTERACTION: (
+                PlantPerformanceCategoryLabel.TURBINE_INTERACTION
             ),
-            PlantPerformanceSubcategoryLabel.FUTURE_WAKES: (
-                PlantPerformanceCategoryLabel.WAKES
-            ),
-            PlantPerformanceSubcategoryLabel.INTERNAL_BLOCKAGE: (
-                PlantPerformanceCategoryLabel.BLOCKAGE
-            ),
-            PlantPerformanceSubcategoryLabel.EXTERNAL_BLOCKAGE: (
-                PlantPerformanceCategoryLabel.BLOCKAGE
-            ),
-            PlantPerformanceSubcategoryLabel.FUTURE_BLOCKAGE: (
-                PlantPerformanceCategoryLabel.BLOCKAGE
+            PlantPerformanceSubcategoryLabel.FUTURE_TURBINE_INTERACTION: (
+                PlantPerformanceCategoryLabel.TURBINE_INTERACTION
             ),
             PlantPerformanceSubcategoryLabel.TURBINE_AVAILABILITY: (
                 PlantPerformanceCategoryLabel.AVAILABILITY
@@ -202,9 +165,24 @@ class PlantPerformanceSubcategoryLabel(StrEnum):
             PlantPerformanceSubcategoryLabel.OPERATIONAL_STRATEGIES: (
                 PlantPerformanceCategoryLabel.CURTAILMENT
             ),
-            PlantPerformanceSubcategoryLabel.OTHER: PlantPerformanceCategoryLabel.OTHER,
+            PlantPerformanceSubcategoryLabel.ASYMMETRIC_EFFECTS: (
+                PlantPerformanceCategoryLabel.OTHER
+            ),
+            PlantPerformanceSubcategoryLabel.UPSIDE_SCENARIOS: (
+                PlantPerformanceCategoryLabel.OTHER
+            ),
+            PlantPerformanceSubcategoryLabel.OTHER: (
+                PlantPerformanceCategoryLabel.OTHER
+            ),
         }
-        return component_to_category_map[self]
+
+    def category(self) -> PlantPerformanceCategoryLabel:
+        """Get the category corresponding to the component.
+
+        :return: The ``PlantPerformanceCategoryLabel`` that the
+            component label belongs to.
+        """
+        return self.subcategory_to_category_map()[self]
 
 
 class ResultsDimension(StrEnum):
