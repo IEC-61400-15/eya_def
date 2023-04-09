@@ -28,14 +28,12 @@ jobs:
         pip install -r eya_def_tools/requirements.txt
         pip install -r eya_def_tools/requirements-dev.txt
     - name: Install eya_def_tools Python package
-      working-directory: ./eya_def_tools
       run: |
-        pip install .[dev]
+        pip install -e eya_def_tools[dev]
     - name: Lint with flake8
-      working-directory: ./eya_def_tools
       run: |
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        flake8 . --count --exit-zero --max-complexity=14 --max-line-length=88 --extend-ignore=E203 --statistics
+        flake8 eya_def_tools --count --select=E9,F63,F7,F82 --show-source --statistics
+        flake8 eya_def_tools --count --exit-zero --max-complexity=14 --max-line-length=88 --extend-ignore=E203 --statistics
     - name: Test with pytest
       run: |
         pytest --pyargs eya_def_tools --cov=eya_def_tools --cov-report term-missing
