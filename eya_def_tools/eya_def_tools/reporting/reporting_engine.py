@@ -21,17 +21,16 @@ class ReportingEngine:
         self.number_precision = number_precision
 
     def generate_tables(
-        self, energy_yield_assessment: eya_def.EyaDef
+        self, eya_def_obj: eya_def.EyaDef
     ) -> dict[table_definitions.ReportingTableKey, pd.DataFrame]:
         """Generate IEC 61400-15-2 tables from EYA DEF document.
 
-        :param energy_yield_assessment: the ``EnergyYieldAssessment``
-            instance to generate tables for
+        :param eya_def_obj: the ``EyaDef`` instance to generate tables for
         :return: a dictionary that maps table keys to pandas dataframe
             objects with table data
         """
         tables: dict[table_definitions.ReportingTableKey, pd.DataFrame] = {}
-
+        print(eya_def_obj)
         # TODO placeholder function to be implemented
 
         return tables

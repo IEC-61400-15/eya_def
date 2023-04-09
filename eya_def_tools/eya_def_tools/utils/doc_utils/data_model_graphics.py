@@ -8,6 +8,7 @@ The graphics are rendered based on the ``pydantic`` data models in
 
 import erdantic as erd
 
+import eya_def_tools.data_models.scenario
 from eya_def_tools.data_models import assessment_results
 from eya_def_tools.data_models import eya_def as eya
 from eya_def_tools.data_models import (
@@ -40,7 +41,7 @@ def draw_eya_def_top_level() -> None:
             reference_wind_farm.ReferenceWindFarm,
             wind_resource.WindResourceAssessment,
             turbine_model.TurbineModel,
-            eya.Scenario,
+            eya_def_tools.data_models.scenario.Scenario,
         ],
     )
     diagram.draw("eya_def_top_level.png")
@@ -49,7 +50,7 @@ def draw_eya_def_top_level() -> None:
 
 def draw_scenario() -> None:
     """Draw diagram of the scenario level schema."""
-    diagram = erd.create(eya.Scenario)
+    diagram = erd.create(eya_def_tools.data_models.scenario.Scenario)
     diagram.draw("scenario.png")
     diagram.draw("scenario.svg")
 

@@ -6,31 +6,31 @@ import json
 from pathlib import Path
 from typing import Any
 
-from eya_def_tools.data_models.eya_def import EyaDef
+from eya_def_tools.data_models import eya_def
 
 
-def test_initiate_energy_yield_assessment_a(
-    energy_yield_assessment_a: EyaDef,
+def test_initiate_eya_def_a(
+    eya_def_a: eya_def.EyaDef,
 ) -> None:
     """Assert test case instance 'a' is successfully initiated."""
-    assert isinstance(energy_yield_assessment_a, EyaDef)
+    assert isinstance(eya_def_a, eya_def.EyaDef)
 
 
-def test_energy_yield_assessment_round_trip_conversion(
-    energy_yield_assessment_a: EyaDef,
+def test_eya_def_round_trip_conversion(
+    eya_def_a: eya_def.EyaDef,
 ) -> None:
-    """Test ``EnergyYieldAssessment`` example json round-trip conversion."""
-    energy_yield_assessment_a_conv = EyaDef(
-        **json.loads(energy_yield_assessment_a.json(exclude_none=True, by_alias=True))
+    """Test ``EyaDef`` example json round-trip conversion."""
+    eya_def_a_conv = eya_def.EyaDef(
+        **json.loads(eya_def_a.json(exclude_none=True, by_alias=True))
     )
-    assert energy_yield_assessment_a == energy_yield_assessment_a_conv
+    assert eya_def_a == eya_def_a_conv
 
 
 def test_make_model_raw_schema(
-    energy_yield_assessment_a: EyaDef,
+    eya_def_a: eya_def.EyaDef,
 ) -> None:
     """Test that the raw schema is successfully created."""
-    schema = energy_yield_assessment_a.schema()
+    schema = eya_def_a.schema()
     assert schema is not None
     assert isinstance(schema, dict)
 
@@ -57,13 +57,13 @@ def test_export_json_schema(pydantic_json_schema_tmp_path: Path) -> None:
 #
 #
 # # TODO: TEMPORARY CODE
-# def test_copy_energy_yield_assessment_a(
-#     energy_yield_assessment_a_tmp_filepath: Path,
+# def test_copy_eya_def_a(
+#     eya_def_a_tmp_filepath: Path,
 # ) -> None:
 #     """Temporary test to copy pydantic example 'a'."""
 #     import shutil
 #
 #     shutil.copy(
-#         energy_yield_assessment_a_tmp_filepath,
+#         eya_def_a_tmp_filepath,
 #         Path("iec_61400-15-2_eya_def_example_a.json"),
 #     )
