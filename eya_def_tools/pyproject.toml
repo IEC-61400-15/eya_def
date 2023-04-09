@@ -27,6 +27,7 @@ dynamic = ["dependencies", "optional-dependencies"]
 
 [tool.setuptools]
 packages = ["eya_def_tools"]
+include-package-data = true
 
 [tool.setuptools.dynamic]
 dependencies = {file = ["requirements.txt"]}
