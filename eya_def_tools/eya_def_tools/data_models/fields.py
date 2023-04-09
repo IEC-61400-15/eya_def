@@ -2,7 +2,6 @@
 
 """
 
-
 import pydantic as pdt
 
 description_field: str | None = pdt.Field(
