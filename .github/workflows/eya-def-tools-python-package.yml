@@ -1,0 +1,40 @@
+name: EYA DEF tools Python package linting and testing
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11"]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install --upgrade pip setuptools wheel
+        pip install -r eya_def_tools/requirements.txt
+        pip install -r eya_def_tools/requirements-dev.txt
+    - name: Install eya_def_tools Python package
+      run: |
+        # Update this to copy JSON Schema file and not use editable install
+        pip install -e eya_def_tools[dev]
+    - name: Lint with flake8
+      run: |
+        flake8 eya_def_tools --count --select=E9,F63,F7,F82 --show-source --statistics
+        flake8 eya_def_tools --count --exit-zero --max-complexity=14 --max-line-length=88 --extend-ignore=E203 --statistics
+    - name: Test with pytest
+      run: |
+        pytest --pyargs eya_def_tools --cov=eya_def_tools --cov-report term-missing
