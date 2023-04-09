@@ -29,6 +29,7 @@ jobs:
         pip install -r eya_def_tools/requirements-dev.txt
     - name: Install eya_def_tools Python package
       run: |
+        # Update this to copy JSON Schema file and not use editable install
         pip install -e eya_def_tools[dev]
     - name: Lint with flake8
       run: |
