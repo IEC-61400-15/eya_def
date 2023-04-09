@@ -24,7 +24,7 @@ class UncertaintySubcategory(EyaDefBaseModel):
     )
     description: str | None = description_field
     comments: str | None = comments_field
-    results: list[Result] = pdt.Field(
+    subcategory_results: list[Result] = pdt.Field(
         ..., description="Wind resource uncertainty assessment subcategory results."
     )
 

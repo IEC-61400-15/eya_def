@@ -619,7 +619,7 @@ def regr_model_uncertainty_subcat_a() -> uncertainty.UncertaintySubcategory:
     """Regression model test case 'a' of ``UncertaintyComponent``."""
     return uncertainty.UncertaintySubcategory(
         label="Regression model uncertainty",
-        results=[
+        subcategory_results=[
             assessment_results.Result(
                 label="Regression model wind speed uncertainty per measurement station",
                 assessment_period=enums.AssessmentPeriod.LIFETIME,
@@ -645,7 +645,7 @@ def lt_consistency_uncertainty_subcat_a() -> uncertainty.UncertaintySubcategory:
     """Long-term consistency test case 'a' of ``UncertaintyComponent``."""
     return uncertainty.UncertaintySubcategory(
         label="Long-term consistency uncertainty",
-        results=[
+        subcategory_results=[
             assessment_results.Result(
                 label=(
                     "Long-term consistency wind speed uncertainty "
@@ -714,7 +714,7 @@ def wind_resource_assessment_a(
     """Test case instance 'a' of ``WindResourceAssessment``."""
     return wind_resource.WindResourceAssessment(
         reference_wind_farm_reference=reference_wind_farm_reference_a,
-        results=[
+        subcategory_results=[
             assessment_results.Result(
                 label="Measurement-height long-term wind",
                 assessment_period=enums.AssessmentPeriod.LIFETIME,
@@ -849,12 +849,12 @@ def plant_performance_curtailment_category_a() -> (
                 label=enums.PlantPerformanceSubcategoryLabel.LOAD_CURTAILMENT,
                 basis=enums.AssessmentBasis.TIMESERIES_CALCULATION,
                 variability=enums.VariabilityType.STATIC_PROCESS,
-                assessment_processes=[
+                assessment_process_descriptions=[
                     eya_prcs_desc.AssessmentProcessDescription(
                         name="Timeseries tool", comments="Internal toolset"
                     )
                 ],
-                results=assessment_results.Result(
+                subcategory_results=assessment_results.Result(
                     label="Loads curtailment",
                     description=(
                         "Curtailment due to a wind sector management "
@@ -922,7 +922,7 @@ def plant_performance_curtailment_category_b() -> (
                 label=enums.PlantPerformanceSubcategoryLabel.LOAD_CURTAILMENT,
                 basis=enums.AssessmentBasis.PROJECT_SPECIFIC_ESTIMATE,
                 variability=enums.VariabilityType.STATIC_PROCESS,
-                results=assessment_results.Result(
+                subcategory_results=assessment_results.Result(
                     label="Loads curtailment",
                     description=(
                         "Expected curtailment due to a wind sector "

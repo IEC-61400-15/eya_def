@@ -8,13 +8,14 @@ The graphics are rendered based on the ``pydantic`` data models in
 
 import erdantic as erd
 
-import eya_def_tools.data_models.scenario
-from eya_def_tools.data_models import assessment_results
-from eya_def_tools.data_models import eya_def as eya
 from eya_def_tools.data_models import (
+    assessment_results,
+    eya_def,
     organisation,
+    plant_performance,
     reference_wind_farm,
     report_metadata,
+    scenario,
     spatial,
     turbine_model,
     wind_resource,
@@ -23,17 +24,17 @@ from eya_def_tools.data_models import (
 
 def draw_eya_def_all_levels() -> None:
     """Draw diagram of all levels of the schema."""
-    diagram = erd.create(eya.EyaDef)
+    diagram = erd.create(eya_def.EyaDef)
     diagram.draw("eya_def_all_levels.png")
     diagram.draw("eya_def_all_levels.svg")
 
 
 def draw_eya_def_top_level() -> None:
     """Draw diagram of the top level schema."""
-    eya.EyaDef.update_forward_refs(**locals())
+    eya_def.EyaDef.update_forward_refs(**locals())
 
     diagram = erd.create(
-        eya.EyaDef,
+        eya_def.EyaDef,
         termini=[
             report_metadata.ReportContributor,
             organisation.Organisation,
@@ -41,7 +42,7 @@ def draw_eya_def_top_level() -> None:
             reference_wind_farm.ReferenceWindFarm,
             wind_resource.WindResourceAssessment,
             turbine_model.TurbineModel,
-            eya_def_tools.data_models.scenario.Scenario,
+            scenario.Scenario,
         ],
     )
     diagram.draw("eya_def_top_level.png")
@@ -50,9 +51,16 @@ def draw_eya_def_top_level() -> None:
 
 def draw_scenario() -> None:
     """Draw diagram of the scenario level schema."""
-    diagram = erd.create(eya_def_tools.data_models.scenario.Scenario)
+    diagram = erd.create(scenario.Scenario)
     diagram.draw("scenario.png")
     diagram.draw("scenario.svg")
+
+
+def draw_plant_performance_category() -> None:
+    """Draw diagram of the plant performance category level schema."""
+    diagram = erd.create(plant_performance.PlantPerformanceCategory)
+    diagram.draw("plant_performance_category.png")
+    diagram.draw("plant_performance_category.svg")
 
 
 def draw_reference_wind_farm() -> None:
@@ -73,5 +81,6 @@ if __name__ == "__main__":
     draw_eya_def_all_levels()
     draw_eya_def_top_level()
     draw_scenario()
+    draw_plant_performance_category()
     draw_reference_wind_farm()
     draw_results()

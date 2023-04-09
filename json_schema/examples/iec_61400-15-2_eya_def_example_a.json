@@ -251,15 +251,16 @@
             "label": "curtailment",
             "subcategories": [
               {
-                "assessment_processes": [
+                "assessment_process_descriptions": [
                   {
                     "comments": "Internal toolset",
                     "name": "Timeseries tool"
                   }
                 ],
                 "basis": "timeseries_calculation",
+                "is_preliminary": false,
                 "label": "load_curtailment",
-                "results": {
+                "subcategory_results": {
                   "assessment_period": "lifetime",
                   "comments": "Considering curtailment strategy as specified by the turbine manufacturer.",
                   "description": "Curtailment due to a wind sector management strategy to reduce turbine loads.",
@@ -581,8 +582,9 @@
             "subcategories": [
               {
                 "basis": "project_specific_estimate",
+                "is_preliminary": false,
                 "label": "load_curtailment",
-                "results": {
+                "subcategory_results": {
                   "assessment_period": "lifetime",
                   "comments": "A broad estimate of curtailment losses in the absence of details from the turbine manufacturer.",
                   "description": "Expected curtailment due to a wind sector management to reduce turbine loads.",
@@ -781,7 +783,7 @@
           "munro_wind_farm_reference"
         ]
       },
-      "results": [
+      "subcategory_results": [
         {
           "assessment_period": "lifetime",
           "dimensions": [
@@ -832,7 +834,7 @@
             "subcategories": [
               {
                 "label": "Regression model uncertainty",
-                "results": [
+                "subcategory_results": [
                   {
                     "assessment_period": "lifetime",
                     "dimensions": [
@@ -857,7 +859,7 @@
               },
               {
                 "label": "Long-term consistency uncertainty",
-                "results": [
+                "subcategory_results": [
                   {
                     "assessment_period": "lifetime",
                     "dimensions": [

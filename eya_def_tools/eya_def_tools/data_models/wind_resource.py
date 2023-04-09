@@ -58,7 +58,7 @@ class WindResourceAssessment(base_models.EyaDefBaseModel):
     # long_term_results
     # vertical_extrapolation
     # hub_height_results
-    results: list[assessment_results.Result] = pdt.Field(
+    subcategory_results: list[assessment_results.Result] = pdt.Field(
         ..., description="Assessment results at the measurement location(s)."
     )
     uncertainty_assessment: uncertainty.UncertaintyAssessment = pdt.Field(
