@@ -9,6 +9,7 @@ from eya_def_tools.data_models.assessment_process_description import (
     AssessmentProcessDescription,
 )
 from eya_def_tools.data_models.assessment_results import Result
+from eya_def_tools.data_models.fields import comments_field, description_field
 
 
 class PlantPerformanceElement(base_models.EyaDefBaseModel):
@@ -18,6 +19,8 @@ class PlantPerformanceElement(base_models.EyaDefBaseModel):
         ...,
         description="Label of the plant performance loss element.",
     )
+    description: str | None = description_field
+    comments: str | None = comments_field
     basis: enums.AssessmentBasis = pdt.Field(
         ...,
         description=(

@@ -1035,6 +1035,12 @@
                                   "$ref": "#/definitions/AssessmentBasis",
                                   "description": "Basis of plant performance loss element assessment. The basis describes the level of detail of the calculation or estimate used in the assessment of the element."
                                 },
+                                "comments": {
+                                  "$ref": "#/definitions/CommentsField"
+                                },
+                                "description": {
+                                  "$ref": "#/definitions/DescriptionField"
+                                },
                                 "element_results": {
                                   "$ref": "#/definitions/Result",
                                   "description": "Plant performance assessment element results as dimensionless loss factors (efficiencies).",
