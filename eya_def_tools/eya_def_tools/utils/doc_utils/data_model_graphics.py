@@ -10,6 +10,7 @@ import erdantic as erd
 
 from eya_def_tools.data_models import (
     assessment_results,
+    energy_assessment,
     eya_def,
     organisation,
     plant_performance,
@@ -18,6 +19,7 @@ from eya_def_tools.data_models import (
     scenario,
     spatial,
     turbine_model,
+    wind_farm,
     wind_resource,
 )
 
@@ -56,6 +58,20 @@ def draw_scenario() -> None:
     diagram.draw("scenario.svg")
 
 
+def draw_scenario_reduced() -> None:
+    """Draw reduced diagram of the scenario level schema."""
+    diagram = erd.create(
+        scenario.Scenario,
+        termini=[
+            wind_farm.WindFarmConfiguration,
+            wind_resource.TurbineWindResourceAssessment,
+            energy_assessment.EnergyAssessment,
+        ],
+    )
+    diagram.draw("scenario_reduced.png")
+    diagram.draw("scenario_reduced.svg")
+
+
 def draw_plant_performance_category() -> None:
     """Draw diagram of the plant performance category level schema."""
     diagram = erd.create(plant_performance.PlantPerformanceCategory)
@@ -81,6 +97,7 @@ if __name__ == "__main__":
     draw_eya_def_all_levels()
     draw_eya_def_top_level()
     draw_scenario()
+    draw_scenario_reduced()
     draw_plant_performance_category()
     draw_reference_wind_farm()
     draw_results()
