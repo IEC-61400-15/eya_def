@@ -7,6 +7,7 @@ import datetime as dt
 import pydantic as pdt
 
 from eya_def_tools.data_models import enums, fields
+from eya_def_tools.data_models.assessment_results import Result
 from eya_def_tools.data_models.base_models import EyaDefBaseModel
 from eya_def_tools.data_models.organisation import Organisation
 from eya_def_tools.data_models.wind_farm import WindFarmConfiguration
@@ -50,6 +51,10 @@ class ReferenceWindFarmDataVariable(EyaDefBaseModel):
             "Energy meter at point of common coupling with the grid",
             "Low voltage (LV) side of wind turbine transformer",
         ],
+    )
+    data_availability: list[Result] | None = pdt.Field(
+        None,
+        description=("Dimensionless raw data availability for the variable."),
     )
 
 

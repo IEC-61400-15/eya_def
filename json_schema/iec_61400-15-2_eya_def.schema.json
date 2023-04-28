@@ -899,6 +899,17 @@
                       "comments": {
                         "$ref": "#/definitions/CommentsField"
                       },
+                      "data_availability": {
+                        "description": "Dimensionless raw data availability for the variable.",
+                        "items": {
+                          "$ref": "#/definitions/Result"
+                        },
+                        "title": "Data Availability",
+                        "type": [
+                          "array",
+                          "null"
+                        ]
+                      },
                       "data_level": {
                         "description": "Whether the operational data variable is provided for each individual wind turbine ('turbine_level'), is aggregated at the wind farm level ('wind_farm_level') or corresponds to a different ('other') unit such as an environmental measurement station.",
                         "enum": [
