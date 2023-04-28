@@ -568,12 +568,38 @@ def measurement_station_reference_a() -> (
 def reference_wind_farm_dataset_a() -> reference_wind_farm.ReferenceWindFarmDataset:
     """Test case instance 'a' of ``ReferenceWindFarmDataset``."""
     return reference_wind_farm.ReferenceWindFarmDataset(
+        label="WTG SCADA",
         data_supplier_organisation=organisation.Organisation(
             name="Munro Wind Limited",
             abbreviation="Munro Wind",
             address="High Munro Walk, Glasgow, G12 0YE, UK",
         ),
-        data_type=enums.OperationalDataType.SECONDARY_SCADA,
+        data_type=enums.OperationalDataType.SCADA,
+        data_source_type=enums.DataSourceType.OTHER_SECONDARY,
+        used_data_variables=[
+            reference_wind_farm.ReferenceWindFarmDataVariable(
+                label="wind_speed",
+                data_level=enums.OperationalDataLevel.TURBINE_LEVEL,
+                statistic_types=[enums.StatisticType.MEAN],
+            ),
+            reference_wind_farm.ReferenceWindFarmDataVariable(
+                label="active_power",
+                data_level=enums.OperationalDataLevel.TURBINE_LEVEL,
+                statistic_types=[enums.StatisticType.MEAN],
+                measurement_point="Low voltage (LV) side of turbine transformer",
+            ),
+            reference_wind_farm.ReferenceWindFarmDataVariable(
+                label="rotor_speed",
+                data_level=enums.OperationalDataLevel.TURBINE_LEVEL,
+                statistic_types=[enums.StatisticType.MEAN],
+            ),
+            reference_wind_farm.ReferenceWindFarmDataVariable(
+                label="temperature",
+                data_level=enums.OperationalDataLevel.TURBINE_LEVEL,
+                statistic_types=[enums.StatisticType.MEAN],
+                measurement_point="Sensor outside below the nacelle",
+            ),
+        ],
         time_resolution=enums.TimeResolution.TEN_MINUTELY,
         data_period_start_date=dt.date(2020, 1, 1),
         data_period_end_date=dt.date(2022, 12, 31),
