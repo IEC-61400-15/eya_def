@@ -47,12 +47,12 @@ def test_validate_pydantic_model_json_schema(
 
 def test_validate_pydantic_model(json_example_dict: dict[str, Any]) -> None:
     """Test validate all json file examples against pydantic model."""
-    from eya_def_tools.data_models.energy_yield_assessment import EnergyYieldAssessment
+    from eya_def_tools.data_models.eya_def import EyaDef
 
     for json_filename, json_example in json_example_dict.items():
         try:
-            energy_yield_assessment = EnergyYieldAssessment(**json_example)
-            assert isinstance(energy_yield_assessment, EnergyYieldAssessment)
+            energy_yield_assessment = EyaDef(**json_example)
+            assert isinstance(energy_yield_assessment, EyaDef)
         except pdt.ValidationError as exc:
             pytest.fail(
                 f"the json example '{json_filename}' did not pass the "

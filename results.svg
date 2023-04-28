@@ -10,10 +10,10 @@
 <title>Entity Relationship Diagram</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-254 980,-254 980,4 -4,4"/>
 <text text-anchor="middle" x="488" y="-6.8" font-family="Times New Roman,serif" font-size="9.00" fill="#a8a8a8">Created by erdantic v0.5.0 &lt;https://github.com/drivendataorg/erdantic&gt;</text>
-<!-- eya_def_tools.data_models.result.Result -->
+<!-- eya_def_tools.data_models.assessment_results.Result -->
 <g id="node1" class="node">
-<title>eya_def_tools.data_models.result.Result</title>
-<g id="a_node1"><a xlink:title="eya_def_tools.data_models.result.Result&#10;&#10;Set of results for an element of an energy assessment.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;label (Optional[str]): Label of the results.&#10; &#160;&#160;&#160;description (Optional[str]): Description of the data object. Default is None.&#10; &#160;&#160;&#160;comments (Optional[str]): Comments on the data object. Default is None.&#10; &#160;&#160;&#160;assessment_period (AssessmentPeriod(StrEnum)): Period of or in time that has been assessed and for which the results are applicable. Default is &#39;lifetime&#39;.&#10; &#160;&#160;&#160;dimensions (Optional[tuple[ResultsDimension(StrEnum), ...]]): Dimensions along which the results are binned (all result values in the same results object must have the same dimensions). Default is None.&#10; &#160;&#160;&#160;statistics (list[ResultStatistic]): List of result statistic objects that each include result values for a specific statistic type.&#10;">
+<title>eya_def_tools.data_models.assessment_results.Result</title>
+<g id="a_node1"><a xlink:title="eya_def_tools.data_models.assessment_results.Result&#10;&#10;Set of results for an element of an energy assessment.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;label (Optional[str]): Label of the results.&#10; &#160;&#160;&#160;description (Optional[str]): Description of the data object. Default is None.&#10; &#160;&#160;&#160;comments (Optional[str]): Comments on the data object. Default is None.&#10; &#160;&#160;&#160;assessment_period (AssessmentPeriod(StrEnum)): Period of or in time that has been assessed and for which the results are applicable. Default is &#39;lifetime&#39;.&#10; &#160;&#160;&#160;dimensions (Optional[tuple[ResultsDimension(StrEnum), ...]]): Dimensions along which the results are binned (all result values in the same results object must have the same dimensions). Default is None.&#10; &#160;&#160;&#160;statistics (list[ResultStatistic]): List of result statistic objects that each include result values for a specific statistic type.&#10;">
 <polygon fill="none" stroke="black" points="0,-228.5 0,-249.5 390,-249.5 390,-228.5 0,-228.5"/>
 <text text-anchor="start" x="175" y="-236.3" font-family="Times New Roman,serif" font-weight="bold" font-size="14.00">Result</text>
 <polygon fill="none" stroke="black" points="0,-207.5 0,-228.5 113,-228.5 113,-207.5 0,-207.5"/>
@@ -43,10 +43,10 @@
 </a>
 </g>
 </g>
-<!-- eya_def_tools.data_models.result.ResultStatistic -->
+<!-- eya_def_tools.data_models.assessment_results.ResultStatistic -->
 <g id="node2" class="node">
-<title>eya_def_tools.data_models.result.ResultStatistic</title>
-<g id="a_node2"><a xlink:title="eya_def_tools.data_models.result.ResultStatistic&#10;&#10;Result values for one specific statistic type.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;description (Optional[str]): Description of the data object. Default is None.&#10; &#160;&#160;&#160;comments (Optional[str]): Comments on the data object. Default is None.&#10; &#160;&#160;&#160;statistic_type (StatisticType(StrEnum)): Type of statistic in the results component.&#10; &#160;&#160;&#160;values (UnionType[float, list[tuple[tuple[UnionType[float, int, str], ...], float]]]): Result as a single number or values at coordinates.&#10;">
+<title>eya_def_tools.data_models.assessment_results.ResultStatistic</title>
+<g id="a_node2"><a xlink:title="eya_def_tools.data_models.assessment_results.ResultStatistic&#10;&#10;Result values for one specific statistic type.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;description (Optional[str]): Description of the data object. Default is None.&#10; &#160;&#160;&#160;comments (Optional[str]): Comments on the data object. Default is None.&#10; &#160;&#160;&#160;statistic_type (StatisticType(StrEnum)): Type of statistic in the results component.&#10; &#160;&#160;&#160;values (UnionType[float, list[tuple[tuple[UnionType[float, int, str], ...], float]]]): Result as a single number or values at coordinates.&#10;">
 <polygon fill="none" stroke="black" points="498,-101.5 498,-122.5 976,-122.5 976,-101.5 498,-101.5"/>
 <text text-anchor="start" x="692.5" y="-109.3" font-family="Times New Roman,serif" font-weight="bold" font-size="14.00">ResultStatistic</text>
 <polygon fill="none" stroke="black" points="498,-80.5 498,-101.5 578,-101.5 578,-80.5 498,-80.5"/>
@@ -68,9 +68,9 @@
 </a>
 </g>
 </g>
-<!-- eya_def_tools.data_models.result.Result&#45;&gt;eya_def_tools.data_models.result.ResultStatistic -->
+<!-- eya_def_tools.data_models.assessment_results.Result&#45;&gt;eya_def_tools.data_models.assessment_results.ResultStatistic -->
 <g id="edge1" class="edge">
-<title>eya_def_tools.data_models.result.Result:e&#45;&gt;eya_def_tools.data_models.result.ResultStatistic:w</title>
+<title>eya_def_tools.data_models.assessment_results.Result:e&#45;&gt;eya_def_tools.data_models.assessment_results.ResultStatistic:w</title>
 <path fill="none" stroke="black" d="M390,-112.5C431.06,-112.5 445.78,-112.5 479.23,-112.5"/>
 <polygon fill="black" stroke="black" points="488,-112.5 498,-117 493,-112.5 498,-112.5 498,-112.5 498,-112.5 493,-112.5 498,-108 488,-112.5 488,-112.5"/>
 <ellipse fill="none" stroke="black" cx="483.5" cy="-112.5" rx="4" ry="4"/>

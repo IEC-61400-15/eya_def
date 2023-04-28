@@ -8,37 +8,37 @@ The graphics are rendered based on the ``pydantic`` data models in
 
 import erdantic as erd
 
-import eya_def_tools.data_models.wind_resource_assessment
-from eya_def_tools.data_models import energy_yield_assessment as eya
+from eya_def_tools.data_models import assessment_results
+from eya_def_tools.data_models import eya_def as eya
 from eya_def_tools.data_models import (
     organisation,
     reference_wind_farm,
     report_metadata,
-    result,
     spatial,
     turbine_model,
+    wind_resource,
 )
 
 
 def draw_eya_def_all_levels() -> None:
     """Draw diagram of all levels of the schema."""
-    diagram = erd.create(eya.EnergyYieldAssessment)
-    diagram.draw("eya_def_all_level.png")
-    diagram.draw("eya_def_all_level.svg")
+    diagram = erd.create(eya.EyaDef)
+    diagram.draw("eya_def_all_levels.png")
+    diagram.draw("eya_def_all_levels.svg")
 
 
 def draw_eya_def_top_level() -> None:
     """Draw diagram of the top level schema."""
-    eya.EnergyYieldAssessment.update_forward_refs(**locals())
+    eya.EyaDef.update_forward_refs(**locals())
 
     diagram = erd.create(
-        eya.EnergyYieldAssessment,
+        eya.EyaDef,
         termini=[
             report_metadata.ReportContributor,
             organisation.Organisation,
             spatial.CoordinateReferenceSystem,
             reference_wind_farm.ReferenceWindFarm,
-            eya_def_tools.data_models.wind_resource_assessment.WindResourceAssessment,
+            wind_resource.WindResourceAssessment,
             turbine_model.TurbineModel,
             eya.Scenario,
         ],
@@ -63,7 +63,7 @@ def draw_reference_wind_farm() -> None:
 
 def draw_results() -> None:
     """Draw diagram of the results level schema."""
-    diagram = erd.create(result.Result)
+    diagram = erd.create(assessment_results.Result)
     diagram.draw("results.png")
     diagram.draw("results.svg")
 

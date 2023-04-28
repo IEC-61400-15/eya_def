@@ -142,7 +142,7 @@ class ReferenceWindFarm(EyaDefBaseModel):
     )
 
 
-class ReferenceWindFarmBasis(EyaDefBaseModel):
+class ReferenceWindFarmReference(EyaDefBaseModel):
     """Reference wind farm basis in a wind resource assessment."""
 
     reference_wind_farm_ids: list[str] = pdt.Field(
