@@ -4,7 +4,7 @@
 
 import pydantic as pdt
 
-from eya_def_tools.data_models import assessment_results, base_models
+from eya_def_tools.data_models import base_models, result
 from eya_def_tools.data_models.assessment_process_description import (
     AssessmentProcessDescription,
 )
@@ -21,7 +21,7 @@ class EnergyAssessment(base_models.EyaDefBaseModel):
             "Specification of the model used to calculate the gross EYA estimates."
         ),
     )
-    gross_eya_results: list[assessment_results.Result] = pdt.Field(
+    gross_eya_results: list[result.Result] = pdt.Field(
         ...,
         description="Gross energy production predictions in GWh.",
     )
@@ -38,7 +38,7 @@ class EnergyAssessment(base_models.EyaDefBaseModel):
             "energy uncertainty categories."
         ),
     )
-    net_eya_results: list[assessment_results.Result] = pdt.Field(
+    net_eya_results: list[result.Result] = pdt.Field(
         ...,
         description=(
             "Net energy production predictions in GWh, including overall "

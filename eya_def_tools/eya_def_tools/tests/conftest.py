@@ -18,7 +18,6 @@ import pytest
 
 from eya_def_tools.data_models import assessment_process_description as eya_prcs_desc
 from eya_def_tools.data_models import (
-    assessment_results,
     energy_assessment,
     enums,
     eya_def,
@@ -27,6 +26,7 @@ from eya_def_tools.data_models import (
     plant_performance,
     reference_wind_farm,
     report_metadata,
+    result,
     scenario,
     spatial,
     turbine_model,
@@ -646,12 +646,12 @@ def regr_model_uncertainty_subcat_a() -> uncertainty.UncertaintySubcategory:
     return uncertainty.UncertaintySubcategory(
         label="Regression model uncertainty",
         subcategory_results=[
-            assessment_results.Result(
+            result.Result(
                 label="Regression model wind speed uncertainty per measurement station",
                 assessment_period=enums.AssessmentPeriod.LIFETIME,
                 dimensions=(enums.ResultsDimension.MEASUREMENT,),
                 statistics=[
-                    assessment_results.ResultStatistic(
+                    result.ResultStatistic(
                         statistic_type=enums.StatisticType.STANDARD_DEVIATION,
                         values=[
                             (
@@ -672,7 +672,7 @@ def lt_consistency_uncertainty_subcat_a() -> uncertainty.UncertaintySubcategory:
     return uncertainty.UncertaintySubcategory(
         label="Long-term consistency uncertainty",
         subcategory_results=[
-            assessment_results.Result(
+            result.Result(
                 label=(
                     "Long-term consistency wind speed uncertainty "
                     "per measurement station"
@@ -680,7 +680,7 @@ def lt_consistency_uncertainty_subcat_a() -> uncertainty.UncertaintySubcategory:
                 assessment_period=enums.AssessmentPeriod.LIFETIME,
                 dimensions=(enums.ResultsDimension.MEASUREMENT,),
                 statistics=[
-                    assessment_results.ResultStatistic(
+                    result.ResultStatistic(
                         statistic_type=enums.StatisticType.STANDARD_DEVIATION,
                         values=[
                             (
@@ -710,12 +710,12 @@ def measurement_uncertainty_assessment_a(
                     lt_consistency_uncertainty_subcat_a,
                 ],
                 category_results=[
-                    assessment_results.Result(
+                    result.Result(
                         label="Historical wind resource uncertainty",
                         assessment_period=enums.AssessmentPeriod.LIFETIME,
                         dimensions=(enums.ResultsDimension.MEASUREMENT,),
                         statistics=[
-                            assessment_results.ResultStatistic(
+                            result.ResultStatistic(
                                 statistic_type=enums.StatisticType.STANDARD_DEVIATION,
                                 values=[
                                     (
@@ -741,12 +741,12 @@ def wind_resource_assessment_a(
     return wind_resource.WindResourceAssessment(
         reference_wind_farm_reference=reference_wind_farm_reference_a,
         subcategory_results=[
-            assessment_results.Result(
+            result.Result(
                 label="Measurement-height long-term wind",
                 assessment_period=enums.AssessmentPeriod.LIFETIME,
                 dimensions=(enums.ResultsDimension.MEASUREMENT,),
                 statistics=[
-                    assessment_results.ResultStatistic(
+                    result.ResultStatistic(
                         statistic_type=enums.StatisticType.MEAN,
                         values=[
                             (
@@ -778,12 +778,12 @@ def turbine_wind_resource_assessment_a(
     """Test case instance 'a' of ``TurbineWindResourceAssessment``."""
     return wind_resource.TurbineWindResourceAssessment(
         turbine_wind_resource_results=[
-            assessment_results.Result(
+            result.Result(
                 label="Turbine-location hub-height long-term wind",
                 assessment_period=enums.AssessmentPeriod.LIFETIME,
                 dimensions=(enums.ResultsDimension.TURBINE,),
                 statistics=[
-                    assessment_results.ResultStatistic(
+                    result.ResultStatistic(
                         statistic_type=enums.StatisticType.MEAN,
                         values=[
                             (
@@ -810,12 +810,12 @@ def turbine_wind_resource_assessment_b(
     """Test case instance 'b' of ``TurbineWindResourceAssessment``."""
     return wind_resource.TurbineWindResourceAssessment(
         turbine_wind_resource_results=[
-            assessment_results.Result(
+            result.Result(
                 label="Turbine-location hub-height long-term wind",
                 assessment_period=enums.AssessmentPeriod.LIFETIME,
                 dimensions=(enums.ResultsDimension.TURBINE,),
                 statistics=[
-                    assessment_results.ResultStatistic(
+                    result.ResultStatistic(
                         statistic_type=enums.StatisticType.MEAN,
                         values=[
                             (
@@ -841,7 +841,7 @@ def plant_performance_curtailment_category_a() -> (
 ):
     """Curtailment test case instance 'a' of ``PlantPerformanceCategory``."""
     result_components = [
-        assessment_results.ResultStatistic(
+        result.ResultStatistic(
             statistic_type=enums.StatisticType.MEAN,
             values=[
                 (
@@ -854,7 +854,7 @@ def plant_performance_curtailment_category_a() -> (
                 ),
             ],
         ),
-        assessment_results.ResultStatistic(
+        result.ResultStatistic(
             statistic_type=enums.StatisticType.STANDARD_DEVIATION,
             values=[
                 (
@@ -880,7 +880,7 @@ def plant_performance_curtailment_category_a() -> (
                         name="Timeseries tool", comments="Internal toolset"
                     )
                 ],
-                subcategory_results=assessment_results.Result(
+                subcategory_results=result.Result(
                     label="Loads curtailment",
                     description=(
                         "Curtailment due to a wind sector management "
@@ -897,7 +897,7 @@ def plant_performance_curtailment_category_a() -> (
             )
         ],
         category_results=[
-            assessment_results.Result(
+            result.Result(
                 label="Curtailment",
                 description="Curtailment losses.",
                 assessment_period=enums.AssessmentPeriod.LIFETIME,
@@ -914,7 +914,7 @@ def plant_performance_curtailment_category_b() -> (
 ):
     """Curtailment test case instance 'b' of ``PlantPerformanceCategory``."""
     result_components = [
-        assessment_results.ResultStatistic(
+        result.ResultStatistic(
             statistic_type=enums.StatisticType.MEAN,
             values=[
                 (
@@ -927,7 +927,7 @@ def plant_performance_curtailment_category_b() -> (
                 ),
             ],
         ),
-        assessment_results.ResultStatistic(
+        result.ResultStatistic(
             statistic_type=enums.StatisticType.STANDARD_DEVIATION,
             values=[
                 (
@@ -948,7 +948,7 @@ def plant_performance_curtailment_category_b() -> (
                 label=enums.PlantPerformanceSubcategoryLabel.LOAD_CURTAILMENT,
                 basis=enums.AssessmentBasis.PROJECT_SPECIFIC_ESTIMATE,
                 variability=enums.VariabilityType.STATIC_PROCESS,
-                subcategory_results=assessment_results.Result(
+                subcategory_results=result.Result(
                     label="Loads curtailment",
                     description=(
                         "Expected curtailment due to a wind sector "
@@ -966,7 +966,7 @@ def plant_performance_curtailment_category_b() -> (
             )
         ],
         category_results=[
-            assessment_results.Result(
+            result.Result(
                 label="Curtailment",
                 description="Curtailment losses.",
                 assessment_period=enums.AssessmentPeriod.LIFETIME,
@@ -990,12 +990,12 @@ def energy_assessment_a(
             description="In-house calculation tool",
         ),
         gross_eya_results=[
-            assessment_results.Result(
+            result.Result(
                 label="Gross yield",
                 assessment_period=enums.AssessmentPeriod.LIFETIME,
                 dimensions=(enums.ResultsDimension.TURBINE,),
                 statistics=[
-                    assessment_results.ResultStatistic(
+                    result.ResultStatistic(
                         statistic_type=enums.StatisticType.MEAN,
                         values=[
                             (
@@ -1010,12 +1010,12 @@ def energy_assessment_a(
                     )
                 ],
             ),
-            assessment_results.Result(
+            result.Result(
                 label="Gross yield",
                 assessment_period=enums.AssessmentPeriod.LIFETIME,
                 dimensions=None,
                 statistics=[
-                    assessment_results.ResultStatistic(
+                    result.ResultStatistic(
                         statistic_type=enums.StatisticType.MEAN,
                         values=32200.0,
                     )
@@ -1024,39 +1024,39 @@ def energy_assessment_a(
         ],
         plant_performance_loss_categories=[plant_performance_curtailment_category_a],
         net_eya_results=[
-            assessment_results.Result(
+            result.Result(
                 label="Net yield",
                 assessment_period=enums.AssessmentPeriod.LIFETIME,
                 dimensions=None,
                 statistics=[
-                    assessment_results.ResultStatistic(
+                    result.ResultStatistic(
                         statistic_type=enums.StatisticType.MEDIAN,
                         values=31528.6,
                     ),
-                    assessment_results.ResultStatistic(
+                    result.ResultStatistic(
                         statistic_type=enums.StatisticType.STANDARD_DEVIATION,
                         values=3468.1,
                     ),
-                    assessment_results.ResultStatistic(
+                    result.ResultStatistic(
                         statistic_type=enums.StatisticType.P90,
                         values=27089.4,
                     ),
                 ],
             ),
-            assessment_results.Result(
+            result.Result(
                 label="Net yield",
                 assessment_period=enums.AssessmentPeriod.ANY_ONE_YEAR,
                 dimensions=None,
                 statistics=[
-                    assessment_results.ResultStatistic(
+                    result.ResultStatistic(
                         statistic_type=enums.StatisticType.MEDIAN,
                         values=31528.6,
                     ),
-                    assessment_results.ResultStatistic(
+                    result.ResultStatistic(
                         statistic_type=enums.StatisticType.STANDARD_DEVIATION,
                         values=4729.3,
                     ),
-                    assessment_results.ResultStatistic(
+                    result.ResultStatistic(
                         statistic_type=enums.StatisticType.P90,
                         values=25475.1,
                     ),
@@ -1079,12 +1079,12 @@ def energy_assessment_b(
             description="In-house calculation tool",
         ),
         gross_eya_results=[
-            assessment_results.Result(
+            result.Result(
                 label="Gross yield",
                 assessment_period=enums.AssessmentPeriod.LIFETIME,
                 dimensions=(enums.ResultsDimension.TURBINE,),
                 statistics=[
-                    assessment_results.ResultStatistic(
+                    result.ResultStatistic(
                         statistic_type=enums.StatisticType.MEAN,
                         values=[
                             (
@@ -1099,12 +1099,12 @@ def energy_assessment_b(
                     )
                 ],
             ),
-            assessment_results.Result(
+            result.Result(
                 label="Gross yield",
                 assessment_period=enums.AssessmentPeriod.LIFETIME,
                 dimensions=None,
                 statistics=[
-                    assessment_results.ResultStatistic(
+                    result.ResultStatistic(
                         statistic_type=enums.StatisticType.MEAN,
                         values=37000.0,
                     )
@@ -1113,39 +1113,39 @@ def energy_assessment_b(
         ],
         plant_performance_loss_categories=[plant_performance_curtailment_category_b],
         net_eya_results=[
-            assessment_results.Result(
+            result.Result(
                 label="Net yield",
                 assessment_period=enums.AssessmentPeriod.LIFETIME,
                 dimensions=None,
                 statistics=[
-                    assessment_results.ResultStatistic(
+                    result.ResultStatistic(
                         statistic_type=enums.StatisticType.MEDIAN,
                         values=35150.0,
                     ),
-                    assessment_results.ResultStatistic(
+                    result.ResultStatistic(
                         statistic_type=enums.StatisticType.STANDARD_DEVIATION,
                         values=4569.5,
                     ),
-                    assessment_results.ResultStatistic(
+                    result.ResultStatistic(
                         statistic_type=enums.StatisticType.P90,
                         values=29301.0,
                     ),
                 ],
             ),
-            assessment_results.Result(
+            result.Result(
                 label="Net yield",
                 assessment_period=enums.AssessmentPeriod.ANY_ONE_YEAR,
                 dimensions=None,
                 statistics=[
-                    assessment_results.ResultStatistic(
+                    result.ResultStatistic(
                         statistic_type=enums.StatisticType.MEDIAN,
                         values=35150.0,
                     ),
-                    assessment_results.ResultStatistic(
+                    result.ResultStatistic(
                         statistic_type=enums.StatisticType.STANDARD_DEVIATION,
                         values=5799.8,
                     ),
-                    assessment_results.ResultStatistic(
+                    result.ResultStatistic(
                         statistic_type=enums.StatisticType.P90,
                         values=27726.3,
                     ),

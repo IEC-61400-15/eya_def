@@ -8,8 +8,8 @@ from eya_def_tools.data_models import base_models, enums
 from eya_def_tools.data_models.assessment_process_description import (
     AssessmentProcessDescription,
 )
-from eya_def_tools.data_models.assessment_results import Result
 from eya_def_tools.data_models.fields import comments_field, description_field
+from eya_def_tools.data_models.result import Result
 
 
 class PlantPerformanceElement(base_models.EyaDefBaseModel):

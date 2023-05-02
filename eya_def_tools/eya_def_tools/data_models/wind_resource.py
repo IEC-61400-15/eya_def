@@ -8,10 +8,10 @@ import pydantic as pdt
 
 from eya_def_tools.data_models import assessment_process_description as eya_prcs_desc
 from eya_def_tools.data_models import (
-    assessment_results,
     base_models,
     measurement_station,
     reference_wind_farm,
+    result,
     uncertainty,
 )
 
@@ -20,11 +20,11 @@ from eya_def_tools.data_models import (
 class ReferenceWindFarmAssessment(base_models.EyaDefBaseModel):
     """Details of an assessment of reference wind farm data."""
 
-    raw_data_availability: list[assessment_results.Result] = pdt.Field(
+    raw_data_availability: list[result.Result] = pdt.Field(
         ...,
         description="Raw data availability results.",
     )
-    filtered_data_availability: list[assessment_results.Result] = pdt.Field(
+    filtered_data_availability: list[result.Result] = pdt.Field(
         ...,
         description="Filtered (post quality-control) data availability results.",
     )
@@ -58,7 +58,7 @@ class WindResourceAssessment(base_models.EyaDefBaseModel):
     # long_term_results
     # vertical_extrapolation
     # hub_height_results
-    subcategory_results: list[assessment_results.Result] = pdt.Field(
+    subcategory_results: list[result.Result] = pdt.Field(
         ..., description="Assessment results at the measurement location(s)."
     )
     uncertainty_assessment: uncertainty.UncertaintyAssessment = pdt.Field(
@@ -77,7 +77,7 @@ class WindResourceAssessmentReference(base_models.EyaDefBaseModel):
 class TurbineWindResourceAssessment(base_models.EyaDefBaseModel):
     """Wind resource assessment at the turbine locations."""
 
-    turbine_wind_resource_results: list[assessment_results.Result] = pdt.Field(
+    turbine_wind_resource_results: list[result.Result] = pdt.Field(
         ..., description="Assessment results at the turbine location(s)."
     )
     wind_spatial_modelling_processes: list[

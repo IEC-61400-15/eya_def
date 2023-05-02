@@ -9,13 +9,13 @@ The graphics are rendered based on the ``pydantic`` data models in
 import erdantic as erd
 
 from eya_def_tools.data_models import (
-    assessment_results,
     energy_assessment,
     eya_def,
     organisation,
     plant_performance,
     reference_wind_farm,
     report_metadata,
+    result,
     scenario,
     spatial,
     turbine_model,
@@ -88,7 +88,7 @@ def draw_reference_wind_farm() -> None:
 
 def draw_results() -> None:
     """Draw diagram of the results level schema."""
-    diagram = erd.create(assessment_results.Result)
+    diagram = erd.create(result.Result)
     diagram.draw("results.png")
     diagram.draw("results.svg")
 

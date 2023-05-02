@@ -43,16 +43,12 @@ class Result(EyaDefBaseModel):
     )
     description: str | None = fields.description_field
     comments: str | None = fields.comments_field
-    assessment_period: enums.AssessmentPeriod = pdt.Field(
-        enums.AssessmentPeriod.LIFETIME,
+    assessment_period: enums.AssessmentPeriod | None = pdt.Field(
+        None,
         description=(
             "Period of or in time that has been assessed and for which "
             "the results are applicable."
         ),
-        examples=[
-            enums.AssessmentPeriod.LIFETIME,
-            enums.AssessmentPeriod.ANY_ONE_YEAR,
-        ],
     )
     dimensions: tuple[enums.ResultsDimension, ...] | None = pdt.Field(
         None,
@@ -61,10 +57,7 @@ class Result(EyaDefBaseModel):
             "in the same results object must have the same dimensions)."
         ),
         examples=[
-            (
-                enums.ResultsDimension.TURBINE,
-                enums.ResultsDimension.YEAR,
-            ),
+            (enums.ResultsDimension.TURBINE, enums.ResultsDimension.YEAR),
             (enums.ResultsDimension.MEASUREMENT, enums.ResultsDimension.HEIGHT),
         ],
     )

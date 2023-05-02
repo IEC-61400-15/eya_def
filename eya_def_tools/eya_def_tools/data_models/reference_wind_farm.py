@@ -7,9 +7,9 @@ import datetime as dt
 import pydantic as pdt
 
 from eya_def_tools.data_models import enums, fields
-from eya_def_tools.data_models.assessment_results import Result
 from eya_def_tools.data_models.base_models import EyaDefBaseModel
 from eya_def_tools.data_models.organisation import Organisation
+from eya_def_tools.data_models.result import Result
 from eya_def_tools.data_models.wind_farm import WindFarmConfiguration
 
 
