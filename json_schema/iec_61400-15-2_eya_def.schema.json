@@ -63,7 +63,7 @@
       ]
     },
     "OperationalRestriction": {
-      "description": "Specifications of a restriction that limits power output. In the current draft of the schema, 'label', 'description' and\n'comments' fields are available to describe the restriction with free text. This is intended to be expanded into a more comprehensive data model.",
+      "description": "Specifications of a restriction that limits power output. In the current draft of the schema, 'label', 'description' and 'comments' fields are available to describe the restriction with free text. This is intended to be expanded into a more comprehensive data model.",
       "properties": {
         "comments": {
           "$ref": "#/definitions/CommentsField"
@@ -1184,12 +1184,6 @@
                               "array",
                               "null"
                             ]
-                          },
-                          "is_preliminary": {
-                            "default": false,
-                            "description": "Whether the assessment of the plant performance loss assessment subcategory should be marked as preliminary.",
-                            "title": "Is Preliminary",
-                            "type": "boolean"
                           },
                           "label": {
                             "description": "Label of the plant performance loss subcategory.",

@@ -292,7 +292,6 @@
                   }
                 ],
                 "basis": "timeseries_calculation",
-                "is_preliminary": false,
                 "label": "load_curtailment",
                 "subcategory_results": [
                   {
@@ -618,7 +617,6 @@
             "subcategories": [
               {
                 "basis": "project_specific_estimate",
-                "is_preliminary": false,
                 "label": "load_curtailment",
                 "subcategory_results": [
                   {

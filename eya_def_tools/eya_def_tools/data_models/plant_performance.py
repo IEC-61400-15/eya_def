@@ -88,22 +88,24 @@ class PlantPerformanceSubcategory(base_models.EyaDefBaseModel):
         ...,
         description="Considered variability in the plant performance loss subcategory.",
     )
-    assessment_process_descriptions: list[
-        AssessmentProcessDescription
-    ] | None = pdt.Field(
+    assessment_process_descriptions: (
+        list[AssessmentProcessDescription] | None
+    ) = pdt.Field(
         None,
         description=(
             "Description of calculation processes used in the assessment of "
             "the plant performance loss subcategory."
         ),
     )
-    is_preliminary: bool = pdt.Field(
-        False,
-        description=(
-            "Whether the assessment of the plant performance loss assessment "
-            "subcategory should be marked as preliminary."
-        ),
-    )
+    # TODO consider if we want to keep a flag to mark the assessment of a
+    #      plant performance subcategory as preliminary
+    # is_preliminary: bool = pdt.Field(
+    #     False,
+    #     description=(
+    #         "Whether the assessment of the plant performance loss assessment "
+    #         "subcategory should be marked as preliminary."
+    #     ),
+    # )
     elements: list[PlantPerformanceSubcategoryElement] | None = pdt.Field(
         None,
         description=(

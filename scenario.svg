@@ -63,11 +63,11 @@
 <!-- eya_def_tools.data_models.energy_assessment.EnergyAssessment&#45;&gt;eya_def_tools.data_models.assessment_process_description.AssessmentProcessDescription -->
 <g id="edge1" class="edge">
 <title>eya_def_tools.data_models.energy_assessment.EnergyAssessment:e&#45;&gt;eya_def_tools.data_models.assessment_process_description.AssessmentProcessDescription:w</title>
-<path fill="none" stroke="black" d="M946,-423.86C1021.16,-423.86 1438.43,-773.01 1509,-798.86 2036.64,-992.19 2212,-881.84 2767.14,-879.89"/>
+<path fill="none" stroke="black" d="M946,-423.86C1020.49,-423.86 1439.11,-762.09 1509,-787.86 2036.54,-982.4 2211.67,-881.67 2767.13,-879.89"/>
 <polyline fill="none" stroke="black" points="2782,-879.86 2777,-879.87"/>
 <polygon fill="black" stroke="black" points="2775.99,-874.87 2776.01,-884.87 2774.01,-884.88 2773.99,-874.88 2775.99,-874.87"/>
 <polyline fill="none" stroke="black" points="2777,-879.87 2772,-879.88"/>
-<polygon fill="black" stroke="black" points="2770.99,-874.88 2771.01,-884.88 2769.01,-884.89 2768.99,-874.89 2770.99,-874.88"/>
+<polygon fill="black" stroke="black" points="2770.99,-874.88 2771.01,-884.88 2769.01,-884.88 2768.99,-874.88 2770.99,-874.88"/>
 <polyline fill="none" stroke="black" points="2772,-879.88 2767,-879.89"/>
 </g>
 <!-- eya_def_tools.data_models.plant_performance.PlantPerformanceCategory -->
@@ -177,46 +177,42 @@
 <!-- eya_def_tools.data_models.plant_performance.PlantPerformanceSubcategory -->
 <g id="node6" class="node">
 <title>eya_def_tools.data_models.plant_performance.PlantPerformanceSubcategory</title>
-<g id="a_node6"><a xlink:title="eya_def_tools.data_models.plant_performance.PlantPerformanceSubcategory&#10;&#10;Plant performance loss assessment subcategory.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;label (PlantPerformanceSubcategoryLabel(StrEnum)): Label of the plant performance loss subcategory.&#10; &#160;&#160;&#160;basis (AssessmentBasis(StrEnum)): Basis of plant performance loss subcategory assessment. The basis describes the level of detail of the calculation or estimate used in the assessment of the subcategory.&#10; &#160;&#160;&#160;variability (TimeVariabilityType(StrEnum)): Considered variability in the plant performance loss subcategory.&#10; &#160;&#160;&#160;assessment_process_descriptions (Optional[list[AssessmentProcessDescription]]): Description of calculation processes used in the assessment of the plant performance loss subcategory. Default is None.&#10; &#160;&#160;&#160;is_preliminary (bool): Whether the assessment of the plant performance loss assessment subcategory should be marked as preliminary. Default is False.&#10; &#160;&#160;&#160;elements (Optional[list[PlantPerformanceSubcategoryElement]]): Plant performance loss assessment elements that fall under the the subcategory. The element objects include details and results at the element level. A breakdown of plant performance loss subcategories into elements is optional and can be included only for a subset of the subcategories, as relevant. Whereas the categories and subcategories are fixed, the user may freely define element labels. Default is None.&#10; &#160;&#160;&#160;subcategory_results (list[Result]): Plant performance assessment subcategory result(s) as dimensionless loss factors (efficiencies).&#10;">
-<polygon fill="none" stroke="black" points="1509.5,-759.86 1509.5,-780.86 2008.5,-780.86 2008.5,-759.86 1509.5,-759.86"/>
-<text text-anchor="start" x="1664.5" y="-767.66" font-family="Times New Roman,serif" font-weight="bold" font-size="14.00">PlantPerformanceSubcategory</text>
-<polygon fill="none" stroke="black" points="1509.5,-738.86 1509.5,-759.86 1706.5,-759.86 1706.5,-738.86 1509.5,-738.86"/>
-<text text-anchor="start" x="1595" y="-745.66" font-family="Times New Roman,serif" font-size="14.00">label</text>
-<polygon fill="none" stroke="black" points="1706.5,-738.86 1706.5,-759.86 2008.5,-759.86 2008.5,-738.86 1706.5,-738.86"/>
-<text text-anchor="start" x="1728" y="-745.66" font-family="Times New Roman,serif" font-size="14.00">PlantPerformanceSubcategoryLabel(StrEnum)</text>
-<polygon fill="none" stroke="black" points="1509.5,-717.86 1509.5,-738.86 1706.5,-738.86 1706.5,-717.86 1509.5,-717.86"/>
-<text text-anchor="start" x="1593.5" y="-724.66" font-family="Times New Roman,serif" font-size="14.00">basis</text>
-<polygon fill="none" stroke="black" points="1706.5,-717.86 1706.5,-738.86 2008.5,-738.86 2008.5,-717.86 1706.5,-717.86"/>
-<text text-anchor="start" x="1780" y="-724.66" font-family="Times New Roman,serif" font-size="14.00">AssessmentBasis(StrEnum)</text>
-<polygon fill="none" stroke="black" points="1509.5,-696.86 1509.5,-717.86 1706.5,-717.86 1706.5,-696.86 1509.5,-696.86"/>
-<text text-anchor="start" x="1581" y="-703.66" font-family="Times New Roman,serif" font-size="14.00">variability</text>
-<polygon fill="none" stroke="black" points="1706.5,-696.86 1706.5,-717.86 2008.5,-717.86 2008.5,-696.86 1706.5,-696.86"/>
-<text text-anchor="start" x="1771.5" y="-703.66" font-family="Times New Roman,serif" font-size="14.00">TimeVariabilityType(StrEnum)</text>
-<polygon fill="none" stroke="black" points="1509.5,-675.86 1509.5,-696.86 1706.5,-696.86 1706.5,-675.86 1509.5,-675.86"/>
-<text text-anchor="start" x="1512.5" y="-682.66" font-family="Times New Roman,serif" font-size="14.00">assessment_process_descriptions</text>
-<polygon fill="none" stroke="black" points="1706.5,-675.86 1706.5,-696.86 2008.5,-696.86 2008.5,-675.86 1706.5,-675.86"/>
-<text text-anchor="start" x="1728" y="-682.66" font-family="Times New Roman,serif" font-size="14.00">Optional[list[AssessmentProcessDescription]]</text>
-<polygon fill="none" stroke="black" points="1509.5,-654.86 1509.5,-675.86 1706.5,-675.86 1706.5,-654.86 1509.5,-654.86"/>
-<text text-anchor="start" x="1568.5" y="-661.66" font-family="Times New Roman,serif" font-size="14.00">is_preliminary</text>
-<polygon fill="none" stroke="black" points="1706.5,-654.86 1706.5,-675.86 2008.5,-675.86 2008.5,-654.86 1706.5,-654.86"/>
-<text text-anchor="start" x="1844.5" y="-661.66" font-family="Times New Roman,serif" font-size="14.00">bool</text>
-<polygon fill="none" stroke="black" points="1509.5,-633.86 1509.5,-654.86 1706.5,-654.86 1706.5,-633.86 1509.5,-633.86"/>
-<text text-anchor="start" x="1583.5" y="-640.66" font-family="Times New Roman,serif" font-size="14.00">elements</text>
-<polygon fill="none" stroke="black" points="1706.5,-633.86 1706.5,-654.86 2008.5,-654.86 2008.5,-633.86 1706.5,-633.86"/>
-<text text-anchor="start" x="1709.5" y="-640.66" font-family="Times New Roman,serif" font-size="14.00">Optional[list[PlantPerformanceSubcategoryElement]]</text>
-<polygon fill="none" stroke="black" points="1509.5,-612.86 1509.5,-633.86 1706.5,-633.86 1706.5,-612.86 1509.5,-612.86"/>
-<text text-anchor="start" x="1552" y="-619.66" font-family="Times New Roman,serif" font-size="14.00">subcategory_results</text>
-<polygon fill="none" stroke="black" points="1706.5,-612.86 1706.5,-633.86 2008.5,-633.86 2008.5,-612.86 1706.5,-612.86"/>
-<text text-anchor="start" x="1827" y="-619.66" font-family="Times New Roman,serif" font-size="14.00">list[Result]</text>
+<g id="a_node6"><a xlink:title="eya_def_tools.data_models.plant_performance.PlantPerformanceSubcategory&#10;&#10;Plant performance loss assessment subcategory.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;label (PlantPerformanceSubcategoryLabel(StrEnum)): Label of the plant performance loss subcategory.&#10; &#160;&#160;&#160;basis (AssessmentBasis(StrEnum)): Basis of plant performance loss subcategory assessment. The basis describes the level of detail of the calculation or estimate used in the assessment of the subcategory.&#10; &#160;&#160;&#160;variability (TimeVariabilityType(StrEnum)): Considered variability in the plant performance loss subcategory.&#10; &#160;&#160;&#160;assessment_process_descriptions (Optional[list[AssessmentProcessDescription]]): Description of calculation processes used in the assessment of the plant performance loss subcategory. Default is None.&#10; &#160;&#160;&#160;elements (Optional[list[PlantPerformanceSubcategoryElement]]): Plant performance loss assessment elements that fall under the the subcategory. The element objects include details and results at the element level. A breakdown of plant performance loss subcategories into elements is optional and can be included only for a subset of the subcategories, as relevant. Whereas the categories and subcategories are fixed, the user may freely define element labels. Default is None.&#10; &#160;&#160;&#160;subcategory_results (list[Result]): Plant performance assessment subcategory result(s) as dimensionless loss factors (efficiencies).&#10;">
+<polygon fill="none" stroke="black" points="1509.5,-748.86 1509.5,-769.86 2008.5,-769.86 2008.5,-748.86 1509.5,-748.86"/>
+<text text-anchor="start" x="1664.5" y="-756.66" font-family="Times New Roman,serif" font-weight="bold" font-size="14.00">PlantPerformanceSubcategory</text>
+<polygon fill="none" stroke="black" points="1509.5,-727.86 1509.5,-748.86 1706.5,-748.86 1706.5,-727.86 1509.5,-727.86"/>
+<text text-anchor="start" x="1595" y="-734.66" font-family="Times New Roman,serif" font-size="14.00">label</text>
+<polygon fill="none" stroke="black" points="1706.5,-727.86 1706.5,-748.86 2008.5,-748.86 2008.5,-727.86 1706.5,-727.86"/>
+<text text-anchor="start" x="1728" y="-734.66" font-family="Times New Roman,serif" font-size="14.00">PlantPerformanceSubcategoryLabel(StrEnum)</text>
+<polygon fill="none" stroke="black" points="1509.5,-706.86 1509.5,-727.86 1706.5,-727.86 1706.5,-706.86 1509.5,-706.86"/>
+<text text-anchor="start" x="1593.5" y="-713.66" font-family="Times New Roman,serif" font-size="14.00">basis</text>
+<polygon fill="none" stroke="black" points="1706.5,-706.86 1706.5,-727.86 2008.5,-727.86 2008.5,-706.86 1706.5,-706.86"/>
+<text text-anchor="start" x="1780" y="-713.66" font-family="Times New Roman,serif" font-size="14.00">AssessmentBasis(StrEnum)</text>
+<polygon fill="none" stroke="black" points="1509.5,-685.86 1509.5,-706.86 1706.5,-706.86 1706.5,-685.86 1509.5,-685.86"/>
+<text text-anchor="start" x="1581" y="-692.66" font-family="Times New Roman,serif" font-size="14.00">variability</text>
+<polygon fill="none" stroke="black" points="1706.5,-685.86 1706.5,-706.86 2008.5,-706.86 2008.5,-685.86 1706.5,-685.86"/>
+<text text-anchor="start" x="1771.5" y="-692.66" font-family="Times New Roman,serif" font-size="14.00">TimeVariabilityType(StrEnum)</text>
+<polygon fill="none" stroke="black" points="1509.5,-664.86 1509.5,-685.86 1706.5,-685.86 1706.5,-664.86 1509.5,-664.86"/>
+<text text-anchor="start" x="1512.5" y="-671.66" font-family="Times New Roman,serif" font-size="14.00">assessment_process_descriptions</text>
+<polygon fill="none" stroke="black" points="1706.5,-664.86 1706.5,-685.86 2008.5,-685.86 2008.5,-664.86 1706.5,-664.86"/>
+<text text-anchor="start" x="1728" y="-671.66" font-family="Times New Roman,serif" font-size="14.00">Optional[list[AssessmentProcessDescription]]</text>
+<polygon fill="none" stroke="black" points="1509.5,-643.86 1509.5,-664.86 1706.5,-664.86 1706.5,-643.86 1509.5,-643.86"/>
+<text text-anchor="start" x="1583.5" y="-650.66" font-family="Times New Roman,serif" font-size="14.00">elements</text>
+<polygon fill="none" stroke="black" points="1706.5,-643.86 1706.5,-664.86 2008.5,-664.86 2008.5,-643.86 1706.5,-643.86"/>
+<text text-anchor="start" x="1709.5" y="-650.66" font-family="Times New Roman,serif" font-size="14.00">Optional[list[PlantPerformanceSubcategoryElement]]</text>
+<polygon fill="none" stroke="black" points="1509.5,-622.86 1509.5,-643.86 1706.5,-643.86 1706.5,-622.86 1509.5,-622.86"/>
+<text text-anchor="start" x="1552" y="-629.66" font-family="Times New Roman,serif" font-size="14.00">subcategory_results</text>
+<polygon fill="none" stroke="black" points="1706.5,-622.86 1706.5,-643.86 2008.5,-643.86 2008.5,-622.86 1706.5,-622.86"/>
+<text text-anchor="start" x="1827" y="-629.66" font-family="Times New Roman,serif" font-size="14.00">list[Result]</text>
 </a>
 </g>
 </g>
 <!-- eya_def_tools.data_models.plant_performance.PlantPerformanceCategory&#45;&gt;eya_def_tools.data_models.plant_performance.PlantPerformanceSubcategory -->
 <g id="edge6" class="edge">
 <title>eya_def_tools.data_models.plant_performance.PlantPerformanceCategory:e&#45;&gt;eya_def_tools.data_models.plant_performance.PlantPerformanceSubcategory:w</title>
-<path fill="none" stroke="black" d="M1401,-195.86C1654.3,-195.86 1269.85,-741.49 1490.14,-769.73"/>
-<polygon fill="black" stroke="black" points="1499.02,-770.26 1508.73,-775.36 1504.01,-770.56 1509,-770.86 1509,-770.86 1509,-770.86 1504.01,-770.56 1509.27,-766.37 1499.02,-770.26 1499.02,-770.26"/>
-<ellipse fill="none" stroke="black" cx="1494.53" cy="-769.99" rx="4" ry="4"/>
+<path fill="none" stroke="black" d="M1401,-195.86C1649.49,-195.86 1274.54,-730.51 1490.16,-758.71"/>
+<polygon fill="black" stroke="black" points="1499.02,-759.25 1508.72,-764.36 1504.01,-759.56 1509,-759.86 1509,-759.86 1509,-759.86 1504.01,-759.56 1509.28,-755.37 1499.02,-759.25 1499.02,-759.25"/>
+<ellipse fill="none" stroke="black" cx="1494.53" cy="-758.98" rx="4" ry="4"/>
 </g>
 <!-- eya_def_tools.data_models.result.ResultStatistic -->
 <g id="node8" class="node">
@@ -281,14 +277,14 @@
 <!-- eya_def_tools.data_models.plant_performance.PlantPerformanceSubcategory&#45;&gt;eya_def_tools.data_models.assessment_process_description.AssessmentProcessDescription -->
 <g id="edge8" class="edge">
 <title>eya_def_tools.data_models.plant_performance.PlantPerformanceSubcategory:e&#45;&gt;eya_def_tools.data_models.assessment_process_description.AssessmentProcessDescription:w</title>
-<path fill="none" stroke="black" d="M2008,-685.86C2079.42,-685.86 2052.42,-772.33 2116,-804.86 2243.28,-869.99 2602.68,-879.19 2763.01,-879.83"/>
-<polygon fill="black" stroke="black" points="2772,-879.84 2781.99,-884.36 2777,-879.85 2782,-879.86 2782,-879.86 2782,-879.86 2777,-879.85 2782.01,-875.36 2772,-879.84 2772,-879.84"/>
-<ellipse fill="none" stroke="black" cx="2767.5" cy="-879.83" rx="4" ry="4"/>
+<path fill="none" stroke="black" d="M2008,-674.86C2083.12,-674.86 2049.9,-769.19 2116,-804.86 2241.82,-872.76 2602.56,-879.42 2763,-879.84"/>
+<polygon fill="black" stroke="black" points="2772,-879.85 2781.99,-884.36 2777,-879.86 2782,-879.86 2782,-879.86 2782,-879.86 2777,-879.86 2782.01,-875.36 2772,-879.85 2772,-879.85"/>
+<ellipse fill="none" stroke="black" cx="2767.5" cy="-879.84" rx="4" ry="4"/>
 </g>
 <!-- eya_def_tools.data_models.plant_performance.PlantPerformanceSubcategory&#45;&gt;eya_def_tools.data_models.result.Result -->
 <g id="edge10" class="edge">
 <title>eya_def_tools.data_models.plant_performance.PlantPerformanceSubcategory:e&#45;&gt;eya_def_tools.data_models.result.Result:w</title>
-<path fill="none" stroke="black" d="M2008,-622.86C2059.66,-622.86 2066.21,-593.64 2116,-579.86 2316.49,-524.39 2400.38,-613.14 2578,-504.86 2640.86,-466.55 2611.75,-376.66 2667.4,-361.16"/>
+<path fill="none" stroke="black" d="M2008,-632.86C2061.47,-632.86 2065.06,-596.1 2116,-579.86 2314.2,-516.69 2400.38,-613.14 2578,-504.86 2640.86,-466.55 2611.75,-376.66 2667.4,-361.16"/>
 <polygon fill="black" stroke="black" points="2676.08,-360.09 2686.55,-363.33 2681.04,-359.48 2686,-358.86 2686,-358.86 2686,-358.86 2681.04,-359.48 2685.45,-354.4 2676.08,-360.09 2676.08,-360.09"/>
 <ellipse fill="none" stroke="black" cx="2671.61" cy="-360.64" rx="4" ry="4"/>
 </g>
@@ -336,9 +332,9 @@
 <!-- eya_def_tools.data_models.plant_performance.PlantPerformanceSubcategory&#45;&gt;eya_def_tools.data_models.plant_performance.PlantPerformanceSubcategoryElement -->
 <g id="edge9" class="edge">
 <title>eya_def_tools.data_models.plant_performance.PlantPerformanceSubcategory:e&#45;&gt;eya_def_tools.data_models.plant_performance.PlantPerformanceSubcategoryElement:w</title>
-<path fill="none" stroke="black" d="M2008,-643.86C2077.01,-643.86 2047.1,-753.1 2097.56,-773.58"/>
-<polygon fill="black" stroke="black" points="2106.16,-775.11 2115.21,-781.29 2111.08,-775.99 2116,-776.86 2116,-776.86 2116,-776.86 2111.08,-775.99 2116.79,-772.43 2106.16,-775.11 2106.16,-775.11"/>
-<ellipse fill="none" stroke="black" cx="2101.73" cy="-774.32" rx="4" ry="4"/>
+<path fill="none" stroke="black" d="M2008,-653.86C2073.5,-653.86 2049.63,-753.58 2097.32,-773.45"/>
+<polygon fill="black" stroke="black" points="2106.16,-775.06 2115.19,-781.29 2111.08,-775.96 2116,-776.86 2116,-776.86 2116,-776.86 2111.08,-775.96 2116.81,-772.44 2106.16,-775.06 2106.16,-775.06"/>
+<ellipse fill="none" stroke="black" cx="2101.74" cy="-774.25" rx="4" ry="4"/>
 </g>
 <!-- eya_def_tools.data_models.plant_performance.PlantPerformanceSubcategoryElement&#45;&gt;eya_def_tools.data_models.assessment_process_description.AssessmentProcessDescription -->
 <g id="edge11" class="edge">
