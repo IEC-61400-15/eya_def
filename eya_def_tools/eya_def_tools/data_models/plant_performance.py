@@ -29,7 +29,7 @@ class PlantPerformanceElement(base_models.EyaDefBaseModel):
             "in the assessment of the element."
         ),
     )
-    variability: enums.VariabilityType = pdt.Field(
+    variability: enums.TimeVariabilityType = pdt.Field(
         ...,
         description="Considered variability in the plant performance loss element.",
     )
@@ -80,7 +80,7 @@ class PlantPerformanceSubcategory(base_models.EyaDefBaseModel):
             "in the assessment of the subcategory."
         ),
     )
-    variability: enums.VariabilityType = pdt.Field(
+    variability: enums.TimeVariabilityType = pdt.Field(
         ...,
         description="Considered variability in the plant performance loss subcategory.",
     )

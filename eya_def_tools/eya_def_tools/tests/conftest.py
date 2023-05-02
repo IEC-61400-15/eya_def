@@ -874,7 +874,7 @@ def plant_performance_curtailment_category_a() -> (
             plant_performance.PlantPerformanceSubcategory(
                 label=enums.PlantPerformanceSubcategoryLabel.LOAD_CURTAILMENT,
                 basis=enums.AssessmentBasis.TIMESERIES_CALCULATION,
-                variability=enums.VariabilityType.STATIC_PROCESS,
+                variability=enums.TimeVariabilityType.STATIC_PROCESS,
                 assessment_process_descriptions=[
                     eya_prcs_desc.AssessmentProcessDescription(
                         name="Timeseries tool", comments="Internal toolset"
@@ -947,7 +947,7 @@ def plant_performance_curtailment_category_b() -> (
             plant_performance.PlantPerformanceSubcategory(
                 label=enums.PlantPerformanceSubcategoryLabel.LOAD_CURTAILMENT,
                 basis=enums.AssessmentBasis.PROJECT_SPECIFIC_ESTIMATE,
-                variability=enums.VariabilityType.STATIC_PROCESS,
+                variability=enums.TimeVariabilityType.STATIC_PROCESS,
                 subcategory_results=result.Result(
                     label="Loads curtailment",
                     description=(

@@ -237,7 +237,7 @@ class TimeResolution(StrEnum):
     MONTHLY = auto()
 
 
-class VariabilityType(StrEnum):
+class TimeVariabilityType(StrEnum):
     """Type of time variability considered for an assessment element."""
 
     STATIC_PROCESS = auto()
