@@ -880,20 +880,22 @@ def plant_performance_curtailment_category_a() -> (
                         name="Timeseries tool", comments="Internal toolset"
                     )
                 ],
-                subcategory_results=result.Result(
-                    label="Loads curtailment",
-                    description=(
-                        "Curtailment due to a wind sector management "
-                        "strategy to reduce turbine loads."
-                    ),
-                    comments=(
-                        "Considering curtailment strategy as specified by "
-                        "the turbine manufacturer."
-                    ),
-                    assessment_period=enums.AssessmentPeriod.LIFETIME,
-                    dimensions=(enums.ResultsDimension.TURBINE,),
-                    statistics=result_components,
-                ),
+                subcategory_results=[
+                    result.Result(
+                        label="Loads curtailment",
+                        description=(
+                            "Curtailment due to a wind sector management "
+                            "strategy to reduce turbine loads."
+                        ),
+                        comments=(
+                            "Considering curtailment strategy as specified by "
+                            "the turbine manufacturer."
+                        ),
+                        assessment_period=enums.AssessmentPeriod.LIFETIME,
+                        dimensions=(enums.ResultsDimension.TURBINE,),
+                        statistics=result_components,
+                    )
+                ],
             )
         ],
         category_results=[
@@ -948,21 +950,23 @@ def plant_performance_curtailment_category_b() -> (
                 label=enums.PlantPerformanceSubcategoryLabel.LOAD_CURTAILMENT,
                 basis=enums.AssessmentBasis.PROJECT_SPECIFIC_ESTIMATE,
                 variability=enums.TimeVariabilityType.STATIC_PROCESS,
-                subcategory_results=result.Result(
-                    label="Loads curtailment",
-                    description=(
-                        "Expected curtailment due to a wind sector "
-                        "management to reduce turbine loads."
-                    ),
-                    comments=(
-                        "A broad estimate of curtailment losses in "
-                        "the absence of details from the turbine "
-                        "manufacturer."
-                    ),
-                    assessment_period=enums.AssessmentPeriod.LIFETIME,
-                    dimensions=(enums.ResultsDimension.TURBINE,),
-                    statistics=result_components,
-                ),
+                subcategory_results=[
+                    result.Result(
+                        label="Loads curtailment",
+                        description=(
+                            "Expected curtailment due to a wind sector "
+                            "management to reduce turbine loads."
+                        ),
+                        comments=(
+                            "A broad estimate of curtailment losses in "
+                            "the absence of details from the turbine "
+                            "manufacturer."
+                        ),
+                        assessment_period=enums.AssessmentPeriod.LIFETIME,
+                        dimensions=(enums.ResultsDimension.TURBINE,),
+                        statistics=result_components,
+                    )
+                ],
             )
         ],
         category_results=[

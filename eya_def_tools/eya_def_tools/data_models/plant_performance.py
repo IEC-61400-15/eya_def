@@ -12,55 +12,59 @@ from eya_def_tools.data_models.fields import comments_field, description_field
 from eya_def_tools.data_models.result import Result
 
 
-class PlantPerformanceElement(base_models.EyaDefBaseModel):
-    """Plant performance loss assessment element."""
+class PlantPerformanceSubcategoryElement(base_models.EyaDefBaseModel):
+    """Plant performance loss assessment subcategory element."""
 
     label: str = pdt.Field(
         ...,
-        description="Label of the plant performance loss element.",
+        description="Label of the plant performance loss subcategory element.",
     )
     description: str | None = description_field
     comments: str | None = comments_field
     basis: enums.AssessmentBasis = pdt.Field(
         ...,
         description=(
-            "Basis of plant performance loss element assessment. The basis "
-            "describes the level of detail of the calculation or estimate used "
-            "in the assessment of the element."
+            "Basis of plant performance loss subcategory element assessment. The "
+            "basis describes the level of detail of the calculation or estimate "
+            "used in the assessment of the element."
         ),
     )
     variability: enums.TimeVariabilityType = pdt.Field(
         ...,
-        description="Considered variability in the plant performance loss element.",
+        description=(
+            "Considered variability in the plant performance loss subcategory element."
+        ),
     )
     is_independent: bool = pdt.Field(
         True,
         description=(
-            "Whether the plant performance loss element is independent of all other "
-            "elements."
+            "Whether the plant performance loss subcategory element is independent "
+            "of all other elements."
         ),
     )
-    assessment_process_descriptions: list[
-        AssessmentProcessDescription
-    ] | None = pdt.Field(
+    assessment_process_descriptions: (
+        list[AssessmentProcessDescription] | None
+    ) = pdt.Field(
         None,
         description=(
             "Description of calculation processes used in the assessment of "
-            "the plant performance loss element."
+            "the plant performance loss subcategory element."
         ),
     )
-    is_preliminary: bool = pdt.Field(
-        False,
-        description=(
-            "Whether the assessment of the plant performance loss assessment "
-            "element should be marked as preliminary."
-        ),
-    )
-    element_results: Result = pdt.Field(
+    # TODO consider if we want to keep a flag to mark the assessment of a
+    #      plant performance subcategory element as preliminary
+    # is_preliminary: bool = pdt.Field(
+    #     False,
+    #     description=(
+    #         "Whether the assessment of the plant performance loss assessment "
+    #         "subcategory element should be marked as preliminary."
+    #     ),
+    # )
+    element_results: list[Result] = pdt.Field(
         ...,
         description=(
-            "Plant performance assessment element results as dimensionless loss "
-            "factors (efficiencies)."
+            "Plant performance assessment subcategory element result(s) as "
+            "dimensionless loss factors (efficiencies)."
         ),
     )
 
@@ -100,7 +104,7 @@ class PlantPerformanceSubcategory(base_models.EyaDefBaseModel):
             "subcategory should be marked as preliminary."
         ),
     )
-    elements: list[PlantPerformanceElement] | None = pdt.Field(
+    elements: list[PlantPerformanceSubcategoryElement] | None = pdt.Field(
         None,
         description=(
             "Plant performance loss assessment elements that fall under the "
@@ -112,11 +116,11 @@ class PlantPerformanceSubcategory(base_models.EyaDefBaseModel):
             "define element labels."
         ),
     )
-    subcategory_results: Result = pdt.Field(
+    subcategory_results: list[Result] = pdt.Field(
         ...,
         description=(
-            "Plant performance assessment subcategory results as dimensionless loss "
-            "factors (efficiencies)."
+            "Plant performance assessment subcategory result(s) as dimensionless "
+            "loss factors (efficiencies)."
         ),
     )
 
@@ -139,7 +143,7 @@ class PlantPerformanceCategory(base_models.EyaDefBaseModel):
     category_results: list[Result] = pdt.Field(
         ...,
         description=(
-            "Plant performance assessment category results as dimensionless loss "
+            "Plant performance assessment category result(s) as dimensionless loss "
             "factors (efficiencies)."
         ),
     )
