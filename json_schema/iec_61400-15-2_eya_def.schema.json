@@ -4,6 +4,21 @@
   "$version": "0.0.1",
   "additionalProperties": false,
   "definitions": {
+    "AssessmentBasis": {
+      "description": "Basis on which a component has been assessed.",
+      "enum": [
+        "timeseries_calculation",
+        "distribution_calculation",
+        "other_calculation",
+        "project_specific_estimate",
+        "regional_assumption",
+        "generic_assumption",
+        "not_considered",
+        "other"
+      ],
+      "title": "AssessmentBasis",
+      "type": "string"
+    },
     "AssessmentProcessDescription": {
       "description": "Description of a process used in an energy yield assessment.",
       "properties": {
@@ -130,17 +145,12 @@
       "description": "Set of results for an element of an energy assessment.",
       "properties": {
         "assessment_period": {
-          "default": "lifetime",
           "description": "Period of or in time that has been assessed and for which the results are applicable.",
           "enum": [
             "lifetime",
             "any_one_year",
             "one_operational_year",
             "other"
-          ],
-          "examples": [
-            "lifetime",
-            "any_one_year"
           ],
           "title": "Assessment Period",
           "type": "string"
@@ -282,6 +292,16 @@
       "title": "StatisticType",
       "type": "string"
     },
+    "TimeVariabilityType": {
+      "description": "Type of time variability considered for an assessment element.",
+      "enum": [
+        "static_process",
+        "annual_variable",
+        "other"
+      ],
+      "title": "TimeVariabilityType",
+      "type": "string"
+    },
     "UncertaintyAssessment": {
       "description": "Wind resource uncertainty assessment.",
       "properties": {
@@ -329,18 +349,18 @@
                       "title": "Label",
                       "type": "string"
                     },
-                    "results": {
+                    "subcategory_results": {
                       "description": "Wind resource uncertainty assessment subcategory results.",
                       "items": {
                         "$ref": "#/definitions/Result"
                       },
-                      "title": "Results",
+                      "title": "Subcategory Results",
                       "type": "array"
                     }
                   },
                   "required": [
                     "label",
-                    "results"
+                    "subcategory_results"
                   ],
                   "title": "Uncertainty Subcategory",
                   "type": "object"
@@ -1059,7 +1079,7 @@
                   "description": "Plant performance loss assessment category.",
                   "properties": {
                     "category_results": {
-                      "description": "Category level assessment results.",
+                      "description": "Plant performance assessment category result(s) as dimensionless loss factors (efficiencies).",
                       "items": {
                         "$ref": "#/definitions/Result"
                       },
@@ -1067,10 +1087,9 @@
                       "type": "array"
                     },
                     "label": {
-                      "description": "Label of the plant performance category.",
+                      "description": "Label of the plant performance loss category.",
                       "enum": [
-                        "wakes",
-                        "blockage",
+                        "turbine_interaction",
                         "availability",
                         "electrical",
                         "turbine_performance",
@@ -1082,45 +1101,96 @@
                       "type": "string"
                     },
                     "subcategories": {
-                      "description": "Plant performance assessment subcategories that fall under the category.",
+                      "description": "Plant performance loss assessment subcategories that fall under the category. The subcategory objects include details and results at the subcategory level.",
                       "items": {
                         "description": "Plant performance loss assessment subcategory.",
                         "properties": {
-                          "assessment_processes": {
-                            "description": "Calculation models used in the assessment.",
+                          "assessment_process_descriptions": {
+                            "description": "Description of calculation processes used in the assessment of the plant performance loss subcategory.",
                             "items": {
                               "$ref": "#/definitions/AssessmentProcessDescription"
                             },
-                            "title": "Assessment Processes",
+                            "title": "Assessment Process Descriptions",
                             "type": [
                               "array",
                               "null"
                             ]
                           },
                           "basis": {
-                            "description": "Basis of plant performance element assessment.",
-                            "enum": [
-                              "timeseries_calculation",
-                              "distribution_calculation",
-                              "other_calculation",
-                              "project_specific_estimate",
-                              "regional_assumption",
-                              "generic_assumption",
-                              "not_considered",
-                              "other"
-                            ],
-                            "title": "Assessment Basis",
-                            "type": "string"
+                            "$ref": "#/definitions/AssessmentBasis",
+                            "description": "Basis of plant performance loss subcategory assessment. The basis describes the level of detail of the calculation or estimate used in the assessment of the subcategory."
+                          },
+                          "elements": {
+                            "description": "Plant performance loss assessment elements that fall under the the subcategory. The element objects include details and results at the element level. A breakdown of plant performance loss subcategories into elements is optional and can be included only for a subset of the subcategories, as relevant. Whereas the categories and subcategories are fixed, the user may freely define element labels.",
+                            "items": {
+                              "description": "Plant performance loss assessment subcategory element.",
+                              "properties": {
+                                "assessment_process_descriptions": {
+                                  "description": "Description of calculation processes used in the assessment of the plant performance loss subcategory element.",
+                                  "items": {
+                                    "$ref": "#/definitions/AssessmentProcessDescription"
+                                  },
+                                  "title": "Assessment Process Descriptions",
+                                  "type": [
+                                    "array",
+                                    "null"
+                                  ]
+                                },
+                                "basis": {
+                                  "$ref": "#/definitions/AssessmentBasis",
+                                  "description": "Basis of plant performance loss subcategory element assessment. The basis describes the level of detail of the calculation or estimate used in the assessment of the element."
+                                },
+                                "comments": {
+                                  "$ref": "#/definitions/CommentsField"
+                                },
+                                "description": {
+                                  "$ref": "#/definitions/DescriptionField"
+                                },
+                                "element_results": {
+                                  "description": "Plant performance assessment subcategory element result(s) as dimensionless loss factors (efficiencies).",
+                                  "items": {
+                                    "$ref": "#/definitions/Result"
+                                  },
+                                  "title": "Element Results",
+                                  "type": "array"
+                                },
+                                "is_independent": {
+                                  "default": true,
+                                  "description": "Whether the plant performance loss subcategory element is independent of all other elements.",
+                                  "title": "Is Independent",
+                                  "type": "boolean"
+                                },
+                                "label": {
+                                  "description": "Label of the plant performance loss subcategory element.",
+                                  "title": "Label",
+                                  "type": "string"
+                                },
+                                "variability": {
+                                  "$ref": "#/definitions/TimeVariabilityType",
+                                  "description": "Considered variability in the plant performance loss subcategory element."
+                                }
+                              },
+                              "required": [
+                                "label",
+                                "basis",
+                                "variability",
+                                "element_results"
+                              ],
+                              "title": "Plant Performance Subcategory Element",
+                              "type": "object"
+                            },
+                            "title": "Elements",
+                            "type": [
+                              "array",
+                              "null"
+                            ]
                           },
                           "label": {
-                            "description": "Label of the plant performance category.",
+                            "description": "Label of the plant performance loss subcategory.",
                             "enum": [
-                              "internal_wakes",
-                              "external_wakes",
-                              "future_wakes",
-                              "internal_blockage",
-                              "external_blockage",
-                              "future_blockage",
+                              "internal_turbine_interaction",
+                              "external_turbine_interaction",
+                              "future_turbine_interaction",
                               "turbine_availability",
                               "bop_availability",
                               "grid_availability",
@@ -1138,32 +1208,31 @@
                               "grid_curtailment",
                               "environmental_curtailment",
                               "operational_strategies",
+                              "asymmetric_effects",
+                              "upside_scenarios",
                               "other"
                             ],
                             "title": "Plant Performance Subcategory Label",
                             "type": "string"
                           },
-                          "results": {
-                            "$ref": "#/definitions/Result",
-                            "description": "Plant performance assessment subcategory results.",
-                            "title": "Results"
+                          "subcategory_results": {
+                            "description": "Plant performance assessment subcategory result(s) as dimensionless loss factors (efficiencies).",
+                            "items": {
+                              "$ref": "#/definitions/Result"
+                            },
+                            "title": "Subcategory Results",
+                            "type": "array"
                           },
                           "variability": {
-                            "description": "Considered variability in plant performance element.",
-                            "enum": [
-                              "static_process",
-                              "annual_variable",
-                              "other"
-                            ],
-                            "title": "Variability Type",
-                            "type": "string"
+                            "$ref": "#/definitions/TimeVariabilityType",
+                            "description": "Considered variability in the plant performance loss subcategory."
                           }
                         },
                         "required": [
                           "label",
                           "basis",
                           "variability",
-                          "results"
+                          "subcategory_results"
                         ],
                         "title": "Plant Performance Subcategory",
                         "type": "object"
@@ -1285,6 +1354,8 @@
           "label",
           "operational_lifetime_length_years",
           "wind_farms",
+          "wind_resource_assessment_reference",
+          "turbine_wind_resource_assessment",
           "energy_assessment"
         ],
         "title": "Scenario",
@@ -1380,12 +1451,12 @@
             "title": "Reference Wind Farm Reference",
             "type": "object"
           },
-          "results": {
+          "subcategory_results": {
             "description": "Assessment results at the measurement location(s).",
             "items": {
               "$ref": "#/definitions/Result"
             },
-            "title": "Results",
+            "title": "Subcategory Results",
             "type": "array"
           },
           "uncertainty_assessment": {
@@ -1395,7 +1466,7 @@
           }
         },
         "required": [
-          "results",
+          "subcategory_results",
           "uncertainty_assessment"
         ],
         "title": "Wind Resource Assessment",

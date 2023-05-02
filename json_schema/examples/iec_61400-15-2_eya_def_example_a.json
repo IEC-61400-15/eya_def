@@ -285,7 +285,7 @@
             "label": "curtailment",
             "subcategories": [
               {
-                "assessment_processes": [
+                "assessment_process_descriptions": [
                   {
                     "comments": "Internal toolset",
                     "name": "Timeseries tool"
@@ -293,51 +293,53 @@
                 ],
                 "basis": "timeseries_calculation",
                 "label": "load_curtailment",
-                "results": {
-                  "assessment_period": "lifetime",
-                  "comments": "Considering curtailment strategy as specified by the turbine manufacturer.",
-                  "description": "Curtailment due to a wind sector management strategy to reduce turbine loads.",
-                  "dimensions": [
-                    "turbine"
-                  ],
-                  "label": "Loads curtailment",
-                  "statistics": [
-                    {
-                      "statistic_type": "mean",
-                      "values": [
-                        [
+                "subcategory_results": [
+                  {
+                    "assessment_period": "lifetime",
+                    "comments": "Considering curtailment strategy as specified by the turbine manufacturer.",
+                    "description": "Curtailment due to a wind sector management strategy to reduce turbine loads.",
+                    "dimensions": [
+                      "turbine"
+                    ],
+                    "label": "Loads curtailment",
+                    "statistics": [
+                      {
+                        "statistic_type": "mean",
+                        "values": [
                           [
-                            "WTG01"
+                            [
+                              "WTG01"
+                            ],
+                            0.975
                           ],
-                          0.975
-                        ],
-                        [
                           [
-                            "WTG02"
-                          ],
-                          0.983
+                            [
+                              "WTG02"
+                            ],
+                            0.983
+                          ]
                         ]
-                      ]
-                    },
-                    {
-                      "statistic_type": "standard_deviation",
-                      "values": [
-                        [
+                      },
+                      {
+                        "statistic_type": "standard_deviation",
+                        "values": [
                           [
-                            "WTG01"
+                            [
+                              "WTG01"
+                            ],
+                            0.005
                           ],
-                          0.005
-                        ],
-                        [
                           [
-                            "WTG02"
-                          ],
-                          0.005
+                            [
+                              "WTG02"
+                            ],
+                            0.005
+                          ]
                         ]
-                      ]
-                    }
-                  ]
-                },
+                      }
+                    ]
+                  }
+                ],
                 "variability": "static_process"
               }
             ]
@@ -616,51 +618,53 @@
               {
                 "basis": "project_specific_estimate",
                 "label": "load_curtailment",
-                "results": {
-                  "assessment_period": "lifetime",
-                  "comments": "A broad estimate of curtailment losses in the absence of details from the turbine manufacturer.",
-                  "description": "Expected curtailment due to a wind sector management to reduce turbine loads.",
-                  "dimensions": [
-                    "turbine"
-                  ],
-                  "label": "Loads curtailment",
-                  "statistics": [
-                    {
-                      "statistic_type": "mean",
-                      "values": [
-                        [
+                "subcategory_results": [
+                  {
+                    "assessment_period": "lifetime",
+                    "comments": "A broad estimate of curtailment losses in the absence of details from the turbine manufacturer.",
+                    "description": "Expected curtailment due to a wind sector management to reduce turbine loads.",
+                    "dimensions": [
+                      "turbine"
+                    ],
+                    "label": "Loads curtailment",
+                    "statistics": [
+                      {
+                        "statistic_type": "mean",
+                        "values": [
                           [
-                            "WTG01"
+                            [
+                              "WTG01"
+                            ],
+                            0.95
                           ],
-                          0.95
-                        ],
-                        [
                           [
-                            "WTG02"
-                          ],
-                          0.95
+                            [
+                              "WTG02"
+                            ],
+                            0.95
+                          ]
                         ]
-                      ]
-                    },
-                    {
-                      "statistic_type": "standard_deviation",
-                      "values": [
-                        [
+                      },
+                      {
+                        "statistic_type": "standard_deviation",
+                        "values": [
                           [
-                            "WTG01"
+                            [
+                              "WTG01"
+                            ],
+                            0.05
                           ],
-                          0.05
-                        ],
-                        [
                           [
-                            "WTG02"
-                          ],
-                          0.05
+                            [
+                              "WTG02"
+                            ],
+                            0.05
+                          ]
                         ]
-                      ]
-                    }
-                  ]
-                },
+                      }
+                    ]
+                  }
+                ],
                 "variability": "static_process"
               }
             ]
@@ -815,7 +819,7 @@
           "munro_wind_farm_reference"
         ]
       },
-      "results": [
+      "subcategory_results": [
         {
           "assessment_period": "lifetime",
           "dimensions": [
@@ -866,7 +870,7 @@
             "subcategories": [
               {
                 "label": "Regression model uncertainty",
-                "results": [
+                "subcategory_results": [
                   {
                     "assessment_period": "lifetime",
                     "dimensions": [
@@ -891,7 +895,7 @@
               },
               {
                 "label": "Long-term consistency uncertainty",
-                "results": [
+                "subcategory_results": [
                   {
                     "assessment_period": "lifetime",
                     "dimensions": [
