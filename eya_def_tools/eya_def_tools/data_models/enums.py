@@ -242,6 +242,7 @@ class TimeVariabilityType(StrEnum):
 
     STATIC_PROCESS = auto()
     ANNUAL_VARIABLE = auto()
+
     OTHER = auto()
 
 
@@ -252,6 +253,7 @@ class UncertaintyCategoryLabel(StrEnum):
     HISTORICAL = auto()
     VERTICAL = auto()
     HORIZONTAL = auto()
+
     OTHER = auto()
 
 
@@ -261,3 +263,23 @@ class WindFarmRelevance(StrEnum):
     INTERNAL = auto()
     EXTERNAL = auto()
     FUTURE = auto()
+
+
+class WindResourceAssessmentStepType(StrEnum):
+    """Type of step in a wind resource assessment.
+
+    The scope of this enum is limited to the assessment of wind resource
+    at the measurement locations and therefore does not cover the
+    horizontal extrapolation.
+    """
+
+    DATA_FILTERING = auto()
+    TURBINE_INTERACTION_CORRECTION = auto()
+    MEASUREMENT_STRUCTURE_RELATED_CORRECTION = auto()
+    TERRAIN_RELATED_CORRECTION = auto()
+    ONSITE_DATA_SYNTHESIS = auto()
+    LONG_TERM_PREDICTION = auto()
+    VERTICAL_EXTRAPOLATION = auto()
+    MODEL_CALIBRATION = auto()
+
+    OTHER = auto()
