@@ -50,16 +50,22 @@ class TurbineConfiguration(EyaDefBaseModel):
     description: str | None = description_field
     comments: str | None = comments_field
     location: Location = pdt.Field(
-        ..., description="Horizontal location of the turbine."
+        ...,
+        description="The horizontal spatial location of the turbine.",
     )
-    hub_height: float = pdt.Field(..., description="Turbine hub height.")
+    hub_height: float = pdt.Field(
+        ...,
+        description="The hub height of the turbine.",
+    )
     turbine_model_id: str = pdt.Field(
-        ..., description="Unique identifier of the turbine model."
+        ...,
+        description="Unique identifier of the turbine model.",
     )
 
     # TODO consider moving restrictions to a separate model
     restrictions: list[OperationalRestriction] | None = pdt.Field(
-        None, description="List of operational restrictions at the turbine level."
+        None,
+        description="List of operational restrictions at the turbine level.",
     )
 
 
@@ -79,10 +85,12 @@ class WindFarmConfiguration(EyaDefBaseModel):
     description: str | None = description_field
     comments: str | None = comments_field
     turbines: list[TurbineConfiguration] = pdt.Field(
-        ..., description="List of specifications for constituent turbines."
+        ...,
+        description="List of specifications for constituent turbines.",
     )
     relevance: WindFarmRelevance = pdt.Field(
-        ..., description="The relevance of the wind farm for the assessment."
+        ...,
+        description="The relevance of the wind farm for the assessment.",
     )
     operational_lifetime_start_date: dt.date | None = pdt.Field(
         None,
@@ -97,5 +105,6 @@ class WindFarmConfiguration(EyaDefBaseModel):
 
     # TODO consider moving restrictions to a separate model
     wind_farm_restrictions: list[OperationalRestriction] | None = pdt.Field(
-        None, description="List of operational restrictions at the wind farm level."
+        None,
+        description="List of operational restrictions at the wind farm level.",
     )

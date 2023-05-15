@@ -1,60 +1,8 @@
 {
   "$id": "https://example.com/api/v2/eya/report/id=b1396029-e9af-49f7-9599-534db175e53c.json",
-  "comments": "Update to consider further on-site measurement data.",
-  "confidentiality_classification": "Confidential",
-  "contract_reference": "P/UK/000765/001/B, 2022-11-30",
-  "contributors": [
+  "measurement_stations": [
     {
-      "completion_date": "2022-10-05",
-      "contribution_comments": "Main author",
-      "contributor_type": "author",
-      "email_address": "j.miro@art.cat",
-      "name": "Joan Miro"
-    },
-    {
-      "completion_date": "2022-10-05",
-      "contribution_comments": "Second author",
-      "contributor_type": "author",
-      "email_address": "andrei.tarkovsky@cinema.com",
-      "name": "Andrei Tarkovsky"
-    },
-    {
-      "completion_date": "2022-10-06",
-      "contributor_type": "verifier",
-      "email_address": "hannseisler@udk-berlin.de",
-      "name": "Hanns Eisler"
-    },
-    {
-      "completion_date": "2022-10-07",
-      "contributor_type": "approver",
-      "email_address": "weill@broadway.com",
-      "name": "Kurt Weill"
-    }
-  ],
-  "coordinate_reference_system": {
-    "epsg_srid": 32630,
-    "system_label": "WGS 84 / UTM zone 30N",
-    "wkt": "PROJCS[\"WGS 84 / UTM zone 30N\",GEOGCS[\"WGS 84\",DATUM[\"WGS_1984\",SPHEROID[\"WGS 84\",6378137,298.257223563,AUTHORITY[\"EPSG\",\"7030\"]],AUTHORITY[\"EPSG\",\"6326\"]],PRIMEM[\"Greenwich\",0,AUTHORITY[\"EPSG\",\"8901\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AUTHORITY[\"EPSG\",\"4326\"]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"latitude_of_origin\",0],PARAMETER[\"central_meridian\",-3],PARAMETER[\"scale_factor\",0.9996],PARAMETER[\"false_easting\",500000],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH],AUTHORITY[\"EPSG\",\"32630\"]]))"
-  },
-  "description": "Wind resource and energy yield assessment of the Barefoot Wind Farm based on one on-site meteorological mast and considering two different turbine scenarios.",
-  "document_id": "12345678",
-  "document_version": "B",
-  "issue_date": "2022-10-07",
-  "issuing_organisations": [
-    {
-      "abbreviation": "Torre Egger",
-      "address": "5 Munro Road, Sgurrsville, G12 0YE, UK",
-      "name": "The Torre Egger Consultants Limited"
-    }
-  ],
-  "measurement_stations": [],
-  "project_name": "Barefoot Wind Farm",
-  "receiving_organisations": [
-    {
-      "abbreviation": "Miranda",
-      "address": "9 Acosta St., Ivanslake, Republic of Miranda",
-      "contact_name": "Luis Bunuel",
-      "name": "Miranda Investments Limited"
+      "$ref": "iec_61400-15-2_eya_def_example_a_iea43_wra.json"
     }
   ],
   "reference_wind_farms": [
@@ -150,6 +98,65 @@
       }
     }
   ],
+  "report_metadata": {
+    "comments": "Update to consider further on-site measurement data.",
+    "confidentiality_classification": "Confidential",
+    "contract_reference": "P/UK/000765/001/B, 2022-11-30",
+    "contributors": [
+      {
+        "completion_date": "2022-10-05",
+        "contribution_comments": "Main author",
+        "contributor_type": "author",
+        "email_address": "j.miro@art.cat",
+        "name": "Joan Miro"
+      },
+      {
+        "completion_date": "2022-10-05",
+        "contribution_comments": "Second author",
+        "contributor_type": "author",
+        "email_address": "andrei.tarkovsky@cinema.com",
+        "name": "Andrei Tarkovsky"
+      },
+      {
+        "completion_date": "2022-10-06",
+        "contributor_type": "verifier",
+        "email_address": "hannseisler@udk-berlin.de",
+        "name": "Hanns Eisler"
+      },
+      {
+        "completion_date": "2022-10-07",
+        "contributor_type": "approver",
+        "email_address": "weill@broadway.com",
+        "name": "Kurt Weill"
+      }
+    ],
+    "coordinate_reference_system": {
+      "epsg_srid": 32630,
+      "system_label": "WGS 84 / UTM zone 30N",
+      "wkt": "PROJCS[\"WGS 84 / UTM zone 30N\",GEOGCS[\"WGS 84\",DATUM[\"WGS_1984\",SPHEROID[\"WGS 84\",6378137,298.257223563,AUTHORITY[\"EPSG\",\"7030\"]],AUTHORITY[\"EPSG\",\"6326\"]],PRIMEM[\"Greenwich\",0,AUTHORITY[\"EPSG\",\"8901\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AUTHORITY[\"EPSG\",\"4326\"]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"latitude_of_origin\",0],PARAMETER[\"central_meridian\",-3],PARAMETER[\"scale_factor\",0.9996],PARAMETER[\"false_easting\",500000],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH],AUTHORITY[\"EPSG\",\"32630\"]]))"
+    },
+    "description": "Wind resource and energy yield assessment of the Barefoot Wind Farm based on one on-site meteorological mast and considering two different turbine scenarios.",
+    "document_id": "12345678",
+    "document_version": "B",
+    "issue_date": "2022-10-07",
+    "issuing_organisations": [
+      {
+        "abbreviation": "Torre Egger",
+        "address": "5 Munro Road, Sgurrsville, G12 0YE, UK",
+        "name": "The Torre Egger Consultants Limited"
+      }
+    ],
+    "project_name": "Barefoot Wind Farm",
+    "receiving_organisations": [
+      {
+        "abbreviation": "Miranda",
+        "address": "9 Acosta St., Ivanslake, Republic of Miranda",
+        "contact_name": "Luis Bunuel",
+        "name": "Miranda Investments Limited"
+      }
+    ],
+    "title": "Energy yield assessment of the Barefoot Wind Farm"
+  },
   "scenarios": [
     {
       "description": "ABC165-5.5MW turbine model scenario",
@@ -351,7 +358,7 @@
       "operational_lifetime_length_years": 30.0,
       "scenario_id": "b6953ecb-f88b-4660-9f69-bedbbe4c240b",
       "turbine_wind_resource_assessment": {
-        "turbine_wind_resource_results": [
+        "results": [
           {
             "assessment_period": "lifetime",
             "dimensions": [
@@ -379,6 +386,7 @@
             ]
           }
         ],
+        "wind_resource_assessment_id_reference": "BfWF_WRA_1",
         "wind_spatial_modelling_processes": [
           {
             "comments": "The simulations were run using 60 representative days.",
@@ -478,8 +486,7 @@
             }
           ]
         }
-      ],
-      "wind_resource_assessment_reference": {}
+      ]
     },
     {
       "comments": "Site suitability of turbine model has not yet investigated.",
@@ -676,7 +683,7 @@
       "operational_lifetime_length_years": 30.0,
       "scenario_id": "e27fefdf-cdd7-441f-a7a7-c4347514b4f7",
       "turbine_wind_resource_assessment": {
-        "turbine_wind_resource_results": [
+        "results": [
           {
             "assessment_period": "lifetime",
             "dimensions": [
@@ -704,6 +711,7 @@
             ]
           }
         ],
+        "wind_resource_assessment_id_reference": "BfWF_WRA_1",
         "wind_spatial_modelling_processes": [
           {
             "comments": "The simulations were run using 60 representative days.",
@@ -793,11 +801,9 @@
             }
           ]
         }
-      ],
-      "wind_resource_assessment_reference": {}
+      ]
     }
   ],
-  "title": "Energy yield assessment of the Barefoot Wind Farm",
   "turbine_models": [
     {
       "label": "ABC165-5.5MW",
@@ -814,114 +820,35 @@
   ],
   "wind_resource_assessments": [
     {
-      "reference_wind_farm_reference": {
-        "reference_wind_farm_ids": [
-          "munro_wind_farm_reference"
-        ]
-      },
-      "subcategory_results": [
+      "steps": [
         {
-          "assessment_period": "lifetime",
-          "dimensions": [
-            "measurement"
-          ],
-          "label": "Measurement-height long-term wind",
-          "statistics": [
+          "label": "long_term_prediction",
+          "results": [
             {
-              "statistic_type": "mean",
-              "values": [
-                [
-                  [
-                    "BF_M1_1.0.0"
-                  ],
-                  6.83
-                ]
+              "assessment_period": "lifetime",
+              "dimensions": [
+                "measurement"
+              ],
+              "label": "Measurement-height long-term wind speed",
+              "quantity": "wind_speed",
+              "statistics": [
+                {
+                  "statistic_type": "mean",
+                  "values": [
+                    [
+                      [
+                        "BF_M1"
+                      ],
+                      6.83
+                    ]
+                  ]
+                }
               ]
             }
           ]
         }
       ],
-      "uncertainty_assessment": {
-        "categories": [
-          {
-            "category_results": [
-              {
-                "assessment_period": "lifetime",
-                "dimensions": [
-                  "measurement"
-                ],
-                "label": "Historical wind resource uncertainty",
-                "statistics": [
-                  {
-                    "statistic_type": "standard_deviation",
-                    "values": [
-                      [
-                        [
-                          "BF_M1_1.0.0"
-                        ],
-                        0.03201
-                      ]
-                    ]
-                  }
-                ]
-              }
-            ],
-            "label": "historical",
-            "subcategories": [
-              {
-                "label": "Regression model uncertainty",
-                "subcategory_results": [
-                  {
-                    "assessment_period": "lifetime",
-                    "dimensions": [
-                      "measurement"
-                    ],
-                    "label": "Regression model wind speed uncertainty per measurement station",
-                    "statistics": [
-                      {
-                        "statistic_type": "standard_deviation",
-                        "values": [
-                          [
-                            [
-                              "BF_M1_1.0.0"
-                            ],
-                            0.025
-                          ]
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "label": "Long-term consistency uncertainty",
-                "subcategory_results": [
-                  {
-                    "assessment_period": "lifetime",
-                    "dimensions": [
-                      "measurement"
-                    ],
-                    "label": "Long-term consistency wind speed uncertainty per measurement station",
-                    "statistics": [
-                      {
-                        "statistic_type": "standard_deviation",
-                        "values": [
-                          [
-                            [
-                              "BF_M1_1.0.0"
-                            ],
-                            0.02
-                          ]
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
+      "wind_resource_assessment_id": "BfWF_WRA_1"
     }
   ]
 }

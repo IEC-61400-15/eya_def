@@ -5,7 +5,7 @@
   "additionalProperties": false,
   "definitions": {
     "AssessmentBasis": {
-      "description": "Basis on which a component has been assessed.",
+      "description": "Basis on which an EYA or WRA component has been assessed.",
       "enum": [
         "timeseries_calculation",
         "distribution_calculation",
@@ -20,6 +20,7 @@
       "type": "string"
     },
     "AssessmentProcessDescription": {
+      "additionalProperties": false,
       "description": "Description of a process used in an energy yield assessment.",
       "properties": {
         "comments": {
@@ -29,7 +30,7 @@
           "$ref": "#/definitions/DescriptionField"
         },
         "name": {
-          "description": "Name of the process or model use in the process.",
+          "description": "Name of the process or model.",
           "examples": [
             "WAsP",
             "VORTEX BLOCKS",
@@ -62,7 +63,67 @@
         "null"
       ]
     },
+    "Location": {
+      "additionalProperties": false,
+      "description": "Specification of a horizontal location in space.",
+      "properties": {
+        "comments": {
+          "$ref": "#/definitions/CommentsField"
+        },
+        "description": {
+          "$ref": "#/definitions/DescriptionField"
+        },
+        "label": {
+          "description": "Label of the location.",
+          "examples": [
+            "T1",
+            "WTG02-loc1",
+            "WEA_003/R2"
+          ],
+          "title": "Label",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "location_id": {
+          "description": "Unique identifier of the location.",
+          "examples": [
+            "ee15ff84-6733-4858-9656-ba995d9b1022",
+            "WTG02-loc1"
+          ],
+          "title": "Location Id",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "x": {
+          "description": "Location x-coordinate (typically easing).",
+          "examples": [
+            419665.0
+          ],
+          "title": "X",
+          "type": "number"
+        },
+        "y": {
+          "description": "Location y-coordinate (typically northing).",
+          "examples": [
+            6195240.0
+          ],
+          "title": "Y",
+          "type": "number"
+        }
+      },
+      "required": [
+        "x",
+        "y"
+      ],
+      "title": "Location",
+      "type": "object"
+    },
     "OperationalRestriction": {
+      "additionalProperties": false,
       "description": "Specifications of a restriction that limits power output. In the current draft of the schema, 'label', 'description' and 'comments' fields are available to describe the restriction with free text. This is intended to be expanded into a more comprehensive data model.",
       "properties": {
         "comments": {
@@ -88,6 +149,7 @@
       "type": "object"
     },
     "Organisation": {
+      "additionalProperties": false,
       "description": "Issuing or receiving organisation of an energy yield assessment.",
       "properties": {
         "abbreviation": {
@@ -142,6 +204,7 @@
       "type": "object"
     },
     "Result": {
+      "additionalProperties": false,
       "description": "Set of results for an element of an energy assessment.",
       "properties": {
         "assessment_period": {
@@ -202,9 +265,27 @@
             "null"
           ]
         },
+        "quantity": {
+          "description": "The quantity that the set of results describe, where this is not obvious from the context.",
+          "enum": [
+            "air_density",
+            "data_recovery_rate",
+            "distance",
+            "energy",
+            "power",
+            "power_law_wind_shear_exponent",
+            "temperature",
+            "time",
+            "wind_from_direction",
+            "wind_speed"
+          ],
+          "title": "Results Quantity",
+          "type": "string"
+        },
         "statistics": {
           "description": "List of result statistic objects that each include result values for a specific statistic type.",
           "items": {
+            "additionalProperties": false,
             "description": "Result values for one specific statistic type.",
             "properties": {
               "comments": {
@@ -303,11 +384,13 @@
       "type": "string"
     },
     "UncertaintyAssessment": {
+      "additionalProperties": false,
       "description": "Wind resource uncertainty assessment.",
       "properties": {
         "categories": {
           "description": "List of wind resource uncertainty assessment categories.",
           "items": {
+            "additionalProperties": false,
             "description": "Wind resource uncertainty assessment category.",
             "properties": {
               "category_results": {
@@ -333,6 +416,7 @@
               "subcategories": {
                 "description": "Wind resource uncertainty assessment subcategories.",
                 "items": {
+                  "additionalProperties": false,
                   "description": "Wind resource uncertainty assessment subcategory.",
                   "properties": {
                     "comments": {
@@ -388,6 +472,7 @@
       "type": "object"
     },
     "WindFarmConfiguration": {
+      "additionalProperties": false,
       "description": "A collection of wind turbines considered as one unit (plant).",
       "properties": {
         "comments": {
@@ -456,6 +541,7 @@
         "turbines": {
           "description": "List of specifications for constituent turbines.",
           "items": {
+            "additionalProperties": false,
             "description": "Specification of all details for a turbine configuration.",
             "properties": {
               "comments": {
@@ -465,7 +551,7 @@
                 "$ref": "#/definitions/DescriptionField"
               },
               "hub_height": {
-                "description": "Turbine hub height.",
+                "description": "The hub height of the turbine.",
                 "title": "Hub Height",
                 "type": "number"
               },
@@ -480,62 +566,9 @@
                 "type": "string"
               },
               "location": {
-                "description": "Horizontal location of the turbine.",
-                "properties": {
-                  "comments": {
-                    "$ref": "#/definitions/CommentsField"
-                  },
-                  "description": {
-                    "$ref": "#/definitions/DescriptionField"
-                  },
-                  "label": {
-                    "description": "Label of the location.",
-                    "examples": [
-                      "T1",
-                      "WTG02-loc1",
-                      "WEA_003/R2"
-                    ],
-                    "title": "Label",
-                    "type": [
-                      "string",
-                      "null"
-                    ]
-                  },
-                  "location_id": {
-                    "description": "Unique identifier of the location.",
-                    "examples": [
-                      "ee15ff84-6733-4858-9656-ba995d9b1022",
-                      "WTG02-loc1"
-                    ],
-                    "title": "Location Id",
-                    "type": [
-                      "string",
-                      "null"
-                    ]
-                  },
-                  "x": {
-                    "description": "Location x-coordinate (typically easing).",
-                    "examples": [
-                      419665.0
-                    ],
-                    "title": "X",
-                    "type": "number"
-                  },
-                  "y": {
-                    "description": "Location y-coordinate (typically northing).",
-                    "examples": [
-                      6195240.0
-                    ],
-                    "title": "Y",
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "x",
-                  "y"
-                ],
-                "title": "Location",
-                "type": "object"
+                "$ref": "#/definitions/Location",
+                "description": "The horizontal spatial location of the turbine.",
+                "title": "Location"
               },
               "restrictions": {
                 "description": "List of operational restrictions at the turbine level.",
@@ -612,191 +645,8 @@
         "null"
       ]
     },
-    "comments": {
-      "$ref": "#/definitions/CommentsField"
-    },
-    "confidentiality_classification": {
-      "description": "Confidentiality classification of the report.",
-      "examples": [
-        "Strictly confidential",
-        "Commercial in confidence",
-        "Public"
-      ],
-      "title": "Confidentiality Classification",
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "contract_reference": {
-      "description": "Reference to contract between the issuing and receiving organisations that governs the energy yield assessment.",
-      "examples": [
-        "Contract ID.: P-MIR-00239432-0001-C, dated 2022-11-30"
-      ],
-      "title": "Contract Reference",
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "contributors": {
-      "description": "List of report contributors (e.g. author and verifier)",
-      "items": {
-        "description": "Contributor to an energy yield assessment.",
-        "properties": {
-          "completion_date": {
-            "description": "Contribution completion date (format YYYY-MM-DD).",
-            "examples": [
-              "2022-10-04"
-            ],
-            "format": "date",
-            "title": "Completion Date",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "contribution_comments": {
-            "description": "Comments to clarify contribution.",
-            "examples": [
-              "Second author"
-            ],
-            "title": "Contribution Comments",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "contributor_type": {
-            "description": "Type of contributor.",
-            "enum": [
-              "author",
-              "verifier",
-              "approver",
-              "other"
-            ],
-            "title": "Contributor Type",
-            "type": "string"
-          },
-          "email_address": {
-            "description": "Email address of the contributor.",
-            "examples": [
-              "j.miro@art.cat",
-              "andrei.tarkovsky@cinema.com"
-            ],
-            "format": "email",
-            "title": "Email Address",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "name": {
-            "description": "Name of the contributor.",
-            "examples": [
-              "Joan Miro",
-              "Andrei Tarkovsky"
-            ],
-            "title": "Name",
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "contributor_type"
-        ],
-        "title": "Report Contributor",
-        "type": "object"
-      },
-      "title": "Contributors",
-      "type": "array"
-    },
-    "coordinate_reference_system": {
-      "description": "Coordinate reference system used for all location data.",
-      "properties": {
-        "epsg_srid": {
-          "description": "EPSG Spatial Reference System Identifier (SRID).",
-          "examples": [
-            27700,
-            3006
-          ],
-          "title": "Epsg Srid",
-          "type": [
-            "integer",
-            "null"
-          ]
-        },
-        "system_label": {
-          "description": "Label of the coordinate system.",
-          "examples": [
-            "OSGB36 / British National Grid",
-            "SWEREF99 TM"
-          ],
-          "title": "System Label",
-          "type": "string"
-        },
-        "wkt": {
-          "description": "Well-known text (WKT) string definition of the coordinate system.",
-          "title": "Wkt",
-          "type": [
-            "string",
-            "null"
-          ]
-        }
-      },
-      "required": [
-        "system_label"
-      ],
-      "title": "Coordinate Reference System",
-      "type": "object"
-    },
-    "description": {
-      "$ref": "#/definitions/DescriptionField"
-    },
-    "document_id": {
-      "description": "The ID of the report document; not including the version when 'document_version' is used.",
-      "examples": [
-        "C385945/A/UK/R/002",
-        "0345.923454.0001"
-      ],
-      "title": "Document ID",
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "document_version": {
-      "description": "Version of the report document, also known as revision.",
-      "examples": [
-        "1.2.3",
-        "A",
-        "Rev. A"
-      ],
-      "title": "Document Version",
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "issue_date": {
-      "description": "Report issue date in the ISO 8601 standard format for a calendar date, i.e. YYYY-MM-DD.",
-      "examples": [
-        "2022-10-05"
-      ],
-      "format": "date",
-      "title": "Issue Date",
-      "type": "string"
-    },
-    "issuing_organisations": {
-      "description": "The organisation(s) issuing the report (e.g. consultant).",
-      "items": {
-        "$ref": "#/definitions/Organisation"
-      },
-      "title": "Issuing Organisations",
-      "type": "array"
-    },
     "measurement_stations": {
-      "description": "List of measurement station metadata JSON document(s) according to the IEA Task 43 WRA Data Model.",
+      "description": "List of measurement station metadata JSON document(s) according to the IEA Task 43 WRA Data Model, for all station datasets used in the EYA.",
       "items": {
         "$ref": "https://raw.githubusercontent.com/IEA-Task-43/digital_wra_data_standard/master/schema/iea43_wra_data_model.schema.json",
         "description": "A measurement metadata JSON document according to the IEA Task 43 WRA Data Model.",
@@ -805,30 +655,55 @@
         ]
       },
       "title": "Measurement Stations",
-      "type": "array"
+      "type": [
+        "array",
+        "null"
+      ]
     },
-    "project_name": {
-      "description": "Name of the project under assessment.",
-      "examples": [
-        "Barefoot Wind Farm"
-      ],
-      "title": "Project Name",
-      "type": "string"
-    },
-    "receiving_organisations": {
-      "description": "The organisation(s) receiving the report (e.g. client), if relevant.",
+    "reference_meteorological_datasets": {
+      "description": "List of reference meteorological datasets used in the EYA.",
       "items": {
-        "$ref": "#/definitions/Organisation"
+        "additionalProperties": false,
+        "description": "Metadata for a reference meteorological dataset. The schema describes a dataset at a single horizontal spatial location. Separate data model instances need to be used to describe data at different location from the same source dataset (e.g. different grid cells from a reanalysis dataset).",
+        "properties": {
+          "comments": {
+            "$ref": "#/definitions/CommentsField"
+          },
+          "description": {
+            "$ref": "#/definitions/DescriptionField"
+          },
+          "location": {
+            "$ref": "#/definitions/Location",
+            "description": "The horizontal spatial location of the meteorological data.",
+            "title": "Location"
+          },
+          "reference_meteorological_dataset_id": {
+            "description": "Unique ID for the reference meteorological dataset within the EYA DEF document.",
+            "examples": [
+              "ERA5_1.23_4.56",
+              "WRF_r0245_a"
+            ],
+            "title": "Reference Meteorological Dataset Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "reference_meteorological_dataset_id",
+          "location"
+        ],
+        "title": "Reference Meteorological Dataset",
+        "type": "object"
       },
-      "title": "Receiving Organisations",
+      "title": "Reference Meteorological Datasets",
       "type": [
         "array",
         "null"
       ]
     },
     "reference_wind_farms": {
-      "description": "List of reference operational wind farms.",
+      "description": "List of reference operational wind farms used in the EYA.",
       "items": {
+        "additionalProperties": false,
         "description": "Reference wind farm metadata.",
         "properties": {
           "comments": {
@@ -837,6 +712,7 @@
           "datasets": {
             "description": "Metadata for the operational dataset.",
             "items": {
+              "additionalProperties": false,
               "description": "Reference wind farm operational dataset metadata.",
               "properties": {
                 "comments": {
@@ -914,21 +790,11 @@
                 "used_data_variables": {
                   "description": "A list of the types of data variables included in this dataset and used in the assessment. For a large dataset (such as a full wind turbine SCADA dataset) this field should not include all the variables but only the ones that were used in the analysis.",
                   "items": {
+                    "additionalProperties": false,
                     "description": "Reference wind farm operational data variable metadata.",
                     "properties": {
                       "comments": {
                         "$ref": "#/definitions/CommentsField"
-                      },
-                      "data_availability": {
-                        "description": "Dimensionless raw data availability for the variable.",
-                        "items": {
-                          "$ref": "#/definitions/Result"
-                        },
-                        "title": "Data Availability",
-                        "type": [
-                          "array",
-                          "null"
-                        ]
                       },
                       "data_level": {
                         "description": "Whether the operational data variable is provided for each individual wind turbine ('turbine_level'), is aggregated at the wind farm level ('wind_farm_level') or corresponds to a different ('other') unit such as an environmental measurement station.",
@@ -962,6 +828,17 @@
                         "title": "Measurement Point",
                         "type": [
                           "string",
+                          "null"
+                        ]
+                      },
+                      "raw_data_recovery_rate": {
+                        "description": "Dimensionless raw data recovery rate for the variable.",
+                        "items": {
+                          "$ref": "#/definitions/Result"
+                        },
+                        "title": "Raw Data Recovery Rate",
+                        "type": [
+                          "array",
                           "null"
                         ]
                       },
@@ -1033,9 +910,238 @@
         "null"
       ]
     },
+    "report_metadata": {
+      "additionalProperties": false,
+      "description": "Metadata fields for the EYA report.",
+      "properties": {
+        "comments": {
+          "$ref": "#/definitions/CommentsField"
+        },
+        "confidentiality_classification": {
+          "description": "Confidentiality classification of the report.",
+          "examples": [
+            "Strictly confidential",
+            "Commercial in confidence",
+            "Public"
+          ],
+          "title": "Confidentiality Classification",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "contract_reference": {
+          "description": "Reference to contract between the issuing and receiving organisations that governs the energy yield assessment.",
+          "examples": [
+            "Contract ID.: P-MIR-00239432-0001-C, dated 2022-11-30"
+          ],
+          "title": "Contract Reference",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "contributors": {
+          "description": "List of report contributors (e.g. author and verifier)",
+          "items": {
+            "additionalProperties": false,
+            "description": "Contributor to an energy yield assessment.",
+            "properties": {
+              "completion_date": {
+                "description": "Contribution completion date (format YYYY-MM-DD).",
+                "examples": [
+                  "2022-10-04"
+                ],
+                "format": "date",
+                "title": "Completion Date",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "contribution_comments": {
+                "description": "Comments to clarify contribution.",
+                "examples": [
+                  "Second author"
+                ],
+                "title": "Contribution Comments",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "contributor_type": {
+                "description": "Type of contributor.",
+                "enum": [
+                  "author",
+                  "verifier",
+                  "approver",
+                  "other"
+                ],
+                "title": "Contributor Type",
+                "type": "string"
+              },
+              "email_address": {
+                "description": "Email address of the contributor.",
+                "examples": [
+                  "j.miro@art.cat",
+                  "andrei.tarkovsky@cinema.com"
+                ],
+                "format": "email",
+                "title": "Email Address",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "name": {
+                "description": "Name of the contributor.",
+                "examples": [
+                  "Joan Miro",
+                  "Andrei Tarkovsky"
+                ],
+                "title": "Name",
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "contributor_type"
+            ],
+            "title": "Report Contributor",
+            "type": "object"
+          },
+          "title": "Contributors",
+          "type": "array"
+        },
+        "coordinate_reference_system": {
+          "additionalProperties": false,
+          "description": "Coordinate reference system used for all location data.",
+          "properties": {
+            "epsg_srid": {
+              "description": "EPSG Spatial Reference System Identifier (SRID).",
+              "examples": [
+                27700,
+                3006
+              ],
+              "title": "Epsg Srid",
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "system_label": {
+              "description": "Label of the coordinate system.",
+              "examples": [
+                "OSGB36 / British National Grid",
+                "SWEREF99 TM"
+              ],
+              "title": "System Label",
+              "type": "string"
+            },
+            "wkt": {
+              "description": "Well-known text (WKT) string definition of the coordinate system.",
+              "title": "Wkt",
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "system_label"
+          ],
+          "title": "Coordinate Reference System",
+          "type": "object"
+        },
+        "description": {
+          "$ref": "#/definitions/DescriptionField"
+        },
+        "document_id": {
+          "description": "The ID of the report document; not including the version when 'document_version' is used.",
+          "examples": [
+            "C385945/A/UK/R/002",
+            "0345.923454.0001"
+          ],
+          "title": "Document ID",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "document_version": {
+          "description": "Version of the report document, also known as revision.",
+          "examples": [
+            "1.2.3",
+            "A",
+            "Rev. A"
+          ],
+          "title": "Document Version",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "issue_date": {
+          "description": "Report issue date in the ISO 8601 standard format for a calendar date, i.e. YYYY-MM-DD.",
+          "examples": [
+            "2022-10-05"
+          ],
+          "format": "date",
+          "title": "Issue Date",
+          "type": "string"
+        },
+        "issuing_organisations": {
+          "description": "The organisation(s) issuing the report (e.g. consultant).",
+          "items": {
+            "$ref": "#/definitions/Organisation"
+          },
+          "title": "Issuing Organisations",
+          "type": "array"
+        },
+        "project_name": {
+          "description": "Name of the project under assessment.",
+          "examples": [
+            "Barefoot Wind Farm"
+          ],
+          "title": "Project Name",
+          "type": "string"
+        },
+        "receiving_organisations": {
+          "description": "The organisation(s) receiving the report (e.g. client), if relevant.",
+          "items": {
+            "$ref": "#/definitions/Organisation"
+          },
+          "title": "Receiving Organisations",
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "title": {
+          "description": "Title of the energy assessment report.",
+          "examples": [
+            "Energy yield assessment of the Barefoot Wind Farm"
+          ],
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "project_name",
+        "issue_date",
+        "contributors",
+        "issuing_organisations",
+        "coordinate_reference_system"
+      ],
+      "title": "Report Metadata",
+      "type": "object"
+    },
     "scenarios": {
       "description": "List of energy yield assessment scenarios.",
       "items": {
+        "additionalProperties": false,
         "description": "Single unique energy yield assessment scenario.",
         "properties": {
           "comments": {
@@ -1045,6 +1151,7 @@
             "$ref": "#/definitions/DescriptionField"
           },
           "energy_assessment": {
+            "additionalProperties": false,
             "description": "Energy assessment details and results, including gross energy, plant performance, net energy and uncertainties.",
             "properties": {
               "gross_eya_process": {
@@ -1076,6 +1183,7 @@
               "plant_performance_loss_categories": {
                 "description": "Plant performance loss assessment categories including results.",
                 "items": {
+                  "additionalProperties": false,
                   "description": "Plant performance loss assessment category.",
                   "properties": {
                     "category_results": {
@@ -1103,6 +1211,7 @@
                     "subcategories": {
                       "description": "Plant performance loss assessment subcategories that fall under the category. The subcategory objects include details and results at the subcategory level.",
                       "items": {
+                        "additionalProperties": false,
                         "description": "Plant performance loss assessment subcategory.",
                         "properties": {
                           "assessment_process_descriptions": {
@@ -1123,6 +1232,7 @@
                           "elements": {
                             "description": "Plant performance loss assessment elements that fall under the the subcategory. The element objects include details and results at the element level. A breakdown of plant performance loss subcategories into elements is optional and can be included only for a subset of the subcategories, as relevant. Whereas the categories and subcategories are fixed, the user may freely define element labels.",
                             "items": {
+                              "additionalProperties": false,
                               "description": "Plant performance loss assessment subcategory element.",
                               "properties": {
                                 "assessment_process_descriptions": {
@@ -1304,20 +1414,31 @@
             ]
           },
           "turbine_wind_resource_assessment": {
+            "additionalProperties": false,
             "description": "Wind resource assessment at the turbine locations.",
             "properties": {
-              "turbine_wind_resource_results": {
+              "results": {
                 "description": "Assessment results at the turbine location(s).",
                 "items": {
                   "$ref": "#/definitions/Result"
                 },
-                "title": "Turbine Wind Resource Results",
+                "title": "Results",
                 "type": "array"
               },
-              "uncertainty_assessment": {
+              "wind_resource_assessment_id_reference": {
+                "description": "The ID of the wind resource assessment on which the turbine wind resource assessment is based. This must refer to an ID of a wind resource assessment included at the top level of the EYA DEF. The schema requires that a turbine wind resource assessment is based on only one wind resource assessment.",
+                "examples": [
+                  "WRA01",
+                  "BfWF_WRA_1",
+                  "A"
+                ],
+                "title": "Wind Resource Assessment Id Reference",
+                "type": "string"
+              },
+              "wind_resource_uncertainty_assessment": {
                 "$ref": "#/definitions/UncertaintyAssessment",
                 "description": "Turbine wind resource uncertainty assessment.",
-                "title": "Uncertainty Assessment"
+                "title": "Wind Resource Uncertainty Assessment"
               },
               "wind_spatial_modelling_processes": {
                 "description": "Wind spatial modelling processes used in the assessment.",
@@ -1329,7 +1450,8 @@
               }
             },
             "required": [
-              "turbine_wind_resource_results",
+              "wind_resource_assessment_id_reference",
+              "results",
               "wind_spatial_modelling_processes"
             ],
             "title": "Turbine Wind Resource Assessment",
@@ -1342,19 +1464,12 @@
             },
             "title": "Wind Farms",
             "type": "array"
-          },
-          "wind_resource_assessment_reference": {
-            "description": "Measurement wind resource assessment reference for the scenario.",
-            "properties": {},
-            "title": "Wind Resource Assessment Reference",
-            "type": "object"
           }
         },
         "required": [
           "label",
           "operational_lifetime_length_years",
           "wind_farms",
-          "wind_resource_assessment_reference",
           "turbine_wind_resource_assessment",
           "energy_assessment"
         ],
@@ -1367,17 +1482,10 @@
         "null"
       ]
     },
-    "title": {
-      "description": "Title of the energy assessment report.",
-      "examples": [
-        "Energy yield assessment of the Barefoot Wind Farm"
-      ],
-      "title": "Title",
-      "type": "string"
-    },
     "turbine_models": {
       "description": "List of wind turbine model specifications.",
       "items": {
+        "additionalProperties": false,
         "description": "Specification of a wind turbine model.",
         "properties": {
           "label": {
@@ -1425,49 +1533,63 @@
     "wind_resource_assessments": {
       "description": "List of wind resource assessments, including results, at the measurement station locations.",
       "items": {
-        "description": "Wind resource assessment at the measurement locations.",
+        "additionalProperties": false,
+        "description": "Wind resource assessment at the measurement location(s).",
         "properties": {
-          "measurement_station_reference": {
-            "description": "Assessment results at the measurement location(s).",
-            "properties": {},
-            "title": "Measurement Station Reference",
-            "type": "object"
-          },
-          "reference_wind_farm_reference": {
-            "description": "Assessment results at the measurement location(s).",
-            "properties": {
-              "reference_wind_farm_ids": {
-                "description": "List of the IDs of all reference wind farms used in the assessment.",
-                "items": {
+          "steps": {
+            "items": {
+              "additionalProperties": false,
+              "description": "A step in a wind resource assessment at measurement location(s). A step can be a data processing procedure (e.g. filtering for spurious data) or a model extrapolation procedure (e.g. temporal extrapolation using long-term reference data).",
+              "properties": {
+                "label": {
+                  "description": "Label of the plant performance loss subcategory.",
+                  "enum": [
+                    "data_filtering",
+                    "turbine_interaction_correction",
+                    "measurement_structure_related_correction",
+                    "terrain_related_correction",
+                    "onsite_data_synthesis",
+                    "long_term_prediction",
+                    "vertical_extrapolation",
+                    "model_calibration",
+                    "other"
+                  ],
+                  "title": "Wind Resource Assessment Step Type",
                   "type": "string"
                 },
-                "title": "Reference Wind Farm Ids",
-                "type": "array"
-              }
+                "results": {
+                  "description": "Results of the wind resource assessment step.",
+                  "items": {
+                    "$ref": "#/definitions/Result"
+                  },
+                  "title": "Results",
+                  "type": "array"
+                }
+              },
+              "required": [
+                "label",
+                "results"
+              ],
+              "title": "Wind Resource Assessment Step",
+              "type": "object"
             },
-            "required": [
-              "reference_wind_farm_ids"
-            ],
-            "title": "Reference Wind Farm Reference",
-            "type": "object"
-          },
-          "subcategory_results": {
-            "description": "Assessment results at the measurement location(s).",
-            "items": {
-              "$ref": "#/definitions/Result"
-            },
-            "title": "Subcategory Results",
+            "title": "Steps",
             "type": "array"
           },
-          "uncertainty_assessment": {
-            "$ref": "#/definitions/UncertaintyAssessment",
-            "description": "Measurement wind resource uncertainty assessment.",
-            "title": "Uncertainty Assessment"
+          "wind_resource_assessment_id": {
+            "description": "Unique ID of the wind resource assessment within the EYA DEF document.",
+            "examples": [
+              "WRA01",
+              "BfWF_WRA_1",
+              "A"
+            ],
+            "title": "Wind Resource Assessment Id",
+            "type": "string"
           }
         },
         "required": [
-          "subcategory_results",
-          "uncertainty_assessment"
+          "wind_resource_assessment_id",
+          "steps"
         ],
         "title": "Wind Resource Assessment",
         "type": "object"
@@ -1480,12 +1602,7 @@
     }
   },
   "required": [
-    "title",
-    "project_name",
-    "issue_date",
-    "contributors",
-    "issuing_organisations",
-    "coordinate_reference_system"
+    "report_metadata"
   ],
   "title": "IEC 61400-15-2 EYA DEF Schema",
   "type": "object"

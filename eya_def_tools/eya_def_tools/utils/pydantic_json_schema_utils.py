@@ -34,12 +34,12 @@ def move_field_to_definitions(
     """
     for field_label, definition_label in defined_field_dict.items():
         field_definition = _recursive_find_field_definition(
-            schema=schema, field_label=field_label
+            schema=schema,
+            field_label=field_label,
+            definition_label=definition_label,
         )
         if field_definition is None:
-            raise ValueError(
-                f"the field {defined_field_dict} was not found in the schema"
-            )
+            raise ValueError(f"the field {field_label} was not found in the schema")
         schema["definitions"][definition_label] = field_definition
         _recursive_replace_field_definition(
             schema=schema,
@@ -104,16 +104,23 @@ def tuple_fields_to_prefix_items(schema: dict[str, Any]) -> None:
 
 
 def _recursive_find_field_definition(
-    schema: dict[str, Any], field_label: str
+    schema: dict[str, Any], field_label: str, definition_label: str
 ) -> dict[str, Any] | None:
     for key, value in schema.items():
         if isinstance(value, dict):
             if key == "properties" and field_label in value.keys():
                 return value[field_label]
+            elif key == "definitions" and definition_label in value.keys():
+                return value[definition_label]
             else:
-                return _recursive_find_field_definition(
-                    schema=value, field_label=field_label
+                field_definition = _recursive_find_field_definition(
+                    schema=value,
+                    field_label=field_label,
+                    definition_label=definition_label,
                 )
+                if field_definition is not None:
+                    return field_definition
+
     return None
 
 

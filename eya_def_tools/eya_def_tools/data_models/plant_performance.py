@@ -4,15 +4,19 @@
 
 import pydantic as pdt
 
-from eya_def_tools.data_models import base_models, enums
-from eya_def_tools.data_models.assessment_process_description import (
-    AssessmentProcessDescription,
+from eya_def_tools.data_models.base_models import EyaDefBaseModel
+from eya_def_tools.data_models.enums import (
+    AssessmentBasis,
+    PlantPerformanceCategoryLabel,
+    PlantPerformanceSubcategoryLabel,
+    TimeVariabilityType,
 )
 from eya_def_tools.data_models.fields import comments_field, description_field
+from eya_def_tools.data_models.process_description import AssessmentProcessDescription
 from eya_def_tools.data_models.result import Result
 
 
-class PlantPerformanceSubcategoryElement(base_models.EyaDefBaseModel):
+class PlantPerformanceSubcategoryElement(EyaDefBaseModel):
     """Plant performance loss assessment subcategory element."""
 
     label: str = pdt.Field(
@@ -21,7 +25,7 @@ class PlantPerformanceSubcategoryElement(base_models.EyaDefBaseModel):
     )
     description: str | None = description_field
     comments: str | None = comments_field
-    basis: enums.AssessmentBasis = pdt.Field(
+    basis: AssessmentBasis = pdt.Field(
         ...,
         description=(
             "Basis of plant performance loss subcategory element assessment. The "
@@ -29,7 +33,7 @@ class PlantPerformanceSubcategoryElement(base_models.EyaDefBaseModel):
             "used in the assessment of the element."
         ),
     )
-    variability: enums.TimeVariabilityType = pdt.Field(
+    variability: TimeVariabilityType = pdt.Field(
         ...,
         description=(
             "Considered variability in the plant performance loss subcategory element."
@@ -69,14 +73,14 @@ class PlantPerformanceSubcategoryElement(base_models.EyaDefBaseModel):
     )
 
 
-class PlantPerformanceSubcategory(base_models.EyaDefBaseModel):
+class PlantPerformanceSubcategory(EyaDefBaseModel):
     """Plant performance loss assessment subcategory."""
 
-    label: enums.PlantPerformanceSubcategoryLabel = pdt.Field(
+    label: PlantPerformanceSubcategoryLabel = pdt.Field(
         ...,
         description="Label of the plant performance loss subcategory.",
     )
-    basis: enums.AssessmentBasis = pdt.Field(
+    basis: AssessmentBasis = pdt.Field(
         ...,
         description=(
             "Basis of plant performance loss subcategory assessment. The basis "
@@ -84,7 +88,7 @@ class PlantPerformanceSubcategory(base_models.EyaDefBaseModel):
             "in the assessment of the subcategory."
         ),
     )
-    variability: enums.TimeVariabilityType = pdt.Field(
+    variability: TimeVariabilityType = pdt.Field(
         ...,
         description="Considered variability in the plant performance loss subcategory.",
     )
@@ -127,10 +131,10 @@ class PlantPerformanceSubcategory(base_models.EyaDefBaseModel):
     )
 
 
-class PlantPerformanceCategory(base_models.EyaDefBaseModel):
+class PlantPerformanceCategory(EyaDefBaseModel):
     """Plant performance loss assessment category."""
 
-    label: enums.PlantPerformanceCategoryLabel = pdt.Field(
+    label: PlantPerformanceCategoryLabel = pdt.Field(
         ...,
         description="Label of the plant performance loss category.",
     )

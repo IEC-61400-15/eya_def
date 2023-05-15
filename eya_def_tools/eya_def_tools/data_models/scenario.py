@@ -4,17 +4,14 @@
 
 import pydantic as pdt
 
-from eya_def_tools.data_models import base_models
+from eya_def_tools.data_models.base_models import EyaDefBaseModel
 from eya_def_tools.data_models.energy_assessment import EnergyAssessment
 from eya_def_tools.data_models.fields import comments_field, description_field
 from eya_def_tools.data_models.wind_farm import WindFarmConfiguration
-from eya_def_tools.data_models.wind_resource import (
-    TurbineWindResourceAssessment,
-    WindResourceAssessmentReference,
-)
+from eya_def_tools.data_models.wind_resource import TurbineWindResourceAssessment
 
 
-class Scenario(base_models.EyaDefBaseModel):
+class Scenario(EyaDefBaseModel):
     """Single unique energy yield assessment scenario."""
 
     scenario_id: str | None = pdt.Field(
@@ -23,12 +20,15 @@ class Scenario(base_models.EyaDefBaseModel):
         examples=["3613a846-1e74-4535-ad40-7368f7ad452d"],
     )
     label: str = pdt.Field(
-        ..., description="Label of the scenario.", examples=["Sc1", "A", "B01"]
+        ...,
+        description="Label of the scenario.",
+        examples=["Sc1", "A", "B01"],
     )
     description: str | None = description_field
     comments: str | None = comments_field
     is_main_scenario: bool | None = pdt.Field(
-        None, description="Whether or not this is the main scenario in the report."
+        None,
+        description="Whether or not this is the main scenario in the report.",
     )
     operational_lifetime_length_years: float = pdt.Field(
         ...,
@@ -38,11 +38,8 @@ class Scenario(base_models.EyaDefBaseModel):
         examples=[10.0, 20.0, 30.0],
     )
     wind_farms: list[WindFarmConfiguration] = pdt.Field(
-        ..., description="List of all wind farms included in the scenario."
-    )
-    wind_resource_assessment_reference: WindResourceAssessmentReference = pdt.Field(
         ...,
-        description="Measurement wind resource assessment reference for the scenario.",
+        description="List of all wind farms included in the scenario.",
     )
     turbine_wind_resource_assessment: TurbineWindResourceAssessment = pdt.Field(
         ...,

@@ -10,20 +10,22 @@ involve modifications should create their own instances or make copies.
 
 import datetime as dt
 import json
+import urllib.request as urllib_request
 from pathlib import Path
 from typing import Any
 
 import pydantic as pdt
 import pytest
 
-from eya_def_tools.data_models import assessment_process_description as eya_prcs_desc
 from eya_def_tools.data_models import (
     energy_assessment,
     enums,
     eya_def,
     measurement_station,
-    organisation,
     plant_performance,
+)
+from eya_def_tools.data_models import process_description as eya_prcs_desc
+from eya_def_tools.data_models import (
     reference_wind_farm,
     report_metadata,
     result,
@@ -34,18 +36,6 @@ from eya_def_tools.data_models import (
     wind_farm,
     wind_resource,
 )
-
-TEST_INPUT_DATA_DIRNAME = "test_input_data"
-
-
-@pytest.fixture(scope="session")
-def test_input_data_dirpath() -> Path:
-    """The path of the directory where test input data is located.
-
-    :return: the directory path of test input data
-    """
-    dirpath = Path(__file__).parent
-    return dirpath / TEST_INPUT_DATA_DIRNAME
 
 
 @pytest.fixture(scope="session")
@@ -138,10 +128,15 @@ def pydantic_json_schema_tmp_path(
     :return: the path to the temporary JSON Schema file representation
         of the pydantic data model
     """
+    json_schema_str = json.dumps(pydantic_json_schema, indent=2)
+    json_schema_str = json_schema_str.replace(r"\n\n", " ")
+    json_schema_str = json_schema_str.replace(r"\n", " ")
+
     tmp_dirpath = tmp_path_factory.mktemp("schema")
     filepath = tmp_dirpath / "iec_61400-15-2_eya_def.schema.json"
     with open(filepath, "w") as f:
-        f.write(json.dumps(pydantic_json_schema, indent=2))
+        f.write(json_schema_str)
+
     return filepath
 
 
@@ -189,7 +184,7 @@ def json_example_filepaths(json_examples_dirpath: Path) -> list[Path]:
     :raises ValueError: if no example JSON files exist at the expected
         location
     """
-    filename_pattern = "iec_61400-15-2_eya_def_example*.json"
+    filename_pattern = "iec_61400-15-2_eya_def_example_?.json"
     json_example_filepaths = list(json_examples_dirpath.glob(filename_pattern))
     if len(json_example_filepaths) < 1:
         raise ValueError(
@@ -227,6 +222,16 @@ def json_examples_tmp_dirpath(tmp_path_factory: pytest.TempPathFactory) -> Path:
         examples directory
     """
     return tmp_path_factory.mktemp("examples")
+
+
+@pytest.fixture(scope="session")
+def iea43_wra_data_model_json_schema() -> dict[str, Any]:
+    """The IEA Task 43 WRA Data Model JSON Schema."""
+    with urllib_request.urlopen(
+        measurement_station.IEA43_WRA_DATA_MODEL_SCHEMA_URI
+    ) as url:
+        json_schema = json.load(url)
+    return json_schema
 
 
 @pytest.fixture(scope="session")
@@ -519,52 +524,24 @@ def neighbouring_wind_farm_a(
     )
 
 
-# TODO translate to IEA43 metadata model
-# @pytest.fixture(scope='session')
-# def measurement_location_a() -> eya.Location:
-#     """Wind measurement test case instance 'a' of ``Location``."""
-#     return eya.Location(
-#         location_id="ee15ff84-6733-4858-9656-ba995d9b1022",
-#         label='M1',
-#         description="Verified location of Mast M1",
-#         comments=(
-#             "Documented in installation report and independently "
-#             "confirmed"),
-#         x=420165.0,
-#         y=6194740.0)
-#
-#
-# @pytest.fixture(scope='session')
-# def measurement_station_a(
-#     measurement_location_a
-# ) -> eya.WindMeasurementCampaign:
-#     """Test case instance 'a' of ``WindMeasurementCampaign``."""
-#     return eya.WindMeasurementCampaign(
-#         measurement_id="BF_M1_1.0.0",
-#         name="Mast M1",
-#         label="M1",
-#         description=(
-#             "Barefoot Wind Farm on-site meteorological mast"),
-#         comments="Measurements were still ongoing at time of assessment.",
-#         location=measurement_location_a,
-#         metadata_ref=eya.MeasurementStationMetadata(
-#             "/foo/bar/metadata_ref.json"))
-
-
-# TODO add valid IEA43 metadata reference
 @pytest.fixture(scope="session")
 def measurement_station_a() -> measurement_station.MeasurementStationMetadata:
-    """Dummy test case instance 'a' of ``MeasurementStationMetadata``."""
-    return measurement_station.MeasurementStationMetadata("/foo/bar/metadata_ref.json")
+    """Test case instance 'a' of ``MeasurementStationMetadata``."""
+    return measurement_station.MeasurementStationMetadata(
+        "iec_61400-15-2_eya_def_example_a_iea43_wra.json"
+    )
 
 
-# TODO - placeholder to be implemented
 @pytest.fixture(scope="session")
-def measurement_station_reference_a() -> (
-    measurement_station.MeasurementStationReference
-):
-    """Test case instance 'a' of ``MeasurementStationBasis``."""
-    return measurement_station.MeasurementStationReference()
+def measurement_station_a_json(
+    json_examples_dirpath: Path,
+    measurement_station_a: measurement_station.MeasurementStationMetadata,
+) -> dict[str, Any]:
+    """The JSON data for case 'a' of ``MeasurementStationMetadata``."""
+    filepath = json_examples_dirpath / measurement_station_a
+    with open(filepath, "r") as f:
+        json_data = json.load(f)
+    return json_data
 
 
 @pytest.fixture(scope="session")
@@ -572,7 +549,7 @@ def reference_wind_farm_dataset_a() -> reference_wind_farm.ReferenceWindFarmData
     """Test case instance 'a' of ``ReferenceWindFarmDataset``."""
     return reference_wind_farm.ReferenceWindFarmDataset(
         label="WTG SCADA",
-        data_supplier_organisation=organisation.Organisation(
+        data_supplier_organisation=report_metadata.Organisation(
             name="Munro Wind Limited",
             abbreviation="Munro Wind",
             address="High Munro Walk, Glasgow, G12 0YE, UK",
@@ -623,10 +600,36 @@ def reference_wind_farm_a(
 
 
 @pytest.fixture(scope="session")
-def reference_wind_farm_reference_a() -> reference_wind_farm.ReferenceWindFarmReference:
-    """Test case instance 'a' of ``ReferenceWindFarm``."""
-    return reference_wind_farm.ReferenceWindFarmReference(
-        reference_wind_farm_ids=["munro_wind_farm_reference"],
+def wind_resource_assessment_a(
+    measurement_uncertainty_assessment_a: uncertainty.UncertaintyAssessment,
+) -> wind_resource.WindResourceAssessment:
+    """Test case instance 'a' of ``WindResourceAssessment``."""
+    return wind_resource.WindResourceAssessment(
+        wind_resource_assessment_id="BfWF_WRA_1",
+        steps=[
+            wind_resource.WindResourceAssessmentStep(
+                label=enums.WindResourceAssessmentStepType.LONG_TERM_PREDICTION,
+                results=[
+                    result.Result(
+                        quantity=enums.ResultsQuantity.WIND_SPEED,
+                        label="Measurement-height long-term wind speed",
+                        assessment_period=enums.AssessmentPeriod.LIFETIME,
+                        dimensions=(enums.ResultsDimension.MEASUREMENT,),
+                        statistics=[
+                            result.ResultStatistic(
+                                statistic_type=enums.StatisticType.MEAN,
+                                values=[
+                                    (
+                                        ("BF_M1",),
+                                        6.83,
+                                    )
+                                ],
+                            )
+                        ],
+                    )
+                ],
+            )
+        ],
     )
 
 
@@ -655,7 +658,7 @@ def regr_model_uncertainty_subcat_a() -> uncertainty.UncertaintySubcategory:
                         statistic_type=enums.StatisticType.STANDARD_DEVIATION,
                         values=[
                             (
-                                ("BF_M1_1.0.0",),
+                                ("BF_M1",),
                                 0.025,
                             )
                         ],
@@ -684,7 +687,7 @@ def lt_consistency_uncertainty_subcat_a() -> uncertainty.UncertaintySubcategory:
                         statistic_type=enums.StatisticType.STANDARD_DEVIATION,
                         values=[
                             (
-                                ("BF_M1_1.0.0",),
+                                ("BF_M1",),
                                 0.02,
                             )
                         ],
@@ -719,7 +722,7 @@ def measurement_uncertainty_assessment_a(
                                 statistic_type=enums.StatisticType.STANDARD_DEVIATION,
                                 values=[
                                     (
-                                        ("BF_M1_1.0.0",),
+                                        ("BF_M1",),
                                         0.03201,
                                     )
                                 ],
@@ -733,51 +736,13 @@ def measurement_uncertainty_assessment_a(
 
 
 @pytest.fixture(scope="session")
-def wind_resource_assessment_a(
-    reference_wind_farm_reference_a: reference_wind_farm.ReferenceWindFarmReference,
-    measurement_uncertainty_assessment_a: uncertainty.UncertaintyAssessment,
-) -> wind_resource.WindResourceAssessment:
-    """Test case instance 'a' of ``WindResourceAssessment``."""
-    return wind_resource.WindResourceAssessment(
-        reference_wind_farm_reference=reference_wind_farm_reference_a,
-        subcategory_results=[
-            result.Result(
-                label="Measurement-height long-term wind",
-                assessment_period=enums.AssessmentPeriod.LIFETIME,
-                dimensions=(enums.ResultsDimension.MEASUREMENT,),
-                statistics=[
-                    result.ResultStatistic(
-                        statistic_type=enums.StatisticType.MEAN,
-                        values=[
-                            (
-                                ("BF_M1_1.0.0",),
-                                6.83,
-                            )
-                        ],
-                    )
-                ],
-            )
-        ],
-        uncertainty_assessment=measurement_uncertainty_assessment_a,
-    )
-
-
-# TODO - placeholder to be implemented
-@pytest.fixture(scope="session")
-def wind_resource_assessment_reference_a() -> (
-    wind_resource.WindResourceAssessmentReference
-):
-    """Test case instance 'a' of ``WindResourceAssessmentBasis``."""
-    return wind_resource.WindResourceAssessmentReference()
-
-
-@pytest.fixture(scope="session")
 def turbine_wind_resource_assessment_a(
     wind_spatial_model_a: eya_prcs_desc.AssessmentProcessDescription,
 ) -> wind_resource.TurbineWindResourceAssessment:
     """Test case instance 'a' of ``TurbineWindResourceAssessment``."""
     return wind_resource.TurbineWindResourceAssessment(
-        turbine_wind_resource_results=[
+        wind_resource_assessment_id_reference="BfWF_WRA_1",
+        results=[
             result.Result(
                 label="Turbine-location hub-height long-term wind",
                 assessment_period=enums.AssessmentPeriod.LIFETIME,
@@ -809,7 +774,8 @@ def turbine_wind_resource_assessment_b(
 ) -> wind_resource.TurbineWindResourceAssessment:
     """Test case instance 'b' of ``TurbineWindResourceAssessment``."""
     return wind_resource.TurbineWindResourceAssessment(
-        turbine_wind_resource_results=[
+        wind_resource_assessment_id_reference="BfWF_WRA_1",
+        results=[
             result.Result(
                 label="Turbine-location hub-height long-term wind",
                 assessment_period=enums.AssessmentPeriod.LIFETIME,
@@ -1161,7 +1127,6 @@ def energy_assessment_b(
 
 @pytest.fixture(scope="session")
 def scenario_a(
-    wind_resource_assessment_reference_a: wind_resource.WindResourceAssessmentReference,
     wind_farm_a: wind_farm.WindFarmConfiguration,
     neighbouring_wind_farm_a: wind_farm.WindFarmConfiguration,
     turbine_wind_resource_assessment_a: wind_resource.TurbineWindResourceAssessment,
@@ -1175,7 +1140,6 @@ def scenario_a(
         is_main_scenario=True,
         operational_lifetime_length_years=30,
         wind_farms=[wind_farm_a, neighbouring_wind_farm_a],
-        wind_resource_assessment_reference=wind_resource_assessment_reference_a,
         turbine_wind_resource_assessment=turbine_wind_resource_assessment_a,
         energy_assessment=energy_assessment_a,
     )
@@ -1183,7 +1147,6 @@ def scenario_a(
 
 @pytest.fixture(scope="session")
 def scenario_b(
-    wind_resource_assessment_reference_a: wind_resource.WindResourceAssessmentReference,
     wind_farm_b: wind_farm.WindFarmConfiguration,
     neighbouring_wind_farm_a: wind_farm.WindFarmConfiguration,
     turbine_wind_resource_assessment_b: wind_resource.TurbineWindResourceAssessment,
@@ -1198,16 +1161,15 @@ def scenario_b(
         is_main_scenario=False,
         operational_lifetime_length_years=30,
         wind_farms=[wind_farm_b, neighbouring_wind_farm_a],
-        wind_resource_assessment_reference=wind_resource_assessment_reference_a,
         turbine_wind_resource_assessment=turbine_wind_resource_assessment_b,
         energy_assessment=energy_assessment_b,
     )
 
 
 @pytest.fixture(scope="session")
-def issuing_organisation_a() -> organisation.Organisation:
+def issuing_organisation_a() -> report_metadata.Organisation:
     """Issuing organisation test case instance 'a' of ``Organisation``."""
-    return organisation.Organisation(
+    return report_metadata.Organisation(
         name="The Torre Egger Consultants Limited",
         abbreviation="Torre Egger",
         address="5 Munro Road, Sgurrsville, G12 0YE, UK",
@@ -1215,9 +1177,9 @@ def issuing_organisation_a() -> organisation.Organisation:
 
 
 @pytest.fixture(scope="session")
-def receiving_organisations_a() -> organisation.Organisation:
+def receiving_organisations_a() -> report_metadata.Organisation:
     """receiving organisation test case instance 'a' of ``Organisation``."""
-    return organisation.Organisation(
+    return report_metadata.Organisation(
         name="Miranda Investments Limited",
         abbreviation="Miranda",
         address="9 Acosta St., Ivanslake, Republic of Miranda",
@@ -1272,31 +1234,17 @@ def approver_a() -> report_metadata.ReportContributor:
 
 
 @pytest.fixture(scope="session")
-def eya_def_a(
+def report_metadata_a(
     coordinate_reference_system_a: spatial.CoordinateReferenceSystem,
-    measurement_station_a: measurement_station.MeasurementStationMetadata,
-    reference_wind_farm_a: reference_wind_farm.ReferenceWindFarm,
-    turbine_model_a: turbine_model.TurbineModel,
-    turbine_model_b: turbine_model.TurbineModel,
-    turbine_model_c: turbine_model.TurbineModel,
-    wind_resource_assessment_a: wind_resource.WindResourceAssessment,
-    scenario_a: scenario.Scenario,
-    scenario_b: scenario.Scenario,
-    issuing_organisation_a: organisation.Organisation,
-    receiving_organisations_a: organisation.Organisation,
+    issuing_organisation_a: report_metadata.Organisation,
+    receiving_organisations_a: report_metadata.Organisation,
     main_author_a: report_metadata.ReportContributor,
     second_author_a: report_metadata.ReportContributor,
     verifier_a: report_metadata.ReportContributor,
     approver_a: report_metadata.ReportContributor,
-) -> eya_def.EyaDef:
-    """Test case instance 'a' of ``EyaDef``."""
-    return eya_def.EyaDef(
-        **{
-            "$id": (
-                "https://example.com/api/v2/eya/report/"
-                "id=b1396029-e9af-49f7-9599-534db175e53c.json"
-            )
-        },
+) -> report_metadata.ReportMetadata:
+    """Test case instance 'a' of ``ReportMetadata``."""
+    return report_metadata.ReportMetadata(
         title="Energy yield assessment of the Barefoot Wind Farm",
         description=(
             "Wind resource and energy yield assessment of the Barefoot "
@@ -1314,7 +1262,31 @@ def eya_def_a(
         contract_reference="P/UK/000765/001/B, 2022-11-30",
         confidentiality_classification="Confidential",
         coordinate_reference_system=coordinate_reference_system_a,
-        measurement_stations=[],
+    )
+
+
+@pytest.fixture(scope="session")
+def eya_def_a(
+    report_metadata_a: report_metadata.ReportMetadata,
+    measurement_station_a: measurement_station.MeasurementStationMetadata,
+    reference_wind_farm_a: reference_wind_farm.ReferenceWindFarm,
+    turbine_model_a: turbine_model.TurbineModel,
+    turbine_model_b: turbine_model.TurbineModel,
+    turbine_model_c: turbine_model.TurbineModel,
+    wind_resource_assessment_a: wind_resource.WindResourceAssessment,
+    scenario_a: scenario.Scenario,
+    scenario_b: scenario.Scenario,
+) -> eya_def.EyaDef:
+    """Test case instance 'a' of ``EyaDef``."""
+    return eya_def.EyaDef(
+        **{
+            "$id": (
+                "https://example.com/api/v2/eya/report/"
+                "id=b1396029-e9af-49f7-9599-534db175e53c.json"
+            )
+        },
+        report_metadata=report_metadata_a,
+        measurement_stations=[measurement_station_a],
         reference_wind_farms=[reference_wind_farm_a],
         wind_resource_assessments=[wind_resource_assessment_a],
         turbine_models=[turbine_model_a, turbine_model_b, turbine_model_c],

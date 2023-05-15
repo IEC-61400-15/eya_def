@@ -1,0 +1,18 @@
+{
+  "author": "Sergei Prokofiev",
+  "date": "2022-09-06",
+  "measurement_location": [
+    {
+      "latitude_ddeg": 55.891497,
+      "longitude_ddeg": -4.276533,
+      "measurement_station_type_id": "mast",
+      "name": "BF_M1",
+      "notes": "This is an example WRA Data Model for the EYA DEF and does not describe a real measurement station.",
+      "update_at": "2022-09-06T10:00:00"
+    }
+  ],
+  "organisation": "The Torre Egger Consultants Limited",
+  "plant_name": "Barefoot Wind Farm",
+  "plant_type": "onshore_wind",
+  "version": "1.2.0-2023.01"
+}

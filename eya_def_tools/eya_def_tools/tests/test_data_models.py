@@ -1,4 +1,4 @@
-"""Test the ``eya_def_tools.data_model.energy_yield_assessment`` module.
+"""Test the data models.
 
 """
 

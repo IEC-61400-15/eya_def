@@ -6,9 +6,16 @@ import datetime as dt
 
 import pydantic as pdt
 
-from eya_def_tools.data_models import enums, fields
 from eya_def_tools.data_models.base_models import EyaDefBaseModel
-from eya_def_tools.data_models.organisation import Organisation
+from eya_def_tools.data_models.enums import (
+    DataSourceType,
+    OperationalDataLevel,
+    OperationalDataType,
+    StatisticType,
+    TimeResolution,
+)
+from eya_def_tools.data_models.fields import comments_field, description_field
+from eya_def_tools.data_models.report_metadata import Organisation
 from eya_def_tools.data_models.result import Result
 from eya_def_tools.data_models.wind_farm import WindFarmConfiguration
 
@@ -24,9 +31,9 @@ class ReferenceWindFarmDataVariable(EyaDefBaseModel):
         ),
         examples=["active_power", "wind_speed", "energy_output"],
     )
-    description: str | None = fields.description_field
-    comments: str | None = fields.comments_field
-    data_level: enums.OperationalDataLevel = pdt.Field(
+    description: str | None = description_field
+    comments: str | None = comments_field
+    data_level: OperationalDataLevel = pdt.Field(
         ...,
         description=(
             "Whether the operational data variable is provided for each individual "
@@ -35,7 +42,7 @@ class ReferenceWindFarmDataVariable(EyaDefBaseModel):
             "such as an environmental measurement station."
         ),
     )
-    statistic_types: list[enums.StatisticType] = pdt.Field(
+    statistic_types: list[StatisticType] = pdt.Field(
         ...,
         description=(
             "A list of the types of statistics included for this data variable."
@@ -52,9 +59,9 @@ class ReferenceWindFarmDataVariable(EyaDefBaseModel):
             "Low voltage (LV) side of wind turbine transformer",
         ],
     )
-    data_availability: list[Result] | None = pdt.Field(
+    raw_data_recovery_rate: list[Result] | None = pdt.Field(
         None,
-        description=("Dimensionless raw data availability for the variable."),
+        description="Dimensionless raw data recovery rate for the variable.",
     )
 
 
@@ -66,13 +73,13 @@ class ReferenceWindFarmDataset(EyaDefBaseModel):
         description="Label of the reference wind farm dataset.",
         examples=["Seasonal distribution of net energy."],
     )
-    description: str | None = fields.description_field
-    comments: str | None = fields.comments_field
+    description: str | None = description_field
+    comments: str | None = comments_field
     data_supplier_organisation: Organisation = pdt.Field(
         ...,
         description="The organisation that supplied the data.",
     )
-    data_type: enums.OperationalDataType = pdt.Field(
+    data_type: OperationalDataType = pdt.Field(
         ...,
         description=(
             "The type of data in the operational data, categorised as 'scada' for "
@@ -83,7 +90,7 @@ class ReferenceWindFarmDataset(EyaDefBaseModel):
             "other type of unit."
         ),
     )
-    data_source_type: enums.DataSourceType = pdt.Field(
+    data_source_type: DataSourceType = pdt.Field(
         ...,
         description=(
             "The type of the operational data source. Primary data, such as primary "
@@ -103,7 +110,7 @@ class ReferenceWindFarmDataset(EyaDefBaseModel):
             "the ones that were used in the analysis."
         ),
     )
-    time_resolution: enums.TimeResolution = pdt.Field(
+    time_resolution: TimeResolution = pdt.Field(
         ...,
         description="Time resolution of the data.",
     )
@@ -135,8 +142,8 @@ class ReferenceWindFarm(EyaDefBaseModel):
         ),
         examples=["fe1dba61-d6d6-45ef-beb4-ff569660fb14", "PharaohWindFarmPhIV"],
     )
-    description: str | None = fields.description_field
-    comments: str | None = fields.comments_field
+    description: str | None = description_field
+    comments: str | None = comments_field
     wind_farm_configuration: WindFarmConfiguration = pdt.Field(
         ...,
         description="The configuration data for the reference wind farm.",
@@ -144,15 +151,4 @@ class ReferenceWindFarm(EyaDefBaseModel):
     datasets: list[ReferenceWindFarmDataset] = pdt.Field(
         ...,
         description="Metadata for the operational dataset.",
-    )
-
-
-class ReferenceWindFarmReference(EyaDefBaseModel):
-    """Reference wind farm basis in a wind resource assessment."""
-
-    reference_wind_farm_ids: list[str] = pdt.Field(
-        ...,
-        description=(
-            "List of the IDs of all reference wind farms used in the assessment."
-        ),
     )

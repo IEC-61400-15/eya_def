@@ -8,7 +8,7 @@ from enum import StrEnum, auto
 
 
 class AssessmentBasis(StrEnum):
-    """Basis on which a component has been assessed."""
+    """Basis on which an EYA or WRA component has been assessed."""
 
     TIMESERIES_CALCULATION = auto()
     DISTRIBUTION_CALCULATION = auto()
@@ -193,6 +193,7 @@ class PlantPerformanceSubcategoryLabel(StrEnum):
             ),
         }
 
+    @property
     def category(self) -> PlantPerformanceCategoryLabel:
         """Get the category corresponding to the component.
 
@@ -211,6 +212,30 @@ class ResultsDimension(StrEnum):
     MONTH = auto()
     TURBINE = auto()
     YEAR = auto()
+
+
+class ResultsQuantity(StrEnum):
+    """Quantity of a set of results."""
+
+    AIR_DENSITY = auto()
+    DATA_RECOVERY_RATE = auto()
+    DISTANCE = auto()
+    ENERGY = auto()
+    POWER = auto()
+    POWER_LAW_WIND_SHEAR_EXPONENT = auto()
+    TEMPERATURE = auto()
+    TIME = auto()
+    WIND_FROM_DIRECTION = auto()
+    WIND_SPEED = auto()
+
+    @classmethod
+    def results_quantity_to_unit_map(cls) -> dict[ResultsQuantity, MeasurementUnit]:
+        return {}
+
+    @property
+    def measurement_unit(self) -> MeasurementUnit:
+        """The measurement unit of the quantity."""
+        return self.results_quantity_to_unit_map()[self]
 
 
 class StatisticType(StrEnum):

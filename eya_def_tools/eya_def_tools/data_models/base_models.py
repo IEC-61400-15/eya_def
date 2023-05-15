@@ -8,10 +8,7 @@ from typing import Any, Mapping, Type
 
 import pydantic as pdt
 
-from eya_def_tools.utils.pydantic_json_schema_utils import (
-    add_null_type_to_schema_optional_fields,
-    tuple_fields_to_prefix_items,
-)
+from eya_def_tools.utils import pydantic_json_schema_utils
 
 
 class EyaDefBaseModel(pdt.BaseModel):
@@ -20,11 +17,15 @@ class EyaDefBaseModel(pdt.BaseModel):
     class Config:
         """``EyaDefBaseModel`` data model configurations."""
 
+        extra = pdt.Extra.forbid
+
         @staticmethod
         def schema_extra(schema: dict[str, Any], model: Type[EyaDefBaseModel]) -> None:
             """Modifications to the default model schema."""
-            add_null_type_to_schema_optional_fields(schema=schema, model=model)
-            tuple_fields_to_prefix_items(schema=schema)
+            pydantic_json_schema_utils.add_null_type_to_schema_optional_fields(
+                schema=schema, model=model
+            )
+            pydantic_json_schema_utils.tuple_fields_to_prefix_items(schema=schema)
 
 
 class JsonPointerRef(str):

@@ -1,4 +1,4 @@
-"""Test the ``eya_def_tools.data_model.enums`` module.
+"""Test the ``enums`` module.
 
 """
 
@@ -31,4 +31,4 @@ def test_plant_performance_component_label_returns_correct_category(
     plant_performance_component_label: PlantPerformanceSubcategoryLabel,
     expected: PlantPerformanceCategoryLabel,
 ) -> None:
-    assert plant_performance_component_label.category() == expected
+    assert plant_performance_component_label.category == expected
