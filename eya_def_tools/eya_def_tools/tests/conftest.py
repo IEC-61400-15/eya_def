@@ -104,7 +104,7 @@ def master_json_schema(master_json_schema_filepath: Path) -> dict[str, Any]:
 
 @pytest.fixture(scope="session")
 def pydantic_json_schema(
-    eya_def_a: eya_def.EyaDef,
+    eya_def_a: eya_def.EyaDefDocument,
 ) -> dict[str, Any]:
     """A ``dict`` representation of the pydantic JSON Schema.
 
@@ -606,29 +606,44 @@ def wind_resource_assessment_a(
     """Test case instance 'a' of ``WindResourceAssessment``."""
     return wind_resource.WindResourceAssessment(
         wind_resource_assessment_id="BfWF_WRA_1",
-        steps=[
-            wind_resource.WindResourceAssessmentStep(
-                label=enums.WindResourceAssessmentStepType.LONG_TERM_PREDICTION,
-                results=[
-                    result.Result(
-                        quantity=enums.ResultsQuantity.WIND_SPEED,
-                        label="Measurement-height long-term wind speed",
-                        assessment_period=enums.AssessmentPeriod.LIFETIME,
-                        dimensions=(enums.ResultsDimension.MEASUREMENT,),
-                        statistics=[
-                            result.ResultStatistic(
-                                statistic_type=enums.StatisticType.MEAN,
-                                values=[
-                                    (
-                                        ("BF_M1",),
-                                        6.83,
-                                    )
-                                ],
-                            )
+        wind_speed_results=[
+            result.Result(
+                dimensions=(
+                    enums.ResultsDimension.MEASUREMENT,
+                    enums.ResultsDimension.HEIGHT,
+                ),
+                statistics=[
+                    result.ResultStatistic(
+                        statistic_type=enums.StatisticType.MEAN,
+                        values=[
+                            (
+                                ("BF_M1", 120.0),
+                                6.83,
+                            ),
+                            (
+                                ("BF_M1", 125.0),
+                                6.85,
+                            ),
+                            (
+                                ("BF_M1", 148.0),
+                                6.93,
+                            ),
+                            (
+                                ("BF_M1", 150.0),
+                                6.94,
+                            ),
+                            (
+                                ("BF_M1", 158.0),
+                                6.96,
+                            ),
+                            (
+                                ("BF_M1", 160.0),
+                                6.97,
+                            ),
                         ],
                     )
                 ],
-            )
+            ),
         ],
     )
 
@@ -1193,7 +1208,7 @@ def main_author_a() -> report_metadata.ReportContributor:
     return report_metadata.ReportContributor(
         name="Joan Miro",
         email_address=pdt.EmailStr("j.miro@art.cat"),
-        contributor_type="author",
+        contributor_type=enums.ReportContributorType.AUTHOR,
         contribution_comments="Main author",
         completion_date=dt.date(2022, 10, 5),
     )
@@ -1205,7 +1220,7 @@ def second_author_a() -> report_metadata.ReportContributor:
     return report_metadata.ReportContributor(
         name="Andrei Tarkovsky",
         email_address=pdt.EmailStr("andrei.tarkovsky@cinema.com"),
-        contributor_type="author",
+        contributor_type=enums.ReportContributorType.AUTHOR,
         contribution_comments="Second author",
         completion_date=dt.date(2022, 10, 5),
     )
@@ -1217,7 +1232,7 @@ def verifier_a() -> report_metadata.ReportContributor:
     return report_metadata.ReportContributor(
         name="Hanns Eisler",
         email_address=pdt.EmailStr("hannseisler@udk-berlin.de"),
-        contributor_type="verifier",
+        contributor_type=enums.ReportContributorType.VERIFIER,
         completion_date=dt.date(2022, 10, 6),
     )
 
@@ -1228,13 +1243,13 @@ def approver_a() -> report_metadata.ReportContributor:
     return report_metadata.ReportContributor(
         name="Kurt Weill",
         email_address=pdt.EmailStr("weill@broadway.com"),
-        contributor_type="approver",
+        contributor_type=enums.ReportContributorType.APPROVER,
         completion_date=dt.date(2022, 10, 7),
     )
 
 
 @pytest.fixture(scope="session")
-def report_metadata_a(
+def eya_def_a(
     coordinate_reference_system_a: spatial.CoordinateReferenceSystem,
     issuing_organisation_a: report_metadata.Organisation,
     receiving_organisations_a: report_metadata.Organisation,
@@ -1242,9 +1257,23 @@ def report_metadata_a(
     second_author_a: report_metadata.ReportContributor,
     verifier_a: report_metadata.ReportContributor,
     approver_a: report_metadata.ReportContributor,
-) -> report_metadata.ReportMetadata:
-    """Test case instance 'a' of ``ReportMetadata``."""
-    return report_metadata.ReportMetadata(
+    measurement_station_a: measurement_station.MeasurementStationMetadata,
+    reference_wind_farm_a: reference_wind_farm.ReferenceWindFarm,
+    turbine_model_a: turbine_model.TurbineModel,
+    turbine_model_b: turbine_model.TurbineModel,
+    turbine_model_c: turbine_model.TurbineModel,
+    wind_resource_assessment_a: wind_resource.WindResourceAssessment,
+    scenario_a: scenario.Scenario,
+    scenario_b: scenario.Scenario,
+) -> eya_def.EyaDefDocument:
+    """Test case instance 'a' of ``EyaDef``."""
+    return eya_def.EyaDefDocument(
+        **{
+            "$id": (
+                "https://example.com/api/v2/eya/report/"
+                "id=b1396029-e9af-49f7-9599-534db175e53c.json"
+            )
+        },
         title="Energy yield assessment of the Barefoot Wind Farm",
         description=(
             "Wind resource and energy yield assessment of the Barefoot "
@@ -1253,6 +1282,7 @@ def report_metadata_a(
         ),
         comments="Update to consider further on-site measurement data.",
         project_name="Barefoot Wind Farm",
+        project_county="UK",
         document_id="12345678",
         document_version="B",
         issue_date=dt.date(2022, 10, 7),
@@ -1262,30 +1292,6 @@ def report_metadata_a(
         contract_reference="P/UK/000765/001/B, 2022-11-30",
         confidentiality_classification="Confidential",
         coordinate_reference_system=coordinate_reference_system_a,
-    )
-
-
-@pytest.fixture(scope="session")
-def eya_def_a(
-    report_metadata_a: report_metadata.ReportMetadata,
-    measurement_station_a: measurement_station.MeasurementStationMetadata,
-    reference_wind_farm_a: reference_wind_farm.ReferenceWindFarm,
-    turbine_model_a: turbine_model.TurbineModel,
-    turbine_model_b: turbine_model.TurbineModel,
-    turbine_model_c: turbine_model.TurbineModel,
-    wind_resource_assessment_a: wind_resource.WindResourceAssessment,
-    scenario_a: scenario.Scenario,
-    scenario_b: scenario.Scenario,
-) -> eya_def.EyaDef:
-    """Test case instance 'a' of ``EyaDef``."""
-    return eya_def.EyaDef(
-        **{
-            "$id": (
-                "https://example.com/api/v2/eya/report/"
-                "id=b1396029-e9af-49f7-9599-534db175e53c.json"
-            )
-        },
-        report_metadata=report_metadata_a,
         measurement_stations=[measurement_station_a],
         reference_wind_farms=[reference_wind_farm_a],
         wind_resource_assessments=[wind_resource_assessment_a],
@@ -1296,7 +1302,7 @@ def eya_def_a(
 
 @pytest.fixture(scope="session")
 def eya_def_a_tmp_filepath(
-    eya_def_a: eya_def.EyaDef,
+    eya_def_a: eya_def.EyaDefDocument,
     json_examples_tmp_dirpath: Path,
 ) -> Path:
     """The temporary path of the test case instance 'a' json file.

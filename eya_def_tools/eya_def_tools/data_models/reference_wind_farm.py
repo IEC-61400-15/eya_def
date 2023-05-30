@@ -14,7 +14,7 @@ from eya_def_tools.data_models.enums import (
     StatisticType,
     TimeResolution,
 )
-from eya_def_tools.data_models.fields import comments_field, description_field
+from eya_def_tools.data_models.generic_fields import comments_field, description_field
 from eya_def_tools.data_models.report_metadata import Organisation
 from eya_def_tools.data_models.result import Result
 from eya_def_tools.data_models.wind_farm import WindFarmConfiguration

@@ -350,7 +350,6 @@
         }
       },
       "required": [
-        "label",
         "statistics"
       ],
       "title": "Result",
@@ -632,7 +631,7 @@
       "type": "object"
     }
   },
-  "description": "IEC 61400-15-2 EYA DEF energy yield assessment data model.",
+  "description": "IEC 61400-15-2 EYA DEF top-level data model.",
   "properties": {
     "$id": {
       "description": "Unique URI of the JSON document.",
@@ -645,6 +644,191 @@
         "null"
       ]
     },
+    "comments": {
+      "$ref": "#/definitions/CommentsField"
+    },
+    "confidentiality_classification": {
+      "description": "Confidentiality classification of the report.",
+      "examples": [
+        "Strictly confidential",
+        "Commercial in confidence",
+        "Public"
+      ],
+      "title": "Confidentiality Classification",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "contract_reference": {
+      "description": "Reference to contract between the issuing and receiving organisations that governs the energy yield assessment.",
+      "examples": [
+        "Contract ID.: P-MIR-00239432-0001-C, dated 2022-11-30"
+      ],
+      "title": "Contract Reference",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "contributors": {
+      "description": "List of report contributors (e.g. author and verifier)",
+      "items": {
+        "additionalProperties": false,
+        "description": "Contributor to an energy yield assessment.",
+        "properties": {
+          "completion_date": {
+            "description": "Contribution completion date (format YYYY-MM-DD).",
+            "examples": [
+              "2022-10-04"
+            ],
+            "format": "date",
+            "title": "Completion Date",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "contribution_comments": {
+            "description": "Comments to clarify contribution.",
+            "examples": [
+              "Second author"
+            ],
+            "title": "Contribution Comments",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "contributor_type": {
+            "description": "Type of contributor.",
+            "enum": [
+              "author",
+              "verifier",
+              "approver",
+              "other"
+            ],
+            "title": "Report Contributor Type",
+            "type": "string"
+          },
+          "email_address": {
+            "description": "Email address of the contributor.",
+            "examples": [
+              "j.miro@art.cat",
+              "andrei.tarkovsky@cinema.com"
+            ],
+            "format": "email",
+            "title": "Email Address",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "name": {
+            "description": "Name of the contributor.",
+            "examples": [
+              "Joan Miro",
+              "Andrei Tarkovsky"
+            ],
+            "title": "Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "contributor_type"
+        ],
+        "title": "Report Contributor",
+        "type": "object"
+      },
+      "title": "Contributors",
+      "type": "array"
+    },
+    "coordinate_reference_system": {
+      "additionalProperties": false,
+      "description": "Coordinate reference system used for all location data.",
+      "properties": {
+        "epsg_srid": {
+          "description": "EPSG Spatial Reference System Identifier (SRID).",
+          "examples": [
+            27700,
+            3006
+          ],
+          "title": "Epsg Srid",
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "system_label": {
+          "description": "Label of the coordinate system.",
+          "examples": [
+            "OSGB36 / British National Grid",
+            "SWEREF99 TM"
+          ],
+          "title": "System Label",
+          "type": "string"
+        },
+        "wkt": {
+          "description": "Well-known text (WKT) string definition of the coordinate system.",
+          "title": "Wkt",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "system_label"
+      ],
+      "title": "Coordinate Reference System",
+      "type": "object"
+    },
+    "description": {
+      "$ref": "#/definitions/DescriptionField"
+    },
+    "document_id": {
+      "description": "The ID of the report document; not including the version when 'document_version' is used.",
+      "examples": [
+        "C385945/A/UK/R/002",
+        "0345.923454.0001"
+      ],
+      "title": "Document ID",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "document_version": {
+      "description": "Version of the report document, also known as revision.",
+      "examples": [
+        "1.2.3",
+        "A",
+        "Rev. A"
+      ],
+      "title": "Document Version",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "issue_date": {
+      "description": "Report issue date in the ISO 8601 standard format for a calendar date, i.e. YYYY-MM-DD.",
+      "examples": [
+        "2022-10-05"
+      ],
+      "format": "date",
+      "title": "Issue Date",
+      "type": "string"
+    },
+    "issuing_organisations": {
+      "description": "The organisation(s) issuing the report (e.g. consultant).",
+      "items": {
+        "$ref": "#/definitions/Organisation"
+      },
+      "title": "Issuing Organisations",
+      "type": "array"
+    },
     "measurement_stations": {
       "description": "List of measurement station metadata JSON document(s) according to the IEA Task 43 WRA Data Model, for all station datasets used in the EYA.",
       "items": {
@@ -655,6 +839,35 @@
         ]
       },
       "title": "Measurement Stations",
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "project_county": {
+      "description": "Country where the project under assessment is located.",
+      "examples": [
+        "France",
+        "Canada",
+        "South Africa"
+      ],
+      "title": "Project County",
+      "type": "string"
+    },
+    "project_name": {
+      "description": "Name of the project under assessment.",
+      "examples": [
+        "Barefoot Wind Farm"
+      ],
+      "title": "Project Name",
+      "type": "string"
+    },
+    "receiving_organisations": {
+      "description": "The organisation(s) receiving the report (e.g. client), if relevant.",
+      "items": {
+        "$ref": "#/definitions/Organisation"
+      },
+      "title": "Receiving Organisations",
       "type": [
         "array",
         "null"
@@ -909,234 +1122,6 @@
         "array",
         "null"
       ]
-    },
-    "report_metadata": {
-      "additionalProperties": false,
-      "description": "Metadata fields for the EYA report.",
-      "properties": {
-        "comments": {
-          "$ref": "#/definitions/CommentsField"
-        },
-        "confidentiality_classification": {
-          "description": "Confidentiality classification of the report.",
-          "examples": [
-            "Strictly confidential",
-            "Commercial in confidence",
-            "Public"
-          ],
-          "title": "Confidentiality Classification",
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "contract_reference": {
-          "description": "Reference to contract between the issuing and receiving organisations that governs the energy yield assessment.",
-          "examples": [
-            "Contract ID.: P-MIR-00239432-0001-C, dated 2022-11-30"
-          ],
-          "title": "Contract Reference",
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "contributors": {
-          "description": "List of report contributors (e.g. author and verifier)",
-          "items": {
-            "additionalProperties": false,
-            "description": "Contributor to an energy yield assessment.",
-            "properties": {
-              "completion_date": {
-                "description": "Contribution completion date (format YYYY-MM-DD).",
-                "examples": [
-                  "2022-10-04"
-                ],
-                "format": "date",
-                "title": "Completion Date",
-                "type": [
-                  "string",
-                  "null"
-                ]
-              },
-              "contribution_comments": {
-                "description": "Comments to clarify contribution.",
-                "examples": [
-                  "Second author"
-                ],
-                "title": "Contribution Comments",
-                "type": [
-                  "string",
-                  "null"
-                ]
-              },
-              "contributor_type": {
-                "description": "Type of contributor.",
-                "enum": [
-                  "author",
-                  "verifier",
-                  "approver",
-                  "other"
-                ],
-                "title": "Contributor Type",
-                "type": "string"
-              },
-              "email_address": {
-                "description": "Email address of the contributor.",
-                "examples": [
-                  "j.miro@art.cat",
-                  "andrei.tarkovsky@cinema.com"
-                ],
-                "format": "email",
-                "title": "Email Address",
-                "type": [
-                  "string",
-                  "null"
-                ]
-              },
-              "name": {
-                "description": "Name of the contributor.",
-                "examples": [
-                  "Joan Miro",
-                  "Andrei Tarkovsky"
-                ],
-                "title": "Name",
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "contributor_type"
-            ],
-            "title": "Report Contributor",
-            "type": "object"
-          },
-          "title": "Contributors",
-          "type": "array"
-        },
-        "coordinate_reference_system": {
-          "additionalProperties": false,
-          "description": "Coordinate reference system used for all location data.",
-          "properties": {
-            "epsg_srid": {
-              "description": "EPSG Spatial Reference System Identifier (SRID).",
-              "examples": [
-                27700,
-                3006
-              ],
-              "title": "Epsg Srid",
-              "type": [
-                "integer",
-                "null"
-              ]
-            },
-            "system_label": {
-              "description": "Label of the coordinate system.",
-              "examples": [
-                "OSGB36 / British National Grid",
-                "SWEREF99 TM"
-              ],
-              "title": "System Label",
-              "type": "string"
-            },
-            "wkt": {
-              "description": "Well-known text (WKT) string definition of the coordinate system.",
-              "title": "Wkt",
-              "type": [
-                "string",
-                "null"
-              ]
-            }
-          },
-          "required": [
-            "system_label"
-          ],
-          "title": "Coordinate Reference System",
-          "type": "object"
-        },
-        "description": {
-          "$ref": "#/definitions/DescriptionField"
-        },
-        "document_id": {
-          "description": "The ID of the report document; not including the version when 'document_version' is used.",
-          "examples": [
-            "C385945/A/UK/R/002",
-            "0345.923454.0001"
-          ],
-          "title": "Document ID",
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "document_version": {
-          "description": "Version of the report document, also known as revision.",
-          "examples": [
-            "1.2.3",
-            "A",
-            "Rev. A"
-          ],
-          "title": "Document Version",
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "issue_date": {
-          "description": "Report issue date in the ISO 8601 standard format for a calendar date, i.e. YYYY-MM-DD.",
-          "examples": [
-            "2022-10-05"
-          ],
-          "format": "date",
-          "title": "Issue Date",
-          "type": "string"
-        },
-        "issuing_organisations": {
-          "description": "The organisation(s) issuing the report (e.g. consultant).",
-          "items": {
-            "$ref": "#/definitions/Organisation"
-          },
-          "title": "Issuing Organisations",
-          "type": "array"
-        },
-        "project_name": {
-          "description": "Name of the project under assessment.",
-          "examples": [
-            "Barefoot Wind Farm"
-          ],
-          "title": "Project Name",
-          "type": "string"
-        },
-        "receiving_organisations": {
-          "description": "The organisation(s) receiving the report (e.g. client), if relevant.",
-          "items": {
-            "$ref": "#/definitions/Organisation"
-          },
-          "title": "Receiving Organisations",
-          "type": [
-            "array",
-            "null"
-          ]
-        },
-        "title": {
-          "description": "Title of the energy assessment report.",
-          "examples": [
-            "Energy yield assessment of the Barefoot Wind Farm"
-          ],
-          "title": "Title",
-          "type": "string"
-        }
-      },
-      "required": [
-        "title",
-        "project_name",
-        "issue_date",
-        "contributors",
-        "issuing_organisations",
-        "coordinate_reference_system"
-      ],
-      "title": "Report Metadata",
-      "type": "object"
     },
     "scenarios": {
       "description": "List of energy yield assessment scenarios.",
@@ -1482,6 +1467,14 @@
         "null"
       ]
     },
+    "title": {
+      "description": "Title of the energy assessment report.",
+      "examples": [
+        "Energy yield assessment of the Barefoot Wind Farm"
+      ],
+      "title": "Title",
+      "type": "string"
+    },
     "turbine_models": {
       "description": "List of wind turbine model specifications.",
       "items": {
@@ -1536,46 +1529,6 @@
         "additionalProperties": false,
         "description": "Wind resource assessment at the measurement location(s).",
         "properties": {
-          "steps": {
-            "items": {
-              "additionalProperties": false,
-              "description": "A step in a wind resource assessment at measurement location(s). A step can be a data processing procedure (e.g. filtering for spurious data) or a model extrapolation procedure (e.g. temporal extrapolation using long-term reference data).",
-              "properties": {
-                "label": {
-                  "description": "Label of the plant performance loss subcategory.",
-                  "enum": [
-                    "data_filtering",
-                    "turbine_interaction_correction",
-                    "measurement_structure_related_correction",
-                    "terrain_related_correction",
-                    "onsite_data_synthesis",
-                    "long_term_prediction",
-                    "vertical_extrapolation",
-                    "model_calibration",
-                    "other"
-                  ],
-                  "title": "Wind Resource Assessment Step Type",
-                  "type": "string"
-                },
-                "results": {
-                  "description": "Results of the wind resource assessment step.",
-                  "items": {
-                    "$ref": "#/definitions/Result"
-                  },
-                  "title": "Results",
-                  "type": "array"
-                }
-              },
-              "required": [
-                "label",
-                "results"
-              ],
-              "title": "Wind Resource Assessment Step",
-              "type": "object"
-            },
-            "title": "Steps",
-            "type": "array"
-          },
           "wind_resource_assessment_id": {
             "description": "Unique ID of the wind resource assessment within the EYA DEF document.",
             "examples": [
@@ -1585,11 +1538,19 @@
             ],
             "title": "Wind Resource Assessment Id",
             "type": "string"
+          },
+          "wind_speed_results": {
+            "description": "Final long-term wind speed estimates from the wind resource assessment at the measurement location(s).",
+            "items": {
+              "$ref": "#/definitions/Result"
+            },
+            "title": "Wind Speed Results",
+            "type": "array"
           }
         },
         "required": [
           "wind_resource_assessment_id",
-          "steps"
+          "wind_speed_results"
         ],
         "title": "Wind Resource Assessment",
         "type": "object"
@@ -1602,7 +1563,13 @@
     }
   },
   "required": [
-    "report_metadata"
+    "title",
+    "project_name",
+    "project_county",
+    "issue_date",
+    "contributors",
+    "issuing_organisations",
+    "coordinate_reference_system"
   ],
   "title": "IEC 61400-15-2 EYA DEF Schema",
   "type": "object"

@@ -16,6 +16,7 @@ import pydantic as pdt
 
 from eya_def_tools.data_models.base_models import EyaDefBaseModel
 from eya_def_tools.data_models.enums import WindResourceAssessmentStepType
+from eya_def_tools.data_models.generic_fields import comments_field, description_field
 from eya_def_tools.data_models.process_description import AssessmentProcessDescription
 from eya_def_tools.data_models.result import Result
 from eya_def_tools.data_models.uncertainty import UncertaintyAssessment
@@ -29,10 +30,14 @@ class WindResourceAssessmentStep(EyaDefBaseModel):
     extrapolation using long-term reference data).
     """
 
+    # TODO - this is an initial placeholder that needs to be developed
+
     label: WindResourceAssessmentStepType = pdt.Field(
         ...,
         description="Label of the plant performance loss subcategory.",
     )
+    description: str | None = description_field
+    comments: str | None = comments_field
     results: list[Result] = pdt.Field(
         ...,
         description="Results of the wind resource assessment step.",
@@ -49,7 +54,16 @@ class WindResourceAssessment(EyaDefBaseModel):
         ),
         examples=["WRA01", "BfWF_WRA_1", "A"],
     )
-    steps: list[WindResourceAssessmentStep]
+    wind_speed_results: list[Result] = pdt.Field(
+        ...,
+        description=(
+            "Final long-term wind speed estimates from the wind resource "
+            "assessment at the measurement location(s)."
+        ),
+    )
+
+    # TODO - Placeholder for assessment steps to be considered at a later stage
+    # steps: list[WindResourceAssessmentStep]
 
 
 class TurbineWindResourceAssessment(EyaDefBaseModel):

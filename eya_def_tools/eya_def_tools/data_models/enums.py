@@ -203,6 +203,16 @@ class PlantPerformanceSubcategoryLabel(StrEnum):
         return self.subcategory_to_category_map()[self]
 
 
+class ReportContributorType(StrEnum):
+    """Type of contributor to an EYA report."""
+
+    AUTHOR = auto()
+    VERIFIER = auto()
+    APPROVER = auto()
+
+    OTHER = auto()
+
+
 class ResultsDimension(StrEnum):
     """Dimension along which results are assigned."""
 

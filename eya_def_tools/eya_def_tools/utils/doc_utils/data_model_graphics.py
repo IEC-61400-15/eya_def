@@ -9,7 +9,7 @@ The graphics are rendered based on the ``pydantic`` data models in
 import erdantic as erd
 
 from eya_def_tools.data_models.energy_assessment import EnergyAssessment
-from eya_def_tools.data_models.eya_def import EyaDef
+from eya_def_tools.data_models.eya_def import EyaDefDocument
 from eya_def_tools.data_models.plant_performance import PlantPerformanceCategory
 from eya_def_tools.data_models.reference_met_data import ReferenceMeteorologicalDataset
 from eya_def_tools.data_models.reference_wind_farm import ReferenceWindFarm
@@ -27,17 +27,17 @@ from eya_def_tools.data_models.wind_resource import (
 
 def draw_eya_def_all_levels() -> None:
     """Draw diagram of all levels of the schema."""
-    diagram = erd.create(EyaDef)
+    diagram = erd.create(EyaDefDocument)
     diagram.draw("eya_def_all_levels.png")
     diagram.draw("eya_def_all_levels.svg")
 
 
 def draw_eya_def_top_level() -> None:
     """Draw diagram of the top level schema."""
-    EyaDef.update_forward_refs(**locals())
+    EyaDefDocument.update_forward_refs(**locals())
 
     diagram = erd.create(
-        EyaDef,
+        EyaDefDocument,
         termini=[
             ReportContributor,
             Organisation,
@@ -89,10 +89,17 @@ def draw_reference_wind_farm() -> None:
 
 
 def draw_results() -> None:
-    """Draw diagram of the results level schema."""
+    """Draw diagram of the schema for results."""
     diagram = erd.create(Result)
     diagram.draw("results.png")
     diagram.draw("results.svg")
+
+
+def draw_wind_resource_assessment() -> None:
+    """Draw diagram of the wind resource assessment schema."""
+    diagram = erd.create(WindResourceAssessment)
+    diagram.draw("wind_resource_assessment.png")
+    diagram.draw("wind_resource_assessment.svg")
 
 
 if __name__ == "__main__":
@@ -103,3 +110,4 @@ if __name__ == "__main__":
     draw_plant_performance_category()
     draw_reference_wind_farm()
     draw_results()
+    draw_wind_resource_assessment()

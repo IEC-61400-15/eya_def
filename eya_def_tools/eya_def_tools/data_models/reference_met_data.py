@@ -13,7 +13,7 @@ the IEA Task 43 WRA data model. See the module ``measurement_station``.
 import pydantic as pdt
 
 from eya_def_tools.data_models.base_models import EyaDefBaseModel
-from eya_def_tools.data_models.fields import comments_field, description_field
+from eya_def_tools.data_models.generic_fields import comments_field, description_field
 from eya_def_tools.data_models.spatial import Location
 
 

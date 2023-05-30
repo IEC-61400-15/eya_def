@@ -11,7 +11,7 @@ from eya_def_tools.data_models.enums import (
     PlantPerformanceSubcategoryLabel,
     TimeVariabilityType,
 )
-from eya_def_tools.data_models.fields import comments_field, description_field
+from eya_def_tools.data_models.generic_fields import comments_field, description_field
 from eya_def_tools.data_models.process_description import AssessmentProcessDescription
 from eya_def_tools.data_models.result import Result
 

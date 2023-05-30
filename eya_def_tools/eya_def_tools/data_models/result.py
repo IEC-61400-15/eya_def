@@ -13,7 +13,7 @@ from eya_def_tools.data_models.enums import (
     ResultsQuantity,
     StatisticType,
 )
-from eya_def_tools.data_models.fields import comments_field, description_field
+from eya_def_tools.data_models.generic_fields import comments_field, description_field
 
 ResultCoordinate: TypeAlias = tuple[float | int | str, ...]
 
@@ -50,7 +50,7 @@ class Result(EyaDefBaseModel):
         ),
     )
     label: str | None = pdt.Field(
-        ...,
+        None,
         description="Label of the results.",
         examples=["Seasonal distribution of net energy."],
     )

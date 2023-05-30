@@ -4,29 +4,46 @@
 
 from __future__ import annotations
 
+import datetime as dt
 from typing import Any, Type
 
 import pydantic as pdt
 
 from eya_def_tools.data_models.base_models import BaseModelWithRefs
+from eya_def_tools.data_models.eya_def_header import (
+    confidentiality_classification_field,
+    contract_reference_field,
+    contributors_field,
+    document_id_field,
+    document_version_field,
+    issue_date_field,
+    issuing_organisations_field,
+    json_uri_field,
+    project_county_field,
+    project_name_field,
+    receiving_organisations_field,
+    title_field,
+)
+from eya_def_tools.data_models.generic_fields import comments_field, description_field
 from eya_def_tools.data_models.measurement_station import MeasurementStationMetadata
 from eya_def_tools.data_models.reference_met_data import ReferenceMeteorologicalDataset
 from eya_def_tools.data_models.reference_wind_farm import ReferenceWindFarm
-from eya_def_tools.data_models.report_metadata import ReportMetadata
+from eya_def_tools.data_models.report_metadata import Organisation, ReportContributor
 from eya_def_tools.data_models.scenario import Scenario
+from eya_def_tools.data_models.spatial import CoordinateReferenceSystem
 from eya_def_tools.data_models.turbine_model import TurbineModel
 from eya_def_tools.data_models.wind_resource import WindResourceAssessment
 from eya_def_tools.utils import pydantic_json_schema_utils, reference_utils
 
 
-class EyaDef(BaseModelWithRefs):
-    """IEC 61400-15-2 EYA DEF energy yield assessment data model."""
+class EyaDefDocument(BaseModelWithRefs):
+    """IEC 61400-15-2 EYA DEF top-level data model."""
 
     class Config:
         """``EyaDef`` data model configurations."""
 
         @staticmethod
-        def schema_extra(schema: dict[str, Any], model: Type[EyaDef]) -> None:
+        def schema_extra(schema: dict[str, Any], model: Type[EyaDefDocument]) -> None:
             """Additional items for the model schema."""
             BaseModelWithRefs.Config.schema_extra(schema=schema, model=model)
             schema.update(
@@ -39,18 +56,23 @@ class EyaDef(BaseModelWithRefs):
                 }
             )
 
-    json_uri: str | None = pdt.Field(
-        None,
-        title="ID",
-        description="Unique URI of the JSON document.",
-        examples=[
-            "https://foo.com/api/eya?id=8f46a815-8b6d-4870-8e92-c031b20320c6.json"
-        ],
-        alias="$id",
-    )
-    report_metadata: ReportMetadata = pdt.Field(
+    json_uri: str | None = json_uri_field
+    title: str = title_field
+    description: str | None = description_field
+    comments: str | None = comments_field
+    project_name: str = project_name_field
+    project_county: str = project_county_field
+    document_id: str | None = document_id_field
+    document_version: str | None = document_version_field
+    issue_date: dt.date = issue_date_field
+    contributors: list[ReportContributor] = contributors_field
+    issuing_organisations: list[Organisation] = issuing_organisations_field
+    receiving_organisations: list[Organisation] | None = receiving_organisations_field
+    contract_reference: str | None = contract_reference_field
+    confidentiality_classification: str | None = confidentiality_classification_field
+    coordinate_reference_system: CoordinateReferenceSystem = pdt.Field(
         ...,
-        description="Metadata fields for the EYA report.",
+        description="Coordinate reference system used for all location data.",
     )
     measurement_stations: list[MeasurementStationMetadata] | None = pdt.Field(
         None,
