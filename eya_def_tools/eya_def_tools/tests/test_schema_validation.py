@@ -22,8 +22,9 @@ def test_validate_master_json_schema(
         del json_schema["$id"]
 
     for json_filename, json_example in json_example_dict.items():
+        json_example_reduced = _get_reduced_json_example(json_example=json_example)
         try:
-            jsonschema.validate(instance=json_example, schema=json_schema)
+            jsonschema.validate(instance=json_example_reduced, schema=json_schema)
         except jsonschema.exceptions.ValidationError as exc:
             pytest.fail(
                 f"the json example '{json_filename}' did not pass the "
@@ -47,10 +48,9 @@ def test_validate_pydantic_model_json_schema(
         del json_schema["$id"]
 
     for json_filename, json_example in json_example_dict.items():
-        # Remove ``$id`` field from schema to avoid resolving from URL
-
+        json_example_reduced = _get_reduced_json_example(json_example=json_example)
         try:
-            jsonschema.validate(instance=json_example, schema=json_schema)
+            jsonschema.validate(instance=json_example_reduced, schema=json_schema)
         except jsonschema.exceptions.ValidationError as exc:
             pytest.fail(
                 f"the json example '{json_filename}' did not pass the "
@@ -84,3 +84,20 @@ def test_validate_iea43_wra_data_model(
         instance=measurement_station_a_json,
         schema=iea43_wra_data_model_json_schema,
     )
+
+
+def _get_reduced_json_example(json_example: dict[str, Any]) -> dict[str, Any]:
+    """Remove ``$id`` and `$schema``` fields from a JSON example.
+
+    This is to avoid attempting to use these fields when resolving URLs,
+    as the tests should use the local copies
+    """
+    json_example_reduced = json_example.copy()
+    # Remove ``$id`` and `$schema``` fields where present to
+    # avoid attempting to use them when resolving URLs, as the
+    # tests should use the local copies
+    if "$id" in json_example_reduced.keys():
+        del json_example_reduced["$id"]
+    if "$schema" in json_example_reduced.keys():
+        del json_example_reduced["$schema"]
+    return json_example_reduced

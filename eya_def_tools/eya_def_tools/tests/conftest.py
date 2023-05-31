@@ -206,6 +206,7 @@ def json_example_dict(json_example_filepaths: list[Path]) -> dict[str, Any]:
     for json_example_filepath in json_example_filepaths:
         with open(json_example_filepath) as f:
             json_example_dict[f.name] = json.load(f)
+
     return json_example_dict
 
 
