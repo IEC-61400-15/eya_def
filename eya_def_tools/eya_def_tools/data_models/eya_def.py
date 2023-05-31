@@ -56,6 +56,7 @@ class EyaDefDocument(EyaDefBaseModel):
                     "$id": reference_utils.get_json_schema_uri(),
                     "$version": reference_utils.get_json_schema_version(),
                     "title": "IEC 61400-15-2 EYA DEF Schema",
+                    "additionalProperties": True,
                 }
             )
 

@@ -2,6 +2,7 @@
   "$id": "https://raw.githubusercontent.com/IEC-61400-15/eya_def/blob/main/iec_61400-15-2_eya_def.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$version": "0.0.1",
+  "additionalProperties": true,
   "definitions": {
     "AssessmentBasis": {
       "description": "Basis on which an EYA or WRA component has been assessed.",
