@@ -15,9 +15,15 @@ def test_validate_master_json_schema(
     master_json_schema: dict[str, Any], json_example_dict: dict[str, Any]
 ) -> None:
     """Test validate all json file examples against master schema."""
+    json_schema = master_json_schema.copy()
+
+    # Remove ``$id`` field from schema to avoid resolving from URL
+    if "$id" in json_schema.keys():
+        del json_schema["$id"]
+
     for json_filename, json_example in json_example_dict.items():
         try:
-            jsonschema.validate(instance=json_example, schema=master_json_schema)
+            jsonschema.validate(instance=json_example, schema=json_schema)
         except jsonschema.exceptions.ValidationError as exc:
             pytest.fail(
                 f"the json example '{json_filename}' did not pass the "
@@ -34,9 +40,17 @@ def test_validate_pydantic_model_json_schema(
     pydantic_json_schema: dict[str, Any], json_example_dict: dict[str, Any]
 ) -> None:
     """Test validate all json file examples against pydantic schema."""
+    json_schema = pydantic_json_schema.copy()
+
+    # Remove ``$id`` field from schema to avoid resolving from URL
+    if "$id" in json_schema.keys():
+        del json_schema["$id"]
+
     for json_filename, json_example in json_example_dict.items():
+        # Remove ``$id`` field from schema to avoid resolving from URL
+
         try:
-            jsonschema.validate(instance=json_example, schema=pydantic_json_schema)
+            jsonschema.validate(instance=json_example, schema=json_schema)
         except jsonschema.exceptions.ValidationError as exc:
             pytest.fail(
                 f"the json example '{json_filename}' did not pass the "
