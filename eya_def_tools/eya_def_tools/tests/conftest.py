@@ -529,7 +529,7 @@ def neighbouring_wind_farm_a(
 def measurement_station_a() -> measurement_station.MeasurementStationMetadata:
     """Test case instance 'a' of ``MeasurementStationMetadata``."""
     return measurement_station.MeasurementStationMetadata(
-        "iec_61400-15-2_eya_def_example_a_iea43_wra.json"
+        "./iec_61400-15-2_eya_def_example_a_iea43_wra.json"
     )
 
 
@@ -1311,7 +1311,9 @@ def eya_def_a_tmp_filepath(
     :return: the directory path of the temporary json file
         representation of the example test case instance 'a'
     """
+    eya_def_a_json = eya_def_a.json(indent=2, exclude_none=True, by_alias=True)
+
     filepath = json_examples_tmp_dirpath / "iec_61400-15-2_eya_def_example_a.json"
     with open(filepath, "w") as f:
-        f.write(eya_def_a.json(indent=2, exclude_none=True, by_alias=True))
+        f.write(eya_def_a_json)
     return filepath
