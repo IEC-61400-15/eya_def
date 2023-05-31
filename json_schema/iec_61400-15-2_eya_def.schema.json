@@ -1391,13 +1391,11 @@
             "additionalProperties": false,
             "description": "Wind resource assessment at the turbine locations.",
             "properties": {
-              "results": {
-                "description": "Assessment results at the turbine location(s).",
-                "items": {
-                  "$ref": "#/definitions/Result"
-                },
-                "title": "Results",
-                "type": "array"
+              "comments": {
+                "$ref": "#/definitions/CommentsField"
+              },
+              "description": {
+                "$ref": "#/definitions/DescriptionField"
               },
               "wind_resource_assessment_id_reference": {
                 "description": "The ID of the wind resource assessment on which the turbine wind resource assessment is based. This must refer to an ID of a wind resource assessment included at the top level of the EYA DEF. The schema requires that a turbine wind resource assessment is based on only one wind resource assessment.",
@@ -1421,12 +1419,20 @@
                 },
                 "title": "Wind Spatial Modelling Processes",
                 "type": "array"
+              },
+              "wind_speed_results": {
+                "description": "Final long-term wind speed estimates at the turbine location(s).",
+                "items": {
+                  "$ref": "#/definitions/Result"
+                },
+                "title": "Wind Speed Results",
+                "type": "array"
               }
             },
             "required": [
               "wind_resource_assessment_id_reference",
-              "results",
-              "wind_spatial_modelling_processes"
+              "wind_spatial_modelling_processes",
+              "wind_speed_results"
             ],
             "title": "Turbine Wind Resource Assessment",
             "type": "object"
@@ -1518,6 +1524,12 @@
         "additionalProperties": false,
         "description": "Wind resource assessment at the measurement location(s).",
         "properties": {
+          "comments": {
+            "$ref": "#/definitions/CommentsField"
+          },
+          "description": {
+            "$ref": "#/definitions/DescriptionField"
+          },
           "wind_resource_assessment_id": {
             "description": "Unique ID of the wind resource assessment within the EYA DEF document.",
             "examples": [

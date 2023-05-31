@@ -356,7 +356,15 @@
       "operational_lifetime_length_years": 30.0,
       "scenario_id": "b6953ecb-f88b-4660-9f69-bedbbe4c240b",
       "turbine_wind_resource_assessment": {
-        "results": [
+        "wind_resource_assessment_id_reference": "BfWF_WRA_1",
+        "wind_spatial_modelling_processes": [
+          {
+            "comments": "The simulations were run using 60 representative days.",
+            "description": "VENTOS/M is a coupled CFD-mesoscale model.",
+            "name": "VENTOS/M"
+          }
+        ],
+        "wind_speed_results": [
           {
             "assessment_period": "lifetime",
             "dimensions": [
@@ -382,14 +390,6 @@
                 ]
               }
             ]
-          }
-        ],
-        "wind_resource_assessment_id_reference": "BfWF_WRA_1",
-        "wind_spatial_modelling_processes": [
-          {
-            "comments": "The simulations were run using 60 representative days.",
-            "description": "VENTOS/M is a coupled CFD-mesoscale model.",
-            "name": "VENTOS/M"
           }
         ]
       },
@@ -681,7 +681,15 @@
       "operational_lifetime_length_years": 30.0,
       "scenario_id": "e27fefdf-cdd7-441f-a7a7-c4347514b4f7",
       "turbine_wind_resource_assessment": {
-        "results": [
+        "wind_resource_assessment_id_reference": "BfWF_WRA_1",
+        "wind_spatial_modelling_processes": [
+          {
+            "comments": "The simulations were run using 60 representative days.",
+            "description": "VENTOS/M is a coupled CFD-mesoscale model.",
+            "name": "VENTOS/M"
+          }
+        ],
+        "wind_speed_results": [
           {
             "assessment_period": "lifetime",
             "dimensions": [
@@ -707,14 +715,6 @@
                 ]
               }
             ]
-          }
-        ],
-        "wind_resource_assessment_id_reference": "BfWF_WRA_1",
-        "wind_spatial_modelling_processes": [
-          {
-            "comments": "The simulations were run using 60 representative days.",
-            "description": "VENTOS/M is a coupled CFD-mesoscale model.",
-            "name": "VENTOS/M"
           }
         ]
       },

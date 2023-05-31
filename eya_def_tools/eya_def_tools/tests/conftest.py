@@ -757,7 +757,7 @@ def turbine_wind_resource_assessment_a(
     """Test case instance 'a' of ``TurbineWindResourceAssessment``."""
     return wind_resource.TurbineWindResourceAssessment(
         wind_resource_assessment_id_reference="BfWF_WRA_1",
-        results=[
+        wind_speed_results=[
             result.Result(
                 label="Turbine-location hub-height long-term wind",
                 assessment_period=enums.AssessmentPeriod.LIFETIME,
@@ -790,7 +790,7 @@ def turbine_wind_resource_assessment_b(
     """Test case instance 'b' of ``TurbineWindResourceAssessment``."""
     return wind_resource.TurbineWindResourceAssessment(
         wind_resource_assessment_id_reference="BfWF_WRA_1",
-        results=[
+        wind_speed_results=[
             result.Result(
                 label="Turbine-location hub-height long-term wind",
                 assessment_period=enums.AssessmentPeriod.LIFETIME,

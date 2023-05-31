@@ -31,6 +31,7 @@ class WindResourceAssessmentStep(EyaDefBaseModel):
     """
 
     # TODO - this is an initial placeholder that needs to be developed
+    #        it will not be included in the fist version of the schema
 
     label: WindResourceAssessmentStepType = pdt.Field(
         ...,
@@ -54,6 +55,8 @@ class WindResourceAssessment(EyaDefBaseModel):
         ),
         examples=["WRA01", "BfWF_WRA_1", "A"],
     )
+    description: str | None = description_field
+    comments: str | None = comments_field
     wind_speed_results: list[Result] = pdt.Field(
         ...,
         description=(
@@ -80,17 +83,18 @@ class TurbineWindResourceAssessment(EyaDefBaseModel):
         ),
         examples=["WRA01", "BfWF_WRA_1", "A"],
     )
-    results: list[Result] = pdt.Field(
-        ...,
-        description="Assessment results at the turbine location(s).",
-    )
+    description: str | None = description_field
+    comments: str | None = comments_field
     wind_spatial_modelling_processes: list[AssessmentProcessDescription] = pdt.Field(
         ..., description="Wind spatial modelling processes used in the assessment."
     )
-    # TODO should not be optional
+    wind_speed_results: list[Result] = pdt.Field(
+        ...,
+        description="Final long-term wind speed estimates at the turbine location(s).",
+    )
     wind_resource_uncertainty_assessment: UncertaintyAssessment | None = pdt.Field(
         None,
         description="Turbine wind resource uncertainty assessment.",
-    )
+    )  # TODO should not be optional
 
-    # TODO include measurement station weighting
+    # TODO consider including measurement station weighting
