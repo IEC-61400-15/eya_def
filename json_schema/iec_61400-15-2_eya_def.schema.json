@@ -633,17 +633,6 @@
   },
   "description": "IEC 61400-15-2 EYA DEF top-level data model.",
   "properties": {
-    "$id": {
-      "description": "Unique URI of the JSON document.",
-      "examples": [
-        "https://foo.com/api/eya?id=8f46a815-8b6d-4870-8e92-c031b20320c6.json"
-      ],
-      "title": "ID",
-      "type": [
-        "string",
-        "null"
-      ]
-    },
     "comments": {
       "$ref": "#/definitions/CommentsField"
     },

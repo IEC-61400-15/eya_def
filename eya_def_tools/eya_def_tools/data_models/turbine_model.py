@@ -6,7 +6,7 @@ from typing import Any
 
 import pydantic as pdt
 
-from eya_def_tools.data_models.base_models import BaseModelWithRefs, JsonPointerRef
+from eya_def_tools.data_models.base_model import EyaDefBaseModel, JsonPointerRef
 
 
 class TurbineModelSpecification(JsonPointerRef):
@@ -30,7 +30,7 @@ class TurbineModelSpecification(JsonPointerRef):
 
 
 # TODO move to using only external schema
-class TurbineModel(BaseModelWithRefs):
+class TurbineModel(EyaDefBaseModel):
     """Specification of a wind turbine model."""
 
     turbine_model_id: str = pdt.Field(

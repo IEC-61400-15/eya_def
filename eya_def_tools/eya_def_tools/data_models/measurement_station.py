@@ -4,7 +4,7 @@
 
 from typing import Any, Final
 
-from eya_def_tools.data_models.base_models import JsonPointerRef
+from eya_def_tools.data_models.base_model import JsonPointerRef
 
 IEA43_WRA_DATA_MODEL_SCHEMA_URI: Final[str] = (
     "https://raw.githubusercontent.com/IEA-Task-43/digital_wra_data_standard/"

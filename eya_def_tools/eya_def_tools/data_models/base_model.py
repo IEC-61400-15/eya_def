@@ -1,4 +1,4 @@
-"""Modified pydantic base models for the IEC 61400-15-2 EYA DEF.
+"""Modified pydantic base model for the EYA DEF.
 
 """
 
@@ -11,25 +11,8 @@ import pydantic as pdt
 from eya_def_tools.utils import pydantic_json_schema_utils
 
 
-class EyaDefBaseModel(pdt.BaseModel):
-    """Refined pydantic base model for the EYA DEF."""
-
-    class Config:
-        """``EyaDefBaseModel`` data model configurations."""
-
-        extra = pdt.Extra.forbid
-
-        @staticmethod
-        def schema_extra(schema: dict[str, Any], model: Type[EyaDefBaseModel]) -> None:
-            """Modifications to the default model schema."""
-            pydantic_json_schema_utils.add_null_type_to_schema_optional_fields(
-                schema=schema, model=model
-            )
-            pydantic_json_schema_utils.tuple_fields_to_prefix_items(schema=schema)
-
-
 class JsonPointerRef(str):
-    """JSON Pointer reference."""
+    """JSON Pointer reference as a ``str`` type for model fields."""
 
     def dict(self) -> dict[str, str]:
         """Get a ``dict`` representation of the reference.
@@ -46,16 +29,25 @@ class JsonPointerRef(str):
         return '{"$ref": "' + self.format() + '"}'
 
 
-class BaseModelWithRefs(EyaDefBaseModel):
-    """Base model variant that includes JSON Pointer references."""
+class EyaDefBaseModel(pdt.BaseModel):
+    """Base model for the EYA DEF.
+
+    This base model includes some configs to ``pydantic.BaseModel`` to
+    tune the output JSON schema and support JSON Pointer references.
+    """
 
     class Config:
-        """``BaseModelWithRefs`` data model configurations."""
+        """``EyaDefBaseModel`` data model configurations."""
+
+        extra = pdt.Extra.forbid
 
         @staticmethod
         def schema_extra(schema: dict[str, Any], model: Type[EyaDefBaseModel]) -> None:
             """Modifications to the default model schema."""
-            EyaDefBaseModel.Config.schema_extra(schema=schema, model=model)
+            pydantic_json_schema_utils.add_null_type_to_schema_optional_fields(
+                schema=schema, model=model
+            )
+            pydantic_json_schema_utils.tuple_fields_to_prefix_items(schema=schema)
 
     @classmethod
     def get_ref_field_labels(cls) -> list[str]:
@@ -64,13 +56,15 @@ class BaseModelWithRefs(EyaDefBaseModel):
             return []
         ref_field_labels = []
         for field_key, field_val in cls.__fields__.items():
-            if issubclass(field_val.type_, JsonPointerRef):
+            if isinstance(field_val.type_, type) and issubclass(
+                field_val.type_, JsonPointerRef
+            ):
                 ref_field_labels.append(field_key)
         return ref_field_labels
 
     @pdt.root_validator(pre=True)
     def convert_json_pointer_to_str(cls, values: Mapping[Any, Any]) -> dict[Any, Any]:
-        """Convert all JSON Pointer references to ´str´.
+        """Convert all JSON Pointer references to ``str``.
 
         :param values: the pre-validation values (arguments) passed to
             the constructor

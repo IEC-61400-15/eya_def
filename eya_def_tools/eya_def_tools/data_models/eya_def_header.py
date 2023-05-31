@@ -6,7 +6,7 @@ import datetime as dt
 
 import pydantic as pdt
 
-from eya_def_tools.data_models.base_models import BaseModelWithRefs
+from eya_def_tools.data_models.base_model import EyaDefBaseModel
 from eya_def_tools.data_models.generic_fields import comments_field, description_field
 from eya_def_tools.data_models.report_metadata import Organisation, ReportContributor
 
@@ -94,7 +94,7 @@ confidentiality_classification_field: str | None = pdt.Field(
 )
 
 
-class EyaDefHeader(BaseModelWithRefs):
+class EyaDefHeader(EyaDefBaseModel):
     """Collection of top-level metadata fields for an EYA DEF document."""
 
     json_uri: str | None = json_uri_field

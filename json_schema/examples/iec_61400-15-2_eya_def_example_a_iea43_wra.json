@@ -1,4 +1,5 @@
 {
+  "$schema": "https://raw.githubusercontent.com/IEA-Task-43/digital_wra_data_standard/master/schema/iea43_wra_data_model.schema.json",
   "author": "Sergei Prokofiev",
   "date": "2022-09-06",
   "measurement_location": [
@@ -11,7 +12,7 @@
           "data_transfer_details": "Emails to data@torreeggerconsultants.com",
           "date_from": "2020-04-12T12:00:00",
           "date_to": null,
-          "enclosure_lock_details": "combination lock PIN 54321",
+          "enclosure_lock_details": "Combination lock PIN 65432",
           "encryption_pin_or_key": "9876",
           "logger_acquisition_uncertainty": 0.1,
           "logger_firmware_version": "3.2.3",

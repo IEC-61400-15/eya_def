@@ -9,7 +9,7 @@ from typing import Any, Type
 
 import pydantic as pdt
 
-from eya_def_tools.data_models.base_models import BaseModelWithRefs
+from eya_def_tools.data_models.base_model import EyaDefBaseModel
 from eya_def_tools.data_models.eya_def_header import (
     confidentiality_classification_field,
     contract_reference_field,
@@ -36,7 +36,7 @@ from eya_def_tools.data_models.wind_resource import WindResourceAssessment
 from eya_def_tools.utils import pydantic_json_schema_utils, reference_utils
 
 
-class EyaDefDocument(BaseModelWithRefs):
+class EyaDefDocument(EyaDefBaseModel):
     """IEC 61400-15-2 EYA DEF top-level data model."""
 
     class Config:
@@ -45,7 +45,7 @@ class EyaDefDocument(BaseModelWithRefs):
         @staticmethod
         def schema_extra(schema: dict[str, Any], model: Type[EyaDefDocument]) -> None:
             """Additional items for the model schema."""
-            BaseModelWithRefs.Config.schema_extra(schema=schema, model=model)
+            EyaDefBaseModel.Config.schema_extra(schema=schema, model=model)
             schema.update(
                 {
                     "$schema": reference_utils.get_json_schema_reference_uri(),
@@ -122,6 +122,11 @@ class EyaDefDocument(BaseModelWithRefs):
     def final_json_schema(cls) -> dict[str, Any]:
         """Get a json schema representation of the top-level data model."""
         schema = cls.schema(by_alias=True)
+
+        # Remove ``$id`` from ``properties`` since this definition is
+        # inherent in JSON Schema and only needed by the pydantic model
+        if "$id" in schema["properties"]:
+            del schema["properties"]["$id"]
 
         # Remove redundant ``allOf`` elements
         pydantic_json_schema_utils.reduce_json_schema_all_of(schema)

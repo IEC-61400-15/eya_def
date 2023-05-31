@@ -6,7 +6,7 @@ import datetime as dt
 
 import pydantic as pdt
 
-from eya_def_tools.data_models.base_models import EyaDefBaseModel
+from eya_def_tools.data_models.base_model import EyaDefBaseModel
 from eya_def_tools.data_models.enums import ReportContributorType
 
 
