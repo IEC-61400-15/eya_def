@@ -42,6 +42,10 @@ class EyaDefDocument(EyaDefBaseModel):
     class Config:
         """``EyaDef`` data model configurations."""
 
+        # Equivalent of ``"additionalProperties": true``, which is used
+        # only at the top level to allow further metadata fields
+        extra = pdt.Extra.allow
+
         @staticmethod
         def schema_extra(schema: dict[str, Any], model: Type[EyaDefDocument]) -> None:
             """Additional items for the model schema."""
@@ -52,7 +56,6 @@ class EyaDefDocument(EyaDefBaseModel):
                     "$id": reference_utils.get_json_schema_uri(),
                     "$version": reference_utils.get_json_schema_version(),
                     "title": "IEC 61400-15-2 EYA DEF Schema",
-                    "additionalProperties": True,
                 }
             )
 
