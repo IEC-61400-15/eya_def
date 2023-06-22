@@ -1,5 +1,5 @@
 email-validator==2.0.0.post2
 jsonschema==4.17.3
 pandas==2.0.2
-pydantic==1.10.8
-pytest==7.3.1
+pydantic==1.10.9
+pytest==7.3.2
