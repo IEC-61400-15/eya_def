@@ -49,25 +49,8 @@ repos:
         name: flake8
         args: [--max-line-length=88, --max-complexity=14, --extend-ignore=E203]
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.1.1
+    rev: v1.4.0
     hooks:
       - id: mypy
         args: [--config-file, eya_def_tools/pyproject.toml]
         additional_dependencies: [pydantic, types-jsonschema]
-  - repo: https://github.com/pypa/pip-audit
-    rev: v2.4.15
-    hooks:
-      - id: pip-audit
-        name: pip-audit-requirements
-        args: [-r, eya_def_tools/requirements.txt]
-        always_run: true
-        stages: [push]
-      - id: pip-audit
-        name: pip-audit-requirements-dev
-        args: [-r, eya_def_tools/requirements-dev.txt]
-        always_run: true
-        stages: [push]
-ci:
-  # Leave pip-audit to only run locally and not in CI since the
-  # pre-commit.ci does not allow network calls
-  skip: [pip-audit]

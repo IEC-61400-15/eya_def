@@ -1,10 +1,15 @@
-"""Pydantic data models relating to measurement station specifications.
+"""Pydantic data models relating to measurement station metadata.
 
 """
 
-from typing import Any
+from typing import Any, Final
 
-from eya_def_tools.data_models.base_models import EyaDefBaseModel, JsonPointerRef
+from eya_def_tools.data_models.base_model import JsonPointerRef
+
+IEA43_WRA_DATA_MODEL_SCHEMA_URI: Final[str] = (
+    "https://raw.githubusercontent.com/IEA-Task-43/digital_wra_data_standard/"
+    "master/schema/iea43_wra_data_model.schema.json"
+)
 
 
 class MeasurementStationMetadata(JsonPointerRef):
@@ -14,11 +19,7 @@ class MeasurementStationMetadata(JsonPointerRef):
     def __modify_schema__(cls, field_schema: dict[str, Any]) -> None:
         field_schema.update(
             **{
-                "$ref": (
-                    "https://raw.githubusercontent.com/IEA-Task-43/"
-                    "digital_wra_data_standard/master/schema/"
-                    "iea43_wra_data_model.schema.json"
-                ),
+                "$ref": IEA43_WRA_DATA_MODEL_SCHEMA_URI,
                 "description": (
                     "A measurement metadata JSON document according to "
                     "the IEA Task 43 WRA Data Model."
@@ -28,10 +29,3 @@ class MeasurementStationMetadata(JsonPointerRef):
         )
         if "type" in field_schema.keys():
             del field_schema["type"]
-
-
-class MeasurementStationReference(EyaDefBaseModel):
-    """Measurement station basis in a wind resource assessment."""
-
-    # TODO - placeholder to be implemented
-    pass

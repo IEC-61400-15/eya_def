@@ -1,4 +1,4 @@
-"""Test the ``eya_def_tools.data_model.energy_yield_assessment`` module.
+"""Test the data models.
 
 """
 
@@ -10,24 +10,24 @@ from eya_def_tools.data_models import eya_def
 
 
 def test_initiate_eya_def_a(
-    eya_def_a: eya_def.EyaDef,
+    eya_def_a: eya_def.EyaDefDocument,
 ) -> None:
     """Assert test case instance 'a' is successfully initiated."""
-    assert isinstance(eya_def_a, eya_def.EyaDef)
+    assert isinstance(eya_def_a, eya_def.EyaDefDocument)
 
 
 def test_eya_def_round_trip_conversion(
-    eya_def_a: eya_def.EyaDef,
+    eya_def_a: eya_def.EyaDefDocument,
 ) -> None:
     """Test ``EyaDef`` example json round-trip conversion."""
-    eya_def_a_conv = eya_def.EyaDef(
+    eya_def_a_conv = eya_def.EyaDefDocument(
         **json.loads(eya_def_a.json(exclude_none=True, by_alias=True))
     )
     assert eya_def_a == eya_def_a_conv
 
 
 def test_make_model_raw_schema(
-    eya_def_a: eya_def.EyaDef,
+    eya_def_a: eya_def.EyaDefDocument,
 ) -> None:
     """Test that the raw schema is successfully created."""
     schema = eya_def_a.schema()

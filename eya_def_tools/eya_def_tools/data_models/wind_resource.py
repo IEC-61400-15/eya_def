@@ -1,91 +1,100 @@
-"""Pydantic data models relating to wind resource assessments.
+"""Pydantic data models relating to wind resource assessments (WRAs).
 
-Wind resource assessment is commonly abbreviated as WRA.
+The description of wind resource assessments is divided into the model
+class ``WindResourceAssessment`` covering the measurement location(s)
+and ``TurbineWindResourceAssessment`` covering the turbine locations.
+The reason for this split is that the assessment of wind resource at the
+measurement location(s) does not depend on the scenario and is therefore
+contained at the top level of the EYA DEF schema, whereas the turbine
+wind resource assessment depends on the turbine layout (and potentially
+other aspects of a scenario) and is therefore contained at the scenario
+level.
 
 """
 
 import pydantic as pdt
 
-from eya_def_tools.data_models import assessment_process_description as eya_prcs_desc
-from eya_def_tools.data_models import (
-    base_models,
-    measurement_station,
-    reference_wind_farm,
-    result,
-    uncertainty,
-)
+from eya_def_tools.data_models.base_model import EyaDefBaseModel
+from eya_def_tools.data_models.enums import WindResourceAssessmentStepType
+from eya_def_tools.data_models.generic_fields import comments_field, description_field
+from eya_def_tools.data_models.process_description import AssessmentProcessDescription
+from eya_def_tools.data_models.result import Result
+from eya_def_tools.data_models.uncertainty import UncertaintyAssessment
 
 
-# TODO - temporary placeholder to be extended
-class ReferenceWindFarmAssessment(base_models.EyaDefBaseModel):
-    """Details of an assessment of reference wind farm data."""
+class WindResourceAssessmentStep(EyaDefBaseModel):
+    """A step in a wind resource assessment at measurement location(s).
 
-    raw_data_availability: list[result.Result] = pdt.Field(
+    A step can be a data processing procedure (e.g. filtering for
+    spurious data) or a model extrapolation procedure (e.g. temporal
+    extrapolation using long-term reference data).
+    """
+
+    # TODO - this is an initial placeholder that needs to be developed
+    #        it will not be included in the fist version of the schema
+
+    label: WindResourceAssessmentStepType = pdt.Field(
         ...,
-        description="Raw data availability results.",
+        description="Label of the plant performance loss subcategory.",
     )
-    filtered_data_availability: list[result.Result] = pdt.Field(
+    description: str | None = description_field
+    comments: str | None = comments_field
+    results: list[Result] = pdt.Field(
         ...,
-        description="Filtered (post quality-control) data availability results.",
+        description="Results of the wind resource assessment step.",
     )
-    assessment_description: str = pdt.Field(
+
+
+class WindResourceAssessment(EyaDefBaseModel):
+    """Wind resource assessment at the measurement location(s)."""
+
+    wind_resource_assessment_id: str = pdt.Field(
         ...,
-        description="Description of the assessment process undertaken.",
+        description=(
+            "Unique ID of the wind resource assessment within the EYA DEF document."
+        ),
+        examples=["WRA01", "BfWF_WRA_1", "A"],
+    )
+    description: str | None = description_field
+    comments: str | None = comments_field
+    wind_speed_results: list[Result] = pdt.Field(
+        ...,
+        description=(
+            "Final long-term wind speed estimates from the wind resource "
+            "assessment at the measurement location(s)."
+        ),
     )
 
-
-# TODO - temporary placeholder to be extended
-class WindResourceAssessment(base_models.EyaDefBaseModel):
-    """Wind resource assessment at the measurement locations."""
-
-    measurement_station_reference: (
-        measurement_station.MeasurementStationReference | None
-    ) = pdt.Field(
-        None, description="Assessment results at the measurement location(s)."
-    )
-    reference_wind_farm_reference: (
-        reference_wind_farm.ReferenceWindFarmReference | None
-    ) = pdt.Field(
-        None, description="Assessment results at the measurement location(s)."
-    )
-    # data_filtering
-    # sensor_data_availability_results
-    # sensor_results
-    # gap_filling
-    # primary_data_availability_results
-    # primary_measurement_period_results
-    # long_term_correction
-    # long_term_results
-    # vertical_extrapolation
-    # hub_height_results
-    subcategory_results: list[result.Result] = pdt.Field(
-        ..., description="Assessment results at the measurement location(s)."
-    )
-    uncertainty_assessment: uncertainty.UncertaintyAssessment = pdt.Field(
-        ..., description="Measurement wind resource uncertainty assessment."
-    )
+    # TODO - Placeholder for assessment steps to be considered at a later stage
+    # steps: list[WindResourceAssessmentStep]
 
 
-class WindResourceAssessmentReference(base_models.EyaDefBaseModel):
-    """Measurement wind resource assessment basis in a scenario."""
-
-    # TODO - placeholder to be implemented
-    pass
-
-
-# TODO this needs to be completed with more fields for relevant details
-class TurbineWindResourceAssessment(base_models.EyaDefBaseModel):
+class TurbineWindResourceAssessment(EyaDefBaseModel):
     """Wind resource assessment at the turbine locations."""
 
-    turbine_wind_resource_results: list[result.Result] = pdt.Field(
-        ..., description="Assessment results at the turbine location(s)."
+    wind_resource_assessment_id_reference: str = pdt.Field(
+        ...,
+        description=(
+            "The ID of the wind resource assessment on which the turbine wind resource "
+            "assessment is based. This must refer to an ID of a wind resource "
+            "assessment included at the top level of the EYA DEF. The schema requires "
+            "that a turbine wind resource assessment is based on only one wind "
+            "resource assessment."
+        ),
+        examples=["WRA01", "BfWF_WRA_1", "A"],
     )
-    wind_spatial_modelling_processes: list[
-        eya_prcs_desc.AssessmentProcessDescription
-    ] = pdt.Field(
+    description: str | None = description_field
+    comments: str | None = comments_field
+    wind_spatial_modelling_processes: list[AssessmentProcessDescription] = pdt.Field(
         ..., description="Wind spatial modelling processes used in the assessment."
     )
-    # TODO should not be optional
-    uncertainty_assessment: uncertainty.UncertaintyAssessment | None = pdt.Field(
-        None, description="Turbine wind resource uncertainty assessment."
+    wind_speed_results: list[Result] = pdt.Field(
+        ...,
+        description="Final long-term wind speed estimates at the turbine location(s).",
     )
+    wind_resource_uncertainty_assessment: UncertaintyAssessment | None = pdt.Field(
+        None,
+        description="Turbine wind resource uncertainty assessment.",
+    )  # TODO should not be optional
+
+    # TODO consider including measurement station weighting

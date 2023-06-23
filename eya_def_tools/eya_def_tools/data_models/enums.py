@@ -8,7 +8,7 @@ from enum import StrEnum, auto
 
 
 class AssessmentBasis(StrEnum):
-    """Basis on which a component has been assessed."""
+    """Basis on which an EYA or WRA component has been assessed."""
 
     TIMESERIES_CALCULATION = auto()
     DISTRIBUTION_CALCULATION = auto()
@@ -193,6 +193,7 @@ class PlantPerformanceSubcategoryLabel(StrEnum):
             ),
         }
 
+    @property
     def category(self) -> PlantPerformanceCategoryLabel:
         """Get the category corresponding to the component.
 
@@ -200,6 +201,16 @@ class PlantPerformanceSubcategoryLabel(StrEnum):
             component label belongs to.
         """
         return self.subcategory_to_category_map()[self]
+
+
+class ReportContributorType(StrEnum):
+    """Type of contributor to an EYA report."""
+
+    AUTHOR = auto()
+    VERIFIER = auto()
+    APPROVER = auto()
+
+    OTHER = auto()
 
 
 class ResultsDimension(StrEnum):
@@ -211,6 +222,30 @@ class ResultsDimension(StrEnum):
     MONTH = auto()
     TURBINE = auto()
     YEAR = auto()
+
+
+class ResultsQuantity(StrEnum):
+    """Quantity of a set of results."""
+
+    AIR_DENSITY = auto()
+    DATA_RECOVERY_RATE = auto()
+    DISTANCE = auto()
+    ENERGY = auto()
+    POWER = auto()
+    POWER_LAW_WIND_SHEAR_EXPONENT = auto()
+    TEMPERATURE = auto()
+    TIME = auto()
+    WIND_FROM_DIRECTION = auto()
+    WIND_SPEED = auto()
+
+    @classmethod
+    def results_quantity_to_unit_map(cls) -> dict[ResultsQuantity, MeasurementUnit]:
+        return {}
+
+    @property
+    def measurement_unit(self) -> MeasurementUnit:
+        """The measurement unit of the quantity."""
+        return self.results_quantity_to_unit_map()[self]
 
 
 class StatisticType(StrEnum):
@@ -242,6 +277,7 @@ class TimeVariabilityType(StrEnum):
 
     STATIC_PROCESS = auto()
     ANNUAL_VARIABLE = auto()
+
     OTHER = auto()
 
 
@@ -252,6 +288,7 @@ class UncertaintyCategoryLabel(StrEnum):
     HISTORICAL = auto()
     VERTICAL = auto()
     HORIZONTAL = auto()
+
     OTHER = auto()
 
 
@@ -261,3 +298,23 @@ class WindFarmRelevance(StrEnum):
     INTERNAL = auto()
     EXTERNAL = auto()
     FUTURE = auto()
+
+
+class WindResourceAssessmentStepType(StrEnum):
+    """Type of step in a wind resource assessment.
+
+    The scope of this enum is limited to the assessment of wind resource
+    at the measurement locations and therefore does not cover the
+    horizontal extrapolation.
+    """
+
+    DATA_FILTERING = auto()
+    TURBINE_INTERACTION_CORRECTION = auto()
+    MEASUREMENT_STRUCTURE_RELATED_CORRECTION = auto()
+    TERRAIN_RELATED_CORRECTION = auto()
+    ONSITE_DATA_SYNTHESIS = auto()
+    LONG_TERM_PREDICTION = auto()
+    VERTICAL_EXTRAPOLATION = auto()
+    MODEL_CALIBRATION = auto()
+
+    OTHER = auto()

@@ -19,7 +19,7 @@ Schema are found [here](json_schema/examples).
 The top levels of the current draft of the data model is illustrated
 below.
 
-  ![data_model_top_levels_diagram](https://github.com/IEC-61400-15/energy_yield_reporting_DEF/blob/main/eya_def_top_level.svg)
+  ![data_model_top_levels_diagram](diagrams/eya_def_top_level.svg)
 
 The python package (see [below](#Python-package)) uses [erdantic](
 https://erdantic.drivendata.org/stable/) to generate graphical
@@ -50,10 +50,8 @@ pre-commit --version
 The project configurations for the git hooks are contained within the
 file `.pre-commit-config.yaml` at the root repository directory.
 
-Lint checks are run on both `git commit` and `git push`. Tests  are
-(currently) not included in the git hooks. The [pip-audit](
-https://github.com/pypa/pip-audit) tool is run on `git push` to check
-for known vulnerabilities.
+Lint checks are run on both `git commit` and `git push`. Tests are
+not included in the git hooks.
 
 To install `pre-commit` in your local repository for the 'pre-commit'
 and 'pre-push' stages, execute the following from the root of the git

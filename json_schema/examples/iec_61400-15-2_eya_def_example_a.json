@@ -47,7 +47,12 @@
       "name": "The Torre Egger Consultants Limited"
     }
   ],
-  "measurement_stations": [],
+  "measurement_stations": [
+    {
+      "$ref": "./iec_61400-15-2_eya_def_example_a_iea43_wra.json"
+    }
+  ],
+  "project_county": "GB",
   "project_name": "Barefoot Wind Farm",
   "receiving_organisations": [
     {
@@ -351,7 +356,15 @@
       "operational_lifetime_length_years": 30.0,
       "scenario_id": "b6953ecb-f88b-4660-9f69-bedbbe4c240b",
       "turbine_wind_resource_assessment": {
-        "turbine_wind_resource_results": [
+        "wind_resource_assessment_id_reference": "BfWF_WRA_1",
+        "wind_spatial_modelling_processes": [
+          {
+            "comments": "The simulations were run using 60 representative days.",
+            "description": "VENTOS/M is a coupled CFD-mesoscale model.",
+            "name": "VENTOS/M"
+          }
+        ],
+        "wind_speed_results": [
           {
             "assessment_period": "lifetime",
             "dimensions": [
@@ -377,13 +390,6 @@
                 ]
               }
             ]
-          }
-        ],
-        "wind_spatial_modelling_processes": [
-          {
-            "comments": "The simulations were run using 60 representative days.",
-            "description": "VENTOS/M is a coupled CFD-mesoscale model.",
-            "name": "VENTOS/M"
           }
         ]
       },
@@ -478,8 +484,7 @@
             }
           ]
         }
-      ],
-      "wind_resource_assessment_reference": {}
+      ]
     },
     {
       "comments": "Site suitability of turbine model has not yet investigated.",
@@ -676,7 +681,15 @@
       "operational_lifetime_length_years": 30.0,
       "scenario_id": "e27fefdf-cdd7-441f-a7a7-c4347514b4f7",
       "turbine_wind_resource_assessment": {
-        "turbine_wind_resource_results": [
+        "wind_resource_assessment_id_reference": "BfWF_WRA_1",
+        "wind_spatial_modelling_processes": [
+          {
+            "comments": "The simulations were run using 60 representative days.",
+            "description": "VENTOS/M is a coupled CFD-mesoscale model.",
+            "name": "VENTOS/M"
+          }
+        ],
+        "wind_speed_results": [
           {
             "assessment_period": "lifetime",
             "dimensions": [
@@ -702,13 +715,6 @@
                 ]
               }
             ]
-          }
-        ],
-        "wind_spatial_modelling_processes": [
-          {
-            "comments": "The simulations were run using 60 representative days.",
-            "description": "VENTOS/M is a coupled CFD-mesoscale model.",
-            "name": "VENTOS/M"
           }
         ]
       },
@@ -793,8 +799,7 @@
             }
           ]
         }
-      ],
-      "wind_resource_assessment_reference": {}
+      ]
     }
   ],
   "title": "Energy yield assessment of the Barefoot Wind Farm",
@@ -814,114 +819,64 @@
   ],
   "wind_resource_assessments": [
     {
-      "reference_wind_farm_reference": {
-        "reference_wind_farm_ids": [
-          "munro_wind_farm_reference"
-        ]
-      },
-      "subcategory_results": [
+      "wind_resource_assessment_id": "BfWF_WRA_1",
+      "wind_speed_results": [
         {
-          "assessment_period": "lifetime",
           "dimensions": [
-            "measurement"
+            "measurement",
+            "height"
           ],
-          "label": "Measurement-height long-term wind",
           "statistics": [
             {
               "statistic_type": "mean",
               "values": [
                 [
                   [
-                    "BF_M1_1.0.0"
+                    "BF_M1",
+                    120.0
                   ],
                   6.83
+                ],
+                [
+                  [
+                    "BF_M1",
+                    125.0
+                  ],
+                  6.85
+                ],
+                [
+                  [
+                    "BF_M1",
+                    148.0
+                  ],
+                  6.93
+                ],
+                [
+                  [
+                    "BF_M1",
+                    150.0
+                  ],
+                  6.94
+                ],
+                [
+                  [
+                    "BF_M1",
+                    158.0
+                  ],
+                  6.96
+                ],
+                [
+                  [
+                    "BF_M1",
+                    160.0
+                  ],
+                  6.97
                 ]
               ]
             }
           ]
         }
-      ],
-      "uncertainty_assessment": {
-        "categories": [
-          {
-            "category_results": [
-              {
-                "assessment_period": "lifetime",
-                "dimensions": [
-                  "measurement"
-                ],
-                "label": "Historical wind resource uncertainty",
-                "statistics": [
-                  {
-                    "statistic_type": "standard_deviation",
-                    "values": [
-                      [
-                        [
-                          "BF_M1_1.0.0"
-                        ],
-                        0.03201
-                      ]
-                    ]
-                  }
-                ]
-              }
-            ],
-            "label": "historical",
-            "subcategories": [
-              {
-                "label": "Regression model uncertainty",
-                "subcategory_results": [
-                  {
-                    "assessment_period": "lifetime",
-                    "dimensions": [
-                      "measurement"
-                    ],
-                    "label": "Regression model wind speed uncertainty per measurement station",
-                    "statistics": [
-                      {
-                        "statistic_type": "standard_deviation",
-                        "values": [
-                          [
-                            [
-                              "BF_M1_1.0.0"
-                            ],
-                            0.025
-                          ]
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "label": "Long-term consistency uncertainty",
-                "subcategory_results": [
-                  {
-                    "assessment_period": "lifetime",
-                    "dimensions": [
-                      "measurement"
-                    ],
-                    "label": "Long-term consistency wind speed uncertainty per measurement station",
-                    "statistics": [
-                      {
-                        "statistic_type": "standard_deviation",
-                        "values": [
-                          [
-                            [
-                              "BF_M1_1.0.0"
-                            ],
-                            0.02
-                          ]
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
+      ]
     }
   ]
 }

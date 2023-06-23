@@ -6,11 +6,13 @@ instances of the EYA DEF data model.
 """
 
 from pathlib import Path
+from typing import TypeAlias
 
 import pandas as pd
 
 from eya_def_tools.data_models import eya_def
-from eya_def_tools.reporting import table_definitions
+
+ReportingTableKey: TypeAlias = str  # TODO define enums
 
 
 class ReportingEngine:
@@ -21,16 +23,16 @@ class ReportingEngine:
         self.number_precision = number_precision
 
     def generate_tables(
-        self, eya_def_obj: eya_def.EyaDef
-    ) -> dict[table_definitions.ReportingTableKey, pd.DataFrame]:
+        self, eya_def_doc: eya_def.EyaDefDocument
+    ) -> dict[ReportingTableKey, pd.DataFrame]:
         """Generate IEC 61400-15-2 tables from EYA DEF document.
 
-        :param eya_def_obj: the ``EyaDef`` instance to generate tables for
+        :param eya_def_doc: the ``EyaDef`` instance to generate tables for
         :return: a dictionary that maps table keys to pandas dataframe
             objects with table data
         """
-        tables: dict[table_definitions.ReportingTableKey, pd.DataFrame] = {}
-        print(eya_def_obj)
+        tables: dict[ReportingTableKey, pd.DataFrame] = {}
+        print(eya_def_doc)
         # TODO placeholder function to be implemented
 
         return tables

@@ -1,4 +1,4 @@
-"""Test ``eya_def_tools`` module and submodule imports.
+"""Test module imports.
 
 """
 

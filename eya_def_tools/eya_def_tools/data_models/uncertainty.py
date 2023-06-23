@@ -4,9 +4,9 @@
 
 import pydantic as pdt
 
-from eya_def_tools.data_models.base_models import EyaDefBaseModel
+from eya_def_tools.data_models.base_model import EyaDefBaseModel
 from eya_def_tools.data_models.enums import UncertaintyCategoryLabel
-from eya_def_tools.data_models.fields import comments_field, description_field
+from eya_def_tools.data_models.generic_fields import comments_field, description_field
 from eya_def_tools.data_models.result import Result
 
 
@@ -25,7 +25,8 @@ class UncertaintySubcategory(EyaDefBaseModel):
     description: str | None = description_field
     comments: str | None = comments_field
     subcategory_results: list[Result] = pdt.Field(
-        ..., description="Wind resource uncertainty assessment subcategory results."
+        ...,
+        description="Wind resource uncertainty assessment subcategory results.",
     )
 
 
@@ -33,13 +34,16 @@ class UncertaintyCategory(EyaDefBaseModel):
     """Wind resource uncertainty assessment category."""
 
     label: UncertaintyCategoryLabel = pdt.Field(
-        ..., description="Label of the uncertainty category."
+        ...,
+        description="Label of the uncertainty category.",
     )
     subcategories: list[UncertaintySubcategory] = pdt.Field(
-        ..., description="Wind resource uncertainty assessment subcategories."
+        ...,
+        description="Wind resource uncertainty assessment subcategories.",
     )
     category_results: list[Result] = pdt.Field(
-        ..., description="Category level assessment results."
+        ...,
+        description="Category level assessment results.",
     )
 
 
@@ -47,5 +51,6 @@ class UncertaintyAssessment(EyaDefBaseModel):
     """Wind resource uncertainty assessment."""
 
     categories: list[UncertaintyCategory] = pdt.Field(
-        ..., description="List of wind resource uncertainty assessment categories."
+        ...,
+        description="List of wind resource uncertainty assessment categories.",
     )

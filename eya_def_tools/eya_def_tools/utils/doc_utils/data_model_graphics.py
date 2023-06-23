@@ -8,43 +8,45 @@ The graphics are rendered based on the ``pydantic`` data models in
 
 import erdantic as erd
 
-from eya_def_tools.data_models import (
-    energy_assessment,
-    eya_def,
-    organisation,
-    plant_performance,
-    reference_wind_farm,
-    report_metadata,
-    result,
-    scenario,
-    spatial,
-    turbine_model,
-    wind_farm,
-    wind_resource,
+from eya_def_tools.data_models.energy_assessment import EnergyAssessment
+from eya_def_tools.data_models.eya_def import EyaDefDocument
+from eya_def_tools.data_models.plant_performance import PlantPerformanceCategory
+from eya_def_tools.data_models.reference_met_data import ReferenceMeteorologicalDataset
+from eya_def_tools.data_models.reference_wind_farm import ReferenceWindFarm
+from eya_def_tools.data_models.report_metadata import Organisation, ReportContributor
+from eya_def_tools.data_models.result import Result
+from eya_def_tools.data_models.scenario import Scenario
+from eya_def_tools.data_models.spatial import CoordinateReferenceSystem
+from eya_def_tools.data_models.turbine_model import TurbineModel
+from eya_def_tools.data_models.wind_farm import WindFarmConfiguration
+from eya_def_tools.data_models.wind_resource import (
+    TurbineWindResourceAssessment,
+    WindResourceAssessment,
 )
 
 
 def draw_eya_def_all_levels() -> None:
     """Draw diagram of all levels of the schema."""
-    diagram = erd.create(eya_def.EyaDef)
+    diagram = erd.create(EyaDefDocument)
     diagram.draw("eya_def_all_levels.png")
     diagram.draw("eya_def_all_levels.svg")
 
 
 def draw_eya_def_top_level() -> None:
     """Draw diagram of the top level schema."""
-    eya_def.EyaDef.update_forward_refs(**locals())
+    EyaDefDocument.update_forward_refs(**locals())
 
     diagram = erd.create(
-        eya_def.EyaDef,
+        EyaDefDocument,
         termini=[
-            report_metadata.ReportContributor,
-            organisation.Organisation,
-            spatial.CoordinateReferenceSystem,
-            reference_wind_farm.ReferenceWindFarm,
-            wind_resource.WindResourceAssessment,
-            turbine_model.TurbineModel,
-            scenario.Scenario,
+            ReportContributor,
+            Organisation,
+            CoordinateReferenceSystem,
+            ReferenceWindFarm,
+            ReferenceMeteorologicalDataset,
+            WindResourceAssessment,
+            TurbineModel,
+            Scenario,
         ],
     )
     diagram.draw("eya_def_top_level.png")
@@ -53,7 +55,7 @@ def draw_eya_def_top_level() -> None:
 
 def draw_scenario() -> None:
     """Draw diagram of the scenario level schema."""
-    diagram = erd.create(scenario.Scenario)
+    diagram = erd.create(Scenario)
     diagram.draw("scenario.png")
     diagram.draw("scenario.svg")
 
@@ -61,11 +63,11 @@ def draw_scenario() -> None:
 def draw_scenario_reduced() -> None:
     """Draw reduced diagram of the scenario level schema."""
     diagram = erd.create(
-        scenario.Scenario,
+        Scenario,
         termini=[
-            wind_farm.WindFarmConfiguration,
-            wind_resource.TurbineWindResourceAssessment,
-            energy_assessment.EnergyAssessment,
+            WindFarmConfiguration,
+            TurbineWindResourceAssessment,
+            EnergyAssessment,
         ],
     )
     diagram.draw("scenario_reduced.png")
@@ -74,23 +76,30 @@ def draw_scenario_reduced() -> None:
 
 def draw_plant_performance_category() -> None:
     """Draw diagram of the plant performance category level schema."""
-    diagram = erd.create(plant_performance.PlantPerformanceCategory)
+    diagram = erd.create(PlantPerformanceCategory)
     diagram.draw("plant_performance_category.png")
     diagram.draw("plant_performance_category.svg")
 
 
 def draw_reference_wind_farm() -> None:
     """Draw diagram of the reference wind farm schema."""
-    diagram = erd.create(reference_wind_farm.ReferenceWindFarm)
+    diagram = erd.create(ReferenceWindFarm)
     diagram.draw("reference_wind_farm.png")
     diagram.draw("reference_wind_farm.svg")
 
 
 def draw_results() -> None:
-    """Draw diagram of the results level schema."""
-    diagram = erd.create(result.Result)
+    """Draw diagram of the schema for results."""
+    diagram = erd.create(Result)
     diagram.draw("results.png")
     diagram.draw("results.svg")
+
+
+def draw_wind_resource_assessment() -> None:
+    """Draw diagram of the wind resource assessment schema."""
+    diagram = erd.create(WindResourceAssessment)
+    diagram.draw("wind_resource_assessment.png")
+    diagram.draw("wind_resource_assessment.svg")
 
 
 if __name__ == "__main__":
@@ -101,3 +110,4 @@ if __name__ == "__main__":
     draw_plant_performance_category()
     draw_reference_wind_farm()
     draw_results()
+    draw_wind_resource_assessment()
