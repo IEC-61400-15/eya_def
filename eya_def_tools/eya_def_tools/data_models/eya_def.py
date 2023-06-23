@@ -11,6 +11,7 @@ import pydantic as pdt
 
 from eya_def_tools.data_models.base_model import EyaDefBaseModel
 from eya_def_tools.data_models.eya_def_header import (
+    Alpha2CountryCode,
     confidentiality_classification_field,
     contract_reference_field,
     contributors_field,
@@ -65,7 +66,7 @@ class EyaDefDocument(EyaDefBaseModel):
     description: str | None = description_field
     comments: str | None = comments_field
     project_name: str = project_name_field
-    project_county: str = project_county_field
+    project_county: Alpha2CountryCode = project_county_field
     document_id: str | None = document_id_field
     document_version: str | None = document_version_field
     issue_date: dt.date = issue_date_field

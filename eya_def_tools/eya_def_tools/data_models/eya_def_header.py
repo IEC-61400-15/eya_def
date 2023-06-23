@@ -3,12 +3,20 @@
 """
 
 import datetime as dt
+from enum import StrEnum
 
+import pycountry
 import pydantic as pdt
 
 from eya_def_tools.data_models.base_model import EyaDefBaseModel
 from eya_def_tools.data_models.generic_fields import comments_field, description_field
 from eya_def_tools.data_models.report_metadata import Organisation, ReportContributor
+
+Alpha2CountryCode: StrEnum = StrEnum(  # type: ignore
+    "Alpha2CountryCode",
+    {country.alpha_2: country.alpha_2 for country in pycountry.countries},
+)
+
 
 json_uri_field: str | None = pdt.Field(
     None,
@@ -30,10 +38,12 @@ project_name_field: str = pdt.Field(
     examples=["Barefoot Wind Farm"],
 )
 
-project_county_field: str = pdt.Field(  # TODO use enum instead of string
+project_county_field: Alpha2CountryCode = pdt.Field(
     ...,
-    description="Country where the project under assessment is located.",
-    examples=["France", "Canada", "South Africa"],
+    description=(
+        "The ISO 3166-1 alpha-2 two-letter country code of the country "
+        "where the project under assessment is located."
+    ),
 )
 
 document_id_field: str | None = pdt.Field(
@@ -102,7 +112,7 @@ class EyaDefHeader(EyaDefBaseModel):
     description: str | None = description_field
     comments: str | None = comments_field
     project_name: str = project_name_field
-    project_county: str = project_county_field
+    project_county: Alpha2CountryCode = project_county_field
     document_id: str | None = document_id_field
     document_version: str | None = document_version_field
     issue_date: dt.date = issue_date_field

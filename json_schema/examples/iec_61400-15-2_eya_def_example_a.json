@@ -52,7 +52,7 @@
       "$ref": "./iec_61400-15-2_eya_def_example_a_iea43_wra.json"
     }
   ],
-  "project_county": "UK",
+  "project_county": "GB",
   "project_name": "Barefoot Wind Farm",
   "receiving_organisations": [
     {

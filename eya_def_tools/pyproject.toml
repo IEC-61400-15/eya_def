@@ -80,6 +80,7 @@ warn_unused_ignores = true
 module = [
     "erdantic.*",
     "pandas.*",
+    "pycountry.*",
     "pytest.*",
 ]
 ignore_missing_imports = true

@@ -21,6 +21,7 @@ from eya_def_tools.data_models import (
     energy_assessment,
     enums,
     eya_def,
+    eya_def_header,
     measurement_station,
     plant_performance,
 )
@@ -1283,7 +1284,7 @@ def eya_def_a(
         ),
         comments="Update to consider further on-site measurement data.",
         project_name="Barefoot Wind Farm",
-        project_county="UK",
+        project_county=eya_def_header.Alpha2CountryCode("GB"),
         document_id="12345678",
         document_version="B",
         issue_date=dt.date(2022, 10, 7),
