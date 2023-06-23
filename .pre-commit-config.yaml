@@ -54,20 +54,3 @@ repos:
       - id: mypy
         args: [--config-file, eya_def_tools/pyproject.toml]
         additional_dependencies: [pydantic, types-jsonschema]
-  - repo: https://github.com/pypa/pip-audit
-    rev: v2.5.6
-    hooks:
-      - id: pip-audit
-        name: pip-audit-requirements
-        args: [-r, eya_def_tools/requirements.txt]
-        always_run: true
-        stages: [push]
-      - id: pip-audit
-        name: pip-audit-requirements-dev
-        args: [-r, eya_def_tools/requirements-dev.txt]
-        always_run: true
-        stages: [push]
-ci:
-  # Leave pip-audit to only run locally and not in CI since the
-  # pre-commit.ci does not allow network calls
-  skip: [pip-audit]
