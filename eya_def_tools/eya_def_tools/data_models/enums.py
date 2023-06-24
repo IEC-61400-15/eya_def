@@ -300,6 +300,48 @@ class WindFarmRelevance(StrEnum):
     FUTURE = auto()
 
 
+class WindResourceUncertaintyCategoryLabel(StrEnum):
+    """Category labels in the wind resource uncertainty assessment."""
+
+    HISTORICAL_WIND_RESOURCE = auto()
+    PROJECT_EVALUATION_PERIOD_ANNUAL_VARIABILITY = auto()
+    MEASUREMENT_UNCERTAINTY = auto()
+    HORIZONTAL_EXTRAPOLATION = auto()
+    VERTICAL_EXTRAPOLATION = auto()
+
+
+class WindResourceUncertaintySubcategoryLabel(StrEnum):
+    """Subcategory labels in the wind resource uncertainty assessment."""
+
+    # Historical wind resource
+    LONG_TERM_PERIOD_REPRESENTATIVENESS = auto()
+    REFERENCE_DATA_CONSISTENCY = auto()
+    LONG_TERM_ADJUSTMENT = auto()
+    WIND_SPEED_DISTRIBUTION_UNCERTAINTY = auto()
+    ON_SITE_DATA_SYNTHESIS = auto()
+    MEASURED_DATA_REPRESENTATIVENESS = auto()
+
+    # Project evaluation period annual variability
+    WIND_SPEED_VARIABILITY = auto()
+    CLIMATE_CHANGE = auto()
+    PLANT_PERFORMANCE = auto()  # TODO clarify distinction to energy uncertainty
+
+    # Measurement uncertainty
+    WIND_SPEED_MEASUREMENT = auto()
+    WIND_DIRECTION_MEASUREMENT = auto()  # TODO clarify conversion to wind speed
+    OTHER_ATMOSPHERIC_PARAMETERS = auto()  # TODO clarify conversion to wind speed
+    DATA_INTEGRITY = auto()  # Includes data integrity and documentation
+
+    # Horizontal extrapolation
+    MODEL_INPUTS = auto()
+    MODEL_SENSITIVITY = auto()  # Covering model stress tests
+    MODEL_APPROPRIATENESS = auto()
+
+    # Vertical extrapolation
+    MODEL_UNCERTAINTY = auto()
+    EXCESS_PROPAGATED_MEASUREMENT_UNCERTAINTY = auto()
+
+
 class WindResourceAssessmentStepType(StrEnum):
     """Type of step in a wind resource assessment.
 
