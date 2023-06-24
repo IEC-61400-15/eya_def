@@ -40,10 +40,15 @@ class DataSourceType(StrEnum):
 class MeasurementUnit(StrEnum):
     """Unit in which a quantity is measured."""
 
+    DEGREE = "degree"
+    DEGREE_CELSIUS = "degree_C"
     DIMENSIONLESS = "1"
-    KILOWATT = "kW"
-    MEGAWATT_HOUR = "MW h"
-    MEGAWATT_HOUR_PER_ANNUM = "MW h year-1"
+    MEGAWATT = "MW"
+    GIGAWATT_HOUR = "GW h"
+    GIGAWATT_HOUR_PER_ANNUM = "GW h year-1"
+    HOUR = "h"
+    KILOGRAM_PER_CUBIC_METRE = "kg m-3"
+    METRE = "m"
     METRE_PER_SECOND = "m s-1"
 
 
@@ -195,11 +200,7 @@ class PlantPerformanceSubcategoryLabel(StrEnum):
 
     @property
     def category(self) -> PlantPerformanceCategoryLabel:
-        """Get the category corresponding to the component.
-
-        :return: The ``PlantPerformanceCategoryLabel`` that the
-            component label belongs to.
-        """
+        """Get the category parent corresponding to the subcategory."""
         return self.subcategory_to_category_map()[self]
 
 
@@ -232,7 +233,7 @@ class ResultsQuantity(StrEnum):
     DISTANCE = auto()
     ENERGY = auto()
     POWER = auto()
-    POWER_LAW_WIND_SHEAR_EXPONENT = auto()
+    WIND_SHEAR_EXPONENT = auto()
     TEMPERATURE = auto()
     TIME = auto()
     WIND_FROM_DIRECTION = auto()
@@ -240,7 +241,19 @@ class ResultsQuantity(StrEnum):
 
     @classmethod
     def results_quantity_to_unit_map(cls) -> dict[ResultsQuantity, MeasurementUnit]:
-        return {}
+        """Map of each quantity to its corresponding unit."""
+        return {
+            ResultsQuantity.AIR_DENSITY: MeasurementUnit.KILOGRAM_PER_CUBIC_METRE,
+            ResultsQuantity.DATA_RECOVERY_RATE: MeasurementUnit.DIMENSIONLESS,
+            ResultsQuantity.DISTANCE: MeasurementUnit.METRE,
+            ResultsQuantity.ENERGY: MeasurementUnit.GIGAWATT_HOUR,
+            ResultsQuantity.POWER: MeasurementUnit.MEGAWATT,
+            ResultsQuantity.WIND_SHEAR_EXPONENT: MeasurementUnit.DIMENSIONLESS,
+            ResultsQuantity.TEMPERATURE: MeasurementUnit.DEGREE_CELSIUS,
+            ResultsQuantity.TIME: MeasurementUnit.HOUR,
+            ResultsQuantity.WIND_FROM_DIRECTION: MeasurementUnit.DEGREE,
+            ResultsQuantity.WIND_SPEED: MeasurementUnit.METRE_PER_SECOND,
+        }  # TODO add test to check completeness
 
     @property
     def measurement_unit(self) -> MeasurementUnit:
@@ -300,17 +313,19 @@ class WindFarmRelevance(StrEnum):
     FUTURE = auto()
 
 
-class WindResourceUncertaintyCategoryLabel(StrEnum):
+class WindUncertaintyCategoryLabel(StrEnum):
     """Category labels in the wind resource uncertainty assessment."""
 
     HISTORICAL_WIND_RESOURCE = auto()
-    PROJECT_EVALUATION_PERIOD_ANNUAL_VARIABILITY = auto()
+    EVALUATION_PERIOD_ANNUAL_VARIABILITY = auto()  # Project evaluation period
     MEASUREMENT_UNCERTAINTY = auto()
     HORIZONTAL_EXTRAPOLATION = auto()
     VERTICAL_EXTRAPOLATION = auto()
 
+    # TODO - do we also need an "OTHER" category
 
-class WindResourceUncertaintySubcategoryLabel(StrEnum):
+
+class WindUncertaintySubcategoryLabel(StrEnum):
     """Subcategory labels in the wind resource uncertainty assessment."""
 
     # Historical wind resource
@@ -340,3 +355,72 @@ class WindResourceUncertaintySubcategoryLabel(StrEnum):
     # Vertical extrapolation
     MODEL_UNCERTAINTY = auto()
     EXCESS_PROPAGATED_MEASUREMENT_UNCERTAINTY = auto()
+
+    # TODO - do we also need an "OTHER" subcategory
+
+    @classmethod
+    def subcategory_to_category_map(
+        cls,
+    ) -> dict[WindUncertaintySubcategoryLabel, WindUncertaintyCategoryLabel]:
+        """Dictionary mapping each subcategory to the parent category."""
+        return {
+            WindUncertaintySubcategoryLabel.LONG_TERM_PERIOD_REPRESENTATIVENESS: (
+                WindUncertaintyCategoryLabel.HISTORICAL_WIND_RESOURCE
+            ),
+            WindUncertaintySubcategoryLabel.REFERENCE_DATA_CONSISTENCY: (
+                WindUncertaintyCategoryLabel.HISTORICAL_WIND_RESOURCE
+            ),
+            WindUncertaintySubcategoryLabel.LONG_TERM_ADJUSTMENT: (
+                WindUncertaintyCategoryLabel.HISTORICAL_WIND_RESOURCE
+            ),
+            WindUncertaintySubcategoryLabel.WIND_SPEED_DISTRIBUTION_UNCERTAINTY: (
+                WindUncertaintyCategoryLabel.HISTORICAL_WIND_RESOURCE
+            ),
+            WindUncertaintySubcategoryLabel.ON_SITE_DATA_SYNTHESIS: (
+                WindUncertaintyCategoryLabel.HISTORICAL_WIND_RESOURCE
+            ),
+            WindUncertaintySubcategoryLabel.MEASURED_DATA_REPRESENTATIVENESS: (
+                WindUncertaintyCategoryLabel.HISTORICAL_WIND_RESOURCE
+            ),
+            WindUncertaintySubcategoryLabel.WIND_SPEED_VARIABILITY: (
+                WindUncertaintyCategoryLabel.EVALUATION_PERIOD_ANNUAL_VARIABILITY
+            ),
+            WindUncertaintySubcategoryLabel.CLIMATE_CHANGE: (
+                WindUncertaintyCategoryLabel.EVALUATION_PERIOD_ANNUAL_VARIABILITY
+            ),
+            WindUncertaintySubcategoryLabel.PLANT_PERFORMANCE: (
+                WindUncertaintyCategoryLabel.EVALUATION_PERIOD_ANNUAL_VARIABILITY
+            ),
+            WindUncertaintySubcategoryLabel.WIND_SPEED_MEASUREMENT: (
+                WindUncertaintyCategoryLabel.MEASUREMENT_UNCERTAINTY
+            ),
+            WindUncertaintySubcategoryLabel.WIND_DIRECTION_MEASUREMENT: (
+                WindUncertaintyCategoryLabel.MEASUREMENT_UNCERTAINTY
+            ),
+            WindUncertaintySubcategoryLabel.OTHER_ATMOSPHERIC_PARAMETERS: (
+                WindUncertaintyCategoryLabel.MEASUREMENT_UNCERTAINTY
+            ),
+            WindUncertaintySubcategoryLabel.DATA_INTEGRITY: (
+                WindUncertaintyCategoryLabel.MEASUREMENT_UNCERTAINTY
+            ),
+            WindUncertaintySubcategoryLabel.MODEL_INPUTS: (
+                WindUncertaintyCategoryLabel.HORIZONTAL_EXTRAPOLATION
+            ),
+            WindUncertaintySubcategoryLabel.MODEL_SENSITIVITY: (
+                WindUncertaintyCategoryLabel.HORIZONTAL_EXTRAPOLATION
+            ),
+            WindUncertaintySubcategoryLabel.MODEL_APPROPRIATENESS: (
+                WindUncertaintyCategoryLabel.HORIZONTAL_EXTRAPOLATION
+            ),
+            WindUncertaintySubcategoryLabel.MODEL_UNCERTAINTY: (
+                WindUncertaintyCategoryLabel.VERTICAL_EXTRAPOLATION
+            ),
+            WindUncertaintySubcategoryLabel.EXCESS_PROPAGATED_MEASUREMENT_UNCERTAINTY: (
+                WindUncertaintyCategoryLabel.VERTICAL_EXTRAPOLATION
+            ),
+        }
+
+    @property
+    def category(self) -> WindUncertaintyCategoryLabel:
+        """Get the category parent corresponding to the subcategory."""
+        return self.subcategory_to_category_map()[self]
