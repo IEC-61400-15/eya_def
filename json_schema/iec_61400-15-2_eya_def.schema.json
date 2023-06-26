@@ -269,17 +269,20 @@
           "description": "The quantity that the set of results describe, where this is not obvious from the context.",
           "enum": [
             "air_density",
+            "annual_energy_production",
             "data_recovery_rate",
             "distance",
+            "efficiency",
             "energy",
             "power",
-            "power_law_wind_shear_exponent",
+            "relative_uncertainty",
+            "wind_shear_exponent",
             "temperature",
             "time",
             "wind_from_direction",
             "wind_speed"
           ],
-          "title": "Results Quantity",
+          "title": "Measurement Quantity",
           "type": "string"
         },
         "statistics": {
@@ -381,94 +384,6 @@
       ],
       "title": "TimeVariabilityType",
       "type": "string"
-    },
-    "UncertaintyAssessment": {
-      "additionalProperties": false,
-      "description": "Wind resource uncertainty assessment.",
-      "properties": {
-        "categories": {
-          "description": "List of wind resource uncertainty assessment categories.",
-          "items": {
-            "additionalProperties": false,
-            "description": "Wind resource uncertainty assessment category.",
-            "properties": {
-              "category_results": {
-                "description": "Category level assessment results.",
-                "items": {
-                  "$ref": "#/definitions/Result"
-                },
-                "title": "Category Results",
-                "type": "array"
-              },
-              "label": {
-                "description": "Label of the uncertainty category.",
-                "enum": [
-                  "measurement",
-                  "historical",
-                  "vertical",
-                  "horizontal",
-                  "other"
-                ],
-                "title": "Uncertainty Category Label",
-                "type": "string"
-              },
-              "subcategories": {
-                "description": "Wind resource uncertainty assessment subcategories.",
-                "items": {
-                  "additionalProperties": false,
-                  "description": "Wind resource uncertainty assessment subcategory.",
-                  "properties": {
-                    "comments": {
-                      "$ref": "#/definitions/CommentsField"
-                    },
-                    "description": {
-                      "$ref": "#/definitions/DescriptionField"
-                    },
-                    "label": {
-                      "description": "Label of the wind resource uncertainty subcategory.",
-                      "examples": [
-                        "Long-term consistency"
-                      ],
-                      "title": "Label",
-                      "type": "string"
-                    },
-                    "subcategory_results": {
-                      "description": "Wind resource uncertainty assessment subcategory results.",
-                      "items": {
-                        "$ref": "#/definitions/Result"
-                      },
-                      "title": "Subcategory Results",
-                      "type": "array"
-                    }
-                  },
-                  "required": [
-                    "label",
-                    "subcategory_results"
-                  ],
-                  "title": "Uncertainty Subcategory",
-                  "type": "object"
-                },
-                "title": "Subcategories",
-                "type": "array"
-              }
-            },
-            "required": [
-              "label",
-              "subcategories",
-              "category_results"
-            ],
-            "title": "Uncertainty Category",
-            "type": "object"
-          },
-          "title": "Categories",
-          "type": "array"
-        }
-      },
-      "required": [
-        "categories"
-      ],
-      "title": "UncertaintyAssessment",
-      "type": "object"
     },
     "WindFarmConfiguration": {
       "additionalProperties": false,
@@ -1374,6 +1289,18 @@
             "additionalProperties": false,
             "description": "Energy assessment details and results, including gross energy, plant performance, net energy and uncertainties.",
             "properties": {
+              "energy_uncertainty_categories": {
+                "description": "Energy related uncertainty assessment categories including results.",
+                "items": {
+                  "additionalProperties": false,
+                  "description": "Category of an energy related uncertainty assessment.",
+                  "properties": {},
+                  "title": "Energy Uncertainty Category",
+                  "type": "object"
+                },
+                "title": "Energy Uncertainty Categories",
+                "type": "array"
+              },
               "gross_eya_process": {
                 "$ref": "#/definitions/AssessmentProcessDescription",
                 "description": "Specification of the model used to calculate the gross EYA estimates.",
@@ -1386,11 +1313,6 @@
                 },
                 "title": "Gross Eya Results",
                 "type": "array"
-              },
-              "net_energy_uncertainty_assessment": {
-                "$ref": "#/definitions/UncertaintyAssessment",
-                "description": "Net energy production uncertainty assessment, including the conversion of the wind resource assessment uncertainty results from wind speed to energy quantities and results for all main energy uncertainty categories.",
-                "title": "Net Energy Uncertainty Assessment"
               },
               "net_eya_results": {
                 "description": "Net energy production predictions in GWh, including overall uncertainties and results at different confidence levels.",
@@ -1413,6 +1335,12 @@
                       },
                       "title": "Category Results",
                       "type": "array"
+                    },
+                    "comments": {
+                      "$ref": "#/definitions/CommentsField"
+                    },
+                    "description": {
+                      "$ref": "#/definitions/DescriptionField"
                     },
                     "label": {
                       "description": "Label of the plant performance loss category.",
@@ -1449,8 +1377,14 @@
                             "$ref": "#/definitions/AssessmentBasis",
                             "description": "Basis of plant performance loss subcategory assessment. The basis describes the level of detail of the calculation or estimate used in the assessment of the subcategory."
                           },
+                          "comments": {
+                            "$ref": "#/definitions/CommentsField"
+                          },
+                          "description": {
+                            "$ref": "#/definitions/DescriptionField"
+                          },
                           "elements": {
-                            "description": "Plant performance loss assessment elements that fall under the the subcategory. The element objects include details and results at the element level. A breakdown of plant performance loss subcategories into elements is optional and can be included only for a subset of the subcategories, as relevant. Whereas the categories and subcategories are fixed, the user may freely define element labels.",
+                            "description": "Plant performance loss assessment elements that fall under the subcategory. The element objects include details and results at the element level. A breakdown of plant performance loss subcategories into elements is optional and can be included only for a subset of the subcategories, as relevant. Whereas the categories and subcategories are fixed, the user may freely define element labels.",
                             "items": {
                               "additionalProperties": false,
                               "description": "Plant performance loss assessment subcategory element.",
@@ -1587,6 +1521,7 @@
               "gross_eya_process",
               "gross_eya_results",
               "plant_performance_loss_categories",
+              "energy_uncertainty_categories",
               "net_eya_results"
             ],
             "title": "Energy Assessment",
@@ -1653,11 +1588,6 @@
                 "title": "Wind Resource Assessment Id Reference",
                 "type": "string"
               },
-              "wind_resource_uncertainty_assessment": {
-                "$ref": "#/definitions/UncertaintyAssessment",
-                "description": "Turbine wind resource uncertainty assessment.",
-                "title": "Wind Resource Uncertainty Assessment"
-              },
               "wind_spatial_modelling_processes": {
                 "description": "Wind spatial modelling processes used in the assessment.",
                 "items": {
@@ -1673,12 +1603,158 @@
                 },
                 "title": "Wind Speed Results",
                 "type": "array"
+              },
+              "wind_uncertainty_categories": {
+                "description": "Wind related uncertainty assessment categories including results.",
+                "items": {
+                  "additionalProperties": false,
+                  "description": "Category of a wind related uncertainty assessment.",
+                  "properties": {
+                    "category_results": {
+                      "description": "Wind related uncertainty assessment category result(s) as dimensionless relative values.",
+                      "items": {
+                        "$ref": "#/definitions/Result"
+                      },
+                      "title": "Category Results",
+                      "type": "array"
+                    },
+                    "comments": {
+                      "$ref": "#/definitions/CommentsField"
+                    },
+                    "description": {
+                      "$ref": "#/definitions/DescriptionField"
+                    },
+                    "label": {
+                      "description": "Label of the wind related uncertainty assessment category.",
+                      "enum": [
+                        "historical_wind_resource",
+                        "evaluation_period_annual_variability",
+                        "measurement_uncertainty",
+                        "horizontal_extrapolation",
+                        "vertical_extrapolation"
+                      ],
+                      "title": "Wind Uncertainty Category Label",
+                      "type": "string"
+                    },
+                    "subcategories": {
+                      "description": "Wind related uncertainty assessment subcategories that fall under the category. The subcategory objects include details and results at the subcategory level.",
+                      "items": {
+                        "additionalProperties": false,
+                        "description": "Subcategory of a wind related uncertainty assessment.",
+                        "properties": {
+                          "comments": {
+                            "$ref": "#/definitions/CommentsField"
+                          },
+                          "description": {
+                            "$ref": "#/definitions/DescriptionField"
+                          },
+                          "elements": {
+                            "description": "Wind related uncertainty assessment elements that fall under the subcategory. The element objects include details and results at the element level. A breakdown of wind related uncertainty subcategories into elements is optional and can be included only for a subset of the subcategories, as relevant. Whereas the categories and subcategories are fixed, the user may freely define element labels.",
+                            "items": {
+                              "additionalProperties": false,
+                              "description": "Subcategory element of a wind related uncertainty assessment.",
+                              "properties": {
+                                "comments": {
+                                  "$ref": "#/definitions/CommentsField"
+                                },
+                                "description": {
+                                  "$ref": "#/definitions/DescriptionField"
+                                },
+                                "element_results": {
+                                  "description": "Wind related uncertainty assessment subcategory element result(s) as dimensionless relative values.",
+                                  "items": {
+                                    "$ref": "#/definitions/Result"
+                                  },
+                                  "title": "Element Results",
+                                  "type": "array"
+                                },
+                                "is_independent": {
+                                  "default": true,
+                                  "description": "Whether the wind related uncertainty subcategory element is independent of all other elements.",
+                                  "title": "Is Independent",
+                                  "type": "boolean"
+                                },
+                                "label": {
+                                  "description": "Label of the wind related uncertainty subcategory element.",
+                                  "title": "Label",
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "label",
+                                "element_results"
+                              ],
+                              "title": "Wind Uncertainty Subcategory Element",
+                              "type": "object"
+                            },
+                            "title": "Elements",
+                            "type": [
+                              "array",
+                              "null"
+                            ]
+                          },
+                          "label": {
+                            "description": "Label of the wind related uncertainty subcategory.",
+                            "enum": [
+                              "long_term_period_representativeness",
+                              "reference_data_consistency",
+                              "long_term_adjustment",
+                              "wind_speed_distribution_uncertainty",
+                              "on_site_data_synthesis",
+                              "measured_data_representativeness",
+                              "wind_speed_variability",
+                              "climate_change",
+                              "plant_performance",
+                              "wind_speed_measurement",
+                              "wind_direction_measurement",
+                              "other_atmospheric_parameters",
+                              "data_integrity",
+                              "model_inputs",
+                              "model_sensitivity",
+                              "model_appropriateness",
+                              "model_uncertainty",
+                              "excess_propagated_uncertainty"
+                            ],
+                            "title": "Wind Uncertainty Subcategory Label",
+                            "type": "string"
+                          },
+                          "subcategory_results": {
+                            "description": "Wind related uncertainty assessment subcategory result(s) as dimensionless relative values.",
+                            "items": {
+                              "$ref": "#/definitions/Result"
+                            },
+                            "title": "Subcategory Results",
+                            "type": "array"
+                          }
+                        },
+                        "required": [
+                          "label",
+                          "subcategory_results"
+                        ],
+                        "title": "Wind Uncertainty Subcategory",
+                        "type": "object"
+                      },
+                      "title": "Subcategories",
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "label",
+                    "subcategories",
+                    "category_results"
+                  ],
+                  "title": "Wind Uncertainty Category",
+                  "type": "object"
+                },
+                "title": "Wind Uncertainty Categories",
+                "type": "array"
               }
             },
             "required": [
               "wind_resource_assessment_id_reference",
               "wind_spatial_modelling_processes",
-              "wind_speed_results"
+              "wind_speed_results",
+              "wind_uncertainty_categories"
             ],
             "title": "Turbine Wind Resource Assessment",
             "type": "object"
