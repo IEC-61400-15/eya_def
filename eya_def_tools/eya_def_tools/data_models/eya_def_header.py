@@ -4,6 +4,7 @@
 
 import datetime as dt
 from enum import StrEnum
+from typing import Type
 
 import pycountry
 import pydantic as pdt
@@ -12,7 +13,7 @@ from eya_def_tools.data_models.base_model import EyaDefBaseModel
 from eya_def_tools.data_models.generic_fields import comments_field, description_field
 from eya_def_tools.data_models.report_metadata import Organisation, ReportContributor
 
-Alpha2CountryCode: StrEnum = StrEnum(  # type: ignore
+Alpha2CountryCode: Type[StrEnum] = StrEnum(  # type: ignore
     "Alpha2CountryCode",
     {country.alpha_2: country.alpha_2 for country in pycountry.countries},
 )

@@ -159,6 +159,7 @@
     {
       "description": "ABC165-5.5MW turbine model scenario",
       "energy_assessment": {
+        "energy_uncertainty_categories": [],
         "gross_eya_process": {
           "description": "In-house calculation tool",
           "name": "TurboYield"
@@ -170,6 +171,7 @@
               "turbine"
             ],
             "label": "Gross yield",
+            "quantity": "annual_energy_production",
             "statistics": [
               {
                 "statistic_type": "mean",
@@ -178,13 +180,13 @@
                     [
                       "WTG01"
                     ],
-                    15500.0
+                    15.5
                   ],
                   [
                     [
                       "WTG02"
                     ],
-                    16700.0
+                    16.7
                   ]
                 ]
               }
@@ -193,10 +195,11 @@
           {
             "assessment_period": "lifetime",
             "label": "Gross yield",
+            "quantity": "annual_energy_production",
             "statistics": [
               {
                 "statistic_type": "mean",
-                "values": 32200.0
+                "values": 32.2
               }
             ]
           }
@@ -205,36 +208,38 @@
           {
             "assessment_period": "lifetime",
             "label": "Net yield",
+            "quantity": "annual_energy_production",
             "statistics": [
               {
                 "statistic_type": "median",
-                "values": 31528.6
+                "values": 31.5286
               },
               {
                 "statistic_type": "standard_deviation",
-                "values": 3468.1
+                "values": 3.4681
               },
               {
                 "statistic_type": "p90",
-                "values": 27089.4
+                "values": 27.0894
               }
             ]
           },
           {
             "assessment_period": "any_one_year",
             "label": "Net yield",
+            "quantity": "annual_energy_production",
             "statistics": [
               {
                 "statistic_type": "median",
-                "values": 31528.6
+                "values": 31.5286
               },
               {
                 "statistic_type": "standard_deviation",
-                "values": 4729.3
+                "values": 4.7293
               },
               {
                 "statistic_type": "p90",
-                "values": 25475.1
+                "values": 2.54751
               }
             ]
           }
@@ -249,6 +254,7 @@
                   "turbine"
                 ],
                 "label": "Curtailment",
+                "quantity": "efficiency",
                 "statistics": [
                   {
                     "statistic_type": "mean",
@@ -307,6 +313,7 @@
                       "turbine"
                     ],
                     "label": "Loads curtailment",
+                    "quantity": "efficiency",
                     "statistics": [
                       {
                         "statistic_type": "mean",
@@ -371,6 +378,7 @@
               "turbine"
             ],
             "label": "Turbine-location hub-height long-term wind",
+            "quantity": "wind_speed",
             "statistics": [
               {
                 "statistic_type": "mean",
@@ -387,6 +395,88 @@
                     ],
                     6.95
                   ]
+                ]
+              }
+            ]
+          }
+        ],
+        "wind_uncertainty_categories": [
+          {
+            "category_results": [
+              {
+                "assessment_period": "lifetime",
+                "dimensions": [
+                  "measurement"
+                ],
+                "label": "Historical wind resource uncertainty",
+                "quantity": "relative_uncertainty",
+                "statistics": [
+                  {
+                    "statistic_type": "standard_deviation",
+                    "values": [
+                      [
+                        [
+                          "BF_M1"
+                        ],
+                        0.03201
+                      ]
+                    ]
+                  }
+                ]
+              }
+            ],
+            "label": "historical_wind_resource",
+            "subcategories": [
+              {
+                "label": "long_term_adjustment",
+                "subcategory_results": [
+                  {
+                    "assessment_period": "lifetime",
+                    "dimensions": [
+                      "measurement"
+                    ],
+                    "label": "Long-term adjustment wind speed uncertainty per measurement station",
+                    "quantity": "relative_uncertainty",
+                    "statistics": [
+                      {
+                        "statistic_type": "standard_deviation",
+                        "values": [
+                          [
+                            [
+                              "BF_M1"
+                            ],
+                            0.025
+                          ]
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "label": "reference_data_consistency",
+                "subcategory_results": [
+                  {
+                    "assessment_period": "lifetime",
+                    "dimensions": [
+                      "measurement"
+                    ],
+                    "label": "Long-term consistency wind speed uncertainty per measurement station",
+                    "quantity": "relative_uncertainty",
+                    "statistics": [
+                      {
+                        "statistic_type": "standard_deviation",
+                        "values": [
+                          [
+                            [
+                              "BF_M1"
+                            ],
+                            0.02
+                          ]
+                        ]
+                      }
+                    ]
+                  }
                 ]
               }
             ]
@@ -490,6 +580,7 @@
       "comments": "Site suitability of turbine model has not yet investigated.",
       "description": "PQR169-5.8MW turbine model scenario",
       "energy_assessment": {
+        "energy_uncertainty_categories": [],
         "gross_eya_process": {
           "description": "In-house calculation tool",
           "name": "TurboYield"
@@ -501,6 +592,7 @@
               "turbine"
             ],
             "label": "Gross yield",
+            "quantity": "annual_energy_production",
             "statistics": [
               {
                 "statistic_type": "mean",
@@ -509,13 +601,13 @@
                     [
                       "WTG01"
                     ],
-                    18100.0
+                    18.1
                   ],
                   [
                     [
                       "WTG02"
                     ],
-                    18900.0
+                    18.9
                   ]
                 ]
               }
@@ -524,10 +616,11 @@
           {
             "assessment_period": "lifetime",
             "label": "Gross yield",
+            "quantity": "annual_energy_production",
             "statistics": [
               {
                 "statistic_type": "mean",
-                "values": 37000.0
+                "values": 37.0
               }
             ]
           }
@@ -536,36 +629,38 @@
           {
             "assessment_period": "lifetime",
             "label": "Net yield",
+            "quantity": "annual_energy_production",
             "statistics": [
               {
                 "statistic_type": "median",
-                "values": 35150.0
+                "values": 35.15
               },
               {
                 "statistic_type": "standard_deviation",
-                "values": 4569.5
+                "values": 4.5695
               },
               {
                 "statistic_type": "p90",
-                "values": 29301.0
+                "values": 29.301
               }
             ]
           },
           {
             "assessment_period": "any_one_year",
             "label": "Net yield",
+            "quantity": "annual_energy_production",
             "statistics": [
               {
                 "statistic_type": "median",
-                "values": 35150.0
+                "values": 35.15
               },
               {
                 "statistic_type": "standard_deviation",
-                "values": 5799.8
+                "values": 5.7998
               },
               {
                 "statistic_type": "p90",
-                "values": 27726.3
+                "values": 27.7263
               }
             ]
           }
@@ -580,6 +675,7 @@
                   "turbine"
                 ],
                 "label": "Curtailment",
+                "quantity": "efficiency",
                 "statistics": [
                   {
                     "statistic_type": "mean",
@@ -632,6 +728,7 @@
                       "turbine"
                     ],
                     "label": "Loads curtailment",
+                    "quantity": "efficiency",
                     "statistics": [
                       {
                         "statistic_type": "mean",
@@ -696,6 +793,7 @@
               "turbine"
             ],
             "label": "Turbine-location hub-height long-term wind",
+            "quantity": "wind_speed",
             "statistics": [
               {
                 "statistic_type": "mean",
@@ -712,6 +810,88 @@
                     ],
                     6.94
                   ]
+                ]
+              }
+            ]
+          }
+        ],
+        "wind_uncertainty_categories": [
+          {
+            "category_results": [
+              {
+                "assessment_period": "lifetime",
+                "dimensions": [
+                  "measurement"
+                ],
+                "label": "Historical wind resource uncertainty",
+                "quantity": "relative_uncertainty",
+                "statistics": [
+                  {
+                    "statistic_type": "standard_deviation",
+                    "values": [
+                      [
+                        [
+                          "BF_M1"
+                        ],
+                        0.03201
+                      ]
+                    ]
+                  }
+                ]
+              }
+            ],
+            "label": "historical_wind_resource",
+            "subcategories": [
+              {
+                "label": "long_term_adjustment",
+                "subcategory_results": [
+                  {
+                    "assessment_period": "lifetime",
+                    "dimensions": [
+                      "measurement"
+                    ],
+                    "label": "Long-term adjustment wind speed uncertainty per measurement station",
+                    "quantity": "relative_uncertainty",
+                    "statistics": [
+                      {
+                        "statistic_type": "standard_deviation",
+                        "values": [
+                          [
+                            [
+                              "BF_M1"
+                            ],
+                            0.025
+                          ]
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "label": "reference_data_consistency",
+                "subcategory_results": [
+                  {
+                    "assessment_period": "lifetime",
+                    "dimensions": [
+                      "measurement"
+                    ],
+                    "label": "Long-term consistency wind speed uncertainty per measurement station",
+                    "quantity": "relative_uncertainty",
+                    "statistics": [
+                      {
+                        "statistic_type": "standard_deviation",
+                        "values": [
+                          [
+                            [
+                              "BF_M1"
+                            ],
+                            0.02
+                          ]
+                        ]
+                      }
+                    ]
+                  }
                 ]
               }
             ]
@@ -826,6 +1006,7 @@
             "measurement",
             "height"
           ],
+          "quantity": "wind_speed",
           "statistics": [
             {
               "statistic_type": "mean",

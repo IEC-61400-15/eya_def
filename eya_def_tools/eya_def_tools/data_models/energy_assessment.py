@@ -5,10 +5,10 @@
 import pydantic as pdt
 
 from eya_def_tools.data_models.base_model import EyaDefBaseModel
+from eya_def_tools.data_models.energy_uncertainty import EnergyUncertaintyCategory
 from eya_def_tools.data_models.plant_performance import PlantPerformanceCategory
 from eya_def_tools.data_models.process_description import AssessmentProcessDescription
 from eya_def_tools.data_models.result import Result
-from eya_def_tools.data_models.uncertainty import UncertaintyAssessment
 
 
 class EnergyAssessment(EyaDefBaseModel):
@@ -28,13 +28,10 @@ class EnergyAssessment(EyaDefBaseModel):
         ...,
         description="Plant performance loss assessment categories including results.",
     )
-    net_energy_uncertainty_assessment: UncertaintyAssessment | None = pdt.Field(
-        None,  # TODO remove optional
+    energy_uncertainty_categories: list[EnergyUncertaintyCategory] = pdt.Field(
+        ...,
         description=(
-            "Net energy production uncertainty assessment, including the "
-            "conversion of the wind resource assessment uncertainty results "
-            "from wind speed to energy quantities and results for all main "
-            "energy uncertainty categories."
+            "Energy related uncertainty assessment categories including results."
         ),
     )
     net_eya_results: list[Result] = pdt.Field(

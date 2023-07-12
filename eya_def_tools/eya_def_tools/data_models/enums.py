@@ -37,14 +37,68 @@ class DataSourceType(StrEnum):
     OTHER_SECONDARY = auto()
 
 
+class MeasurementQuantity(StrEnum):
+    """Quantity of a measurement."""
+
+    AIR_DENSITY = auto()
+    ANNUAL_ENERGY_PRODUCTION = auto()
+    DATA_RECOVERY_RATE = auto()
+    DISTANCE = auto()
+    EFFICIENCY = auto()
+    ENERGY = auto()
+    POWER = auto()
+    RELATIVE_UNCERTAINTY = auto()
+    WIND_SHEAR_EXPONENT = auto()
+    TEMPERATURE = auto()
+    TIME = auto()
+    WIND_FROM_DIRECTION = auto()
+    WIND_SPEED = auto()
+
+    @property
+    def measurement_unit(self) -> MeasurementUnit:
+        """The measurement unit of the quantity."""
+        match self:
+            case MeasurementQuantity.AIR_DENSITY:
+                return MeasurementUnit.KILOGRAM_PER_CUBIC_METRE
+            case MeasurementQuantity.ANNUAL_ENERGY_PRODUCTION:
+                return MeasurementUnit.GIGAWATT_HOUR_PER_ANNUM
+            case MeasurementQuantity.DATA_RECOVERY_RATE:
+                return MeasurementUnit.ONE
+            case MeasurementQuantity.DISTANCE:
+                return MeasurementUnit.METRE
+            case MeasurementQuantity.EFFICIENCY:
+                return MeasurementUnit.ONE
+            case MeasurementQuantity.ENERGY:
+                return MeasurementUnit.GIGAWATT_HOUR
+            case MeasurementQuantity.POWER:
+                return MeasurementUnit.MEGAWATT
+            case MeasurementQuantity.RELATIVE_UNCERTAINTY:
+                return MeasurementUnit.ONE
+            case MeasurementQuantity.WIND_SHEAR_EXPONENT:
+                return MeasurementUnit.ONE
+            case MeasurementQuantity.TEMPERATURE:
+                return MeasurementUnit.DEGREE_CELSIUS
+            case MeasurementQuantity.TIME:
+                return MeasurementUnit.HOUR
+            case MeasurementQuantity.WIND_FROM_DIRECTION:
+                return MeasurementUnit.DEGREE
+            case MeasurementQuantity.WIND_SPEED:
+                return MeasurementUnit.METRE_PER_SECOND
+
+
 class MeasurementUnit(StrEnum):
     """Unit in which a quantity is measured."""
 
-    DIMENSIONLESS = "1"
-    KILOWATT = "kW"
-    MEGAWATT_HOUR = "MW h"
-    MEGAWATT_HOUR_PER_ANNUM = "MW h year-1"
+    DEGREE = "degree"
+    DEGREE_CELSIUS = "degree_C"
+    MEGAWATT = "MW"
+    GIGAWATT_HOUR = "GW h"
+    GIGAWATT_HOUR_PER_ANNUM = "GW h year-1"
+    HOUR = "h"
+    KILOGRAM_PER_CUBIC_METRE = "kg m-3"
+    METRE = "m"
     METRE_PER_SECOND = "m s-1"
+    ONE = "1"  # Applies to all dimensionless quantities
 
 
 class OperationalDataLevel(StrEnum):
@@ -116,91 +170,56 @@ class PlantPerformanceSubcategoryLabel(StrEnum):
     UPSIDE_SCENARIOS = auto()
     OTHER = auto()
 
-    @classmethod
-    def subcategory_to_category_map(
-        cls,
-    ) -> dict[PlantPerformanceSubcategoryLabel, PlantPerformanceCategoryLabel]:
-        """Dictionary mapping each subcategory to the parent category."""
-        return {
-            PlantPerformanceSubcategoryLabel.INTERNAL_TURBINE_INTERACTION: (
-                PlantPerformanceCategoryLabel.TURBINE_INTERACTION
-            ),
-            PlantPerformanceSubcategoryLabel.EXTERNAL_TURBINE_INTERACTION: (
-                PlantPerformanceCategoryLabel.TURBINE_INTERACTION
-            ),
-            PlantPerformanceSubcategoryLabel.FUTURE_TURBINE_INTERACTION: (
-                PlantPerformanceCategoryLabel.TURBINE_INTERACTION
-            ),
-            PlantPerformanceSubcategoryLabel.TURBINE_AVAILABILITY: (
-                PlantPerformanceCategoryLabel.AVAILABILITY
-            ),
-            PlantPerformanceSubcategoryLabel.BOP_AVAILABILITY: (
-                PlantPerformanceCategoryLabel.AVAILABILITY
-            ),
-            PlantPerformanceSubcategoryLabel.GRID_AVAILABILITY: (
-                PlantPerformanceCategoryLabel.AVAILABILITY
-            ),
-            PlantPerformanceSubcategoryLabel.ELECTRICAL_EFFICIENCY: (
-                PlantPerformanceCategoryLabel.ELECTRICAL
-            ),
-            PlantPerformanceSubcategoryLabel.FACILITY_PARASITIC_CONSUMPTION: (
-                PlantPerformanceCategoryLabel.ELECTRICAL
-            ),
-            PlantPerformanceSubcategoryLabel.SUB_OPTIMAL_PERFORMANCE: (
-                PlantPerformanceCategoryLabel.TURBINE_PERFORMANCE
-            ),
-            PlantPerformanceSubcategoryLabel.GENERIC_POWER_CURVE_ADJUSTMENT: (
-                PlantPerformanceCategoryLabel.TURBINE_PERFORMANCE
-            ),
-            PlantPerformanceSubcategoryLabel.SITE_SPECIFIC_POWER_CURVE_ADJUSTMENT: (
-                PlantPerformanceCategoryLabel.TURBINE_PERFORMANCE
-            ),
-            PlantPerformanceSubcategoryLabel.HIGH_WIND_HYSTERESIS: (
-                PlantPerformanceCategoryLabel.TURBINE_PERFORMANCE
-            ),
-            PlantPerformanceSubcategoryLabel.ICING: (
-                PlantPerformanceCategoryLabel.ENVIRONMENTAL
-            ),
-            PlantPerformanceSubcategoryLabel.DEGRADATION: (
-                PlantPerformanceCategoryLabel.ENVIRONMENTAL
-            ),
-            PlantPerformanceSubcategoryLabel.EXTERNAL_CONDITIONS: (
-                PlantPerformanceCategoryLabel.ENVIRONMENTAL
-            ),
-            PlantPerformanceSubcategoryLabel.EXPOSURE_CHANGES: (
-                PlantPerformanceCategoryLabel.ENVIRONMENTAL
-            ),
-            PlantPerformanceSubcategoryLabel.LOAD_CURTAILMENT: (
-                PlantPerformanceCategoryLabel.CURTAILMENT
-            ),
-            PlantPerformanceSubcategoryLabel.GRID_CURTAILMENT: (
-                PlantPerformanceCategoryLabel.CURTAILMENT
-            ),
-            PlantPerformanceSubcategoryLabel.ENVIRONMENTAL_CURTAILMENT: (
-                PlantPerformanceCategoryLabel.CURTAILMENT
-            ),
-            PlantPerformanceSubcategoryLabel.OPERATIONAL_STRATEGIES: (
-                PlantPerformanceCategoryLabel.CURTAILMENT
-            ),
-            PlantPerformanceSubcategoryLabel.ASYMMETRIC_EFFECTS: (
-                PlantPerformanceCategoryLabel.OTHER
-            ),
-            PlantPerformanceSubcategoryLabel.UPSIDE_SCENARIOS: (
-                PlantPerformanceCategoryLabel.OTHER
-            ),
-            PlantPerformanceSubcategoryLabel.OTHER: (
-                PlantPerformanceCategoryLabel.OTHER
-            ),
-        }
-
     @property
     def category(self) -> PlantPerformanceCategoryLabel:
-        """Get the category corresponding to the component.
-
-        :return: The ``PlantPerformanceCategoryLabel`` that the
-            component label belongs to.
-        """
-        return self.subcategory_to_category_map()[self]
+        """The category parent corresponding to the subcategory."""
+        match self:
+            case PlantPerformanceSubcategoryLabel.INTERNAL_TURBINE_INTERACTION:
+                return PlantPerformanceCategoryLabel.TURBINE_INTERACTION
+            case PlantPerformanceSubcategoryLabel.EXTERNAL_TURBINE_INTERACTION:
+                return PlantPerformanceCategoryLabel.TURBINE_INTERACTION
+            case PlantPerformanceSubcategoryLabel.FUTURE_TURBINE_INTERACTION:
+                return PlantPerformanceCategoryLabel.TURBINE_INTERACTION
+            case PlantPerformanceSubcategoryLabel.TURBINE_AVAILABILITY:
+                return PlantPerformanceCategoryLabel.AVAILABILITY
+            case PlantPerformanceSubcategoryLabel.BOP_AVAILABILITY:
+                return PlantPerformanceCategoryLabel.AVAILABILITY
+            case PlantPerformanceSubcategoryLabel.GRID_AVAILABILITY:
+                return PlantPerformanceCategoryLabel.AVAILABILITY
+            case PlantPerformanceSubcategoryLabel.ELECTRICAL_EFFICIENCY:
+                return PlantPerformanceCategoryLabel.ELECTRICAL
+            case PlantPerformanceSubcategoryLabel.FACILITY_PARASITIC_CONSUMPTION:
+                return PlantPerformanceCategoryLabel.ELECTRICAL
+            case PlantPerformanceSubcategoryLabel.SUB_OPTIMAL_PERFORMANCE:
+                return PlantPerformanceCategoryLabel.TURBINE_PERFORMANCE
+            case PlantPerformanceSubcategoryLabel.GENERIC_POWER_CURVE_ADJUSTMENT:
+                return PlantPerformanceCategoryLabel.TURBINE_PERFORMANCE
+            case PlantPerformanceSubcategoryLabel.SITE_SPECIFIC_POWER_CURVE_ADJUSTMENT:
+                return PlantPerformanceCategoryLabel.TURBINE_PERFORMANCE
+            case PlantPerformanceSubcategoryLabel.HIGH_WIND_HYSTERESIS:
+                return PlantPerformanceCategoryLabel.TURBINE_PERFORMANCE
+            case PlantPerformanceSubcategoryLabel.ICING:
+                return PlantPerformanceCategoryLabel.ENVIRONMENTAL
+            case PlantPerformanceSubcategoryLabel.DEGRADATION:
+                return PlantPerformanceCategoryLabel.ENVIRONMENTAL
+            case PlantPerformanceSubcategoryLabel.EXTERNAL_CONDITIONS:
+                return PlantPerformanceCategoryLabel.ENVIRONMENTAL
+            case PlantPerformanceSubcategoryLabel.EXPOSURE_CHANGES:
+                return PlantPerformanceCategoryLabel.ENVIRONMENTAL
+            case PlantPerformanceSubcategoryLabel.LOAD_CURTAILMENT:
+                return PlantPerformanceCategoryLabel.CURTAILMENT
+            case PlantPerformanceSubcategoryLabel.GRID_CURTAILMENT:
+                return PlantPerformanceCategoryLabel.CURTAILMENT
+            case PlantPerformanceSubcategoryLabel.ENVIRONMENTAL_CURTAILMENT:
+                return PlantPerformanceCategoryLabel.CURTAILMENT
+            case PlantPerformanceSubcategoryLabel.OPERATIONAL_STRATEGIES:
+                return PlantPerformanceCategoryLabel.CURTAILMENT
+            case PlantPerformanceSubcategoryLabel.ASYMMETRIC_EFFECTS:
+                return PlantPerformanceCategoryLabel.OTHER
+            case PlantPerformanceSubcategoryLabel.UPSIDE_SCENARIOS:
+                return PlantPerformanceCategoryLabel.OTHER
+            case PlantPerformanceSubcategoryLabel.OTHER:
+                return PlantPerformanceCategoryLabel.OTHER
 
 
 class ReportContributorType(StrEnum):
@@ -222,30 +241,6 @@ class ResultsDimension(StrEnum):
     MONTH = auto()
     TURBINE = auto()
     YEAR = auto()
-
-
-class ResultsQuantity(StrEnum):
-    """Quantity of a set of results."""
-
-    AIR_DENSITY = auto()
-    DATA_RECOVERY_RATE = auto()
-    DISTANCE = auto()
-    ENERGY = auto()
-    POWER = auto()
-    POWER_LAW_WIND_SHEAR_EXPONENT = auto()
-    TEMPERATURE = auto()
-    TIME = auto()
-    WIND_FROM_DIRECTION = auto()
-    WIND_SPEED = auto()
-
-    @classmethod
-    def results_quantity_to_unit_map(cls) -> dict[ResultsQuantity, MeasurementUnit]:
-        return {}
-
-    @property
-    def measurement_unit(self) -> MeasurementUnit:
-        """The measurement unit of the quantity."""
-        return self.results_quantity_to_unit_map()[self]
 
 
 class StatisticType(StrEnum):
@@ -281,17 +276,6 @@ class TimeVariabilityType(StrEnum):
     OTHER = auto()
 
 
-class UncertaintyCategoryLabel(StrEnum):
-    """Category labels in the wind resource uncertainty assessment."""
-
-    MEASUREMENT = auto()
-    HISTORICAL = auto()
-    VERTICAL = auto()
-    HORIZONTAL = auto()
-
-    OTHER = auto()
-
-
 class WindFarmRelevance(StrEnum):
     """The relevance of a wind farm in the context of an EYA."""
 
@@ -300,21 +284,88 @@ class WindFarmRelevance(StrEnum):
     FUTURE = auto()
 
 
-class WindResourceAssessmentStepType(StrEnum):
-    """Type of step in a wind resource assessment.
+class WindUncertaintyCategoryLabel(StrEnum):
+    """Category labels in the wind uncertainty assessment."""
 
-    The scope of this enum is limited to the assessment of wind resource
-    at the measurement locations and therefore does not cover the
-    horizontal extrapolation.
-    """
-
-    DATA_FILTERING = auto()
-    TURBINE_INTERACTION_CORRECTION = auto()
-    MEASUREMENT_STRUCTURE_RELATED_CORRECTION = auto()
-    TERRAIN_RELATED_CORRECTION = auto()
-    ONSITE_DATA_SYNTHESIS = auto()
-    LONG_TERM_PREDICTION = auto()
+    HISTORICAL_WIND_RESOURCE = auto()
+    EVALUATION_PERIOD_ANNUAL_VARIABILITY = auto()  # Project evaluation period
+    MEASUREMENT_UNCERTAINTY = auto()
+    HORIZONTAL_EXTRAPOLATION = auto()
     VERTICAL_EXTRAPOLATION = auto()
-    MODEL_CALIBRATION = auto()
 
-    OTHER = auto()
+    # TODO - do we also need an "OTHER" category
+
+
+class WindUncertaintySubcategoryLabel(StrEnum):
+    """Subcategory labels in the wind uncertainty assessment."""
+
+    # Historical wind resource
+    LONG_TERM_PERIOD_REPRESENTATIVENESS = auto()
+    REFERENCE_DATA_CONSISTENCY = auto()
+    LONG_TERM_ADJUSTMENT = auto()
+    WIND_SPEED_DISTRIBUTION_UNCERTAINTY = auto()
+    ON_SITE_DATA_SYNTHESIS = auto()
+    MEASURED_DATA_REPRESENTATIVENESS = auto()
+
+    # Project evaluation period annual variability
+    WIND_SPEED_VARIABILITY = auto()
+    CLIMATE_CHANGE = auto()
+    PLANT_PERFORMANCE = auto()  # TODO clarify distinction to energy uncertainty
+
+    # Measurement uncertainty
+    WIND_SPEED_MEASUREMENT = auto()
+    WIND_DIRECTION_MEASUREMENT = auto()  # TODO clarify conversion to wind speed
+    OTHER_ATMOSPHERIC_PARAMETERS = auto()  # TODO clarify conversion to wind speed
+    DATA_INTEGRITY = auto()  # Includes data integrity and documentation
+
+    # Horizontal extrapolation
+    MODEL_INPUTS = auto()
+    MODEL_SENSITIVITY = auto()  # Covering model stress tests
+    MODEL_APPROPRIATENESS = auto()
+
+    # Vertical extrapolation
+    MODEL_UNCERTAINTY = auto()
+    EXCESS_PROPAGATED_UNCERTAINTY = auto()  # Propagated from measurement uncertainty
+
+    # TODO - do we also need an "OTHER" subcategory
+
+    @property
+    def category(self) -> WindUncertaintyCategoryLabel:
+        """The category parent corresponding to the subcategory."""
+        match self:
+            case WindUncertaintySubcategoryLabel.LONG_TERM_PERIOD_REPRESENTATIVENESS:
+                return WindUncertaintyCategoryLabel.HISTORICAL_WIND_RESOURCE
+            case WindUncertaintySubcategoryLabel.REFERENCE_DATA_CONSISTENCY:
+                return WindUncertaintyCategoryLabel.HISTORICAL_WIND_RESOURCE
+            case WindUncertaintySubcategoryLabel.LONG_TERM_ADJUSTMENT:
+                return WindUncertaintyCategoryLabel.HISTORICAL_WIND_RESOURCE
+            case WindUncertaintySubcategoryLabel.WIND_SPEED_DISTRIBUTION_UNCERTAINTY:
+                return WindUncertaintyCategoryLabel.HISTORICAL_WIND_RESOURCE
+            case WindUncertaintySubcategoryLabel.ON_SITE_DATA_SYNTHESIS:
+                return WindUncertaintyCategoryLabel.HISTORICAL_WIND_RESOURCE
+            case WindUncertaintySubcategoryLabel.MEASURED_DATA_REPRESENTATIVENESS:
+                return WindUncertaintyCategoryLabel.HISTORICAL_WIND_RESOURCE
+            case WindUncertaintySubcategoryLabel.WIND_SPEED_VARIABILITY:
+                return WindUncertaintyCategoryLabel.EVALUATION_PERIOD_ANNUAL_VARIABILITY
+            case WindUncertaintySubcategoryLabel.CLIMATE_CHANGE:
+                return WindUncertaintyCategoryLabel.EVALUATION_PERIOD_ANNUAL_VARIABILITY
+            case WindUncertaintySubcategoryLabel.PLANT_PERFORMANCE:
+                return WindUncertaintyCategoryLabel.EVALUATION_PERIOD_ANNUAL_VARIABILITY
+            case WindUncertaintySubcategoryLabel.WIND_SPEED_MEASUREMENT:
+                return WindUncertaintyCategoryLabel.MEASUREMENT_UNCERTAINTY
+            case WindUncertaintySubcategoryLabel.WIND_DIRECTION_MEASUREMENT:
+                return WindUncertaintyCategoryLabel.MEASUREMENT_UNCERTAINTY
+            case WindUncertaintySubcategoryLabel.OTHER_ATMOSPHERIC_PARAMETERS:
+                return WindUncertaintyCategoryLabel.MEASUREMENT_UNCERTAINTY
+            case WindUncertaintySubcategoryLabel.DATA_INTEGRITY:
+                return WindUncertaintyCategoryLabel.MEASUREMENT_UNCERTAINTY
+            case WindUncertaintySubcategoryLabel.MODEL_INPUTS:
+                return WindUncertaintyCategoryLabel.HORIZONTAL_EXTRAPOLATION
+            case WindUncertaintySubcategoryLabel.MODEL_SENSITIVITY:
+                return WindUncertaintyCategoryLabel.HORIZONTAL_EXTRAPOLATION
+            case WindUncertaintySubcategoryLabel.MODEL_APPROPRIATENESS:
+                return WindUncertaintyCategoryLabel.HORIZONTAL_EXTRAPOLATION
+            case WindUncertaintySubcategoryLabel.MODEL_UNCERTAINTY:
+                return WindUncertaintyCategoryLabel.VERTICAL_EXTRAPOLATION
+            case WindUncertaintySubcategoryLabel.EXCESS_PROPAGATED_UNCERTAINTY:
+                return WindUncertaintyCategoryLabel.VERTICAL_EXTRAPOLATION

@@ -9,8 +9,8 @@ import pydantic as pdt
 from eya_def_tools.data_models.base_model import EyaDefBaseModel
 from eya_def_tools.data_models.enums import (
     AssessmentPeriod,
+    MeasurementQuantity,
     ResultsDimension,
-    ResultsQuantity,
     StatisticType,
 )
 from eya_def_tools.data_models.generic_fields import comments_field, description_field
@@ -42,7 +42,7 @@ class ResultStatistic(EyaDefBaseModel):
 class Result(EyaDefBaseModel):
     """Set of results for an element of an energy assessment."""
 
-    quantity: ResultsQuantity | None = pdt.Field(
+    quantity: MeasurementQuantity | None = pdt.Field(
         None,
         description=(
             "The quantity that the set of results describe, where this is not "

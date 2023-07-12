@@ -80,6 +80,8 @@ class PlantPerformanceSubcategory(EyaDefBaseModel):
         ...,
         description="Label of the plant performance loss subcategory.",
     )
+    description: str | None = description_field
+    comments: str | None = comments_field
     basis: AssessmentBasis = pdt.Field(
         ...,
         description=(
@@ -114,7 +116,7 @@ class PlantPerformanceSubcategory(EyaDefBaseModel):
         None,
         description=(
             "Plant performance loss assessment elements that fall under the "
-            "the subcategory. The element objects include details and results "
+            "subcategory. The element objects include details and results "
             "at the element level. A breakdown of plant performance loss "
             "subcategories into elements is optional and can be included only "
             "for a subset of the subcategories, as relevant. Whereas the "
@@ -138,6 +140,8 @@ class PlantPerformanceCategory(EyaDefBaseModel):
         ...,
         description="Label of the plant performance loss category.",
     )
+    description: str | None = description_field
+    comments: str | None = comments_field
     subcategories: list[PlantPerformanceSubcategory] = pdt.Field(
         ...,
         description=(

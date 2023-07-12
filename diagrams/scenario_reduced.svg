@@ -13,29 +13,29 @@
 <!-- eya_def_tools.data_models.energy_assessment.EnergyAssessment -->
 <g id="node1" class="node">
 <title>eya_def_tools.data_models.energy_assessment.EnergyAssessment</title>
-<g id="a_node1"><a xlink:title="eya_def_tools.data_models.energy_assessment.EnergyAssessment&#10;&#10;Energy assessment details and results.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;gross_eya_process (AssessmentProcessDescription): Specification of the model used to calculate the gross EYA estimates.&#10; &#160;&#160;&#160;gross_eya_results (list[Result]): Gross energy production predictions in GWh.&#10; &#160;&#160;&#160;plant_performance_loss_categories (list[PlantPerformanceCategory]): Plant performance loss assessment categories including results.&#10; &#160;&#160;&#160;net_energy_uncertainty_assessment (Optional[UncertaintyAssessment]): Net energy production uncertainty assessment, including the conversion of the wind resource assessment uncertainty results from wind speed to energy quantities and results for all main energy uncertainty categories. Default is None.&#10; &#160;&#160;&#160;net_eya_results (list[Result]): Net energy production predictions in GWh, including overall uncertainties and results at different confidence levels.&#10;">
-<polygon fill="none" stroke="black" points="536,-123 536,-144 936,-144 936,-123 536,-123"/>
+<g id="a_node1"><a xlink:title="eya_def_tools.data_models.energy_assessment.EnergyAssessment&#10;&#10;Energy assessment details and results.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;gross_eya_process (AssessmentProcessDescription): Specification of the model used to calculate the gross EYA estimates.&#10; &#160;&#160;&#160;gross_eya_results (list[Result]): Gross energy production predictions in GWh.&#10; &#160;&#160;&#160;plant_performance_loss_categories (list[PlantPerformanceCategory]): Plant performance loss assessment categories including results.&#10; &#160;&#160;&#160;energy_uncertainty_categories (list[EnergyUncertaintyCategory]): Energy related uncertainty assessment categories including results.&#10; &#160;&#160;&#160;net_eya_results (list[Result]): Net energy production predictions in GWh, including overall uncertainties and results at different confidence levels.&#10;">
+<polygon fill="none" stroke="black" points="541,-123 541,-144 931,-144 931,-123 541,-123"/>
 <text text-anchor="start" x="678.5" y="-130.8" font-family="Times New Roman,serif" font-weight="bold" font-size="14.00">EnergyAssessment</text>
-<polygon fill="none" stroke="black" points="536,-102 536,-123 742,-123 742,-102 536,-102"/>
-<text text-anchor="start" x="584.5" y="-108.8" font-family="Times New Roman,serif" font-size="14.00">gross_eya_process</text>
-<polygon fill="none" stroke="black" points="742,-102 742,-123 936,-123 936,-102 742,-102"/>
-<text text-anchor="start" x="750.5" y="-108.8" font-family="Times New Roman,serif" font-size="14.00">AssessmentProcessDescription</text>
-<polygon fill="none" stroke="black" points="536,-81 536,-102 742,-102 742,-81 536,-81"/>
-<text text-anchor="start" x="588.5" y="-87.8" font-family="Times New Roman,serif" font-size="14.00">gross_eya_results</text>
-<polygon fill="none" stroke="black" points="742,-81 742,-102 936,-102 936,-81 742,-81"/>
-<text text-anchor="start" x="808.5" y="-87.8" font-family="Times New Roman,serif" font-size="14.00">list[Result]</text>
-<polygon fill="none" stroke="black" points="536,-60 536,-81 742,-81 742,-60 536,-60"/>
-<text text-anchor="start" x="539.5" y="-66.8" font-family="Times New Roman,serif" font-size="14.00">plant_performance_loss_categories</text>
-<polygon fill="none" stroke="black" points="742,-60 742,-81 936,-81 936,-60 742,-60"/>
-<text text-anchor="start" x="751.5" y="-66.8" font-family="Times New Roman,serif" font-size="14.00">list[PlantPerformanceCategory]</text>
-<polygon fill="none" stroke="black" points="536,-39 536,-60 742,-60 742,-39 536,-39"/>
-<text text-anchor="start" x="539" y="-45.8" font-family="Times New Roman,serif" font-size="14.00">net_energy_uncertainty_assessment</text>
-<polygon fill="none" stroke="black" points="742,-39 742,-60 936,-60 936,-39 742,-39"/>
-<text text-anchor="start" x="745" y="-45.8" font-family="Times New Roman,serif" font-size="14.00">Optional[UncertaintyAssessment]</text>
-<polygon fill="none" stroke="black" points="536,-18 536,-39 742,-39 742,-18 536,-18"/>
-<text text-anchor="start" x="595.5" y="-24.8" font-family="Times New Roman,serif" font-size="14.00">net_eya_results</text>
-<polygon fill="none" stroke="black" points="742,-18 742,-39 936,-39 936,-18 742,-18"/>
-<text text-anchor="start" x="808.5" y="-24.8" font-family="Times New Roman,serif" font-size="14.00">list[Result]</text>
+<polygon fill="none" stroke="black" points="541,-102 541,-123 746,-123 746,-102 541,-102"/>
+<text text-anchor="start" x="589" y="-108.8" font-family="Times New Roman,serif" font-size="14.00">gross_eya_process</text>
+<polygon fill="none" stroke="black" points="746,-102 746,-123 931,-123 931,-102 746,-102"/>
+<text text-anchor="start" x="750" y="-108.8" font-family="Times New Roman,serif" font-size="14.00">AssessmentProcessDescription</text>
+<polygon fill="none" stroke="black" points="541,-81 541,-102 746,-102 746,-81 541,-81"/>
+<text text-anchor="start" x="593" y="-87.8" font-family="Times New Roman,serif" font-size="14.00">gross_eya_results</text>
+<polygon fill="none" stroke="black" points="746,-81 746,-102 931,-102 931,-81 746,-81"/>
+<text text-anchor="start" x="808" y="-87.8" font-family="Times New Roman,serif" font-size="14.00">list[Result]</text>
+<polygon fill="none" stroke="black" points="541,-60 541,-81 746,-81 746,-60 541,-60"/>
+<text text-anchor="start" x="544" y="-66.8" font-family="Times New Roman,serif" font-size="14.00">plant_performance_loss_categories</text>
+<polygon fill="none" stroke="black" points="746,-60 746,-81 931,-81 931,-60 746,-60"/>
+<text text-anchor="start" x="751" y="-66.8" font-family="Times New Roman,serif" font-size="14.00">list[PlantPerformanceCategory]</text>
+<polygon fill="none" stroke="black" points="541,-39 541,-60 746,-60 746,-39 541,-39"/>
+<text text-anchor="start" x="559" y="-45.8" font-family="Times New Roman,serif" font-size="14.00">energy_uncertainty_categories</text>
+<polygon fill="none" stroke="black" points="746,-39 746,-60 931,-60 931,-39 746,-39"/>
+<text text-anchor="start" x="749" y="-45.8" font-family="Times New Roman,serif" font-size="14.00">list[EnergyUncertaintyCategory]</text>
+<polygon fill="none" stroke="black" points="541,-18 541,-39 746,-39 746,-18 541,-18"/>
+<text text-anchor="start" x="600" y="-24.8" font-family="Times New Roman,serif" font-size="14.00">net_eya_results</text>
+<polygon fill="none" stroke="black" points="746,-18 746,-39 931,-39 931,-18 746,-18"/>
+<text text-anchor="start" x="808" y="-24.8" font-family="Times New Roman,serif" font-size="14.00">list[Result]</text>
 </a>
 </g>
 </g>
@@ -87,12 +87,12 @@
 <!-- eya_def_tools.data_models.scenario.Scenario&#45;&gt;eya_def_tools.data_models.energy_assessment.EnergyAssessment -->
 <g id="edge1" class="edge">
 <title>eya_def_tools.data_models.scenario.Scenario:e&#45;&gt;eya_def_tools.data_models.energy_assessment.EnergyAssessment:w</title>
-<path fill="none" stroke="black" d="M406,-296C492.65,-296 448.91,-152.43 520.28,-135.6"/>
-<polyline fill="none" stroke="black" points="535,-134 530.03,-134.54"/>
-<polygon fill="black" stroke="black" points="528.49,-129.68 529.58,-139.62 527.59,-139.84 526.51,-129.9 528.49,-129.68"/>
-<polyline fill="none" stroke="black" points="530.03,-134.54 525.06,-135.08"/>
-<polygon fill="black" stroke="black" points="523.52,-130.22 524.61,-140.16 522.62,-140.38 521.54,-130.44 523.52,-130.22"/>
-<polyline fill="none" stroke="black" points="525.06,-135.08 520.09,-135.62"/>
+<path fill="none" stroke="black" d="M406,-296C494.15,-296 452.08,-151.83 525.48,-135.5"/>
+<polyline fill="none" stroke="black" points="540,-134 535.03,-134.51"/>
+<polygon fill="black" stroke="black" points="533.52,-129.64 534.55,-139.59 532.56,-139.8 531.53,-129.85 533.52,-129.64"/>
+<polyline fill="none" stroke="black" points="535.03,-134.51 530.05,-135.03"/>
+<polygon fill="black" stroke="black" points="528.54,-130.16 529.57,-140.1 527.58,-140.31 526.55,-130.36 528.54,-130.16"/>
+<polyline fill="none" stroke="black" points="530.05,-135.03 525.08,-135.54"/>
 </g>
 <!-- eya_def_tools.data_models.wind_farm.WindFarmConfiguration -->
 <g id="node3" class="node">
@@ -149,7 +149,7 @@
 <!-- eya_def_tools.data_models.wind_resource.TurbineWindResourceAssessment -->
 <g id="node4" class="node">
 <title>eya_def_tools.data_models.wind_resource.TurbineWindResourceAssessment</title>
-<g id="a_node4"><a xlink:title="eya_def_tools.data_models.wind_resource.TurbineWindResourceAssessment&#10;&#10;Wind resource assessment at the turbine locations.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;wind_resource_assessment_id_reference (str): The ID of the wind resource assessment on which the turbine wind resource assessment is based. This must refer to an ID of a wind resource assessment included at the top level of the EYA DEF. The schema requires that a turbine wind resource assessment is based on only one wind resource assessment.&#10; &#160;&#160;&#160;description (Optional[str]): Description of the data object. Default is None.&#10; &#160;&#160;&#160;comments (Optional[str]): Comments on the data object. Default is None.&#10; &#160;&#160;&#160;wind_spatial_modelling_processes (list[AssessmentProcessDescription]): Wind spatial modelling processes used in the assessment.&#10; &#160;&#160;&#160;wind_speed_results (list[Result]): Final long&#45;term wind speed estimates at the turbine location(s).&#10; &#160;&#160;&#160;wind_resource_uncertainty_assessment (Optional[UncertaintyAssessment]): Turbine wind resource uncertainty assessment. Default is None.&#10;">
+<g id="a_node4"><a xlink:title="eya_def_tools.data_models.wind_resource.TurbineWindResourceAssessment&#10;&#10;Wind resource assessment at the turbine locations.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;wind_resource_assessment_id_reference (str): The ID of the wind resource assessment on which the turbine wind resource assessment is based. This must refer to an ID of a wind resource assessment included at the top level of the EYA DEF. The schema requires that a turbine wind resource assessment is based on only one wind resource assessment.&#10; &#160;&#160;&#160;description (Optional[str]): Description of the data object. Default is None.&#10; &#160;&#160;&#160;comments (Optional[str]): Comments on the data object. Default is None.&#10; &#160;&#160;&#160;wind_spatial_modelling_processes (list[AssessmentProcessDescription]): Wind spatial modelling processes used in the assessment.&#10; &#160;&#160;&#160;wind_speed_results (list[Result]): Final long&#45;term wind speed estimates at the turbine location(s).&#10; &#160;&#160;&#160;wind_uncertainty_categories (list[WindUncertaintyCategory]): Wind related uncertainty assessment categories including results.&#10;">
 <polygon fill="none" stroke="black" points="514,-306 514,-327 958,-327 958,-306 514,-306"/>
 <text text-anchor="start" x="630.5" y="-313.8" font-family="Times New Roman,serif" font-weight="bold" font-size="14.00">TurbineWindResourceAssessment</text>
 <polygon fill="none" stroke="black" points="514,-285 514,-306 750,-306 750,-285 514,-285"/>
@@ -173,9 +173,9 @@
 <polygon fill="none" stroke="black" points="750,-201 750,-222 958,-222 958,-201 750,-201"/>
 <text text-anchor="start" x="823.5" y="-207.8" font-family="Times New Roman,serif" font-size="14.00">list[Result]</text>
 <polygon fill="none" stroke="black" points="514,-180 514,-201 750,-201 750,-180 514,-180"/>
-<text text-anchor="start" x="521" y="-186.8" font-family="Times New Roman,serif" font-size="14.00">wind_resource_uncertainty_assessment</text>
+<text text-anchor="start" x="552" y="-186.8" font-family="Times New Roman,serif" font-size="14.00">wind_uncertainty_categories</text>
 <polygon fill="none" stroke="black" points="750,-180 750,-201 958,-201 958,-180 750,-180"/>
-<text text-anchor="start" x="760" y="-186.8" font-family="Times New Roman,serif" font-size="14.00">Optional[UncertaintyAssessment]</text>
+<text text-anchor="start" x="768.5" y="-186.8" font-family="Times New Roman,serif" font-size="14.00">list[WindUncertaintyCategory]</text>
 </a>
 </g>
 </g>

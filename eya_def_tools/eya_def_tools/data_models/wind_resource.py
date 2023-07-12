@@ -15,34 +15,10 @@ level.
 import pydantic as pdt
 
 from eya_def_tools.data_models.base_model import EyaDefBaseModel
-from eya_def_tools.data_models.enums import WindResourceAssessmentStepType
 from eya_def_tools.data_models.generic_fields import comments_field, description_field
 from eya_def_tools.data_models.process_description import AssessmentProcessDescription
 from eya_def_tools.data_models.result import Result
-from eya_def_tools.data_models.uncertainty import UncertaintyAssessment
-
-
-class WindResourceAssessmentStep(EyaDefBaseModel):
-    """A step in a wind resource assessment at measurement location(s).
-
-    A step can be a data processing procedure (e.g. filtering for
-    spurious data) or a model extrapolation procedure (e.g. temporal
-    extrapolation using long-term reference data).
-    """
-
-    # TODO - this is an initial placeholder that needs to be developed
-    #        it will not be included in the fist version of the schema
-
-    label: WindResourceAssessmentStepType = pdt.Field(
-        ...,
-        description="Label of the plant performance loss subcategory.",
-    )
-    description: str | None = description_field
-    comments: str | None = comments_field
-    results: list[Result] = pdt.Field(
-        ...,
-        description="Results of the wind resource assessment step.",
-    )
+from eya_def_tools.data_models.wind_uncertainty import WindUncertaintyCategory
 
 
 class WindResourceAssessment(EyaDefBaseModel):
@@ -57,6 +33,7 @@ class WindResourceAssessment(EyaDefBaseModel):
     )
     description: str | None = description_field
     comments: str | None = comments_field
+    # TODO consider changing from 'wind_speed_results' to just 'results'
     wind_speed_results: list[Result] = pdt.Field(
         ...,
         description=(
@@ -64,9 +41,6 @@ class WindResourceAssessment(EyaDefBaseModel):
             "assessment at the measurement location(s)."
         ),
     )
-
-    # TODO - Placeholder for assessment steps to be considered at a later stage
-    # steps: list[WindResourceAssessmentStep]
 
 
 class TurbineWindResourceAssessment(EyaDefBaseModel):
@@ -88,13 +62,13 @@ class TurbineWindResourceAssessment(EyaDefBaseModel):
     wind_spatial_modelling_processes: list[AssessmentProcessDescription] = pdt.Field(
         ..., description="Wind spatial modelling processes used in the assessment."
     )
+    # TODO consider changing from 'wind_speed_results' to just 'results'
     wind_speed_results: list[Result] = pdt.Field(
         ...,
         description="Final long-term wind speed estimates at the turbine location(s).",
     )
-    wind_resource_uncertainty_assessment: UncertaintyAssessment | None = pdt.Field(
-        None,
-        description="Turbine wind resource uncertainty assessment.",
-    )  # TODO should not be optional
-
     # TODO consider including measurement station weighting
+    wind_uncertainty_categories: list[WindUncertaintyCategory] = pdt.Field(
+        ...,
+        description="Wind related uncertainty assessment categories including results.",
+    )

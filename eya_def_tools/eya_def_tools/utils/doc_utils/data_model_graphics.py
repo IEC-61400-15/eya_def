@@ -102,6 +102,13 @@ def draw_wind_resource_assessment() -> None:
     diagram.draw("wind_resource_assessment.svg")
 
 
+def draw_turbine_wind_resource_assessment() -> None:
+    """Draw diagram of the turbine wind resource assessment schema."""
+    diagram = erd.create(TurbineWindResourceAssessment)
+    diagram.draw("turbine_wind_resource_assessment.png")
+    diagram.draw("turbine_wind_resource_assessment.svg")
+
+
 if __name__ == "__main__":
     draw_eya_def_all_levels()
     draw_eya_def_top_level()
@@ -111,3 +118,4 @@ if __name__ == "__main__":
     draw_reference_wind_farm()
     draw_results()
     draw_wind_resource_assessment()
+    draw_turbine_wind_resource_assessment()
