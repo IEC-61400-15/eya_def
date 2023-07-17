@@ -171,7 +171,6 @@
               "turbine"
             ],
             "label": "Gross yield",
-            "quantity": "annual_energy_production",
             "statistics": [
               {
                 "statistic_type": "mean",
@@ -195,7 +194,6 @@
           {
             "assessment_period": "lifetime",
             "label": "Gross yield",
-            "quantity": "annual_energy_production",
             "statistics": [
               {
                 "statistic_type": "mean",
@@ -208,7 +206,6 @@
           {
             "assessment_period": "lifetime",
             "label": "Net yield",
-            "quantity": "annual_energy_production",
             "statistics": [
               {
                 "statistic_type": "median",
@@ -227,7 +224,6 @@
           {
             "assessment_period": "any_one_year",
             "label": "Net yield",
-            "quantity": "annual_energy_production",
             "statistics": [
               {
                 "statistic_type": "median",
@@ -254,7 +250,6 @@
                   "turbine"
                 ],
                 "label": "Curtailment",
-                "quantity": "efficiency",
                 "statistics": [
                   {
                     "statistic_type": "mean",
@@ -313,7 +308,6 @@
                       "turbine"
                     ],
                     "label": "Loads curtailment",
-                    "quantity": "efficiency",
                     "statistics": [
                       {
                         "statistic_type": "mean",
@@ -363,41 +357,42 @@
       "operational_lifetime_length_years": 30.0,
       "scenario_id": "b6953ecb-f88b-4660-9f69-bedbbe4c240b",
       "turbine_wind_resource_assessment": {
+        "results": {
+          "wind_speed": [
+            {
+              "assessment_period": "lifetime",
+              "dimensions": [
+                "turbine"
+              ],
+              "label": "Turbine-location hub-height long-term wind",
+              "statistics": [
+                {
+                  "statistic_type": "mean",
+                  "values": [
+                    [
+                      [
+                        "WTG01"
+                      ],
+                      6.91
+                    ],
+                    [
+                      [
+                        "WTG02"
+                      ],
+                      6.95
+                    ]
+                  ]
+                }
+              ]
+            }
+          ]
+        },
         "wind_resource_assessment_id_reference": "BfWF_WRA_1",
         "wind_spatial_modelling_processes": [
           {
             "comments": "The simulations were run using 60 representative days.",
             "description": "VENTOS/M is a coupled CFD-mesoscale model.",
             "name": "VENTOS/M"
-          }
-        ],
-        "wind_speed_results": [
-          {
-            "assessment_period": "lifetime",
-            "dimensions": [
-              "turbine"
-            ],
-            "label": "Turbine-location hub-height long-term wind",
-            "quantity": "wind_speed",
-            "statistics": [
-              {
-                "statistic_type": "mean",
-                "values": [
-                  [
-                    [
-                      "WTG01"
-                    ],
-                    6.91
-                  ],
-                  [
-                    [
-                      "WTG02"
-                    ],
-                    6.95
-                  ]
-                ]
-              }
-            ]
           }
         ],
         "wind_uncertainty_categories": [
@@ -409,7 +404,6 @@
                   "measurement"
                 ],
                 "label": "Historical wind resource uncertainty",
-                "quantity": "relative_uncertainty",
                 "statistics": [
                   {
                     "statistic_type": "standard_deviation",
@@ -436,7 +430,6 @@
                       "measurement"
                     ],
                     "label": "Long-term adjustment wind speed uncertainty per measurement station",
-                    "quantity": "relative_uncertainty",
                     "statistics": [
                       {
                         "statistic_type": "standard_deviation",
@@ -462,7 +455,6 @@
                       "measurement"
                     ],
                     "label": "Long-term consistency wind speed uncertainty per measurement station",
-                    "quantity": "relative_uncertainty",
                     "statistics": [
                       {
                         "statistic_type": "standard_deviation",
@@ -592,7 +584,6 @@
               "turbine"
             ],
             "label": "Gross yield",
-            "quantity": "annual_energy_production",
             "statistics": [
               {
                 "statistic_type": "mean",
@@ -616,7 +607,6 @@
           {
             "assessment_period": "lifetime",
             "label": "Gross yield",
-            "quantity": "annual_energy_production",
             "statistics": [
               {
                 "statistic_type": "mean",
@@ -629,7 +619,6 @@
           {
             "assessment_period": "lifetime",
             "label": "Net yield",
-            "quantity": "annual_energy_production",
             "statistics": [
               {
                 "statistic_type": "median",
@@ -648,7 +637,6 @@
           {
             "assessment_period": "any_one_year",
             "label": "Net yield",
-            "quantity": "annual_energy_production",
             "statistics": [
               {
                 "statistic_type": "median",
@@ -675,7 +663,6 @@
                   "turbine"
                 ],
                 "label": "Curtailment",
-                "quantity": "efficiency",
                 "statistics": [
                   {
                     "statistic_type": "mean",
@@ -728,7 +715,6 @@
                       "turbine"
                     ],
                     "label": "Loads curtailment",
-                    "quantity": "efficiency",
                     "statistics": [
                       {
                         "statistic_type": "mean",
@@ -778,41 +764,42 @@
       "operational_lifetime_length_years": 30.0,
       "scenario_id": "e27fefdf-cdd7-441f-a7a7-c4347514b4f7",
       "turbine_wind_resource_assessment": {
+        "results": {
+          "wind_speed": [
+            {
+              "assessment_period": "lifetime",
+              "dimensions": [
+                "turbine"
+              ],
+              "label": "Turbine-location hub-height long-term wind",
+              "statistics": [
+                {
+                  "statistic_type": "mean",
+                  "values": [
+                    [
+                      [
+                        "WTG01"
+                      ],
+                      6.9
+                    ],
+                    [
+                      [
+                        "WTG02"
+                      ],
+                      6.94
+                    ]
+                  ]
+                }
+              ]
+            }
+          ]
+        },
         "wind_resource_assessment_id_reference": "BfWF_WRA_1",
         "wind_spatial_modelling_processes": [
           {
             "comments": "The simulations were run using 60 representative days.",
             "description": "VENTOS/M is a coupled CFD-mesoscale model.",
             "name": "VENTOS/M"
-          }
-        ],
-        "wind_speed_results": [
-          {
-            "assessment_period": "lifetime",
-            "dimensions": [
-              "turbine"
-            ],
-            "label": "Turbine-location hub-height long-term wind",
-            "quantity": "wind_speed",
-            "statistics": [
-              {
-                "statistic_type": "mean",
-                "values": [
-                  [
-                    [
-                      "WTG01"
-                    ],
-                    6.9
-                  ],
-                  [
-                    [
-                      "WTG02"
-                    ],
-                    6.94
-                  ]
-                ]
-              }
-            ]
           }
         ],
         "wind_uncertainty_categories": [
@@ -824,7 +811,6 @@
                   "measurement"
                 ],
                 "label": "Historical wind resource uncertainty",
-                "quantity": "relative_uncertainty",
                 "statistics": [
                   {
                     "statistic_type": "standard_deviation",
@@ -851,7 +837,6 @@
                       "measurement"
                     ],
                     "label": "Long-term adjustment wind speed uncertainty per measurement station",
-                    "quantity": "relative_uncertainty",
                     "statistics": [
                       {
                         "statistic_type": "standard_deviation",
@@ -877,7 +862,6 @@
                       "measurement"
                     ],
                     "label": "Long-term consistency wind speed uncertainty per measurement station",
-                    "quantity": "relative_uncertainty",
                     "statistics": [
                       {
                         "statistic_type": "standard_deviation",
@@ -999,65 +983,234 @@
   ],
   "wind_resource_assessments": [
     {
-      "wind_resource_assessment_id": "BfWF_WRA_1",
-      "wind_speed_results": [
-        {
-          "dimensions": [
-            "measurement",
-            "height"
-          ],
-          "quantity": "wind_speed",
-          "statistics": [
-            {
-              "statistic_type": "mean",
-              "values": [
-                [
+      "results": {
+        "air_density": [
+          {
+            "dimensions": [
+              "measurement",
+              "height"
+            ],
+            "statistics": [
+              {
+                "statistic_type": "mean",
+                "values": [
                   [
-                    "BF_M1",
-                    120.0
-                  ],
-                  6.83
-                ],
-                [
-                  [
-                    "BF_M1",
-                    125.0
-                  ],
-                  6.85
-                ],
-                [
-                  [
-                    "BF_M1",
-                    148.0
-                  ],
-                  6.93
-                ],
-                [
-                  [
-                    "BF_M1",
-                    150.0
-                  ],
-                  6.94
-                ],
-                [
-                  [
-                    "BF_M1",
-                    158.0
-                  ],
-                  6.96
-                ],
-                [
-                  [
-                    "BF_M1",
-                    160.0
-                  ],
-                  6.97
+                    [
+                      "BF_M1",
+                      120.0
+                    ],
+                    1.234
+                  ]
                 ]
-              ]
-            }
-          ]
-        }
-      ]
+              }
+            ]
+          }
+        ],
+        "probability": [
+          {
+            "dimensions": [
+              "wind_from_direction",
+              "wind_speed"
+            ],
+            "statistics": [
+              {
+                "statistic_type": "mean",
+                "values": [
+                  [
+                    [
+                      0.0,
+                      2.5
+                    ],
+                    0.1
+                  ],
+                  [
+                    [
+                      120.0,
+                      2.5
+                    ],
+                    0.2
+                  ],
+                  [
+                    [
+                      240.0,
+                      2.5
+                    ],
+                    0.3
+                  ],
+                  [
+                    [
+                      0.0,
+                      10.0
+                    ],
+                    0.1
+                  ],
+                  [
+                    [
+                      120.0,
+                      10.0
+                    ],
+                    0.2
+                  ],
+                  [
+                    [
+                      240.0,
+                      10.0
+                    ],
+                    0.1
+                  ]
+                ]
+              }
+            ]
+          }
+        ],
+        "temperature": [
+          {
+            "dimensions": [
+              "measurement",
+              "height"
+            ],
+            "statistics": [
+              {
+                "statistic_type": "mean",
+                "values": [
+                  [
+                    [
+                      "BF_M1",
+                      120.0
+                    ],
+                    1.234
+                  ]
+                ]
+              }
+            ]
+          }
+        ],
+        "wind_shear_exponent": [
+          {
+            "dimensions": [
+              "measurement"
+            ],
+            "statistics": [
+              {
+                "statistic_type": "mean",
+                "values": [
+                  [
+                    [
+                      "BF_M1"
+                    ],
+                    0.18
+                  ]
+                ]
+              }
+            ]
+          }
+        ],
+        "wind_speed": [
+          {
+            "dimensions": [
+              "measurement",
+              "height"
+            ],
+            "statistics": [
+              {
+                "statistic_type": "mean",
+                "values": [
+                  [
+                    [
+                      "BF_M1",
+                      120.0
+                    ],
+                    6.83
+                  ],
+                  [
+                    [
+                      "BF_M1",
+                      125.0
+                    ],
+                    6.85
+                  ],
+                  [
+                    [
+                      "BF_M1",
+                      148.0
+                    ],
+                    6.93
+                  ],
+                  [
+                    [
+                      "BF_M1",
+                      150.0
+                    ],
+                    6.94
+                  ],
+                  [
+                    [
+                      "BF_M1",
+                      158.0
+                    ],
+                    6.96
+                  ],
+                  [
+                    [
+                      "BF_M1",
+                      160.0
+                    ],
+                    6.97
+                  ]
+                ]
+              },
+              {
+                "statistic_type": "standard_deviation",
+                "values": [
+                  [
+                    [
+                      "BF_M1",
+                      120.0
+                    ],
+                    0.27
+                  ],
+                  [
+                    [
+                      "BF_M1",
+                      125.0
+                    ],
+                    0.27
+                  ],
+                  [
+                    [
+                      "BF_M1",
+                      148.0
+                    ],
+                    0.29
+                  ],
+                  [
+                    [
+                      "BF_M1",
+                      150.0
+                    ],
+                    0.29
+                  ],
+                  [
+                    [
+                      "BF_M1",
+                      158.0
+                    ],
+                    0.31
+                  ],
+                  [
+                    [
+                      "BF_M1",
+                      160.0
+                    ],
+                    0.31
+                  ]
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "wind_resource_assessment_id": "BfWF_WRA_1"
     }
   ]
 }

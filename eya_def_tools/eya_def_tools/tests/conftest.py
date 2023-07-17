@@ -606,46 +606,169 @@ def wind_resource_assessment_a() -> wind_resource.WindResourceAssessment:
     """Test case instance 'a' of ``WindResourceAssessment``."""
     return wind_resource.WindResourceAssessment(
         wind_resource_assessment_id="BfWF_WRA_1",
-        wind_speed_results=[
-            result.Result(
-                quantity=enums.MeasurementQuantity.WIND_SPEED,
-                dimensions=(
-                    enums.ResultsDimension.MEASUREMENT,
-                    enums.ResultsDimension.HEIGHT,
+        results=wind_resource.WindResourceAssessmentResults(
+            wind_speed=[
+                result.Result(
+                    dimensions=(
+                        enums.ResultsDimension.MEASUREMENT,
+                        enums.ResultsDimension.HEIGHT,
+                    ),
+                    statistics=[
+                        result.ResultStatistic(
+                            statistic_type=enums.StatisticType.MEAN,
+                            values=[
+                                (
+                                    ("BF_M1", 120.0),
+                                    6.83,
+                                ),
+                                (
+                                    ("BF_M1", 125.0),
+                                    6.85,
+                                ),
+                                (
+                                    ("BF_M1", 148.0),
+                                    6.93,
+                                ),
+                                (
+                                    ("BF_M1", 150.0),
+                                    6.94,
+                                ),
+                                (
+                                    ("BF_M1", 158.0),
+                                    6.96,
+                                ),
+                                (
+                                    ("BF_M1", 160.0),
+                                    6.97,
+                                ),
+                            ],
+                        ),
+                        result.ResultStatistic(
+                            statistic_type=enums.StatisticType.STANDARD_DEVIATION,
+                            values=[
+                                (
+                                    ("BF_M1", 120.0),
+                                    0.27,
+                                ),
+                                (
+                                    ("BF_M1", 125.0),
+                                    0.27,
+                                ),
+                                (
+                                    ("BF_M1", 148.0),
+                                    0.29,
+                                ),
+                                (
+                                    ("BF_M1", 150.0),
+                                    0.29,
+                                ),
+                                (
+                                    ("BF_M1", 158.0),
+                                    0.31,
+                                ),
+                                (
+                                    ("BF_M1", 160.0),
+                                    0.31,
+                                ),
+                            ],
+                        ),
+                    ],
                 ),
-                statistics=[
-                    result.ResultStatistic(
-                        statistic_type=enums.StatisticType.MEAN,
-                        values=[
-                            (
-                                ("BF_M1", 120.0),
-                                6.83,
-                            ),
-                            (
-                                ("BF_M1", 125.0),
-                                6.85,
-                            ),
-                            (
-                                ("BF_M1", 148.0),
-                                6.93,
-                            ),
-                            (
-                                ("BF_M1", 150.0),
-                                6.94,
-                            ),
-                            (
-                                ("BF_M1", 158.0),
-                                6.96,
-                            ),
-                            (
-                                ("BF_M1", 160.0),
-                                6.97,
-                            ),
-                        ],
-                    )
-                ],
-            ),
-        ],
+            ],
+            probability=[
+                result.Result(
+                    dimensions=(
+                        enums.ResultsDimension.WIND_FROM_DIRECTION,
+                        enums.ResultsDimension.WIND_SPEED,
+                    ),
+                    statistics=[
+                        result.ResultStatistic(
+                            statistic_type=enums.StatisticType.MEAN,
+                            values=[
+                                (
+                                    (0.0, 2.5),
+                                    0.1,
+                                ),
+                                (
+                                    (120.0, 2.5),
+                                    0.2,
+                                ),
+                                (
+                                    (240.0, 2.5),
+                                    0.3,
+                                ),
+                                (
+                                    (0.0, 10.0),
+                                    0.1,
+                                ),
+                                (
+                                    (120.0, 10.0),
+                                    0.2,
+                                ),
+                                (
+                                    (240.0, 10.0),
+                                    0.1,
+                                ),
+                            ],
+                        ),
+                    ],
+                ),
+            ],
+            wind_shear_exponent=[
+                result.Result(
+                    dimensions=(enums.ResultsDimension.MEASUREMENT,),
+                    statistics=[
+                        result.ResultStatistic(
+                            statistic_type=enums.StatisticType.MEAN,
+                            values=[
+                                (
+                                    ("BF_M1",),
+                                    0.18,
+                                ),
+                            ],
+                        ),
+                    ],
+                ),
+            ],
+            temperature=[
+                result.Result(
+                    dimensions=(
+                        enums.ResultsDimension.MEASUREMENT,
+                        enums.ResultsDimension.HEIGHT,
+                    ),
+                    statistics=[
+                        result.ResultStatistic(
+                            statistic_type=enums.StatisticType.MEAN,
+                            values=[
+                                (
+                                    ("BF_M1", 120.0),
+                                    1.234,
+                                ),
+                            ],
+                        ),
+                    ],
+                ),
+            ],
+            air_density=[
+                result.Result(
+                    dimensions=(
+                        enums.ResultsDimension.MEASUREMENT,
+                        enums.ResultsDimension.HEIGHT,
+                    ),
+                    statistics=[
+                        result.ResultStatistic(
+                            statistic_type=enums.StatisticType.MEAN,
+                            values=[
+                                (
+                                    ("BF_M1", 120.0),
+                                    1.234,
+                                ),
+                            ],
+                        ),
+                    ],
+                ),
+            ],
+        ),
     )
 
 
@@ -666,7 +789,6 @@ def long_term_adj_uncertainty_subcat_a() -> wind_uncertainty.WindUncertaintySubc
         label=enums.WindUncertaintySubcategoryLabel.LONG_TERM_ADJUSTMENT,
         subcategory_results=[
             result.Result(
-                quantity=enums.MeasurementQuantity.RELATIVE_UNCERTAINTY,
                 label=(
                     "Long-term adjustment wind speed uncertainty "
                     "per measurement station"
@@ -698,7 +820,6 @@ def lt_consistency_uncertainty_subcat_a() -> (
         label=enums.WindUncertaintySubcategoryLabel.REFERENCE_DATA_CONSISTENCY,
         subcategory_results=[
             result.Result(
-                quantity=enums.MeasurementQuantity.RELATIVE_UNCERTAINTY,
                 label=(
                     "Long-term consistency wind speed uncertainty "
                     "per measurement station"
@@ -735,7 +856,6 @@ def historical_wind_uncertainty_category_a(
         ],
         category_results=[
             result.Result(
-                quantity=enums.MeasurementQuantity.RELATIVE_UNCERTAINTY,
                 label="Historical wind resource uncertainty",
                 assessment_period=enums.AssessmentPeriod.LIFETIME,
                 dimensions=(enums.ResultsDimension.MEASUREMENT,),
@@ -763,29 +883,30 @@ def turbine_wind_resource_assessment_a(
     """Test case instance 'a' of ``TurbineWindResourceAssessment``."""
     return wind_resource.TurbineWindResourceAssessment(
         wind_resource_assessment_id_reference="BfWF_WRA_1",
-        wind_speed_results=[
-            result.Result(
-                quantity=enums.MeasurementQuantity.WIND_SPEED,
-                label="Turbine-location hub-height long-term wind",
-                assessment_period=enums.AssessmentPeriod.LIFETIME,
-                dimensions=(enums.ResultsDimension.TURBINE,),
-                statistics=[
-                    result.ResultStatistic(
-                        statistic_type=enums.StatisticType.MEAN,
-                        values=[
-                            (
-                                ("WTG01",),
-                                6.91,
-                            ),
-                            (
-                                ("WTG02",),
-                                6.95,
-                            ),
-                        ],
-                    )
-                ],
-            )
-        ],
+        results=wind_resource.TurbineWindResourceAssessmentResults(
+            wind_speed=[
+                result.Result(
+                    label="Turbine-location hub-height long-term wind",
+                    assessment_period=enums.AssessmentPeriod.LIFETIME,
+                    dimensions=(enums.ResultsDimension.TURBINE,),
+                    statistics=[
+                        result.ResultStatistic(
+                            statistic_type=enums.StatisticType.MEAN,
+                            values=[
+                                (
+                                    ("WTG01",),
+                                    6.91,
+                                ),
+                                (
+                                    ("WTG02",),
+                                    6.95,
+                                ),
+                            ],
+                        )
+                    ],
+                )
+            ],
+        ),
         wind_spatial_modelling_processes=[wind_spatial_model_a],
         wind_uncertainty_categories=[historical_wind_uncertainty_category_a],
     )
@@ -799,29 +920,30 @@ def turbine_wind_resource_assessment_b(
     """Test case instance 'b' of ``TurbineWindResourceAssessment``."""
     return wind_resource.TurbineWindResourceAssessment(
         wind_resource_assessment_id_reference="BfWF_WRA_1",
-        wind_speed_results=[
-            result.Result(
-                quantity=enums.MeasurementQuantity.WIND_SPEED,
-                label="Turbine-location hub-height long-term wind",
-                assessment_period=enums.AssessmentPeriod.LIFETIME,
-                dimensions=(enums.ResultsDimension.TURBINE,),
-                statistics=[
-                    result.ResultStatistic(
-                        statistic_type=enums.StatisticType.MEAN,
-                        values=[
-                            (
-                                ("WTG01",),
-                                6.90,
-                            ),
-                            (
-                                ("WTG02",),
-                                6.94,
-                            ),
-                        ],
-                    )
-                ],
-            )
-        ],
+        results=wind_resource.TurbineWindResourceAssessmentResults(
+            wind_speed=[
+                result.Result(
+                    label="Turbine-location hub-height long-term wind",
+                    assessment_period=enums.AssessmentPeriod.LIFETIME,
+                    dimensions=(enums.ResultsDimension.TURBINE,),
+                    statistics=[
+                        result.ResultStatistic(
+                            statistic_type=enums.StatisticType.MEAN,
+                            values=[
+                                (
+                                    ("WTG01",),
+                                    6.90,
+                                ),
+                                (
+                                    ("WTG02",),
+                                    6.94,
+                                ),
+                            ],
+                        )
+                    ],
+                )
+            ],
+        ),
         wind_spatial_modelling_processes=[wind_spatial_model_a],
         wind_uncertainty_categories=[historical_wind_uncertainty_category_a],
     )
@@ -874,7 +996,6 @@ def plant_performance_curtailment_category_a() -> (
                 ],
                 subcategory_results=[
                     result.Result(
-                        quantity=enums.MeasurementQuantity.EFFICIENCY,
                         label="Loads curtailment",
                         description=(
                             "Curtailment due to a wind sector management "
@@ -893,7 +1014,6 @@ def plant_performance_curtailment_category_a() -> (
         ],
         category_results=[
             result.Result(
-                quantity=enums.MeasurementQuantity.EFFICIENCY,
                 label="Curtailment",
                 description="Curtailment losses.",
                 assessment_period=enums.AssessmentPeriod.LIFETIME,
@@ -946,7 +1066,6 @@ def plant_performance_curtailment_category_b() -> (
                 variability=enums.TimeVariabilityType.STATIC_PROCESS,
                 subcategory_results=[
                     result.Result(
-                        quantity=enums.MeasurementQuantity.EFFICIENCY,
                         label="Loads curtailment",
                         description=(
                             "Expected curtailment due to a wind sector "
@@ -966,7 +1085,6 @@ def plant_performance_curtailment_category_b() -> (
         ],
         category_results=[
             result.Result(
-                quantity=enums.MeasurementQuantity.EFFICIENCY,
                 label="Curtailment",
                 description="Curtailment losses.",
                 assessment_period=enums.AssessmentPeriod.LIFETIME,
@@ -991,7 +1109,6 @@ def energy_assessment_a(
         ),
         gross_eya_results=[
             result.Result(
-                quantity=enums.MeasurementQuantity.ANNUAL_ENERGY_PRODUCTION,
                 label="Gross yield",
                 assessment_period=enums.AssessmentPeriod.LIFETIME,
                 dimensions=(enums.ResultsDimension.TURBINE,),
@@ -1012,7 +1129,6 @@ def energy_assessment_a(
                 ],
             ),
             result.Result(
-                quantity=enums.MeasurementQuantity.ANNUAL_ENERGY_PRODUCTION,
                 label="Gross yield",
                 assessment_period=enums.AssessmentPeriod.LIFETIME,
                 dimensions=None,
@@ -1028,7 +1144,6 @@ def energy_assessment_a(
         energy_uncertainty_categories=[],
         net_eya_results=[
             result.Result(
-                quantity=enums.MeasurementQuantity.ANNUAL_ENERGY_PRODUCTION,
                 label="Net yield",
                 assessment_period=enums.AssessmentPeriod.LIFETIME,
                 dimensions=None,
@@ -1048,7 +1163,6 @@ def energy_assessment_a(
                 ],
             ),
             result.Result(
-                quantity=enums.MeasurementQuantity.ANNUAL_ENERGY_PRODUCTION,
                 label="Net yield",
                 assessment_period=enums.AssessmentPeriod.ANY_ONE_YEAR,
                 dimensions=None,
@@ -1085,7 +1199,6 @@ def energy_assessment_b(
         ),
         gross_eya_results=[
             result.Result(
-                quantity=enums.MeasurementQuantity.ANNUAL_ENERGY_PRODUCTION,
                 label="Gross yield",
                 assessment_period=enums.AssessmentPeriod.LIFETIME,
                 dimensions=(enums.ResultsDimension.TURBINE,),
@@ -1106,7 +1219,6 @@ def energy_assessment_b(
                 ],
             ),
             result.Result(
-                quantity=enums.MeasurementQuantity.ANNUAL_ENERGY_PRODUCTION,
                 label="Gross yield",
                 assessment_period=enums.AssessmentPeriod.LIFETIME,
                 dimensions=None,
@@ -1122,7 +1234,6 @@ def energy_assessment_b(
         energy_uncertainty_categories=[],
         net_eya_results=[
             result.Result(
-                quantity=enums.MeasurementQuantity.ANNUAL_ENERGY_PRODUCTION,
                 label="Net yield",
                 assessment_period=enums.AssessmentPeriod.LIFETIME,
                 dimensions=None,
@@ -1142,7 +1253,6 @@ def energy_assessment_b(
                 ],
             ),
             result.Result(
-                quantity=enums.MeasurementQuantity.ANNUAL_ENERGY_PRODUCTION,
                 label="Net yield",
                 assessment_period=enums.AssessmentPeriod.ANY_ONE_YEAR,
                 dimensions=None,

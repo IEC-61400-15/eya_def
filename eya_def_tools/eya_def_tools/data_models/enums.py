@@ -47,6 +47,7 @@ class MeasurementQuantity(StrEnum):
     EFFICIENCY = auto()
     ENERGY = auto()
     POWER = auto()
+    PROBABILITY = auto()
     RELATIVE_UNCERTAINTY = auto()
     WIND_SHEAR_EXPONENT = auto()
     TEMPERATURE = auto()
@@ -72,6 +73,8 @@ class MeasurementQuantity(StrEnum):
                 return MeasurementUnit.GIGAWATT_HOUR
             case MeasurementQuantity.POWER:
                 return MeasurementUnit.MEGAWATT
+            case MeasurementQuantity.PROBABILITY:
+                return MeasurementUnit.ONE
             case MeasurementQuantity.RELATIVE_UNCERTAINTY:
                 return MeasurementUnit.ONE
             case MeasurementQuantity.WIND_SHEAR_EXPONENT:
@@ -240,6 +243,8 @@ class ResultsDimension(StrEnum):
     MEASUREMENT = auto()
     MONTH = auto()
     TURBINE = auto()
+    WIND_FROM_DIRECTION = auto()
+    WIND_SPEED = auto()
     YEAR = auto()
 
 

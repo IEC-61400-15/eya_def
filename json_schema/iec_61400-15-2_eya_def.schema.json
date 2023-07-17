@@ -205,7 +205,7 @@
     },
     "Result": {
       "additionalProperties": false,
-      "description": "Set of results for an element of an energy assessment.",
+      "description": "Collection of results a quantity along specific dimensions.",
       "properties": {
         "assessment_period": {
           "description": "Period of or in time that has been assessed and for which the results are applicable.",
@@ -244,6 +244,8 @@
               "measurement",
               "month",
               "turbine",
+              "wind_from_direction",
+              "wind_speed",
               "year"
             ],
             "title": "Results Dimension",
@@ -264,26 +266,6 @@
             "string",
             "null"
           ]
-        },
-        "quantity": {
-          "description": "The quantity that the set of results describe, where this is not obvious from the context.",
-          "enum": [
-            "air_density",
-            "annual_energy_production",
-            "data_recovery_rate",
-            "distance",
-            "efficiency",
-            "energy",
-            "power",
-            "relative_uncertainty",
-            "wind_shear_exponent",
-            "temperature",
-            "time",
-            "wind_from_direction",
-            "wind_speed"
-          ],
-          "title": "Measurement Quantity",
-          "type": "string"
         },
         "statistics": {
           "description": "List of result statistic objects that each include result values for a specific statistic type.",
@@ -1578,6 +1560,69 @@
               "description": {
                 "$ref": "#/definitions/DescriptionField"
               },
+              "results": {
+                "additionalProperties": false,
+                "description": "Results of the wind resource assessment at the turbine location(s).",
+                "properties": {
+                  "air_density": {
+                    "description": "Final long-term air density estimates at the turbine location(s).",
+                    "items": {
+                      "$ref": "#/definitions/Result"
+                    },
+                    "title": "Air Density",
+                    "type": [
+                      "array",
+                      "null"
+                    ]
+                  },
+                  "probability": {
+                    "description": "Final long-term probability distribution estimates at the turbine location(s), such as wind speed probability distributions or joint wind speed and direction frequency distributions.",
+                    "items": {
+                      "$ref": "#/definitions/Result"
+                    },
+                    "title": "Probability",
+                    "type": [
+                      "array",
+                      "null"
+                    ]
+                  },
+                  "temperature": {
+                    "description": "Final long-term temperature estimates at the turbine location(s).",
+                    "items": {
+                      "$ref": "#/definitions/Result"
+                    },
+                    "title": "Temperature",
+                    "type": [
+                      "array",
+                      "null"
+                    ]
+                  },
+                  "wind_shear_exponent": {
+                    "description": "Final long-term power law wind shear exponent estimates at the turbine location(s).",
+                    "items": {
+                      "$ref": "#/definitions/Result"
+                    },
+                    "title": "Wind Shear Exponent",
+                    "type": [
+                      "array",
+                      "null"
+                    ]
+                  },
+                  "wind_speed": {
+                    "description": "Final long-term wind speed estimates at the turbine location(s).",
+                    "items": {
+                      "$ref": "#/definitions/Result"
+                    },
+                    "title": "Wind Speed",
+                    "type": "array"
+                  }
+                },
+                "required": [
+                  "wind_speed"
+                ],
+                "title": "Results",
+                "type": "object"
+              },
               "wind_resource_assessment_id_reference": {
                 "description": "The ID of the wind resource assessment on which the turbine wind resource assessment is based. This must refer to an ID of a wind resource assessment included at the top level of the EYA DEF. The schema requires that a turbine wind resource assessment is based on only one wind resource assessment.",
                 "examples": [
@@ -1594,14 +1639,6 @@
                   "$ref": "#/definitions/AssessmentProcessDescription"
                 },
                 "title": "Wind Spatial Modelling Processes",
-                "type": "array"
-              },
-              "wind_speed_results": {
-                "description": "Final long-term wind speed estimates at the turbine location(s).",
-                "items": {
-                  "$ref": "#/definitions/Result"
-                },
-                "title": "Wind Speed Results",
                 "type": "array"
               },
               "wind_uncertainty_categories": {
@@ -1753,7 +1790,7 @@
             "required": [
               "wind_resource_assessment_id_reference",
               "wind_spatial_modelling_processes",
-              "wind_speed_results",
+              "results",
               "wind_uncertainty_categories"
             ],
             "title": "Turbine Wind Resource Assessment",
@@ -1852,6 +1889,69 @@
           "description": {
             "$ref": "#/definitions/DescriptionField"
           },
+          "results": {
+            "additionalProperties": false,
+            "description": "Results of the wind resource assessment at the measurement location(s).",
+            "properties": {
+              "air_density": {
+                "description": "Final long-term air density estimates at the measurement location(s).",
+                "items": {
+                  "$ref": "#/definitions/Result"
+                },
+                "title": "Air Density",
+                "type": [
+                  "array",
+                  "null"
+                ]
+              },
+              "probability": {
+                "description": "Final long-term probability distribution estimates at the measurement location(s), such as wind speed probability distributions or joint wind speed and direction frequency distributions.",
+                "items": {
+                  "$ref": "#/definitions/Result"
+                },
+                "title": "Probability",
+                "type": [
+                  "array",
+                  "null"
+                ]
+              },
+              "temperature": {
+                "description": "Final long-term temperature estimates at the measurement location(s).",
+                "items": {
+                  "$ref": "#/definitions/Result"
+                },
+                "title": "Temperature",
+                "type": [
+                  "array",
+                  "null"
+                ]
+              },
+              "wind_shear_exponent": {
+                "description": "Final long-term power law wind shear exponent estimates at the measurement location(s).",
+                "items": {
+                  "$ref": "#/definitions/Result"
+                },
+                "title": "Wind Shear Exponent",
+                "type": [
+                  "array",
+                  "null"
+                ]
+              },
+              "wind_speed": {
+                "description": "Final long-term wind speed estimates at the measurement location(s).",
+                "items": {
+                  "$ref": "#/definitions/Result"
+                },
+                "title": "Wind Speed",
+                "type": "array"
+              }
+            },
+            "required": [
+              "wind_speed"
+            ],
+            "title": "Results",
+            "type": "object"
+          },
           "wind_resource_assessment_id": {
             "description": "Unique ID of the wind resource assessment within the EYA DEF document.",
             "examples": [
@@ -1861,19 +1961,11 @@
             ],
             "title": "Wind Resource Assessment Id",
             "type": "string"
-          },
-          "wind_speed_results": {
-            "description": "Final long-term wind speed estimates from the wind resource assessment at the measurement location(s).",
-            "items": {
-              "$ref": "#/definitions/Result"
-            },
-            "title": "Wind Speed Results",
-            "type": "array"
           }
         },
         "required": [
           "wind_resource_assessment_id",
-          "wind_speed_results"
+          "results"
         ],
         "title": "Wind Resource Assessment",
         "type": "object"

@@ -1,2 +1,2 @@
-erdantic~=0.5.0
-pygraphviz~=1.10
+erdantic==0.6.0
+pygraphviz==1.10

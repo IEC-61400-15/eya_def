@@ -21,6 +21,44 @@ from eya_def_tools.data_models.result import Result
 from eya_def_tools.data_models.wind_uncertainty import WindUncertaintyCategory
 
 
+class WindResourceAssessmentResults(EyaDefBaseModel):
+    """Wind resource assessment results at measurement locations."""
+
+    wind_speed: list[Result] = pdt.Field(
+        ...,
+        description=(
+            "Final long-term wind speed estimates at the measurement location(s)."
+        ),
+    )
+    probability: list[Result] | None = pdt.Field(
+        None,
+        description=(
+            "Final long-term probability distribution estimates at the measurement "
+            "location(s), such as wind speed probability distributions or joint "
+            "wind speed and direction frequency distributions."
+        ),
+    )
+    wind_shear_exponent: list[Result] | None = pdt.Field(
+        None,
+        description=(
+            "Final long-term power law wind shear exponent estimates at the "
+            "measurement location(s)."
+        ),
+    )
+    temperature: list[Result] | None = pdt.Field(
+        None,
+        description=(
+            "Final long-term temperature estimates at the measurement location(s)."
+        ),
+    )
+    air_density: list[Result] | None = pdt.Field(
+        None,
+        description=(
+            "Final long-term air density estimates at the measurement location(s)."
+        ),
+    )
+
+
 class WindResourceAssessment(EyaDefBaseModel):
     """Wind resource assessment at the measurement location(s)."""
 
@@ -33,12 +71,48 @@ class WindResourceAssessment(EyaDefBaseModel):
     )
     description: str | None = description_field
     comments: str | None = comments_field
-    # TODO consider changing from 'wind_speed_results' to just 'results'
-    wind_speed_results: list[Result] = pdt.Field(
+    results: WindResourceAssessmentResults = pdt.Field(
         ...,
         description=(
-            "Final long-term wind speed estimates from the wind resource "
-            "assessment at the measurement location(s)."
+            "Results of the wind resource assessment at the measurement location(s)."
+        ),
+    )
+
+
+class TurbineWindResourceAssessmentResults(EyaDefBaseModel):
+    """Wind resource assessment results at turbine locations."""
+
+    wind_speed: list[Result] = pdt.Field(
+        ...,
+        description=(
+            "Final long-term wind speed estimates at the turbine location(s)."
+        ),
+    )
+    probability: list[Result] | None = pdt.Field(
+        None,
+        description=(
+            "Final long-term probability distribution estimates at the turbine "
+            "location(s), such as wind speed probability distributions or joint "
+            "wind speed and direction frequency distributions."
+        ),
+    )
+    wind_shear_exponent: list[Result] | None = pdt.Field(
+        None,
+        description=(
+            "Final long-term power law wind shear exponent estimates at the "
+            "turbine location(s)."
+        ),
+    )
+    temperature: list[Result] | None = pdt.Field(
+        None,
+        description=(
+            "Final long-term temperature estimates at the turbine location(s)."
+        ),
+    )
+    air_density: list[Result] | None = pdt.Field(
+        None,
+        description=(
+            "Final long-term air density estimates at the turbine location(s)."
         ),
     )
 
@@ -62,13 +136,15 @@ class TurbineWindResourceAssessment(EyaDefBaseModel):
     wind_spatial_modelling_processes: list[AssessmentProcessDescription] = pdt.Field(
         ..., description="Wind spatial modelling processes used in the assessment."
     )
-    # TODO consider changing from 'wind_speed_results' to just 'results'
-    wind_speed_results: list[Result] = pdt.Field(
-        ...,
-        description="Final long-term wind speed estimates at the turbine location(s).",
+    results: TurbineWindResourceAssessmentResults = pdt.Field(
+        description=(
+            "Results of the wind resource assessment at the turbine location(s)."
+        ),
     )
     # TODO consider including measurement station weighting
     wind_uncertainty_categories: list[WindUncertaintyCategory] = pdt.Field(
         ...,
-        description="Wind related uncertainty assessment categories including results.",
+        description=(
+            "Wind related uncertainty assessment categories including results."
+        ),
     )
