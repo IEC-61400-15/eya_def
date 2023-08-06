@@ -1,4 +1,4 @@
-"""Pydantic data models for wind farm and turbine configurations.
+"""Data models for wind farm and turbine configurations.
 
 """
 

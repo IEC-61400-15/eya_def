@@ -1,43 +1,69 @@
-"""Pydantic data models relating to energy assessments.
+"""Data models relating to energy assessments.
 
 """
 
 import pydantic as pdt
 
 from eya_def_tools.data_models.base_model import EyaDefBaseModel
-from eya_def_tools.data_models.energy_uncertainty import EnergyUncertaintyCategory
-from eya_def_tools.data_models.plant_performance import PlantPerformanceCategory
+from eya_def_tools.data_models.plant_performance import PlantPerformanceAssessment
 from eya_def_tools.data_models.process_description import AssessmentProcessDescription
 from eya_def_tools.data_models.result import Result
+
+
+class EnergyAssessmentResults(EyaDefBaseModel):
+    """Energy assessment results."""
+
+    annual_energy_production: list[Result] = pdt.Field(
+        ...,
+        description=("Annual energy production estimates in GWh."),
+    )
+
+
+class GrossEnergyAssessment(EyaDefBaseModel):
+    """Gross energy assessment details and results."""
+
+    process_description: AssessmentProcessDescription = pdt.Field(
+        ...,
+        description=(
+            "Specification of the process used to calculate the gross EYA estimates."
+        ),
+    )
+    results: EnergyAssessmentResults = pdt.Field(
+        ...,
+        description="Gross EYA estimates.",
+    )
+
+
+class NetEnergyAssessment(EyaDefBaseModel):
+    """Net energy assessment details and results."""
+
+    process_description: AssessmentProcessDescription = pdt.Field(
+        ...,
+        description=(
+            "Specification of the process used to calculate the net EYA estimates."
+        ),
+    )
+    results: EnergyAssessmentResults = pdt.Field(
+        ...,
+        description=(
+            "Net EYA predictions, including central estimates, overall "
+            "uncertainties and results at different confidence levels."
+        ),
+    )
 
 
 class EnergyAssessment(EyaDefBaseModel):
     """Energy assessment details and results."""
 
-    gross_eya_process: AssessmentProcessDescription = pdt.Field(
+    gross_energy_assessment: GrossEnergyAssessment = pdt.Field(
         ...,
-        description=(
-            "Specification of the model used to calculate the gross EYA estimates."
-        ),
+        description=("Details and results for the assessment of gross energy yield."),
     )
-    gross_eya_results: list[Result] = pdt.Field(
-        ...,
-        description="Gross energy production predictions in GWh.",
-    )
-    plant_performance_loss_categories: list[PlantPerformanceCategory] = pdt.Field(
+    plant_performance_assessment: PlantPerformanceAssessment = pdt.Field(
         ...,
         description="Plant performance loss assessment categories including results.",
     )
-    energy_uncertainty_categories: list[EnergyUncertaintyCategory] = pdt.Field(
+    net_energy_assessment: NetEnergyAssessment = pdt.Field(
         ...,
-        description=(
-            "Energy related uncertainty assessment categories including results."
-        ),
-    )
-    net_eya_results: list[Result] = pdt.Field(
-        ...,
-        description=(
-            "Net energy production predictions in GWh, including overall "
-            "uncertainties and results at different confidence levels."
-        ),
+        description=("Details and results for the assessment of net energy yield."),
     )

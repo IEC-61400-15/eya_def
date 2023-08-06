@@ -1,4 +1,4 @@
-"""Pydantic data models relating to reference meteorological data.
+"""Data models relating to reference meteorological data.
 
 Reference meteorological data includes reanalysis datasets, mesoscale
 model datasets and measurement datasets from off-site ground-based

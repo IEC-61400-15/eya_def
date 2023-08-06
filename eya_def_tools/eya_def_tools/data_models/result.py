@@ -1,4 +1,4 @@
-"""Pydantic data models for results.
+"""Data models for results.
 
 """
 

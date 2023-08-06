@@ -1,4 +1,4 @@
-"""Pydantic data models for the IEC 61400-15-2 EYA DEF.
+"""Data models for the IEC 61400-15-2 EYA DEF.
 
 This module defines a comprehensive nested data model for describing an
 energy yield assessment (EYA) according to the IEC 61400-15-2 Digital

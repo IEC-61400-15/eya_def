@@ -48,10 +48,12 @@ class MeasurementQuantity(StrEnum):
     ENERGY = auto()
     POWER = auto()
     PROBABILITY = auto()
-    RELATIVE_UNCERTAINTY = auto()
+    RELATIVE_ENERGY_UNCERTAINTY = auto()
+    RELATIVE_WIND_SPEED_UNCERTAINTY = auto()
     WIND_SHEAR_EXPONENT = auto()
     TEMPERATURE = auto()
     TIME = auto()
+    TURBULENCE_INTENSITY = auto()
     WIND_FROM_DIRECTION = auto()
     WIND_SPEED = auto()
 
@@ -75,7 +77,9 @@ class MeasurementQuantity(StrEnum):
                 return MeasurementUnit.MEGAWATT
             case MeasurementQuantity.PROBABILITY:
                 return MeasurementUnit.ONE
-            case MeasurementQuantity.RELATIVE_UNCERTAINTY:
+            case MeasurementQuantity.RELATIVE_ENERGY_UNCERTAINTY:
+                return MeasurementUnit.ONE
+            case MeasurementQuantity.RELATIVE_WIND_SPEED_UNCERTAINTY:
                 return MeasurementUnit.ONE
             case MeasurementQuantity.WIND_SHEAR_EXPONENT:
                 return MeasurementUnit.ONE
@@ -83,6 +87,8 @@ class MeasurementQuantity(StrEnum):
                 return MeasurementUnit.DEGREE_CELSIUS
             case MeasurementQuantity.TIME:
                 return MeasurementUnit.HOUR
+            case MeasurementQuantity.TURBULENCE_INTENSITY:
+                return MeasurementUnit.ONE
             case MeasurementQuantity.WIND_FROM_DIRECTION:
                 return MeasurementUnit.DEGREE
             case MeasurementQuantity.WIND_SPEED:
@@ -256,6 +262,7 @@ class StatisticType(StrEnum):
     STANDARD_DEVIATION = auto()
     MINIMUM = auto()
     MAXIMUM = auto()
+    INTER_ANNUAL_VARIABILITY = auto()
     P10 = auto()
     P25 = auto()
     P75 = auto()

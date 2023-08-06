@@ -1,4 +1,4 @@
-"""Pydantic data models for report metadata.
+"""Data models for report metadata.
 
 """
 

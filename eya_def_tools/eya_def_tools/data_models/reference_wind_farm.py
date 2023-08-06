@@ -1,4 +1,4 @@
-"""Pydantic data models relating to reference wind farm specifications.
+"""Data models relating to reference wind farm specifications.
 
 """
 

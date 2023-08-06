@@ -1,4 +1,4 @@
-"""Pydantic data models relating to wind resource assessments (WRAs).
+"""Data models relating to wind resource assessments (WRAs).
 
 The description of wind resource assessments is divided into the model
 class ``WindResourceAssessment`` covering the measurement location(s)
@@ -18,24 +18,32 @@ from eya_def_tools.data_models.base_model import EyaDefBaseModel
 from eya_def_tools.data_models.generic_fields import comments_field, description_field
 from eya_def_tools.data_models.process_description import AssessmentProcessDescription
 from eya_def_tools.data_models.result import Result
-from eya_def_tools.data_models.wind_uncertainty import WindUncertaintyCategory
+from eya_def_tools.data_models.wind_uncertainty import WindUncertaintyAssessment
 
 
-class WindResourceAssessmentResults(EyaDefBaseModel):
+class WindResourceResults(EyaDefBaseModel):
     """Wind resource assessment results at measurement locations."""
 
     wind_speed: list[Result] = pdt.Field(
         ...,
         description=(
-            "Final long-term wind speed estimates at the measurement location(s)."
+            "Final long-term wind speed estimates at the measurement location(s)"
+            "in metre per second."
         ),
     )
     probability: list[Result] | None = pdt.Field(
         None,
         description=(
             "Final long-term probability distribution estimates at the measurement "
-            "location(s), such as wind speed probability distributions or joint "
-            "wind speed and direction frequency distributions."
+            "location(s), such as wind speed probability distributions or joint wind "
+            "speed and direction frequency distributions, as dimensionless values."
+        ),
+    )
+    turbulence_intensity: list[Result] | None = pdt.Field(
+        None,
+        description=(
+            "Final long-term turbulence intensity estimates at the measurement "
+            "location(s) as dimensionless values."
         ),
     )
     wind_shear_exponent: list[Result] | None = pdt.Field(
@@ -48,13 +56,15 @@ class WindResourceAssessmentResults(EyaDefBaseModel):
     temperature: list[Result] | None = pdt.Field(
         None,
         description=(
-            "Final long-term temperature estimates at the measurement location(s)."
+            "Final long-term temperature estimates at the measurement location(s) "
+            "in degree C."
         ),
     )
     air_density: list[Result] | None = pdt.Field(
         None,
         description=(
-            "Final long-term air density estimates at the measurement location(s)."
+            "Final long-term air density estimates at the measurement location(s) "
+            "in kilogram per cubic metre."
         ),
     )
 
@@ -71,7 +81,7 @@ class WindResourceAssessment(EyaDefBaseModel):
     )
     description: str | None = description_field
     comments: str | None = comments_field
-    results: WindResourceAssessmentResults = pdt.Field(
+    results: WindResourceResults = pdt.Field(
         ...,
         description=(
             "Results of the wind resource assessment at the measurement location(s)."
@@ -79,21 +89,29 @@ class WindResourceAssessment(EyaDefBaseModel):
     )
 
 
-class TurbineWindResourceAssessmentResults(EyaDefBaseModel):
+class TurbineWindResourceResults(EyaDefBaseModel):
     """Wind resource assessment results at turbine locations."""
 
     wind_speed: list[Result] = pdt.Field(
         ...,
         description=(
-            "Final long-term wind speed estimates at the turbine location(s)."
+            "Final long-term wind speed estimates at the turbine location(s) "
+            "in metre per second."
         ),
     )
     probability: list[Result] | None = pdt.Field(
         None,
         description=(
             "Final long-term probability distribution estimates at the turbine "
-            "location(s), such as wind speed probability distributions or joint "
-            "wind speed and direction frequency distributions."
+            "location(s), such as wind speed probability distributions or joint wind "
+            "speed and direction frequency distributions, as dimensionless values."
+        ),
+    )
+    turbulence_intensity: list[Result] | None = pdt.Field(
+        None,
+        description=(
+            "Final long-term turbulence intensity estimates at the turbine "
+            "location(s) as dimensionless values."
         ),
     )
     wind_shear_exponent: list[Result] | None = pdt.Field(
@@ -106,13 +124,15 @@ class TurbineWindResourceAssessmentResults(EyaDefBaseModel):
     temperature: list[Result] | None = pdt.Field(
         None,
         description=(
-            "Final long-term temperature estimates at the turbine location(s)."
+            "Final long-term temperature estimates at the turbine location(s) "
+            "in degree C."
         ),
     )
     air_density: list[Result] | None = pdt.Field(
         None,
         description=(
-            "Final long-term air density estimates at the turbine location(s)."
+            "Final long-term air density estimates at the turbine location(s) "
+            "in kilogram per cubic metre."
         ),
     )
 
@@ -134,17 +154,19 @@ class TurbineWindResourceAssessment(EyaDefBaseModel):
     description: str | None = description_field
     comments: str | None = comments_field
     wind_spatial_modelling_processes: list[AssessmentProcessDescription] = pdt.Field(
-        ..., description="Wind spatial modelling processes used in the assessment."
+        ...,
+        description="Wind spatial modelling processes used in the assessment.",
     )
-    results: TurbineWindResourceAssessmentResults = pdt.Field(
+    results: TurbineWindResourceResults = pdt.Field(
+        ...,
         description=(
             "Results of the wind resource assessment at the turbine location(s)."
         ),
     )
-    # TODO consider including measurement station weighting
-    wind_uncertainty_categories: list[WindUncertaintyCategory] = pdt.Field(
+    wind_uncertainty_assessment: WindUncertaintyAssessment = pdt.Field(
         ...,
         description=(
             "Wind related uncertainty assessment categories including results."
         ),
     )
+    # TODO consider including measurement station weighting

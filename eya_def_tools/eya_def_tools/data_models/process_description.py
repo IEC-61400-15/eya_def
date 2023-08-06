@@ -1,4 +1,4 @@
-"""Pydantic data models relating to assessment process descriptions.
+"""Data models relating to assessment process descriptions.
 
 """
 
