@@ -8,25 +8,6 @@ from eya_def_tools.data_models.base_model import EyaDefBaseModel
 from eya_def_tools.data_models.generic_fields import comments_field, description_field
 
 
-class CoordinateReferenceSystem(EyaDefBaseModel):
-    """Specification of a coordinate reference system for GIS data."""
-
-    system_label: str = pdt.Field(
-        ...,
-        description="Label of the coordinate system.",
-        examples=["OSGB36 / British National Grid", "SWEREF99 TM"],
-    )
-    epsg_srid: int | None = pdt.Field(
-        None,
-        description="EPSG Spatial Reference System Identifier (SRID).",
-        examples=[27700, 3006],
-    )
-    wkt: str | None = pdt.Field(
-        None,
-        description="Well-known text (WKT) string definition of the coordinate system.",
-    )
-
-
 class Location(EyaDefBaseModel):
     """Specification of a horizontal location in space."""
 

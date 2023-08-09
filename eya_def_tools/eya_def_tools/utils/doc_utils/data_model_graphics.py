@@ -16,7 +16,6 @@ from eya_def_tools.data_models.reference_wind_farm import ReferenceWindFarm
 from eya_def_tools.data_models.report_metadata import Organisation, ReportContributor
 from eya_def_tools.data_models.result import Result
 from eya_def_tools.data_models.scenario import Scenario
-from eya_def_tools.data_models.spatial import CoordinateReferenceSystem
 from eya_def_tools.data_models.turbine_model import TurbineModel
 from eya_def_tools.data_models.wind_farm import WindFarmConfiguration
 from eya_def_tools.data_models.wind_resource import (
@@ -41,7 +40,6 @@ def draw_eya_def_top_level() -> None:
         termini=[
             ReportContributor,
             Organisation,
-            CoordinateReferenceSystem,
             ReferenceWindFarm,
             ReferenceMeteorologicalDataset,
             WindResourceAssessment,

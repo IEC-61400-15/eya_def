@@ -10,11 +10,10 @@
         "timeseries_calculation",
         "distribution_calculation",
         "other_calculation",
-        "project_specific_estimate",
+        "project_specific_assumption",
         "regional_assumption",
         "generic_assumption",
-        "not_considered",
-        "other"
+        "not_considered"
       ],
       "title": "AssessmentBasis",
       "type": "string"
@@ -603,7 +602,7 @@
       "$ref": "#/definitions/CommentsField"
     },
     "confidentiality_classification": {
-      "description": "Confidentiality classification of the report.",
+      "description": "Confidentiality classification of the report document, if relevant.",
       "examples": [
         "Strictly confidential",
         "Commercial in confidence",
@@ -616,7 +615,7 @@
       ]
     },
     "contract_reference": {
-      "description": "Reference to contract between the issuing and receiving organisations that governs the energy yield assessment.",
+      "description": "Reference to contract between the issuing and receiving organisations that governs the energy yield assessment (EYA) report document, if relevant.",
       "examples": [
         "Contract ID.: P-MIR-00239432-0001-C, dated 2022-11-30"
       ],
@@ -699,51 +698,11 @@
       "title": "Contributors",
       "type": "array"
     },
-    "coordinate_reference_system": {
-      "additionalProperties": false,
-      "description": "Coordinate reference system used for all location data.",
-      "properties": {
-        "epsg_srid": {
-          "description": "EPSG Spatial Reference System Identifier (SRID).",
-          "examples": [
-            27700,
-            3006
-          ],
-          "title": "Epsg Srid",
-          "type": [
-            "integer",
-            "null"
-          ]
-        },
-        "system_label": {
-          "description": "Label of the coordinate system.",
-          "examples": [
-            "OSGB36 / British National Grid",
-            "SWEREF99 TM"
-          ],
-          "title": "System Label",
-          "type": "string"
-        },
-        "wkt": {
-          "description": "Well-known text (WKT) string definition of the coordinate system.",
-          "title": "Wkt",
-          "type": [
-            "string",
-            "null"
-          ]
-        }
-      },
-      "required": [
-        "system_label"
-      ],
-      "title": "Coordinate Reference System",
-      "type": "object"
-    },
     "description": {
       "$ref": "#/definitions/DescriptionField"
     },
     "document_id": {
-      "description": "The ID of the report document; not including the version when 'document_version' is used.",
+      "description": "The ID of the report document; not including the version when 'document_version' is used. This will typically follow the convention of the document management system of the issuing organisation(s).",
       "examples": [
         "C385945/A/UK/R/002",
         "0345.923454.0001"
@@ -755,7 +714,7 @@
       ]
     },
     "document_version": {
-      "description": "Version of the report document, also known as revision.",
+      "description": "Version of the report document, also known as revision. As with the 'document_id', this will typically follow the document versioning convention of the document management system of the issuing organisation(s).",
       "examples": [
         "1.2.3",
         "A",
@@ -766,6 +725,15 @@
         "string",
         "null"
       ]
+    },
+    "epsg_srid": {
+      "description": "EPSG Spatial Reference System Identifier (SRID) for the Coordinate Reference System (CRS) used for all spatial data (e.g. turbine locations) in the EYA DEF JSON document. All location coordinates must be reported in the same CRS, which must be one that has an EPSG code. If different CRSs are used the data must be converted to be consistent with the EPSG code specified here.",
+      "examples": [
+        27700,
+        3006
+      ],
+      "title": "Epsg Srid",
+      "type": "integer"
     },
     "issue_date": {
       "description": "Report issue date in the ISO 8601 standard format for a calendar date, i.e. YYYY-MM-DD.",
@@ -799,8 +767,8 @@
         "null"
       ]
     },
-    "project_county": {
-      "description": "The ISO 3166-1 alpha-2 two-letter country code of the country where the project under assessment is located.",
+    "project_country": {
+      "description": "The ISO 3166-1 alpha-2 two-letter code of the country where the project under assessment is located.",
       "enum": [
         "AW",
         "AF",
@@ -1921,7 +1889,7 @@
       ]
     },
     "title": {
-      "description": "Title of the energy assessment report.",
+      "description": "Title of the energy yield assessment (EYA) report.",
       "examples": [
         "Energy yield assessment of the Barefoot Wind Farm"
       ],
@@ -1975,6 +1943,31 @@
         "array",
         "null"
       ]
+    },
+    "uuid": {
+      "anyOf": [
+        {
+          "format": "uuid1",
+          "type": "string"
+        },
+        {
+          "format": "uuid3",
+          "type": "string"
+        },
+        {
+          "format": "uuid4",
+          "type": "string"
+        },
+        {
+          "format": "uuid5",
+          "type": "string"
+        }
+      ],
+      "description": "UUID of the EYA DEF JSON document.",
+      "examples": [
+        "8f46a815-8b6d-4870-8e92-c031b20320c6"
+      ],
+      "title": "Uuid"
     },
     "wind_resource_assessments": {
       "description": "List of wind resource assessments, including results, at the measurement station locations.",
@@ -2090,11 +2083,11 @@
   "required": [
     "title",
     "project_name",
-    "project_county",
+    "project_country",
     "issue_date",
     "contributors",
     "issuing_organisations",
-    "coordinate_reference_system"
+    "epsg_srid"
   ],
   "title": "IEC 61400-15-2 EYA DEF Schema",
   "type": "object"

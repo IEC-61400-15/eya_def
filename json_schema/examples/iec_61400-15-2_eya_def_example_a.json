@@ -31,14 +31,10 @@
       "name": "Kurt Weill"
     }
   ],
-  "coordinate_reference_system": {
-    "epsg_srid": 32630,
-    "system_label": "WGS 84 / UTM zone 30N",
-    "wkt": "PROJCS[\"WGS 84 / UTM zone 30N\",GEOGCS[\"WGS 84\",DATUM[\"WGS_1984\",SPHEROID[\"WGS 84\",6378137,298.257223563,AUTHORITY[\"EPSG\",\"7030\"]],AUTHORITY[\"EPSG\",\"6326\"]],PRIMEM[\"Greenwich\",0,AUTHORITY[\"EPSG\",\"8901\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AUTHORITY[\"EPSG\",\"4326\"]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"latitude_of_origin\",0],PARAMETER[\"central_meridian\",-3],PARAMETER[\"scale_factor\",0.9996],PARAMETER[\"false_easting\",500000],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH],AUTHORITY[\"EPSG\",\"32630\"]]))"
-  },
   "description": "Wind resource and energy yield assessment of the Barefoot Wind Farm based on one on-site meteorological mast and considering two different turbine scenarios.",
   "document_id": "12345678",
   "document_version": "B",
+  "epsg_srid": 32630,
   "issue_date": "2022-10-07",
   "issuing_organisations": [
     {
@@ -52,7 +48,7 @@
       "$ref": "./iec_61400-15-2_eya_def_example_a_iea43_wra.json"
     }
   ],
-  "project_county": "GB",
+  "project_country": "GB",
   "project_name": "Barefoot Wind Farm",
   "receiving_organisations": [
     {
@@ -799,7 +795,7 @@
               },
               "subcategories": [
                 {
-                  "basis": "project_specific_estimate",
+                  "basis": "project_specific_assumption",
                   "label": "load_curtailment",
                   "results": {
                     "efficiency": [

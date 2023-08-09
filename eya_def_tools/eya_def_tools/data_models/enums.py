@@ -13,11 +13,10 @@ class AssessmentBasis(StrEnum):
     TIMESERIES_CALCULATION = auto()
     DISTRIBUTION_CALCULATION = auto()
     OTHER_CALCULATION = auto()
-    PROJECT_SPECIFIC_ESTIMATE = auto()
+    PROJECT_SPECIFIC_ASSUMPTION = auto()
     REGIONAL_ASSUMPTION = auto()
     GENERIC_ASSUMPTION = auto()
     NOT_CONSIDERED = auto()
-    OTHER = auto()
 
 
 class AssessmentPeriod(StrEnum):
