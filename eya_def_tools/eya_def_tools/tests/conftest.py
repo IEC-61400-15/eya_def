@@ -237,27 +237,6 @@ def iea43_wra_data_model_json_schema() -> dict[str, Any]:
 
 
 @pytest.fixture(scope="session")
-def coordinate_reference_system_a() -> spatial.CoordinateReferenceSystem:
-    """Test case instance 'a' of ``CoordinateReferenceSystem``."""
-    return spatial.CoordinateReferenceSystem(
-        system_label="WGS 84 / UTM zone 30N",
-        epsg_srid=32630,
-        wkt=(
-            'PROJCS["WGS 84 / UTM zone 30N",GEOGCS["WGS 84",DATUM["WGS_1984",'
-            'SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],'
-            'AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,'
-            'AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,'
-            'AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],'
-            'PROJECTION["Transverse_Mercator"],PARAMETER["latitude_of_origin",0],'
-            'PARAMETER["central_meridian",-3],PARAMETER["scale_factor",0.9996],'
-            'PARAMETER["false_easting",500000],PARAMETER["false_northing",0],'
-            'UNIT["metre",1,AUTHORITY["EPSG","9001"]],AXIS["Easting",EAST],'
-            'AXIS["Northing",NORTH],AUTHORITY["EPSG","32630"]]))'
-        ),
-    )
-
-
-@pytest.fixture(scope="session")
 def turbine_location_wtg01_a() -> spatial.Location:
     """Turbine test case instance 'WTG01_a' of ``Location``."""
     return spatial.Location(
@@ -1130,7 +1109,7 @@ def plant_performance_curtailment_category_b() -> (
         subcategories=[
             plant_performance.PlantPerformanceSubcategory(
                 label=enums.PlantPerformanceSubcategoryLabel.LOAD_CURTAILMENT,
-                basis=enums.AssessmentBasis.PROJECT_SPECIFIC_ESTIMATE,
+                basis=enums.AssessmentBasis.PROJECT_SPECIFIC_ASSUMPTION,
                 variability=enums.TimeVariabilityType.STATIC_PROCESS,
                 results=plant_performance.PlantPerformanceResults(
                     efficiency=[
@@ -1518,7 +1497,6 @@ def approver_a() -> report_metadata.ReportContributor:
 
 @pytest.fixture(scope="session")
 def eya_def_a(
-    coordinate_reference_system_a: spatial.CoordinateReferenceSystem,
     issuing_organisation_a: report_metadata.Organisation,
     receiving_organisations_a: report_metadata.Organisation,
     main_author_a: report_metadata.ReportContributor,
@@ -1550,7 +1528,7 @@ def eya_def_a(
         ),
         comments="Update to consider further on-site measurement data.",
         project_name="Barefoot Wind Farm",
-        project_county=eya_def_header.Alpha2CountryCode("GB"),
+        project_country=eya_def_header.Alpha2CountryCode("GB"),
         document_id="12345678",
         document_version="B",
         issue_date=dt.date(2022, 10, 7),
@@ -1559,7 +1537,7 @@ def eya_def_a(
         receiving_organisations=[receiving_organisations_a],
         contract_reference="P/UK/000765/001/B, 2022-11-30",
         confidentiality_classification="Confidential",
-        coordinate_reference_system=coordinate_reference_system_a,
+        epsg_srid=32630,
         measurement_stations=[measurement_station_a],
         reference_wind_farms=[reference_wind_farm_a],
         wind_resource_assessments=[wind_resource_assessment_a],
