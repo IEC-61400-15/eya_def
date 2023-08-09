@@ -1,4 +1,4 @@
-"""Pydantic data models relating to EYA scenarios.
+"""Data models relating to EYA scenarios.
 
 """
 

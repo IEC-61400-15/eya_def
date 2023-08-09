@@ -1,4 +1,4 @@
-"""Pydantic data models for results.
+"""Data models for results.
 
 """
 
@@ -9,7 +9,6 @@ import pydantic as pdt
 from eya_def_tools.data_models.base_model import EyaDefBaseModel
 from eya_def_tools.data_models.enums import (
     AssessmentPeriod,
-    MeasurementQuantity,
     ResultsDimension,
     StatisticType,
 )
@@ -40,15 +39,8 @@ class ResultStatistic(EyaDefBaseModel):
 
 
 class Result(EyaDefBaseModel):
-    """Set of results for an element of an energy assessment."""
+    """Collection of results a quantity along specific dimensions."""
 
-    quantity: MeasurementQuantity | None = pdt.Field(
-        None,
-        description=(
-            "The quantity that the set of results describe, where this is not "
-            "obvious from the context."
-        ),
-    )
     label: str | None = pdt.Field(
         None,
         description="Label of the results.",

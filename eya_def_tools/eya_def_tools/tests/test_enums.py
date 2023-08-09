@@ -26,7 +26,7 @@ from eya_def_tools.data_models.enums import (
             MeasurementUnit.ONE,
         ),
         (
-            MeasurementQuantity.RELATIVE_UNCERTAINTY,
+            MeasurementQuantity.RELATIVE_WIND_SPEED_UNCERTAINTY,
             MeasurementUnit.ONE,
         ),
     ],

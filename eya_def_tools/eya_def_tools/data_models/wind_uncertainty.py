@@ -1,4 +1,4 @@
-"""Pydantic data models relating to wind uncertainty.
+"""Data models relating to wind uncertainty.
 
 """
 
@@ -13,6 +13,30 @@ from eya_def_tools.data_models.generic_fields import comments_field, description
 from eya_def_tools.data_models.result import Result
 
 
+class UncertaintyResults(EyaDefBaseModel):
+    """Uncertainty assessment results."""
+
+    relative_wind_speed_uncertainty: list[Result] | None = pdt.Field(
+        None,
+        description=(
+            "Uncertainty assessment results as dimensionless relative values "
+            "expressed in terms of wind speed and calculated as the standard "
+            "deviation of the wind speed uncertainty distribution divided by "
+            "the mean wind speed."
+        ),
+    )
+    relative_energy_uncertainty: list[Result] | None = pdt.Field(
+        None,
+        description=(
+            "Uncertainty assessment results as dimensionless relative values "
+            "expressed in terms of AEP (annual energy production) and "
+            "calculated as the standard deviation of the energy uncertainty "
+            "distribution divided by the net P50 (50% probability of "
+            "exceedance level) AEP."
+        ),
+    )
+
+
 class WindUncertaintySubcategoryElement(EyaDefBaseModel):
     """Subcategory element of a wind related uncertainty assessment."""
 
@@ -22,18 +46,18 @@ class WindUncertaintySubcategoryElement(EyaDefBaseModel):
     )
     description: str | None = description_field
     comments: str | None = comments_field
-    is_independent: bool = pdt.Field(
-        True,
-        description=(
-            "Whether the wind related uncertainty subcategory element is "
-            "independent of all other elements."
-        ),
-    )
-    element_results: list[Result] = pdt.Field(
+    # TODO decide whether to include details on uncertainty correlation
+    # is_independent: bool = pdt.Field(
+    #     True,
+    #     description=(
+    #         "Whether the wind related uncertainty subcategory element is "
+    #         "independent of all other elements."
+    #     ),
+    # )
+    results: UncertaintyResults = pdt.Field(
         ...,
         description=(
-            "Wind related uncertainty assessment subcategory element result(s) as "
-            "dimensionless relative values."
+            "Wind related uncertainty assessment subcategory element results."
         ),
     )
 
@@ -59,12 +83,9 @@ class WindUncertaintySubcategory(EyaDefBaseModel):
             "define element labels."
         ),
     )
-    subcategory_results: list[Result] = pdt.Field(
+    results: UncertaintyResults = pdt.Field(
         ...,
-        description=(
-            "Wind related uncertainty assessment subcategory result(s) as "
-            "dimensionless relative values."
-        ),
+        description="Wind related uncertainty assessment subcategory results.",
     )
 
 
@@ -80,15 +101,26 @@ class WindUncertaintyCategory(EyaDefBaseModel):
     subcategories: list[WindUncertaintySubcategory] = pdt.Field(
         ...,
         description=(
-            "Wind related uncertainty assessment subcategories that fall under "
-            "the category. The subcategory objects include details and results "
-            "at the subcategory level."
+            "Wind related uncertainty assessment subcategories that fall "
+            "under the category. The subcategory objects include details and "
+            "results at the subcategory level."
         ),
     )
-    category_results: list[Result] = pdt.Field(
+    results: UncertaintyResults = pdt.Field(
         ...,
-        description=(
-            "Wind related uncertainty assessment category result(s) as "
-            "dimensionless relative values."
-        ),
+        description="Wind related uncertainty assessment category results.",
     )
+
+
+class WindUncertaintyAssessment(EyaDefBaseModel):
+    """Wind related uncertainty assessment broken into categories."""
+
+    categories: list[WindUncertaintyCategory] = pdt.Field(
+        ...,
+        description="Wind related uncertainty assessment categories including results.",
+    )
+    results: UncertaintyResults = pdt.Field(
+        ...,
+        description="Overall wind related uncertainty assessment results.",
+    )
+    # TODO consider including wind speed to energy sensitivity ratio

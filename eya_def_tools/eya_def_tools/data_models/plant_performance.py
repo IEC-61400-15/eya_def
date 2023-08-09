@@ -1,4 +1,4 @@
-"""Pydantic data models relating to plant performance loss assessments.
+"""Data models relating to plant performance loss assessments.
 
 """
 
@@ -14,6 +14,17 @@ from eya_def_tools.data_models.enums import (
 from eya_def_tools.data_models.generic_fields import comments_field, description_field
 from eya_def_tools.data_models.process_description import AssessmentProcessDescription
 from eya_def_tools.data_models.result import Result
+
+
+class PlantPerformanceResults(EyaDefBaseModel):
+    """Plant performance loss assessment results."""
+
+    efficiency: list[Result] = pdt.Field(
+        ...,
+        description=(
+            "Dimensionless plant performance efficiency (loss factor) results."
+        ),
+    )
 
 
 class PlantPerformanceSubcategoryElement(EyaDefBaseModel):
@@ -64,12 +75,9 @@ class PlantPerformanceSubcategoryElement(EyaDefBaseModel):
     #         "subcategory element should be marked as preliminary."
     #     ),
     # )
-    element_results: list[Result] = pdt.Field(
+    results: PlantPerformanceResults = pdt.Field(
         ...,
-        description=(
-            "Plant performance assessment subcategory element result(s) as "
-            "dimensionless loss factors (efficiencies)."
-        ),
+        description="Plant performance assessment subcategory element results.",
     )
 
 
@@ -124,12 +132,9 @@ class PlantPerformanceSubcategory(EyaDefBaseModel):
             "define element labels."
         ),
     )
-    subcategory_results: list[Result] = pdt.Field(
+    results: PlantPerformanceResults = pdt.Field(
         ...,
-        description=(
-            "Plant performance assessment subcategory result(s) as dimensionless "
-            "loss factors (efficiencies)."
-        ),
+        description="Plant performance assessment subcategory results.",
     )
 
 
@@ -150,10 +155,20 @@ class PlantPerformanceCategory(EyaDefBaseModel):
             "at the subcategory level."
         ),
     )
-    category_results: list[Result] = pdt.Field(
+    results: PlantPerformanceResults = pdt.Field(
         ...,
-        description=(
-            "Plant performance assessment category result(s) as dimensionless loss "
-            "factors (efficiencies)."
-        ),
+        description="Plant performance assessment category results.",
+    )
+
+
+class PlantPerformanceAssessment(EyaDefBaseModel):
+    """Plant performance loss assessment broken into categories."""
+
+    categories: list[PlantPerformanceCategory] = pdt.Field(
+        ...,
+        description="Plant performance loss assessment categories including results.",
+    )
+    results: PlantPerformanceResults = pdt.Field(
+        ...,
+        description="Overall plant performance loss assessment results.",
     )

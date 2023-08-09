@@ -360,34 +360,34 @@
 <!-- eya_def_tools.data_models.wind_resource.WindResourceAssessment -->
 <g id="node9" class="node">
 <title>eya_def_tools.data_models.wind_resource.WindResourceAssessment</title>
-<g id="a_node9"><a xlink:title="eya_def_tools.data_models.wind_resource.WindResourceAssessment&#10;&#10;Wind resource assessment at the measurement location(s).&#10;&#10;Attributes:&#10; &#160;&#160;&#160;wind_resource_assessment_id (str): Unique ID of the wind resource assessment within the EYA DEF document.&#10; &#160;&#160;&#160;description (Optional[str]): Description of the data object. Default is None.&#10; &#160;&#160;&#160;comments (Optional[str]): Comments on the data object. Default is None.&#10; &#160;&#160;&#160;wind_speed_results (list[Result]): Final long&#45;term wind speed estimates from the wind resource assessment at the measurement location(s).&#10;">
-<polygon fill="none" stroke="black" points="651,-468 651,-489 907,-489 907,-468 651,-468"/>
+<g id="a_node9"><a xlink:title="eya_def_tools.data_models.wind_resource.WindResourceAssessment&#10;&#10;Wind resource assessment at the measurement location(s).&#10;&#10;Attributes:&#10; &#160;&#160;&#160;wind_resource_assessment_id (str): Unique ID of the wind resource assessment within the EYA DEF document.&#10; &#160;&#160;&#160;description (Optional[str]): Description of the data object. Default is None.&#10; &#160;&#160;&#160;comments (Optional[str]): Comments on the data object. Default is None.&#10; &#160;&#160;&#160;results (WindResourceResults): Results of the wind resource assessment at the measurement location(s).&#10;">
+<polygon fill="none" stroke="black" points="624,-468 624,-489 934,-489 934,-468 624,-468"/>
 <text text-anchor="start" x="698" y="-475.8" font-family="Times New Roman,serif" font-weight="bold" font-size="14.00">WindResourceAssessment</text>
-<polygon fill="none" stroke="black" points="651,-447 651,-468 829,-468 829,-447 651,-447"/>
-<text text-anchor="start" x="654" y="-453.8" font-family="Times New Roman,serif" font-size="14.00">wind_resource_assessment_id</text>
-<polygon fill="none" stroke="black" points="829,-447 829,-468 907,-468 907,-447 829,-447"/>
+<polygon fill="none" stroke="black" points="624,-447 624,-468 802,-468 802,-447 624,-447"/>
+<text text-anchor="start" x="627" y="-453.8" font-family="Times New Roman,serif" font-size="14.00">wind_resource_assessment_id</text>
+<polygon fill="none" stroke="black" points="802,-447 802,-468 934,-468 934,-447 802,-447"/>
 <text text-anchor="start" x="860.5" y="-453.8" font-family="Times New Roman,serif" font-size="14.00">str</text>
-<polygon fill="none" stroke="black" points="651,-426 651,-447 829,-447 829,-426 651,-426"/>
-<text text-anchor="start" x="708.5" y="-432.8" font-family="Times New Roman,serif" font-size="14.00">description</text>
-<polygon fill="none" stroke="black" points="829,-426 829,-447 907,-447 907,-426 829,-426"/>
+<polygon fill="none" stroke="black" points="624,-426 624,-447 802,-447 802,-426 624,-426"/>
+<text text-anchor="start" x="681.5" y="-432.8" font-family="Times New Roman,serif" font-size="14.00">description</text>
+<polygon fill="none" stroke="black" points="802,-426 802,-447 934,-447 934,-426 802,-426"/>
 <text text-anchor="start" x="832" y="-432.8" font-family="Times New Roman,serif" font-size="14.00">Optional[str]</text>
-<polygon fill="none" stroke="black" points="651,-405 651,-426 829,-426 829,-405 651,-405"/>
-<text text-anchor="start" x="711" y="-411.8" font-family="Times New Roman,serif" font-size="14.00">comments</text>
-<polygon fill="none" stroke="black" points="829,-405 829,-426 907,-426 907,-405 829,-405"/>
+<polygon fill="none" stroke="black" points="624,-405 624,-426 802,-426 802,-405 624,-405"/>
+<text text-anchor="start" x="684" y="-411.8" font-family="Times New Roman,serif" font-size="14.00">comments</text>
+<polygon fill="none" stroke="black" points="802,-405 802,-426 934,-426 934,-405 802,-405"/>
 <text text-anchor="start" x="832" y="-411.8" font-family="Times New Roman,serif" font-size="14.00">Optional[str]</text>
-<polygon fill="none" stroke="black" points="651,-384 651,-405 829,-405 829,-384 651,-384"/>
-<text text-anchor="start" x="684" y="-390.8" font-family="Times New Roman,serif" font-size="14.00">wind_speed_results</text>
-<polygon fill="none" stroke="black" points="829,-384 829,-405 907,-405 907,-384 829,-384"/>
-<text text-anchor="start" x="837.5" y="-390.8" font-family="Times New Roman,serif" font-size="14.00">list[Result]</text>
+<polygon fill="none" stroke="black" points="624,-384 624,-405 802,-405 802,-384 624,-384"/>
+<text text-anchor="start" x="694.5" y="-390.8" font-family="Times New Roman,serif" font-size="14.00">results</text>
+<polygon fill="none" stroke="black" points="802,-384 802,-405 934,-405 934,-384 802,-384"/>
+<text text-anchor="start" x="805" y="-390.8" font-family="Times New Roman,serif" font-size="14.00">WindResourceResults</text>
 </a>
 </g>
 </g>
 <!-- eya_def_tools.data_models.eya_def.EyaDefDocument&#45;&gt;eya_def_tools.data_models.wind_resource.WindResourceAssessment -->
 <g id="edge9" class="edge">
 <title>eya_def_tools.data_models.eya_def.EyaDefDocument:e&#45;&gt;eya_def_tools.data_models.wind_resource.WindResourceAssessment:w</title>
-<path fill="none" stroke="black" d="M468,-741C582.14,-741 492.89,-586.23 576,-508 596.6,-488.61 609.01,-481.68 631.27,-479.69"/>
-<polygon fill="black" stroke="black" points="640.01,-479.37 650.16,-483.5 645,-479.18 650,-479 650,-479 650,-479 645,-479.18 649.84,-474.5 640.01,-479.37 640.01,-479.37"/>
-<ellipse fill="none" stroke="black" cx="635.51" cy="-479.53" rx="4" ry="4"/>
+<path fill="none" stroke="black" d="M468,-741C596.43,-741 498.8,-504.93 604.26,-480.96"/>
+<polygon fill="black" stroke="black" points="613.05,-480.04 623.47,-483.48 618.03,-479.52 623,-479 623,-479 623,-479 618.03,-479.52 622.53,-474.52 613.05,-480.04 613.05,-480.04"/>
+<ellipse fill="none" stroke="black" cx="608.58" cy="-480.51" rx="4" ry="4"/>
 </g>
 </g>
 </svg>

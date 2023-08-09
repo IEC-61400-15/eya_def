@@ -1,4 +1,4 @@
-"""Pydantic data models for wind turbine model specifications.
+"""Data models for wind turbine model specifications.
 
 """
 

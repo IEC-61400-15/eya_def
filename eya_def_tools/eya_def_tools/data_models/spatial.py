@@ -1,4 +1,4 @@
-"""Pydantic data models for spatial data.
+"""Data models for spatial data.
 
 """
 

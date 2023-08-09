@@ -1,4 +1,4 @@
-"""Pydantic data models relating to measurement station metadata.
+"""Data models relating to measurement station metadata.
 
 """
 
