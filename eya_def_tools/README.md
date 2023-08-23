@@ -53,6 +53,16 @@ dependencies, replace the last command by the following.
 pip install -e .[dev]
 ```
 
+The `erd` flag can be added to also install dependencies for using the
+`erdantic` package to generate entity relationship diagrams (ERDs) from
+the pydantic data models. This requires a prior installation of the
+`graphviz` software. In case of issues installing the `pygraphviz`
+package, using the following options may help.
+
+```bash
+pip install --global-option=build_ext --global-option="-IC:\Program Files\Graphviz\include" --global-option="-LC:\Program Files\Graphviz\lib" pygraphviz==<DESIRED_VERSION>
+```
+
 ## Documentation
 
 The documentation of the package (including user documentation and API

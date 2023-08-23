@@ -2,7 +2,7 @@
 
 """
 
-from typing import TypeAlias
+from typing import Optional, TypeAlias
 
 import pydantic as pdt
 
@@ -12,28 +12,30 @@ from eya_def_tools.data_models.enums import (
     ResultsDimension,
     StatisticType,
 )
-from eya_def_tools.data_models.generic_fields import comments_field, description_field
-
-ResultCoordinate: TypeAlias = tuple[float | int | str, ...]
-
 
 ResultValue: TypeAlias = float
-
-
-ResultValueAtCoordinate: TypeAlias = tuple[ResultCoordinate, ResultValue]
+ResultCoordinates: TypeAlias = list[float | int | str]
 
 
 class ResultStatistic(EyaDefBaseModel):
     """Result values for one specific statistic type."""
 
-    description: str | None = description_field
-    comments: str | None = comments_field
+    description: Optional[str] = pdt.Field(
+        default=None,
+        min_length=1,  # Value should not be empty if the field is included
+        description="Optional description of the result statistic.",
+    )
+    comments: Optional[str] = pdt.Field(
+        default=None,
+        min_length=1,  # Value should not be empty if the field is included
+        description="Optional comments on the result statistic.",
+    )
     statistic_type: StatisticType = pdt.Field(
-        ...,
+        default=...,
         description="Type of statistic in the results component.",
     )
-    values: ResultValue | list[ResultValueAtCoordinate] = pdt.Field(
-        ...,
+    values: ResultValue | list[tuple[ResultCoordinates, ResultValue]] = pdt.Field(
+        default=...,
         description="Result as a single number or values at coordinates.",
     )
 
@@ -41,33 +43,41 @@ class ResultStatistic(EyaDefBaseModel):
 class Result(EyaDefBaseModel):
     """Collection of results a quantity along specific dimensions."""
 
-    label: str | None = pdt.Field(
-        None,
+    label: Optional[str] = pdt.Field(
+        default=None,
         description="Label of the results.",
         examples=["Seasonal distribution of net energy."],
     )
-    description: str | None = description_field
-    comments: str | None = comments_field
-    assessment_period: AssessmentPeriod | None = pdt.Field(
-        None,
+    description: Optional[str] = pdt.Field(
+        default=None,
+        min_length=1,  # Value should not be empty if the field is included
+        description="Optional description of the result.",
+    )
+    comments: Optional[str] = pdt.Field(
+        default=None,
+        min_length=1,  # Value should not be empty if the field is included
+        description="Optional comments on the result.",
+    )
+    assessment_period: Optional[AssessmentPeriod] = pdt.Field(
+        default=None,
         description=(
             "Period of or in time that has been assessed and for which "
             "the results are applicable."
         ),
     )
-    dimensions: tuple[ResultsDimension, ...] | None = pdt.Field(
-        None,
+    dimensions: Optional[list[ResultsDimension]] = pdt.Field(
+        default=None,
         description=(
             "Dimensions along which the results are binned (all result values "
             "in the same results object must have the same dimensions)."
         ),
         examples=[
-            (ResultsDimension.TURBINE, ResultsDimension.YEAR),
-            (ResultsDimension.MEASUREMENT, ResultsDimension.HEIGHT),
+            [ResultsDimension.TURBINE, ResultsDimension.YEAR],
+            [ResultsDimension.MEASUREMENT, ResultsDimension.HEIGHT],
         ],
     )
     statistics: list[ResultStatistic] = pdt.Field(
-        ...,
+        default=...,
         description=(
             "List of result statistic objects that each include result "
             "values for a specific statistic type."

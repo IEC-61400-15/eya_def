@@ -3,16 +3,10 @@
 """
 
 
-def get_json_schema_reference_uri() -> str:
-    """Get the reference JSON Schema URI of the EYA DEF JSON Schema.
-
-    :return: the public URI of the JSON Schema reference used
-    """
-    # TODO automate the checking of this version and link
-    return "https://json-schema.org/draft/2020-12/schema"
+import pydantic as pdt
 
 
-def get_json_schema_uri() -> str:
+def get_json_schema_uri() -> pdt.AnyUrl:
     """Get the URI of the EYA DEF JSON Schema.
 
     :return: the public URI of the latest released version of the JSON
@@ -20,7 +14,7 @@ def get_json_schema_uri() -> str:
     """
     # TODO this is a placeholder to be updated (and consider including
     #      version in URI)
-    return (
+    return pdt.AnyUrl(
         "https://raw.githubusercontent.com/IEC-61400-15/eya_def/blob/main/"
         "iec_61400-15-2_eya_def.schema.json"
     )

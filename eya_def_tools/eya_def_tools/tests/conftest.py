@@ -14,7 +14,6 @@ import urllib.request as urllib_request
 from pathlib import Path
 from typing import Any
 
-import pydantic as pdt
 import pytest
 
 from eya_def_tools.data_models import (
@@ -22,13 +21,13 @@ from eya_def_tools.data_models import (
     enums,
     eya_def,
     eya_def_header,
+    general_metadata,
     measurement_station,
     plant_performance,
 )
 from eya_def_tools.data_models import process_description as eya_prcs_desc
 from eya_def_tools.data_models import (
     reference_wind_farm,
-    report_metadata,
     result,
     scenario,
     spatial,
@@ -104,39 +103,27 @@ def master_json_schema(master_json_schema_filepath: Path) -> dict[str, Any]:
 
 
 @pytest.fixture(scope="session")
-def pydantic_json_schema(
-    eya_def_a: eya_def.EyaDefDocument,
-) -> dict[str, Any]:
+def pydantic_json_schema() -> dict[str, Any]:
     """A ``dict`` representation of the pydantic JSON Schema.
 
-    :param eya_def_a: the complete example test instance 'a' of the
-        top-level ``EyaDef`` data model used as the primary test case
     :return: a ``dict`` representation of the pydantic data model JSON
-        Schema exported from the ``EyaDef`` class
+        Schema exported from the ``EyaDefDocument`` class
     """
-    return eya_def_a.final_json_schema()
+    return eya_def.EyaDefDocument.model_json_schema(by_alias=True)
 
 
 @pytest.fixture(scope="session")
-def pydantic_json_schema_tmp_path(
-    pydantic_json_schema: dict[str, Any], tmp_path_factory: pytest.TempPathFactory
-) -> Path:
+def pydantic_json_schema_tmp_path(tmp_path_factory: pytest.TempPathFactory) -> Path:
     """The path to the temporary pydantic JSON Schema file.
 
-    :param pydantic_json_schema: a ``dict`` representation of the pydantic
-        JSON Schema exported from the ``EyaDef`` class
     :param tmp_path_factory: the ``pytest`` ``tmp_path_factory``
     :return: the path to the temporary JSON Schema file representation
         of the pydantic data model
     """
-    json_schema_str = json.dumps(pydantic_json_schema, indent=2)
-    json_schema_str = json_schema_str.replace(r"\n\n", " ")
-    json_schema_str = json_schema_str.replace(r"\n", " ")
-
     tmp_dirpath = tmp_path_factory.mktemp("schema")
     filepath = tmp_dirpath / "iec_61400-15-2_eya_def.schema.json"
     with open(filepath, "w") as f:
-        f.write(json_schema_str)
+        f.write(eya_def.EyaDefDocument.model_json_schema_str(by_alias=True))
 
     return filepath
 
@@ -240,9 +227,6 @@ def iea43_wra_data_model_json_schema() -> dict[str, Any]:
 def turbine_location_wtg01_a() -> spatial.Location:
     """Turbine test case instance 'WTG01_a' of ``Location``."""
     return spatial.Location(
-        location_id="c697566d-cf38-4626-9cda-bc7a77230d48",
-        label="WTG01",
-        description="Planned location of WTG01",
         x=419665.0,
         y=6194240.0,
     )
@@ -252,9 +236,6 @@ def turbine_location_wtg01_a() -> spatial.Location:
 def turbine_location_wtg01_b() -> spatial.Location:
     """Turbine test case instance 'WTG01_b' of ``Location``."""
     return spatial.Location(
-        location_id="ac230650-a5dc-42c7-b10c-c5a88b0e78e9",
-        label="WTG01_b",
-        description="Alternative location of WTG01",
         x=419675.0,
         y=6194260.0,
     )
@@ -264,9 +245,6 @@ def turbine_location_wtg01_b() -> spatial.Location:
 def turbine_location_wtg02_a() -> spatial.Location:
     """Turbine test case instance 'WTG02_a' of ``Location``."""
     return spatial.Location(
-        location_id="c73f2e46-ba0b-4775-a2f3-b76e3c3b5012",
-        label="WTG02",
-        description="Planned location of WTG02",
         x=420665.0,
         y=6194240.0,
     )
@@ -276,13 +254,6 @@ def turbine_location_wtg02_a() -> spatial.Location:
 def turbine_location_wtg02_b() -> spatial.Location:
     """Turbine test case instance 'WTG02_b' of ``Location``."""
     return spatial.Location(
-        location_id="c73f2e46-ba0b-4775-a2f3-b76e3c3b5012",
-        label="WTG02_b",
-        description="Alternative location of WTG02",
-        comments=(
-            "Environmentally challenging location; preliminary and "
-            "requires investigation"
-        ),
         x=420655.0,
         y=6194220.0,
     )
@@ -292,13 +263,6 @@ def turbine_location_wtg02_b() -> spatial.Location:
 def turbine_location_mu_t1_a() -> spatial.Location:
     """Turbine test case instance 'Mu_T1_a' of ``Location``."""
     return spatial.Location(
-        location_id="79166b5c-7e55-485b-b7e7-24f835c5e40a",
-        label="Mu_T1",
-        description="Turbine T1 of the operational Munro Wind Farm",
-        comments=(
-            "Location based on publicly available data and confirmed "
-            "with satellite imagery"
-        ),
         x=419665.0,
         y=6195240.0,
     )
@@ -308,13 +272,6 @@ def turbine_location_mu_t1_a() -> spatial.Location:
 def turbine_location_mu_t2_a() -> spatial.Location:
     """Turbine test case instance 'Mu_T2_a' of ``Location``."""
     return spatial.Location(
-        location_id="dc4dba73-8f1c-494f-868e-e548f2a3923f",
-        label="Mu_T2",
-        description="Turbine T2 of the operational Munro Wind Farm",
-        comments=(
-            "Location based on publicly available data and confirmed "
-            "with satellite imagery"
-        ),
         x=419665.0,
         y=6195240.0,
     )
@@ -322,28 +279,37 @@ def turbine_location_mu_t2_a() -> spatial.Location:
 
 # TODO add valid turbine model performance specification reference
 @pytest.fixture(scope="session")
-def turbine_model_a() -> turbine_model.TurbineModel:
+def turbine_model_a() -> turbine_model.TurbineModelSpecifications:
     """Test case instance 'a' of ``TurbineModel``."""
-    return turbine_model.TurbineModel(
-        turbine_model_id="6ca5bc01-04b1-421a-a033-133304d6cc7f", label="ABC165-5.5MW"
+    return turbine_model.TurbineModelSpecifications(
+        {
+            "id": "6ca5bc01-04b1-421a-a033-133304d6cc7f",
+            "label": "ABC165-5.5MW",
+        }
     )
 
 
 # TODO add valid turbine model performance specification reference
 @pytest.fixture(scope="session")
-def turbine_model_b() -> turbine_model.TurbineModel:
+def turbine_model_b() -> turbine_model.TurbineModelSpecifications:
     """Test case instance 'b' of ``TurbineModel``."""
-    return turbine_model.TurbineModel(
-        turbine_model_id="e2914c83-f355-4cf2-9051-8e0f34aa3c03", label="PQR169-5.8MW"
+    return turbine_model.TurbineModelSpecifications(
+        {
+            "id": "e2914c83-f355-4cf2-9051-8e0f34aa3c03",
+            "label": "PQR169-5.8MW",
+        }
     )
 
 
 # TODO add valid turbine model performance specification reference
 @pytest.fixture(scope="session")
-def turbine_model_c() -> turbine_model.TurbineModel:
+def turbine_model_c() -> turbine_model.TurbineModelSpecifications:
     """Test case instance 'c' of ``TurbineModel``."""
-    return turbine_model.TurbineModel(
-        turbine_model_id="e3288cbd-fa3b-4241-8a4c-3856fc10c55e", label="XYZ-3.2/140"
+    return turbine_model.TurbineModelSpecifications(
+        {
+            "turbine_model_id": "e3288cbd-fa3b-4241-8a4c-3856fc10c55e",
+            "label": "XYZ-3.2/140",
+        }
     )
 
 
@@ -367,7 +333,7 @@ def turbine_specification_wtg01_a(
 ) -> wind_farm.TurbineConfiguration:
     """Test case instance 'WTG01_a' of ``TurbineSpecification``."""
     return wind_farm.TurbineConfiguration(
-        turbine_id="2bbe1cb3-e9f3-42ad-be61-3657ea2ac174",
+        id="2bbe1cb3-e9f3-42ad-be61-3657ea2ac174",
         label="WTG01_scenA",
         description="Configuration of WTG01 in Scenario A",
         location=turbine_location_wtg01_a,
@@ -383,7 +349,7 @@ def turbine_specification_wtg01_b(
 ) -> wind_farm.TurbineConfiguration:
     """Test case instance 'WTG01_b' of ``TurbineSpecification``."""
     return wind_farm.TurbineConfiguration(
-        turbine_id="f5cfd507-5550-4fbb-bdca-3dc6b1c6323c",
+        id="f5cfd507-5550-4fbb-bdca-3dc6b1c6323c",
         label="WTG01_scenB",
         description="Configuration of WTG01 in Scenario B",
         location=turbine_location_wtg01_b,
@@ -399,7 +365,7 @@ def turbine_specification_wtg02_a(
 ) -> wind_farm.TurbineConfiguration:
     """Test case instance 'WTG02_a' of ``TurbineSpecification``."""
     return wind_farm.TurbineConfiguration(
-        turbine_id="39f9dd43-6322-4738-81af-6a65766b26e3",
+        id="39f9dd43-6322-4738-81af-6a65766b26e3",
         label="WTG02_scenA",
         description="Configuration of WTG02 in Scenario A",
         location=turbine_location_wtg02_a,
@@ -415,7 +381,7 @@ def turbine_specification_wtg02_b(
 ) -> wind_farm.TurbineConfiguration:
     """Test case instance 'WTG02_b' of ``TurbineSpecification``."""
     return wind_farm.TurbineConfiguration(
-        turbine_id="a5ee87e3-5254-45fb-a057-4548b8c0424c",
+        id="a5ee87e3-5254-45fb-a057-4548b8c0424c",
         label="WTG02_scenB",
         description="Configuration of WTG02 in Scenario B",
         location=turbine_location_wtg02_b,
@@ -430,7 +396,7 @@ def turbine_specification_mu_t1_a(
 ) -> wind_farm.TurbineConfiguration:
     """Test case instance 'Mu_T1_a' of ``TurbineSpecification``."""
     return wind_farm.TurbineConfiguration(
-        turbine_id="f08b05bd-f90b-4833-91a5-4284b64c80db",
+        id="f08b05bd-f90b-4833-91a5-4284b64c80db",
         label="Mu_T1_a",
         description="Configuration of the neighbouring Mu_T1_a turbine",
         location=turbine_location_mu_t1_a,
@@ -445,7 +411,7 @@ def turbine_specification_mu_t2_a(
 ) -> wind_farm.TurbineConfiguration:
     """Test case instance 'Mu_T2_a' of ``TurbineSpecification``."""
     return wind_farm.TurbineConfiguration(
-        turbine_id="b87f21bc-e1d8-4150-a2f4-d7f019bf96fc",
+        id="b87f21bc-e1d8-4150-a2f4-d7f019bf96fc",
         label="Mu_T2_a",
         description="Configuration of the neighbouring Mu_T2_a turbine",
         location=turbine_location_mu_t2_a,
@@ -461,8 +427,8 @@ def wind_farm_a(
 ) -> wind_farm.WindFarmConfiguration:
     """Test case instance 'a' of ``WindFarm``."""
     return wind_farm.WindFarmConfiguration(
-        name="Barefoot Wind Farm",
-        label="Barefoot",
+        label="Barefoot Wind Farm",
+        abbreviation="Barefoot",
         description="Barefoot Wind Farm configuration for Scenario A",
         turbines=[turbine_specification_wtg01_a, turbine_specification_wtg02_a],
         relevance=enums.WindFarmRelevance.INTERNAL,
@@ -477,8 +443,8 @@ def wind_farm_b(
 ) -> wind_farm.WindFarmConfiguration:
     """Test case instance 'b' of ``WindFarm``."""
     return wind_farm.WindFarmConfiguration(
-        name="Barefoot Wind Farm",
-        label="Barefoot",
+        label="Barefoot Wind Farm",
+        abbreviation="Barefoot",
         description="Barefoot Wind Farm configuration for Scenario B",
         comments="Secondary wind farm scenario",
         turbines=[turbine_specification_wtg01_b, turbine_specification_wtg02_b],
@@ -494,10 +460,14 @@ def neighbouring_wind_farm_a(
 ) -> wind_farm.WindFarmConfiguration:
     """Neighboring project test case instance 'a' of ``WindFarm``."""
     return wind_farm.WindFarmConfiguration(
-        name="Munro Wind Farm",
-        label="MWF",
+        label="Munro Wind Farm",
+        abbreviation="MWF",
         description="The operational Munro Wind Farm",
-        comments="Details taken from publicly available information.",
+        comments=(
+            "Details taken from publicly available information; location "
+            "data based on publicly available data and confirmed with "
+            "satellite imagery."
+        ),
         turbines=[turbine_specification_mu_t1_a, turbine_specification_mu_t2_a],
         relevance=enums.WindFarmRelevance.EXTERNAL,
         operational_lifetime_start_date=dt.date(2018, 7, 1),
@@ -506,23 +476,20 @@ def neighbouring_wind_farm_a(
 
 
 @pytest.fixture(scope="session")
-def measurement_station_a() -> measurement_station.MeasurementStationMetadata:
-    """Test case instance 'a' of ``MeasurementStationMetadata``."""
-    return measurement_station.MeasurementStationMetadata(
-        "./iec_61400-15-2_eya_def_example_a_iea43_wra.json"
-    )
+def measurement_station_a_filepath(json_examples_dirpath: Path) -> Path:
+    """Path to test case instance 'a' of ``MeasurementStationMetadata``."""
+    return json_examples_dirpath / "iec_61400-15-2_eya_def_example_a_iea43_wra.json"
 
 
 @pytest.fixture(scope="session")
-def measurement_station_a_json(
-    json_examples_dirpath: Path,
-    measurement_station_a: measurement_station.MeasurementStationMetadata,
-) -> dict[str, Any]:
-    """The JSON data for case 'a' of ``MeasurementStationMetadata``."""
-    filepath = json_examples_dirpath / measurement_station_a
-    with open(filepath, "r") as f:
-        json_data = json.load(f)
-    return json_data
+def measurement_station_a(
+    measurement_station_a_filepath: Path,
+) -> measurement_station.MeasurementStationMetadata:
+    """Test case instance 'a' of ``MeasurementStationMetadata``."""
+    with open(measurement_station_a_filepath, "r") as f:
+        json_data_dict = json.load(f)
+
+    return measurement_station.MeasurementStationMetadata(json_data_dict)
 
 
 @pytest.fixture(scope="session")
@@ -530,7 +497,7 @@ def reference_wind_farm_dataset_a() -> reference_wind_farm.ReferenceWindFarmData
     """Test case instance 'a' of ``ReferenceWindFarmDataset``."""
     return reference_wind_farm.ReferenceWindFarmDataset(
         label="WTG SCADA",
-        data_supplier_organisation=report_metadata.Organisation(
+        data_supplier_organisation=general_metadata.Organisation(
             name="Munro Wind Limited",
             abbreviation="Munro Wind",
             address="High Munro Walk, Glasgow, G12 0YE, UK",
@@ -588,36 +555,36 @@ def wind_resource_assessment_a() -> wind_resource.WindResourceAssessment:
         results=wind_resource.WindResourceResults(
             wind_speed=[
                 result.Result(
-                    dimensions=(
+                    dimensions=[
                         enums.ResultsDimension.MEASUREMENT,
                         enums.ResultsDimension.HEIGHT,
-                    ),
+                    ],
                     statistics=[
                         result.ResultStatistic(
                             statistic_type=enums.StatisticType.MEAN,
                             values=[
                                 (
-                                    ("BF_M1", 120.0),
+                                    ["BF_M1", 120.0],
                                     6.83,
                                 ),
                                 (
-                                    ("BF_M1", 125.0),
+                                    ["BF_M1", 125.0],
                                     6.85,
                                 ),
                                 (
-                                    ("BF_M1", 148.0),
+                                    ["BF_M1", 148.0],
                                     6.93,
                                 ),
                                 (
-                                    ("BF_M1", 150.0),
+                                    ["BF_M1", 150.0],
                                     6.94,
                                 ),
                                 (
-                                    ("BF_M1", 158.0),
+                                    ["BF_M1", 158.0],
                                     6.96,
                                 ),
                                 (
-                                    ("BF_M1", 160.0),
+                                    ["BF_M1", 160.0],
                                     6.97,
                                 ),
                             ],
@@ -626,27 +593,27 @@ def wind_resource_assessment_a() -> wind_resource.WindResourceAssessment:
                             statistic_type=enums.StatisticType.STANDARD_DEVIATION,
                             values=[
                                 (
-                                    ("BF_M1", 120.0),
+                                    ["BF_M1", 120.0],
                                     0.27,
                                 ),
                                 (
-                                    ("BF_M1", 125.0),
+                                    ["BF_M1", 125.0],
                                     0.27,
                                 ),
                                 (
-                                    ("BF_M1", 148.0),
+                                    ["BF_M1", 148.0],
                                     0.29,
                                 ),
                                 (
-                                    ("BF_M1", 150.0),
+                                    ["BF_M1", 150.0],
                                     0.29,
                                 ),
                                 (
-                                    ("BF_M1", 158.0),
+                                    ["BF_M1", 158.0],
                                     0.31,
                                 ),
                                 (
-                                    ("BF_M1", 160.0),
+                                    ["BF_M1", 160.0],
                                     0.31,
                                 ),
                             ],
@@ -656,38 +623,38 @@ def wind_resource_assessment_a() -> wind_resource.WindResourceAssessment:
             ],
             probability=[
                 result.Result(
-                    dimensions=(
+                    dimensions=[
                         enums.ResultsDimension.MEASUREMENT,
                         enums.ResultsDimension.HEIGHT,
                         enums.ResultsDimension.WIND_FROM_DIRECTION,
                         enums.ResultsDimension.WIND_SPEED,
-                    ),
+                    ],
                     statistics=[
                         result.ResultStatistic(
                             statistic_type=enums.StatisticType.MEAN,
                             values=[
                                 (
-                                    ("BF_M1", 120.0, 0.0, 2.5),
+                                    ["BF_M1", 120.0, 0.0, 2.5],
                                     0.1,
                                 ),
                                 (
-                                    ("BF_M1", 120.0, 120.0, 2.5),
+                                    ["BF_M1", 120.0, 120.0, 2.5],
                                     0.2,
                                 ),
                                 (
-                                    ("BF_M1", 120.0, 240.0, 2.5),
+                                    ["BF_M1", 120.0, 240.0, 2.5],
                                     0.3,
                                 ),
                                 (
-                                    ("BF_M1", 120.0, 0.0, 10.0),
+                                    ["BF_M1", 120.0, 0.0, 10.0],
                                     0.1,
                                 ),
                                 (
-                                    ("BF_M1", 120.0, 120.0, 10.0),
+                                    ["BF_M1", 120.0, 120.0, 10.0],
                                     0.2,
                                 ),
                                 (
-                                    ("BF_M1", 120.0, 240.0, 10.0),
+                                    ["BF_M1", 120.0, 240.0, 10.0],
                                     0.1,
                                 ),
                             ],
@@ -697,13 +664,13 @@ def wind_resource_assessment_a() -> wind_resource.WindResourceAssessment:
             ],
             wind_shear_exponent=[
                 result.Result(
-                    dimensions=(enums.ResultsDimension.MEASUREMENT,),
+                    dimensions=[enums.ResultsDimension.MEASUREMENT],
                     statistics=[
                         result.ResultStatistic(
                             statistic_type=enums.StatisticType.MEAN,
                             values=[
                                 (
-                                    ("BF_M1",),
+                                    ["BF_M1"],
                                     0.18,
                                 ),
                             ],
@@ -713,16 +680,16 @@ def wind_resource_assessment_a() -> wind_resource.WindResourceAssessment:
             ],
             temperature=[
                 result.Result(
-                    dimensions=(
+                    dimensions=[
                         enums.ResultsDimension.MEASUREMENT,
                         enums.ResultsDimension.HEIGHT,
-                    ),
+                    ],
                     statistics=[
                         result.ResultStatistic(
                             statistic_type=enums.StatisticType.MEAN,
                             values=[
                                 (
-                                    ("BF_M1", 120.0),
+                                    ["BF_M1", 120.0],
                                     1.234,
                                 ),
                             ],
@@ -732,16 +699,16 @@ def wind_resource_assessment_a() -> wind_resource.WindResourceAssessment:
             ],
             air_density=[
                 result.Result(
-                    dimensions=(
+                    dimensions=[
                         enums.ResultsDimension.MEASUREMENT,
                         enums.ResultsDimension.HEIGHT,
-                    ),
+                    ],
                     statistics=[
                         result.ResultStatistic(
                             statistic_type=enums.StatisticType.MEAN,
                             values=[
                                 (
-                                    ("BF_M1", 120.0),
+                                    ["BF_M1", 120.0],
                                     1.234,
                                 ),
                             ],
@@ -757,7 +724,7 @@ def wind_resource_assessment_a() -> wind_resource.WindResourceAssessment:
 def wind_spatial_model_process_a() -> eya_prcs_desc.AssessmentProcessDescription:
     """Spatial model test case of ``AssessmentProcessDescription``."""
     return eya_prcs_desc.AssessmentProcessDescription(
-        name="xeEdge-meso-cfd",
+        label="xeEdge-meso-cfd",
         description="A coupled CFD-mesoscale model.",
         comments="The simulations were run using 60 representative days.",
     )
@@ -772,13 +739,13 @@ def long_term_adj_uncertainty_subcat_a() -> wind_uncertainty.WindUncertaintySubc
             relative_wind_speed_uncertainty=[
                 result.Result(
                     assessment_period=enums.AssessmentPeriod.LIFETIME,
-                    dimensions=(enums.ResultsDimension.MEASUREMENT,),
+                    dimensions=[enums.ResultsDimension.MEASUREMENT],
                     statistics=[
                         result.ResultStatistic(
                             statistic_type=enums.StatisticType.STANDARD_DEVIATION,
                             values=[
                                 (
-                                    ("BF_M1",),
+                                    ["BF_M1"],
                                     0.025,
                                 )
                             ],
@@ -801,13 +768,13 @@ def lt_consistency_uncertainty_subcat_a() -> (
             relative_wind_speed_uncertainty=[
                 result.Result(
                     assessment_period=enums.AssessmentPeriod.LIFETIME,
-                    dimensions=(enums.ResultsDimension.MEASUREMENT,),
+                    dimensions=[enums.ResultsDimension.MEASUREMENT],
                     statistics=[
                         result.ResultStatistic(
                             statistic_type=enums.StatisticType.STANDARD_DEVIATION,
                             values=[
                                 (
-                                    ("BF_M1",),
+                                    ["BF_M1"],
                                     0.02,
                                 )
                             ],
@@ -835,13 +802,13 @@ def historical_wind_uncertainty_category_a(
             relative_wind_speed_uncertainty=[
                 result.Result(
                     assessment_period=enums.AssessmentPeriod.LIFETIME,
-                    dimensions=(enums.ResultsDimension.MEASUREMENT,),
+                    dimensions=[enums.ResultsDimension.MEASUREMENT],
                     statistics=[
                         result.ResultStatistic(
                             statistic_type=enums.StatisticType.STANDARD_DEVIATION,
                             values=[
                                 (
-                                    ("BF_M1",),
+                                    ["BF_M1"],
                                     0.03201,
                                 )
                             ],
@@ -865,17 +832,17 @@ def turbine_wind_resource_assessment_a(
             wind_speed=[
                 result.Result(
                     assessment_period=enums.AssessmentPeriod.LIFETIME,
-                    dimensions=(enums.ResultsDimension.TURBINE,),
+                    dimensions=[enums.ResultsDimension.TURBINE],
                     statistics=[
                         result.ResultStatistic(
                             statistic_type=enums.StatisticType.MEAN,
                             values=[
                                 (
-                                    ("WTG01",),
+                                    ["WTG01"],
                                     6.91,
                                 ),
                                 (
-                                    ("WTG02",),
+                                    ["WTG02"],
                                     6.95,
                                 ),
                             ],
@@ -929,17 +896,17 @@ def turbine_wind_resource_assessment_b(
             wind_speed=[
                 result.Result(
                     assessment_period=enums.AssessmentPeriod.LIFETIME,
-                    dimensions=(enums.ResultsDimension.TURBINE,),
+                    dimensions=[enums.ResultsDimension.TURBINE],
                     statistics=[
                         result.ResultStatistic(
                             statistic_type=enums.StatisticType.MEAN,
                             values=[
                                 (
-                                    ("WTG01",),
+                                    ["WTG01"],
                                     6.90,
                                 ),
                                 (
-                                    ("WTG02",),
+                                    ["WTG02"],
                                     6.94,
                                 ),
                             ],
@@ -991,11 +958,11 @@ def plant_performance_curtailment_category_a() -> (
             statistic_type=enums.StatisticType.MEAN,
             values=[
                 (
-                    ("WTG01",),
+                    ["WTG01"],
                     0.975,
                 ),
                 (
-                    ("WTG02",),
+                    ["WTG02"],
                     0.983,
                 ),
             ],
@@ -1004,11 +971,11 @@ def plant_performance_curtailment_category_a() -> (
             statistic_type=enums.StatisticType.STANDARD_DEVIATION,
             values=[
                 (
-                    ("WTG01",),
+                    ["WTG01"],
                     0.006,
                 ),
                 (
-                    ("WTG02",),
+                    ["WTG02"],
                     0.004,
                 ),
             ],
@@ -1017,11 +984,11 @@ def plant_performance_curtailment_category_a() -> (
             statistic_type=enums.StatisticType.INTER_ANNUAL_VARIABILITY,
             values=[
                 (
-                    ("WTG01",),
+                    ["WTG01"],
                     0.002,
                 ),
                 (
-                    ("WTG02",),
+                    ["WTG02"],
                     0.001,
                 ),
             ],
@@ -1036,7 +1003,11 @@ def plant_performance_curtailment_category_a() -> (
                 variability=enums.TimeVariabilityType.STATIC_PROCESS,
                 assessment_process_descriptions=[
                     eya_prcs_desc.AssessmentProcessDescription(
-                        name="Timeseries tool", comments="Internal toolset"
+                        label="Timeseries tool",
+                        description=(
+                            "Energy yield production timeseries simulation tool."
+                        ),
+                        comments="Internal toolset",
                     )
                 ],
                 results=plant_performance.PlantPerformanceResults(
@@ -1051,7 +1022,7 @@ def plant_performance_curtailment_category_a() -> (
                                 "the turbine manufacturer."
                             ),
                             assessment_period=enums.AssessmentPeriod.LIFETIME,
-                            dimensions=(enums.ResultsDimension.TURBINE,),
+                            dimensions=[enums.ResultsDimension.TURBINE],
                             statistics=result_components,
                         )
                     ],
@@ -1063,7 +1034,7 @@ def plant_performance_curtailment_category_a() -> (
                 result.Result(
                     description="Curtailment losses.",
                     assessment_period=enums.AssessmentPeriod.LIFETIME,
-                    dimensions=(enums.ResultsDimension.TURBINE,),
+                    dimensions=[enums.ResultsDimension.TURBINE],
                     statistics=result_components,
                 )
             ],
@@ -1081,11 +1052,11 @@ def plant_performance_curtailment_category_b() -> (
             statistic_type=enums.StatisticType.MEAN,
             values=[
                 (
-                    ("WTG01",),
+                    ["WTG01"],
                     0.95,
                 ),
                 (
-                    ("WTG02",),
+                    ["WTG02"],
                     0.95,
                 ),
             ],
@@ -1094,11 +1065,11 @@ def plant_performance_curtailment_category_b() -> (
             statistic_type=enums.StatisticType.STANDARD_DEVIATION,
             values=[
                 (
-                    ("WTG01",),
+                    ["WTG01"],
                     0.05,
                 ),
                 (
-                    ("WTG02",),
+                    ["WTG02"],
                     0.05,
                 ),
             ],
@@ -1124,7 +1095,7 @@ def plant_performance_curtailment_category_b() -> (
                                 "manufacturer."
                             ),
                             assessment_period=enums.AssessmentPeriod.LIFETIME,
-                            dimensions=(enums.ResultsDimension.TURBINE,),
+                            dimensions=[enums.ResultsDimension.TURBINE],
                             statistics=result_components,
                         )
                     ],
@@ -1136,7 +1107,7 @@ def plant_performance_curtailment_category_b() -> (
                 result.Result(
                     description="Curtailment losses.",
                     assessment_period=enums.AssessmentPeriod.LIFETIME,
-                    dimensions=(enums.ResultsDimension.TURBINE,),
+                    dimensions=[enums.ResultsDimension.TURBINE],
                     statistics=result_components,
                 )
             ],
@@ -1148,7 +1119,7 @@ def plant_performance_curtailment_category_b() -> (
 def gross_energy_process_description_a() -> eya_prcs_desc.AssessmentProcessDescription:
     """Gross energy test case of ``AssessmentProcessDescription``."""
     return eya_prcs_desc.AssessmentProcessDescription(
-        name="TurboYield",
+        label="TurboYield",
         description=(
             "In-house calculation tool, using a wind speed and direction "
             "frequency distribution association method."
@@ -1160,7 +1131,7 @@ def gross_energy_process_description_a() -> eya_prcs_desc.AssessmentProcessDescr
 def net_energy_process_description_a() -> eya_prcs_desc.AssessmentProcessDescription:
     """Net energy test case of ``AssessmentProcessDescription``."""
     return eya_prcs_desc.AssessmentProcessDescription(
-        name="TurboYield",
+        label="TurboYield",
         description=(
             "In-house calculation tool, using a frequency distribution "
             "approach and treating all wind uncertainty components and "
@@ -1185,17 +1156,17 @@ def energy_assessment_a(
                 annual_energy_production=[
                     result.Result(
                         assessment_period=enums.AssessmentPeriod.LIFETIME,
-                        dimensions=(enums.ResultsDimension.TURBINE,),
+                        dimensions=[enums.ResultsDimension.TURBINE],
                         statistics=[
                             result.ResultStatistic(
                                 statistic_type=enums.StatisticType.MEAN,
                                 values=[
                                     (
-                                        ("WTG01",),
+                                        ["WTG01"],
                                         15.5,
                                     ),
                                     (
-                                        ("WTG02",),
+                                        ["WTG02"],
                                         16.7,
                                     ),
                                 ],
@@ -1294,17 +1265,17 @@ def energy_assessment_b(
                 annual_energy_production=[
                     result.Result(
                         assessment_period=enums.AssessmentPeriod.LIFETIME,
-                        dimensions=(enums.ResultsDimension.TURBINE,),
+                        dimensions=[enums.ResultsDimension.TURBINE],
                         statistics=[
                             result.ResultStatistic(
                                 statistic_type=enums.StatisticType.MEAN,
                                 values=[
                                     (
-                                        ("WTG01",),
+                                        ["WTG01"],
                                         18.1,
                                     ),
                                     (
-                                        ("WTG02",),
+                                        ["WTG02"],
                                         18.9,
                                     ),
                                 ],
@@ -1396,7 +1367,7 @@ def scenario_a(
 ) -> scenario.Scenario:
     """Test case instance 'a' of ``Scenario``."""
     return scenario.Scenario(
-        scenario_id="b6953ecb-f88b-4660-9f69-bedbbe4c240b",
+        id="b6953ecb-f88b-4660-9f69-bedbbe4c240b",
         label="A",
         description="ABC165-5.5MW turbine model scenario",
         is_main_scenario=True,
@@ -1416,7 +1387,7 @@ def scenario_b(
 ) -> scenario.Scenario:
     """Test case instance 'b' of ``Scenario``."""
     return scenario.Scenario(
-        scenario_id="e27fefdf-cdd7-441f-a7a7-c4347514b4f7",
+        id="e27fefdf-cdd7-441f-a7a7-c4347514b4f7",
         label="B",
         description="PQR169-5.8MW turbine model scenario",
         comments="Site suitability of turbine model has not yet investigated.",
@@ -1429,9 +1400,9 @@ def scenario_b(
 
 
 @pytest.fixture(scope="session")
-def issuing_organisation_a() -> report_metadata.Organisation:
+def issuing_organisation_a() -> general_metadata.Organisation:
     """Issuing organisation test case instance 'a' of ``Organisation``."""
-    return report_metadata.Organisation(
+    return general_metadata.Organisation(
         name="The Torre Egger Consultants Limited",
         abbreviation="Torre Egger",
         address="5 Munro Road, Sgurrsville, G12 0YE, UK",
@@ -1439,9 +1410,9 @@ def issuing_organisation_a() -> report_metadata.Organisation:
 
 
 @pytest.fixture(scope="session")
-def receiving_organisations_a() -> report_metadata.Organisation:
+def receiving_organisations_a() -> general_metadata.Organisation:
     """receiving organisation test case instance 'a' of ``Organisation``."""
-    return report_metadata.Organisation(
+    return general_metadata.Organisation(
         name="Miranda Investments Limited",
         abbreviation="Miranda",
         address="9 Acosta St., Ivanslake, Republic of Miranda",
@@ -1450,11 +1421,11 @@ def receiving_organisations_a() -> report_metadata.Organisation:
 
 
 @pytest.fixture(scope="session")
-def main_author_a() -> report_metadata.ReportContributor:
+def main_author_a() -> general_metadata.ReportContributor:
     """Main author test case instance 'a' of ``ReportContributor``."""
-    return report_metadata.ReportContributor(
+    return general_metadata.ReportContributor(
         name="Joan Miro",
-        email_address=pdt.EmailStr("j.miro@art.cat"),
+        email_address="j.miro@art.cat",
         contributor_type=enums.ReportContributorType.AUTHOR,
         contribution_comments="Main author",
         completion_date=dt.date(2022, 10, 5),
@@ -1462,11 +1433,11 @@ def main_author_a() -> report_metadata.ReportContributor:
 
 
 @pytest.fixture(scope="session")
-def second_author_a() -> report_metadata.ReportContributor:
+def second_author_a() -> general_metadata.ReportContributor:
     """Second author test case instance 'a' of ``ReportContributor``."""
-    return report_metadata.ReportContributor(
+    return general_metadata.ReportContributor(
         name="Andrei Tarkovsky",
-        email_address=pdt.EmailStr("andrei.tarkovsky@cinema.com"),
+        email_address="andrei.tarkovsky@cinema.com",
         contributor_type=enums.ReportContributorType.AUTHOR,
         contribution_comments="Second author",
         completion_date=dt.date(2022, 10, 5),
@@ -1474,22 +1445,22 @@ def second_author_a() -> report_metadata.ReportContributor:
 
 
 @pytest.fixture(scope="session")
-def verifier_a() -> report_metadata.ReportContributor:
+def verifier_a() -> general_metadata.ReportContributor:
     """Verifier test case instance 'a' of ``ReportContributor``."""
-    return report_metadata.ReportContributor(
+    return general_metadata.ReportContributor(
         name="Hanns Eisler",
-        email_address=pdt.EmailStr("hannseisler@udk-berlin.de"),
+        email_address="hannseisler@udk-berlin.de",
         contributor_type=enums.ReportContributorType.VERIFIER,
         completion_date=dt.date(2022, 10, 6),
     )
 
 
 @pytest.fixture(scope="session")
-def approver_a() -> report_metadata.ReportContributor:
+def approver_a() -> general_metadata.ReportContributor:
     """Approver test case instance 'a' of ``ReportContributor``."""
-    return report_metadata.ReportContributor(
+    return general_metadata.ReportContributor(
         name="Kurt Weill",
-        email_address=pdt.EmailStr("weill@broadway.com"),
+        email_address="weill@broadway.com",
         contributor_type=enums.ReportContributorType.APPROVER,
         completion_date=dt.date(2022, 10, 7),
     )
@@ -1497,17 +1468,17 @@ def approver_a() -> report_metadata.ReportContributor:
 
 @pytest.fixture(scope="session")
 def eya_def_a(
-    issuing_organisation_a: report_metadata.Organisation,
-    receiving_organisations_a: report_metadata.Organisation,
-    main_author_a: report_metadata.ReportContributor,
-    second_author_a: report_metadata.ReportContributor,
-    verifier_a: report_metadata.ReportContributor,
-    approver_a: report_metadata.ReportContributor,
+    issuing_organisation_a: general_metadata.Organisation,
+    receiving_organisations_a: general_metadata.Organisation,
+    main_author_a: general_metadata.ReportContributor,
+    second_author_a: general_metadata.ReportContributor,
+    verifier_a: general_metadata.ReportContributor,
+    approver_a: general_metadata.ReportContributor,
     measurement_station_a: measurement_station.MeasurementStationMetadata,
     reference_wind_farm_a: reference_wind_farm.ReferenceWindFarm,
-    turbine_model_a: turbine_model.TurbineModel,
-    turbine_model_b: turbine_model.TurbineModel,
-    turbine_model_c: turbine_model.TurbineModel,
+    turbine_model_a: turbine_model.TurbineModelSpecifications,
+    turbine_model_b: turbine_model.TurbineModelSpecifications,
+    turbine_model_c: turbine_model.TurbineModelSpecifications,
     wind_resource_assessment_a: wind_resource.WindResourceAssessment,
     scenario_a: scenario.Scenario,
     scenario_b: scenario.Scenario,
@@ -1556,7 +1527,9 @@ def eya_def_a_tmp_filepath(
     :return: the directory path of the temporary json file
         representation of the example test case instance 'a'
     """
-    eya_def_a_json = eya_def_a.json(indent=2, exclude_none=True, by_alias=True)
+    eya_def_a_json = eya_def_a.model_dump_json(
+        indent=2, exclude_none=True, by_alias=True
+    )
 
     filepath = json_examples_tmp_dirpath / "iec_61400-15-2_eya_def_example_a.json"
     with open(filepath, "w") as f:

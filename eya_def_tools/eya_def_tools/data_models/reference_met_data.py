@@ -9,11 +9,11 @@ the IEA Task 43 WRA data model. See the module ``measurement_station``.
 
 """
 
+from typing import Optional
 
 import pydantic as pdt
 
 from eya_def_tools.data_models.base_model import EyaDefBaseModel
-from eya_def_tools.data_models.generic_fields import comments_field, description_field
 from eya_def_tools.data_models.spatial import Location
 
 
@@ -26,19 +26,27 @@ class ReferenceMeteorologicalDataset(EyaDefBaseModel):
     different grid cells from a reanalysis dataset).
     """
 
-    reference_meteorological_dataset_id: str = pdt.Field(
-        ...,
+    id: str = pdt.Field(
+        default=...,
         description=(
             "Unique ID for the reference meteorological dataset within "
             "the EYA DEF document."
         ),
         examples=["ERA5_1.23_4.56", "WRF_r0245_a"],
     )
-    description: str | None = description_field
-    comments: str | None = comments_field
+    description: str = pdt.Field(
+        default=...,
+        min_length=1,  # Value should not be empty
+        description="Description of the meteorological dataset.",
+        examples=["The ERA5 reanalysis dataset."],
+    )
+    comments: Optional[str] = pdt.Field(
+        default=None,
+        min_length=1,  # Value should not be empty if the field is included
+        description="Optional comments on the meteorological dataset.",
+    )
     location: Location = pdt.Field(
-        ...,
+        default=...,
         description="The horizontal spatial location of the meteorological data.",
     )
-
-    # TODO - complete reference meteorological dataset metadata schema
+    # TODO include data period and temporal resolution

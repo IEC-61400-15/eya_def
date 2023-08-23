@@ -21,7 +21,7 @@ def test_eya_def_round_trip_conversion(
 ) -> None:
     """Test ``EyaDef`` example json round-trip conversion."""
     eya_def_a_conv = eya_def.EyaDefDocument(
-        **json.loads(eya_def_a.json(exclude_none=True, by_alias=True))
+        **json.loads(eya_def_a.model_dump_json(by_alias=True))
     )
     assert eya_def_a == eya_def_a_conv
 
@@ -30,12 +30,12 @@ def test_make_model_raw_schema(
     eya_def_a: eya_def.EyaDefDocument,
 ) -> None:
     """Test that the raw schema is successfully created."""
-    schema = eya_def_a.schema()
+    schema = eya_def_a.model_dump(mode="python")
     assert schema is not None
     assert isinstance(schema, dict)
 
 
-def test_make_model_final_json_schema(pydantic_json_schema: dict[str, Any]) -> None:
+def test_generate_model_json_schema(pydantic_json_schema: dict[str, Any]) -> None:
     """Test that the final json schema is successfully created."""
     assert pydantic_json_schema is not None
     assert isinstance(pydantic_json_schema, dict)
