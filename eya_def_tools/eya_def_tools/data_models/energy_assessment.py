@@ -14,8 +14,8 @@ class EnergyAssessmentResults(EyaDefBaseModel):
     """Energy assessment results."""
 
     annual_energy_production: list[Result] = pdt.Field(
-        ...,
-        description=("Annual energy production estimates in GWh."),
+        default=...,
+        description="Annual energy production estimates in GWh.",
     )
 
 
@@ -23,13 +23,13 @@ class GrossEnergyAssessment(EyaDefBaseModel):
     """Gross energy assessment details and results."""
 
     process_description: AssessmentProcessDescription = pdt.Field(
-        ...,
+        default=...,
         description=(
             "Specification of the process used to calculate the gross EYA estimates."
         ),
     )
     results: EnergyAssessmentResults = pdt.Field(
-        ...,
+        default=...,
         description="Gross EYA estimates.",
     )
 
@@ -38,13 +38,13 @@ class NetEnergyAssessment(EyaDefBaseModel):
     """Net energy assessment details and results."""
 
     process_description: AssessmentProcessDescription = pdt.Field(
-        ...,
+        default=...,
         description=(
             "Specification of the process used to calculate the net EYA estimates."
         ),
     )
     results: EnergyAssessmentResults = pdt.Field(
-        ...,
+        default=...,
         description=(
             "Net EYA predictions, including central estimates, overall "
             "uncertainties and results at different confidence levels."
@@ -56,14 +56,14 @@ class EnergyAssessment(EyaDefBaseModel):
     """Energy assessment details and results."""
 
     gross_energy_assessment: GrossEnergyAssessment = pdt.Field(
-        ...,
-        description=("Details and results for the assessment of gross energy yield."),
+        default=...,
+        description="Details and results for the assessment of gross energy yield.",
     )
     plant_performance_assessment: PlantPerformanceAssessment = pdt.Field(
-        ...,
+        default=...,
         description="Plant performance loss assessment categories including results.",
     )
     net_energy_assessment: NetEnergyAssessment = pdt.Field(
-        ...,
-        description=("Details and results for the assessment of net energy yield."),
+        default=...,
+        description="Details and results for the assessment of net energy yield.",
     )

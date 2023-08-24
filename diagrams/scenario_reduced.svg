@@ -9,7 +9,7 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 536)">
 <title>Entity Relationship Diagram</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-536 962,-536 962,4 -4,4"/>
-<text text-anchor="middle" x="479" y="-6.8" font-family="Times New Roman,serif" font-size="9.00" fill="#a8a8a8">Created by erdantic v0.5.0 &lt;https://github.com/drivendataorg/erdantic&gt;</text>
+<text text-anchor="middle" x="479" y="-6.8" font-family="Times New Roman,serif" font-size="9.00" fill="#a8a8a8">Created by erdantic v0.6.0 &lt;https://github.com/drivendataorg/erdantic&gt;</text>
 <!-- eya_def_tools.data_models.energy_assessment.EnergyAssessment -->
 <g id="node1" class="node">
 <title>eya_def_tools.data_models.energy_assessment.EnergyAssessment</title>
@@ -34,11 +34,11 @@
 <!-- eya_def_tools.data_models.scenario.Scenario -->
 <g id="node2" class="node">
 <title>eya_def_tools.data_models.scenario.Scenario</title>
-<g id="a_node2"><a xlink:title="eya_def_tools.data_models.scenario.Scenario&#10;&#10;Single unique energy yield assessment scenario.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;scenario_id (Optional[str]): Unique identifier of the scenario. Default is None.&#10; &#160;&#160;&#160;label (str): Label of the scenario.&#10; &#160;&#160;&#160;description (Optional[str]): Description of the data object. Default is None.&#10; &#160;&#160;&#160;comments (Optional[str]): Comments on the data object. Default is None.&#10; &#160;&#160;&#160;is_main_scenario (Optional[bool]): Whether or not this is the main scenario in the report. Default is None.&#10; &#160;&#160;&#160;operational_lifetime_length_years (ConstrainedFloatValue): Number of years of project operational lifetime.&#10; &#160;&#160;&#160;wind_farms (list[WindFarmConfiguration]): List of all wind farms included in the scenario.&#10; &#160;&#160;&#160;turbine_wind_resource_assessment (TurbineWindResourceAssessment): Wind resource assessment at the turbine locations.&#10; &#160;&#160;&#160;energy_assessment (EnergyAssessment): Energy assessment details and results, including gross energy, plant performance, net energy and uncertainties.&#10;">
+<g id="a_node2"><a xlink:title="eya_def_tools.data_models.scenario.Scenario&#10;&#10;Single unique energy yield assessment scenario.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;id (Optional[str]): Optional unique identifier of the scenario. Default is None.&#10; &#160;&#160;&#160;label (str): Label of the scenario.&#10; &#160;&#160;&#160;description (Optional[str]): Optional description of the scenario. Default is None.&#10; &#160;&#160;&#160;comments (Optional[str]): Optional comments on the scenario. Default is None.&#10; &#160;&#160;&#160;is_main_scenario (Optional[bool]): Whether or not this is the main scenario in the report. Default is None.&#10; &#160;&#160;&#160;operational_lifetime_length_years (float): Number of years of project operational lifetime.&#10; &#160;&#160;&#160;wind_farms (list[WindFarmConfiguration]): List of all wind farms included in the scenario.&#10; &#160;&#160;&#160;turbine_wind_resource_assessment (TurbineWindResourceAssessment): Wind resource assessment at the turbine locations.&#10; &#160;&#160;&#160;energy_assessment (EnergyAssessment): Energy assessment details and results, including gross energy, plant performance, net energy and uncertainties.&#10;">
 <polygon fill="none" stroke="black" points="0,-433 0,-454 406,-454 406,-433 0,-433"/>
 <text text-anchor="start" x="175.5" y="-440.8" font-family="Times New Roman,serif" font-weight="bold" font-size="14.00">Scenario</text>
 <polygon fill="none" stroke="black" points="0,-412 0,-433 205,-433 205,-412 0,-412"/>
-<text text-anchor="start" x="70" y="-418.8" font-family="Times New Roman,serif" font-size="14.00">scenario_id</text>
+<text text-anchor="start" x="97" y="-418.8" font-family="Times New Roman,serif" font-size="14.00">id</text>
 <polygon fill="none" stroke="black" points="205,-412 205,-433 406,-433 406,-412 205,-412"/>
 <text text-anchor="start" x="269.5" y="-418.8" font-family="Times New Roman,serif" font-size="14.00">Optional[str]</text>
 <polygon fill="none" stroke="black" points="0,-391 0,-412 205,-412 205,-391 0,-391"/>
@@ -60,7 +60,7 @@
 <polygon fill="none" stroke="black" points="0,-307 0,-328 205,-328 205,-307 0,-307"/>
 <text text-anchor="start" x="9" y="-313.8" font-family="Times New Roman,serif" font-size="14.00">operational_lifetime_length_years</text>
 <polygon fill="none" stroke="black" points="205,-307 205,-328 406,-328 406,-307 205,-307"/>
-<text text-anchor="start" x="241.5" y="-313.8" font-family="Times New Roman,serif" font-size="14.00">ConstrainedFloatValue</text>
+<text text-anchor="start" x="293" y="-313.8" font-family="Times New Roman,serif" font-size="14.00">float</text>
 <polygon fill="none" stroke="black" points="0,-286 0,-307 205,-307 205,-286 0,-286"/>
 <text text-anchor="start" x="69" y="-292.8" font-family="Times New Roman,serif" font-size="14.00">wind_farms</text>
 <polygon fill="none" stroke="black" points="205,-286 205,-307 406,-307 406,-286 205,-286"/>
@@ -89,15 +89,15 @@
 <!-- eya_def_tools.data_models.wind_farm.WindFarmConfiguration -->
 <g id="node3" class="node">
 <title>eya_def_tools.data_models.wind_farm.WindFarmConfiguration</title>
-<g id="a_node3"><a xlink:title="eya_def_tools.data_models.wind_farm.WindFarmConfiguration&#10;&#10;A collection of wind turbines considered as one unit (plant).&#10;&#10;Attributes:&#10; &#160;&#160;&#160;name (str): Name of the wind farm.&#10; &#160;&#160;&#160;label (Optional[str]): Abbreviated label of the wind farm. Default is None.&#10; &#160;&#160;&#160;description (Optional[str]): Description of the data object. Default is None.&#10; &#160;&#160;&#160;comments (Optional[str]): Comments on the data object. Default is None.&#10; &#160;&#160;&#160;turbines (list[TurbineConfiguration]): List of specifications for constituent turbines.&#10; &#160;&#160;&#160;relevance (WindFarmRelevance(StrEnum)): The relevance of the wind farm for the assessment.&#10; &#160;&#160;&#160;operational_lifetime_start_date (Optional[date]): Operational lifetime start date (format YYYY&#45;MM&#45;DD). Default is None.&#10; &#160;&#160;&#160;operational_lifetime_end_date (Optional[date]): Operational lifetime end date (format YYYY&#45;MM&#45;DD). Default is None.&#10; &#160;&#160;&#160;wind_farm_restrictions (Optional[list[OperationalRestriction]]): List of operational restrictions at the wind farm level. Default is None.&#10;">
+<g id="a_node3"><a xlink:title="eya_def_tools.data_models.wind_farm.WindFarmConfiguration&#10;&#10;A collection of wind turbines considered as one unit (plant).&#10;&#10;Attributes:&#10; &#160;&#160;&#160;label (str): Label or name of the wind farm.&#10; &#160;&#160;&#160;abbreviation (Optional[str]): Optional abbreviated label of the wind farm. Default is None.&#10; &#160;&#160;&#160;description (Optional[str]): Optional description of the wind farm. Default is None.&#10; &#160;&#160;&#160;comments (Optional[str]): Optional comments on the wind farm. Default is None.&#10; &#160;&#160;&#160;turbines (list[TurbineConfiguration]): List of specifications for constituent turbines.&#10; &#160;&#160;&#160;relevance (WindFarmRelevance(StrEnum)): The relevance of the wind farm for the assessment.&#10; &#160;&#160;&#160;operational_lifetime_start_date (Optional[date]): Operational lifetime start date (format YYYY&#45;MM&#45;DD). Default is None.&#10; &#160;&#160;&#160;operational_lifetime_end_date (Optional[date]): Operational lifetime end date (format YYYY&#45;MM&#45;DD). Default is None.&#10; &#160;&#160;&#160;restrictions (Optional[list[OperationalRestriction]]): List of operational restrictions at the wind farm level. Default is None.&#10;">
 <polygon fill="none" stroke="black" points="540,-511 540,-532 932,-532 932,-511 540,-511"/>
 <text text-anchor="start" x="659.5" y="-518.8" font-family="Times New Roman,serif" font-weight="bold" font-size="14.00">WindFarmConfiguration</text>
 <polygon fill="none" stroke="black" points="540,-490 540,-511 718,-511 718,-490 540,-490"/>
-<text text-anchor="start" x="614" y="-496.8" font-family="Times New Roman,serif" font-size="14.00">name</text>
+<text text-anchor="start" x="616" y="-496.8" font-family="Times New Roman,serif" font-size="14.00">label</text>
 <polygon fill="none" stroke="black" points="718,-490 718,-511 932,-511 932,-490 718,-490"/>
 <text text-anchor="start" x="817.5" y="-496.8" font-family="Times New Roman,serif" font-size="14.00">str</text>
 <polygon fill="none" stroke="black" points="540,-469 540,-490 718,-490 718,-469 540,-469"/>
-<text text-anchor="start" x="616" y="-475.8" font-family="Times New Roman,serif" font-size="14.00">label</text>
+<text text-anchor="start" x="594.5" y="-475.8" font-family="Times New Roman,serif" font-size="14.00">abbreviation</text>
 <polygon fill="none" stroke="black" points="718,-469 718,-490 932,-490 932,-469 718,-469"/>
 <text text-anchor="start" x="789" y="-475.8" font-family="Times New Roman,serif" font-size="14.00">Optional[str]</text>
 <polygon fill="none" stroke="black" points="540,-448 540,-469 718,-469 718,-448 540,-448"/>
@@ -125,7 +125,7 @@
 <polygon fill="none" stroke="black" points="718,-343 718,-364 932,-364 932,-343 718,-343"/>
 <text text-anchor="start" x="784.5" y="-349.8" font-family="Times New Roman,serif" font-size="14.00">Optional[date]</text>
 <polygon fill="none" stroke="black" points="540,-322 540,-343 718,-343 718,-322 540,-322"/>
-<text text-anchor="start" x="564" y="-328.8" font-family="Times New Roman,serif" font-size="14.00">wind_farm_restrictions</text>
+<text text-anchor="start" x="598" y="-328.8" font-family="Times New Roman,serif" font-size="14.00">restrictions</text>
 <polygon fill="none" stroke="black" points="718,-322 718,-343 932,-343 932,-322 718,-322"/>
 <text text-anchor="start" x="721" y="-328.8" font-family="Times New Roman,serif" font-size="14.00">Optional[list[OperationalRestriction]]</text>
 </a>
@@ -141,7 +141,7 @@
 <!-- eya_def_tools.data_models.wind_resource.TurbineWindResourceAssessment -->
 <g id="node4" class="node">
 <title>eya_def_tools.data_models.wind_resource.TurbineWindResourceAssessment</title>
-<g id="a_node4"><a xlink:title="eya_def_tools.data_models.wind_resource.TurbineWindResourceAssessment&#10;&#10;Wind resource assessment at the turbine locations.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;wind_resource_assessment_id_reference (str): The ID of the wind resource assessment on which the turbine wind resource assessment is based. This must refer to an ID of a wind resource assessment included at the top level of the EYA DEF. The schema requires that a turbine wind resource assessment is based on only one wind resource assessment.&#10; &#160;&#160;&#160;description (Optional[str]): Description of the data object. Default is None.&#10; &#160;&#160;&#160;comments (Optional[str]): Comments on the data object. Default is None.&#10; &#160;&#160;&#160;wind_spatial_modelling_processes (list[AssessmentProcessDescription]): Wind spatial modelling processes used in the assessment.&#10; &#160;&#160;&#160;results (TurbineWindResourceResults): Results of the wind resource assessment at the turbine location(s).&#10; &#160;&#160;&#160;wind_uncertainty_assessment (WindUncertaintyAssessment): Wind related uncertainty assessment categories including results.&#10;">
+<g id="a_node4"><a xlink:title="eya_def_tools.data_models.wind_resource.TurbineWindResourceAssessment&#10;&#10;Wind resource assessment at the turbine locations.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;wind_resource_assessment_id_reference (str): The ID of the wind resource assessment on which the turbine wind resource assessment is based. This must refer to an ID of a wind resource assessment included at the top level of the EYA DEF. The schema requires that a turbine wind resource assessment is based on only one wind resource assessment.&#10; &#160;&#160;&#160;description (Optional[str]): Optional description of the turbine wind resource assessment. Default is None.&#10; &#160;&#160;&#160;comments (Optional[str]): Optional comments on the turbine wind resource assessment. Default is None.&#10; &#160;&#160;&#160;wind_spatial_modelling_processes (list[AssessmentProcessDescription]): Wind spatial modelling processes used in the assessment.&#10; &#160;&#160;&#160;results (TurbineWindResourceResults): Results of the wind resource assessment at the turbine location(s).&#10; &#160;&#160;&#160;wind_uncertainty_assessment (WindUncertaintyAssessment): Wind related uncertainty assessment categories including results.&#10;">
 <polygon fill="none" stroke="black" points="514,-264 514,-285 958,-285 958,-264 514,-264"/>
 <text text-anchor="start" x="630.5" y="-271.8" font-family="Times New Roman,serif" font-weight="bold" font-size="14.00">TurbineWindResourceAssessment</text>
 <polygon fill="none" stroke="black" points="514,-243 514,-264 750,-264 750,-243 514,-243"/>

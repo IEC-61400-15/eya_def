@@ -2,152 +2,231 @@
 
 """
 
-from __future__ import annotations
-
-from typing import Any, Mapping, Type
+import json
+import re
+from typing import Any
 
 import pydantic as pdt
+import pydantic_core as pdt_core
 
-from eya_def_tools.utils import pydantic_json_schema_utils
 
+class EyaDefGenerateJsonSchema(pdt.json_schema.GenerateJsonSchema):
+    """Custom JSON Schema generator for the EYA DEF top-level model."""
 
-class JsonPointerRef(str):
-    """JSON Pointer reference as a ``str`` type for model fields."""
+    def generate(
+        self,
+        schema: pdt_core.CoreSchema,
+        mode: pdt.json_schema.JsonSchemaMode = "validation",
+    ) -> pdt.json_schema.JsonSchemaValue:
+        """Generate a JSON Schema from a pydantic schema.
 
-    def dict(self) -> dict[str, str]:
-        """Get a ``dict`` representation of the reference.
-
-        :return: a dict of the form ``{"$ref": "<reference_uri>"}``
+        :param schema: the pydantic code schema to generate the JSON
+            Schema for
+        :param mode: the mode in which to generate the JSON Schema
+        :return: a ``dict`` representation of the JSON Schema
         """
-        return {"$ref": self.format()}
+        json_schema_dict = super().generate(schema=schema, mode=mode)
+        json_schema_dict["$schema"] = self.schema_dialect
+        self.reduce_json_schema_single_use_definitions(
+            json_schema_dict=json_schema_dict
+        )
+        return json_schema_dict
 
-    def json(self) -> str:
-        """Get a json ``str`` representation of the reference.
+    @classmethod
+    def reduce_json_schema_single_use_definitions(
+        cls, json_schema_dict: dict[str, Any]
+    ) -> None:
+        """Move single use definitions to where they are used.
 
-        :return: a string of the form ``{"$ref": "<reference_uri>"}``
+        The current behaviour of the pydantic JSON Schema generator is
+        to include all sub-model definitions in the $defs section. This
+        function modifies the standard pydantic schema to define only
+        sub-models used in more than one place in $defs and define
+        single use models in the hierarchical tree of properties
+        instead.
+
+        :param json_schema_dict: the model JSON Schema dictionary to
+            modify in place
         """
-        return '{"$ref": "' + self.format() + '"}'
+        for definition_label in json_schema_dict["$defs"].copy().keys():
+            definition_count = cls._recursive_get_definition_count(
+                json_schema_dict=json_schema_dict, definition_label=definition_label
+            )
+            if definition_count < 2:
+                cls._recursive_move_definition_to_tree(
+                    json_schema_dict=json_schema_dict,
+                    definition_label=definition_label,
+                    definition=json_schema_dict["$defs"][definition_label],
+                )
+                del json_schema_dict["$defs"][definition_label]
+
+    @classmethod
+    def _recursive_get_definition_count(
+        cls,
+        json_schema_dict: Any,
+        definition_label: str,
+    ) -> int:
+        if not isinstance(json_schema_dict, dict):
+            return 0
+
+        count = 0
+        for key, value in json_schema_dict.items():
+            if key == "$ref" and value == f"#/$defs/{definition_label}":
+                return count + 1
+            elif isinstance(value, dict):
+                count = count + cls._recursive_get_definition_count(
+                    json_schema_dict=value, definition_label=definition_label
+                )
+            elif isinstance(value, list):
+                for item in value:
+                    count = count + cls._recursive_get_definition_count(
+                        json_schema_dict=item, definition_label=definition_label
+                    )
+
+        return count
+
+    @classmethod
+    def _recursive_move_definition_to_tree(
+        cls,
+        json_schema_dict: Any,
+        definition_label: str,
+        definition: dict[str, Any],
+    ) -> None:
+        if not isinstance(json_schema_dict, dict):
+            return
+
+        for key, value in json_schema_dict.copy().items():
+            if key == "$ref" and value == f"#/$defs/{definition_label}":
+                cls._move_definition(
+                    json_schema_dict=json_schema_dict,
+                    definition=definition,
+                )
+                del json_schema_dict["$ref"]
+            elif isinstance(value, dict):
+                cls._recursive_move_definition_to_tree(
+                    json_schema_dict=value,
+                    definition_label=definition_label,
+                    definition=definition,
+                )
+            elif isinstance(value, list):
+                if (
+                    key == "allOf"
+                    and len(value) == 1
+                    and isinstance(value[0], dict)
+                    and value[0] == {"$ref": f"#/$defs/{definition_label}"}
+                ):
+                    cls._move_definition(
+                        json_schema_dict=json_schema_dict,
+                        definition=definition,
+                    )
+                    del json_schema_dict["allOf"]
+                else:
+                    for item in value:
+                        cls._recursive_move_definition_to_tree(
+                            json_schema_dict=item,
+                            definition_label=definition_label,
+                            definition=definition,
+                        )
+
+    @classmethod
+    def _move_definition(
+        cls,
+        json_schema_dict: dict[str, Any],
+        definition: dict[str, Any],
+    ) -> None:
+        schema_copy = json_schema_dict.copy()
+        json_schema_dict.update(definition)
+        json_schema_dict["title"] = re.sub(
+            r"((?<=[a-z])[A-Z]|(?<!\A)[A-Z](?=[a-z]))",
+            r" \1",
+            json_schema_dict["title"],
+        )
+        for field_attribute in ["title", "description"]:
+            if field_attribute in schema_copy.keys():
+                json_schema_dict[field_attribute] = schema_copy[field_attribute]
 
 
 class EyaDefBaseModel(pdt.BaseModel):
-    """Base model for the EYA DEF.
+    """Base pydantic model for the EYA DEF.
 
-    This base model includes some configs to ``pydantic.BaseModel`` to
-    tune the output JSON schema and support JSON Pointer references.
+    This base model includes some adaptations to ``pydantic.BaseModel``
+    to tune the output JSON Schema as desired.
     """
 
-    class Config:
-        """``EyaDefBaseModel`` data model configurations."""
-
-        extra = pdt.Extra.forbid
-
-        @staticmethod
-        def schema_extra(schema: dict[str, Any], model: Type[EyaDefBaseModel]) -> None:
-            """Modifications to the default model schema."""
-            pydantic_json_schema_utils.add_null_type_to_schema_optional_fields(
-                schema=schema, model=model
-            )
-            pydantic_json_schema_utils.tuple_fields_to_prefix_items(schema=schema)
+    model_config = pdt.ConfigDict(
+        # The model config ``extra="forbid"`` is equivalent of the JSON
+        # Schema specification ``"additionalProperties": false``, which
+        # is used as the default, not to allow any further fields
+        extra="forbid",
+    )
 
     @classmethod
-    def get_ref_field_labels(cls) -> list[str]:
-        """Get a list of the field labels that are references."""
-        if len(cls.__fields__) == 0:
-            return []
-        ref_field_labels = []
-        for field_key, field_val in cls.__fields__.items():
-            if isinstance(field_val.type_, type) and issubclass(
-                field_val.type_, JsonPointerRef
-            ):
-                ref_field_labels.append(field_key)
-        return ref_field_labels
+    def model_json_schema(
+        cls,
+        by_alias: bool = True,
+        ref_template: str = pdt.json_schema.DEFAULT_REF_TEMPLATE,
+        schema_generator: (
+            type[pdt.json_schema.GenerateJsonSchema]
+        ) = EyaDefGenerateJsonSchema,
+        mode: pdt.json_schema.JsonSchemaMode = "validation",
+    ) -> pdt.json_schema.JsonSchemaValue:
+        """Generate a JSON Schema dictionary for a model class.
 
-    @pdt.root_validator(pre=True)
-    def convert_json_pointer_to_str(cls, values: Mapping[Any, Any]) -> dict[Any, Any]:
-        """Convert all JSON Pointer references to ``str``.
+        This class method is identical to the one defined on
+        ``pydantic.BaseModel``, except that it uses the custom JSON
+        Schema generator class ``EyaDefGenerateJsonSchema`` instead of
+        the default ``GenerateJsonSchema``.
 
-        :param values: the pre-validation values (arguments) passed to
-            the constructor
-        :return: a ``dict`` copy of ``values`` where each JSON Pointer
-            reference value of the form ``{"$ref": "<reference>"}`` is
-            replaced by the ``str`` value of ``<reference>``
+        :param by_alias: whether to use field aliases
+        :param ref_template: the reference template to use
+        :param schema_generator: the JSON Schema generator class, which
+            defaults to the ``EyaDefGenerateJsonSchema`` class
+        :param mode: the mode in which to generate the JSON Schema
+        :return: a ``dict`` representation of the JSON Schema
         """
-        validated_values = {}
-        for key, value in values.items():
-            if (
-                key in cls.get_ref_field_labels()
-                and isinstance(value, dict)
-                and len(value) == 1
-                and isinstance(list(value.keys())[0], str)
-                and list(value.keys())[0] == "$ref"
-                and isinstance(list(value.values())[0], str)
-            ):
-                validated_values[key] = list(value.values())[0]
-            elif key in cls.get_ref_field_labels() and isinstance(value, list):
-                for item in value:
-                    if (
-                        isinstance(item, dict)
-                        and len(item) == 1
-                        and isinstance(list(item.keys())[0], str)
-                        and list(item.keys())[0] == "$ref"
-                        and isinstance(list(item.values())[0], str)
-                    ):
-                        if key not in validated_values:
-                            validated_values[key] = [list(item.values())[0]]
-                        else:
-                            validated_values[key].append(list(item.values())[0])
-                    else:
-                        if key not in validated_values:
-                            validated_values[key] = [item]
-                        else:
-                            validated_values[key].append(item)
-            else:
-                validated_values[key] = value
-        return validated_values
+        return pdt.json_schema.model_json_schema(
+            cls,
+            by_alias=by_alias,
+            ref_template=ref_template,
+            schema_generator=schema_generator,
+            mode=mode,
+        )
 
-    def dict(self, *args: Any, **kwargs: Any) -> dict[str, Any]:
-        """A ``dict`` representation of the model instance.
+    @classmethod
+    def model_json_schema_str(
+        cls,
+        by_alias: bool = True,
+        ref_template: str = pdt.json_schema.DEFAULT_REF_TEMPLATE,
+        schema_generator: (
+            type[pdt.json_schema.GenerateJsonSchema]
+        ) = EyaDefGenerateJsonSchema,
+        mode: pdt.json_schema.JsonSchemaMode = "validation",
+        indent: int = 2,
+    ) -> str:
+        """Generate a JSON Schema string for a model class.
 
-        :param args: any positional arguments for
-            ``pydantic.BaseModel.json``
-        :param kwargs: any key-worded arguments for
-            ``pydantic.BaseModel.json``
-        :return: a ``dict`` representing the model instance
+        Single and double newline characters are replaced by spaces.
+
+        See also documentation of ``model_json_schema``.
+
+        :param by_alias: whether to use field aliases
+        :param ref_template: the reference template to use
+        :param schema_generator: the JSON Schema generator class, which
+            defaults to the ``EyaDefGenerateJsonSchema`` class
+        :param mode: the mode in which to generate the JSON Schema
+        :param indent: the indentation to use in the JSON string
+        :return: a ``str`` representation of the JSON Schema
         """
-        dict_repr = super().dict(*args, **kwargs)
-        for ref_field_label in self.get_ref_field_labels():
-            if (
-                ref_field_label in dict_repr.keys()
-                and dict_repr[ref_field_label] is not None
-            ):
-                field = getattr(self, ref_field_label)
-                if isinstance(field, list):
-                    dict_repr[ref_field_label] = []
-                    for item in field:
-                        dict_repr[ref_field_label].append(item.dict())
-                else:
-                    dict_repr[ref_field_label] = field.dict()
-        return dict_repr
-
-    def json(self, *args: Any, **kwargs: Any) -> str:
-        """A json ``str`` representation of the model instance.
-
-        :param args: any positional arguments for
-            ``pydantic.BaseModel.json``
-        :param kwargs: any key-worded arguments for
-            ``pydantic.BaseModel.json``
-        :return: a json ``str`` representing the model instance
-        """
-        json_repr = super().json(*args, **kwargs)
-        for ref_field_label in self.get_ref_field_labels():
-            field = getattr(self, ref_field_label)
-            if isinstance(field, list):
-                for item in set(field):
-                    raw_ref_str = '"' + item.format() + '"'
-                    ref_str = item.json()
-                    json_repr = json_repr.replace(raw_ref_str, ref_str)
-            else:
-                raw_ref_str = '"' + getattr(self, ref_field_label).format() + '"'
-                ref_str = getattr(self, ref_field_label).json()
-                json_repr = json_repr.replace(raw_ref_str, ref_str)
-        return json_repr
+        return (
+            json.dumps(
+                obj=cls.model_json_schema(
+                    by_alias=by_alias,
+                    ref_template=ref_template,
+                    schema_generator=schema_generator,
+                    mode=mode,
+                ),
+                indent=indent,
+            )
+            .replace(r"\n\n", " ")
+            .replace(r"\n", " ")
+        )

@@ -10,18 +10,20 @@ import erdantic as erd
 
 from eya_def_tools.data_models.energy_assessment import EnergyAssessment
 from eya_def_tools.data_models.eya_def import EyaDefDocument
+from eya_def_tools.data_models.general_metadata import Organisation, ReportContributor
 from eya_def_tools.data_models.plant_performance import PlantPerformanceCategory
 from eya_def_tools.data_models.reference_met_data import ReferenceMeteorologicalDataset
 from eya_def_tools.data_models.reference_wind_farm import ReferenceWindFarm
-from eya_def_tools.data_models.report_metadata import Organisation, ReportContributor
 from eya_def_tools.data_models.result import Result
 from eya_def_tools.data_models.scenario import Scenario
-from eya_def_tools.data_models.turbine_model import TurbineModel
 from eya_def_tools.data_models.wind_farm import WindFarmConfiguration
 from eya_def_tools.data_models.wind_resource import (
     TurbineWindResourceAssessment,
     WindResourceAssessment,
 )
+from eya_def_tools.utils.doc_utils import eya_def_erdantic
+
+eya_def_erdantic.use_custom_representations()
 
 
 def draw_eya_def_all_levels() -> None:
@@ -33,7 +35,7 @@ def draw_eya_def_all_levels() -> None:
 
 def draw_eya_def_top_level() -> None:
     """Draw diagram of the top level schema."""
-    EyaDefDocument.update_forward_refs(**locals())
+    EyaDefDocument.model_rebuild(**locals())
 
     diagram = erd.create(
         EyaDefDocument,
@@ -43,7 +45,6 @@ def draw_eya_def_top_level() -> None:
             ReferenceWindFarm,
             ReferenceMeteorologicalDataset,
             WindResourceAssessment,
-            TurbineModel,
             Scenario,
         ],
     )
