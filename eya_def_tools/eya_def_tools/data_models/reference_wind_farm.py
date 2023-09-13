@@ -151,7 +151,7 @@ class ReferenceWindFarmDataset(EyaDefBaseModel):
 class ReferenceWindFarm(EyaDefBaseModel):
     """Reference wind farm."""
 
-    reference_wind_farm_id: str = pdt.Field(
+    id: str = pdt.Field(
         default=...,
         description=(
             "Unique ID for the reference wind farm within the EYA DEF document."

@@ -69,13 +69,39 @@ class TurbineConfiguration(EyaDefBaseModel):
         default=...,
         description="The horizontal spatial location of the turbine.",
     )
+    ground_level_altitude: float = pdt.Field(
+        default=...,
+        description="The ground level altitude (base elevation) of the turbine (in m).",
+    )
     hub_height: float = pdt.Field(
         default=...,
-        description="The hub height of the turbine.",
+        description="The hub height of the turbine (in m).",
     )
+
+    # TODO: - need to link "turbine_model_id" to the relevant field
+    #         in IEC 61400-16
+    #       - need also details to identify the baseline power curve
+    #         including power mode, power curve air density, etc.
     turbine_model_id: str = pdt.Field(
         default=...,
         description="Unique identifier of the turbine model.",
+    )
+
+    operational_lifetime_start_date: Optional[dt.date] = pdt.Field(
+        default=None,
+        description=(
+            "Operational lifetime start date of the individual turbine "
+            "(format YYYY-MM-DD)."
+        ),
+        examples=["2026-01-01", "2017-04-01"],
+    )
+    operational_lifetime_end_date: Optional[dt.date] = pdt.Field(
+        default=None,
+        description=(
+            "Operational lifetime end date of the individual turbine "
+            "(format YYYY-MM-DD)."
+        ),
+        examples=["2051-03-31", "2025-12-31"],
     )
     restrictions: Optional[list[OperationalRestriction]] = pdt.Field(
         default=None,
@@ -86,6 +112,11 @@ class TurbineConfiguration(EyaDefBaseModel):
 class WindFarmConfiguration(EyaDefBaseModel):
     """A collection of wind turbines considered as one unit (plant)."""
 
+    id: str = pdt.Field(
+        default=...,
+        description="Unique identifier of the wind farm.",
+        examples=["8994452f-731b-4342-9418-571920e44484"],
+    )
     label: str = pdt.Field(
         default=...,
         description="Label or name of the wind farm.",
@@ -112,18 +143,37 @@ class WindFarmConfiguration(EyaDefBaseModel):
     )
     relevance: WindFarmRelevance = pdt.Field(
         default=...,
-        description="The relevance of the wind farm for the assessment.",
+        description=(
+            "The relevance of the wind farm for the assessment "
+            "('internal', 'external' or 'future')."
+        ),
     )
-    operational_lifetime_start_date: Optional[dt.date] = pdt.Field(
-        default=None,
-        description="Operational lifetime start date (format YYYY-MM-DD).",
+    operational_lifetime_start_date: dt.date = pdt.Field(
+        default=...,
+        description=(
+            "Operational lifetime start date of the wind farm (format YYYY-MM-DD)."
+        ),
         examples=["2026-01-01", "2017-04-01"],
     )
     operational_lifetime_end_date: Optional[dt.date] = pdt.Field(
         default=None,
-        description="Operational lifetime end date (format YYYY-MM-DD).",
+        description=(
+            "Operational lifetime end date of the wind farm (format YYYY-MM-DD)."
+        ),
         examples=["2051-03-31", "2025-12-31"],
     )
+
+    # TODO: confirm wind farm capacity definition with IEC 61400-15-2 reporting group
+    capacity: float = pdt.Field(
+        default=...,
+        description=(
+            "The total project capacity (in MW), which is the lesser of the "
+            "maximum permanently transmittable power at the grid connection "
+            "and the maximum production under typical conditions."
+        ),
+        examples=[12.3, 2345.67],
+    )
+
     restrictions: Optional[list[OperationalRestriction]] = pdt.Field(
         default=None,
         description="List of operational restrictions at the wind farm level.",

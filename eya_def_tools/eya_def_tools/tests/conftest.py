@@ -337,6 +337,7 @@ def turbine_specification_wtg01_a(
         label="WTG01_scenA",
         description="Configuration of WTG01 in Scenario A",
         location=turbine_location_wtg01_a,
+        ground_level_altitude=44.9,
         hub_height=150.0,
         turbine_model_id="6ca5bc01-04b1-421a-a033-133304d6cc7f",
         restrictions=[operational_restriction_a],
@@ -353,6 +354,7 @@ def turbine_specification_wtg01_b(
         label="WTG01_scenB",
         description="Configuration of WTG01 in Scenario B",
         location=turbine_location_wtg01_b,
+        ground_level_altitude=45.1,
         hub_height=148.0,
         turbine_model_id="e2914c83-f355-4cf2-9051-8e0f34aa3c03",
     )
@@ -369,6 +371,7 @@ def turbine_specification_wtg02_a(
         label="WTG02_scenA",
         description="Configuration of WTG02 in Scenario A",
         location=turbine_location_wtg02_a,
+        ground_level_altitude=46.3,
         hub_height=160.0,
         turbine_model_id="6ca5bc01-04b1-421a-a033-133304d6cc7f",
         restrictions=[operational_restriction_a],
@@ -385,6 +388,7 @@ def turbine_specification_wtg02_b(
         label="WTG02_scenB",
         description="Configuration of WTG02 in Scenario B",
         location=turbine_location_wtg02_b,
+        ground_level_altitude=44.6,
         hub_height=158.0,
         turbine_model_id="e2914c83-f355-4cf2-9051-8e0f34aa3c03",
     )
@@ -400,6 +404,7 @@ def turbine_specification_mu_t1_a(
         label="Mu_T1_a",
         description="Configuration of the neighbouring Mu_T1_a turbine",
         location=turbine_location_mu_t1_a,
+        ground_level_altitude=40.2,
         hub_height=125.0,
         turbine_model_id="e3288cbd-fa3b-4241-8a4c-3856fc10c55e",
     )
@@ -415,6 +420,7 @@ def turbine_specification_mu_t2_a(
         label="Mu_T2_a",
         description="Configuration of the neighbouring Mu_T2_a turbine",
         location=turbine_location_mu_t2_a,
+        ground_level_altitude=41.0,
         hub_height=125.0,
         turbine_model_id="e3288cbd-fa3b-4241-8a4c-3856fc10c55e",
     )
@@ -427,12 +433,14 @@ def wind_farm_a(
 ) -> wind_farm.WindFarmConfiguration:
     """Test case instance 'a' of ``WindFarm``."""
     return wind_farm.WindFarmConfiguration(
+        id="bf_a",
         label="Barefoot Wind Farm",
         abbreviation="Barefoot",
         description="Barefoot Wind Farm configuration for Scenario A",
         turbines=[turbine_specification_wtg01_a, turbine_specification_wtg02_a],
         relevance=enums.WindFarmRelevance.INTERNAL,
         operational_lifetime_start_date=dt.date(2024, 1, 1),
+        capacity=11.0,
     )
 
 
@@ -443,6 +451,7 @@ def wind_farm_b(
 ) -> wind_farm.WindFarmConfiguration:
     """Test case instance 'b' of ``WindFarm``."""
     return wind_farm.WindFarmConfiguration(
+        id="bf_b",
         label="Barefoot Wind Farm",
         abbreviation="Barefoot",
         description="Barefoot Wind Farm configuration for Scenario B",
@@ -450,6 +459,7 @@ def wind_farm_b(
         turbines=[turbine_specification_wtg01_b, turbine_specification_wtg02_b],
         relevance=enums.WindFarmRelevance.INTERNAL,
         operational_lifetime_start_date=dt.date(2024, 1, 1),
+        capacity=11.5,
     )
 
 
@@ -460,6 +470,7 @@ def neighbouring_wind_farm_a(
 ) -> wind_farm.WindFarmConfiguration:
     """Neighboring project test case instance 'a' of ``WindFarm``."""
     return wind_farm.WindFarmConfiguration(
+        id="mu",
         label="Munro Wind Farm",
         abbreviation="MWF",
         description="The operational Munro Wind Farm",
@@ -472,6 +483,7 @@ def neighbouring_wind_farm_a(
         relevance=enums.WindFarmRelevance.EXTERNAL,
         operational_lifetime_start_date=dt.date(2018, 7, 1),
         operational_lifetime_end_date=dt.date(2038, 6, 30),
+        capacity=6.4,
     )
 
 
@@ -541,7 +553,7 @@ def reference_wind_farm_a(
 ) -> reference_wind_farm.ReferenceWindFarm:
     """Test case instance 'a' of ``ReferenceWindFarm``."""
     return reference_wind_farm.ReferenceWindFarm(
-        reference_wind_farm_id="munro_wind_farm_reference",
+        id="munro_wind_farm_reference",
         wind_farm_configuration=neighbouring_wind_farm_a,
         datasets=[reference_wind_farm_dataset_a],
     )
