@@ -225,11 +225,11 @@
 <!-- eya_def_tools.data_models.reference_wind_farm.ReferenceWindFarm -->
 <g id="node5" class="node">
 <title>eya_def_tools.data_models.reference_wind_farm.ReferenceWindFarm</title>
-<g id="a_node5"><a xlink:title="eya_def_tools.data_models.reference_wind_farm.ReferenceWindFarm&#10;&#10;Reference wind farm.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;reference_wind_farm_id (str): Unique ID for the reference wind farm within the EYA DEF document.&#10; &#160;&#160;&#160;description (Optional[str]): Optional description of the reference wind farm. Default is None.&#10; &#160;&#160;&#160;comments (Optional[str]): Optional comments on the reference wind farm. Default is None.&#10; &#160;&#160;&#160;wind_farm_configuration (WindFarmConfiguration): The configuration data for the reference wind farm.&#10; &#160;&#160;&#160;datasets (list[ReferenceWindFarmDataset]): Metadata for the operational dataset.&#10;">
+<g id="a_node5"><a xlink:title="eya_def_tools.data_models.reference_wind_farm.ReferenceWindFarm&#10;&#10;Reference wind farm.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;id (str): Unique ID for the reference wind farm within the EYA DEF document.&#10; &#160;&#160;&#160;description (Optional[str]): Optional description of the reference wind farm. Default is None.&#10; &#160;&#160;&#160;comments (Optional[str]): Optional comments on the reference wind farm. Default is None.&#10; &#160;&#160;&#160;wind_farm_configuration (WindFarmConfiguration): The configuration data for the reference wind farm.&#10; &#160;&#160;&#160;datasets (list[ReferenceWindFarmDataset]): Metadata for the operational dataset.&#10;">
 <polygon fill="none" stroke="black" points="787,-652 787,-673 1124,-673 1124,-652 787,-652"/>
 <text text-anchor="start" x="890.5" y="-659.8" font-family="Times New Roman,serif" font-weight="bold" font-size="14.00">ReferenceWindFarm</text>
 <polygon fill="none" stroke="black" points="787,-631 787,-652 935,-652 935,-631 787,-631"/>
-<text text-anchor="start" x="792.5" y="-637.8" font-family="Times New Roman,serif" font-size="14.00">reference_wind_farm_id</text>
+<text text-anchor="start" x="855.5" y="-637.8" font-family="Times New Roman,serif" font-size="14.00">id</text>
 <polygon fill="none" stroke="black" points="935,-631 935,-652 1124,-652 1124,-631 935,-631"/>
 <text text-anchor="start" x="1022" y="-637.8" font-family="Times New Roman,serif" font-size="14.00">str</text>
 <polygon fill="none" stroke="black" points="787,-610 787,-631 935,-631 935,-610 787,-610"/>

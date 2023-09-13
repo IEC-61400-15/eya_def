@@ -294,8 +294,6 @@ class WindFarmRelevance(StrEnum):
     EXTERNAL = auto()
     FUTURE = auto()
 
-    # TODO - accommodate reference wind farms
-
 
 class WindUncertaintyCategoryLabel(StrEnum):
     """Category labels in the wind uncertainty assessment."""

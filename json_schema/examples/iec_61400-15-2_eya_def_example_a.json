@@ -2088,11 +2088,13 @@
           ]
         }
       ],
-      "reference_wind_farm_id": "munro_wind_farm_reference",
+      "id": "munro_wind_farm_reference",
       "wind_farm_configuration": {
         "abbreviation": "MWF",
+        "capacity": 6.4,
         "comments": "Details taken from publicly available information; location data based on publicly available data and confirmed with satellite imagery.",
         "description": "The operational Munro Wind Farm",
+        "id": "mu",
         "label": "Munro Wind Farm",
         "operational_lifetime_end_date": "2038-06-30",
         "operational_lifetime_start_date": "2018-07-01",
@@ -2100,6 +2102,7 @@
         "turbines": [
           {
             "description": "Configuration of the neighbouring Mu_T1_a turbine",
+            "ground_level_altitude": 40.2,
             "hub_height": 125.0,
             "id": "f08b05bd-f90b-4833-91a5-4284b64c80db",
             "label": "Mu_T1_a",
@@ -2111,6 +2114,7 @@
           },
           {
             "description": "Configuration of the neighbouring Mu_T2_a turbine",
+            "ground_level_altitude": 41.0,
             "hub_height": 125.0,
             "id": "b87f21bc-e1d8-4150-a2f4-d7f019bf96fc",
             "label": "Mu_T2_a",
@@ -2534,13 +2538,16 @@
       "wind_farms": [
         {
           "abbreviation": "Barefoot",
+          "capacity": 11.0,
           "description": "Barefoot Wind Farm configuration for Scenario A",
+          "id": "bf_a",
           "label": "Barefoot Wind Farm",
           "operational_lifetime_start_date": "2024-01-01",
           "relevance": "internal",
           "turbines": [
             {
               "description": "Configuration of WTG01 in Scenario A",
+              "ground_level_altitude": 44.9,
               "hub_height": 150.0,
               "id": "2bbe1cb3-e9f3-42ad-be61-3657ea2ac174",
               "label": "WTG01_scenA",
@@ -2558,6 +2565,7 @@
             },
             {
               "description": "Configuration of WTG02 in Scenario A",
+              "ground_level_altitude": 46.3,
               "hub_height": 160.0,
               "id": "39f9dd43-6322-4738-81af-6a65766b26e3",
               "label": "WTG02_scenA",
@@ -2577,8 +2585,10 @@
         },
         {
           "abbreviation": "MWF",
+          "capacity": 6.4,
           "comments": "Details taken from publicly available information; location data based on publicly available data and confirmed with satellite imagery.",
           "description": "The operational Munro Wind Farm",
+          "id": "mu",
           "label": "Munro Wind Farm",
           "operational_lifetime_end_date": "2038-06-30",
           "operational_lifetime_start_date": "2018-07-01",
@@ -2586,6 +2596,7 @@
           "turbines": [
             {
               "description": "Configuration of the neighbouring Mu_T1_a turbine",
+              "ground_level_altitude": 40.2,
               "hub_height": 125.0,
               "id": "f08b05bd-f90b-4833-91a5-4284b64c80db",
               "label": "Mu_T1_a",
@@ -2597,6 +2608,7 @@
             },
             {
               "description": "Configuration of the neighbouring Mu_T2_a turbine",
+              "ground_level_altitude": 41.0,
               "hub_height": 125.0,
               "id": "b87f21bc-e1d8-4150-a2f4-d7f019bf96fc",
               "label": "Mu_T2_a",
@@ -2979,14 +2991,17 @@
       "wind_farms": [
         {
           "abbreviation": "Barefoot",
+          "capacity": 11.5,
           "comments": "Secondary wind farm scenario",
           "description": "Barefoot Wind Farm configuration for Scenario B",
+          "id": "bf_b",
           "label": "Barefoot Wind Farm",
           "operational_lifetime_start_date": "2024-01-01",
           "relevance": "internal",
           "turbines": [
             {
               "description": "Configuration of WTG01 in Scenario B",
+              "ground_level_altitude": 45.1,
               "hub_height": 148.0,
               "id": "f5cfd507-5550-4fbb-bdca-3dc6b1c6323c",
               "label": "WTG01_scenB",
@@ -2998,6 +3013,7 @@
             },
             {
               "description": "Configuration of WTG02 in Scenario B",
+              "ground_level_altitude": 44.6,
               "hub_height": 158.0,
               "id": "a5ee87e3-5254-45fb-a057-4548b8c0424c",
               "label": "WTG02_scenB",
@@ -3011,8 +3027,10 @@
         },
         {
           "abbreviation": "MWF",
+          "capacity": 6.4,
           "comments": "Details taken from publicly available information; location data based on publicly available data and confirmed with satellite imagery.",
           "description": "The operational Munro Wind Farm",
+          "id": "mu",
           "label": "Munro Wind Farm",
           "operational_lifetime_end_date": "2038-06-30",
           "operational_lifetime_start_date": "2018-07-01",
@@ -3020,6 +3038,7 @@
           "turbines": [
             {
               "description": "Configuration of the neighbouring Mu_T1_a turbine",
+              "ground_level_altitude": 40.2,
               "hub_height": 125.0,
               "id": "f08b05bd-f90b-4833-91a5-4284b64c80db",
               "label": "Mu_T1_a",
@@ -3031,6 +3050,7 @@
             },
             {
               "description": "Configuration of the neighbouring Mu_T2_a turbine",
+              "ground_level_altitude": 41.0,
               "hub_height": 125.0,
               "id": "b87f21bc-e1d8-4150-a2f4-d7f019bf96fc",
               "label": "Mu_T2_a",

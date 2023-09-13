@@ -106,7 +106,7 @@
     },
     "OperationalRestriction": {
       "additionalProperties": false,
-      "description": "Specifications of a restriction that limits power output.     In the current draft of the schema, 'label', 'description' and     'comments' fields are available to describe the restriction with     free text. This is intended to be expanded into a more comprehensive     data model.     ",
+      "description": "Specifications of a restriction that limits power output. In the current draft of the schema, 'label', 'description' and 'comments' fields are available to describe the restriction with free text. This is intended to be expanded into a more comprehensive data model.",
       "properties": {
         "comments": {
           "anyOf": [
@@ -534,6 +534,15 @@
           ],
           "title": "Abbreviation"
         },
+        "capacity": {
+          "description": "The total project capacity (in MW), which is the lesser of the maximum permanently transmittable power at the grid connection and the maximum production under typical conditions.",
+          "examples": [
+            12.3,
+            2345.67
+          ],
+          "title": "Capacity",
+          "type": "number"
+        },
         "comments": {
           "anyOf": [
             {
@@ -562,6 +571,14 @@
           "description": "Optional description of the wind farm.",
           "title": "Description"
         },
+        "id": {
+          "description": "Unique identifier of the wind farm.",
+          "examples": [
+            "8994452f-731b-4342-9418-571920e44484"
+          ],
+          "title": "Id",
+          "type": "string"
+        },
         "label": {
           "description": "Label or name of the wind farm.",
           "examples": [
@@ -582,7 +599,7 @@
             }
           ],
           "default": null,
-          "description": "Operational lifetime end date (format YYYY-MM-DD).",
+          "description": "Operational lifetime end date of the wind farm (format YYYY-MM-DD).",
           "examples": [
             "2051-03-31",
             "2025-12-31"
@@ -590,25 +607,17 @@
           "title": "Operational Lifetime End Date"
         },
         "operational_lifetime_start_date": {
-          "anyOf": [
-            {
-              "format": "date",
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "description": "Operational lifetime start date (format YYYY-MM-DD).",
+          "description": "Operational lifetime start date of the wind farm (format YYYY-MM-DD).",
           "examples": [
             "2026-01-01",
             "2017-04-01"
           ],
-          "title": "Operational Lifetime Start Date"
+          "format": "date",
+          "title": "Operational Lifetime Start Date",
+          "type": "string"
         },
         "relevance": {
-          "description": "The relevance of the wind farm for the assessment.",
+          "description": "The relevance of the wind farm for the assessment ('internal', 'external' or 'future').",
           "enum": [
             "internal",
             "external",
@@ -667,8 +676,13 @@
                 "description": "Optional description of the turbine.",
                 "title": "Description"
               },
+              "ground_level_altitude": {
+                "description": "The ground level altitude (base elevation) of the turbine (in m).",
+                "title": "Ground Level Altitude",
+                "type": "number"
+              },
               "hub_height": {
-                "description": "The hub height of the turbine.",
+                "description": "The hub height of the turbine (in m).",
                 "title": "Hub Height",
                 "type": "number"
               },
@@ -707,6 +721,42 @@
                 ],
                 "description": "The horizontal spatial location of the turbine."
               },
+              "operational_lifetime_end_date": {
+                "anyOf": [
+                  {
+                    "format": "date",
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "Operational lifetime end date of the individual turbine (format YYYY-MM-DD).",
+                "examples": [
+                  "2051-03-31",
+                  "2025-12-31"
+                ],
+                "title": "Operational Lifetime End Date"
+              },
+              "operational_lifetime_start_date": {
+                "anyOf": [
+                  {
+                    "format": "date",
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "Operational lifetime start date of the individual turbine (format YYYY-MM-DD).",
+                "examples": [
+                  "2026-01-01",
+                  "2017-04-01"
+                ],
+                "title": "Operational Lifetime Start Date"
+              },
               "restrictions": {
                 "anyOf": [
                   {
@@ -732,6 +782,7 @@
             "required": [
               "id",
               "location",
+              "ground_level_altitude",
               "hub_height",
               "turbine_model_id"
             ],
@@ -743,9 +794,12 @@
         }
       },
       "required": [
+        "id",
         "label",
         "turbines",
-        "relevance"
+        "relevance",
+        "operational_lifetime_start_date",
+        "capacity"
       ],
       "title": "WindFarmConfiguration",
       "type": "object"
@@ -1316,7 +1370,7 @@
         {
           "items": {
             "additionalProperties": false,
-            "description": "Metadata for a reference meteorological dataset.     The schema describes a dataset at a single horizontal spatial     location. Separate data model instances need to be used to describe     data at different location from the same source dataset (e.g.     different grid cells from a reanalysis dataset).     ",
+            "description": "Metadata for a reference meteorological dataset. The schema describes a dataset at a single horizontal spatial location. Separate data model instances need to be used to describe data at different location from the same source dataset (e.g. different grid cells from a reanalysis dataset).",
             "properties": {
               "comments": {
                 "anyOf": [
@@ -1643,13 +1697,13 @@
                 "description": "Optional description of the reference wind farm.",
                 "title": "Description"
               },
-              "reference_wind_farm_id": {
+              "id": {
                 "description": "Unique ID for the reference wind farm within the EYA DEF document.",
                 "examples": [
                   "fe1dba61-d6d6-45ef-beb4-ff569660fb14",
                   "PharaohWindFarmPhIV"
                 ],
-                "title": "Reference Wind Farm Id",
+                "title": "Id",
                 "type": "string"
               },
               "wind_farm_configuration": {
@@ -1662,7 +1716,7 @@
               }
             },
             "required": [
-              "reference_wind_farm_id",
+              "id",
               "wind_farm_configuration",
               "datasets"
             ],
