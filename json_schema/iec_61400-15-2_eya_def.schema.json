@@ -512,297 +512,6 @@
       },
       "title": "UncertaintyResults",
       "type": "object"
-    },
-    "WindFarmConfiguration": {
-      "additionalProperties": false,
-      "description": "A collection of wind turbines considered as one unit (plant).",
-      "properties": {
-        "abbreviation": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "description": "Optional abbreviated label of the wind farm.",
-          "examples": [
-            "BWF",
-            "Summit PhIII"
-          ],
-          "title": "Abbreviation"
-        },
-        "capacity": {
-          "description": "The total project capacity (in MW), which is the lesser of the maximum permanently transmittable power at the grid connection and the maximum production under typical conditions.",
-          "examples": [
-            12.3,
-            2345.67
-          ],
-          "title": "Capacity",
-          "type": "number"
-        },
-        "comments": {
-          "anyOf": [
-            {
-              "minLength": 1,
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "description": "Optional comments on the wind farm.",
-          "title": "Comments"
-        },
-        "description": {
-          "anyOf": [
-            {
-              "minLength": 1,
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "description": "Optional description of the wind farm.",
-          "title": "Description"
-        },
-        "id": {
-          "description": "Unique identifier of the wind farm.",
-          "examples": [
-            "8994452f-731b-4342-9418-571920e44484"
-          ],
-          "title": "Id",
-          "type": "string"
-        },
-        "label": {
-          "description": "Label or name of the wind farm.",
-          "examples": [
-            "Barefoot Wind Farm",
-            "Project Summit Phase III"
-          ],
-          "title": "Label",
-          "type": "string"
-        },
-        "operational_lifetime_end_date": {
-          "anyOf": [
-            {
-              "format": "date",
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "description": "Operational lifetime end date of the wind farm (format YYYY-MM-DD).",
-          "examples": [
-            "2051-03-31",
-            "2025-12-31"
-          ],
-          "title": "Operational Lifetime End Date"
-        },
-        "operational_lifetime_start_date": {
-          "description": "Operational lifetime start date of the wind farm (format YYYY-MM-DD).",
-          "examples": [
-            "2026-01-01",
-            "2017-04-01"
-          ],
-          "format": "date",
-          "title": "Operational Lifetime Start Date",
-          "type": "string"
-        },
-        "relevance": {
-          "description": "The relevance of the wind farm for the assessment ('internal', 'external' or 'future').",
-          "enum": [
-            "internal",
-            "external",
-            "future"
-          ],
-          "title": "Wind Farm Relevance",
-          "type": "string"
-        },
-        "restrictions": {
-          "anyOf": [
-            {
-              "items": {
-                "$ref": "#/$defs/OperationalRestriction"
-              },
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "description": "List of operational restrictions at the wind farm level.",
-          "title": "Restrictions"
-        },
-        "turbines": {
-          "description": "List of specifications for constituent turbines.",
-          "items": {
-            "additionalProperties": false,
-            "description": "Specification of all details for a turbine configuration.",
-            "properties": {
-              "comments": {
-                "anyOf": [
-                  {
-                    "minLength": 1,
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ],
-                "default": null,
-                "description": "Optional comments on the turbine.",
-                "title": "Comments"
-              },
-              "description": {
-                "anyOf": [
-                  {
-                    "minLength": 1,
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ],
-                "default": null,
-                "description": "Optional description of the turbine.",
-                "title": "Description"
-              },
-              "ground_level_altitude": {
-                "description": "The ground level altitude (base elevation) of the turbine (in m).",
-                "title": "Ground Level Altitude",
-                "type": "number"
-              },
-              "hub_height": {
-                "description": "The hub height of the turbine (in m).",
-                "title": "Hub Height",
-                "type": "number"
-              },
-              "id": {
-                "description": "Unique identifier of the turbine.",
-                "examples": [
-                  "b55caeac-f152-4b13-8217-3fddeab792cf",
-                  "T1-scen1"
-                ],
-                "title": "Id",
-                "type": "string"
-              },
-              "label": {
-                "anyOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ],
-                "default": null,
-                "description": "Label of the turbine, if different from the 'id'.",
-                "examples": [
-                  "T1",
-                  "WTG02",
-                  "WEA_003"
-                ],
-                "title": "Label"
-              },
-              "location": {
-                "allOf": [
-                  {
-                    "$ref": "#/$defs/Location"
-                  }
-                ],
-                "description": "The horizontal spatial location of the turbine."
-              },
-              "operational_lifetime_end_date": {
-                "anyOf": [
-                  {
-                    "format": "date",
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ],
-                "default": null,
-                "description": "Operational lifetime end date of the individual turbine (format YYYY-MM-DD).",
-                "examples": [
-                  "2051-03-31",
-                  "2025-12-31"
-                ],
-                "title": "Operational Lifetime End Date"
-              },
-              "operational_lifetime_start_date": {
-                "anyOf": [
-                  {
-                    "format": "date",
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ],
-                "default": null,
-                "description": "Operational lifetime start date of the individual turbine (format YYYY-MM-DD).",
-                "examples": [
-                  "2026-01-01",
-                  "2017-04-01"
-                ],
-                "title": "Operational Lifetime Start Date"
-              },
-              "restrictions": {
-                "anyOf": [
-                  {
-                    "items": {
-                      "$ref": "#/$defs/OperationalRestriction"
-                    },
-                    "type": "array"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ],
-                "default": null,
-                "description": "List of operational restrictions at the turbine level.",
-                "title": "Restrictions"
-              },
-              "turbine_model_id": {
-                "description": "Unique identifier of the turbine model.",
-                "title": "Turbine Model Id",
-                "type": "string"
-              }
-            },
-            "required": [
-              "id",
-              "location",
-              "ground_level_altitude",
-              "hub_height",
-              "turbine_model_id"
-            ],
-            "title": "Turbine Configuration",
-            "type": "object"
-          },
-          "title": "Turbines",
-          "type": "array"
-        }
-      },
-      "required": [
-        "id",
-        "label",
-        "turbines",
-        "relevance",
-        "operational_lifetime_start_date",
-        "capacity"
-      ],
-      "title": "WindFarmConfiguration",
-      "type": "object"
     }
   },
   "$id": "https://raw.githubusercontent.com/IEC-61400-15/eya_def/blob/main/iec_61400-15-2_eya_def.schema.json",
@@ -1081,7 +790,7 @@
         }
       ],
       "default": null,
-      "description": "List of measurement station metadata JSON document(s) according to the IEA Task 43 WRA Data Model, for all station datasets used in the EYA, if any.",
+      "description": "List of measurement station metadata documents according to the IEA Wind Task 43 WRA Data Model, including all measurement stations relevant to the EYA, if any. It is recommended that one metadata document be completed for each measurement station, although the WRA Data Model allows for grouping multiple measurement stations into a single document.",
       "title": "Measurement Stations"
     },
     "project_country": {
@@ -1428,7 +1137,7 @@
         }
       ],
       "default": null,
-      "description": "List of reference meteorological datasets used in the EYA.",
+      "description": "List of metadata documents for reference meteorological datasets used in the long-term prediction process of the EYA, which may include details of for example ground-based meteorological stations, reanalysis datasets and mesoscale model datasets used as long-termreferences.",
       "title": "Reference Meteorological Datasets"
     },
     "reference_wind_farms": {
@@ -1453,7 +1162,7 @@
                 "title": "Comments"
               },
               "datasets": {
-                "description": "Metadata for the operational dataset.",
+                "description": "List of metadata documents describing the operational datasets from the reference wind farm that were used in the EYA.",
                 "items": {
                   "additionalProperties": false,
                   "description": "Reference wind farm operational dataset.",
@@ -1706,18 +1415,15 @@
                 "title": "Id",
                 "type": "string"
               },
-              "wind_farm_configuration": {
-                "allOf": [
-                  {
-                    "$ref": "#/$defs/WindFarmConfiguration"
-                  }
-                ],
-                "description": "The configuration data for the reference wind farm."
+              "wind_farm_id": {
+                "description": "The ID of the wind farm in the 'wind_farms' section of the top-level of the EYA DEF document, containing the configuration data for the reference wind farm.",
+                "title": "Wind Farm Id",
+                "type": "string"
               }
             },
             "required": [
               "id",
-              "wind_farm_configuration",
+              "wind_farm_id",
               "datasets"
             ],
             "title": "Reference Wind Farm",
@@ -1730,7 +1436,7 @@
         }
       ],
       "default": null,
-      "description": "List of reference operational wind farms used in the EYA.",
+      "description": "List of metadata documents for the reference operational wind farms relevant to the EYA, if any. One metadata document shall be completed for each relevant reference operational wind farm.",
       "title": "Reference Wind Farms"
     },
     "scenarios": {
@@ -2588,19 +2294,19 @@
                 "title": "Turbine Wind Resource Assessment",
                 "type": "object"
               },
-              "wind_farms": {
-                "description": "List of all wind farms included in the scenario.",
+              "wind_farm_ids": {
+                "description": "List of the IDs for all wind farms included in the scenario.",
                 "items": {
-                  "$ref": "#/$defs/WindFarmConfiguration"
+                  "type": "string"
                 },
-                "title": "Wind Farms",
+                "title": "Wind Farm Ids",
                 "type": "array"
               }
             },
             "required": [
               "label",
               "operational_lifetime_length_years",
-              "wind_farms",
+              "wind_farm_ids",
               "turbine_wind_resource_assessment",
               "energy_assessment"
             ],
@@ -2664,6 +2370,319 @@
         "8f46a815-8b6d-4870-8e92-c031b20320c6"
       ],
       "title": "UUID"
+    },
+    "wind_farms": {
+      "description": "List of all wind farms considered in the EYA. This should comprise internal, external and future wind farms, including those used as reference wind farms in the wind resource assessment, if any. If different configurations are assessed for one or more internal and/or future wind farms in different scenarios, a wind farm object must be completed for each unique configuration, with the relevant configurations for each scenario referenced by wind farm ID.",
+      "items": {
+        "additionalProperties": false,
+        "description": "A collection of wind turbines considered as one unit (plant).",
+        "properties": {
+          "abbreviation": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Optional abbreviated label of the wind farm.",
+            "examples": [
+              "BWF",
+              "Summit PhIII"
+            ],
+            "title": "Abbreviation"
+          },
+          "comments": {
+            "anyOf": [
+              {
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Optional comments on the wind farm.",
+            "title": "Comments"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Optional description of the wind farm.",
+            "title": "Description"
+          },
+          "export_capacity": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The maximum permanently transmittable power (in MW) from the wind farm at the grid connection, or equivalent.",
+            "examples": [
+              11.3,
+              2332.0
+            ],
+            "title": "Export Capacity"
+          },
+          "id": {
+            "description": "Unique identifier of the wind farm.",
+            "examples": [
+              "8994452f-731b-4342-9418-571920e44484"
+            ],
+            "title": "Id",
+            "type": "string"
+          },
+          "installed_capacity": {
+            "description": "The maximum production (in MW) of the wind farm under typical conditions. If there are features in place to increase power output beyond the stated nameplate power of the turbines (e.g. so-called power boost solutions), the wind farm installed capacity should correspond to that increased power, insofar as is reached under typical conditions and not only in rare exceptions.",
+            "examples": [
+              12.3,
+              2345.67
+            ],
+            "title": "Installed Capacity",
+            "type": "number"
+          },
+          "label": {
+            "description": "Label or name of the wind farm.",
+            "examples": [
+              "Barefoot Wind Farm",
+              "Project Summit Phase III"
+            ],
+            "title": "Label",
+            "type": "string"
+          },
+          "operational_lifetime_end_date": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Operational lifetime end date of the wind farm (format YYYY-MM-DD).",
+            "examples": [
+              "2051-03-31",
+              "2025-12-31"
+            ],
+            "title": "Operational Lifetime End Date"
+          },
+          "operational_lifetime_start_date": {
+            "description": "Operational lifetime start date of the wind farm (format YYYY-MM-DD).",
+            "examples": [
+              "2026-01-01",
+              "2017-04-01"
+            ],
+            "format": "date",
+            "title": "Operational Lifetime Start Date",
+            "type": "string"
+          },
+          "relevance": {
+            "description": "The relevance of the wind farm for the assessment ('internal', 'external' or 'future').",
+            "enum": [
+              "internal",
+              "external",
+              "future"
+            ],
+            "title": "Wind Farm Relevance",
+            "type": "string"
+          },
+          "restrictions": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/$defs/OperationalRestriction"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "List of operational restrictions at the wind farm level.",
+            "title": "Restrictions"
+          },
+          "turbines": {
+            "description": "List of specifications for constituent turbines.",
+            "items": {
+              "additionalProperties": false,
+              "description": "Specification of all details for a turbine configuration.",
+              "properties": {
+                "comments": {
+                  "anyOf": [
+                    {
+                      "minLength": 1,
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "Optional comments on the turbine.",
+                  "title": "Comments"
+                },
+                "description": {
+                  "anyOf": [
+                    {
+                      "minLength": 1,
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "Optional description of the turbine.",
+                  "title": "Description"
+                },
+                "ground_level_altitude": {
+                  "description": "The ground level altitude (base elevation) of the turbine (in m).",
+                  "title": "Ground Level Altitude",
+                  "type": "number"
+                },
+                "hub_height": {
+                  "description": "The hub height of the turbine (in m).",
+                  "title": "Hub Height",
+                  "type": "number"
+                },
+                "id": {
+                  "description": "Unique identifier of the turbine.",
+                  "examples": [
+                    "b55caeac-f152-4b13-8217-3fddeab792cf",
+                    "T1-scen1"
+                  ],
+                  "title": "Id",
+                  "type": "string"
+                },
+                "label": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "Label of the turbine, if different from the 'id'.",
+                  "examples": [
+                    "T1",
+                    "WTG02",
+                    "WEA_003"
+                  ],
+                  "title": "Label"
+                },
+                "location": {
+                  "allOf": [
+                    {
+                      "$ref": "#/$defs/Location"
+                    }
+                  ],
+                  "description": "The horizontal spatial location of the turbine."
+                },
+                "operational_lifetime_end_date": {
+                  "anyOf": [
+                    {
+                      "format": "date",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "Operational lifetime end date of the individual turbine (format YYYY-MM-DD).",
+                  "examples": [
+                    "2051-03-31",
+                    "2025-12-31"
+                  ],
+                  "title": "Operational Lifetime End Date"
+                },
+                "operational_lifetime_start_date": {
+                  "anyOf": [
+                    {
+                      "format": "date",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "Operational lifetime start date of the individual turbine (format YYYY-MM-DD).",
+                  "examples": [
+                    "2026-01-01",
+                    "2017-04-01"
+                  ],
+                  "title": "Operational Lifetime Start Date"
+                },
+                "restrictions": {
+                  "anyOf": [
+                    {
+                      "items": {
+                        "$ref": "#/$defs/OperationalRestriction"
+                      },
+                      "type": "array"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "List of operational restrictions at the turbine level.",
+                  "title": "Restrictions"
+                },
+                "turbine_model_id": {
+                  "description": "Unique identifier of the turbine model.",
+                  "title": "Turbine Model Id",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "location",
+                "ground_level_altitude",
+                "hub_height",
+                "turbine_model_id"
+              ],
+              "title": "Turbine Configuration",
+              "type": "object"
+            },
+            "title": "Turbines",
+            "type": "array"
+          }
+        },
+        "required": [
+          "id",
+          "label",
+          "turbines",
+          "relevance",
+          "operational_lifetime_start_date",
+          "installed_capacity"
+        ],
+        "title": "Wind Farm Configuration",
+        "type": "object"
+      },
+      "title": "Wind Farms",
+      "type": "array"
     },
     "wind_resource_assessments": {
       "description": "List of wind resource assessments, including results, at the measurement station locations.",
@@ -2828,6 +2847,7 @@
     "contributors",
     "issuing_organisations",
     "epsg_srid",
+    "wind_farms",
     "wind_resource_assessments"
   ],
   "title": "IEC 61400-15-2 EYA DEF Schema",

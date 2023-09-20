@@ -42,6 +42,7 @@ def draw_eya_def_top_level() -> None:
         termini=[
             ReportContributor,
             Organisation,
+            WindFarmConfiguration,
             ReferenceWindFarm,
             ReferenceMeteorologicalDataset,
             WindResourceAssessment,
@@ -50,6 +51,13 @@ def draw_eya_def_top_level() -> None:
     )
     diagram.draw("eya_def_top_level.png")
     diagram.draw("eya_def_top_level.svg")
+
+
+def draw_wind_farm() -> None:
+    """Draw diagram of the wind farm level schema."""
+    diagram = erd.create(WindFarmConfiguration)
+    diagram.draw("wind_farm.png")
+    diagram.draw("wind_farm.svg")
 
 
 def draw_scenario() -> None:
@@ -64,7 +72,6 @@ def draw_scenario_reduced() -> None:
     diagram = erd.create(
         Scenario,
         termini=[
-            WindFarmConfiguration,
             TurbineWindResourceAssessment,
             EnergyAssessment,
         ],
@@ -111,6 +118,7 @@ def draw_turbine_wind_resource_assessment() -> None:
 if __name__ == "__main__":
     draw_eya_def_all_levels()
     draw_eya_def_top_level()
+    draw_wind_farm()
     draw_scenario()
     draw_scenario_reduced()
     draw_plant_performance_category()

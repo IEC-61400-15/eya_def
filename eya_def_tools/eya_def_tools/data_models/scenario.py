@@ -8,7 +8,6 @@ import pydantic as pdt
 
 from eya_def_tools.data_models.base_model import EyaDefBaseModel
 from eya_def_tools.data_models.energy_assessment import EnergyAssessment
-from eya_def_tools.data_models.wind_farm import WindFarmConfiguration
 from eya_def_tools.data_models.wind_resource import TurbineWindResourceAssessment
 
 
@@ -46,9 +45,9 @@ class Scenario(EyaDefBaseModel):
         lt=100.0,
         examples=[10.0, 20.0, 30.0],
     )
-    wind_farms: list[WindFarmConfiguration] = pdt.Field(
+    wind_farm_ids: list[str] = pdt.Field(
         default=...,
-        description="List of all wind farms included in the scenario.",
+        description="List of the IDs for all wind farms included in the scenario.",
     )
     turbine_wind_resource_assessment: TurbineWindResourceAssessment = pdt.Field(
         default=...,

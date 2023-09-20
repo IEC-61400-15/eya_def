@@ -162,19 +162,42 @@ class WindFarmConfiguration(EyaDefBaseModel):
         ),
         examples=["2051-03-31", "2025-12-31"],
     )
-
-    # TODO: confirm wind farm capacity definition with IEC 61400-15-2 reporting group
-    capacity: float = pdt.Field(
+    installed_capacity: float = pdt.Field(
         default=...,
         description=(
-            "The total project capacity (in MW), which is the lesser of the "
-            "maximum permanently transmittable power at the grid connection "
-            "and the maximum production under typical conditions."
+            "The maximum production (in MW) of the wind farm under typical "
+            "conditions. If there are features in place to increase power "
+            "output beyond the stated nameplate power of the turbines (e.g. "
+            "so-called power boost solutions), the wind farm installed capacity "
+            "should correspond to that increased power, insofar as is reached "
+            "under typical conditions and not only in rare exceptions."
         ),
         examples=[12.3, 2345.67],
     )
-
+    export_capacity: Optional[float] = pdt.Field(
+        default=None,
+        description=(
+            "The maximum permanently transmittable power (in MW) from the wind "
+            "farm at the grid connection, or equivalent."
+        ),
+        examples=[11.3, 2332.0],
+    )
     restrictions: Optional[list[OperationalRestriction]] = pdt.Field(
         default=None,
         description="List of operational restrictions at the wind farm level.",
     )
+
+    @property
+    def capacity(self) -> float:
+        """The wind farm capacity (in MW).
+
+        The capacity is the lesser of the ``installed_capacity`` (the
+        maximum permanently transmittable power at the grid connection
+        or equivalent) and the ``export_capacity`` (the maximum
+        production under typical conditions).
+        """
+        return (
+            min(self.installed_capacity, self.export_capacity)
+            if self.export_capacity is not None
+            else self.installed_capacity
+        )

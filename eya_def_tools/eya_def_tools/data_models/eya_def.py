@@ -35,6 +35,7 @@ from eya_def_tools.data_models.reference_met_data import ReferenceMeteorological
 from eya_def_tools.data_models.reference_wind_farm import ReferenceWindFarm
 from eya_def_tools.data_models.scenario import Scenario
 from eya_def_tools.data_models.turbine_model import TurbineModelSpecifications
+from eya_def_tools.data_models.wind_farm import WindFarmConfiguration
 from eya_def_tools.data_models.wind_resource import WindResourceAssessment
 from eya_def_tools.utils import reference_utils
 
@@ -73,29 +74,54 @@ class EyaDefDocument(EyaDefBaseModel):
     contract_reference: Optional[str] = contract_reference_field
     confidentiality_classification: Optional[str] = confidentiality_classification_field
     epsg_srid: int = epsg_srid_field
+    wind_farms: list[WindFarmConfiguration] = pdt.Field(
+        default=...,
+        description=(
+            "List of all wind farms considered in the EYA. This should comprise "
+            "internal, external and future wind farms, including those used as "
+            "reference wind farms in the wind resource assessment, if any. If "
+            "different configurations are assessed for one or more internal "
+            "and/or future wind farms in different scenarios, a wind farm object "
+            "must be completed for each unique configuration, with the relevant "
+            "configurations for each scenario referenced by wind farm ID."
+        ),
+    )
     measurement_stations: Optional[list[MeasurementStationMetadata]] = pdt.Field(
         default=None,
         description=(
-            "List of measurement station metadata JSON document(s) "
-            "according to the IEA Task 43 WRA Data Model, for all "
-            "station datasets used in the EYA, if any."
+            "List of measurement station metadata documents according to the IEA "
+            "Wind Task 43 WRA Data Model, including all measurement stations "
+            "relevant to the EYA, if any. It is recommended that one metadata "
+            "document be completed for each measurement station, although the "
+            "WRA Data Model allows for grouping multiple measurement stations "
+            "into a single document."
         ),
     )
     reference_wind_farms: Optional[list[ReferenceWindFarm]] = pdt.Field(
         default=None,
-        description="List of reference operational wind farms used in the EYA.",
+        description=(
+            "List of metadata documents for the reference operational wind farms "
+            "relevant to the EYA, if any. One metadata document shall be completed "
+            "for each relevant reference operational wind farm."
+        ),
     )
     reference_meteorological_datasets: (
         Optional[list[ReferenceMeteorologicalDataset]]
     ) = pdt.Field(
         default=None,
-        description="List of reference meteorological datasets used in the EYA.",
+        description=(
+            "List of metadata documents for reference meteorological datasets "
+            "used in the long-term prediction process of the EYA, which may "
+            "include details of for example ground-based meteorological stations, "
+            "reanalysis datasets and mesoscale model datasets used as long-term"
+            "references."
+        ),
     )
     wind_resource_assessments: list[WindResourceAssessment] = pdt.Field(
         default=...,
         description=(
-            "List of wind resource assessments, including results, at "
-            "the measurement station locations."
+            "List of wind resource assessments, including results, at the "
+            "measurement station locations."
         ),
     )
     turbine_models: Optional[list[TurbineModelSpecifications]] = pdt.Field(

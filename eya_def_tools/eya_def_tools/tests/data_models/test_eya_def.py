@@ -1,4 +1,4 @@
-"""Test the data models.
+"""Test the ``eya_def`` top-level data model module.
 
 """
 
