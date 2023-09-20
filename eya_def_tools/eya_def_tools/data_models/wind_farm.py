@@ -169,8 +169,8 @@ class WindFarmConfiguration(EyaDefBaseModel):
             "conditions. If there are features in place to increase power "
             "output beyond the stated nameplate power of the turbines (e.g. "
             "so-called power boost solutions), the wind farm installed capacity "
-            "should correspond to that increased power, insofar as is reached "
-            "under typical conditions and not only in rare exceptions."
+            "should correspond to that increased power, insofar as it is "
+            "reached under typical conditions and not only in rare exceptions."
         ),
         examples=[12.3, 2345.67],
     )

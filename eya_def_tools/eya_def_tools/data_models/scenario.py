@@ -47,7 +47,13 @@ class Scenario(EyaDefBaseModel):
     )
     wind_farm_ids: list[str] = pdt.Field(
         default=...,
-        description="List of the IDs for all wind farms included in the scenario.",
+        description=(
+            "List of the IDs for all wind farms included in the scenario. "
+            "Each ID refers to a wind farm configuration data object within the "
+            "'wind_farms' section of the top-level of the EYA DEF document. Only "
+            "wind farms for which turbine interaction effects are modelled shall "
+            "be included."
+        ),
     )
     turbine_wind_resource_assessment: TurbineWindResourceAssessment = pdt.Field(
         default=...,

@@ -2295,7 +2295,7 @@
                 "type": "object"
               },
               "wind_farm_ids": {
-                "description": "List of the IDs for all wind farms included in the scenario.",
+                "description": "List of the IDs for all wind farms included in the scenario. Each ID refers to a wind farm configuration data object within the 'wind_farms' section of the top-level of the EYA DEF document. Only wind farms for which turbine interaction effects are modelled shall be included.",
                 "items": {
                   "type": "string"
                 },
@@ -2448,7 +2448,7 @@
             "type": "string"
           },
           "installed_capacity": {
-            "description": "The maximum production (in MW) of the wind farm under typical conditions. If there are features in place to increase power output beyond the stated nameplate power of the turbines (e.g. so-called power boost solutions), the wind farm installed capacity should correspond to that increased power, insofar as is reached under typical conditions and not only in rare exceptions.",
+            "description": "The maximum production (in MW) of the wind farm under typical conditions. If there are features in place to increase power output beyond the stated nameplate power of the turbines (e.g. so-called power boost solutions), the wind farm installed capacity should correspond to that increased power, insofar as it is reached under typical conditions and not only in rare exceptions.",
             "examples": [
               12.3,
               2345.67
