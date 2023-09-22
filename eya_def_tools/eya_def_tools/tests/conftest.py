@@ -440,7 +440,7 @@ def wind_farm_a(
         turbines=[turbine_specification_wtg01_a, turbine_specification_wtg02_a],
         relevance=enums.WindFarmRelevance.INTERNAL,
         operational_lifetime_start_date=dt.date(2024, 1, 1),
-        capacity=11.0,
+        installed_capacity=11.0,
     )
 
 
@@ -459,7 +459,8 @@ def wind_farm_b(
         turbines=[turbine_specification_wtg01_b, turbine_specification_wtg02_b],
         relevance=enums.WindFarmRelevance.INTERNAL,
         operational_lifetime_start_date=dt.date(2024, 1, 1),
-        capacity=11.5,
+        installed_capacity=11.6,
+        export_capacity=11.5,
     )
 
 
@@ -483,7 +484,7 @@ def neighbouring_wind_farm_a(
         relevance=enums.WindFarmRelevance.EXTERNAL,
         operational_lifetime_start_date=dt.date(2018, 7, 1),
         operational_lifetime_end_date=dt.date(2038, 6, 30),
-        capacity=6.4,
+        installed_capacity=6.4,
     )
 
 
@@ -554,7 +555,7 @@ def reference_wind_farm_a(
     """Test case instance 'a' of ``ReferenceWindFarm``."""
     return reference_wind_farm.ReferenceWindFarm(
         id="munro_wind_farm_reference",
-        wind_farm_configuration=neighbouring_wind_farm_a,
+        wind_farm_id="mu",
         datasets=[reference_wind_farm_dataset_a],
     )
 
@@ -1372,8 +1373,6 @@ def energy_assessment_b(
 
 @pytest.fixture(scope="session")
 def scenario_a(
-    wind_farm_a: wind_farm.WindFarmConfiguration,
-    neighbouring_wind_farm_a: wind_farm.WindFarmConfiguration,
     turbine_wind_resource_assessment_a: wind_resource.TurbineWindResourceAssessment,
     energy_assessment_a: energy_assessment.EnergyAssessment,
 ) -> scenario.Scenario:
@@ -1384,7 +1383,7 @@ def scenario_a(
         description="ABC165-5.5MW turbine model scenario",
         is_main_scenario=True,
         operational_lifetime_length_years=30,
-        wind_farms=[wind_farm_a, neighbouring_wind_farm_a],
+        wind_farm_ids=["bf_a", "mu"],
         turbine_wind_resource_assessment=turbine_wind_resource_assessment_a,
         energy_assessment=energy_assessment_a,
     )
@@ -1392,8 +1391,6 @@ def scenario_a(
 
 @pytest.fixture(scope="session")
 def scenario_b(
-    wind_farm_b: wind_farm.WindFarmConfiguration,
-    neighbouring_wind_farm_a: wind_farm.WindFarmConfiguration,
     turbine_wind_resource_assessment_b: wind_resource.TurbineWindResourceAssessment,
     energy_assessment_b: energy_assessment.EnergyAssessment,
 ) -> scenario.Scenario:
@@ -1405,7 +1402,7 @@ def scenario_b(
         comments="Site suitability of turbine model has not yet investigated.",
         is_main_scenario=False,
         operational_lifetime_length_years=30,
-        wind_farms=[wind_farm_b, neighbouring_wind_farm_a],
+        wind_farm_ids=["bf_b", "mu"],
         turbine_wind_resource_assessment=turbine_wind_resource_assessment_b,
         energy_assessment=energy_assessment_b,
     )
@@ -1486,6 +1483,9 @@ def eya_def_a(
     second_author_a: general_metadata.ReportContributor,
     verifier_a: general_metadata.ReportContributor,
     approver_a: general_metadata.ReportContributor,
+    wind_farm_a: wind_farm.WindFarmConfiguration,
+    wind_farm_b: wind_farm.WindFarmConfiguration,
+    neighbouring_wind_farm_a: wind_farm.WindFarmConfiguration,
     measurement_station_a: measurement_station.MeasurementStationMetadata,
     reference_wind_farm_a: reference_wind_farm.ReferenceWindFarm,
     turbine_model_a: turbine_model.TurbineModelSpecifications,
@@ -1521,6 +1521,7 @@ def eya_def_a(
         contract_reference="P/UK/000765/001/B, 2022-11-30",
         confidentiality_classification="Confidential",
         epsg_srid=32630,
+        wind_farms=[wind_farm_a, wind_farm_b, neighbouring_wind_farm_a],
         measurement_stations=[measurement_station_a],
         reference_wind_farms=[reference_wind_farm_a],
         wind_resource_assessments=[wind_resource_assessment_a],

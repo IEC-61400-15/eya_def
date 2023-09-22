@@ -17,7 +17,6 @@ from eya_def_tools.data_models.enums import (
 )
 from eya_def_tools.data_models.general_metadata import Organisation
 from eya_def_tools.data_models.result import Result
-from eya_def_tools.data_models.wind_farm import WindFarmConfiguration
 
 
 class ReferenceWindFarmDataVariable(EyaDefBaseModel):
@@ -168,11 +167,18 @@ class ReferenceWindFarm(EyaDefBaseModel):
         min_length=1,  # Value should not be empty if the field is included
         description="Optional comments on the reference wind farm.",
     )
-    wind_farm_configuration: WindFarmConfiguration = pdt.Field(
+    wind_farm_id: str = pdt.Field(
         default=...,
-        description="The configuration data for the reference wind farm.",
+        description=(
+            "The ID of the wind farm in the 'wind_farms' section of the top-level "
+            "of the EYA DEF document, containing the configuration data for the "
+            "reference wind farm."
+        ),
     )
     datasets: list[ReferenceWindFarmDataset] = pdt.Field(
         default=...,
-        description="Metadata for the operational dataset.",
+        description=(
+            "List of metadata documents describing the operational datasets from "
+            "the reference wind farm that were used in the EYA."
+        ),
     )
