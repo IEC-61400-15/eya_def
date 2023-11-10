@@ -7,6 +7,8 @@ from typing import Any, Final
 import pydantic as pdt
 from typing_extensions import Annotated
 
+from eya_def_tools.data_models.general import NonEmptyStr
+
 IEA43_WRA_DATA_MODEL_SCHEMA_URI: Final[str] = (
     "https://raw.githubusercontent.com/IEA-Task-43/digital_wra_data_standard/"
     "master/schema/iea43_wra_data_model.schema.json"
@@ -14,7 +16,7 @@ IEA43_WRA_DATA_MODEL_SCHEMA_URI: Final[str] = (
 
 
 MeasurementStationMetadata = Annotated[
-    dict[str, Any],
+    dict[NonEmptyStr, Any],
     pdt.WithJsonSchema(
         json_schema={
             "allOf": [{"ref": IEA43_WRA_DATA_MODEL_SCHEMA_URI}],

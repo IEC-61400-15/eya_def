@@ -9,11 +9,18 @@ the IEA Task 43 WRA data model. See the module ``measurement_station``.
 
 """
 
+import datetime as dt
 from typing import Optional
 
 import pydantic as pdt
 
 from eya_def_tools.data_models.base_model import EyaDefBaseModel
+from eya_def_tools.data_models.general import (
+    NonEmptyStr,
+    TimeResolution,
+    data_period_end_date_field,
+    data_period_start_date_field,
+)
 from eya_def_tools.data_models.spatial import Location
 
 
@@ -26,7 +33,7 @@ class ReferenceMeteorologicalDataset(EyaDefBaseModel):
     different grid cells from a reanalysis dataset).
     """
 
-    id: str = pdt.Field(
+    id: NonEmptyStr = pdt.Field(
         default=...,
         description=(
             "Unique ID for the reference meteorological dataset within "
@@ -34,19 +41,31 @@ class ReferenceMeteorologicalDataset(EyaDefBaseModel):
         ),
         examples=["ERA5_1.23_4.56", "WRF_r0245_a"],
     )
-    description: str = pdt.Field(
+    description: NonEmptyStr = pdt.Field(
         default=...,
-        min_length=1,  # Value should not be empty
         description="Description of the meteorological dataset.",
         examples=["The ERA5 reanalysis dataset."],
     )
-    comments: Optional[str] = pdt.Field(
+    comments: Optional[NonEmptyStr] = pdt.Field(
         default=None,
-        min_length=1,  # Value should not be empty if the field is included
-        description="Optional comments on the meteorological dataset.",
+        description=(
+            "Optional comments on the meteorological dataset, which "
+            "should not be empty if the field is included."
+        ),
     )
-    location: Location = pdt.Field(
+    locations: list[Location] = pdt.Field(
         default=...,
-        description="The horizontal spatial location of the meteorological data.",
+        min_items=1,
+        description=(
+            "The horizontal spatial location(s) of the meteorological "
+            "data. Where a large number of locations have been used "
+            "and it is not practical to include all, a subset can be "
+            "included here and elaborated upon in the comments."
+        ),
     )
-    # TODO include data period and temporal resolution
+    time_resolution: TimeResolution = pdt.Field(
+        default=...,
+        description="Time resolution of the reference meteorological data.",
+    )
+    data_period_start_date: dt.date = data_period_start_date_field
+    data_period_end_date: dt.date = data_period_end_date_field

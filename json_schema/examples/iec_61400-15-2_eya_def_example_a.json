@@ -2053,7 +2053,10 @@
           },
           "data_type": "scada",
           "label": "WTG SCADA",
-          "time_resolution": "10-minutely",
+          "time_resolution": {
+            "unit": "minute",
+            "value": 10.0
+          },
           "used_data_variables": [
             {
               "data_level": "turbine_level",
@@ -2065,7 +2068,6 @@
             {
               "data_level": "turbine_level",
               "label": "active_power",
-              "measurement_point": "Low voltage (LV) side of turbine transformer",
               "statistic_types": [
                 "mean"
               ]
@@ -2078,9 +2080,9 @@
               ]
             },
             {
+              "comments": "The sensor is mounted outside, below the nacelle.",
               "data_level": "turbine_level",
               "label": "temperature",
-              "measurement_point": "Sensor outside below the nacelle",
               "statistic_types": [
                 "mean"
               ]
@@ -2106,7 +2108,7 @@
               {
                 "assessment_period": "lifetime",
                 "dimensions": [
-                  "turbine"
+                  "turbine_id"
                 ],
                 "statistics": [
                   {
@@ -2159,7 +2161,9 @@
                     "values": 3.4681
                   },
                   {
-                    "statistic_type": "p90",
+                    "statistic_type": {
+                      "exceedance_level": 0.9
+                    },
                     "values": 27.0894
                   }
                 ]
@@ -2176,7 +2180,9 @@
                     "values": 4.7293
                   },
                   {
-                    "statistic_type": "p90",
+                    "statistic_type": {
+                      "exceedance_level": 0.9
+                    },
                     "values": 2.54751
                   }
                 ]
@@ -2194,7 +2200,7 @@
                     "assessment_period": "lifetime",
                     "description": "Curtailment losses.",
                     "dimensions": [
-                      "turbine"
+                      "turbine_id"
                     ],
                     "statistics": [
                       {
@@ -2257,11 +2263,11 @@
                   "assessment_process_descriptions": [
                     {
                       "comments": "Internal toolset",
-                      "description": "Energy yield production timeseries simulation tool.",
-                      "label": "Timeseries tool"
+                      "description": "Energy yield production time series simulation tool.",
+                      "label": "Time Series tool"
                     }
                   ],
-                  "basis": "timeseries_calculation",
+                  "basis": "time_series_calculation",
                   "label": "load_curtailment",
                   "results": {
                     "efficiency": [
@@ -2270,7 +2276,7 @@
                         "comments": "Considering curtailment strategy as specified by the turbine manufacturer.",
                         "description": "Curtailment due to a wind sector management strategy to reduce turbine loads.",
                         "dimensions": [
-                          "turbine"
+                          "turbine_id"
                         ],
                         "statistics": [
                           {
@@ -2358,7 +2364,7 @@
             {
               "assessment_period": "lifetime",
               "dimensions": [
-                "turbine"
+                "turbine_id"
               ],
               "statistics": [
                 {
@@ -2399,7 +2405,7 @@
                   {
                     "assessment_period": "lifetime",
                     "dimensions": [
-                      "measurement"
+                      "measurement_id"
                     ],
                     "statistics": [
                       {
@@ -2425,7 +2431,7 @@
                       {
                         "assessment_period": "lifetime",
                         "dimensions": [
-                          "measurement"
+                          "measurement_id"
                         ],
                         "statistics": [
                           {
@@ -2451,7 +2457,7 @@
                       {
                         "assessment_period": "lifetime",
                         "dimensions": [
-                          "measurement"
+                          "measurement_id"
                         ],
                         "statistics": [
                           {
@@ -2518,7 +2524,7 @@
               {
                 "assessment_period": "lifetime",
                 "dimensions": [
-                  "turbine"
+                  "turbine_id"
                 ],
                 "statistics": [
                   {
@@ -2571,7 +2577,9 @@
                     "values": 4.5695
                   },
                   {
-                    "statistic_type": "p90",
+                    "statistic_type": {
+                      "exceedance_level": 0.9
+                    },
                     "values": 29.301
                   }
                 ]
@@ -2588,7 +2596,9 @@
                     "values": 5.7998
                   },
                   {
-                    "statistic_type": "p90",
+                    "statistic_type": {
+                      "exceedance_level": 0.9
+                    },
                     "values": 27.7263
                   }
                 ]
@@ -2606,7 +2616,7 @@
                     "assessment_period": "lifetime",
                     "description": "Curtailment losses.",
                     "dimensions": [
-                      "turbine"
+                      "turbine_id"
                     ],
                     "statistics": [
                       {
@@ -2658,7 +2668,7 @@
                         "comments": "A broad estimate of curtailment losses in the absence of details from the turbine manufacturer.",
                         "description": "Expected curtailment due to a wind sector management to reduce turbine loads.",
                         "dimensions": [
-                          "turbine"
+                          "turbine_id"
                         ],
                         "statistics": [
                           {
@@ -2729,7 +2739,7 @@
             {
               "assessment_period": "lifetime",
               "dimensions": [
-                "turbine"
+                "turbine_id"
               ],
               "statistics": [
                 {
@@ -2770,7 +2780,7 @@
                   {
                     "assessment_period": "lifetime",
                     "dimensions": [
-                      "measurement"
+                      "measurement_id"
                     ],
                     "statistics": [
                       {
@@ -2796,7 +2806,7 @@
                       {
                         "assessment_period": "lifetime",
                         "dimensions": [
-                          "measurement"
+                          "measurement_id"
                         ],
                         "statistics": [
                           {
@@ -2822,7 +2832,7 @@
                       {
                         "assessment_period": "lifetime",
                         "dimensions": [
-                          "measurement"
+                          "measurement_id"
                         ],
                         "statistics": [
                           {
@@ -2906,7 +2916,7 @@
           "ground_level_altitude": 44.9,
           "hub_height": 150.0,
           "id": "2bbe1cb3-e9f3-42ad-be61-3657ea2ac174",
-          "label": "WTG01_scenA",
+          "label": "WTG01_A",
           "location": {
             "x": 419665.0,
             "y": 6194240.0
@@ -2924,7 +2934,7 @@
           "ground_level_altitude": 46.3,
           "hub_height": 160.0,
           "id": "39f9dd43-6322-4738-81af-6a65766b26e3",
-          "label": "WTG02_scenA",
+          "label": "WTG02_A",
           "location": {
             "x": 420665.0,
             "y": 6194240.0
@@ -2955,7 +2965,7 @@
           "ground_level_altitude": 45.1,
           "hub_height": 148.0,
           "id": "f5cfd507-5550-4fbb-bdca-3dc6b1c6323c",
-          "label": "WTG01_scenB",
+          "label": "WTG01_B",
           "location": {
             "x": 419675.0,
             "y": 6194260.0
@@ -2967,7 +2977,7 @@
           "ground_level_altitude": 44.6,
           "hub_height": 158.0,
           "id": "a5ee87e3-5254-45fb-a057-4548b8c0424c",
-          "label": "WTG02_scenB",
+          "label": "WTG02_B",
           "location": {
             "x": 420655.0,
             "y": 6194220.0
@@ -3016,11 +3026,12 @@
   ],
   "wind_resource_assessments": [
     {
+      "id": "BfWF_WRA_1",
       "results": {
         "air_density": [
           {
             "dimensions": [
-              "measurement",
+              "measurement_id",
               "height"
             ],
             "statistics": [
@@ -3042,7 +3053,7 @@
         "probability": [
           {
             "dimensions": [
-              "measurement",
+              "measurement_id",
               "height",
               "wind_from_direction",
               "wind_speed"
@@ -3113,7 +3124,7 @@
         "temperature": [
           {
             "dimensions": [
-              "measurement",
+              "measurement_id",
               "height"
             ],
             "statistics": [
@@ -3135,7 +3146,7 @@
         "wind_shear_exponent": [
           {
             "dimensions": [
-              "measurement"
+              "measurement_id"
             ],
             "statistics": [
               {
@@ -3155,7 +3166,7 @@
         "wind_speed": [
           {
             "dimensions": [
-              "measurement",
+              "measurement_id",
               "height"
             ],
             "statistics": [
@@ -3256,8 +3267,7 @@
             ]
           }
         ]
-      },
-      "wind_resource_assessment_id": "BfWF_WRA_1"
+      }
     }
   ]
 }

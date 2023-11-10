@@ -2,7 +2,6 @@
 
 """
 import copy
-from pathlib import Path
 from typing import Any
 
 import jsonschema
@@ -15,7 +14,6 @@ from eya_def_tools.data_models.eya_def import EyaDefDocument
 def test_validate_master_json_schema(
     master_json_schema: dict[str, Any],
     json_example_dict: dict[str, Any],
-    json_examples_dirpath: Path,
 ) -> None:
     """Test validate all json file examples against master schema."""
     json_schema = master_json_schema.copy()
@@ -39,7 +37,6 @@ def test_validate_master_json_schema(
 def test_validate_pydantic_model_json_schema(
     pydantic_json_schema: dict[str, Any],
     json_example_dict: dict[str, Any],
-    json_examples_dirpath: Path,
 ) -> None:
     """Test validate all json file examples against pydantic schema."""
     json_schema = pydantic_json_schema.copy()

@@ -2,10 +2,9 @@
 
 """
 
-from typing import Any
+from typing import Annotated, Any
 
 import pydantic as pdt
-from typing_extensions import Annotated
 
 # IEC61400_16_POWER_CURVE_DATA_MODEL_SCHEMA_URI: Final[str] = (
 #     "https://raw.githubusercontent.com/path-to-schema.schema.json"

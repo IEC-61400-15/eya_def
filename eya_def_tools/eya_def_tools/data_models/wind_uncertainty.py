@@ -2,23 +2,24 @@
 
 """
 
+from __future__ import annotations
+
+from enum import StrEnum, auto
 from typing import Optional
 
 import pydantic as pdt
 
 from eya_def_tools.data_models.base_model import EyaDefBaseModel
-from eya_def_tools.data_models.enums import (
-    WindUncertaintyCategoryLabel,
-    WindUncertaintySubcategoryLabel,
-)
-from eya_def_tools.data_models.result import Result
+from eya_def_tools.data_models.dataset import Dataset
+from eya_def_tools.data_models.general import NonEmptyStr
 
 
 class UncertaintyResults(EyaDefBaseModel):
     """Uncertainty assessment results."""
 
-    relative_wind_speed_uncertainty: Optional[list[Result]] = pdt.Field(
+    relative_wind_speed_uncertainty: Optional[list[Dataset]] = pdt.Field(
         default=None,
+        min_items=1,
         description=(
             "Uncertainty assessment results as dimensionless relative values "
             "expressed in terms of wind speed and calculated as the standard "
@@ -26,8 +27,9 @@ class UncertaintyResults(EyaDefBaseModel):
             "the mean wind speed."
         ),
     )
-    relative_energy_uncertainty: Optional[list[Result]] = pdt.Field(
+    relative_energy_uncertainty: Optional[list[Dataset]] = pdt.Field(
         default=None,
+        min_items=1,
         description=(
             "Uncertainty assessment results as dimensionless relative values "
             "expressed in terms of AEP (annual energy production) and "
@@ -41,22 +43,24 @@ class UncertaintyResults(EyaDefBaseModel):
 class WindUncertaintySubcategoryElement(EyaDefBaseModel):
     """Subcategory element of a wind related uncertainty assessment."""
 
-    label: str = pdt.Field(
+    label: NonEmptyStr = pdt.Field(
         default=...,
         description="Label of the wind related uncertainty subcategory element.",
     )
-    description: Optional[str] = pdt.Field(
+    description: Optional[NonEmptyStr] = pdt.Field(
         default=None,
-        min_length=1,  # Value should not be empty if the field is included
         description=(
-            "Optional description of the wind related uncertainty subcategory element."
+            "Optional description of the wind related uncertainty "
+            "subcategory element, which should not be empty if the "
+            "field is included."
         ),
     )
-    comments: Optional[str] = pdt.Field(
+    comments: Optional[NonEmptyStr] = pdt.Field(
         default=None,
-        min_length=1,  # Value should not be empty if the field is included
         description=(
-            "Optional comments on the wind related uncertainty subcategory element."
+            "Optional comments on the wind related uncertainty "
+            "subcategory element, which should not be empty if the "
+            "field is included."
         ),
     )
     results: UncertaintyResults = pdt.Field(
@@ -67,6 +71,81 @@ class WindUncertaintySubcategoryElement(EyaDefBaseModel):
     )
 
 
+class WindUncertaintySubcategoryLabel(StrEnum):
+    """Subcategory labels in the wind uncertainty assessment."""
+
+    # Historical wind resource
+    LONG_TERM_PERIOD_REPRESENTATIVENESS = auto()
+    REFERENCE_DATA_CONSISTENCY = auto()
+    LONG_TERM_ADJUSTMENT = auto()
+    WIND_SPEED_DISTRIBUTION_UNCERTAINTY = auto()
+    ON_SITE_DATA_SYNTHESIS = auto()
+    MEASURED_DATA_REPRESENTATIVENESS = auto()
+
+    # Project evaluation period annual variability
+    WIND_SPEED_VARIABILITY = auto()
+    CLIMATE_CHANGE = auto()
+    PLANT_PERFORMANCE = auto()  # TODO clarify distinction to energy uncertainty
+
+    # Measurement uncertainty
+    WIND_SPEED_MEASUREMENT = auto()
+    WIND_DIRECTION_MEASUREMENT = auto()  # TODO clarify conversion to wind speed
+    OTHER_ATMOSPHERIC_PARAMETERS = auto()  # TODO clarify conversion to wind speed
+    DATA_INTEGRITY = auto()  # Includes data integrity and documentation
+
+    # Horizontal extrapolation
+    MODEL_INPUTS = auto()
+    MODEL_SENSITIVITY = auto()  # Covering model stress tests
+    MODEL_APPROPRIATENESS = auto()
+
+    # Vertical extrapolation
+    MODEL_UNCERTAINTY = auto()
+    EXCESS_PROPAGATED_UNCERTAINTY = auto()  # Propagated from measurement uncertainty
+
+    # TODO - do we also need an "OTHER" subcategory
+
+    @property
+    def category(self) -> WindUncertaintyCategoryLabel:
+        """The category parent corresponding to the subcategory."""
+        match self:
+            case WindUncertaintySubcategoryLabel.LONG_TERM_PERIOD_REPRESENTATIVENESS:
+                return WindUncertaintyCategoryLabel.HISTORICAL_WIND_RESOURCE
+            case WindUncertaintySubcategoryLabel.REFERENCE_DATA_CONSISTENCY:
+                return WindUncertaintyCategoryLabel.HISTORICAL_WIND_RESOURCE
+            case WindUncertaintySubcategoryLabel.LONG_TERM_ADJUSTMENT:
+                return WindUncertaintyCategoryLabel.HISTORICAL_WIND_RESOURCE
+            case WindUncertaintySubcategoryLabel.WIND_SPEED_DISTRIBUTION_UNCERTAINTY:
+                return WindUncertaintyCategoryLabel.HISTORICAL_WIND_RESOURCE
+            case WindUncertaintySubcategoryLabel.ON_SITE_DATA_SYNTHESIS:
+                return WindUncertaintyCategoryLabel.HISTORICAL_WIND_RESOURCE
+            case WindUncertaintySubcategoryLabel.MEASURED_DATA_REPRESENTATIVENESS:
+                return WindUncertaintyCategoryLabel.HISTORICAL_WIND_RESOURCE
+            case WindUncertaintySubcategoryLabel.WIND_SPEED_VARIABILITY:
+                return WindUncertaintyCategoryLabel.EVALUATION_PERIOD_ANNUAL_VARIABILITY
+            case WindUncertaintySubcategoryLabel.CLIMATE_CHANGE:
+                return WindUncertaintyCategoryLabel.EVALUATION_PERIOD_ANNUAL_VARIABILITY
+            case WindUncertaintySubcategoryLabel.PLANT_PERFORMANCE:
+                return WindUncertaintyCategoryLabel.EVALUATION_PERIOD_ANNUAL_VARIABILITY
+            case WindUncertaintySubcategoryLabel.WIND_SPEED_MEASUREMENT:
+                return WindUncertaintyCategoryLabel.MEASUREMENT_UNCERTAINTY
+            case WindUncertaintySubcategoryLabel.WIND_DIRECTION_MEASUREMENT:
+                return WindUncertaintyCategoryLabel.MEASUREMENT_UNCERTAINTY
+            case WindUncertaintySubcategoryLabel.OTHER_ATMOSPHERIC_PARAMETERS:
+                return WindUncertaintyCategoryLabel.MEASUREMENT_UNCERTAINTY
+            case WindUncertaintySubcategoryLabel.DATA_INTEGRITY:
+                return WindUncertaintyCategoryLabel.MEASUREMENT_UNCERTAINTY
+            case WindUncertaintySubcategoryLabel.MODEL_INPUTS:
+                return WindUncertaintyCategoryLabel.HORIZONTAL_EXTRAPOLATION
+            case WindUncertaintySubcategoryLabel.MODEL_SENSITIVITY:
+                return WindUncertaintyCategoryLabel.HORIZONTAL_EXTRAPOLATION
+            case WindUncertaintySubcategoryLabel.MODEL_APPROPRIATENESS:
+                return WindUncertaintyCategoryLabel.HORIZONTAL_EXTRAPOLATION
+            case WindUncertaintySubcategoryLabel.MODEL_UNCERTAINTY:
+                return WindUncertaintyCategoryLabel.VERTICAL_EXTRAPOLATION
+            case WindUncertaintySubcategoryLabel.EXCESS_PROPAGATED_UNCERTAINTY:
+                return WindUncertaintyCategoryLabel.VERTICAL_EXTRAPOLATION
+
+
 class WindUncertaintySubcategory(EyaDefBaseModel):
     """Subcategory of a wind related uncertainty assessment."""
 
@@ -74,18 +153,25 @@ class WindUncertaintySubcategory(EyaDefBaseModel):
         default=...,
         description="Label of the wind related uncertainty subcategory.",
     )
-    description: Optional[str] = pdt.Field(
+    description: Optional[NonEmptyStr] = pdt.Field(
         default=None,
-        min_length=1,  # Value should not be empty if the field is included
-        description="Optional description of the wind related uncertainty subcategory.",
+        description=(
+            "Optional description of the wind related uncertainty "
+            "subcategory, which should not be empty if the field is "
+            "included."
+        ),
     )
-    comments: Optional[str] = pdt.Field(
+    comments: Optional[NonEmptyStr] = pdt.Field(
         default=None,
-        min_length=1,  # Value should not be empty if the field is included
-        description="Optional comments on the wind related uncertainty subcategory.",
+        description=(
+            "Optional comments on the wind related uncertainty "
+            "subcategory, which should not be empty if the field is "
+            "included."
+        ),
     )
     elements: Optional[list[WindUncertaintySubcategoryElement]] = pdt.Field(
         default=None,
+        min_items=1,
         description=(
             "Wind related uncertainty assessment elements that fall under "
             "the subcategory. The element objects include details and results "
@@ -102,6 +188,18 @@ class WindUncertaintySubcategory(EyaDefBaseModel):
     )
 
 
+class WindUncertaintyCategoryLabel(StrEnum):
+    """Category labels in the wind uncertainty assessment."""
+
+    HISTORICAL_WIND_RESOURCE = auto()
+    EVALUATION_PERIOD_ANNUAL_VARIABILITY = auto()  # Project evaluation period
+    MEASUREMENT_UNCERTAINTY = auto()
+    HORIZONTAL_EXTRAPOLATION = auto()
+    VERTICAL_EXTRAPOLATION = auto()
+
+    # TODO - do we also need an "OTHER" category
+
+
 class WindUncertaintyCategory(EyaDefBaseModel):
     """Category of a wind related uncertainty assessment."""
 
@@ -109,15 +207,21 @@ class WindUncertaintyCategory(EyaDefBaseModel):
         default=...,
         description="Label of the wind related uncertainty assessment category.",
     )
-    description: Optional[str] = pdt.Field(
+    description: Optional[NonEmptyStr] = pdt.Field(
         default=None,
-        min_length=1,  # Value should not be empty if the field is included
-        description="Optional description of the wind related uncertainty category.",
+        description=(
+            "Optional description of the wind related uncertainty "
+            "category, which should not be empty if the field is "
+            "included."
+        ),
     )
-    comments: Optional[str] = pdt.Field(
+    comments: Optional[NonEmptyStr] = pdt.Field(
         default=None,
-        min_length=1,  # Value should not be empty if the field is included
-        description="Optional comments on the wind related uncertainty category.",
+        description=(
+            "Optional comments on the wind related uncertainty "
+            "category, which should not be empty if the field is "
+            "included."
+        ),
     )
     subcategories: list[WindUncertaintySubcategory] = pdt.Field(
         default=...,
@@ -138,6 +242,7 @@ class WindUncertaintyAssessment(EyaDefBaseModel):
 
     categories: list[WindUncertaintyCategory] = pdt.Field(
         default=...,
+        min_items=1,
         description="Wind related uncertainty assessment categories including results.",
     )
     results: UncertaintyResults = pdt.Field(

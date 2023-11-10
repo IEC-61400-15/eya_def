@@ -5,16 +5,17 @@
 import pydantic as pdt
 
 from eya_def_tools.data_models.base_model import EyaDefBaseModel
+from eya_def_tools.data_models.dataset import Dataset
 from eya_def_tools.data_models.plant_performance import PlantPerformanceAssessment
 from eya_def_tools.data_models.process_description import AssessmentProcessDescription
-from eya_def_tools.data_models.result import Result
 
 
 class EnergyAssessmentResults(EyaDefBaseModel):
     """Energy assessment results."""
 
-    annual_energy_production: list[Result] = pdt.Field(
+    annual_energy_production: list[Dataset] = pdt.Field(
         default=...,
+        min_items=1,
         description="Annual energy production estimates in GWh.",
     )
 
