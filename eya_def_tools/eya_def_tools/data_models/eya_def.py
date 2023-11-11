@@ -79,7 +79,7 @@ class EyaDefDocument(EyaDefBaseModel):
     epsg_srid: int = epsg_srid_field
     wind_farms: list[WindFarmConfiguration] = pdt.Field(
         default=...,
-        min_items=1,
+        min_length=1,
         description=(
             "List of all wind farms considered in the EYA. This should comprise "
             "internal, external and future wind farms, including those used as "
@@ -92,7 +92,7 @@ class EyaDefDocument(EyaDefBaseModel):
     )
     measurement_stations: Optional[list[MeasurementStationMetadata]] = pdt.Field(
         default=None,
-        min_items=1,
+        min_length=1,
         description=(
             "List of measurement station metadata documents according to the IEA "
             "Wind Task 43 WRA Data Model, including all measurement stations "
@@ -104,7 +104,7 @@ class EyaDefDocument(EyaDefBaseModel):
     )
     reference_wind_farms: Optional[list[ReferenceWindFarm]] = pdt.Field(
         default=None,
-        min_items=1,
+        min_length=1,
         description=(
             "List of metadata documents for the reference operational wind farms "
             "relevant to the EYA, if any. One metadata document shall be completed "
@@ -115,7 +115,7 @@ class EyaDefDocument(EyaDefBaseModel):
         list[ReferenceMeteorologicalDataset | MeasurementStationMetadata]
     ] = pdt.Field(
         default=None,
-        min_items=1,
+        min_length=1,
         description=(
             "List of metadata documents for reference meteorological datasets "
             "used in the long-term prediction process of the EYA, which may "
@@ -126,7 +126,7 @@ class EyaDefDocument(EyaDefBaseModel):
     )
     wind_resource_assessments: list[WindResourceAssessment] = pdt.Field(
         default=...,
-        min_items=1,
+        min_length=1,
         description=(
             "List of wind resource assessments, including results, at the "
             "measurement station locations."
@@ -134,11 +134,11 @@ class EyaDefDocument(EyaDefBaseModel):
     )
     turbine_models: Optional[list[TurbineModelSpecifications]] = pdt.Field(
         default=None,
-        min_items=1,
+        min_length=1,
         description="List of wind turbine model specifications.",
     )
     scenarios: list[Scenario] = pdt.Field(
         default=...,
-        min_items=1,
+        min_length=1,
         description="List of energy yield assessment scenarios.",
     )

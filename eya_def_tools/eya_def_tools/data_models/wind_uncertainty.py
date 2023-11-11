@@ -19,7 +19,7 @@ class UncertaintyResults(EyaDefBaseModel):
 
     relative_wind_speed_uncertainty: Optional[list[Dataset]] = pdt.Field(
         default=None,
-        min_items=1,
+        min_length=1,
         description=(
             "Uncertainty assessment results as dimensionless relative values "
             "expressed in terms of wind speed and calculated as the standard "
@@ -29,7 +29,7 @@ class UncertaintyResults(EyaDefBaseModel):
     )
     relative_energy_uncertainty: Optional[list[Dataset]] = pdt.Field(
         default=None,
-        min_items=1,
+        min_length=1,
         description=(
             "Uncertainty assessment results as dimensionless relative values "
             "expressed in terms of AEP (annual energy production) and "
@@ -171,7 +171,7 @@ class WindUncertaintySubcategory(EyaDefBaseModel):
     )
     elements: Optional[list[WindUncertaintySubcategoryElement]] = pdt.Field(
         default=None,
-        min_items=1,
+        min_length=1,
         description=(
             "Wind related uncertainty assessment elements that fall under "
             "the subcategory. The element objects include details and results "
@@ -242,7 +242,7 @@ class WindUncertaintyAssessment(EyaDefBaseModel):
 
     categories: list[WindUncertaintyCategory] = pdt.Field(
         default=...,
-        min_items=1,
+        min_length=1,
         description="Wind related uncertainty assessment categories including results.",
     )
     results: UncertaintyResults = pdt.Field(

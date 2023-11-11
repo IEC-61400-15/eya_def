@@ -11,8 +11,6 @@ import pydantic as pdt
 
 from eya_def_tools.data_models.base_model import EyaDefBaseModel
 
-ValidFloat = Annotated[float, pdt.Field(allow_inf_nan=False)]
-
 NonEmptyStr = Annotated[str, pdt.Field(min_length=1)]
 
 
@@ -169,8 +167,21 @@ class TimeMeasurementUnit(StrEnum):
 class TimeResolution(EyaDefBaseModel):
     """Resolution of time series data."""
 
-    value: ValidFloat
-    unit: TimeMeasurementUnit
+    value: float = pdt.Field(
+        default=...,
+        description=(
+            "The value of the time resolution in the specified unit. "
+            "For example, for 10-minute resolution, the value is "
+            "'10.0' and the unit is 'minute'"
+        ),
+        examples=[0.5, 1.0, 10.0],
+    )
+    unit: TimeMeasurementUnit = pdt.Field(
+        default=...,
+        description=(
+            "The measurement unit of time in which the time resolution " "is specified."
+        ),
+    )
 
 
 class TimeVariabilityType(StrEnum):

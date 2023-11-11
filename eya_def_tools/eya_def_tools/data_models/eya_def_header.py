@@ -174,19 +174,19 @@ issue_date_field: dt.date = pdt.Field(
 
 contributors_field: list[ReportContributor] = pdt.Field(
     default=...,
-    min_items=1,
+    min_length=1,
     description="List of report contributors (e.g. author and verifier)",
 )
 
 issuing_organisations_field: list[Organisation] = pdt.Field(
     default=...,
-    min_items=1,
+    min_length=1,
     description="The organisation(s) issuing the report (e.g. consultant).",
 )
 
 receiving_organisations_field: Optional[list[Organisation]] = pdt.Field(
     default=None,
-    min_items=1,
+    min_length=1,
     description=(
         "Optional specification of organisation(s) receiving the "
         "report (e.g. client), if relevant."

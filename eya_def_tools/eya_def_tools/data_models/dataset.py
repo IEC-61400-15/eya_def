@@ -12,13 +12,13 @@ from typing import Annotated, Optional, TypeAlias
 import pydantic as pdt
 
 from eya_def_tools.data_models.base_model import EyaDefBaseModel
-from eya_def_tools.data_models.general import NonEmptyStr, ValidFloat
+from eya_def_tools.data_models.general import NonEmptyStr
 
-DatasetValue: TypeAlias = ValidFloat
-DatasetValueCoordinates: TypeAlias = list[ValidFloat | int | NonEmptyStr]
+DatasetValue: TypeAlias = float
+DatasetValueCoordinates: TypeAlias = list[float | int | NonEmptyStr]
 DatasetValuesWithCoordinates = Annotated[
     list[tuple[DatasetValueCoordinates, DatasetValue]],
-    pdt.Field(min_items=1),
+    pdt.Field(min_length=1),
 ]
 
 
@@ -78,7 +78,7 @@ class DatasetStatistic(EyaDefBaseModel):
             "contains. All values must correspond to this statistic."
         ),
     )
-    values: ValidFloat | DatasetValuesWithCoordinates = pdt.Field(
+    values: float | DatasetValuesWithCoordinates = pdt.Field(
         default=...,
         description=(
             "Dataset value(s) as a single number or  one or more "
@@ -157,7 +157,7 @@ class Dataset(EyaDefBaseModel):
     )
     dimensions: Optional[list[DatasetDimension]] = pdt.Field(
         default=None,
-        min_items=1,
+        min_length=1,
         description=(
             "Dimensions along which the dataset is binned. All "
             "statistics within the same dataset object must have the "
@@ -173,7 +173,7 @@ class Dataset(EyaDefBaseModel):
     )
     statistics: list[DatasetStatistic] = pdt.Field(
         default=...,
-        min_items=1,
+        min_length=1,
         description=(
             "List of dataset statistic objects that each include data "
             "values for a specific statistic type. For example, there "

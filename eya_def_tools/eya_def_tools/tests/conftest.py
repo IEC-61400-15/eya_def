@@ -11,6 +11,7 @@ involve modifications should create their own instances or make copies.
 import datetime as dt
 import json
 import urllib.request as urllib_request
+import uuid as uuid_
 from pathlib import Path
 from typing import Any
 
@@ -1531,6 +1532,7 @@ def eya_def_a(
                 "id=b1396029-e9af-49f7-9599-534db175e53c.json"
             )
         },
+        uuid=uuid_.UUID("b1396029-e9af-49f7-9599-534db175e53c"),
         title="Energy yield assessment of the Barefoot Wind Farm",
         description=(
             "Wind resource and energy yield assessment of the Barefoot "

@@ -55,7 +55,7 @@ class ReferenceMeteorologicalDataset(EyaDefBaseModel):
     )
     locations: list[Location] = pdt.Field(
         default=...,
-        min_items=1,
+        min_length=1,
         description=(
             "The horizontal spatial location(s) of the meteorological "
             "data. Where a large number of locations have been used "

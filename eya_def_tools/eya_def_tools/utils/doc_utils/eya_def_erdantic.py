@@ -8,6 +8,8 @@ import erdantic as erd
 import erdantic.base as erd_base
 import erdantic.typing as erd_typing
 
+from eya_def_tools.data_models.reference_met_data import ReferenceMeteorologicalDataset
+
 
 class IEATask43WraDataModel:
     pass
@@ -26,6 +28,13 @@ class PydanticField(erd.pydantic.PydanticField):  # type: ignore
         if self.name == "turbine_models":
             return Annotated[
                 Optional[list[dict[str, Any]]], IEC61400x16PowerCurveDataModel
+            ]
+        if self.name == "reference_meteorological_datasets":
+            return Optional[
+                list[
+                    ReferenceMeteorologicalDataset
+                    | Annotated[list[dict[str, Any]], IEATask43WraDataModel]
+                ]
             ]
 
         return super().type_obj

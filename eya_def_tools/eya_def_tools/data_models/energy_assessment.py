@@ -15,7 +15,7 @@ class EnergyAssessmentResults(EyaDefBaseModel):
 
     annual_energy_production: list[Dataset] = pdt.Field(
         default=...,
-        min_items=1,
+        min_length=1,
         description="Annual energy production estimates in GWh.",
     )
 

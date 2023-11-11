@@ -9,7 +9,7 @@ from typing import Optional
 import pydantic as pdt
 
 from eya_def_tools.data_models.base_model import EyaDefBaseModel
-from eya_def_tools.data_models.general import NonEmptyStr, ValidFloat
+from eya_def_tools.data_models.general import NonEmptyStr
 from eya_def_tools.data_models.spatial import Location
 
 
@@ -71,11 +71,11 @@ class TurbineConfiguration(EyaDefBaseModel):
         default=...,
         description="The horizontal spatial location of the turbine.",
     )
-    ground_level_altitude: ValidFloat = pdt.Field(
+    ground_level_altitude: float = pdt.Field(
         default=...,
         description="The ground level altitude (base elevation) of the turbine (in m).",
     )
-    hub_height: ValidFloat = pdt.Field(
+    hub_height: float = pdt.Field(
         default=...,
         description="The hub height of the turbine (in m).",
     )
@@ -109,7 +109,7 @@ class TurbineConfiguration(EyaDefBaseModel):
     )
     restrictions: Optional[list[OperationalRestriction]] = pdt.Field(
         default=None,
-        min_items=1,
+        min_length=1,
         description="List of operational restrictions at the turbine level.",
     )
 
@@ -156,7 +156,7 @@ class WindFarmConfiguration(EyaDefBaseModel):
     )
     turbines: list[TurbineConfiguration] = pdt.Field(
         default=...,
-        min_items=1,
+        min_length=1,
         description="List of specifications for constituent turbines.",
     )
     relevance: WindFarmRelevance = pdt.Field(
@@ -184,7 +184,7 @@ class WindFarmConfiguration(EyaDefBaseModel):
         ),
         examples=["2051-03-31", "2025-12-31"],
     )
-    installed_capacity: ValidFloat = pdt.Field(
+    installed_capacity: float = pdt.Field(
         default=...,
         description=(
             "The maximum production (in MW) of the wind farm under typical "
@@ -196,7 +196,7 @@ class WindFarmConfiguration(EyaDefBaseModel):
         ),
         examples=[12.3, 2345.67],
     )
-    export_capacity: Optional[ValidFloat] = pdt.Field(
+    export_capacity: Optional[float] = pdt.Field(
         default=None,
         description=(
             "Optional specification of the maximum permanently "
@@ -209,7 +209,7 @@ class WindFarmConfiguration(EyaDefBaseModel):
     )
     restrictions: Optional[list[OperationalRestriction]] = pdt.Field(
         default=None,
-        min_items=1,
+        min_length=1,
         description="List of operational restrictions at the wind farm level.",
     )
 

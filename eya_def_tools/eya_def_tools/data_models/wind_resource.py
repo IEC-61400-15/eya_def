@@ -28,7 +28,7 @@ class WindResourceResults(EyaDefBaseModel):
 
     wind_speed: list[Dataset] = pdt.Field(
         default=...,
-        min_items=1,
+        min_length=1,
         description=(
             "Final long-term wind speed estimates at the measurement "
             "location(s) in metre per second."
@@ -36,7 +36,7 @@ class WindResourceResults(EyaDefBaseModel):
     )
     probability: Optional[list[Dataset]] = pdt.Field(
         default=None,
-        min_items=1,
+        min_length=1,
         description=(
             "Final long-term probability distribution estimates at the "
             "measurement location(s), such as wind speed probability "
@@ -46,7 +46,7 @@ class WindResourceResults(EyaDefBaseModel):
     )
     turbulence_intensity: Optional[list[Dataset]] = pdt.Field(
         default=None,
-        min_items=1,
+        min_length=1,
         description=(
             "Final long-term turbulence intensity estimates at the "
             "measurement location(s) as dimensionless values."
@@ -54,7 +54,7 @@ class WindResourceResults(EyaDefBaseModel):
     )
     wind_shear_exponent: Optional[list[Dataset]] = pdt.Field(
         default=None,
-        min_items=1,
+        min_length=1,
         description=(
             "Final long-term power law wind shear exponent estimates "
             "at the measurement location(s)."
@@ -62,7 +62,7 @@ class WindResourceResults(EyaDefBaseModel):
     )
     temperature: Optional[list[Dataset]] = pdt.Field(
         default=None,
-        min_items=1,
+        min_length=1,
         description=(
             "Final long-term temperature estimates at the measurement "
             "location(s) in degree C."
@@ -70,7 +70,7 @@ class WindResourceResults(EyaDefBaseModel):
     )
     air_density: Optional[list[Dataset]] = pdt.Field(
         default=None,
-        min_items=1,
+        min_length=1,
         description=(
             "Final long-term air density estimates at the measurement "
             "location(s) in kilogram per cubic metre."
@@ -115,7 +115,7 @@ class TurbineWindResourceResults(EyaDefBaseModel):
 
     wind_speed: list[Dataset] = pdt.Field(
         default=...,
-        min_items=1,
+        min_length=1,
         description=(
             "Final long-term wind speed estimates at the turbine "
             "location(s) in metre per second."
@@ -123,7 +123,7 @@ class TurbineWindResourceResults(EyaDefBaseModel):
     )
     probability: Optional[list[Dataset]] = pdt.Field(
         default=None,
-        min_items=1,
+        min_length=1,
         description=(
             "Final long-term probability distribution estimates at the "
             "turbine location(s), such as wind speed probability "
@@ -133,7 +133,7 @@ class TurbineWindResourceResults(EyaDefBaseModel):
     )
     turbulence_intensity: Optional[list[Dataset]] = pdt.Field(
         default=None,
-        min_items=1,
+        min_length=1,
         description=(
             "Final long-term turbulence intensity estimates at the "
             "turbine location(s) as dimensionless values."
@@ -141,7 +141,7 @@ class TurbineWindResourceResults(EyaDefBaseModel):
     )
     wind_shear_exponent: Optional[list[Dataset]] = pdt.Field(
         default=None,
-        min_items=1,
+        min_length=1,
         description=(
             "Final long-term power law wind shear exponent estimates "
             "at the turbine location(s)."
@@ -149,7 +149,7 @@ class TurbineWindResourceResults(EyaDefBaseModel):
     )
     temperature: Optional[list[Dataset]] = pdt.Field(
         default=None,
-        min_items=1,
+        min_length=1,
         description=(
             "Final long-term temperature estimates at the turbine "
             "location(s) in degree C."
@@ -157,7 +157,7 @@ class TurbineWindResourceResults(EyaDefBaseModel):
     )
     air_density: Optional[list[Dataset]] = pdt.Field(
         default=None,
-        min_items=1,
+        min_length=1,
         description=(
             "Final long-term air density estimates at the turbine "
             "location(s) in kilogram per cubic metre."

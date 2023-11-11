@@ -65,7 +65,7 @@ class ReferenceWindFarmDataVariable(EyaDefBaseModel):
     )
     statistic_types: Optional[list[BasicStatisticType]] = pdt.Field(
         default=...,
-        min_items=1,
+        min_length=1,
         description=(
             "Optional list of the types of statistics included for "
             "the data variable."
@@ -73,7 +73,7 @@ class ReferenceWindFarmDataVariable(EyaDefBaseModel):
     )
     raw_data_availability: Optional[list[Dataset]] = pdt.Field(
         default=None,
-        min_items=1,
+        min_length=1,
         description=(
             "Dimensionless raw data availability (also known as data "
             "recovery rate) for the variable. More than one dataset "
@@ -156,7 +156,7 @@ class ReferenceWindFarmDataset(EyaDefBaseModel):
     )
     used_data_variables: list[ReferenceWindFarmDataVariable] = pdt.Field(
         default=...,
-        min_items=1,
+        min_length=1,
         description=(
             "A list of the types of data variables included in this dataset and "
             "used in the assessment. For a large dataset (such as a full wind turbine "
@@ -206,7 +206,7 @@ class ReferenceWindFarm(EyaDefBaseModel):
     )
     datasets: list[ReferenceWindFarmDataset] = pdt.Field(
         default=...,
-        min_items=1,
+        min_length=1,
         description=(
             "List of metadata documents describing the operational datasets from "
             "the reference wind farm that were used in the EYA."

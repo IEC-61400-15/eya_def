@@ -496,7 +496,7 @@
       "description": "Resolution of time series data.",
       "properties": {
         "unit": {
-          "description": "Unit in which time is measured where several units are supported. The standard unit for reporting the quantity of time within the EYA DEF is hours. The different time measurement units are used for example to describe the time resolution of meteorological reference input data.",
+          "description": "The measurement unit of time in which the time resolution is specified.",
           "enum": [
             "year",
             "month",
@@ -509,6 +509,12 @@
           "type": "string"
         },
         "value": {
+          "description": "The value of the time resolution in the specified unit. For example, for 10-minute resolution, the value is '10.0' and the unit is 'minute'",
+          "examples": [
+            0.5,
+            1.0,
+            10.0
+          ],
           "title": "Value",
           "type": "number"
         }

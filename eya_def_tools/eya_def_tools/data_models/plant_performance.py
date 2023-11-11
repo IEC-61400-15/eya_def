@@ -24,7 +24,7 @@ class PlantPerformanceResults(EyaDefBaseModel):
 
     efficiency: list[Dataset] = pdt.Field(
         default=...,
-        min_items=1,
+        min_length=1,
         description=(
             "Dimensionless plant performance efficiency (loss factor) results."
         ),
@@ -81,7 +81,7 @@ class PlantPerformanceSubcategoryElement(EyaDefBaseModel):
         Optional[list[AssessmentProcessDescription]]
     ) = pdt.Field(
         default=None,
-        min_items=1,
+        min_length=1,
         description=(
             "Description of calculation processes used in the "
             "assessment of the plant performance loss subcategory "
@@ -226,7 +226,7 @@ class PlantPerformanceSubcategory(EyaDefBaseModel):
         Optional[list[AssessmentProcessDescription]]
     ) = pdt.Field(
         default=None,
-        min_items=1,
+        min_length=1,
         description=(
             "Optional description of calculation processes used in the "
             "assessment of the plant performance loss subcategory. The "
@@ -235,7 +235,7 @@ class PlantPerformanceSubcategory(EyaDefBaseModel):
     )
     elements: Optional[list[PlantPerformanceSubcategoryElement]] = pdt.Field(
         default=None,
-        min_items=1,
+        min_length=1,
         description=(
             "Optional plant performance loss assessment elements that "
             "fall under the subcategory. The element objects include "
@@ -289,7 +289,7 @@ class PlantPerformanceCategory(EyaDefBaseModel):
     )
     subcategories: list[PlantPerformanceSubcategory] = pdt.Field(
         default=...,
-        min_items=1,
+        min_length=1,
         description=(
             "Plant performance loss assessment subcategories that fall "
             "under the category. The subcategory objects include "
@@ -307,7 +307,7 @@ class PlantPerformanceAssessment(EyaDefBaseModel):
 
     categories: list[PlantPerformanceCategory] = pdt.Field(
         default=...,
-        min_items=1,
+        min_length=1,
         description="Plant performance loss assessment categories including results.",
     )
     results: PlantPerformanceResults = pdt.Field(
