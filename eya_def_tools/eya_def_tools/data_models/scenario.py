@@ -8,35 +8,38 @@ import pydantic as pdt
 
 from eya_def_tools.data_models.base_model import EyaDefBaseModel
 from eya_def_tools.data_models.energy_assessment import EnergyAssessment
-from eya_def_tools.data_models.general import NonEmptyStr
 from eya_def_tools.data_models.wind_resource import TurbineWindResourceAssessment
 
 
 class Scenario(EyaDefBaseModel):
     """Single unique energy yield assessment scenario."""
 
-    id: Optional[NonEmptyStr] = pdt.Field(
+    id: Optional[str] = pdt.Field(
         default=None,
+        min_length=1,
         description=(
             "Optional unique identifier of the scenario, which should "
             "not be empty if the field is included."
         ),
         examples=["3613a846-1e74-4535-ad40-7368f7ad452d"],
     )
-    label: NonEmptyStr = pdt.Field(
+    label: str = pdt.Field(
         default=...,
+        min_length=1,
         description="Label of the scenario.",
         examples=["Sc1", "A", "B01"],
     )
-    description: Optional[NonEmptyStr] = pdt.Field(
+    description: Optional[str] = pdt.Field(
         default=None,
+        min_length=1,
         description=(
             "Optional description of the scenario, which should not be "
             "empty if the field is included."
         ),
     )
-    comments: Optional[NonEmptyStr] = pdt.Field(
+    comments: Optional[str] = pdt.Field(
         default=None,
+        min_length=1,
         description=(
             "Optional comments on the scenario, which should not be "
             "empty if the field is included."
@@ -57,8 +60,9 @@ class Scenario(EyaDefBaseModel):
         allow_inf_nan=False,
         examples=[10.0, 20.0, 30.0],
     )
-    wind_farm_ids: list[NonEmptyStr] = pdt.Field(
+    wind_farm_ids: list[str] = pdt.Field(
         default=...,
+        min_length=1,
         description=(
             "List of the IDs for all wind farms included in the "
             "scenario. Each ID refers to a wind farm configuration "

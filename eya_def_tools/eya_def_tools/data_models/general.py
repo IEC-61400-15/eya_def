@@ -40,23 +40,27 @@ class Organisation(EyaDefBaseModel):
     organisations of an energy yield assessment.
     """
 
-    name: NonEmptyStr = pdt.Field(
+    name: str = pdt.Field(
         default=...,
+        min_length=1,
         description="Entity name of the organisation.",
         examples=["The Torre Egger Consultants Limited", "Miranda Investments Limited"],
     )
-    abbreviation: Optional[NonEmptyStr] = pdt.Field(
+    abbreviation: Optional[str] = pdt.Field(
         default=None,
+        min_length=1,
         description="Abbreviated name of the organisation.",
         examples=["Torre Egger", "Miranda"],
     )
-    address: Optional[NonEmptyStr] = pdt.Field(
+    address: Optional[str] = pdt.Field(
         default=None,
+        min_length=1,
         description="Address of the organisation.",
         examples=["5 Munro Road, Summit Centre, Sgurrsville, G12 0YE, UK"],
     )
-    contact_name: Optional[NonEmptyStr] = pdt.Field(
+    contact_name: Optional[str] = pdt.Field(
         default=None,
+        min_length=1,
         description="Name(s) of contact person(s) in the organisation.",
         examples=["Luis Bunuel", "Miles Davis, John Coltrane"],
     )

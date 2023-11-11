@@ -11,7 +11,7 @@ import pycountry
 import pydantic as pdt
 
 from eya_def_tools.data_models.base_model import EyaDefBaseModel
-from eya_def_tools.data_models.general import NonEmptyStr, Organisation
+from eya_def_tools.data_models.general import Organisation
 from eya_def_tools.utils import reference_utils
 
 Alpha2CountryCode: Type[StrEnum] = StrEnum(  # type: ignore
@@ -33,8 +33,9 @@ class ReportContributorType(StrEnum):
 class ReportContributor(EyaDefBaseModel):
     """Contributor to an energy yield assessment."""
 
-    name: NonEmptyStr = pdt.Field(
+    name: str = pdt.Field(
         default=...,
+        min_length=1,
         description="Name of the contributor.",
         examples=["Joan Miro", "Andrei Tarkovsky"],
     )
@@ -50,8 +51,9 @@ class ReportContributor(EyaDefBaseModel):
         default=...,
         description="Type of contributor.",
     )
-    contribution_comments: Optional[NonEmptyStr] = pdt.Field(
+    contribution_comments: Optional[str] = pdt.Field(
         default=None,
+        min_length=1,
         description=(
             "Optional comments to clarify contribution, which should "
             "not be empty if the field is included."
@@ -98,14 +100,16 @@ uuid_field: Optional[uuid_.UUID] = pdt.Field(
     examples=["8f46a815-8b6d-4870-8e92-c031b20320c6"],
 )
 
-title_field: NonEmptyStr = pdt.Field(
+title_field: str = pdt.Field(
     default=...,
+    min_length=1,
     description="Title of the energy yield assessment (EYA) report.",
     examples=["Energy yield assessment of the Barefoot Wind Farm"],
 )
 
-description_field: Optional[NonEmptyStr] = pdt.Field(
+description_field: Optional[str] = pdt.Field(
     default=None,
+    min_length=1,
     description=(
         "Optional description of the energy yield assessment (EYA) "
         "report, which should not be empty if the field is included."
@@ -113,8 +117,9 @@ description_field: Optional[NonEmptyStr] = pdt.Field(
     examples=["An updated document to incorporate the latest measurement data."],
 )
 
-comments_field: Optional[NonEmptyStr] = pdt.Field(
+comments_field: Optional[str] = pdt.Field(
     default=None,
+    min_length=1,
     description=(
         "Optional comments on the energy yield assessment (EYA) "
         "report, which should not be empty if the field is included."
@@ -124,8 +129,9 @@ comments_field: Optional[NonEmptyStr] = pdt.Field(
     ],
 )
 
-project_name_field: NonEmptyStr = pdt.Field(
+project_name_field: str = pdt.Field(
     default=...,
+    min_length=1,
     description="Name of the project under assessment.",
     examples=["Barefoot Wind Farm"],
 )
@@ -138,8 +144,9 @@ project_country_field: Alpha2CountryCode = pdt.Field(
     ),
 )
 
-document_id_field: Optional[NonEmptyStr] = pdt.Field(
+document_id_field: Optional[str] = pdt.Field(
     default=None,
+    min_length=1,
     title="Document ID",
     description=(
         "Optional ID of the report document; not including the version "
@@ -151,8 +158,9 @@ document_id_field: Optional[NonEmptyStr] = pdt.Field(
     examples=["C385945/A/UK/R/002", "0345.923454.0001"],
 )
 
-document_version_field: Optional[NonEmptyStr] = pdt.Field(
+document_version_field: Optional[str] = pdt.Field(
     default=None,
+    min_length=1,
     description=(
         "Optional version of the report document, also known as "
         "revision. As with the 'document_id', this will typically "
@@ -193,8 +201,9 @@ receiving_organisations_field: Optional[list[Organisation]] = pdt.Field(
     ),
 )
 
-contract_reference_field: Optional[NonEmptyStr] = pdt.Field(
+contract_reference_field: Optional[str] = pdt.Field(
     default=None,
+    min_length=1,
     description=(
         "Optional reference to contract between the issuing and "
         "receiving organisations that governs the energy yield "
@@ -204,8 +213,9 @@ contract_reference_field: Optional[NonEmptyStr] = pdt.Field(
     examples=["Contract ID.: P-MIR-00239432-0001-C, dated 2022-11-30"],
 )
 
-confidentiality_classification_field: Optional[NonEmptyStr] = pdt.Field(
+confidentiality_classification_field: Optional[str] = pdt.Field(
     default=None,
+    min_length=1,
     description=(
         "Optional confidentiality classification of the report "
         "document, if relevant. The field should not be empty if it "
@@ -240,21 +250,19 @@ class EyaDefHeader(EyaDefBaseModel):
     uri: Optional[pdt.AnyUrl] = uri_field
     schema_uri: pdt.AnyUrl = schema_uri_field
     uuid: Optional[uuid_.UUID] = uuid_field
-    title: NonEmptyStr = title_field
-    description: Optional[NonEmptyStr] = description_field
-    comments: Optional[NonEmptyStr] = comments_field
-    project_name: NonEmptyStr = project_name_field
+    title: str = title_field
+    description: Optional[str] = description_field
+    comments: Optional[str] = comments_field
+    project_name: str = project_name_field
     project_country: Alpha2CountryCode = project_country_field
-    document_id: Optional[NonEmptyStr] = document_id_field
-    document_version: Optional[NonEmptyStr] = document_version_field
+    document_id: Optional[str] = document_id_field
+    document_version: Optional[str] = document_version_field
     issue_date: dt.date = issue_date_field
     contributors: list[ReportContributor] = contributors_field
     issuing_organisations: list[Organisation] = issuing_organisations_field
     receiving_organisations: Optional[
         list[Organisation]
     ] = receiving_organisations_field
-    contract_reference: Optional[NonEmptyStr] = contract_reference_field
-    confidentiality_classification: Optional[
-        NonEmptyStr
-    ] = confidentiality_classification_field
+    contract_reference: Optional[str] = contract_reference_field
+    confidentiality_classification: Optional[str] = confidentiality_classification_field
     epsg_srid: int = epsg_srid_field

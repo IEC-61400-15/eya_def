@@ -9,7 +9,6 @@ from typing import Optional
 import pydantic as pdt
 
 from eya_def_tools.data_models.base_model import EyaDefBaseModel
-from eya_def_tools.data_models.general import NonEmptyStr
 from eya_def_tools.data_models.spatial import Location
 
 
@@ -22,17 +21,20 @@ class OperationalRestriction(EyaDefBaseModel):
     data model.
     """
 
-    label: NonEmptyStr = pdt.Field(
+    label: str = pdt.Field(
         default=...,
+        min_length=1,
         description="Short label to indicate the type of operational restriction.",
         examples=["WSM curtailment", "MEC curtailment"],
     )
-    description: NonEmptyStr = pdt.Field(
+    description: str = pdt.Field(
         default=...,
+        min_length=1,
         description="Description of the operational restriction.",
     )
-    comments: Optional[NonEmptyStr] = pdt.Field(
+    comments: Optional[str] = pdt.Field(
         default=None,
+        min_length=1,
         description=(
             "Optional comments on the operational restriction, which "
             "should not be empty if the field is included."
@@ -43,25 +45,29 @@ class OperationalRestriction(EyaDefBaseModel):
 class TurbineConfiguration(EyaDefBaseModel):
     """Specification of all details for a turbine configuration."""
 
-    id: NonEmptyStr = pdt.Field(
+    id: str = pdt.Field(
         default=...,
+        min_length=1,
         description="Unique identifier of the turbine.",
         examples=["b55caeac-f152-4b13-8217-3fddeab792cf", "T1-scenario-1"],
     )
-    label: Optional[NonEmptyStr] = pdt.Field(
+    label: Optional[str] = pdt.Field(
         default=None,
+        min_length=1,
         description="Label of the turbine, if different from the 'id'.",
         examples=["T1", "WTG02", "WEA_003"],
     )
-    description: Optional[NonEmptyStr] = pdt.Field(
+    description: Optional[str] = pdt.Field(
         default=None,
+        min_length=1,
         description=(
             "Optional description of the turbine, which should not be "
             "empty if the field is included."
         ),
     )
-    comments: Optional[NonEmptyStr] = pdt.Field(
+    comments: Optional[str] = pdt.Field(
         default=None,
+        min_length=1,
         description=(
             "Optional comments on the turbine, which should not be "
             "empty if the field is included."
@@ -84,8 +90,9 @@ class TurbineConfiguration(EyaDefBaseModel):
     #         in IEC 61400-16
     #       - need also details to identify the baseline power curve
     #         including power mode, power curve air density, etc.
-    turbine_model_id: NonEmptyStr = pdt.Field(
+    turbine_model_id: str = pdt.Field(
         default=...,
+        min_length=1,
         description="Unique identifier of the turbine model.",
     )
 
@@ -125,30 +132,35 @@ class WindFarmRelevance(StrEnum):
 class WindFarmConfiguration(EyaDefBaseModel):
     """A collection of wind turbines considered as one unit (plant)."""
 
-    id: NonEmptyStr = pdt.Field(
+    id: str = pdt.Field(
         default=...,
+        min_length=1,
         description="Unique identifier of the wind farm.",
         examples=["8994452f-731b-4342-9418-571920e44484"],
     )
-    label: NonEmptyStr = pdt.Field(
+    label: str = pdt.Field(
         default=...,
+        min_length=1,
         description="Label or name of the wind farm.",
         examples=["Barefoot Wind Farm", "Project Summit Phase III"],
     )
-    abbreviation: Optional[NonEmptyStr] = pdt.Field(
+    abbreviation: Optional[str] = pdt.Field(
         default=None,
+        min_length=1,
         description="Optional abbreviated label of the wind farm.",
         examples=["BWF", "Summit PhIII"],
     )
-    description: Optional[NonEmptyStr] = pdt.Field(
+    description: Optional[str] = pdt.Field(
         default=None,
+        min_length=1,
         description=(
             "Optional description of the wind farm, which should not "
             "be empty if the field is included."
         ),
     )
-    comments: Optional[NonEmptyStr] = pdt.Field(
+    comments: Optional[str] = pdt.Field(
         default=None,
+        min_length=1,
         description=(
             "Optional comments on the wind farm, which should not be "
             "empty if the field is included."

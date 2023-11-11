@@ -11,7 +11,6 @@ import pydantic as pdt
 
 from eya_def_tools.data_models.base_model import EyaDefBaseModel
 from eya_def_tools.data_models.dataset import Dataset
-from eya_def_tools.data_models.general import NonEmptyStr
 
 
 class UncertaintyResults(EyaDefBaseModel):
@@ -43,20 +42,23 @@ class UncertaintyResults(EyaDefBaseModel):
 class WindUncertaintySubcategoryElement(EyaDefBaseModel):
     """Subcategory element of a wind related uncertainty assessment."""
 
-    label: NonEmptyStr = pdt.Field(
+    label: str = pdt.Field(
         default=...,
+        min_length=1,
         description="Label of the wind related uncertainty subcategory element.",
     )
-    description: Optional[NonEmptyStr] = pdt.Field(
+    description: Optional[str] = pdt.Field(
         default=None,
+        min_length=1,
         description=(
             "Optional description of the wind related uncertainty "
             "subcategory element, which should not be empty if the "
             "field is included."
         ),
     )
-    comments: Optional[NonEmptyStr] = pdt.Field(
+    comments: Optional[str] = pdt.Field(
         default=None,
+        min_length=1,
         description=(
             "Optional comments on the wind related uncertainty "
             "subcategory element, which should not be empty if the "
@@ -153,16 +155,18 @@ class WindUncertaintySubcategory(EyaDefBaseModel):
         default=...,
         description="Label of the wind related uncertainty subcategory.",
     )
-    description: Optional[NonEmptyStr] = pdt.Field(
+    description: Optional[str] = pdt.Field(
         default=None,
+        min_length=1,
         description=(
             "Optional description of the wind related uncertainty "
             "subcategory, which should not be empty if the field is "
             "included."
         ),
     )
-    comments: Optional[NonEmptyStr] = pdt.Field(
+    comments: Optional[str] = pdt.Field(
         default=None,
+        min_length=1,
         description=(
             "Optional comments on the wind related uncertainty "
             "subcategory, which should not be empty if the field is "
@@ -207,16 +211,18 @@ class WindUncertaintyCategory(EyaDefBaseModel):
         default=...,
         description="Label of the wind related uncertainty assessment category.",
     )
-    description: Optional[NonEmptyStr] = pdt.Field(
+    description: Optional[str] = pdt.Field(
         default=None,
+        min_length=1,
         description=(
             "Optional description of the wind related uncertainty "
             "category, which should not be empty if the field is "
             "included."
         ),
     )
-    comments: Optional[NonEmptyStr] = pdt.Field(
+    comments: Optional[str] = pdt.Field(
         default=None,
+        min_length=1,
         description=(
             "Optional comments on the wind related uncertainty "
             "category, which should not be empty if the field is "

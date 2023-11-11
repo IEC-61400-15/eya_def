@@ -2431,9 +2431,9 @@
           "wind_farm_ids": {
             "description": "List of the IDs for all wind farms included in the scenario. Each ID refers to a wind farm configuration data object within the 'wind_farms' section of the top-level of the EYA DEF document. Only wind farms for which turbine interaction effects are modelled shall be included.",
             "items": {
-              "minLength": 1,
               "type": "string"
             },
+            "minItems": 1,
             "title": "Wind Farm Ids",
             "type": "array"
           }

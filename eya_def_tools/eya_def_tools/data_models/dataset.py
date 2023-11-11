@@ -57,15 +57,17 @@ class ExceedanceLevelStatisticType(EyaDefBaseModel):
 class DatasetStatistic(EyaDefBaseModel):
     """Dataset values for one specific statistic type."""
 
-    description: Optional[NonEmptyStr] = pdt.Field(
+    description: Optional[str] = pdt.Field(
         default=None,
+        min_length=1,
         description=(
             "Optional description of the dataset statistic, which "
             "should not be empty if the field is included."
         ),
     )
-    comments: Optional[NonEmptyStr] = pdt.Field(
+    comments: Optional[str] = pdt.Field(
         default=None,
+        min_length=1,
         description=(
             "Optional comments on the dataset statistic, which should "
             "not be empty if the field is included."
@@ -125,23 +127,26 @@ class Dataset(EyaDefBaseModel):
     coordinates along the dimensions for each data value.
     """
 
-    label: Optional[NonEmptyStr] = pdt.Field(
+    label: Optional[str] = pdt.Field(
         default=None,
+        min_length=1,
         description=(
             "Optional label of the dataset, which should not be empty "
             "if the field is included."
         ),
         examples=["Seasonal distribution of net energy."],
     )
-    description: Optional[NonEmptyStr] = pdt.Field(
+    description: Optional[str] = pdt.Field(
         default=None,
+        min_length=1,
         description=(
             "Optional description of the dataset, which should not be "
             "empty if the field is included."
         ),
     )
-    comments: Optional[NonEmptyStr] = pdt.Field(
+    comments: Optional[str] = pdt.Field(
         default=None,
+        min_length=1,
         description=(
             "Optional comments on the dataset, which should not be "
             "empty if the field is included."

@@ -16,7 +16,6 @@ import pydantic as pdt
 
 from eya_def_tools.data_models.base_model import EyaDefBaseModel
 from eya_def_tools.data_models.general import (
-    NonEmptyStr,
     TimeResolution,
     data_period_end_date_field,
     data_period_start_date_field,
@@ -33,21 +32,24 @@ class ReferenceMeteorologicalDataset(EyaDefBaseModel):
     different grid cells from a reanalysis dataset).
     """
 
-    id: NonEmptyStr = pdt.Field(
+    id: str = pdt.Field(
         default=...,
+        min_length=1,
         description=(
             "Unique ID for the reference meteorological dataset within "
             "the EYA DEF document."
         ),
         examples=["ERA5_1.23_4.56", "WRF_r0245_a"],
     )
-    description: NonEmptyStr = pdt.Field(
+    description: str = pdt.Field(
         default=...,
+        min_length=1,
         description="Description of the meteorological dataset.",
         examples=["The ERA5 reanalysis dataset."],
     )
-    comments: Optional[NonEmptyStr] = pdt.Field(
+    comments: Optional[str] = pdt.Field(
         default=None,
+        min_length=1,
         description=(
             "Optional comments on the meteorological dataset, which "
             "should not be empty if the field is included."

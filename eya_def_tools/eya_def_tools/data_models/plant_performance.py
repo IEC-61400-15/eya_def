@@ -11,11 +11,7 @@ import pydantic as pdt
 
 from eya_def_tools.data_models.base_model import EyaDefBaseModel
 from eya_def_tools.data_models.dataset import Dataset
-from eya_def_tools.data_models.general import (
-    AssessmentBasis,
-    NonEmptyStr,
-    TimeVariabilityType,
-)
+from eya_def_tools.data_models.general import AssessmentBasis, TimeVariabilityType
 from eya_def_tools.data_models.process_description import AssessmentProcessDescription
 
 
@@ -34,20 +30,23 @@ class PlantPerformanceResults(EyaDefBaseModel):
 class PlantPerformanceSubcategoryElement(EyaDefBaseModel):
     """Plant performance loss assessment subcategory element."""
 
-    label: NonEmptyStr = pdt.Field(
+    label: str = pdt.Field(
         default=...,
+        min_length=1,
         description="Label of the plant performance loss subcategory element.",
     )
-    description: Optional[NonEmptyStr] = pdt.Field(
+    description: Optional[str] = pdt.Field(
         default=None,
+        min_length=1,
         description=(
             "Optional description of the plant performance loss "
             "subcategory element, which should not be empty if the "
             "field is included."
         ),
     )
-    comments: Optional[NonEmptyStr] = pdt.Field(
+    comments: Optional[str] = pdt.Field(
         default=None,
+        min_length=1,
         description=(
             "Optional comments on the plant performance loss "
             "subcategory element, which should not be empty if the "
@@ -193,16 +192,18 @@ class PlantPerformanceSubcategory(EyaDefBaseModel):
         default=...,
         description="Label of the plant performance loss subcategory.",
     )
-    description: Optional[NonEmptyStr] = pdt.Field(
+    description: Optional[str] = pdt.Field(
         default=None,
+        min_length=1,
         description=(
             "Optional description of the plant performance loss "
             "subcategory, which should not be empty if the field is "
             "included."
         ),
     )
-    comments: Optional[NonEmptyStr] = pdt.Field(
+    comments: Optional[str] = pdt.Field(
         default=None,
+        min_length=1,
         description=(
             "Optional comments on the plant performance loss "
             "subcategory, which should not be empty if the field is "
@@ -272,16 +273,18 @@ class PlantPerformanceCategory(EyaDefBaseModel):
         default=...,
         description="Label of the plant performance loss category.",
     )
-    description: Optional[NonEmptyStr] = pdt.Field(
+    description: Optional[str] = pdt.Field(
         default=None,
+        min_length=1,
         description=(
             "Optional description of the plant performance loss "
             "category, which should not be empty if the field is "
             "included."
         ),
     )
-    comments: Optional[NonEmptyStr] = pdt.Field(
+    comments: Optional[str] = pdt.Field(
         default=None,
+        min_length=1,
         description=(
             "Optional comments on the plant performance loss category, "
             "which should not be empty if the field is included."

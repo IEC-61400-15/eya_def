@@ -30,7 +30,7 @@ from eya_def_tools.data_models.eya_def_header import (
     uri_field,
     uuid_field,
 )
-from eya_def_tools.data_models.general import NonEmptyStr, Organisation
+from eya_def_tools.data_models.general import Organisation
 from eya_def_tools.data_models.measurement_station import MeasurementStationMetadata
 from eya_def_tools.data_models.reference_met_data import ReferenceMeteorologicalDataset
 from eya_def_tools.data_models.reference_wind_farm import ReferenceWindFarm
@@ -49,6 +49,8 @@ class EyaDefDocument(EyaDefBaseModel):
         # Schema specification ``"additionalProperties": true``, which
         # is used only at the top level to allow further metadata fields
         extra="allow",
+        # As a default, infinity of nan float values are not permitted
+        allow_inf_nan=False,
         json_schema_extra={
             "$id": reference_utils.get_json_schema_uri().unicode_string(),
             "$version": reference_utils.get_json_schema_version(),
@@ -59,23 +61,21 @@ class EyaDefDocument(EyaDefBaseModel):
     uri: Optional[pdt.AnyUrl] = uri_field
     schema_uri: pdt.AnyUrl = schema_uri_field
     uuid: Optional[uuid_.UUID] = uuid_field
-    title: NonEmptyStr = title_field
-    description: Optional[NonEmptyStr] = description_field
-    comments: Optional[NonEmptyStr] = comments_field
-    project_name: NonEmptyStr = project_name_field
+    title: str = title_field
+    description: Optional[str] = description_field
+    comments: Optional[str] = comments_field
+    project_name: str = project_name_field
     project_country: Alpha2CountryCode = project_country_field
-    document_id: Optional[NonEmptyStr] = document_id_field
-    document_version: Optional[NonEmptyStr] = document_version_field
+    document_id: Optional[str] = document_id_field
+    document_version: Optional[str] = document_version_field
     issue_date: dt.date = issue_date_field
     contributors: list[ReportContributor] = contributors_field
     issuing_organisations: list[Organisation] = issuing_organisations_field
     receiving_organisations: Optional[
         list[Organisation]
     ] = receiving_organisations_field
-    contract_reference: Optional[NonEmptyStr] = contract_reference_field
-    confidentiality_classification: Optional[
-        NonEmptyStr
-    ] = confidentiality_classification_field
+    contract_reference: Optional[str] = contract_reference_field
+    confidentiality_classification: Optional[str] = confidentiality_classification_field
     epsg_srid: int = epsg_srid_field
     wind_farms: list[WindFarmConfiguration] = pdt.Field(
         default=...,

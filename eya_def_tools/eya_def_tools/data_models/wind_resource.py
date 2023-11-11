@@ -18,7 +18,6 @@ import pydantic as pdt
 
 from eya_def_tools.data_models.base_model import EyaDefBaseModel
 from eya_def_tools.data_models.dataset import Dataset
-from eya_def_tools.data_models.general import NonEmptyStr
 from eya_def_tools.data_models.process_description import AssessmentProcessDescription
 from eya_def_tools.data_models.wind_uncertainty import WindUncertaintyAssessment
 
@@ -81,22 +80,25 @@ class WindResourceResults(EyaDefBaseModel):
 class WindResourceAssessment(EyaDefBaseModel):
     """Wind resource assessment at the measurement location(s)."""
 
-    id: NonEmptyStr = pdt.Field(
+    id: str = pdt.Field(
         default=...,
+        min_length=1,
         description=(
             "Unique ID of the wind resource assessment within the EYA DEF document."
         ),
         examples=["WRA01", "BfWF_WRA_1", "A"],
     )
-    description: Optional[NonEmptyStr] = pdt.Field(
+    description: Optional[str] = pdt.Field(
         default=None,
+        min_length=1,
         description=(
             "Optional description of the wind resource assessment, "
             "which should not be empty if the field is included."
         ),
     )
-    comments: Optional[NonEmptyStr] = pdt.Field(
+    comments: Optional[str] = pdt.Field(
         default=None,
+        min_length=1,
         description=(
             "Optional comments on the wind resource assessment, which "
             "should not be empty if the field is included."
@@ -168,8 +170,9 @@ class TurbineWindResourceResults(EyaDefBaseModel):
 class TurbineWindResourceAssessment(EyaDefBaseModel):
     """Wind resource assessment at the turbine locations."""
 
-    wind_resource_assessment_id_reference: NonEmptyStr = pdt.Field(
+    wind_resource_assessment_id_reference: str = pdt.Field(
         default=...,
+        min_length=1,
         description=(
             "The ID of the wind resource assessment on which the "
             "turbine wind resource assessment is based. This must "
@@ -180,16 +183,18 @@ class TurbineWindResourceAssessment(EyaDefBaseModel):
         ),
         examples=["WRA01", "BfWF_WRA_1", "A"],
     )
-    description: Optional[NonEmptyStr] = pdt.Field(
+    description: Optional[str] = pdt.Field(
         default=None,
+        min_length=1,
         description=(
             "Optional description of the turbine wind resource "
             "assessment, which should not be empty if the field is "
             "included."
         ),
     )
-    comments: Optional[NonEmptyStr] = pdt.Field(
+    comments: Optional[str] = pdt.Field(
         default=None,
+        min_length=1,
         description=(
             "Optional comments on the turbine wind resource "
             "assessment, which should not be empty if the field is "
