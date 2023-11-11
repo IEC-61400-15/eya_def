@@ -7,11 +7,11 @@ from pathlib import Path
 
 import pytest
 
-from eya_def_tools.utils.doc_utils import data_model_graphics
-
 
 @pytest.mark.erdantic
 def test_data_model_graphics_main_completes_successfully(tmp_path: Path) -> None:
+    from eya_def_tools.utils.doc_utils import data_model_graphics
+
     os.chdir(tmp_path)
     data_model_graphics.main()
 
