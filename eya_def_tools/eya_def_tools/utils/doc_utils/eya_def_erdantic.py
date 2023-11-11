@@ -2,7 +2,7 @@
 
 """
 
-from typing import Annotated, Any, List, Optional, Union
+from typing import Annotated, Any, List, Optional, Union, get_origin
 
 import erdantic as erd
 import erdantic.base as erd_base
@@ -35,6 +35,15 @@ class PydanticField(erd.pydantic.PydanticField):  # type: ignore
                     ReferenceMeteorologicalDataset
                     | Annotated[list[dict[str, Any]], IEATask43WraDataModel]
                 ]
+            ]
+        if (
+            self.name == "values"
+            and "Dataset value(s)" in self.field.description
+            and get_origin(self.field.annotation) == Union
+        ):
+            return Union[
+                float,
+                list[tuple[list[Union[int, float, str]], float]],
             ]
 
         return super().type_obj

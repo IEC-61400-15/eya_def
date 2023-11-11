@@ -15,7 +15,7 @@ from eya_def_tools.data_models.base_model import EyaDefBaseModel
 from eya_def_tools.data_models.general import NonEmptyStr
 
 DatasetValue: TypeAlias = float
-DatasetValueCoordinates: TypeAlias = list[float | int | NonEmptyStr]
+DatasetValueCoordinates: TypeAlias = list[int | float | NonEmptyStr]
 DatasetValuesWithCoordinates = Annotated[
     list[tuple[DatasetValueCoordinates, DatasetValue]],
     pdt.Field(min_length=1),
@@ -83,7 +83,7 @@ class DatasetStatistic(EyaDefBaseModel):
     values: float | DatasetValuesWithCoordinates = pdt.Field(
         default=...,
         description=(
-            "Dataset value(s) as a single number or  one or more "
+            "Dataset value(s) as a single number or one or more "
             "values at coordinates. If more than one value is included "
             "the values must be represented together with coordinates. "
             "A single value can be included either with or without "

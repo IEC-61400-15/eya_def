@@ -262,10 +262,10 @@
                           "items": {
                             "anyOf": [
                               {
-                                "type": "number"
+                                "type": "integer"
                               },
                               {
-                                "type": "integer"
+                                "type": "number"
                               },
                               {
                                 "minLength": 1,
@@ -285,7 +285,7 @@
                     "type": "array"
                   }
                 ],
-                "description": "Dataset value(s) as a single number or  one or more values at coordinates. If more than one value is included the values must be represented together with coordinates. A single value can be included either with or without coordinates. The coordinates must correspond to and be listed the same order as the dimensions specified for the dataset.",
+                "description": "Dataset value(s) as a single number or one or more values at coordinates. If more than one value is included the values must be represented together with coordinates. A single value can be included either with or without coordinates. The coordinates must correspond to and be listed the same order as the dimensions specified for the dataset.",
                 "title": "Values"
               }
             },
