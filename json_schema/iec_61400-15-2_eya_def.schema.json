@@ -131,6 +131,7 @@
                 "description": "Dimension along which dataset values are assigned.",
                 "enum": [
                   "height",
+                  "minute",
                   "hour",
                   "day",
                   "month",
@@ -813,7 +814,7 @@
       "title": "Document Version"
     },
     "epsg_srid": {
-      "description": "EPSG Spatial Reference System Identifier (SRID) for the Coordinate Reference System (CRS) used for all spatial data (e.g. turbine locations) in the EYA DEF JSON document. All location coordinates must be reported in the same CRS, which must be one that has an EPSG code. If different CRSs are used the data must be converted to be consistent with the EPSG code specified here.",
+      "description": "EPSG Spatial Reference System Identifier (SRID) for the Coordinate Reference System (CRS) used for all spatial data (e.g. turbine locations) in the EYA DEF document. All location coordinates must be reported in this one CRS, which must have an EPSG code. If different CRSs are used, the data must be converted to be consistent with the EPSG code specified here.",
       "examples": [
         27700,
         3006
@@ -848,7 +849,7 @@
                 "ref": "https://raw.githubusercontent.com/IEA-Task-43/digital_wra_data_standard/master/schema/iea43_wra_data_model.schema.json"
               }
             ],
-            "description": "A measurement metadata JSON document according to the IEA Task 43 WRA Data Model.",
+            "description": "A measurement metadata document according to the IEA Task 43 WRA Data Model JSON Schema.",
             "examples": [
               "https://foo.com/bar/example_iea43.json"
             ],
@@ -1242,7 +1243,7 @@
                     "ref": "https://raw.githubusercontent.com/IEA-Task-43/digital_wra_data_standard/master/schema/iea43_wra_data_model.schema.json"
                   }
                 ],
-                "description": "A measurement metadata JSON document according to the IEA Task 43 WRA Data Model.",
+                "description": "A measurement metadata document according to the IEA Task 43 WRA Data Model JSON Schema.",
                 "examples": [
                   "https://foo.com/bar/example_iea43.json"
                 ],
@@ -2484,6 +2485,17 @@
       "description": "List of wind turbine model specifications.",
       "title": "Turbine Models"
     },
+    "utc_offset": {
+      "description": "The offset in hours of the local time zone used for the EYA relative to Coordinated Universal Time (UTC). It is applied to UTC time to convert it to local time, hence positive for time zones ahead of UTC and negative for time zones behind UTC (e.g. -6.0 for MST and 9.5 for ACST). All data where the time zone is relevant (e.g. hourly time series and diurnal profiles) must be consistent with this one UTC offset.",
+      "examples": [
+        -6.0,
+        0.0,
+        1.0,
+        9.5
+      ],
+      "title": "Utc Offset",
+      "type": "number"
+    },
     "uuid": {
       "anyOf": [
         {
@@ -2495,7 +2507,7 @@
         }
       ],
       "default": null,
-      "description": "Optional UUID of the EYA DEF JSON document.",
+      "description": "Optional UUID of the EYA DEF document.",
       "examples": [
         "8f46a815-8b6d-4870-8e92-c031b20320c6"
       ],
@@ -2859,7 +2871,7 @@
             "title": "Description"
           },
           "id": {
-            "description": "Unique ID of the wind resource assessment within the EYA DEF document.",
+            "description": "Unique ID of the wind resource assessment within the EYA DEF document, used to reference it from other parts of the document.",
             "examples": [
               "WRA01",
               "BfWF_WRA_1",
@@ -2871,7 +2883,7 @@
           },
           "results": {
             "additionalProperties": false,
-            "description": "Results of the wind resource assessment at the measurement location(s).",
+            "description": "Final results of the wind resource assessment at the measurement location(s). Results should generally be included at the primary measurement height and extrapolated to all assessed turbine hub heights at each measurement location, as relevant.",
             "properties": {
               "air_density": {
                 "anyOf": [
@@ -2887,25 +2899,17 @@
                   }
                 ],
                 "default": null,
-                "description": "Final long-term air density estimates at the measurement location(s) in kilogram per cubic metre.",
+                "description": "Final long-term air density estimates at the measurement location(s) in kilogram per cubic metre. This field is optional since some wind measurement stations may lack measurements required to derive air density estimates, but it should always be included when relevant air density data are available. The dimensions of the first standard result dataset should be 'measurement_id' and 'height' (in that order). Further results with other dimensions may also be included.",
                 "title": "Air Density"
               },
               "probability": {
-                "anyOf": [
-                  {
-                    "items": {
-                      "$ref": "#/$defs/Dataset"
-                    },
-                    "minItems": 1,
-                    "type": "array"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ],
-                "default": null,
-                "description": "Final long-term probability distribution estimates at the measurement location(s), such as wind speed probability distributions or joint wind speed and direction frequency distributions, as dimensionless values.",
-                "title": "Probability"
+                "description": "Final long-term probability distribution estimates at the measurement location(s), as dimensionless values. The first standard result dataset should comprise the joint wind speed and direction probability distributions, with the dimensions 'measurement_id', 'height', 'wind_speed' and 'wind_from_direction' (in that order). The wind speed coordinates should be 1.0 metre per second bins centered on whole numbers, with the first bin half the width (i.e. 0.25, 1.0, 2.0, 3.0, ...). The wind direction coordinates should be twelve 30.0 degree bins, with the the first bin centered at 0.0. Further results with other dimensions may be included optionally.",
+                "items": {
+                  "$ref": "#/$defs/Dataset"
+                },
+                "minItems": 1,
+                "title": "Probability",
+                "type": "array"
               },
               "temperature": {
                 "anyOf": [
@@ -2921,7 +2925,7 @@
                   }
                 ],
                 "default": null,
-                "description": "Final long-term temperature estimates at the measurement location(s) in degree C.",
+                "description": "Final long-term temperature estimates at the measurement location(s) in degree C. This field is optional since some wind measurement stations may lack measurements of temperature, but it should always be included when relevant temperature data are available. The dimensions of the first standard result dataset should be 'measurement_id' and 'height' (in that order). Further results with other dimensions may also be included.",
                 "title": "Temperature"
               },
               "turbulence_intensity": {
@@ -2938,7 +2942,7 @@
                   }
                 ],
                 "default": null,
-                "description": "Final long-term turbulence intensity estimates at the measurement location(s) as dimensionless values.",
+                "description": "Final long-term turbulence intensity estimates at the measurement location(s), as dimensionless values. This field is optional since some measurement devices may lack meaningful turbulence measurements, but it should always be included when relevant turbulence data are available. The first standard result dataset should comprise the ambient turbulence intensity as a function of wind speed, with the dimensions 'measurement_id', 'height' and 'wind_speed' (in that order). The wind speed coordinates should be 1.0 metre per second bins centered on whole numbers, with the first bin half the width (i.e. 0.25, 1.0, 2.0, 3.0, ...). Further results with other dimensions may also be included.",
                 "title": "Turbulence Intensity"
               },
               "wind_shear_exponent": {
@@ -2955,11 +2959,11 @@
                   }
                 ],
                 "default": null,
-                "description": "Final long-term power law wind shear exponent estimates at the measurement location(s).",
+                "description": "Final long-term power law wind shear exponent estimates at the measurement location(s). This field is optional since some wind measurement stations may only include a single measurement height, but it should always be included when relevant wind shear exponent data are available. The dimension of the first standard result dataset should be 'measurement_id' only. Further results with other dimensions may also be included.",
                 "title": "Wind Shear Exponent"
               },
               "wind_speed": {
-                "description": "Final long-term wind speed estimates at the measurement location(s) in metre per second.",
+                "description": "Final long-term wind speed estimate(s) at the measurement location(s) in metre per second. The dimensions of the first standard result dataset should be 'measurement_id' and 'height' (in that order). Further results with other dimensions may be included optionally.",
                 "items": {
                   "$ref": "#/$defs/Dataset"
                 },
@@ -2969,7 +2973,8 @@
               }
             },
             "required": [
-              "wind_speed"
+              "wind_speed",
+              "probability"
             ],
             "title": "Wind Resource Results",
             "type": "object"
@@ -2995,6 +3000,7 @@
     "contributors",
     "issuing_organisations",
     "epsg_srid",
+    "utc_offset",
     "wind_farms",
     "wind_resource_assessments",
     "scenarios"

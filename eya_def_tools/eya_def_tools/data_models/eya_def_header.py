@@ -96,7 +96,7 @@ schema_uri_field: pdt.AnyUrl = pdt.Field(
 uuid_field: Optional[uuid_.UUID] = pdt.Field(
     default=None,
     title="UUID",
-    description="Optional UUID of the EYA DEF JSON document.",
+    description="Optional UUID of the EYA DEF document.",
     examples=["8f46a815-8b6d-4870-8e92-c031b20320c6"],
 )
 
@@ -230,13 +230,27 @@ epsg_srid_field: int = pdt.Field(
     description=(
         "EPSG Spatial Reference System Identifier (SRID) for the "
         "Coordinate Reference System (CRS) used for all spatial data "
-        "(e.g. turbine locations) in the EYA DEF JSON document. All "
-        "location coordinates must be reported in the same CRS, which "
-        "must be one that has an EPSG code. If different CRSs are used "
-        "the data must be converted to be consistent with the EPSG "
-        "code specified here."
+        "(e.g. turbine locations) in the EYA DEF document. All "
+        "location coordinates must be reported in this one CRS, which "
+        "must have an EPSG code. If different CRSs are used, the data "
+        "must be converted to be consistent with the EPSG code "
+        "specified here."
     ),
     examples=[27700, 3006],
+)
+
+utc_offset_field: float = pdt.Field(
+    default=...,
+    description=(
+        "The offset in hours of the local time zone used for the EYA "
+        "relative to Coordinated Universal Time (UTC). It is applied "
+        "to UTC time to convert it to local time, hence positive for "
+        "time zones ahead of UTC and negative for time zones behind "
+        "UTC (e.g. -6.0 for MST and 9.5 for ACST). All data where the "
+        "time zone is relevant (e.g. hourly time series and diurnal "
+        "profiles) must be consistent with this one UTC offset."
+    ),
+    examples=[-6.0, 0.0, 1.0, 9.5],
 )
 
 
@@ -266,3 +280,4 @@ class EyaDefHeader(EyaDefBaseModel):
     contract_reference: Optional[str] = contract_reference_field
     confidentiality_classification: Optional[str] = confidentiality_classification_field
     epsg_srid: int = epsg_srid_field
+    utc_offset: float = utc_offset_field

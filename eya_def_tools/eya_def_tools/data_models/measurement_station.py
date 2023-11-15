@@ -22,8 +22,8 @@ MeasurementStationMetadata = Annotated[
             "allOf": [{"ref": IEA43_WRA_DATA_MODEL_SCHEMA_URI}],
             "title": "Measurement Station Metadata",
             "description": (
-                "A measurement metadata JSON document according to "
-                "the IEA Task 43 WRA Data Model."
+                "A measurement metadata document according to the IEA "
+                "Task 43 WRA Data Model JSON Schema."
             ),
             "examples": ["https://foo.com/bar/example_iea43.json"],
         },

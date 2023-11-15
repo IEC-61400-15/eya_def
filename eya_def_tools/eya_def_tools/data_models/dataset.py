@@ -108,6 +108,7 @@ class DatasetDimension(StrEnum):
 
     HEIGHT = auto()
 
+    MINUTE = auto()
     HOUR = auto()
     DAY = auto()
     MONTH = auto()

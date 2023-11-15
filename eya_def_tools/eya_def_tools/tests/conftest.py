@@ -1551,6 +1551,7 @@ def eya_def_a(
         contract_reference="P/UK/000765/001/B, 2022-11-30",
         confidentiality_classification="Confidential",
         epsg_srid=32630,
+        utc_offset=0.0,
         wind_farms=[wind_farm_a, wind_farm_b, neighbouring_wind_farm_a],
         measurement_stations=[measurement_station_a],
         reference_wind_farms=[reference_wind_farm_a],

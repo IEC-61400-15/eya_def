@@ -343,105 +343,109 @@
 <!-- eya_def_tools.data_models.eya_def.EyaDefDocument -->
 <g id="node10" class="node">
 <title>eya_def_tools.data_models.eya_def.EyaDefDocument</title>
-<g id="a_node10"><a xlink:title="eya_def_tools.data_models.eya_def.EyaDefDocument&#10;&#10;IEC 61400&#45;15&#45;2 EYA DEF top&#45;level data model.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;uri (Optional[Url]): Optional URI of the EYA DEF JSON document, which should have the field name &#39;$id&#39; in the JSON document. Default is None.&#10; &#160;&#160;&#160;schema_uri (Url): URI of the EYA DEF JSON Schema, which should have the field name &#39;$schema&#39; in the JSON document. It is assumed to be the latest published version if not included. Default is https://raw.githubusercontent.com/IEC&#45;61400&#45;15/eya_def/blob/main/iec_61400&#45;15&#45;2_eya_def.schema.json.&#10; &#160;&#160;&#160;uuid (Optional[UUID]): Optional UUID of the EYA DEF JSON document. Default is None.&#10; &#160;&#160;&#160;title (str): Title of the energy yield assessment (EYA) report.&#10; &#160;&#160;&#160;description (Optional[str]): Optional description of the energy yield assessment (EYA) report, which should not be empty if the field is included. Default is None.&#10; &#160;&#160;&#160;comments (Optional[str]): Optional comments on the energy yield assessment (EYA) report, which should not be empty if the field is included. Default is None.&#10; &#160;&#160;&#160;project_name (str): Name of the project under assessment.&#10; &#160;&#160;&#160;project_country (Alpha2CountryCode(StrEnum)): The ISO 3166&#45;1 alpha&#45;2 two&#45;letter code of the country where the project under assessment is located.&#10; &#160;&#160;&#160;document_id (Optional[str]): Optional ID of the report document; not including the version when &#39;document_version&#39; is used. This will typically follow the convention of the document management system of the issuing organisation(s). The field should not be empty if it is included. Default is None.&#10; &#160;&#160;&#160;document_version (Optional[str]): Optional version of the report document, also known as revision. As with the &#39;document_id&#39;, this will typically follow the document versioning convention of the document management system of the issuing organisation(s). The field should not be empty if it is included. Default is None.&#10; &#160;&#160;&#160;issue_date (date): Report issue date in the ISO 8601 standard format for a calendar date, i.e. YYYY&#45;MM&#45;DD.&#10; &#160;&#160;&#160;contributors (list[ReportContributor]): List of report contributors (e.g. author and verifier)&#10; &#160;&#160;&#160;issuing_organisations (list[Organisation]): The organisation(s) issuing the report (e.g. consultant).&#10; &#160;&#160;&#160;receiving_organisations (Optional[list[Organisation]]): Optional specification of organisation(s) receiving the report (e.g. client), if relevant. Default is None.&#10; &#160;&#160;&#160;contract_reference (Optional[str]): Optional reference to contract between the issuing and receiving organisations that governs the energy yield assessment (EYA) report document, if relevant. The field should not be empty if it is included. Default is None.&#10; &#160;&#160;&#160;confidentiality_classification (Optional[str]): Optional confidentiality classification of the report document, if relevant. The field should not be empty if it is included. Default is None.&#10; &#160;&#160;&#160;epsg_srid (int): EPSG Spatial Reference System Identifier (SRID) for the Coordinate Reference System (CRS) used for all spatial data (e.g. turbine locations) in the EYA DEF JSON document. All location coordinates must be reported in the same CRS, which must be one that has an EPSG code. If different CRSs are used the data must be converted to be consistent with the EPSG code specified here.&#10; &#160;&#160;&#160;wind_farms (list[WindFarmConfiguration]): List of all wind farms considered in the EYA. This should comprise internal, external and future wind farms, including those used as reference wind farms in the wind resource assessment, if any. If different configurations are assessed for one or more internal and/or future wind farms in different scenarios, a wind farm object must be completed for each unique configuration, with the relevant configurations for each scenario referenced by wind farm ID.&#10; &#160;&#160;&#160;measurement_stations (Annotated[Optional[list[dict[str, Any]]], IEATask43WraDataModel]): List of measurement station metadata documents according to the IEA Wind Task 43 WRA Data Model, including all measurement stations relevant to the EYA, if any. It is recommended that one metadata document be completed for each measurement station, although the WRA Data Model allows for grouping multiple measurement stations into a single document. Default is None.&#10; &#160;&#160;&#160;reference_wind_farms (Optional[list[ReferenceWindFarm]]): List of metadata documents for the reference operational wind farms relevant to the EYA, if any. One metadata document shall be completed for each relevant reference operational wind farm. Default is None.&#10; &#160;&#160;&#160;reference_meteorological_datasets (Optional[list[Union[ReferenceMeteorologicalDataset, Annotated[list[dict[str, Any]], IEATask43WraDataModel]]]]): List of metadata documents for reference meteorological datasets used in the long&#45;term prediction process of the EYA, which may include details of for example ground&#45;based meteorological stations, reanalysis datasets and mesoscale model datasets used as long&#45;termreferences. Default is None.&#10; &#160;&#160;&#160;wind_resource_assessments (list[WindResourceAssessment]): List of wind resource assessments, including results, at the measurement station locations.&#10; &#160;&#160;&#160;turbine_models (Annotated[Optional[list[dict[str, Any]]], IEC61400x16PowerCurveDataModel]): List of wind turbine model specifications. Default is None.&#10; &#160;&#160;&#160;scenarios (list[Scenario]): List of energy yield assessment scenarios.&#10;">
-<polygon fill="none" stroke="black" points="0,-2251.73 0,-2272.73 842,-2272.73 842,-2251.73 0,-2251.73"/>
-<text text-anchor="start" x="366.5" y="-2259.53" font-family="Times New Roman,serif" font-weight="bold" font-size="14.00">EyaDefDocument</text>
-<polygon fill="none" stroke="black" points="0,-2230.73 0,-2251.73 199,-2251.73 199,-2230.73 0,-2230.73"/>
-<text text-anchor="start" x="92" y="-2237.53" font-family="Times New Roman,serif" font-size="14.00">uri</text>
-<polygon fill="none" stroke="black" points="199,-2230.73 199,-2251.73 842,-2251.73 842,-2230.73 199,-2230.73"/>
-<text text-anchor="start" x="483" y="-2237.53" font-family="Times New Roman,serif" font-size="14.00">Optional[Url]</text>
-<polygon fill="none" stroke="black" points="0,-2209.73 0,-2230.73 199,-2230.73 199,-2209.73 0,-2209.73"/>
-<text text-anchor="start" x="67.5" y="-2216.53" font-family="Times New Roman,serif" font-size="14.00">schema_uri</text>
-<polygon fill="none" stroke="black" points="199,-2209.73 199,-2230.73 842,-2230.73 842,-2209.73 199,-2209.73"/>
-<text text-anchor="start" x="511.5" y="-2216.53" font-family="Times New Roman,serif" font-size="14.00">Url</text>
-<polygon fill="none" stroke="black" points="0,-2188.73 0,-2209.73 199,-2209.73 199,-2188.73 0,-2188.73"/>
-<text text-anchor="start" x="87" y="-2195.53" font-family="Times New Roman,serif" font-size="14.00">uuid</text>
-<polygon fill="none" stroke="black" points="199,-2188.73 199,-2209.73 842,-2209.73 842,-2188.73 199,-2188.73"/>
-<text text-anchor="start" x="475" y="-2195.53" font-family="Times New Roman,serif" font-size="14.00">Optional[UUID]</text>
-<polygon fill="none" stroke="black" points="0,-2167.73 0,-2188.73 199,-2188.73 199,-2167.73 0,-2167.73"/>
-<text text-anchor="start" x="89.5" y="-2174.53" font-family="Times New Roman,serif" font-size="14.00">title</text>
-<polygon fill="none" stroke="black" points="199,-2167.73 199,-2188.73 842,-2188.73 842,-2167.73 199,-2167.73"/>
-<text text-anchor="start" x="513" y="-2174.53" font-family="Times New Roman,serif" font-size="14.00">str</text>
-<polygon fill="none" stroke="black" points="0,-2146.73 0,-2167.73 199,-2167.73 199,-2146.73 0,-2146.73"/>
-<text text-anchor="start" x="68" y="-2153.53" font-family="Times New Roman,serif" font-size="14.00">description</text>
-<polygon fill="none" stroke="black" points="199,-2146.73 199,-2167.73 842,-2167.73 842,-2146.73 199,-2146.73"/>
-<text text-anchor="start" x="484.5" y="-2153.53" font-family="Times New Roman,serif" font-size="14.00">Optional[str]</text>
-<polygon fill="none" stroke="black" points="0,-2125.73 0,-2146.73 199,-2146.73 199,-2125.73 0,-2125.73"/>
-<text text-anchor="start" x="70.5" y="-2132.53" font-family="Times New Roman,serif" font-size="14.00">comments</text>
-<polygon fill="none" stroke="black" points="199,-2125.73 199,-2146.73 842,-2146.73 842,-2125.73 199,-2125.73"/>
-<text text-anchor="start" x="484.5" y="-2132.53" font-family="Times New Roman,serif" font-size="14.00">Optional[str]</text>
-<polygon fill="none" stroke="black" points="0,-2104.73 0,-2125.73 199,-2125.73 199,-2104.73 0,-2104.73"/>
-<text text-anchor="start" x="61.5" y="-2111.53" font-family="Times New Roman,serif" font-size="14.00">project_name</text>
-<polygon fill="none" stroke="black" points="199,-2104.73 199,-2125.73 842,-2125.73 842,-2104.73 199,-2104.73"/>
-<text text-anchor="start" x="513" y="-2111.53" font-family="Times New Roman,serif" font-size="14.00">str</text>
-<polygon fill="none" stroke="black" points="0,-2083.73 0,-2104.73 199,-2104.73 199,-2083.73 0,-2083.73"/>
-<text text-anchor="start" x="54.5" y="-2090.53" font-family="Times New Roman,serif" font-size="14.00">project_country</text>
-<polygon fill="none" stroke="black" points="199,-2083.73 199,-2104.73 842,-2104.73 842,-2083.73 199,-2083.73"/>
-<text text-anchor="start" x="433" y="-2090.53" font-family="Times New Roman,serif" font-size="14.00">Alpha2CountryCode(StrEnum)</text>
-<polygon fill="none" stroke="black" points="0,-2062.73 0,-2083.73 199,-2083.73 199,-2062.73 0,-2062.73"/>
-<text text-anchor="start" x="62.5" y="-2069.53" font-family="Times New Roman,serif" font-size="14.00">document_id</text>
-<polygon fill="none" stroke="black" points="199,-2062.73 199,-2083.73 842,-2083.73 842,-2062.73 199,-2062.73"/>
-<text text-anchor="start" x="484.5" y="-2069.53" font-family="Times New Roman,serif" font-size="14.00">Optional[str]</text>
-<polygon fill="none" stroke="black" points="0,-2041.73 0,-2062.73 199,-2062.73 199,-2041.73 0,-2041.73"/>
-<text text-anchor="start" x="47.5" y="-2048.53" font-family="Times New Roman,serif" font-size="14.00">document_version</text>
-<polygon fill="none" stroke="black" points="199,-2041.73 199,-2062.73 842,-2062.73 842,-2041.73 199,-2041.73"/>
-<text text-anchor="start" x="484.5" y="-2048.53" font-family="Times New Roman,serif" font-size="14.00">Optional[str]</text>
-<polygon fill="none" stroke="black" points="0,-2020.73 0,-2041.73 199,-2041.73 199,-2020.73 0,-2020.73"/>
-<text text-anchor="start" x="70" y="-2027.53" font-family="Times New Roman,serif" font-size="14.00">issue_date</text>
-<polygon fill="none" stroke="black" points="199,-2020.73 199,-2041.73 842,-2041.73 842,-2020.73 199,-2020.73"/>
-<text text-anchor="start" x="508.5" y="-2027.53" font-family="Times New Roman,serif" font-size="14.00">date</text>
-<polygon fill="none" stroke="black" points="0,-1999.73 0,-2020.73 199,-2020.73 199,-1999.73 0,-1999.73"/>
-<text text-anchor="start" x="65" y="-2006.53" font-family="Times New Roman,serif" font-size="14.00">contributors</text>
-<polygon fill="none" stroke="black" points="199,-1999.73 199,-2020.73 842,-2020.73 842,-1999.73 199,-1999.73"/>
-<text text-anchor="start" x="455.5" y="-2006.53" font-family="Times New Roman,serif" font-size="14.00">list[ReportContributor]</text>
-<polygon fill="none" stroke="black" points="0,-1978.73 0,-1999.73 199,-1999.73 199,-1978.73 0,-1978.73"/>
-<text text-anchor="start" x="39.5" y="-1985.53" font-family="Times New Roman,serif" font-size="14.00">issuing_organisations</text>
-<polygon fill="none" stroke="black" points="199,-1978.73 199,-1999.73 842,-1999.73 842,-1978.73 199,-1978.73"/>
-<text text-anchor="start" x="472.5" y="-1985.53" font-family="Times New Roman,serif" font-size="14.00">list[Organisation]</text>
-<polygon fill="none" stroke="black" points="0,-1957.73 0,-1978.73 199,-1978.73 199,-1957.73 0,-1957.73"/>
-<text text-anchor="start" x="34" y="-1964.53" font-family="Times New Roman,serif" font-size="14.00">receiving_organisations</text>
-<polygon fill="none" stroke="black" points="199,-1957.73 199,-1978.73 842,-1978.73 842,-1957.73 199,-1957.73"/>
-<text text-anchor="start" x="444" y="-1964.53" font-family="Times New Roman,serif" font-size="14.00">Optional[list[Organisation]]</text>
-<polygon fill="none" stroke="black" points="0,-1936.73 0,-1957.73 199,-1957.73 199,-1936.73 0,-1936.73"/>
-<text text-anchor="start" x="47" y="-1943.53" font-family="Times New Roman,serif" font-size="14.00">contract_reference</text>
-<polygon fill="none" stroke="black" points="199,-1936.73 199,-1957.73 842,-1957.73 842,-1936.73 199,-1936.73"/>
-<text text-anchor="start" x="484.5" y="-1943.53" font-family="Times New Roman,serif" font-size="14.00">Optional[str]</text>
-<polygon fill="none" stroke="black" points="0,-1915.73 0,-1936.73 199,-1936.73 199,-1915.73 0,-1915.73"/>
-<text text-anchor="start" x="20.5" y="-1922.53" font-family="Times New Roman,serif" font-size="14.00">confidentiality_classification</text>
-<polygon fill="none" stroke="black" points="199,-1915.73 199,-1936.73 842,-1936.73 842,-1915.73 199,-1915.73"/>
-<text text-anchor="start" x="484.5" y="-1922.53" font-family="Times New Roman,serif" font-size="14.00">Optional[str]</text>
-<polygon fill="none" stroke="black" points="0,-1894.73 0,-1915.73 199,-1915.73 199,-1894.73 0,-1894.73"/>
-<text text-anchor="start" x="72" y="-1901.53" font-family="Times New Roman,serif" font-size="14.00">epsg_srid</text>
-<polygon fill="none" stroke="black" points="199,-1894.73 199,-1915.73 842,-1915.73 842,-1894.73 199,-1894.73"/>
-<text text-anchor="start" x="513.5" y="-1901.53" font-family="Times New Roman,serif" font-size="14.00">int</text>
-<polygon fill="none" stroke="black" points="0,-1873.73 0,-1894.73 199,-1894.73 199,-1873.73 0,-1873.73"/>
-<text text-anchor="start" x="66" y="-1880.53" font-family="Times New Roman,serif" font-size="14.00">wind_farms</text>
-<polygon fill="none" stroke="black" points="199,-1873.73 199,-1894.73 842,-1894.73 842,-1873.73 199,-1873.73"/>
-<text text-anchor="start" x="439.5" y="-1880.53" font-family="Times New Roman,serif" font-size="14.00">list[WindFarmConfiguration]</text>
-<polygon fill="none" stroke="black" points="0,-1852.73 0,-1873.73 199,-1873.73 199,-1852.73 0,-1852.73"/>
-<text text-anchor="start" x="37.5" y="-1859.53" font-family="Times New Roman,serif" font-size="14.00">measurement_stations</text>
-<polygon fill="none" stroke="black" points="199,-1852.73 199,-1873.73 842,-1873.73 842,-1852.73 199,-1852.73"/>
-<text text-anchor="start" x="330" y="-1859.53" font-family="Times New Roman,serif" font-size="14.00">Annotated[Optional[list[dict[str, Any]]], IEATask43WraDataModel]</text>
-<polygon fill="none" stroke="black" points="0,-1831.73 0,-1852.73 199,-1852.73 199,-1831.73 0,-1831.73"/>
-<text text-anchor="start" x="37" y="-1838.53" font-family="Times New Roman,serif" font-size="14.00">reference_wind_farms</text>
-<polygon fill="none" stroke="black" points="199,-1831.73 199,-1852.73 842,-1852.73 842,-1831.73 199,-1831.73"/>
-<text text-anchor="start" x="421" y="-1838.53" font-family="Times New Roman,serif" font-size="14.00">Optional[list[ReferenceWindFarm]]</text>
-<polygon fill="none" stroke="black" points="0,-1810.73 0,-1831.73 199,-1831.73 199,-1810.73 0,-1810.73"/>
-<text text-anchor="start" x="3" y="-1817.53" font-family="Times New Roman,serif" font-size="14.00">reference_meteorological_datasets</text>
-<polygon fill="none" stroke="black" points="199,-1810.73 199,-1831.73 842,-1831.73 842,-1810.73 199,-1810.73"/>
-<text text-anchor="start" x="202" y="-1817.53" font-family="Times New Roman,serif" font-size="14.00">Optional[list[Union[ReferenceMeteorologicalDataset, Annotated[list[dict[str, Any]], IEATask43WraDataModel]]]]</text>
-<polygon fill="none" stroke="black" points="0,-1789.73 0,-1810.73 199,-1810.73 199,-1789.73 0,-1789.73"/>
-<text text-anchor="start" x="19.5" y="-1796.53" font-family="Times New Roman,serif" font-size="14.00">wind_resource_assessments</text>
-<polygon fill="none" stroke="black" points="199,-1789.73 199,-1810.73 842,-1810.73 842,-1789.73 199,-1789.73"/>
-<text text-anchor="start" x="432.5" y="-1796.53" font-family="Times New Roman,serif" font-size="14.00">list[WindResourceAssessment]</text>
-<polygon fill="none" stroke="black" points="0,-1768.73 0,-1789.73 199,-1789.73 199,-1768.73 0,-1768.73"/>
-<text text-anchor="start" x="56" y="-1775.53" font-family="Times New Roman,serif" font-size="14.00">turbine_models</text>
-<polygon fill="none" stroke="black" points="199,-1768.73 199,-1789.73 842,-1789.73 842,-1768.73 199,-1768.73"/>
-<text text-anchor="start" x="301" y="-1775.53" font-family="Times New Roman,serif" font-size="14.00">Annotated[Optional[list[dict[str, Any]]], IEC61400x16PowerCurveDataModel]</text>
-<polygon fill="none" stroke="black" points="0,-1747.73 0,-1768.73 199,-1768.73 199,-1747.73 0,-1747.73"/>
-<text text-anchor="start" x="73" y="-1754.53" font-family="Times New Roman,serif" font-size="14.00">scenarios</text>
-<polygon fill="none" stroke="black" points="199,-1747.73 199,-1768.73 842,-1768.73 842,-1747.73 199,-1747.73"/>
-<text text-anchor="start" x="483.5" y="-1754.53" font-family="Times New Roman,serif" font-size="14.00">list[Scenario]</text>
+<g id="a_node10"><a xlink:title="eya_def_tools.data_models.eya_def.EyaDefDocument&#10;&#10;IEC 61400&#45;15&#45;2 EYA DEF top&#45;level data model.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;uri (Optional[Url]): Optional URI of the EYA DEF JSON document, which should have the field name &#39;$id&#39; in the JSON document. Default is None.&#10; &#160;&#160;&#160;schema_uri (Url): URI of the EYA DEF JSON Schema, which should have the field name &#39;$schema&#39; in the JSON document. It is assumed to be the latest published version if not included. Default is https://raw.githubusercontent.com/IEC&#45;61400&#45;15/eya_def/blob/main/iec_61400&#45;15&#45;2_eya_def.schema.json.&#10; &#160;&#160;&#160;uuid (Optional[UUID]): Optional UUID of the EYA DEF document. Default is None.&#10; &#160;&#160;&#160;title (str): Title of the energy yield assessment (EYA) report.&#10; &#160;&#160;&#160;description (Optional[str]): Optional description of the energy yield assessment (EYA) report, which should not be empty if the field is included. Default is None.&#10; &#160;&#160;&#160;comments (Optional[str]): Optional comments on the energy yield assessment (EYA) report, which should not be empty if the field is included. Default is None.&#10; &#160;&#160;&#160;project_name (str): Name of the project under assessment.&#10; &#160;&#160;&#160;project_country (Alpha2CountryCode(StrEnum)): The ISO 3166&#45;1 alpha&#45;2 two&#45;letter code of the country where the project under assessment is located.&#10; &#160;&#160;&#160;document_id (Optional[str]): Optional ID of the report document; not including the version when &#39;document_version&#39; is used. This will typically follow the convention of the document management system of the issuing organisation(s). The field should not be empty if it is included. Default is None.&#10; &#160;&#160;&#160;document_version (Optional[str]): Optional version of the report document, also known as revision. As with the &#39;document_id&#39;, this will typically follow the document versioning convention of the document management system of the issuing organisation(s). The field should not be empty if it is included. Default is None.&#10; &#160;&#160;&#160;issue_date (date): Report issue date in the ISO 8601 standard format for a calendar date, i.e. YYYY&#45;MM&#45;DD.&#10; &#160;&#160;&#160;contributors (list[ReportContributor]): List of report contributors (e.g. author and verifier)&#10; &#160;&#160;&#160;issuing_organisations (list[Organisation]): The organisation(s) issuing the report (e.g. consultant).&#10; &#160;&#160;&#160;receiving_organisations (Optional[list[Organisation]]): Optional specification of organisation(s) receiving the report (e.g. client), if relevant. Default is None.&#10; &#160;&#160;&#160;contract_reference (Optional[str]): Optional reference to contract between the issuing and receiving organisations that governs the energy yield assessment (EYA) report document, if relevant. The field should not be empty if it is included. Default is None.&#10; &#160;&#160;&#160;confidentiality_classification (Optional[str]): Optional confidentiality classification of the report document, if relevant. The field should not be empty if it is included. Default is None.&#10; &#160;&#160;&#160;epsg_srid (int): EPSG Spatial Reference System Identifier (SRID) for the Coordinate Reference System (CRS) used for all spatial data (e.g. turbine locations) in the EYA DEF document. All location coordinates must be reported in this one CRS, which must have an EPSG code. If different CRSs are used, the data must be converted to be consistent with the EPSG code specified here.&#10; &#160;&#160;&#160;utc_offset (float): The offset in hours of the local time zone used for the EYA relative to Coordinated Universal Time (UTC). It is applied to UTC time to convert it to local time, hence positive for time zones ahead of UTC and negative for time zones behind UTC (e.g. &#45;6.0 for MST and 9.5 for ACST). All data where the time zone is relevant (e.g. hourly time series and diurnal profiles) must be consistent with this one UTC offset.&#10; &#160;&#160;&#160;wind_farms (list[WindFarmConfiguration]): List of all wind farms considered in the EYA. This should comprise internal, external and future wind farms, including those used as reference wind farms in the wind resource assessment, if any. If different configurations are assessed for one or more internal and/or future wind farms in different scenarios, a wind farm object must be completed for each unique configuration, with the relevant configurations for each scenario referenced by wind farm ID.&#10; &#160;&#160;&#160;measurement_stations (Annotated[Optional[list[dict[str, Any]]], IEATask43WraDataModel]): List of measurement station metadata documents according to the IEA Wind Task 43 WRA Data Model, including all measurement stations relevant to the EYA, if any. It is recommended that one metadata document be completed for each measurement station, although the WRA Data Model allows for grouping multiple measurement stations into a single document. Default is None.&#10; &#160;&#160;&#160;reference_wind_farms (Optional[list[ReferenceWindFarm]]): List of metadata documents for the reference operational wind farms relevant to the EYA, if any. One metadata document shall be completed for each relevant reference operational wind farm. Default is None.&#10; &#160;&#160;&#160;reference_meteorological_datasets (Optional[list[Union[ReferenceMeteorologicalDataset, Annotated[list[dict[str, Any]], IEATask43WraDataModel]]]]): List of metadata documents for reference meteorological datasets used in the long&#45;term prediction process of the EYA, which may include details of for example ground&#45;based meteorological stations, reanalysis datasets and mesoscale model datasets used as long&#45;termreferences. Default is None.&#10; &#160;&#160;&#160;wind_resource_assessments (list[WindResourceAssessment]): List of wind resource assessments, including results, at the measurement station locations.&#10; &#160;&#160;&#160;turbine_models (Annotated[Optional[list[dict[str, Any]]], IEC61400x16PowerCurveDataModel]): List of wind turbine model specifications. Default is None.&#10; &#160;&#160;&#160;scenarios (list[Scenario]): List of energy yield assessment scenarios.&#10;">
+<polygon fill="none" stroke="black" points="0,-2262.73 0,-2283.73 842,-2283.73 842,-2262.73 0,-2262.73"/>
+<text text-anchor="start" x="366.5" y="-2270.53" font-family="Times New Roman,serif" font-weight="bold" font-size="14.00">EyaDefDocument</text>
+<polygon fill="none" stroke="black" points="0,-2241.73 0,-2262.73 199,-2262.73 199,-2241.73 0,-2241.73"/>
+<text text-anchor="start" x="92" y="-2248.53" font-family="Times New Roman,serif" font-size="14.00">uri</text>
+<polygon fill="none" stroke="black" points="199,-2241.73 199,-2262.73 842,-2262.73 842,-2241.73 199,-2241.73"/>
+<text text-anchor="start" x="483" y="-2248.53" font-family="Times New Roman,serif" font-size="14.00">Optional[Url]</text>
+<polygon fill="none" stroke="black" points="0,-2220.73 0,-2241.73 199,-2241.73 199,-2220.73 0,-2220.73"/>
+<text text-anchor="start" x="67.5" y="-2227.53" font-family="Times New Roman,serif" font-size="14.00">schema_uri</text>
+<polygon fill="none" stroke="black" points="199,-2220.73 199,-2241.73 842,-2241.73 842,-2220.73 199,-2220.73"/>
+<text text-anchor="start" x="511.5" y="-2227.53" font-family="Times New Roman,serif" font-size="14.00">Url</text>
+<polygon fill="none" stroke="black" points="0,-2199.73 0,-2220.73 199,-2220.73 199,-2199.73 0,-2199.73"/>
+<text text-anchor="start" x="87" y="-2206.53" font-family="Times New Roman,serif" font-size="14.00">uuid</text>
+<polygon fill="none" stroke="black" points="199,-2199.73 199,-2220.73 842,-2220.73 842,-2199.73 199,-2199.73"/>
+<text text-anchor="start" x="475" y="-2206.53" font-family="Times New Roman,serif" font-size="14.00">Optional[UUID]</text>
+<polygon fill="none" stroke="black" points="0,-2178.73 0,-2199.73 199,-2199.73 199,-2178.73 0,-2178.73"/>
+<text text-anchor="start" x="89.5" y="-2185.53" font-family="Times New Roman,serif" font-size="14.00">title</text>
+<polygon fill="none" stroke="black" points="199,-2178.73 199,-2199.73 842,-2199.73 842,-2178.73 199,-2178.73"/>
+<text text-anchor="start" x="513" y="-2185.53" font-family="Times New Roman,serif" font-size="14.00">str</text>
+<polygon fill="none" stroke="black" points="0,-2157.73 0,-2178.73 199,-2178.73 199,-2157.73 0,-2157.73"/>
+<text text-anchor="start" x="68" y="-2164.53" font-family="Times New Roman,serif" font-size="14.00">description</text>
+<polygon fill="none" stroke="black" points="199,-2157.73 199,-2178.73 842,-2178.73 842,-2157.73 199,-2157.73"/>
+<text text-anchor="start" x="484.5" y="-2164.53" font-family="Times New Roman,serif" font-size="14.00">Optional[str]</text>
+<polygon fill="none" stroke="black" points="0,-2136.73 0,-2157.73 199,-2157.73 199,-2136.73 0,-2136.73"/>
+<text text-anchor="start" x="70.5" y="-2143.53" font-family="Times New Roman,serif" font-size="14.00">comments</text>
+<polygon fill="none" stroke="black" points="199,-2136.73 199,-2157.73 842,-2157.73 842,-2136.73 199,-2136.73"/>
+<text text-anchor="start" x="484.5" y="-2143.53" font-family="Times New Roman,serif" font-size="14.00">Optional[str]</text>
+<polygon fill="none" stroke="black" points="0,-2115.73 0,-2136.73 199,-2136.73 199,-2115.73 0,-2115.73"/>
+<text text-anchor="start" x="61.5" y="-2122.53" font-family="Times New Roman,serif" font-size="14.00">project_name</text>
+<polygon fill="none" stroke="black" points="199,-2115.73 199,-2136.73 842,-2136.73 842,-2115.73 199,-2115.73"/>
+<text text-anchor="start" x="513" y="-2122.53" font-family="Times New Roman,serif" font-size="14.00">str</text>
+<polygon fill="none" stroke="black" points="0,-2094.73 0,-2115.73 199,-2115.73 199,-2094.73 0,-2094.73"/>
+<text text-anchor="start" x="54.5" y="-2101.53" font-family="Times New Roman,serif" font-size="14.00">project_country</text>
+<polygon fill="none" stroke="black" points="199,-2094.73 199,-2115.73 842,-2115.73 842,-2094.73 199,-2094.73"/>
+<text text-anchor="start" x="433" y="-2101.53" font-family="Times New Roman,serif" font-size="14.00">Alpha2CountryCode(StrEnum)</text>
+<polygon fill="none" stroke="black" points="0,-2073.73 0,-2094.73 199,-2094.73 199,-2073.73 0,-2073.73"/>
+<text text-anchor="start" x="62.5" y="-2080.53" font-family="Times New Roman,serif" font-size="14.00">document_id</text>
+<polygon fill="none" stroke="black" points="199,-2073.73 199,-2094.73 842,-2094.73 842,-2073.73 199,-2073.73"/>
+<text text-anchor="start" x="484.5" y="-2080.53" font-family="Times New Roman,serif" font-size="14.00">Optional[str]</text>
+<polygon fill="none" stroke="black" points="0,-2052.73 0,-2073.73 199,-2073.73 199,-2052.73 0,-2052.73"/>
+<text text-anchor="start" x="47.5" y="-2059.53" font-family="Times New Roman,serif" font-size="14.00">document_version</text>
+<polygon fill="none" stroke="black" points="199,-2052.73 199,-2073.73 842,-2073.73 842,-2052.73 199,-2052.73"/>
+<text text-anchor="start" x="484.5" y="-2059.53" font-family="Times New Roman,serif" font-size="14.00">Optional[str]</text>
+<polygon fill="none" stroke="black" points="0,-2031.73 0,-2052.73 199,-2052.73 199,-2031.73 0,-2031.73"/>
+<text text-anchor="start" x="70" y="-2038.53" font-family="Times New Roman,serif" font-size="14.00">issue_date</text>
+<polygon fill="none" stroke="black" points="199,-2031.73 199,-2052.73 842,-2052.73 842,-2031.73 199,-2031.73"/>
+<text text-anchor="start" x="508.5" y="-2038.53" font-family="Times New Roman,serif" font-size="14.00">date</text>
+<polygon fill="none" stroke="black" points="0,-2010.73 0,-2031.73 199,-2031.73 199,-2010.73 0,-2010.73"/>
+<text text-anchor="start" x="65" y="-2017.53" font-family="Times New Roman,serif" font-size="14.00">contributors</text>
+<polygon fill="none" stroke="black" points="199,-2010.73 199,-2031.73 842,-2031.73 842,-2010.73 199,-2010.73"/>
+<text text-anchor="start" x="455.5" y="-2017.53" font-family="Times New Roman,serif" font-size="14.00">list[ReportContributor]</text>
+<polygon fill="none" stroke="black" points="0,-1989.73 0,-2010.73 199,-2010.73 199,-1989.73 0,-1989.73"/>
+<text text-anchor="start" x="39.5" y="-1996.53" font-family="Times New Roman,serif" font-size="14.00">issuing_organisations</text>
+<polygon fill="none" stroke="black" points="199,-1989.73 199,-2010.73 842,-2010.73 842,-1989.73 199,-1989.73"/>
+<text text-anchor="start" x="472.5" y="-1996.53" font-family="Times New Roman,serif" font-size="14.00">list[Organisation]</text>
+<polygon fill="none" stroke="black" points="0,-1968.73 0,-1989.73 199,-1989.73 199,-1968.73 0,-1968.73"/>
+<text text-anchor="start" x="34" y="-1975.53" font-family="Times New Roman,serif" font-size="14.00">receiving_organisations</text>
+<polygon fill="none" stroke="black" points="199,-1968.73 199,-1989.73 842,-1989.73 842,-1968.73 199,-1968.73"/>
+<text text-anchor="start" x="444" y="-1975.53" font-family="Times New Roman,serif" font-size="14.00">Optional[list[Organisation]]</text>
+<polygon fill="none" stroke="black" points="0,-1947.73 0,-1968.73 199,-1968.73 199,-1947.73 0,-1947.73"/>
+<text text-anchor="start" x="47" y="-1954.53" font-family="Times New Roman,serif" font-size="14.00">contract_reference</text>
+<polygon fill="none" stroke="black" points="199,-1947.73 199,-1968.73 842,-1968.73 842,-1947.73 199,-1947.73"/>
+<text text-anchor="start" x="484.5" y="-1954.53" font-family="Times New Roman,serif" font-size="14.00">Optional[str]</text>
+<polygon fill="none" stroke="black" points="0,-1926.73 0,-1947.73 199,-1947.73 199,-1926.73 0,-1926.73"/>
+<text text-anchor="start" x="20.5" y="-1933.53" font-family="Times New Roman,serif" font-size="14.00">confidentiality_classification</text>
+<polygon fill="none" stroke="black" points="199,-1926.73 199,-1947.73 842,-1947.73 842,-1926.73 199,-1926.73"/>
+<text text-anchor="start" x="484.5" y="-1933.53" font-family="Times New Roman,serif" font-size="14.00">Optional[str]</text>
+<polygon fill="none" stroke="black" points="0,-1905.73 0,-1926.73 199,-1926.73 199,-1905.73 0,-1905.73"/>
+<text text-anchor="start" x="72" y="-1912.53" font-family="Times New Roman,serif" font-size="14.00">epsg_srid</text>
+<polygon fill="none" stroke="black" points="199,-1905.73 199,-1926.73 842,-1926.73 842,-1905.73 199,-1905.73"/>
+<text text-anchor="start" x="513.5" y="-1912.53" font-family="Times New Roman,serif" font-size="14.00">int</text>
+<polygon fill="none" stroke="black" points="0,-1884.73 0,-1905.73 199,-1905.73 199,-1884.73 0,-1884.73"/>
+<text text-anchor="start" x="70.5" y="-1891.53" font-family="Times New Roman,serif" font-size="14.00">utc_offset</text>
+<polygon fill="none" stroke="black" points="199,-1884.73 199,-1905.73 842,-1905.73 842,-1884.73 199,-1884.73"/>
+<text text-anchor="start" x="508" y="-1891.53" font-family="Times New Roman,serif" font-size="14.00">float</text>
+<polygon fill="none" stroke="black" points="0,-1863.73 0,-1884.73 199,-1884.73 199,-1863.73 0,-1863.73"/>
+<text text-anchor="start" x="66" y="-1870.53" font-family="Times New Roman,serif" font-size="14.00">wind_farms</text>
+<polygon fill="none" stroke="black" points="199,-1863.73 199,-1884.73 842,-1884.73 842,-1863.73 199,-1863.73"/>
+<text text-anchor="start" x="439.5" y="-1870.53" font-family="Times New Roman,serif" font-size="14.00">list[WindFarmConfiguration]</text>
+<polygon fill="none" stroke="black" points="0,-1842.73 0,-1863.73 199,-1863.73 199,-1842.73 0,-1842.73"/>
+<text text-anchor="start" x="37.5" y="-1849.53" font-family="Times New Roman,serif" font-size="14.00">measurement_stations</text>
+<polygon fill="none" stroke="black" points="199,-1842.73 199,-1863.73 842,-1863.73 842,-1842.73 199,-1842.73"/>
+<text text-anchor="start" x="330" y="-1849.53" font-family="Times New Roman,serif" font-size="14.00">Annotated[Optional[list[dict[str, Any]]], IEATask43WraDataModel]</text>
+<polygon fill="none" stroke="black" points="0,-1821.73 0,-1842.73 199,-1842.73 199,-1821.73 0,-1821.73"/>
+<text text-anchor="start" x="37" y="-1828.53" font-family="Times New Roman,serif" font-size="14.00">reference_wind_farms</text>
+<polygon fill="none" stroke="black" points="199,-1821.73 199,-1842.73 842,-1842.73 842,-1821.73 199,-1821.73"/>
+<text text-anchor="start" x="421" y="-1828.53" font-family="Times New Roman,serif" font-size="14.00">Optional[list[ReferenceWindFarm]]</text>
+<polygon fill="none" stroke="black" points="0,-1800.73 0,-1821.73 199,-1821.73 199,-1800.73 0,-1800.73"/>
+<text text-anchor="start" x="3" y="-1807.53" font-family="Times New Roman,serif" font-size="14.00">reference_meteorological_datasets</text>
+<polygon fill="none" stroke="black" points="199,-1800.73 199,-1821.73 842,-1821.73 842,-1800.73 199,-1800.73"/>
+<text text-anchor="start" x="202" y="-1807.53" font-family="Times New Roman,serif" font-size="14.00">Optional[list[Union[ReferenceMeteorologicalDataset, Annotated[list[dict[str, Any]], IEATask43WraDataModel]]]]</text>
+<polygon fill="none" stroke="black" points="0,-1779.73 0,-1800.73 199,-1800.73 199,-1779.73 0,-1779.73"/>
+<text text-anchor="start" x="19.5" y="-1786.53" font-family="Times New Roman,serif" font-size="14.00">wind_resource_assessments</text>
+<polygon fill="none" stroke="black" points="199,-1779.73 199,-1800.73 842,-1800.73 842,-1779.73 199,-1779.73"/>
+<text text-anchor="start" x="432.5" y="-1786.53" font-family="Times New Roman,serif" font-size="14.00">list[WindResourceAssessment]</text>
+<polygon fill="none" stroke="black" points="0,-1758.73 0,-1779.73 199,-1779.73 199,-1758.73 0,-1758.73"/>
+<text text-anchor="start" x="56" y="-1765.53" font-family="Times New Roman,serif" font-size="14.00">turbine_models</text>
+<polygon fill="none" stroke="black" points="199,-1758.73 199,-1779.73 842,-1779.73 842,-1758.73 199,-1758.73"/>
+<text text-anchor="start" x="301" y="-1765.53" font-family="Times New Roman,serif" font-size="14.00">Annotated[Optional[list[dict[str, Any]]], IEC61400x16PowerCurveDataModel]</text>
+<polygon fill="none" stroke="black" points="0,-1737.73 0,-1758.73 199,-1758.73 199,-1737.73 0,-1737.73"/>
+<text text-anchor="start" x="73" y="-1744.53" font-family="Times New Roman,serif" font-size="14.00">scenarios</text>
+<polygon fill="none" stroke="black" points="199,-1737.73 199,-1758.73 842,-1758.73 842,-1737.73 199,-1737.73"/>
+<text text-anchor="start" x="483.5" y="-1744.53" font-family="Times New Roman,serif" font-size="14.00">list[Scenario]</text>
 </a>
 </g>
 </g>
@@ -477,9 +481,9 @@
 <!-- eya_def_tools.data_models.eya_def.EyaDefDocument&#45;&gt;eya_def_tools.data_models.eya_def_header.ReportContributor -->
 <g id="edge11" class="edge">
 <title>eya_def_tools.data_models.eya_def.EyaDefDocument:e&#45;&gt;eya_def_tools.data_models.eya_def_header.ReportContributor:w</title>
-<path fill="none" stroke="black" d="M842,-2009.73C994.03,-2009.73 839.63,-2310.15 965.32,-2335.96"/>
-<polygon fill="black" stroke="black" points="974.04,-2336.79 983.58,-2342.21 979.02,-2337.26 984,-2337.73 984,-2337.73 984,-2337.73 979.02,-2337.26 984.42,-2333.25 974.04,-2336.79 974.04,-2336.79"/>
-<ellipse fill="none" stroke="black" cx="969.56" cy="-2336.36" rx="4" ry="4"/>
+<path fill="none" stroke="black" d="M842,-2021.73C989.06,-2021.73 844.29,-2309.98 965.13,-2335.87"/>
+<polygon fill="black" stroke="black" points="974.05,-2336.75 983.56,-2342.21 979.02,-2337.24 984,-2337.73 984,-2337.73 984,-2337.73 979.02,-2337.24 984.44,-2333.25 974.05,-2336.75 974.05,-2336.75"/>
+<ellipse fill="none" stroke="black" cx="969.57" cy="-2336.31" rx="4" ry="4"/>
 </g>
 <!-- eya_def_tools.data_models.general.Organisation -->
 <g id="node12" class="node">
@@ -509,18 +513,18 @@
 <!-- eya_def_tools.data_models.eya_def.EyaDefDocument&#45;&gt;eya_def_tools.data_models.general.Organisation -->
 <g id="edge12" class="edge">
 <title>eya_def_tools.data_models.eya_def.EyaDefDocument:e&#45;&gt;eya_def_tools.data_models.general.Organisation:w</title>
-<path fill="none" stroke="black" d="M842,-1988.73C917.8,-1988.73 881.5,-2088.27 950,-2120.73 1142.38,-2211.89 1696.04,-2140.6 1908,-2120.73 1967.88,-2115.11 1985.59,-2096.99 2037.12,-2093.36"/>
+<path fill="none" stroke="black" d="M842,-1999.73C914.08,-1999.73 884.21,-2091.27 950,-2120.73 1144.29,-2207.74 1696.04,-2140.6 1908,-2120.73 1967.88,-2115.11 1985.59,-2096.99 2037.12,-2093.36"/>
 <polygon fill="black" stroke="black" points="2046.01,-2093.06 2056.15,-2097.23 2051,-2092.9 2056,-2092.73 2056,-2092.73 2056,-2092.73 2051,-2092.9 2055.85,-2088.23 2046.01,-2093.06 2046.01,-2093.06"/>
 <ellipse fill="none" stroke="black" cx="2041.51" cy="-2093.21" rx="4" ry="4"/>
 </g>
 <!-- eya_def_tools.data_models.eya_def.EyaDefDocument&#45;&gt;eya_def_tools.data_models.general.Organisation -->
 <g id="edge13" class="edge">
 <title>eya_def_tools.data_models.eya_def.EyaDefDocument:e&#45;&gt;eya_def_tools.data_models.general.Organisation:w</title>
-<path fill="none" stroke="black" d="M842,-1967.73C903.92,-1967.73 892.02,-2034 950,-2055.73 1174.65,-2139.92 1779.57,-2095.05 2037.31,-2092.81"/>
+<path fill="none" stroke="black" d="M842,-1978.73C900.95,-1978.73 894.16,-2036.83 950,-2055.73 1177.24,-2132.65 1779.7,-2094.7 2037.32,-2092.8"/>
 <polyline fill="none" stroke="black" points="2056,-2092.73 2051,-2092.75"/>
-<polygon fill="black" stroke="black" points="2049.98,-2087.76 2050.02,-2097.76 2048.02,-2097.76 2047.98,-2087.76 2049.98,-2087.76"/>
+<polygon fill="black" stroke="black" points="2049.98,-2087.75 2050.02,-2097.75 2048.02,-2097.76 2047.98,-2087.76 2049.98,-2087.75"/>
 <polyline fill="none" stroke="black" points="2051,-2092.75 2046,-2092.77"/>
-<ellipse fill="none" stroke="black" cx="2041.5" cy="-2092.79" rx="4" ry="4"/>
+<ellipse fill="none" stroke="black" cx="2041.5" cy="-2092.78" rx="4" ry="4"/>
 </g>
 <!-- eya_def_tools.data_models.reference_met_data.ReferenceMeteorologicalDataset -->
 <g id="node13" class="node">
@@ -562,7 +566,7 @@
 <!-- eya_def_tools.data_models.eya_def.EyaDefDocument&#45;&gt;eya_def_tools.data_models.reference_met_data.ReferenceMeteorologicalDataset -->
 <g id="edge14" class="edge">
 <title>eya_def_tools.data_models.eya_def.EyaDefDocument:e&#45;&gt;eya_def_tools.data_models.reference_met_data.ReferenceMeteorologicalDataset:w</title>
-<path fill="none" stroke="black" d="M842,-1820.73C957.75,-1820.73 862.96,-1660.04 950,-1583.73 1161.56,-1398.23 1277.17,-1397.66 1551.28,-1397.72"/>
+<path fill="none" stroke="black" d="M842,-1810.73C953.73,-1810.73 865.39,-1656.69 950,-1583.73 1163.09,-1399.99 1277.23,-1397.74 1551.28,-1397.73"/>
 <polyline fill="none" stroke="black" points="1570,-1397.73 1565,-1397.73"/>
 <polygon fill="black" stroke="black" points="1564,-1392.73 1564,-1402.73 1562,-1402.73 1562,-1392.73 1564,-1392.73"/>
 <polyline fill="none" stroke="black" points="1565,-1397.73 1560,-1397.73"/>
@@ -600,11 +604,11 @@
 <!-- eya_def_tools.data_models.eya_def.EyaDefDocument&#45;&gt;eya_def_tools.data_models.reference_wind_farm.ReferenceWindFarm -->
 <g id="edge15" class="edge">
 <title>eya_def_tools.data_models.eya_def.EyaDefDocument:e&#45;&gt;eya_def_tools.data_models.reference_wind_farm.ReferenceWindFarm:w</title>
-<path fill="none" stroke="black" d="M842,-1841.73C905.93,-1841.73 896.2,-1781.25 950,-1746.73 970.38,-1733.65 979.11,-1723.6 996.28,-1719.6"/>
-<polyline fill="none" stroke="black" points="1015,-1717.73 1010.02,-1718.23"/>
-<polygon fill="black" stroke="black" points="1008.53,-1713.35 1009.53,-1723.3 1007.54,-1723.5 1006.54,-1713.55 1008.53,-1713.35"/>
-<polyline fill="none" stroke="black" points="1010.02,-1718.23 1005.05,-1718.73"/>
-<ellipse fill="none" stroke="black" cx="1000.57" cy="-1719.17" rx="4" ry="4"/>
+<path fill="none" stroke="black" d="M842,-1831.73C903.08,-1831.73 897.71,-1778.3 950,-1746.73 970.73,-1734.21 979.28,-1723.86 996.34,-1719.7"/>
+<polyline fill="none" stroke="black" points="1015,-1717.73 1010.03,-1718.25"/>
+<polygon fill="black" stroke="black" points="1008.51,-1713.39 1009.56,-1723.33 1007.57,-1723.54 1006.52,-1713.6 1008.51,-1713.39"/>
+<polyline fill="none" stroke="black" points="1010.03,-1718.25 1005.06,-1718.78"/>
+<ellipse fill="none" stroke="black" cx="1000.58" cy="-1719.25" rx="4" ry="4"/>
 </g>
 <!-- eya_def_tools.data_models.scenario.Scenario -->
 <g id="node15" class="node">
@@ -654,9 +658,9 @@
 <!-- eya_def_tools.data_models.eya_def.EyaDefDocument&#45;&gt;eya_def_tools.data_models.scenario.Scenario -->
 <g id="edge16" class="edge">
 <title>eya_def_tools.data_models.eya_def.EyaDefDocument:e&#45;&gt;eya_def_tools.data_models.scenario.Scenario:w</title>
-<path fill="none" stroke="black" d="M842,-1757.73C1130.41,-1757.73 676.22,-1131.82 931.28,-1103.7"/>
-<polygon fill="black" stroke="black" points="940.01,-1103.25 950.23,-1107.22 945.01,-1102.99 950,-1102.73 950,-1102.73 950,-1102.73 945.01,-1102.99 949.77,-1098.23 940.01,-1103.25 940.01,-1103.25"/>
-<ellipse fill="none" stroke="black" cx="935.52" cy="-1103.48" rx="4" ry="4"/>
+<path fill="none" stroke="black" d="M842,-1747.73C1125.99,-1747.73 680.66,-1131.99 931.18,-1103.73"/>
+<polygon fill="black" stroke="black" points="940.01,-1103.26 950.24,-1107.22 945.01,-1102.99 950,-1102.73 950,-1102.73 950,-1102.73 945.01,-1102.99 949.76,-1098.23 940.01,-1103.26 940.01,-1103.26"/>
+<ellipse fill="none" stroke="black" cx="935.52" cy="-1103.5" rx="4" ry="4"/>
 </g>
 <!-- eya_def_tools.data_models.wind_farm.WindFarmConfiguration -->
 <g id="node16" class="node">
@@ -718,14 +722,14 @@
 <!-- eya_def_tools.data_models.eya_def.EyaDefDocument&#45;&gt;eya_def_tools.data_models.wind_farm.WindFarmConfiguration -->
 <g id="edge17" class="edge">
 <title>eya_def_tools.data_models.eya_def.EyaDefDocument:e&#45;&gt;eya_def_tools.data_models.wind_farm.WindFarmConfiguration:w</title>
-<path fill="none" stroke="black" d="M842,-1883.73C916.14,-1883.73 882.25,-2002.7 937.4,-2023.61"/>
-<polygon fill="black" stroke="black" points="946.14,-2025.07 955.26,-2031.17 951.07,-2025.9 956,-2026.73 956,-2026.73 956,-2026.73 951.07,-2025.9 956.74,-2022.29 946.14,-2025.07 946.14,-2025.07"/>
-<ellipse fill="none" stroke="black" cx="941.7" cy="-2024.33" rx="4" ry="4"/>
+<path fill="none" stroke="black" d="M842,-1873.73C919.68,-1873.73 879.55,-2002.11 937.44,-2023.67"/>
+<polygon fill="black" stroke="black" points="946.13,-2025.1 955.27,-2031.17 951.07,-2025.92 956,-2026.73 956,-2026.73 956,-2026.73 951.07,-2025.92 956.73,-2022.29 946.13,-2025.1 946.13,-2025.1"/>
+<ellipse fill="none" stroke="black" cx="941.69" cy="-2024.37" rx="4" ry="4"/>
 </g>
 <!-- eya_def_tools.data_models.wind_resource.WindResourceAssessment -->
 <g id="node17" class="node">
 <title>eya_def_tools.data_models.wind_resource.WindResourceAssessment</title>
-<g id="a_node17"><a xlink:title="eya_def_tools.data_models.wind_resource.WindResourceAssessment&#10;&#10;Wind resource assessment at the measurement location(s).&#10;&#10;Attributes:&#10; &#160;&#160;&#160;id (str): Unique ID of the wind resource assessment within the EYA DEF document.&#10; &#160;&#160;&#160;description (Optional[str]): Optional description of the wind resource assessment, which should not be empty if the field is included. Default is None.&#10; &#160;&#160;&#160;comments (Optional[str]): Optional comments on the wind resource assessment, which should not be empty if the field is included. Default is None.&#10; &#160;&#160;&#160;results (WindResourceResults): Results of the wind resource assessment at the measurement location(s).&#10;">
+<g id="a_node17"><a xlink:title="eya_def_tools.data_models.wind_resource.WindResourceAssessment&#10;&#10;Wind resource assessment at the measurement location(s).&#10;&#10;Attributes:&#10; &#160;&#160;&#160;id (str): Unique ID of the wind resource assessment within the EYA DEF document, used to reference it from other parts of the document.&#10; &#160;&#160;&#160;description (Optional[str]): Optional description of the wind resource assessment, which should not be empty if the field is included. Default is None.&#10; &#160;&#160;&#160;comments (Optional[str]): Optional comments on the wind resource assessment, which should not be empty if the field is included. Default is None.&#10; &#160;&#160;&#160;results (WindResourceResults): Final results of the wind resource assessment at the measurement location(s). Results should generally be included at the primary measurement height and extrapolated to all assessed turbine hub heights at each measurement location, as relevant.&#10;">
 <polygon fill="none" stroke="black" points="2998.5,-1254.73 2998.5,-1275.73 3199.5,-1275.73 3199.5,-1254.73 2998.5,-1254.73"/>
 <text text-anchor="start" x="3018" y="-1262.53" font-family="Times New Roman,serif" font-weight="bold" font-size="14.00">WindResourceAssessment</text>
 <polygon fill="none" stroke="black" points="2998.5,-1233.73 2998.5,-1254.73 3067.5,-1254.73 3067.5,-1233.73 2998.5,-1233.73"/>
@@ -750,7 +754,7 @@
 <!-- eya_def_tools.data_models.eya_def.EyaDefDocument&#45;&gt;eya_def_tools.data_models.wind_resource.WindResourceAssessment -->
 <g id="edge18" class="edge">
 <title>eya_def_tools.data_models.eya_def.EyaDefDocument:e&#45;&gt;eya_def_tools.data_models.wind_resource.WindResourceAssessment:w</title>
-<path fill="none" stroke="black" d="M842,-1799.73C1029.15,-1799.73 821.82,-1529.09 950,-1392.73 1182.53,-1145.37 1345.5,-1184.73 1685,-1184.73 1685,-1184.73 1685,-1184.73 2139,-1184.73 2515.89,-1184.73 2611.11,-1263.06 2978.65,-1265.66"/>
+<path fill="none" stroke="black" d="M842,-1789.73C1024.86,-1789.73 824.34,-1525.57 950,-1392.73 1183.3,-1146.09 1345.5,-1184.73 1685,-1184.73 1685,-1184.73 1685,-1184.73 2139,-1184.73 2515.89,-1184.73 2611.11,-1263.06 2978.65,-1265.66"/>
 <polygon fill="black" stroke="black" points="2987.5,-1265.69 2997.48,-1270.23 2992.5,-1265.71 2997.5,-1265.73 2997.5,-1265.73 2997.5,-1265.73 2992.5,-1265.71 2997.52,-1261.23 2987.5,-1265.69 2987.5,-1265.69"/>
 <ellipse fill="none" stroke="black" cx="2983" cy="-1265.68" rx="4" ry="4"/>
 </g>
@@ -1007,7 +1011,7 @@
 <!-- eya_def_tools.data_models.wind_resource.WindResourceResults -->
 <g id="node31" class="node">
 <title>eya_def_tools.data_models.wind_resource.WindResourceResults</title>
-<g id="a_node31"><a xlink:title="eya_def_tools.data_models.wind_resource.WindResourceResults&#10;&#10;Wind resource assessment results at measurement locations.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;wind_speed (list[Dataset]): Final long&#45;term wind speed estimates at the measurement location(s) in metre per second.&#10; &#160;&#160;&#160;probability (Optional[list[Dataset]]): Final long&#45;term probability distribution estimates at the measurement location(s), such as wind speed probability distributions or joint wind speed and direction frequency distributions, as dimensionless values. Default is None.&#10; &#160;&#160;&#160;turbulence_intensity (Optional[list[Dataset]]): Final long&#45;term turbulence intensity estimates at the measurement location(s) as dimensionless values. Default is None.&#10; &#160;&#160;&#160;wind_shear_exponent (Optional[list[Dataset]]): Final long&#45;term power law wind shear exponent estimates at the measurement location(s). Default is None.&#10; &#160;&#160;&#160;temperature (Optional[list[Dataset]]): Final long&#45;term temperature estimates at the measurement location(s) in degree C. Default is None.&#10; &#160;&#160;&#160;air_density (Optional[list[Dataset]]): Final long&#45;term air density estimates at the measurement location(s) in kilogram per cubic metre. Default is None.&#10;">
+<g id="a_node31"><a xlink:title="eya_def_tools.data_models.wind_resource.WindResourceResults&#10;&#10;Wind resource assessment results at measurement locations.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;wind_speed (list[Dataset]): Final long&#45;term wind speed estimate(s) at the measurement location(s) in metre per second. The dimensions of the first standard result dataset should be &#39;measurement_id&#39; and &#39;height&#39; (in that order). Further results with other dimensions may be included optionally.&#10; &#160;&#160;&#160;probability (list[Dataset]): Final long&#45;term probability distribution estimates at the measurement location(s), as dimensionless values. The first standard result dataset should comprise the joint wind speed and direction probability distributions, with the dimensions &#39;measurement_id&#39;, &#39;height&#39;, &#39;wind_speed&#39; and &#39;wind_from_direction&#39; (in that order). The wind speed coordinates should be 1.0 metre per second bins centered on whole numbers, with the first bin half the width (i.e. 0.25, 1.0, 2.0, 3.0, ...). The wind direction coordinates should be twelve 30.0 degree bins, with the the first bin centered at 0.0. Further results with other dimensions may be included optionally.&#10; &#160;&#160;&#160;turbulence_intensity (Optional[list[Dataset]]): Final long&#45;term turbulence intensity estimates at the measurement location(s), as dimensionless values. This field is optional since some measurement devices may lack meaningful turbulence measurements, but it should always be included when relevant turbulence data are available. The first standard result dataset should comprise the ambient turbulence intensity as a function of wind speed, with the dimensions &#39;measurement_id&#39;, &#39;height&#39; and &#39;wind_speed&#39; (in that order). The wind speed coordinates should be 1.0 metre per second bins centered on whole numbers, with the first bin half the width (i.e. 0.25, 1.0, 2.0, 3.0, ...). Further results with other dimensions may also be included. Default is None.&#10; &#160;&#160;&#160;wind_shear_exponent (Optional[list[Dataset]]): Final long&#45;term power law wind shear exponent estimates at the measurement location(s). This field is optional since some wind measurement stations may only include a single measurement height, but it should always be included when relevant wind shear exponent data are available. The dimension of the first standard result dataset should be &#39;measurement_id&#39; only. Further results with other dimensions may also be included. Default is None.&#10; &#160;&#160;&#160;temperature (Optional[list[Dataset]]): Final long&#45;term temperature estimates at the measurement location(s) in degree C. This field is optional since some wind measurement stations may lack measurements of temperature, but it should always be included when relevant temperature data are available. The dimensions of the first standard result dataset should be &#39;measurement_id&#39; and &#39;height&#39; (in that order). Further results with other dimensions may also be included. Default is None.&#10; &#160;&#160;&#160;air_density (Optional[list[Dataset]]): Final long&#45;term air density estimates at the measurement location(s) in kilogram per cubic metre. This field is optional since some wind measurement stations may lack measurements required to derive air density estimates, but it should always be included when relevant air density data are available. The dimensions of the first standard result dataset should be &#39;measurement_id&#39; and &#39;height&#39; (in that order). Further results with other dimensions may also be included. Default is None.&#10;">
 <polygon fill="none" stroke="black" points="4056.5,-1175.73 4056.5,-1196.73 4315.5,-1196.73 4315.5,-1175.73 4056.5,-1175.73"/>
 <text text-anchor="start" x="4118" y="-1183.53" font-family="Times New Roman,serif" font-weight="bold" font-size="14.00">WindResourceResults</text>
 <polygon fill="none" stroke="black" points="4056.5,-1154.73 4056.5,-1175.73 4185.5,-1175.73 4185.5,-1154.73 4056.5,-1154.73"/>
@@ -1017,7 +1021,7 @@
 <polygon fill="none" stroke="black" points="4056.5,-1133.73 4056.5,-1154.73 4185.5,-1154.73 4185.5,-1133.73 4056.5,-1133.73"/>
 <text text-anchor="start" x="4090.5" y="-1140.53" font-family="Times New Roman,serif" font-size="14.00">probability</text>
 <polygon fill="none" stroke="black" points="4185.5,-1133.73 4185.5,-1154.73 4315.5,-1154.73 4315.5,-1133.73 4185.5,-1133.73"/>
-<text text-anchor="start" x="4188.5" y="-1140.53" font-family="Times New Roman,serif" font-size="14.00">Optional[list[Dataset]]</text>
+<text text-anchor="start" x="4217" y="-1140.53" font-family="Times New Roman,serif" font-size="14.00">list[Dataset]</text>
 <polygon fill="none" stroke="black" points="4056.5,-1112.73 4056.5,-1133.73 4185.5,-1133.73 4185.5,-1112.73 4056.5,-1112.73"/>
 <text text-anchor="start" x="4065" y="-1119.53" font-family="Times New Roman,serif" font-size="14.00">turbulence_intensity</text>
 <polygon fill="none" stroke="black" points="4185.5,-1112.73 4185.5,-1133.73 4315.5,-1133.73 4315.5,-1112.73 4185.5,-1112.73"/>
@@ -1491,9 +1495,7 @@
 <g id="edge53" class="edge">
 <title>eya_def_tools.data_models.wind_resource.WindResourceResults:e&#45;&gt;eya_def_tools.data_models.dataset.Dataset:w</title>
 <path fill="none" stroke="black" d="M4316.5,-1144.73C4411.03,-1144.73 4359.83,-985.89 4434.44,-964.18"/>
-<polyline fill="none" stroke="black" points="4453,-961.73 4448.04,-962.38"/>
-<polygon fill="black" stroke="black" points="4446.4,-957.56 4447.71,-967.47 4445.72,-967.73 4444.41,-957.82 4446.4,-957.56"/>
-<polyline fill="none" stroke="black" points="4448.04,-962.38 4443.09,-963.04"/>
+<polygon fill="black" stroke="black" points="4443.09,-963.04 4453.59,-966.19 4448.04,-962.38 4453,-961.73 4453,-961.73 4453,-961.73 4448.04,-962.38 4452.41,-957.27 4443.09,-963.04 4443.09,-963.04"/>
 <ellipse fill="none" stroke="black" cx="4438.62" cy="-963.62" rx="4" ry="4"/>
 </g>
 <!-- eya_def_tools.data_models.wind_resource.WindResourceResults&#45;&gt;eya_def_tools.data_models.dataset.Dataset -->

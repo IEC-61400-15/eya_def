@@ -28,6 +28,7 @@ from eya_def_tools.data_models.eya_def_header import (
     schema_uri_field,
     title_field,
     uri_field,
+    utc_offset_field,
     uuid_field,
 )
 from eya_def_tools.data_models.general import Organisation
@@ -77,6 +78,7 @@ class EyaDefDocument(EyaDefBaseModel):
     contract_reference: Optional[str] = contract_reference_field
     confidentiality_classification: Optional[str] = confidentiality_classification_field
     epsg_srid: int = epsg_srid_field
+    utc_offset: float = utc_offset_field
     wind_farms: list[WindFarmConfiguration] = pdt.Field(
         default=...,
         min_length=1,
