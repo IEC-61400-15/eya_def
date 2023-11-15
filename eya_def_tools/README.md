@@ -1,4 +1,7 @@
 # The IEC 61400-15-2 EYA DEF python toolset
+[![EYA DEF tools Python package linting and testing](
+https://github.com/IEC-61400-15/eya_def/actions/workflows/eya-def-tools-python-package.yml/badge.svg)](
+https://github.com/IEC-61400-15/eya_def/actions/workflows/eya-def-tools-python-package.yml)
 [![Checked with mypy](
 http://www.mypy-lang.org/static/mypy_badge.svg)](
 http://mypy-lang.org/)
