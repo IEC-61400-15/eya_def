@@ -3,20 +3,27 @@
 """
 
 import datetime as dt
+from enum import StrEnum, auto
 from typing import Optional
 
 import pydantic as pdt
 
 from eya_def_tools.data_models.base_model import EyaDefBaseModel
-from eya_def_tools.data_models.enums import (
-    DataSourceType,
-    OperationalDataLevel,
-    OperationalDataType,
-    StatisticType,
+from eya_def_tools.data_models.dataset import BasicStatisticType, Dataset
+from eya_def_tools.data_models.general import (
+    Organisation,
     TimeResolution,
+    data_period_end_date_field,
+    data_period_start_date_field,
 )
-from eya_def_tools.data_models.general_metadata import Organisation
-from eya_def_tools.data_models.result import Result
+
+
+class OperationalDataLevel(StrEnum):
+    """Level of data from an operational wind farm."""
+
+    TURBINE_LEVEL = auto()
+    WIND_FARM_LEVEL = auto()
+    OTHER = auto()
 
 
 class ReferenceWindFarmDataVariable(EyaDefBaseModel):
@@ -24,52 +31,78 @@ class ReferenceWindFarmDataVariable(EyaDefBaseModel):
 
     label: str = pdt.Field(
         default=...,
+        min_length=1,
         description=(
-            "Label of the data variable. This is currently free text but should "
-            "be replaced by a list of enum options."
+            "Label of the data variable. This is currently free text "
+            "but should be replaced by a list of enum options."
         ),
         examples=["active_power", "wind_speed", "energy_output"],
     )
     description: Optional[str] = pdt.Field(
         default=None,
-        min_length=1,  # Value should not be empty if the field is included
-        description="Optional description of the data variable.",
+        min_length=1,
+        description=(
+            "Optional description of the data variable, which should "
+            "not be empty if the field is included. This may include "
+            "clarification of the point of measurement, where relevant."
+        ),
     )
     comments: Optional[str] = pdt.Field(
         default=None,
-        min_length=1,  # Value should not be empty if the field is included
-        description="Optional comments on the data variable.",
+        min_length=1,
+        description=(
+            "Optional comments on the data variable, which should not "
+            "be empty if the field is included."
+        ),
     )
     data_level: OperationalDataLevel = pdt.Field(
         default=...,
         description=(
-            "Whether the operational data variable is provided for each individual "
-            "wind turbine ('turbine_level'), is aggregated at the wind farm level "
-            "('wind_farm_level') or corresponds to a different ('other') unit "
-            "such as an environmental measurement station."
+            "Whether the operational data variable is provided for "
+            "each individual wind turbine ('turbine_level'), is "
+            "aggregated at the wind farm level ('wind_farm_level') or "
+            "corresponds to a different ('other') unit such as an "
+            "environmental measurement station."
         ),
     )
-    statistic_types: list[StatisticType] = pdt.Field(
+    statistic_types: Optional[list[BasicStatisticType]] = pdt.Field(
         default=...,
+        min_length=1,
         description=(
-            "A list of the types of statistics included for this data variable."
+            "Optional list of the types of statistics included for "
+            "the data variable."
         ),
     )
-    measurement_point: Optional[str] = pdt.Field(
+    raw_data_availability: Optional[list[Dataset]] = pdt.Field(
         default=None,
+        min_length=1,
         description=(
-            "Optional clarification of the point of measurement, such as the "
-            "location of the energy meter for metered production."
+            "Dimensionless raw data availability (also known as data "
+            "recovery rate) for the variable. More than one dataset "
+            "may be included if reporting data availability at "
+            "different time resolutions or at both wind farm and "
+            "turbine level."
         ),
-        examples=[
-            "Energy meter at point of common coupling with the grid",
-            "Low voltage (LV) side of wind turbine transformer",
-        ],
     )
-    raw_data_recovery_rate: Optional[list[Result]] = pdt.Field(
-        default=None,
-        description="Dimensionless raw data recovery rate for the variable.",
-    )
+
+
+class OperationalDataType(StrEnum):
+    """Type of data from an operational wind farm."""
+
+    SCADA = auto()
+    METERED = auto()
+    ENVIRONMENTAL_MEASUREMENT = auto()
+
+    OTHER = auto()
+
+
+class OperationalDataSourceType(StrEnum):
+    """Type of data source."""
+
+    # TODO these definitions need to be made clearer
+    PRIMARY = auto()
+    OPERATIONAL_REPORT = auto()
+    OTHER_SECONDARY = auto()
 
 
 class ReferenceWindFarmDataset(EyaDefBaseModel):
@@ -77,18 +110,28 @@ class ReferenceWindFarmDataset(EyaDefBaseModel):
 
     label: Optional[str] = pdt.Field(
         default=...,
-        description="Label of the reference wind farm dataset.",
+        min_length=1,
+        description=(
+            "Optional label of the reference wind farm dataset, which "
+            "should not be empty if the field is included."
+        ),
         examples=["Seasonal distribution of net energy."],
     )
     description: Optional[str] = pdt.Field(
         default=None,
-        min_length=1,  # Value should not be empty if the field is included
-        description="Optional description of the dataset.",
+        min_length=1,
+        description=(
+            "Optional description of the dataset, which should not be "
+            "empty if the field is included."
+        ),
     )
     comments: Optional[str] = pdt.Field(
         default=None,
-        min_length=1,  # Value should not be empty if the field is included
-        description="Optional comments on the dataset.",
+        min_length=1,
+        description=(
+            "Optional comments on the dataset, which should not be "
+            "empty if the field is included."
+        ),
     )
     data_supplier_organisation: Organisation = pdt.Field(
         default=...,
@@ -105,7 +148,7 @@ class ReferenceWindFarmDataset(EyaDefBaseModel):
             "other type of unit."
         ),
     )
-    data_source_type: DataSourceType = pdt.Field(
+    data_source_type: OperationalDataSourceType = pdt.Field(
         default=...,
         description=(
             "The type of the operational data source. Primary data, such as primary "
@@ -118,6 +161,7 @@ class ReferenceWindFarmDataset(EyaDefBaseModel):
     )
     used_data_variables: list[ReferenceWindFarmDataVariable] = pdt.Field(
         default=...,
+        min_length=1,
         description=(
             "A list of the types of data variables included in this dataset and "
             "used in the assessment. For a large dataset (such as a full wind turbine "
@@ -127,24 +171,10 @@ class ReferenceWindFarmDataset(EyaDefBaseModel):
     )
     time_resolution: TimeResolution = pdt.Field(
         default=...,
-        description="Time resolution of the data.",
+        description="Time resolution of the operational data.",
     )
-    data_period_start_date: dt.date = pdt.Field(
-        default=...,
-        description=(
-            "Start of the data period in the ISO 8601 standard format for a "
-            "calendar date, i.e. YYYY-MM-DD."
-        ),
-        examples=["2015-10-20"],
-    )
-    data_period_end_date: dt.date = pdt.Field(
-        default=...,
-        description=(
-            "End of the data period in the ISO 8601 standard format for a "
-            "calendar date, i.e. YYYY-MM-DD."
-        ),
-        examples=["2021-11-30"],
-    )
+    data_period_start_date: dt.date = data_period_start_date_field
+    data_period_end_date: dt.date = data_period_end_date_field
 
 
 class ReferenceWindFarm(EyaDefBaseModel):
@@ -152,6 +182,7 @@ class ReferenceWindFarm(EyaDefBaseModel):
 
     id: str = pdt.Field(
         default=...,
+        min_length=1,
         description=(
             "Unique ID for the reference wind farm within the EYA DEF document."
         ),
@@ -159,16 +190,23 @@ class ReferenceWindFarm(EyaDefBaseModel):
     )
     description: Optional[str] = pdt.Field(
         default=None,
-        min_length=1,  # Value should not be empty if the field is included
-        description="Optional description of the reference wind farm.",
+        min_length=1,
+        description=(
+            "Optional description of the reference wind farm, which "
+            "should not be empty if the field is included."
+        ),
     )
     comments: Optional[str] = pdt.Field(
         default=None,
-        min_length=1,  # Value should not be empty if the field is included
-        description="Optional comments on the reference wind farm.",
+        min_length=1,
+        description=(
+            "Optional comments on the reference wind farm, which "
+            "should not be empty if the field is included."
+        ),
     )
     wind_farm_id: str = pdt.Field(
         default=...,
+        min_length=1,
         description=(
             "The ID of the wind farm in the 'wind_farms' section of the top-level "
             "of the EYA DEF document, containing the configuration data for the "
@@ -177,6 +215,7 @@ class ReferenceWindFarm(EyaDefBaseModel):
     )
     datasets: list[ReferenceWindFarmDataset] = pdt.Field(
         default=...,
+        min_length=1,
         description=(
             "List of metadata documents describing the operational datasets from "
             "the reference wind farm that were used in the EYA."

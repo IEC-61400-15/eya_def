@@ -158,6 +158,8 @@ class EyaDefBaseModel(pdt.BaseModel):
         # Schema specification ``"additionalProperties": false``, which
         # is used as the default, not to allow any further fields
         extra="forbid",
+        # As a default, infinity of nan float values are not permitted
+        allow_inf_nan=False,
     )
 
     @classmethod

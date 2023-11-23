@@ -2,11 +2,13 @@
 
 """
 
-from typing import Annotated, Any, List, Optional, Union
+from typing import Annotated, Any, List, Optional, Union, get_origin
 
 import erdantic as erd
 import erdantic.base as erd_base
 import erdantic.typing as erd_typing
+
+from eya_def_tools.data_models.reference_met_data import ReferenceMeteorologicalDataset
 
 
 class IEATask43WraDataModel:
@@ -26,6 +28,22 @@ class PydanticField(erd.pydantic.PydanticField):  # type: ignore
         if self.name == "turbine_models":
             return Annotated[
                 Optional[list[dict[str, Any]]], IEC61400x16PowerCurveDataModel
+            ]
+        if self.name == "reference_meteorological_datasets":
+            return Optional[
+                list[
+                    ReferenceMeteorologicalDataset
+                    | Annotated[list[dict[str, Any]], IEATask43WraDataModel]
+                ]
+            ]
+        if (
+            self.name == "values"
+            and "Dataset value(s)" in self.field.description
+            and get_origin(self.field.annotation) == Union
+        ):
+            return Union[
+                float,
+                list[tuple[list[Union[int, float, str]], float]],
             ]
 
         return super().type_obj

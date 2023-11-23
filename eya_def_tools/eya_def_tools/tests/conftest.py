@@ -11,24 +11,24 @@ involve modifications should create their own instances or make copies.
 import datetime as dt
 import json
 import urllib.request as urllib_request
+import uuid as uuid_
 from pathlib import Path
 from typing import Any
 
 import pytest
 
 from eya_def_tools.data_models import (
+    dataset,
     energy_assessment,
-    enums,
     eya_def,
     eya_def_header,
-    general_metadata,
+    general,
     measurement_station,
     plant_performance,
 )
 from eya_def_tools.data_models import process_description as eya_prcs_desc
 from eya_def_tools.data_models import (
     reference_wind_farm,
-    result,
     scenario,
     spatial,
     turbine_model,
@@ -277,7 +277,7 @@ def turbine_location_mu_t2_a() -> spatial.Location:
     )
 
 
-# TODO add valid turbine model performance specification reference
+# TODO update once draft of IEC-61400-16 data model is ready
 @pytest.fixture(scope="session")
 def turbine_model_a() -> turbine_model.TurbineModelSpecifications:
     """Test case instance 'a' of ``TurbineModel``."""
@@ -289,7 +289,7 @@ def turbine_model_a() -> turbine_model.TurbineModelSpecifications:
     )
 
 
-# TODO add valid turbine model performance specification reference
+# TODO update once draft of IEC-61400-16 data model is ready
 @pytest.fixture(scope="session")
 def turbine_model_b() -> turbine_model.TurbineModelSpecifications:
     """Test case instance 'b' of ``TurbineModel``."""
@@ -301,7 +301,7 @@ def turbine_model_b() -> turbine_model.TurbineModelSpecifications:
     )
 
 
-# TODO add valid turbine model performance specification reference
+# TODO update once draft of IEC-61400-16 data model is ready
 @pytest.fixture(scope="session")
 def turbine_model_c() -> turbine_model.TurbineModelSpecifications:
     """Test case instance 'c' of ``TurbineModel``."""
@@ -313,7 +313,6 @@ def turbine_model_c() -> turbine_model.TurbineModelSpecifications:
     )
 
 
-# TODO expand definition of operational restriction
 @pytest.fixture(scope="session")
 def operational_restriction_a() -> wind_farm.OperationalRestriction:
     """Test case instance 'a' of ``OperationalRestriction``."""
@@ -334,7 +333,7 @@ def turbine_specification_wtg01_a(
     """Test case instance 'WTG01_a' of ``TurbineSpecification``."""
     return wind_farm.TurbineConfiguration(
         id="2bbe1cb3-e9f3-42ad-be61-3657ea2ac174",
-        label="WTG01_scenA",
+        label="WTG01_A",
         description="Configuration of WTG01 in Scenario A",
         location=turbine_location_wtg01_a,
         ground_level_altitude=44.9,
@@ -351,7 +350,7 @@ def turbine_specification_wtg01_b(
     """Test case instance 'WTG01_b' of ``TurbineSpecification``."""
     return wind_farm.TurbineConfiguration(
         id="f5cfd507-5550-4fbb-bdca-3dc6b1c6323c",
-        label="WTG01_scenB",
+        label="WTG01_B",
         description="Configuration of WTG01 in Scenario B",
         location=turbine_location_wtg01_b,
         ground_level_altitude=45.1,
@@ -368,7 +367,7 @@ def turbine_specification_wtg02_a(
     """Test case instance 'WTG02_a' of ``TurbineSpecification``."""
     return wind_farm.TurbineConfiguration(
         id="39f9dd43-6322-4738-81af-6a65766b26e3",
-        label="WTG02_scenA",
+        label="WTG02_A",
         description="Configuration of WTG02 in Scenario A",
         location=turbine_location_wtg02_a,
         ground_level_altitude=46.3,
@@ -385,7 +384,7 @@ def turbine_specification_wtg02_b(
     """Test case instance 'WTG02_b' of ``TurbineSpecification``."""
     return wind_farm.TurbineConfiguration(
         id="a5ee87e3-5254-45fb-a057-4548b8c0424c",
-        label="WTG02_scenB",
+        label="WTG02_B",
         description="Configuration of WTG02 in Scenario B",
         location=turbine_location_wtg02_b,
         ground_level_altitude=44.6,
@@ -438,7 +437,7 @@ def wind_farm_a(
         abbreviation="Barefoot",
         description="Barefoot Wind Farm configuration for Scenario A",
         turbines=[turbine_specification_wtg01_a, turbine_specification_wtg02_a],
-        relevance=enums.WindFarmRelevance.INTERNAL,
+        relevance=wind_farm.WindFarmRelevance.INTERNAL,
         operational_lifetime_start_date=dt.date(2024, 1, 1),
         installed_capacity=11.0,
     )
@@ -457,7 +456,7 @@ def wind_farm_b(
         description="Barefoot Wind Farm configuration for Scenario B",
         comments="Secondary wind farm scenario",
         turbines=[turbine_specification_wtg01_b, turbine_specification_wtg02_b],
-        relevance=enums.WindFarmRelevance.INTERNAL,
+        relevance=wind_farm.WindFarmRelevance.INTERNAL,
         operational_lifetime_start_date=dt.date(2024, 1, 1),
         installed_capacity=11.6,
         export_capacity=11.5,
@@ -481,7 +480,7 @@ def neighbouring_wind_farm_a(
             "satellite imagery."
         ),
         turbines=[turbine_specification_mu_t1_a, turbine_specification_mu_t2_a],
-        relevance=enums.WindFarmRelevance.EXTERNAL,
+        relevance=wind_farm.WindFarmRelevance.EXTERNAL,
         operational_lifetime_start_date=dt.date(2018, 7, 1),
         operational_lifetime_end_date=dt.date(2038, 6, 30),
         installed_capacity=6.4,
@@ -510,38 +509,39 @@ def reference_wind_farm_dataset_a() -> reference_wind_farm.ReferenceWindFarmData
     """Test case instance 'a' of ``ReferenceWindFarmDataset``."""
     return reference_wind_farm.ReferenceWindFarmDataset(
         label="WTG SCADA",
-        data_supplier_organisation=general_metadata.Organisation(
+        data_supplier_organisation=general.Organisation(
             name="Munro Wind Limited",
             abbreviation="Munro Wind",
             address="High Munro Walk, Glasgow, G12 0YE, UK",
         ),
-        data_type=enums.OperationalDataType.SCADA,
-        data_source_type=enums.DataSourceType.OTHER_SECONDARY,
+        data_type=reference_wind_farm.OperationalDataType.SCADA,
+        data_source_type=reference_wind_farm.OperationalDataSourceType.OTHER_SECONDARY,
         used_data_variables=[
             reference_wind_farm.ReferenceWindFarmDataVariable(
                 label="wind_speed",
-                data_level=enums.OperationalDataLevel.TURBINE_LEVEL,
-                statistic_types=[enums.StatisticType.MEAN],
+                data_level=reference_wind_farm.OperationalDataLevel.TURBINE_LEVEL,
+                statistic_types=[dataset.BasicStatisticType.MEAN],
             ),
             reference_wind_farm.ReferenceWindFarmDataVariable(
                 label="active_power",
-                data_level=enums.OperationalDataLevel.TURBINE_LEVEL,
-                statistic_types=[enums.StatisticType.MEAN],
-                measurement_point="Low voltage (LV) side of turbine transformer",
+                data_level=reference_wind_farm.OperationalDataLevel.TURBINE_LEVEL,
+                statistic_types=[dataset.BasicStatisticType.MEAN],
             ),
             reference_wind_farm.ReferenceWindFarmDataVariable(
                 label="rotor_speed",
-                data_level=enums.OperationalDataLevel.TURBINE_LEVEL,
-                statistic_types=[enums.StatisticType.MEAN],
+                data_level=reference_wind_farm.OperationalDataLevel.TURBINE_LEVEL,
+                statistic_types=[dataset.BasicStatisticType.MEAN],
             ),
             reference_wind_farm.ReferenceWindFarmDataVariable(
                 label="temperature",
-                data_level=enums.OperationalDataLevel.TURBINE_LEVEL,
-                statistic_types=[enums.StatisticType.MEAN],
-                measurement_point="Sensor outside below the nacelle",
+                comments="The sensor is mounted outside, below the nacelle.",
+                data_level=reference_wind_farm.OperationalDataLevel.TURBINE_LEVEL,
+                statistic_types=[dataset.BasicStatisticType.MEAN],
             ),
         ],
-        time_resolution=enums.TimeResolution.TEN_MINUTELY,
+        time_resolution=general.TimeResolution(
+            value=10, unit=general.TimeMeasurementUnit.MINUTE
+        ),
         data_period_start_date=dt.date(2020, 1, 1),
         data_period_end_date=dt.date(2022, 12, 31),
     )
@@ -549,7 +549,6 @@ def reference_wind_farm_dataset_a() -> reference_wind_farm.ReferenceWindFarmData
 
 @pytest.fixture(scope="session")
 def reference_wind_farm_a(
-    neighbouring_wind_farm_a: wind_farm.WindFarmConfiguration,
     reference_wind_farm_dataset_a: reference_wind_farm.ReferenceWindFarmDataset,
 ) -> reference_wind_farm.ReferenceWindFarm:
     """Test case instance 'a' of ``ReferenceWindFarm``."""
@@ -564,17 +563,17 @@ def reference_wind_farm_a(
 def wind_resource_assessment_a() -> wind_resource.WindResourceAssessment:
     """Test case instance 'a' of ``WindResourceAssessment``."""
     return wind_resource.WindResourceAssessment(
-        wind_resource_assessment_id="BfWF_WRA_1",
+        id="BfWF_WRA_1",
         results=wind_resource.WindResourceResults(
             wind_speed=[
-                result.Result(
+                dataset.Dataset(
                     dimensions=[
-                        enums.ResultsDimension.MEASUREMENT,
-                        enums.ResultsDimension.HEIGHT,
+                        dataset.DatasetDimension.MEASUREMENT_ID,
+                        dataset.DatasetDimension.HEIGHT,
                     ],
                     statistics=[
-                        result.ResultStatistic(
-                            statistic_type=enums.StatisticType.MEAN,
+                        dataset.DatasetStatistic(
+                            statistic_type=dataset.BasicStatisticType.MEAN,
                             values=[
                                 (
                                     ["BF_M1", 120.0],
@@ -602,8 +601,10 @@ def wind_resource_assessment_a() -> wind_resource.WindResourceAssessment:
                                 ),
                             ],
                         ),
-                        result.ResultStatistic(
-                            statistic_type=enums.StatisticType.STANDARD_DEVIATION,
+                        dataset.DatasetStatistic(
+                            statistic_type=(
+                                dataset.BasicStatisticType.STANDARD_DEVIATION
+                            ),
                             values=[
                                 (
                                     ["BF_M1", 120.0],
@@ -635,16 +636,16 @@ def wind_resource_assessment_a() -> wind_resource.WindResourceAssessment:
                 ),
             ],
             probability=[
-                result.Result(
+                dataset.Dataset(
                     dimensions=[
-                        enums.ResultsDimension.MEASUREMENT,
-                        enums.ResultsDimension.HEIGHT,
-                        enums.ResultsDimension.WIND_FROM_DIRECTION,
-                        enums.ResultsDimension.WIND_SPEED,
+                        dataset.DatasetDimension.MEASUREMENT_ID,
+                        dataset.DatasetDimension.HEIGHT,
+                        dataset.DatasetDimension.WIND_FROM_DIRECTION,
+                        dataset.DatasetDimension.WIND_SPEED,
                     ],
                     statistics=[
-                        result.ResultStatistic(
-                            statistic_type=enums.StatisticType.MEAN,
+                        dataset.DatasetStatistic(
+                            statistic_type=dataset.BasicStatisticType.MEAN,
                             values=[
                                 (
                                     ["BF_M1", 120.0, 0.0, 2.5],
@@ -676,11 +677,11 @@ def wind_resource_assessment_a() -> wind_resource.WindResourceAssessment:
                 ),
             ],
             wind_shear_exponent=[
-                result.Result(
-                    dimensions=[enums.ResultsDimension.MEASUREMENT],
+                dataset.Dataset(
+                    dimensions=[dataset.DatasetDimension.MEASUREMENT_ID],
                     statistics=[
-                        result.ResultStatistic(
-                            statistic_type=enums.StatisticType.MEAN,
+                        dataset.DatasetStatistic(
+                            statistic_type=dataset.BasicStatisticType.MEAN,
                             values=[
                                 (
                                     ["BF_M1"],
@@ -692,14 +693,14 @@ def wind_resource_assessment_a() -> wind_resource.WindResourceAssessment:
                 ),
             ],
             temperature=[
-                result.Result(
+                dataset.Dataset(
                     dimensions=[
-                        enums.ResultsDimension.MEASUREMENT,
-                        enums.ResultsDimension.HEIGHT,
+                        dataset.DatasetDimension.MEASUREMENT_ID,
+                        dataset.DatasetDimension.HEIGHT,
                     ],
                     statistics=[
-                        result.ResultStatistic(
-                            statistic_type=enums.StatisticType.MEAN,
+                        dataset.DatasetStatistic(
+                            statistic_type=dataset.BasicStatisticType.MEAN,
                             values=[
                                 (
                                     ["BF_M1", 120.0],
@@ -711,14 +712,14 @@ def wind_resource_assessment_a() -> wind_resource.WindResourceAssessment:
                 ),
             ],
             air_density=[
-                result.Result(
+                dataset.Dataset(
                     dimensions=[
-                        enums.ResultsDimension.MEASUREMENT,
-                        enums.ResultsDimension.HEIGHT,
+                        dataset.DatasetDimension.MEASUREMENT_ID,
+                        dataset.DatasetDimension.HEIGHT,
                     ],
                     statistics=[
-                        result.ResultStatistic(
-                            statistic_type=enums.StatisticType.MEAN,
+                        dataset.DatasetStatistic(
+                            statistic_type=dataset.BasicStatisticType.MEAN,
                             values=[
                                 (
                                     ["BF_M1", 120.0],
@@ -747,15 +748,17 @@ def wind_spatial_model_process_a() -> eya_prcs_desc.AssessmentProcessDescription
 def long_term_adj_uncertainty_subcat_a() -> wind_uncertainty.WindUncertaintySubcategory:
     """Test case 'a' of long-term adjustment ``WindUncertaintySubcategory``."""
     return wind_uncertainty.WindUncertaintySubcategory(
-        label=enums.WindUncertaintySubcategoryLabel.LONG_TERM_ADJUSTMENT,
+        label=wind_uncertainty.WindUncertaintySubcategoryLabel.LONG_TERM_ADJUSTMENT,
         results=wind_uncertainty.UncertaintyResults(
             relative_wind_speed_uncertainty=[
-                result.Result(
-                    assessment_period=enums.AssessmentPeriod.LIFETIME,
-                    dimensions=[enums.ResultsDimension.MEASUREMENT],
+                dataset.Dataset(
+                    assessment_period=dataset.AssessmentPeriod.LIFETIME,
+                    dimensions=[dataset.DatasetDimension.MEASUREMENT_ID],
                     statistics=[
-                        result.ResultStatistic(
-                            statistic_type=enums.StatisticType.STANDARD_DEVIATION,
+                        dataset.DatasetStatistic(
+                            statistic_type=(
+                                dataset.BasicStatisticType.STANDARD_DEVIATION
+                            ),
                             values=[
                                 (
                                     ["BF_M1"],
@@ -776,15 +779,19 @@ def lt_consistency_uncertainty_subcat_a() -> (
 ):
     """Test case 'a' of reference consistency ``WindUncertaintySubcategory``."""
     return wind_uncertainty.WindUncertaintySubcategory(
-        label=enums.WindUncertaintySubcategoryLabel.REFERENCE_DATA_CONSISTENCY,
+        label=(
+            wind_uncertainty.WindUncertaintySubcategoryLabel.REFERENCE_DATA_CONSISTENCY
+        ),
         results=wind_uncertainty.UncertaintyResults(
             relative_wind_speed_uncertainty=[
-                result.Result(
-                    assessment_period=enums.AssessmentPeriod.LIFETIME,
-                    dimensions=[enums.ResultsDimension.MEASUREMENT],
+                dataset.Dataset(
+                    assessment_period=dataset.AssessmentPeriod.LIFETIME,
+                    dimensions=[dataset.DatasetDimension.MEASUREMENT_ID],
                     statistics=[
-                        result.ResultStatistic(
-                            statistic_type=enums.StatisticType.STANDARD_DEVIATION,
+                        dataset.DatasetStatistic(
+                            statistic_type=(
+                                dataset.BasicStatisticType.STANDARD_DEVIATION
+                            ),
                             values=[
                                 (
                                     ["BF_M1"],
@@ -806,19 +813,21 @@ def historical_wind_uncertainty_category_a(
 ) -> wind_uncertainty.WindUncertaintyCategory:
     """Test case 'a' of historical ``WindUncertaintyCategory``."""
     return wind_uncertainty.WindUncertaintyCategory(
-        label=enums.WindUncertaintyCategoryLabel.HISTORICAL_WIND_RESOURCE,
+        label=wind_uncertainty.WindUncertaintyCategoryLabel.HISTORICAL_WIND_RESOURCE,
         subcategories=[
             long_term_adj_uncertainty_subcat_a,
             lt_consistency_uncertainty_subcat_a,
         ],
         results=wind_uncertainty.UncertaintyResults(
             relative_wind_speed_uncertainty=[
-                result.Result(
-                    assessment_period=enums.AssessmentPeriod.LIFETIME,
-                    dimensions=[enums.ResultsDimension.MEASUREMENT],
+                dataset.Dataset(
+                    assessment_period=dataset.AssessmentPeriod.LIFETIME,
+                    dimensions=[dataset.DatasetDimension.MEASUREMENT_ID],
                     statistics=[
-                        result.ResultStatistic(
-                            statistic_type=enums.StatisticType.STANDARD_DEVIATION,
+                        dataset.DatasetStatistic(
+                            statistic_type=(
+                                dataset.BasicStatisticType.STANDARD_DEVIATION
+                            ),
                             values=[
                                 (
                                     ["BF_M1"],
@@ -843,12 +852,12 @@ def turbine_wind_resource_assessment_a(
         wind_resource_assessment_id_reference="BfWF_WRA_1",
         results=wind_resource.TurbineWindResourceResults(
             wind_speed=[
-                result.Result(
-                    assessment_period=enums.AssessmentPeriod.LIFETIME,
-                    dimensions=[enums.ResultsDimension.TURBINE],
+                dataset.Dataset(
+                    assessment_period=dataset.AssessmentPeriod.LIFETIME,
+                    dimensions=[dataset.DatasetDimension.TURBINE_ID],
                     statistics=[
-                        result.ResultStatistic(
-                            statistic_type=enums.StatisticType.MEAN,
+                        dataset.DatasetStatistic(
+                            statistic_type=dataset.BasicStatisticType.MEAN,
                             values=[
                                 (
                                     ["WTG01"],
@@ -869,24 +878,24 @@ def turbine_wind_resource_assessment_a(
             categories=[historical_wind_uncertainty_category_a],
             results=wind_uncertainty.UncertaintyResults(
                 relative_wind_speed_uncertainty=[
-                    result.Result(
-                        assessment_period=enums.AssessmentPeriod.LIFETIME,
+                    dataset.Dataset(
+                        assessment_period=dataset.AssessmentPeriod.LIFETIME,
                         dimensions=None,
                         statistics=[
-                            result.ResultStatistic(
-                                statistic_type=enums.StatisticType.MEAN,
+                            dataset.DatasetStatistic(
+                                statistic_type=dataset.BasicStatisticType.MEAN,
                                 values=0.48,
                             )
                         ],
                     )
                 ],
                 relative_energy_uncertainty=[
-                    result.Result(
-                        assessment_period=enums.AssessmentPeriod.LIFETIME,
+                    dataset.Dataset(
+                        assessment_period=dataset.AssessmentPeriod.LIFETIME,
                         dimensions=None,
                         statistics=[
-                            result.ResultStatistic(
-                                statistic_type=enums.StatisticType.MEAN,
+                            dataset.DatasetStatistic(
+                                statistic_type=dataset.BasicStatisticType.MEAN,
                                 values=0.95,
                             )
                         ],
@@ -907,12 +916,12 @@ def turbine_wind_resource_assessment_b(
         wind_resource_assessment_id_reference="BfWF_WRA_1",
         results=wind_resource.TurbineWindResourceResults(
             wind_speed=[
-                result.Result(
-                    assessment_period=enums.AssessmentPeriod.LIFETIME,
-                    dimensions=[enums.ResultsDimension.TURBINE],
+                dataset.Dataset(
+                    assessment_period=dataset.AssessmentPeriod.LIFETIME,
+                    dimensions=[dataset.DatasetDimension.TURBINE_ID],
                     statistics=[
-                        result.ResultStatistic(
-                            statistic_type=enums.StatisticType.MEAN,
+                        dataset.DatasetStatistic(
+                            statistic_type=dataset.BasicStatisticType.MEAN,
                             values=[
                                 (
                                     ["WTG01"],
@@ -933,24 +942,24 @@ def turbine_wind_resource_assessment_b(
             categories=[historical_wind_uncertainty_category_a],
             results=wind_uncertainty.UncertaintyResults(
                 relative_wind_speed_uncertainty=[
-                    result.Result(
-                        assessment_period=enums.AssessmentPeriod.LIFETIME,
+                    dataset.Dataset(
+                        assessment_period=dataset.AssessmentPeriod.LIFETIME,
                         dimensions=None,
                         statistics=[
-                            result.ResultStatistic(
-                                statistic_type=enums.StatisticType.MEAN,
+                            dataset.DatasetStatistic(
+                                statistic_type=dataset.BasicStatisticType.MEAN,
                                 values=0.47,
                             )
                         ],
                     )
                 ],
                 relative_energy_uncertainty=[
-                    result.Result(
-                        assessment_period=enums.AssessmentPeriod.LIFETIME,
+                    dataset.Dataset(
+                        assessment_period=dataset.AssessmentPeriod.LIFETIME,
                         dimensions=None,
                         statistics=[
-                            result.ResultStatistic(
-                                statistic_type=enums.StatisticType.MEAN,
+                            dataset.DatasetStatistic(
+                                statistic_type=dataset.BasicStatisticType.MEAN,
                                 values=0.92,
                             )
                         ],
@@ -967,8 +976,8 @@ def plant_performance_curtailment_category_a() -> (
 ):
     """Curtailment test case instance 'a' of ``PlantPerformanceCategory``."""
     result_components = [
-        result.ResultStatistic(
-            statistic_type=enums.StatisticType.MEAN,
+        dataset.DatasetStatistic(
+            statistic_type=dataset.BasicStatisticType.MEAN,
             values=[
                 (
                     ["WTG01"],
@@ -980,8 +989,8 @@ def plant_performance_curtailment_category_a() -> (
                 ),
             ],
         ),
-        result.ResultStatistic(
-            statistic_type=enums.StatisticType.STANDARD_DEVIATION,
+        dataset.DatasetStatistic(
+            statistic_type=dataset.BasicStatisticType.STANDARD_DEVIATION,
             values=[
                 (
                     ["WTG01"],
@@ -993,8 +1002,8 @@ def plant_performance_curtailment_category_a() -> (
                 ),
             ],
         ),
-        result.ResultStatistic(
-            statistic_type=enums.StatisticType.INTER_ANNUAL_VARIABILITY,
+        dataset.DatasetStatistic(
+            statistic_type=dataset.BasicStatisticType.INTER_ANNUAL_VARIABILITY,
             values=[
                 (
                     ["WTG01"],
@@ -1008,24 +1017,26 @@ def plant_performance_curtailment_category_a() -> (
         ),
     ]
     return plant_performance.PlantPerformanceCategory(
-        label=enums.PlantPerformanceCategoryLabel.CURTAILMENT,
+        label=plant_performance.PlantPerformanceCategoryLabel.CURTAILMENT,
         subcategories=[
             plant_performance.PlantPerformanceSubcategory(
-                label=enums.PlantPerformanceSubcategoryLabel.LOAD_CURTAILMENT,
-                basis=enums.AssessmentBasis.TIMESERIES_CALCULATION,
-                variability=enums.TimeVariabilityType.STATIC_PROCESS,
+                label=(
+                    plant_performance.PlantPerformanceSubcategoryLabel.LOAD_CURTAILMENT
+                ),
+                basis=general.AssessmentBasis.TIME_SERIES_CALCULATION,
+                variability=general.TimeVariabilityType.STATIC_PROCESS,
                 assessment_process_descriptions=[
                     eya_prcs_desc.AssessmentProcessDescription(
-                        label="Timeseries tool",
+                        label="Time Series tool",
                         description=(
-                            "Energy yield production timeseries simulation tool."
+                            "Energy yield production time series simulation tool."
                         ),
                         comments="Internal toolset",
                     )
                 ],
                 results=plant_performance.PlantPerformanceResults(
                     efficiency=[
-                        result.Result(
+                        dataset.Dataset(
                             description=(
                                 "Curtailment due to a wind sector management "
                                 "strategy to reduce turbine loads."
@@ -1034,8 +1045,8 @@ def plant_performance_curtailment_category_a() -> (
                                 "Considering curtailment strategy as specified by "
                                 "the turbine manufacturer."
                             ),
-                            assessment_period=enums.AssessmentPeriod.LIFETIME,
-                            dimensions=[enums.ResultsDimension.TURBINE],
+                            assessment_period=dataset.AssessmentPeriod.LIFETIME,
+                            dimensions=[dataset.DatasetDimension.TURBINE_ID],
                             statistics=result_components,
                         )
                     ],
@@ -1044,10 +1055,10 @@ def plant_performance_curtailment_category_a() -> (
         ],
         results=plant_performance.PlantPerformanceResults(
             efficiency=[
-                result.Result(
+                dataset.Dataset(
                     description="Curtailment losses.",
-                    assessment_period=enums.AssessmentPeriod.LIFETIME,
-                    dimensions=[enums.ResultsDimension.TURBINE],
+                    assessment_period=dataset.AssessmentPeriod.LIFETIME,
+                    dimensions=[dataset.DatasetDimension.TURBINE_ID],
                     statistics=result_components,
                 )
             ],
@@ -1061,8 +1072,8 @@ def plant_performance_curtailment_category_b() -> (
 ):
     """Curtailment test case instance 'b' of ``PlantPerformanceCategory``."""
     result_components = [
-        result.ResultStatistic(
-            statistic_type=enums.StatisticType.MEAN,
+        dataset.DatasetStatistic(
+            statistic_type=dataset.BasicStatisticType.MEAN,
             values=[
                 (
                     ["WTG01"],
@@ -1074,8 +1085,8 @@ def plant_performance_curtailment_category_b() -> (
                 ),
             ],
         ),
-        result.ResultStatistic(
-            statistic_type=enums.StatisticType.STANDARD_DEVIATION,
+        dataset.DatasetStatistic(
+            statistic_type=dataset.BasicStatisticType.STANDARD_DEVIATION,
             values=[
                 (
                     ["WTG01"],
@@ -1089,15 +1100,17 @@ def plant_performance_curtailment_category_b() -> (
         ),
     ]
     return plant_performance.PlantPerformanceCategory(
-        label=enums.PlantPerformanceCategoryLabel.CURTAILMENT,
+        label=plant_performance.PlantPerformanceCategoryLabel.CURTAILMENT,
         subcategories=[
             plant_performance.PlantPerformanceSubcategory(
-                label=enums.PlantPerformanceSubcategoryLabel.LOAD_CURTAILMENT,
-                basis=enums.AssessmentBasis.PROJECT_SPECIFIC_ASSUMPTION,
-                variability=enums.TimeVariabilityType.STATIC_PROCESS,
+                label=(
+                    plant_performance.PlantPerformanceSubcategoryLabel.LOAD_CURTAILMENT
+                ),
+                basis=general.AssessmentBasis.PROJECT_SPECIFIC_ASSUMPTION,
+                variability=general.TimeVariabilityType.STATIC_PROCESS,
                 results=plant_performance.PlantPerformanceResults(
                     efficiency=[
-                        result.Result(
+                        dataset.Dataset(
                             description=(
                                 "Expected curtailment due to a wind sector "
                                 "management to reduce turbine loads."
@@ -1107,8 +1120,8 @@ def plant_performance_curtailment_category_b() -> (
                                 "the absence of details from the turbine "
                                 "manufacturer."
                             ),
-                            assessment_period=enums.AssessmentPeriod.LIFETIME,
-                            dimensions=[enums.ResultsDimension.TURBINE],
+                            assessment_period=dataset.AssessmentPeriod.LIFETIME,
+                            dimensions=[dataset.DatasetDimension.TURBINE_ID],
                             statistics=result_components,
                         )
                     ],
@@ -1117,10 +1130,10 @@ def plant_performance_curtailment_category_b() -> (
         ],
         results=plant_performance.PlantPerformanceResults(
             efficiency=[
-                result.Result(
+                dataset.Dataset(
                     description="Curtailment losses.",
-                    assessment_period=enums.AssessmentPeriod.LIFETIME,
-                    dimensions=[enums.ResultsDimension.TURBINE],
+                    assessment_period=dataset.AssessmentPeriod.LIFETIME,
+                    dimensions=[dataset.DatasetDimension.TURBINE_ID],
                     statistics=result_components,
                 )
             ],
@@ -1167,12 +1180,12 @@ def energy_assessment_a(
             process_description=gross_energy_process_description_a,
             results=energy_assessment.EnergyAssessmentResults(
                 annual_energy_production=[
-                    result.Result(
-                        assessment_period=enums.AssessmentPeriod.LIFETIME,
-                        dimensions=[enums.ResultsDimension.TURBINE],
+                    dataset.Dataset(
+                        assessment_period=dataset.AssessmentPeriod.LIFETIME,
+                        dimensions=[dataset.DatasetDimension.TURBINE_ID],
                         statistics=[
-                            result.ResultStatistic(
-                                statistic_type=enums.StatisticType.MEAN,
+                            dataset.DatasetStatistic(
+                                statistic_type=dataset.BasicStatisticType.MEAN,
                                 values=[
                                     (
                                         ["WTG01"],
@@ -1186,12 +1199,12 @@ def energy_assessment_a(
                             )
                         ],
                     ),
-                    result.Result(
-                        assessment_period=enums.AssessmentPeriod.LIFETIME,
+                    dataset.Dataset(
+                        assessment_period=dataset.AssessmentPeriod.LIFETIME,
                         dimensions=None,
                         statistics=[
-                            result.ResultStatistic(
-                                statistic_type=enums.StatisticType.MEAN,
+                            dataset.DatasetStatistic(
+                                statistic_type=dataset.BasicStatisticType.MEAN,
                                 values=32.2,
                             )
                         ],
@@ -1203,12 +1216,12 @@ def energy_assessment_a(
             categories=[plant_performance_curtailment_category_a],
             results=plant_performance.PlantPerformanceResults(
                 efficiency=[
-                    result.Result(
-                        assessment_period=enums.AssessmentPeriod.LIFETIME,
+                    dataset.Dataset(
+                        assessment_period=dataset.AssessmentPeriod.LIFETIME,
                         dimensions=None,
                         statistics=[
-                            result.ResultStatistic(
-                                statistic_type=enums.StatisticType.MEAN,
+                            dataset.DatasetStatistic(
+                                statistic_type=dataset.BasicStatisticType.MEAN,
                                 values=0.879,
                             )
                         ],
@@ -1220,38 +1233,46 @@ def energy_assessment_a(
             process_description=net_energy_process_description_a,
             results=energy_assessment.EnergyAssessmentResults(
                 annual_energy_production=[
-                    result.Result(
-                        assessment_period=enums.AssessmentPeriod.LIFETIME,
+                    dataset.Dataset(
+                        assessment_period=dataset.AssessmentPeriod.LIFETIME,
                         dimensions=None,
                         statistics=[
-                            result.ResultStatistic(
-                                statistic_type=enums.StatisticType.MEDIAN,
+                            dataset.DatasetStatistic(
+                                statistic_type=dataset.BasicStatisticType.MEDIAN,
                                 values=31.5286,
                             ),
-                            result.ResultStatistic(
-                                statistic_type=enums.StatisticType.STANDARD_DEVIATION,
+                            dataset.DatasetStatistic(
+                                statistic_type=(
+                                    dataset.BasicStatisticType.STANDARD_DEVIATION
+                                ),
                                 values=3.4681,
                             ),
-                            result.ResultStatistic(
-                                statistic_type=enums.StatisticType.P90,
+                            dataset.DatasetStatistic(
+                                statistic_type=dataset.ExceedanceLevelStatisticType(
+                                    exceedance_level=0.9
+                                ),
                                 values=27.0894,
                             ),
                         ],
                     ),
-                    result.Result(
-                        assessment_period=enums.AssessmentPeriod.ANY_ONE_YEAR,
+                    dataset.Dataset(
+                        assessment_period=dataset.AssessmentPeriod.ANY_ONE_YEAR,
                         dimensions=None,
                         statistics=[
-                            result.ResultStatistic(
-                                statistic_type=enums.StatisticType.MEDIAN,
+                            dataset.DatasetStatistic(
+                                statistic_type=dataset.BasicStatisticType.MEDIAN,
                                 values=31.5286,
                             ),
-                            result.ResultStatistic(
-                                statistic_type=enums.StatisticType.STANDARD_DEVIATION,
+                            dataset.DatasetStatistic(
+                                statistic_type=(
+                                    dataset.BasicStatisticType.STANDARD_DEVIATION
+                                ),
                                 values=4.7293,
                             ),
-                            result.ResultStatistic(
-                                statistic_type=enums.StatisticType.P90,
+                            dataset.DatasetStatistic(
+                                statistic_type=dataset.ExceedanceLevelStatisticType(
+                                    exceedance_level=0.9
+                                ),
                                 values=2.54751,
                             ),
                         ],
@@ -1276,12 +1297,12 @@ def energy_assessment_b(
             process_description=gross_energy_process_description_a,
             results=energy_assessment.EnergyAssessmentResults(
                 annual_energy_production=[
-                    result.Result(
-                        assessment_period=enums.AssessmentPeriod.LIFETIME,
-                        dimensions=[enums.ResultsDimension.TURBINE],
+                    dataset.Dataset(
+                        assessment_period=dataset.AssessmentPeriod.LIFETIME,
+                        dimensions=[dataset.DatasetDimension.TURBINE_ID],
                         statistics=[
-                            result.ResultStatistic(
-                                statistic_type=enums.StatisticType.MEAN,
+                            dataset.DatasetStatistic(
+                                statistic_type=dataset.BasicStatisticType.MEAN,
                                 values=[
                                     (
                                         ["WTG01"],
@@ -1295,12 +1316,12 @@ def energy_assessment_b(
                             )
                         ],
                     ),
-                    result.Result(
-                        assessment_period=enums.AssessmentPeriod.LIFETIME,
+                    dataset.Dataset(
+                        assessment_period=dataset.AssessmentPeriod.LIFETIME,
                         dimensions=None,
                         statistics=[
-                            result.ResultStatistic(
-                                statistic_type=enums.StatisticType.MEAN,
+                            dataset.DatasetStatistic(
+                                statistic_type=dataset.BasicStatisticType.MEAN,
                                 values=37.0,
                             )
                         ],
@@ -1312,12 +1333,12 @@ def energy_assessment_b(
             categories=[plant_performance_curtailment_category_b],
             results=plant_performance.PlantPerformanceResults(
                 efficiency=[
-                    result.Result(
-                        assessment_period=enums.AssessmentPeriod.LIFETIME,
+                    dataset.Dataset(
+                        assessment_period=dataset.AssessmentPeriod.LIFETIME,
                         dimensions=None,
                         statistics=[
-                            result.ResultStatistic(
-                                statistic_type=enums.StatisticType.MEAN,
+                            dataset.DatasetStatistic(
+                                statistic_type=dataset.BasicStatisticType.MEAN,
                                 values=0.897,
                             )
                         ],
@@ -1329,38 +1350,46 @@ def energy_assessment_b(
             process_description=net_energy_process_description_a,
             results=energy_assessment.EnergyAssessmentResults(
                 annual_energy_production=[
-                    result.Result(
-                        assessment_period=enums.AssessmentPeriod.LIFETIME,
+                    dataset.Dataset(
+                        assessment_period=dataset.AssessmentPeriod.LIFETIME,
                         dimensions=None,
                         statistics=[
-                            result.ResultStatistic(
-                                statistic_type=enums.StatisticType.MEDIAN,
+                            dataset.DatasetStatistic(
+                                statistic_type=dataset.BasicStatisticType.MEDIAN,
                                 values=35.15,
                             ),
-                            result.ResultStatistic(
-                                statistic_type=enums.StatisticType.STANDARD_DEVIATION,
+                            dataset.DatasetStatistic(
+                                statistic_type=(
+                                    dataset.BasicStatisticType.STANDARD_DEVIATION
+                                ),
                                 values=4.5695,
                             ),
-                            result.ResultStatistic(
-                                statistic_type=enums.StatisticType.P90,
+                            dataset.DatasetStatistic(
+                                statistic_type=dataset.ExceedanceLevelStatisticType(
+                                    exceedance_level=0.9
+                                ),
                                 values=29.301,
                             ),
                         ],
                     ),
-                    result.Result(
-                        assessment_period=enums.AssessmentPeriod.ANY_ONE_YEAR,
+                    dataset.Dataset(
+                        assessment_period=dataset.AssessmentPeriod.ANY_ONE_YEAR,
                         dimensions=None,
                         statistics=[
-                            result.ResultStatistic(
-                                statistic_type=enums.StatisticType.MEDIAN,
+                            dataset.DatasetStatistic(
+                                statistic_type=dataset.BasicStatisticType.MEDIAN,
                                 values=35.15,
                             ),
-                            result.ResultStatistic(
-                                statistic_type=enums.StatisticType.STANDARD_DEVIATION,
+                            dataset.DatasetStatistic(
+                                statistic_type=(
+                                    dataset.BasicStatisticType.STANDARD_DEVIATION
+                                ),
                                 values=5.7998,
                             ),
-                            result.ResultStatistic(
-                                statistic_type=enums.StatisticType.P90,
+                            dataset.DatasetStatistic(
+                                statistic_type=dataset.ExceedanceLevelStatisticType(
+                                    exceedance_level=0.9
+                                ),
                                 values=27.7263,
                             ),
                         ],
@@ -1409,9 +1438,9 @@ def scenario_b(
 
 
 @pytest.fixture(scope="session")
-def issuing_organisation_a() -> general_metadata.Organisation:
+def issuing_organisation_a() -> general.Organisation:
     """Issuing organisation test case instance 'a' of ``Organisation``."""
-    return general_metadata.Organisation(
+    return general.Organisation(
         name="The Torre Egger Consultants Limited",
         abbreviation="Torre Egger",
         address="5 Munro Road, Sgurrsville, G12 0YE, UK",
@@ -1419,9 +1448,9 @@ def issuing_organisation_a() -> general_metadata.Organisation:
 
 
 @pytest.fixture(scope="session")
-def receiving_organisations_a() -> general_metadata.Organisation:
+def receiving_organisations_a() -> general.Organisation:
     """receiving organisation test case instance 'a' of ``Organisation``."""
-    return general_metadata.Organisation(
+    return general.Organisation(
         name="Miranda Investments Limited",
         abbreviation="Miranda",
         address="9 Acosta St., Ivanslake, Republic of Miranda",
@@ -1430,59 +1459,59 @@ def receiving_organisations_a() -> general_metadata.Organisation:
 
 
 @pytest.fixture(scope="session")
-def main_author_a() -> general_metadata.ReportContributor:
+def main_author_a() -> eya_def_header.ReportContributor:
     """Main author test case instance 'a' of ``ReportContributor``."""
-    return general_metadata.ReportContributor(
+    return eya_def_header.ReportContributor(
         name="Joan Miro",
         email_address="j.miro@art.cat",
-        contributor_type=enums.ReportContributorType.AUTHOR,
+        contributor_type=eya_def_header.ReportContributorType.AUTHOR,
         contribution_comments="Main author",
         completion_date=dt.date(2022, 10, 5),
     )
 
 
 @pytest.fixture(scope="session")
-def second_author_a() -> general_metadata.ReportContributor:
+def second_author_a() -> eya_def_header.ReportContributor:
     """Second author test case instance 'a' of ``ReportContributor``."""
-    return general_metadata.ReportContributor(
+    return eya_def_header.ReportContributor(
         name="Andrei Tarkovsky",
         email_address="andrei.tarkovsky@cinema.com",
-        contributor_type=enums.ReportContributorType.AUTHOR,
+        contributor_type=eya_def_header.ReportContributorType.AUTHOR,
         contribution_comments="Second author",
         completion_date=dt.date(2022, 10, 5),
     )
 
 
 @pytest.fixture(scope="session")
-def verifier_a() -> general_metadata.ReportContributor:
+def verifier_a() -> eya_def_header.ReportContributor:
     """Verifier test case instance 'a' of ``ReportContributor``."""
-    return general_metadata.ReportContributor(
+    return eya_def_header.ReportContributor(
         name="Hanns Eisler",
         email_address="hannseisler@udk-berlin.de",
-        contributor_type=enums.ReportContributorType.VERIFIER,
+        contributor_type=eya_def_header.ReportContributorType.VERIFIER,
         completion_date=dt.date(2022, 10, 6),
     )
 
 
 @pytest.fixture(scope="session")
-def approver_a() -> general_metadata.ReportContributor:
+def approver_a() -> eya_def_header.ReportContributor:
     """Approver test case instance 'a' of ``ReportContributor``."""
-    return general_metadata.ReportContributor(
+    return eya_def_header.ReportContributor(
         name="Kurt Weill",
         email_address="weill@broadway.com",
-        contributor_type=enums.ReportContributorType.APPROVER,
+        contributor_type=eya_def_header.ReportContributorType.APPROVER,
         completion_date=dt.date(2022, 10, 7),
     )
 
 
 @pytest.fixture(scope="session")
 def eya_def_a(
-    issuing_organisation_a: general_metadata.Organisation,
-    receiving_organisations_a: general_metadata.Organisation,
-    main_author_a: general_metadata.ReportContributor,
-    second_author_a: general_metadata.ReportContributor,
-    verifier_a: general_metadata.ReportContributor,
-    approver_a: general_metadata.ReportContributor,
+    issuing_organisation_a: general.Organisation,
+    receiving_organisations_a: general.Organisation,
+    main_author_a: eya_def_header.ReportContributor,
+    second_author_a: eya_def_header.ReportContributor,
+    verifier_a: eya_def_header.ReportContributor,
+    approver_a: eya_def_header.ReportContributor,
     wind_farm_a: wind_farm.WindFarmConfiguration,
     wind_farm_b: wind_farm.WindFarmConfiguration,
     neighbouring_wind_farm_a: wind_farm.WindFarmConfiguration,
@@ -1503,6 +1532,7 @@ def eya_def_a(
                 "id=b1396029-e9af-49f7-9599-534db175e53c.json"
             )
         },
+        uuid=uuid_.UUID("b1396029-e9af-49f7-9599-534db175e53c"),
         title="Energy yield assessment of the Barefoot Wind Farm",
         description=(
             "Wind resource and energy yield assessment of the Barefoot "
@@ -1521,6 +1551,7 @@ def eya_def_a(
         contract_reference="P/UK/000765/001/B, 2022-11-30",
         confidentiality_classification="Confidential",
         epsg_srid=32630,
+        utc_offset=0.0,
         wind_farms=[wind_farm_a, wind_farm_b, neighbouring_wind_farm_a],
         measurement_stations=[measurement_station_a],
         reference_wind_farms=[reference_wind_farm_a],

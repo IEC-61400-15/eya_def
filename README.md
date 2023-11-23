@@ -19,7 +19,7 @@ Schema are found [here](json_schema/examples).
 The top levels of the current draft of the data model is illustrated
 below.
 
-  ![data_model_top_levels_diagram](diagrams/eya_def_top_level.svg)
+  ![data_model_top_levels_diagram](diagrams/eya_def_document_top_level.svg)
 
 The python package (see [below](#Python-package)) uses [erdantic](
 https://erdantic.drivendata.org/stable/) to generate graphical

@@ -11,6 +11,7 @@ import pydantic as pdt
 from eya_def_tools.data_models.base_model import EyaDefBaseModel
 from eya_def_tools.data_models.eya_def_header import (
     Alpha2CountryCode,
+    ReportContributor,
     comments_field,
     confidentiality_classification_field,
     contract_reference_field,
@@ -27,9 +28,10 @@ from eya_def_tools.data_models.eya_def_header import (
     schema_uri_field,
     title_field,
     uri_field,
+    utc_offset_field,
     uuid_field,
 )
-from eya_def_tools.data_models.general_metadata import Organisation, ReportContributor
+from eya_def_tools.data_models.general import Organisation
 from eya_def_tools.data_models.measurement_station import MeasurementStationMetadata
 from eya_def_tools.data_models.reference_met_data import ReferenceMeteorologicalDataset
 from eya_def_tools.data_models.reference_wind_farm import ReferenceWindFarm
@@ -48,6 +50,8 @@ class EyaDefDocument(EyaDefBaseModel):
         # Schema specification ``"additionalProperties": true``, which
         # is used only at the top level to allow further metadata fields
         extra="allow",
+        # As a default, infinity of nan float values are not permitted
+        allow_inf_nan=False,
         json_schema_extra={
             "$id": reference_utils.get_json_schema_uri().unicode_string(),
             "$version": reference_utils.get_json_schema_version(),
@@ -74,8 +78,10 @@ class EyaDefDocument(EyaDefBaseModel):
     contract_reference: Optional[str] = contract_reference_field
     confidentiality_classification: Optional[str] = confidentiality_classification_field
     epsg_srid: int = epsg_srid_field
+    utc_offset: float = utc_offset_field
     wind_farms: list[WindFarmConfiguration] = pdt.Field(
         default=...,
+        min_length=1,
         description=(
             "List of all wind farms considered in the EYA. This should comprise "
             "internal, external and future wind farms, including those used as "
@@ -88,6 +94,7 @@ class EyaDefDocument(EyaDefBaseModel):
     )
     measurement_stations: Optional[list[MeasurementStationMetadata]] = pdt.Field(
         default=None,
+        min_length=1,
         description=(
             "List of measurement station metadata documents according to the IEA "
             "Wind Task 43 WRA Data Model, including all measurement stations "
@@ -99,16 +106,18 @@ class EyaDefDocument(EyaDefBaseModel):
     )
     reference_wind_farms: Optional[list[ReferenceWindFarm]] = pdt.Field(
         default=None,
+        min_length=1,
         description=(
             "List of metadata documents for the reference operational wind farms "
             "relevant to the EYA, if any. One metadata document shall be completed "
             "for each relevant reference operational wind farm."
         ),
     )
-    reference_meteorological_datasets: (
-        Optional[list[ReferenceMeteorologicalDataset]]
-    ) = pdt.Field(
+    reference_meteorological_datasets: Optional[
+        list[ReferenceMeteorologicalDataset | MeasurementStationMetadata]
+    ] = pdt.Field(
         default=None,
+        min_length=1,
         description=(
             "List of metadata documents for reference meteorological datasets "
             "used in the long-term prediction process of the EYA, which may "
@@ -119,6 +128,7 @@ class EyaDefDocument(EyaDefBaseModel):
     )
     wind_resource_assessments: list[WindResourceAssessment] = pdt.Field(
         default=...,
+        min_length=1,
         description=(
             "List of wind resource assessments, including results, at the "
             "measurement station locations."
@@ -126,9 +136,11 @@ class EyaDefDocument(EyaDefBaseModel):
     )
     turbine_models: Optional[list[TurbineModelSpecifications]] = pdt.Field(
         default=None,
+        min_length=1,
         description="List of wind turbine model specifications.",
     )
-    scenarios: Optional[list[Scenario]] = pdt.Field(
-        default=None,
+    scenarios: list[Scenario] = pdt.Field(
+        default=...,
+        min_length=1,
         description="List of energy yield assessment scenarios.",
     )

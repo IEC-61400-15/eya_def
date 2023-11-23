@@ -14,16 +14,20 @@ class AssessmentProcessDescription(EyaDefBaseModel):
 
     label: str = pdt.Field(
         default=...,
+        min_length=1,
         description="Label or name of the process or model.",
         examples=["WAsP", "VORTEX BLOCKS", "DNV CFD", "VENTOS/M"],
     )
     description: str = pdt.Field(
         default=...,
-        min_length=1,  # Value should not be empty
+        min_length=1,
         description="Description of the assessment process or model.",
     )
     comments: Optional[str] = pdt.Field(
         default=None,
-        min_length=1,  # Value should not be empty if the field is included
-        description="Optional comments on the plant performance loss subcategory.",
+        min_length=1,
+        description=(
+            "Optional comments on the assessment process or model, "
+            "which should not be empty if the field is included."
+        ),
     )

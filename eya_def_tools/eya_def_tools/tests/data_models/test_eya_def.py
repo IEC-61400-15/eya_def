@@ -50,19 +50,19 @@ def test_export_json_schema(pydantic_json_schema_tmp_path: Path) -> None:
 # def test_copy_pydantic_json_schema(pydantic_json_schema_tmp_path: Path) -> None:
 #     """Temporary test to copy pydantic schema."""
 #     import shutil
-#
+
 #     shutil.copy(
 #         pydantic_json_schema_tmp_path, Path("iec_61400-15-2_eya_def.schema.json")
 #     )
-#
-#
+
+
 # # TODO: TEMPORARY CODE TO GENERATE JSON EXAMPLE
 # def test_copy_eya_def_a(
 #     eya_def_a_tmp_filepath: Path,
 # ) -> None:
 #     """Temporary test to copy pydantic example 'a'."""
 #     import shutil
-#
+
 #     shutil.copy(
 #         eya_def_a_tmp_filepath,
 #         Path("iec_61400-15-2_eya_def_example_a.json"),

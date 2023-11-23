@@ -4,14 +4,14 @@
 
 import datetime as dt
 import uuid as uuid_
-from enum import StrEnum
+from enum import StrEnum, auto
 from typing import Optional, Type
 
 import pycountry
 import pydantic as pdt
 
 from eya_def_tools.data_models.base_model import EyaDefBaseModel
-from eya_def_tools.data_models.general_metadata import Organisation, ReportContributor
+from eya_def_tools.data_models.general import Organisation
 from eya_def_tools.utils import reference_utils
 
 Alpha2CountryCode: Type[StrEnum] = StrEnum(  # type: ignore
@@ -20,12 +20,59 @@ Alpha2CountryCode: Type[StrEnum] = StrEnum(  # type: ignore
 )
 
 
+class ReportContributorType(StrEnum):
+    """Type of contributor to an EYA report."""
+
+    AUTHOR = auto()
+    VERIFIER = auto()
+    APPROVER = auto()
+
+    OTHER = auto()
+
+
+class ReportContributor(EyaDefBaseModel):
+    """Contributor to an energy yield assessment."""
+
+    name: str = pdt.Field(
+        default=...,
+        min_length=1,
+        description="Name of the contributor.",
+        examples=["Joan Miro", "Andrei Tarkovsky"],
+    )
+    email_address: Optional[pdt.EmailStr] = pdt.Field(
+        default=None,
+        description=(
+            "Optional email address of the contributor, which should "
+            "not be empty if the field is included."
+        ),
+        examples=["j.miro@art.cat", "andrei.tarkovsky@cinema.com"],
+    )
+    contributor_type: ReportContributorType = pdt.Field(
+        default=...,
+        description="Type of contributor.",
+    )
+    contribution_comments: Optional[str] = pdt.Field(
+        default=None,
+        min_length=1,
+        description=(
+            "Optional comments to clarify contribution, which should "
+            "not be empty if the field is included."
+        ),
+        examples=["Second author"],
+    )
+    completion_date: Optional[dt.date] = pdt.Field(
+        default=None,
+        description="Optional contribution completion date (format YYYY-MM-DD).",
+        examples=["2022-10-04"],
+    )
+
+
 uri_field: Optional[pdt.AnyUrl] = pdt.Field(
     default=None,
     title="URI",
     description=(
-        "URI of the EYA DEF JSON document, which should have the field "
-        "name '$id' in the JSON document."
+        "Optional URI of the EYA DEF JSON document, which should have "
+        "the field name '$id' in the JSON document."
     ),
     examples=["https://foo.com/api/eya?id=8f46a815-8b6d-4870-8e92-c031b20320c6.json"],
     alias="$id",
@@ -49,28 +96,34 @@ schema_uri_field: pdt.AnyUrl = pdt.Field(
 uuid_field: Optional[uuid_.UUID] = pdt.Field(
     default=None,
     title="UUID",
-    description="UUID of the EYA DEF JSON document.",
+    description="Optional UUID of the EYA DEF document.",
     examples=["8f46a815-8b6d-4870-8e92-c031b20320c6"],
 )
 
 title_field: str = pdt.Field(
     default=...,
-    min_length=1,  # Value should not be empty
+    min_length=1,
     description="Title of the energy yield assessment (EYA) report.",
     examples=["Energy yield assessment of the Barefoot Wind Farm"],
 )
 
 description_field: Optional[str] = pdt.Field(
     default=None,
-    min_length=1,  # Value should not be empty if the field is included
-    description="Optional description of the energy yield assessment (EYA) report.",
+    min_length=1,
+    description=(
+        "Optional description of the energy yield assessment (EYA) "
+        "report, which should not be empty if the field is included."
+    ),
     examples=["An updated document to incorporate the latest measurement data."],
 )
 
 comments_field: Optional[str] = pdt.Field(
     default=None,
-    min_length=1,  # Value should not be empty if the field is included
-    description="Optional comments on the energy yield assessment (EYA) report.",
+    min_length=1,
+    description=(
+        "Optional comments on the energy yield assessment (EYA) "
+        "report, which should not be empty if the field is included."
+    ),
     examples=[
         "Report labelled as draft. To be finalised following review by all parties."
     ],
@@ -78,7 +131,7 @@ comments_field: Optional[str] = pdt.Field(
 
 project_name_field: str = pdt.Field(
     default=...,
-    min_length=1,  # Value should not be empty
+    min_length=1,
     description="Name of the project under assessment.",
     examples=["Barefoot Wind Farm"],
 )
@@ -93,25 +146,27 @@ project_country_field: Alpha2CountryCode = pdt.Field(
 
 document_id_field: Optional[str] = pdt.Field(
     default=None,
-    min_length=1,  # Value should not be empty if the field is included
+    min_length=1,
     title="Document ID",
     description=(
-        "The ID of the report document; not including the version "
+        "Optional ID of the report document; not including the version "
         "when 'document_version' is used. This will typically follow "
         "the convention of the document management system of the "
-        "issuing organisation(s)."
+        "issuing organisation(s). The field should not be empty if it "
+        "is included."
     ),
     examples=["C385945/A/UK/R/002", "0345.923454.0001"],
 )
 
 document_version_field: Optional[str] = pdt.Field(
     default=None,
-    min_length=1,  # Value should not be empty if the field is included
+    min_length=1,
     description=(
-        "Version of the report document, also known as revision. As "
-        "with the 'document_id', this will typically follow the "
-        "document versioning convention of the document management "
-        "system of the issuing organisation(s)."
+        "Optional version of the report document, also known as "
+        "revision. As with the 'document_id', this will typically "
+        "follow the document versioning convention of the document "
+        "management system of the issuing organisation(s). The field "
+        "should not be empty if it is included."
     ),
     examples=["1.2.3", "A", "Rev. A"],
 )
@@ -127,49 +182,75 @@ issue_date_field: dt.date = pdt.Field(
 
 contributors_field: list[ReportContributor] = pdt.Field(
     default=...,
+    min_length=1,
     description="List of report contributors (e.g. author and verifier)",
 )
 
 issuing_organisations_field: list[Organisation] = pdt.Field(
     default=...,
+    min_length=1,
     description="The organisation(s) issuing the report (e.g. consultant).",
 )
 
 receiving_organisations_field: Optional[list[Organisation]] = pdt.Field(
     default=None,
+    min_length=1,
     description=(
-        "The organisation(s) receiving the report (e.g. client), if relevant."
+        "Optional specification of organisation(s) receiving the "
+        "report (e.g. client), if relevant."
     ),
 )
 
 contract_reference_field: Optional[str] = pdt.Field(
     default=None,
+    min_length=1,
     description=(
-        "Reference to contract between the issuing and receiving "
-        "organisations that governs the energy yield assessment "
-        "(EYA) report document, if relevant."
+        "Optional reference to contract between the issuing and "
+        "receiving organisations that governs the energy yield "
+        "assessment (EYA) report document, if relevant. The field "
+        "should not be empty if it is included."
     ),
     examples=["Contract ID.: P-MIR-00239432-0001-C, dated 2022-11-30"],
 )
 
 confidentiality_classification_field: Optional[str] = pdt.Field(
     default=None,
-    description="Confidentiality classification of the report document, if relevant.",
+    min_length=1,
+    description=(
+        "Optional confidentiality classification of the report "
+        "document, if relevant. The field should not be empty if it "
+        "is included."
+    ),
     examples=["Strictly confidential", "Commercial in confidence", "Public"],
 )
 
+# TODO consider adding validation of valid EPSG SRID codes
 epsg_srid_field: int = pdt.Field(
     default=...,
     description=(
         "EPSG Spatial Reference System Identifier (SRID) for the "
         "Coordinate Reference System (CRS) used for all spatial data "
-        "(e.g. turbine locations) in the EYA DEF JSON document. All "
-        "location coordinates must be reported in the same CRS, which "
-        "must be one that has an EPSG code. If different CRSs are used "
-        "the data must be converted to be consistent with the EPSG "
-        "code specified here."
+        "(e.g. turbine locations) in the EYA DEF document. All "
+        "location coordinates must be reported in this one CRS, which "
+        "must have an EPSG code. If different CRSs are used, the data "
+        "must be converted to be consistent with the EPSG code "
+        "specified here."
     ),
     examples=[27700, 3006],
+)
+
+utc_offset_field: float = pdt.Field(
+    default=...,
+    description=(
+        "The offset in hours of the local time zone used for the EYA "
+        "relative to Coordinated Universal Time (UTC). It is applied "
+        "to UTC time to convert it to local time, hence positive for "
+        "time zones ahead of UTC and negative for time zones behind "
+        "UTC (e.g. -6.0 for MST and 9.5 for ACST). All data where the "
+        "time zone is relevant (e.g. hourly time series and diurnal "
+        "profiles) must be consistent with this one UTC offset."
+    ),
+    examples=[-6.0, 0.0, 1.0, 9.5],
 )
 
 
@@ -199,3 +280,4 @@ class EyaDefHeader(EyaDefBaseModel):
     contract_reference: Optional[str] = contract_reference_field
     confidentiality_classification: Optional[str] = confidentiality_classification_field
     epsg_srid: int = epsg_srid_field
+    utc_offset: float = utc_offset_field

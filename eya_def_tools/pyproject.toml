@@ -34,14 +34,6 @@ dependencies = {file = ["requirements.txt"]}
 optional-dependencies.dev = {file = ["requirements-dev.txt"]}
 optional-dependencies.erd = {file = ["requirements-erd.txt"]}
 
-[tool.pytest.ini_options]
-addopts = [
-    "--import-mode=importlib"]
-
-[tool.coverage.run]
-source = ["eya_def_tools"]
-omit = ["*/eya_def_tools/tests/*"]
-
 [tool.black]
 color = true
 target-version = ["py311"]
@@ -96,3 +88,15 @@ init_forbid_extra = true
 init_typed = false
 warn_required_dynamic_aliases = true
 warn_untyped_fields = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = [
+    "--import-mode=importlib"]
+markers = [
+    "erdantic: tests requiring the 'erdantic' package (deselect with '-m \"not erdantic\"')",
+]
+
+[tool.coverage.run]
+source = ["eya_def_tools"]
+omit = ["eya_def_tools/tests/*"]
