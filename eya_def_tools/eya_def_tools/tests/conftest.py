@@ -314,13 +314,19 @@ def turbine_model_c() -> turbine_model.TurbineModelSpecifications:
 
 
 @pytest.fixture(scope="session")
-def operational_restriction_a() -> wind_farm.OperationalRestriction:
+def turbine_operational_restriction_a() -> wind_farm.OperationalRestriction:
     """Test case instance 'a' of ``OperationalRestriction``."""
     return wind_farm.OperationalRestriction(
         label="WSM curtailment",
         description=(
             "Wind sector management (WSM) curtailment as specified"
-            "by the turbine manufacturer"
+            "by the turbine manufacturer. The power output is limited "
+            "to 4.5 MW at wind speeds above 18.0 m/s when the wind "
+            "direction is from between 120.0 and 210.0 degrees."
+        ),
+        comments=(
+            "The strategy is designed to mitigate against the impact "
+            "of high ambient turbulence intensity."
         ),
     )
 
@@ -328,7 +334,7 @@ def operational_restriction_a() -> wind_farm.OperationalRestriction:
 @pytest.fixture(scope="session")
 def turbine_specification_wtg01_a(
     turbine_location_wtg01_a: spatial.Location,
-    operational_restriction_a: wind_farm.OperationalRestriction,
+    turbine_operational_restriction_a: wind_farm.OperationalRestriction,
 ) -> wind_farm.TurbineConfiguration:
     """Test case instance 'WTG01_a' of ``TurbineSpecification``."""
     return wind_farm.TurbineConfiguration(
@@ -339,7 +345,7 @@ def turbine_specification_wtg01_a(
         ground_level_altitude=44.9,
         hub_height=150.0,
         turbine_model_id="6ca5bc01-04b1-421a-a033-133304d6cc7f",
-        restrictions=[operational_restriction_a],
+        restrictions=[turbine_operational_restriction_a],
     )
 
 
@@ -362,7 +368,7 @@ def turbine_specification_wtg01_b(
 @pytest.fixture(scope="session")
 def turbine_specification_wtg02_a(
     turbine_location_wtg02_a: spatial.Location,
-    operational_restriction_a: wind_farm.OperationalRestriction,
+    turbine_operational_restriction_a: wind_farm.OperationalRestriction,
 ) -> wind_farm.TurbineConfiguration:
     """Test case instance 'WTG02_a' of ``TurbineSpecification``."""
     return wind_farm.TurbineConfiguration(
@@ -373,7 +379,7 @@ def turbine_specification_wtg02_a(
         ground_level_altitude=46.3,
         hub_height=160.0,
         turbine_model_id="6ca5bc01-04b1-421a-a033-133304d6cc7f",
-        restrictions=[operational_restriction_a],
+        restrictions=[turbine_operational_restriction_a],
     )
 
 
@@ -426,9 +432,24 @@ def turbine_specification_mu_t2_a(
 
 
 @pytest.fixture(scope="session")
+def wind_farm_operational_restriction_a() -> wind_farm.OperationalRestriction:
+    """Wind farm test case instance 'a' of ``OperationalRestriction``."""
+    return wind_farm.OperationalRestriction(
+        label="Temporary grid curtailment",
+        description=(
+            "The wind farm is required to initially curtail its grid "
+            "export to a maximum of 10.0 MW due to grid upgrade works."
+        ),
+        start_datetime=dt.datetime(2024, 1, 1, 0, 0, 0),
+        end_datetime=dt.datetime(2026, 1, 1, 0, 0, 0),
+    )
+
+
+@pytest.fixture(scope="session")
 def wind_farm_a(
     turbine_specification_wtg01_a: wind_farm.TurbineConfiguration,
     turbine_specification_wtg02_a: wind_farm.TurbineConfiguration,
+    wind_farm_operational_restriction_a: wind_farm.OperationalRestriction,
 ) -> wind_farm.WindFarmConfiguration:
     """Test case instance 'a' of ``WindFarm``."""
     return wind_farm.WindFarmConfiguration(
@@ -440,6 +461,7 @@ def wind_farm_a(
         relevance=wind_farm.WindFarmRelevance.INTERNAL,
         operational_lifetime_start_date=dt.date(2024, 1, 1),
         installed_capacity=11.0,
+        restrictions=[wind_farm_operational_restriction_a],
     )
 
 

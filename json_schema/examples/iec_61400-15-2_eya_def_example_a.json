@@ -2912,6 +2912,14 @@
       "label": "Barefoot Wind Farm",
       "operational_lifetime_start_date": "2024-01-01",
       "relevance": "internal",
+      "restrictions": [
+        {
+          "description": "The wind farm is required to initially curtail its grid export to a maximum of 10.0 MW due to grid upgrade works.",
+          "end_datetime": "2026-01-01T00:00:00",
+          "label": "Temporary grid curtailment",
+          "start_datetime": "2024-01-01T00:00:00"
+        }
+      ],
       "turbines": [
         {
           "description": "Configuration of WTG01 in Scenario A",
@@ -2925,7 +2933,8 @@
           },
           "restrictions": [
             {
-              "description": "Wind sector management (WSM) curtailment as specifiedby the turbine manufacturer",
+              "comments": "The strategy is designed to mitigate against the impact of high ambient turbulence intensity.",
+              "description": "Wind sector management (WSM) curtailment as specifiedby the turbine manufacturer. The power output is limited to 4.5 MW at wind speeds above 18.0 m/s when the wind direction is from between 120.0 and 210.0 degrees.",
               "label": "WSM curtailment"
             }
           ],
@@ -2943,7 +2952,8 @@
           },
           "restrictions": [
             {
-              "description": "Wind sector management (WSM) curtailment as specifiedby the turbine manufacturer",
+              "comments": "The strategy is designed to mitigate against the impact of high ambient turbulence intensity.",
+              "description": "Wind sector management (WSM) curtailment as specifiedby the turbine manufacturer. The power output is limited to 4.5 MW at wind speeds above 18.0 m/s when the wind direction is from between 120.0 and 210.0 degrees.",
               "label": "WSM curtailment"
             }
           ],

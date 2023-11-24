@@ -380,6 +380,24 @@
           "title": "Description",
           "type": "string"
         },
+        "end_datetime": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional operational restriction end datetime in the ISO 8601 standard format with the 'T' required between the calendar date and time, i.e. YYYY-MM-DDThh:mm:ss. In cases where the time is not relevant (i.e. only the date is relevant), hours, minutes and seconds shall all be set to zero. If using the time part, the timezone of the data must be consistent with the UTC offset specified for the EYA DEF document.",
+          "examples": [
+            "2024-12-24T23:15:00",
+            "2024-12-31T00:00:00"
+          ],
+          "title": "End Datetime"
+        },
         "label": {
           "description": "Short label to indicate the type of operational restriction.",
           "examples": [
@@ -389,6 +407,24 @@
           "minLength": 1,
           "title": "Label",
           "type": "string"
+        },
+        "start_datetime": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional operational restriction start datetime in the ISO 8601 standard format with the 'T' required between the calendar date and time, i.e. YYYY-MM-DDThh:mm:ss. In cases where the time is not relevant (i.e. only the date is relevant), hours, minutes and seconds shall all be set to zero. If using the time part, the timezone of the data must be consistent with the UTC offset specified for the EYA DEF document.",
+          "examples": [
+            "2023-11-24T05:02:00",
+            "2023-11-01T00:00:00"
+          ],
+          "title": "Start Datetime"
         }
       },
       "required": [

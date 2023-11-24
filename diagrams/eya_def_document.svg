@@ -102,20 +102,20 @@
 <g id="node4" class="node">
 <title>eya_def_tools.data_models.energy_assessment.EnergyAssessment</title>
 <g id="a_node4"><a xlink:title="eya_def_tools.data_models.energy_assessment.EnergyAssessment&#10;&#10;Energy assessment details and results.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;gross_energy_assessment (GrossEnergyAssessment): Details and results for the assessment of gross energy yield.&#10; &#160;&#160;&#160;plant_performance_assessment (PlantPerformanceAssessment): Plant performance loss assessment categories including results.&#10; &#160;&#160;&#160;net_energy_assessment (NetEnergyAssessment): Details and results for the assessment of net energy yield.&#10;">
-<polygon fill="none" stroke="black" points="1509,-589.73 1509,-610.73 1863,-610.73 1863,-589.73 1509,-589.73"/>
-<text text-anchor="start" x="1628.5" y="-597.53" font-family="Times New Roman,serif" font-weight="bold" font-size="14.00">EnergyAssessment</text>
-<polygon fill="none" stroke="black" points="1509,-568.73 1509,-589.73 1691,-589.73 1691,-568.73 1509,-568.73"/>
-<text text-anchor="start" x="1527" y="-575.53" font-family="Times New Roman,serif" font-size="14.00">gross_energy_assessment</text>
-<polygon fill="none" stroke="black" points="1691,-568.73 1691,-589.73 1863,-589.73 1863,-568.73 1691,-568.73"/>
-<text text-anchor="start" x="1706.5" y="-575.53" font-family="Times New Roman,serif" font-size="14.00">GrossEnergyAssessment</text>
-<polygon fill="none" stroke="black" points="1509,-547.73 1509,-568.73 1691,-568.73 1691,-547.73 1509,-547.73"/>
-<text text-anchor="start" x="1512" y="-554.53" font-family="Times New Roman,serif" font-size="14.00">plant_performance_assessment</text>
-<polygon fill="none" stroke="black" points="1691,-547.73 1691,-568.73 1863,-568.73 1863,-547.73 1691,-547.73"/>
-<text text-anchor="start" x="1694" y="-554.53" font-family="Times New Roman,serif" font-size="14.00">PlantPerformanceAssessment</text>
-<polygon fill="none" stroke="black" points="1509,-526.73 1509,-547.73 1691,-547.73 1691,-526.73 1509,-526.73"/>
-<text text-anchor="start" x="1534" y="-533.53" font-family="Times New Roman,serif" font-size="14.00">net_energy_assessment</text>
-<polygon fill="none" stroke="black" points="1691,-526.73 1691,-547.73 1863,-547.73 1863,-526.73 1691,-526.73"/>
-<text text-anchor="start" x="1714" y="-533.53" font-family="Times New Roman,serif" font-size="14.00">NetEnergyAssessment</text>
+<polygon fill="none" stroke="black" points="1509,-585.73 1509,-606.73 1863,-606.73 1863,-585.73 1509,-585.73"/>
+<text text-anchor="start" x="1628.5" y="-593.53" font-family="Times New Roman,serif" font-weight="bold" font-size="14.00">EnergyAssessment</text>
+<polygon fill="none" stroke="black" points="1509,-564.73 1509,-585.73 1691,-585.73 1691,-564.73 1509,-564.73"/>
+<text text-anchor="start" x="1527" y="-571.53" font-family="Times New Roman,serif" font-size="14.00">gross_energy_assessment</text>
+<polygon fill="none" stroke="black" points="1691,-564.73 1691,-585.73 1863,-585.73 1863,-564.73 1691,-564.73"/>
+<text text-anchor="start" x="1706.5" y="-571.53" font-family="Times New Roman,serif" font-size="14.00">GrossEnergyAssessment</text>
+<polygon fill="none" stroke="black" points="1509,-543.73 1509,-564.73 1691,-564.73 1691,-543.73 1509,-543.73"/>
+<text text-anchor="start" x="1512" y="-550.53" font-family="Times New Roman,serif" font-size="14.00">plant_performance_assessment</text>
+<polygon fill="none" stroke="black" points="1691,-543.73 1691,-564.73 1863,-564.73 1863,-543.73 1691,-543.73"/>
+<text text-anchor="start" x="1694" y="-550.53" font-family="Times New Roman,serif" font-size="14.00">PlantPerformanceAssessment</text>
+<polygon fill="none" stroke="black" points="1509,-522.73 1509,-543.73 1691,-543.73 1691,-522.73 1509,-522.73"/>
+<text text-anchor="start" x="1534" y="-529.53" font-family="Times New Roman,serif" font-size="14.00">net_energy_assessment</text>
+<polygon fill="none" stroke="black" points="1691,-522.73 1691,-543.73 1863,-543.73 1863,-522.73 1691,-522.73"/>
+<text text-anchor="start" x="1714" y="-529.53" font-family="Times New Roman,serif" font-size="14.00">NetEnergyAssessment</text>
 </a>
 </g>
 </g>
@@ -139,11 +139,11 @@
 <!-- eya_def_tools.data_models.energy_assessment.EnergyAssessment&#45;&gt;eya_def_tools.data_models.energy_assessment.GrossEnergyAssessment -->
 <g id="edge3" class="edge">
 <title>eya_def_tools.data_models.energy_assessment.EnergyAssessment:e&#45;&gt;eya_def_tools.data_models.energy_assessment.GrossEnergyAssessment:w</title>
-<path fill="none" stroke="black" d="M1864,-579.73C2601.34,-579.73 2789.17,-606.37 3519.12,-606.72"/>
+<path fill="none" stroke="black" d="M1864,-575.73C2601.37,-575.73 2789.14,-606.31 3519.12,-606.72"/>
 <polyline fill="none" stroke="black" points="3534,-606.73 3529,-606.73"/>
 <polygon fill="black" stroke="black" points="3528,-601.73 3528,-611.73 3526,-611.73 3526,-601.73 3528,-601.73"/>
 <polyline fill="none" stroke="black" points="3529,-606.73 3524,-606.73"/>
-<polygon fill="black" stroke="black" points="3523,-601.73 3523,-611.73 3521,-611.72 3521,-601.72 3523,-601.73"/>
+<polygon fill="black" stroke="black" points="3523,-601.72 3523,-611.72 3521,-611.72 3521,-601.72 3523,-601.72"/>
 <polyline fill="none" stroke="black" points="3524,-606.73 3519,-606.72"/>
 </g>
 <!-- eya_def_tools.data_models.energy_assessment.NetEnergyAssessment -->
@@ -166,7 +166,7 @@
 <!-- eya_def_tools.data_models.energy_assessment.EnergyAssessment&#45;&gt;eya_def_tools.data_models.energy_assessment.NetEnergyAssessment -->
 <g id="edge4" class="edge">
 <title>eya_def_tools.data_models.energy_assessment.EnergyAssessment:e&#45;&gt;eya_def_tools.data_models.energy_assessment.NetEnergyAssessment:w</title>
-<path fill="none" stroke="black" d="M1864,-536.73C2601.35,-536.73 2789.15,-508.12 3519.12,-507.73"/>
+<path fill="none" stroke="black" d="M1864,-532.73C2601.32,-532.73 2789.18,-508.06 3519.12,-507.73"/>
 <polyline fill="none" stroke="black" points="3534,-507.73 3529,-507.73"/>
 <polygon fill="black" stroke="black" points="3528,-502.73 3528,-512.73 3526,-512.73 3526,-502.73 3528,-502.73"/>
 <polyline fill="none" stroke="black" points="3529,-507.73 3524,-507.73"/>
@@ -193,12 +193,12 @@
 <!-- eya_def_tools.data_models.energy_assessment.EnergyAssessment&#45;&gt;eya_def_tools.data_models.plant_performance.PlantPerformanceAssessment -->
 <g id="edge5" class="edge">
 <title>eya_def_tools.data_models.energy_assessment.EnergyAssessment:e&#45;&gt;eya_def_tools.data_models.plant_performance.PlantPerformanceAssessment:w</title>
-<path fill="none" stroke="black" d="M1864,-557.73C1992.13,-557.73 1891.34,-319.05 2001.13,-299.94"/>
+<path fill="none" stroke="black" d="M1864,-553.73C1990.66,-553.73 1892.63,-318.74 2001.29,-299.92"/>
 <polyline fill="none" stroke="black" points="2016,-298.73 2011.02,-299.13"/>
-<polygon fill="black" stroke="black" points="2009.61,-294.23 2010.43,-304.2 2008.43,-304.36 2007.62,-294.39 2009.61,-294.23"/>
+<polygon fill="black" stroke="black" points="2009.62,-294.23 2010.42,-304.2 2008.43,-304.36 2007.62,-294.39 2009.62,-294.23"/>
 <polyline fill="none" stroke="black" points="2011.02,-299.13 2006.03,-299.54"/>
-<polygon fill="black" stroke="black" points="2004.63,-294.64 2005.44,-304.61 2003.45,-304.77 2002.64,-294.8 2004.63,-294.64"/>
-<polyline fill="none" stroke="black" points="2006.03,-299.54 2001.05,-299.95"/>
+<polygon fill="black" stroke="black" points="2004.63,-294.63 2005.44,-304.6 2003.45,-304.76 2002.64,-294.8 2004.63,-294.63"/>
+<polyline fill="none" stroke="black" points="2006.03,-299.54 2001.05,-299.94"/>
 </g>
 <!-- eya_def_tools.data_models.energy_assessment.EnergyAssessmentResults -->
 <g id="node8" class="node">
@@ -868,12 +868,12 @@
 <!-- eya_def_tools.data_models.scenario.Scenario&#45;&gt;eya_def_tools.data_models.energy_assessment.EnergyAssessment -->
 <g id="edge36" class="edge">
 <title>eya_def_tools.data_models.scenario.Scenario:e&#45;&gt;eya_def_tools.data_models.energy_assessment.EnergyAssessment:w</title>
-<path fill="none" stroke="black" d="M1356,-912.73C1504.98,-912.73 1364.09,-621.69 1493.25,-601.8"/>
-<polyline fill="none" stroke="black" points="1508,-600.73 1503.01,-601.09"/>
-<polygon fill="black" stroke="black" points="1501.65,-596.17 1502.38,-606.15 1500.38,-606.29 1499.66,-596.32 1501.65,-596.17"/>
-<polyline fill="none" stroke="black" points="1503.01,-601.09 1498.03,-601.45"/>
-<polygon fill="black" stroke="black" points="1496.67,-596.54 1497.39,-606.51 1495.4,-606.65 1494.67,-596.68 1496.67,-596.54"/>
-<polyline fill="none" stroke="black" points="1498.03,-601.45 1493.04,-601.81"/>
+<path fill="none" stroke="black" d="M1356,-912.73C1506.52,-912.73 1362.7,-617.96 1493.1,-597.81"/>
+<polyline fill="none" stroke="black" points="1508,-596.73 1503.01,-597.09"/>
+<polygon fill="black" stroke="black" points="1501.65,-592.18 1502.38,-602.15 1500.38,-602.29 1499.66,-592.32 1501.65,-592.18"/>
+<polyline fill="none" stroke="black" points="1503.01,-597.09 1498.03,-597.45"/>
+<polygon fill="black" stroke="black" points="1496.67,-592.54 1497.39,-602.51 1495.4,-602.66 1494.67,-592.68 1496.67,-592.54"/>
+<polyline fill="none" stroke="black" points="1498.03,-597.45 1493.04,-597.81"/>
 </g>
 <!-- eya_def_tools.data_models.wind_resource.TurbineWindResourceAssessment -->
 <g id="node26" class="node">
@@ -921,32 +921,40 @@
 <!-- eya_def_tools.data_models.wind_farm.OperationalRestriction -->
 <g id="node27" class="node">
 <title>eya_def_tools.data_models.wind_farm.OperationalRestriction</title>
-<g id="a_node27"><a xlink:title="eya_def_tools.data_models.wind_farm.OperationalRestriction&#10;&#10;Specifications of a restriction that limits power output.&#10;&#10;In the current draft of the schema, &#39;label&#39;, &#39;description&#39; and&#10;&#39;comments&#39; fields are available to describe the restriction with&#10;free text. This is intended to be expanded into a more comprehensive&#10;data model.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;label (str): Short label to indicate the type of operational restriction.&#10; &#160;&#160;&#160;description (str): Description of the operational restriction.&#10; &#160;&#160;&#160;comments (Optional[str]): Optional comments on the operational restriction, which should not be empty if the field is included. Default is None.&#10;">
-<polygon fill="none" stroke="black" points="2064,-1825.73 2064,-1846.73 2212,-1846.73 2212,-1825.73 2064,-1825.73"/>
-<text text-anchor="start" x="2067" y="-1833.53" font-family="Times New Roman,serif" font-weight="bold" font-size="14.00">OperationalRestriction</text>
-<polygon fill="none" stroke="black" points="2064,-1804.73 2064,-1825.73 2133,-1825.73 2133,-1804.73 2064,-1804.73"/>
-<text text-anchor="start" x="2085.5" y="-1811.53" font-family="Times New Roman,serif" font-size="14.00">label</text>
-<polygon fill="none" stroke="black" points="2133,-1804.73 2133,-1825.73 2212,-1825.73 2212,-1804.73 2133,-1804.73"/>
-<text text-anchor="start" x="2165" y="-1811.53" font-family="Times New Roman,serif" font-size="14.00">str</text>
-<polygon fill="none" stroke="black" points="2064,-1783.73 2064,-1804.73 2133,-1804.73 2133,-1783.73 2064,-1783.73"/>
-<text text-anchor="start" x="2067" y="-1790.53" font-family="Times New Roman,serif" font-size="14.00">description</text>
-<polygon fill="none" stroke="black" points="2133,-1783.73 2133,-1804.73 2212,-1804.73 2212,-1783.73 2133,-1783.73"/>
-<text text-anchor="start" x="2165" y="-1790.53" font-family="Times New Roman,serif" font-size="14.00">str</text>
-<polygon fill="none" stroke="black" points="2064,-1762.73 2064,-1783.73 2133,-1783.73 2133,-1762.73 2064,-1762.73"/>
-<text text-anchor="start" x="2069.5" y="-1769.53" font-family="Times New Roman,serif" font-size="14.00">comments</text>
-<polygon fill="none" stroke="black" points="2133,-1762.73 2133,-1783.73 2212,-1783.73 2212,-1762.73 2133,-1762.73"/>
-<text text-anchor="start" x="2136.5" y="-1769.53" font-family="Times New Roman,serif" font-size="14.00">Optional[str]</text>
+<g id="a_node27"><a xlink:title="eya_def_tools.data_models.wind_farm.OperationalRestriction&#10;&#10;Specifications of a restriction that limits power output.&#10;&#10;In the current draft of the schema, &#39;label&#39;, &#39;description&#39; and&#10;&#39;comments&#39; fields are available to describe the restriction with&#10;free text. This is intended to be expanded into a more comprehensive&#10;data model.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;label (str): Short label to indicate the type of operational restriction.&#10; &#160;&#160;&#160;description (str): Description of the operational restriction.&#10; &#160;&#160;&#160;comments (Optional[str]): Optional comments on the operational restriction, which should not be empty if the field is included. Default is None.&#10; &#160;&#160;&#160;start_datetime (Optional[datetime]): Optional operational restriction start datetime in the ISO 8601 standard format with the &#39;T&#39; required between the calendar date and time, i.e. YYYY&#45;MM&#45;DDThh:mm:ss. In cases where the time is not relevant (i.e. only the date is relevant), hours, minutes and seconds shall all be set to zero. If using the time part, the timezone of the data must be consistent with the UTC offset specified for the EYA DEF document. Default is None.&#10; &#160;&#160;&#160;end_datetime (Optional[datetime]): Optional operational restriction end datetime in the ISO 8601 standard format with the &#39;T&#39; required between the calendar date and time, i.e. YYYY&#45;MM&#45;DDThh:mm:ss. In cases where the time is not relevant (i.e. only the date is relevant), hours, minutes and seconds shall all be set to zero. If using the time part, the timezone of the data must be consistent with the UTC offset specified for the EYA DEF document. Default is None.&#10;">
+<polygon fill="none" stroke="black" points="2041,-1825.73 2041,-1846.73 2236,-1846.73 2236,-1825.73 2041,-1825.73"/>
+<text text-anchor="start" x="2067.5" y="-1833.53" font-family="Times New Roman,serif" font-weight="bold" font-size="14.00">OperationalRestriction</text>
+<polygon fill="none" stroke="black" points="2041,-1804.73 2041,-1825.73 2126,-1825.73 2126,-1804.73 2041,-1804.73"/>
+<text text-anchor="start" x="2070.5" y="-1811.53" font-family="Times New Roman,serif" font-size="14.00">label</text>
+<polygon fill="none" stroke="black" points="2126,-1804.73 2126,-1825.73 2236,-1825.73 2236,-1804.73 2126,-1804.73"/>
+<text text-anchor="start" x="2173.5" y="-1811.53" font-family="Times New Roman,serif" font-size="14.00">str</text>
+<polygon fill="none" stroke="black" points="2041,-1783.73 2041,-1804.73 2126,-1804.73 2126,-1783.73 2041,-1783.73"/>
+<text text-anchor="start" x="2052" y="-1790.53" font-family="Times New Roman,serif" font-size="14.00">description</text>
+<polygon fill="none" stroke="black" points="2126,-1783.73 2126,-1804.73 2236,-1804.73 2236,-1783.73 2126,-1783.73"/>
+<text text-anchor="start" x="2173.5" y="-1790.53" font-family="Times New Roman,serif" font-size="14.00">str</text>
+<polygon fill="none" stroke="black" points="2041,-1762.73 2041,-1783.73 2126,-1783.73 2126,-1762.73 2041,-1762.73"/>
+<text text-anchor="start" x="2054.5" y="-1769.53" font-family="Times New Roman,serif" font-size="14.00">comments</text>
+<polygon fill="none" stroke="black" points="2126,-1762.73 2126,-1783.73 2236,-1783.73 2236,-1762.73 2126,-1762.73"/>
+<text text-anchor="start" x="2145" y="-1769.53" font-family="Times New Roman,serif" font-size="14.00">Optional[str]</text>
+<polygon fill="none" stroke="black" points="2041,-1741.73 2041,-1762.73 2126,-1762.73 2126,-1741.73 2041,-1741.73"/>
+<text text-anchor="start" x="2044" y="-1748.53" font-family="Times New Roman,serif" font-size="14.00">start_datetime</text>
+<polygon fill="none" stroke="black" points="2126,-1741.73 2126,-1762.73 2236,-1762.73 2236,-1741.73 2126,-1741.73"/>
+<text text-anchor="start" x="2129" y="-1748.53" font-family="Times New Roman,serif" font-size="14.00">Optional[datetime]</text>
+<polygon fill="none" stroke="black" points="2041,-1720.73 2041,-1741.73 2126,-1741.73 2126,-1720.73 2041,-1720.73"/>
+<text text-anchor="start" x="2046" y="-1727.53" font-family="Times New Roman,serif" font-size="14.00">end_datetime</text>
+<polygon fill="none" stroke="black" points="2126,-1720.73 2126,-1741.73 2236,-1741.73 2236,-1720.73 2126,-1720.73"/>
+<text text-anchor="start" x="2129" y="-1727.53" font-family="Times New Roman,serif" font-size="14.00">Optional[datetime]</text>
 </a>
 </g>
 </g>
 <!-- eya_def_tools.data_models.wind_farm.WindFarmConfiguration&#45;&gt;eya_def_tools.data_models.wind_farm.OperationalRestriction -->
 <g id="edge40" class="edge">
 <title>eya_def_tools.data_models.wind_farm.WindFarmConfiguration:e&#45;&gt;eya_def_tools.data_models.wind_farm.OperationalRestriction:w</title>
-<path fill="none" stroke="black" d="M1350,-1773.73C1455.42,-1773.73 1373.3,-1928.01 1464,-1981.73 1633.79,-2082.29 1724.45,-2054.2 1908,-1981.73 1989.4,-1949.59 1971.98,-1852.28 2044.36,-1838.39"/>
-<polyline fill="none" stroke="black" points="2063,-1836.73 2058.02,-1837.17"/>
-<polygon fill="black" stroke="black" points="2056.58,-1832.28 2057.47,-1842.24 2055.47,-1842.42 2054.59,-1832.46 2056.58,-1832.28"/>
-<polyline fill="none" stroke="black" points="2058.02,-1837.17 2053.04,-1837.61"/>
-<ellipse fill="none" stroke="black" cx="2048.56" cy="-1838.01" rx="4" ry="4"/>
+<path fill="none" stroke="black" d="M1350,-1773.73C1455.42,-1773.73 1373.3,-1928.01 1464,-1981.73 1633.79,-2082.29 1727.51,-2061.5 1908,-1981.73 1981.33,-1949.32 1957.7,-1853.83 2021.29,-1838.75"/>
+<polyline fill="none" stroke="black" points="2040,-1836.73 2035.03,-1837.26"/>
+<polygon fill="black" stroke="black" points="2033.5,-1832.4 2034.57,-1842.34 2032.58,-1842.56 2031.51,-1832.61 2033.5,-1832.4"/>
+<polyline fill="none" stroke="black" points="2035.03,-1837.26 2030.06,-1837.8"/>
+<ellipse fill="none" stroke="black" cx="2025.58" cy="-1838.28" rx="4" ry="4"/>
 </g>
 <!-- eya_def_tools.data_models.wind_farm.TurbineConfiguration -->
 <g id="node28" class="node">
@@ -1363,11 +1371,11 @@
 <!-- eya_def_tools.data_models.wind_farm.TurbineConfiguration&#45;&gt;eya_def_tools.data_models.wind_farm.OperationalRestriction -->
 <g id="edge39" class="edge">
 <title>eya_def_tools.data_models.wind_farm.TurbineConfiguration:e&#45;&gt;eya_def_tools.data_models.wind_farm.OperationalRestriction:w</title>
-<path fill="none" stroke="black" d="M1883,-1721.73C1971.26,-1721.73 1968.94,-1821.12 2044.46,-1835.1"/>
-<polyline fill="none" stroke="black" points="2063,-1836.73 2058.02,-1836.29"/>
-<polygon fill="black" stroke="black" points="2057.46,-1831.22 2056.59,-1841.18 2054.59,-1841.01 2055.47,-1831.05 2057.46,-1831.22"/>
-<polyline fill="none" stroke="black" points="2058.02,-1836.29 2053.04,-1835.85"/>
-<ellipse fill="none" stroke="black" cx="2048.56" cy="-1835.46" rx="4" ry="4"/>
+<path fill="none" stroke="black" d="M1883,-1721.73C1962.74,-1721.73 1955.38,-1819.46 2021.51,-1834.73"/>
+<polyline fill="none" stroke="black" points="2040,-1836.73 2035.03,-1836.19"/>
+<polygon fill="black" stroke="black" points="2034.57,-1831.11 2033.5,-1841.06 2031.51,-1840.84 2032.58,-1830.9 2034.57,-1831.11"/>
+<polyline fill="none" stroke="black" points="2035.03,-1836.19 2030.06,-1835.65"/>
+<ellipse fill="none" stroke="black" cx="2025.58" cy="-1835.17" rx="4" ry="4"/>
 </g>
 <!-- eya_def_tools.data_models.wind_resource.TurbineWindResourceResults&#45;&gt;eya_def_tools.data_models.dataset.Dataset -->
 <g id="edge45" class="edge">
