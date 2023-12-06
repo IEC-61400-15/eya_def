@@ -70,8 +70,8 @@ class EyaDefGenerateJsonSchema(pdt.json_schema.GenerateJsonSchema):
             return 0
 
         count = 0
-        for key, value in json_schema_dict.items():
-            if key == "$ref" and value == f"#/$defs/{definition_label}":
+        for value in json_schema_dict.values():
+            if value == f"#/$defs/{definition_label}":
                 return count + 1
             elif isinstance(value, dict):
                 count = count + cls._recursive_get_definition_count(
