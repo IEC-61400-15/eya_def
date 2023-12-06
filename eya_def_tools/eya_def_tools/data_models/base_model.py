@@ -7,17 +7,18 @@ import re
 from typing import Any
 
 import pydantic as pdt
+import pydantic.json_schema as pdt_json_schema
 import pydantic_core as pdt_core
 
 
-class EyaDefGenerateJsonSchema(pdt.json_schema.GenerateJsonSchema):
+class EyaDefGenerateJsonSchema(pdt_json_schema.GenerateJsonSchema):
     """Custom JSON Schema generator for the EYA DEF top-level model."""
 
     def generate(
         self,
         schema: pdt_core.CoreSchema,
-        mode: pdt.json_schema.JsonSchemaMode = "validation",
-    ) -> pdt.json_schema.JsonSchemaValue:
+        mode: pdt_json_schema.JsonSchemaMode = "validation",
+    ) -> pdt_json_schema.JsonSchemaValue:
         """Generate a JSON Schema from a pydantic schema.
 
         :param schema: the pydantic code schema to generate the JSON
@@ -166,12 +167,12 @@ class EyaDefBaseModel(pdt.BaseModel):
     def model_json_schema(
         cls,
         by_alias: bool = True,
-        ref_template: str = pdt.json_schema.DEFAULT_REF_TEMPLATE,
+        ref_template: str = pdt_json_schema.DEFAULT_REF_TEMPLATE,
         schema_generator: (
-            type[pdt.json_schema.GenerateJsonSchema]
+            type[pdt_json_schema.GenerateJsonSchema]
         ) = EyaDefGenerateJsonSchema,
-        mode: pdt.json_schema.JsonSchemaMode = "validation",
-    ) -> pdt.json_schema.JsonSchemaValue:
+        mode: pdt_json_schema.JsonSchemaMode = "validation",
+    ) -> pdt_json_schema.JsonSchemaValue:
         """Generate a JSON Schema dictionary for a model class.
 
         This class method is identical to the one defined on
@@ -186,7 +187,7 @@ class EyaDefBaseModel(pdt.BaseModel):
         :param mode: the mode in which to generate the JSON Schema
         :return: a ``dict`` representation of the JSON Schema
         """
-        return pdt.json_schema.model_json_schema(
+        return pdt_json_schema.model_json_schema(
             cls,
             by_alias=by_alias,
             ref_template=ref_template,
@@ -198,11 +199,11 @@ class EyaDefBaseModel(pdt.BaseModel):
     def model_json_schema_str(
         cls,
         by_alias: bool = True,
-        ref_template: str = pdt.json_schema.DEFAULT_REF_TEMPLATE,
+        ref_template: str = pdt_json_schema.DEFAULT_REF_TEMPLATE,
         schema_generator: (
-            type[pdt.json_schema.GenerateJsonSchema]
+            type[pdt_json_schema.GenerateJsonSchema]
         ) = EyaDefGenerateJsonSchema,
-        mode: pdt.json_schema.JsonSchemaMode = "validation",
+        mode: pdt_json_schema.JsonSchemaMode = "validation",
         indent: int = 2,
     ) -> str:
         """Generate a JSON Schema string for a model class.

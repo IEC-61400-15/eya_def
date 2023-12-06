@@ -210,9 +210,9 @@
 <!-- eya_def_tools.data_models.wind_resource.WindResourceResults&#45;&gt;eya_def_tools.data_models.dataset.Dataset -->
 <g id="edge7" class="edge">
 <title>eya_def_tools.data_models.wind_resource.WindResourceResults:e&#45;&gt;eya_def_tools.data_models.dataset.Dataset:w</title>
-<path fill="none" stroke="black" d="M686,-264.75C686.1,-264.75 686.19,-264.75 686.29,-264.75"/>
-<polygon fill="black" stroke="black" points="783.87,-244.82 794.57,-247.23 789.1,-243.75 793.34,-242.88 793.34,-242.88 793.34,-242.88 789.1,-243.75 792.77,-238.41 783.87,-244.82"/>
-<ellipse fill="none" stroke="black" cx="778.27" cy="-245.96" rx="4" ry="4"/>
+<path fill="none" stroke="black" d="M686,-264.75C727.33,-264.75 740.93,-249.09 773.59,-244.19"/>
+<polygon fill="black" stroke="black" points="783.69,-243.48 793.98,-247.26 789.01,-243.1 793.33,-242.8 793.33,-242.8 793.33,-242.8 789.01,-243.1 793.35,-238.28 783.69,-243.48"/>
+<ellipse fill="none" stroke="black" cx="777.99" cy="-243.88" rx="4" ry="4"/>
 </g>
 <!-- eya_def_tools.data_models.wind_resource.WindResourceResults&#45;&gt;eya_def_tools.data_models.dataset.Dataset -->
 <g id="edge8" class="edge">
