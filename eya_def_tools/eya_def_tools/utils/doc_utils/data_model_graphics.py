@@ -88,15 +88,7 @@ def draw_full_diagram_for_model_class(model_class: type[EyaDefBaseModel]) -> Non
 
 
 def draw_to_files(diagram: erd.EntityRelationshipDiagram, filename: str) -> None:
-    draw_svg(diagram=diagram, filename=filename)
-    draw_png(diagram=diagram, filename=filename)
-
-
-def draw_svg(diagram: erd.EntityRelationshipDiagram, filename: str) -> None:
     diagram.draw(f"{filename}.svg")
-
-
-def draw_png(diagram: erd.EntityRelationshipDiagram, filename: str) -> None:
     diagram.draw(f"{filename}.png")
 
 
