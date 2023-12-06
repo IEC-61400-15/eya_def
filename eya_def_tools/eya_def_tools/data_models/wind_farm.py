@@ -111,7 +111,7 @@ class TurbineConfiguration(EyaDefBaseModel):
     )
     hub_height: float = pdt.Field(
         default=...,
-        description="The hub height of the turbine (in m).",
+        description="The hub height of the turbine above ground level (in m).",
     )
 
     # TODO: - need to link "turbine_model_id" to the relevant field

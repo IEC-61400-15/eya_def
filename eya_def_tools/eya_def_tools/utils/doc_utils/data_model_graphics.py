@@ -17,7 +17,9 @@ from eya_def_tools.data_models.eya_def import EyaDefDocument
 from eya_def_tools.data_models.eya_def_header import ReportContributor
 from eya_def_tools.data_models.general import Organisation
 from eya_def_tools.data_models.plant_performance import PlantPerformanceAssessment
-from eya_def_tools.data_models.reference_met_data import ReferenceMeteorologicalDataset
+from eya_def_tools.data_models.reference_met_data import (
+    ReferenceMeteorologicalDatasetMetadata,
+)
 from eya_def_tools.data_models.reference_wind_farm import ReferenceWindFarm
 from eya_def_tools.data_models.scenario import Scenario
 from eya_def_tools.data_models.wind_farm import WindFarmConfiguration
@@ -53,7 +55,7 @@ def draw_eya_def_top_level() -> None:
             Organisation,
             WindFarmConfiguration,
             ReferenceWindFarm,
-            ReferenceMeteorologicalDataset,
+            ReferenceMeteorologicalDatasetMetadata,
             WindResourceAssessment,
             Scenario,
         ],

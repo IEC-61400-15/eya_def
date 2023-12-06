@@ -23,7 +23,7 @@ from eya_def_tools.data_models import (
     eya_def,
     eya_def_header,
     general,
-    measurement_station,
+    iea43_wra_data_model,
     plant_performance,
 )
 from eya_def_tools.data_models import process_description as eya_prcs_desc
@@ -217,7 +217,7 @@ def json_examples_tmp_dirpath(tmp_path_factory: pytest.TempPathFactory) -> Path:
 def iea43_wra_data_model_json_schema() -> dict[str, Any]:
     """The IEA Task 43 WRA Data Model JSON Schema."""
     with urllib_request.urlopen(
-        measurement_station.IEA43_WRA_DATA_MODEL_SCHEMA_URI
+        iea43_wra_data_model.IEA43_WRA_DATA_MODEL_SCHEMA_URI
     ) as url:
         json_schema = json.load(url)
     return json_schema
@@ -518,66 +518,74 @@ def measurement_station_a_filepath(json_examples_dirpath: Path) -> Path:
 @pytest.fixture(scope="session")
 def measurement_station_a(
     measurement_station_a_filepath: Path,
-) -> measurement_station.MeasurementStationMetadata:
+) -> iea43_wra_data_model.WraDataModelDocument:
     """Test case instance 'a' of ``MeasurementStationMetadata``."""
     with open(measurement_station_a_filepath, "r") as f:
         json_data_dict = json.load(f)
 
-    return measurement_station.MeasurementStationMetadata(json_data_dict)
+    return iea43_wra_data_model.WraDataModelDocument(json_data_dict)
 
 
 @pytest.fixture(scope="session")
-def reference_wind_farm_dataset_a() -> reference_wind_farm.ReferenceWindFarmDataset:
+def reference_wind_farm_dataset_a() -> reference_wind_farm.OperationalDatasetMetadata:
     """Test case instance 'a' of ``ReferenceWindFarmDataset``."""
-    return reference_wind_farm.ReferenceWindFarmDataset(
+    return reference_wind_farm.OperationalDatasetMetadata(
+        id="munro_wind_farm_reference_wtg_scada",
         label="WTG SCADA",
-        data_supplier_organisation=general.Organisation(
+        classification=reference_wind_farm.SingleSourceDatasetClassification(
+            data_type=reference_wind_farm.OperationalDataType.SCADA,
+            data_source_type=reference_wind_farm.OperationalDataSourceType.SECONDARY,
+        ),
+        supplying_organisation=general.Organisation(
             name="Munro Wind Limited",
             abbreviation="Munro Wind",
             address="High Munro Walk, Glasgow, G12 0YE, UK",
         ),
-        data_type=reference_wind_farm.OperationalDataType.SCADA,
-        data_source_type=reference_wind_farm.OperationalDataSourceType.OTHER_SECONDARY,
-        used_data_variables=[
-            reference_wind_farm.ReferenceWindFarmDataVariable(
-                label="wind_speed",
+        integrity_verification=(
+            "The data were downloaded through direct connection to the "
+            "site SCADA database. No further integrity verification "
+            "was possible."
+        ),
+        time_resolution=general.TimeResolution(
+            value=10, unit=general.TimeMeasurementUnit.MINUTE
+        ),
+        start_date=dt.date(2020, 1, 1),
+        end_date=dt.date(2022, 12, 31),
+        data_variables=[
+            reference_wind_farm.OperationalDataVariable(
+                id="wind_speed",
                 data_level=reference_wind_farm.OperationalDataLevel.TURBINE_LEVEL,
                 statistic_types=[dataset.BasicStatisticType.MEAN],
             ),
-            reference_wind_farm.ReferenceWindFarmDataVariable(
-                label="active_power",
+            reference_wind_farm.OperationalDataVariable(
+                id="active_power",
                 data_level=reference_wind_farm.OperationalDataLevel.TURBINE_LEVEL,
                 statistic_types=[dataset.BasicStatisticType.MEAN],
             ),
-            reference_wind_farm.ReferenceWindFarmDataVariable(
-                label="rotor_speed",
+            reference_wind_farm.OperationalDataVariable(
+                id="rotor_speed",
                 data_level=reference_wind_farm.OperationalDataLevel.TURBINE_LEVEL,
                 statistic_types=[dataset.BasicStatisticType.MEAN],
             ),
-            reference_wind_farm.ReferenceWindFarmDataVariable(
-                label="temperature",
+            reference_wind_farm.OperationalDataVariable(
+                id="temperature",
                 comments="The sensor is mounted outside, below the nacelle.",
                 data_level=reference_wind_farm.OperationalDataLevel.TURBINE_LEVEL,
                 statistic_types=[dataset.BasicStatisticType.MEAN],
             ),
         ],
-        time_resolution=general.TimeResolution(
-            value=10, unit=general.TimeMeasurementUnit.MINUTE
-        ),
-        data_period_start_date=dt.date(2020, 1, 1),
-        data_period_end_date=dt.date(2022, 12, 31),
     )
 
 
 @pytest.fixture(scope="session")
 def reference_wind_farm_a(
-    reference_wind_farm_dataset_a: reference_wind_farm.ReferenceWindFarmDataset,
+    reference_wind_farm_dataset_a: reference_wind_farm.OperationalDatasetMetadata,
 ) -> reference_wind_farm.ReferenceWindFarm:
     """Test case instance 'a' of ``ReferenceWindFarm``."""
     return reference_wind_farm.ReferenceWindFarm(
         id="munro_wind_farm_reference",
         wind_farm_id="mu",
-        datasets=[reference_wind_farm_dataset_a],
+        operational_datasets=[reference_wind_farm_dataset_a],
     )
 
 
@@ -586,11 +594,73 @@ def wind_resource_assessment_a() -> wind_resource.WindResourceAssessment:
     """Test case instance 'a' of ``WindResourceAssessment``."""
     return wind_resource.WindResourceAssessment(
         id="BfWF_WRA_1",
+        input_characteristics=wind_resource.WindResourceInputCharacteristics(
+            data_availability=[
+                dataset.Dataset(
+                    dimensions=[
+                        dataset.DatasetDimension.WIND_DATASET_ID,
+                        dataset.DatasetDimension.POINT_ID,
+                        dataset.DatasetDimension.YEAR,
+                        dataset.DatasetDimension.MONTH,
+                    ],
+                    statistics=[
+                        dataset.DatasetStatistic(
+                            statistic_type=dataset.BasicStatisticType.MEAN,
+                            values=[
+                                (["BF_M1", "Spd_80.1_315", 2021, 1], 0.877),
+                                (["BF_M1", "Spd_80.1_315", 2021, 2], 0.992),
+                                (["BF_M1", "Spd_80mSE", 2021, 1], 0.886),
+                                (["BF_M1", "Spd_80mSE", 2021, 2], 0.994),
+                            ],
+                        )
+                    ],
+                ),
+                dataset.Dataset(
+                    dimensions=[
+                        dataset.DatasetDimension.REFERENCE_WIND_FARM_ID,
+                        dataset.DatasetDimension.OPERATIONAL_DATASET_ID,
+                        dataset.DatasetDimension.VARIABLE_ID,
+                        dataset.DatasetDimension.TURBINE_ID,
+                        dataset.DatasetDimension.YEAR,
+                        dataset.DatasetDimension.MONTH,
+                    ],
+                    statistics=[
+                        dataset.DatasetStatistic(
+                            statistic_type=dataset.BasicStatisticType.MEAN,
+                            values=[
+                                (
+                                    [
+                                        "munro_wind_farm_reference",
+                                        "munro_wind_farm_reference_wtg_scada",
+                                        "active_power",
+                                        "f08b05bd-f90b-4833-91a5-4284b64c80db",
+                                        2019,
+                                        1,
+                                    ],
+                                    0.989,
+                                ),
+                                (
+                                    [
+                                        "munro_wind_farm_reference",
+                                        "munro_wind_farm_reference_wtg_scada",
+                                        "active_power",
+                                        "b87f21bc-e1d8-4150-a2f4-d7f019bf96fc",
+                                        2019,
+                                        1,
+                                    ],
+                                    0.991,
+                                ),
+                            ],
+                        )
+                    ],
+                ),
+            ],
+        ),
         results=wind_resource.WindResourceResults(
             wind_speed=[
                 dataset.Dataset(
                     dimensions=[
-                        dataset.DatasetDimension.MEASUREMENT_ID,
+                        dataset.DatasetDimension.WIND_DATASET_ID,
                         dataset.DatasetDimension.HEIGHT,
                     ],
                     statistics=[
@@ -660,7 +730,7 @@ def wind_resource_assessment_a() -> wind_resource.WindResourceAssessment:
             probability=[
                 dataset.Dataset(
                     dimensions=[
-                        dataset.DatasetDimension.MEASUREMENT_ID,
+                        dataset.DatasetDimension.WIND_DATASET_ID,
                         dataset.DatasetDimension.HEIGHT,
                         dataset.DatasetDimension.WIND_FROM_DIRECTION,
                         dataset.DatasetDimension.WIND_SPEED,
@@ -700,7 +770,7 @@ def wind_resource_assessment_a() -> wind_resource.WindResourceAssessment:
             ],
             wind_shear_exponent=[
                 dataset.Dataset(
-                    dimensions=[dataset.DatasetDimension.MEASUREMENT_ID],
+                    dimensions=[dataset.DatasetDimension.WIND_DATASET_ID],
                     statistics=[
                         dataset.DatasetStatistic(
                             statistic_type=dataset.BasicStatisticType.MEAN,
@@ -717,7 +787,7 @@ def wind_resource_assessment_a() -> wind_resource.WindResourceAssessment:
             temperature=[
                 dataset.Dataset(
                     dimensions=[
-                        dataset.DatasetDimension.MEASUREMENT_ID,
+                        dataset.DatasetDimension.WIND_DATASET_ID,
                         dataset.DatasetDimension.HEIGHT,
                     ],
                     statistics=[
@@ -736,7 +806,7 @@ def wind_resource_assessment_a() -> wind_resource.WindResourceAssessment:
             air_density=[
                 dataset.Dataset(
                     dimensions=[
-                        dataset.DatasetDimension.MEASUREMENT_ID,
+                        dataset.DatasetDimension.WIND_DATASET_ID,
                         dataset.DatasetDimension.HEIGHT,
                     ],
                     statistics=[
@@ -775,7 +845,7 @@ def long_term_adj_uncertainty_subcat_a() -> wind_uncertainty.WindUncertaintySubc
             relative_wind_speed_uncertainty=[
                 dataset.Dataset(
                     assessment_period=dataset.AssessmentPeriod.LIFETIME,
-                    dimensions=[dataset.DatasetDimension.MEASUREMENT_ID],
+                    dimensions=[dataset.DatasetDimension.WIND_DATASET_ID],
                     statistics=[
                         dataset.DatasetStatistic(
                             statistic_type=(
@@ -808,7 +878,7 @@ def lt_consistency_uncertainty_subcat_a() -> (
             relative_wind_speed_uncertainty=[
                 dataset.Dataset(
                     assessment_period=dataset.AssessmentPeriod.LIFETIME,
-                    dimensions=[dataset.DatasetDimension.MEASUREMENT_ID],
+                    dimensions=[dataset.DatasetDimension.WIND_DATASET_ID],
                     statistics=[
                         dataset.DatasetStatistic(
                             statistic_type=(
@@ -844,7 +914,7 @@ def historical_wind_uncertainty_category_a(
             relative_wind_speed_uncertainty=[
                 dataset.Dataset(
                     assessment_period=dataset.AssessmentPeriod.LIFETIME,
-                    dimensions=[dataset.DatasetDimension.MEASUREMENT_ID],
+                    dimensions=[dataset.DatasetDimension.WIND_DATASET_ID],
                     statistics=[
                         dataset.DatasetStatistic(
                             statistic_type=(
@@ -1537,7 +1607,7 @@ def eya_def_a(
     wind_farm_a: wind_farm.WindFarmConfiguration,
     wind_farm_b: wind_farm.WindFarmConfiguration,
     neighbouring_wind_farm_a: wind_farm.WindFarmConfiguration,
-    measurement_station_a: measurement_station.MeasurementStationMetadata,
+    measurement_station_a: iea43_wra_data_model.WraDataModelDocument,
     reference_wind_farm_a: reference_wind_farm.ReferenceWindFarm,
     turbine_model_a: turbine_model.TurbineModelSpecifications,
     turbine_model_b: turbine_model.TurbineModelSpecifications,
