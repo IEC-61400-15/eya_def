@@ -4,12 +4,12 @@ default_stages: [commit, push]
 fail_fast: false
 repos:
   - repo: https://github.com/psf/black
-    rev: 23.11.0
+    rev: 23.12.0
     hooks:
       - id: black
         name: black
   - repo: https://github.com/timothycrosley/isort
-    rev: 5.12.0
+    rev: 5.13.2
     hooks:
       - id: isort
         name: isort
@@ -54,6 +54,10 @@ repos:
       - id: mypy
         args: [--config-file, eya_def_tools/pyproject.toml]
         additional_dependencies: [
+          pandas==2.1.4,
+          pandas-stubs==2.1.4.231218,
+          pycountry==23.12.11,
           pydantic==2.5.2,
+          pytest==7.4.3,
           types-jsonschema==4.20.0.0,
         ]
