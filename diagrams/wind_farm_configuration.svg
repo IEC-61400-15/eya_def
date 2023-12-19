@@ -13,7 +13,7 @@
 <!-- eya_def_tools.data_models.spatial.Location -->
 <g id="node1" class="node">
 <title>eya_def_tools.data_models.spatial.Location</title>
-<g id="a_node1"><a xlink:title="eya_def_tools.data_models.spatial.Location&#10;&#10;Specification of a horizontal location in space.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;x (float): Location x&#45;coordinate (typically easing).&#10; &#160;&#160;&#160;y (float): Location y&#45;coordinate (typically northing).&#10;">
+<g id="a_node1"><a xlink:title="eya_def_tools.data_models.spatial.Location&#10;&#10;Specification of a horizontal location in space.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;x (float): Location x&#45;coordinate (typically easting).&#10; &#160;&#160;&#160;y (float): Location y&#45;coordinate (typically northing).&#10;">
 <polygon fill="none" stroke="black" points="1062.5,-283.75 1062.5,-305.75 1122.5,-305.75 1122.5,-283.75 1062.5,-283.75"/>
 <text text-anchor="start" x="1065.5" y="-290.45" font-family="Times New Roman,serif" font-weight="bold" font-size="14.00">Location</text>
 <polygon fill="none" stroke="black" points="1062.5,-262.75 1062.5,-283.75 1083.5,-283.75 1083.5,-262.75 1062.5,-262.75"/>

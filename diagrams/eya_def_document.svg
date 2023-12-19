@@ -758,9 +758,9 @@
 <!-- eya_def_tools.data_models.eya_def.EyaDefDocument&#45;&gt;eya_def_tools.data_models.wind_resource.WindResourceAssessment -->
 <g id="edge18" class="edge">
 <title>eya_def_tools.data_models.eya_def.EyaDefDocument:e&#45;&gt;eya_def_tools.data_models.wind_resource.WindResourceAssessment:w</title>
-<path fill="none" stroke="black" d="M891,-1844.31C1120.95,-1844.31 831.35,-1495.7 999,-1338.31 1259.75,-1093.52 1437.36,-1220.31 1795,-1220.31 1795,-1220.31 1795,-1220.31 2795,-1220.31 3207.96,-1220.31 3314.71,-1273.53 3717.65,-1275.27"/>
-<polygon fill="black" stroke="black" points="3727.67,-1275.29 3737.66,-1279.81 3733,-1275.3 3737.33,-1275.31 3737.33,-1275.31 3737.33,-1275.31 3733,-1275.3 3737.68,-1270.81 3727.67,-1275.29"/>
-<ellipse fill="none" stroke="black" cx="3721.95" cy="-1275.28" rx="4" ry="4"/>
+<path fill="none" stroke="black" d="M891,-1844.31C1120.95,-1844.31 831.35,-1495.7 999,-1338.31 1259.75,-1093.52 1437.36,-1220.31 1795,-1220.31 1795,-1220.31 1795,-1220.31 1795.06,-1220.31"/>
+<polygon fill="black" stroke="black" points="3727.67,-1275.02 3737.54,-1279.8 3733,-1275.17 3737.33,-1275.29 3737.33,-1275.29 3737.33,-1275.29 3733,-1275.17 3737.79,-1270.8 3727.67,-1275.02"/>
+<ellipse fill="none" stroke="black" cx="3721.95" cy="-1274.86" rx="4" ry="4"/>
 </g>
 <!-- eya_def_tools.data_models.general.TimeResolution -->
 <g id="node18" class="node">
@@ -792,7 +792,7 @@
 <!-- eya_def_tools.data_models.spatial.IdLocation -->
 <g id="node23" class="node">
 <title>eya_def_tools.data_models.spatial.IdLocation</title>
-<g id="a_node23"><a xlink:title="eya_def_tools.data_models.spatial.IdLocation&#10;&#10;Specification of a horizontal location in space with an ID.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;id (str): Unique ID for the location within the EYA DEF document.&#10; &#160;&#160;&#160;x (float): Location x&#45;coordinate (typically easing).&#10; &#160;&#160;&#160;y (float): Location y&#45;coordinate (typically northing).&#10;">
+<g id="a_node23"><a xlink:title="eya_def_tools.data_models.spatial.IdLocation&#10;&#10;Specification of a horizontal location in space with an ID.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;id (str): Unique ID for the location within the EYA DEF document.&#10; &#160;&#160;&#160;x (float): Location x&#45;coordinate (typically easting).&#10; &#160;&#160;&#160;y (float): Location y&#45;coordinate (typically northing).&#10;">
 <polygon fill="none" stroke="black" points="1760,-1417.81 1760,-1439.81 1832,-1439.81 1832,-1417.81 1760,-1417.81"/>
 <text text-anchor="start" x="1762.62" y="-1424.51" font-family="Times New Roman,serif" font-weight="bold" font-size="14.00">IdLocation</text>
 <polygon fill="none" stroke="black" points="1760,-1396.81 1760,-1417.81 1789,-1417.81 1789,-1396.81 1760,-1396.81"/>
@@ -1441,7 +1441,7 @@
 <!-- eya_def_tools.data_models.spatial.Location -->
 <g id="node29" class="node">
 <title>eya_def_tools.data_models.spatial.Location</title>
-<g id="a_node29"><a xlink:title="eya_def_tools.data_models.spatial.Location&#10;&#10;Specification of a horizontal location in space.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;x (float): Location x&#45;coordinate (typically easing).&#10; &#160;&#160;&#160;y (float): Location y&#45;coordinate (typically northing).&#10;">
+<g id="a_node29"><a xlink:title="eya_def_tools.data_models.spatial.Location&#10;&#10;Specification of a horizontal location in space.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;x (float): Location x&#45;coordinate (typically easting).&#10; &#160;&#160;&#160;y (float): Location y&#45;coordinate (typically northing).&#10;">
 <polygon fill="none" stroke="black" points="2326,-1965.31 2326,-1987.31 2386,-1987.31 2386,-1965.31 2326,-1965.31"/>
 <text text-anchor="start" x="2329" y="-1972.01" font-family="Times New Roman,serif" font-weight="bold" font-size="14.00">Location</text>
 <polygon fill="none" stroke="black" points="2326,-1944.31 2326,-1965.31 2347,-1965.31 2347,-1944.31 2326,-1944.31"/>
@@ -1599,9 +1599,9 @@
 <!-- eya_def_tools.data_models.wind_resource.WindResourceResults&#45;&gt;eya_def_tools.data_models.dataset.Dataset -->
 <g id="edge55" class="edge">
 <title>eya_def_tools.data_models.wind_resource.WindResourceResults:e&#45;&gt;eya_def_tools.data_models.dataset.Dataset:w</title>
-<path fill="none" stroke="black" d="M4526.5,-1148.31C4526.61,-1148.31 4526.71,-1148.31 4526.82,-1148.31"/>
-<polygon fill="black" stroke="black" points="4657.28,-951.92 4666.56,-946.08 4660.23,-947.47 4662.63,-943.87 4662.63,-943.87 4662.63,-943.87 4660.23,-947.47 4659.07,-941.1 4657.28,-951.92"/>
-<ellipse fill="none" stroke="black" cx="4654.12" cy="-956.68" rx="4" ry="4"/>
+<path fill="none" stroke="black" d="M4526.5,-1148.31C4628.37,-1148.31 4564.05,-970.75 4642.87,-946.13"/>
+<polygon fill="black" stroke="black" points="4652.77,-944.74 4663.29,-947.81 4658.05,-944 4662.34,-943.4 4662.34,-943.4 4662.34,-943.4 4658.05,-944 4662.04,-938.9 4652.77,-944.74"/>
+<ellipse fill="none" stroke="black" cx="4647.1" cy="-945.54" rx="4" ry="4"/>
 </g>
 <!-- eya_def_tools.data_models.wind_resource.WindResourceResults&#45;&gt;eya_def_tools.data_models.dataset.Dataset -->
 <g id="edge56" class="edge">

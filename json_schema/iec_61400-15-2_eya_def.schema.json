@@ -1283,7 +1283,7 @@
                           "type": "string"
                         },
                         "x": {
-                          "description": "Location x-coordinate (typically easing).",
+                          "description": "Location x-coordinate (typically easting).",
                           "examples": [
                             419665.0
                           ],
@@ -2870,7 +2870,7 @@
                   "description": "The horizontal spatial location of the turbine.",
                   "properties": {
                     "x": {
-                      "description": "Location x-coordinate (typically easing).",
+                      "description": "Location x-coordinate (typically easting).",
                       "examples": [
                         419665.0
                       ],

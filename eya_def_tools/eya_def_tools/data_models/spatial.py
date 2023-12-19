@@ -8,7 +8,7 @@ from eya_def_tools.data_models.base_model import EyaDefBaseModel
 
 x_field: float = pdt.Field(
     ...,
-    description="Location x-coordinate (typically easing).",
+    description="Location x-coordinate (typically easting).",
     examples=[419665.0],
 )
 
