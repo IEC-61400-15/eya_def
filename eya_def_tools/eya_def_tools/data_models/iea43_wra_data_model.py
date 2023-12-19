@@ -1,4 +1,4 @@
-"""Data models relating to measurement station metadata.
+"""References to the IEA Task 43 WRA Data Model.
 
 """
 
@@ -15,7 +15,7 @@ IEA43_WRA_DATA_MODEL_SCHEMA_URI: Final[str] = (
 )
 
 
-MeasurementStationMetadata = Annotated[
+WraDataModelDocument = Annotated[
     dict[NonEmptyStr, Any],
     pdt.WithJsonSchema(
         json_schema={

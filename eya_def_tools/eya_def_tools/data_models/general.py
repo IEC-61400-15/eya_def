@@ -14,7 +14,7 @@ from eya_def_tools.data_models.base_model import EyaDefBaseModel
 NonEmptyStr = Annotated[str, pdt.Field(min_length=1)]
 
 
-data_period_start_date_field = pdt.Field(
+start_date_field = pdt.Field(
     default=...,
     description=(
         "Start of the data period in the ISO 8601 standard format for a "
@@ -23,7 +23,7 @@ data_period_start_date_field = pdt.Field(
     examples=["2015-10-20"],
 )
 
-data_period_end_date_field = pdt.Field(
+end_date_field = pdt.Field(
     default=...,
     description=(
         "End of the data period in the ISO 8601 standard format for a "
@@ -83,7 +83,7 @@ class MeasurementQuantity(StrEnum):
 
     AIR_DENSITY = auto()
     ANNUAL_ENERGY_PRODUCTION = auto()
-    DATA_RECOVERY_RATE = auto()
+    DATA_AVAILABILITY = auto()
     DISTANCE = auto()
     EFFICIENCY = auto()
     ENERGY = auto()
@@ -91,6 +91,7 @@ class MeasurementQuantity(StrEnum):
     PROBABILITY = auto()
     RELATIVE_ENERGY_UNCERTAINTY = auto()
     RELATIVE_WIND_SPEED_UNCERTAINTY = auto()
+    ROTOR_SPEED = auto()
     WIND_SHEAR_EXPONENT = auto()
     TEMPERATURE = auto()
     TIME = auto()
@@ -106,7 +107,7 @@ class MeasurementQuantity(StrEnum):
                 return MeasurementUnit.KILOGRAM_PER_CUBIC_METRE
             case MeasurementQuantity.ANNUAL_ENERGY_PRODUCTION:
                 return MeasurementUnit.GIGAWATT_HOUR_PER_ANNUM
-            case MeasurementQuantity.DATA_RECOVERY_RATE:
+            case MeasurementQuantity.DATA_AVAILABILITY:
                 return MeasurementUnit.ONE
             case MeasurementQuantity.DISTANCE:
                 return MeasurementUnit.METRE
@@ -122,6 +123,8 @@ class MeasurementQuantity(StrEnum):
                 return MeasurementUnit.ONE
             case MeasurementQuantity.RELATIVE_WIND_SPEED_UNCERTAINTY:
                 return MeasurementUnit.ONE
+            case MeasurementQuantity.ROTOR_SPEED:
+                return MeasurementUnit.RPM
             case MeasurementQuantity.WIND_SHEAR_EXPONENT:
                 return MeasurementUnit.ONE
             case MeasurementQuantity.TEMPERATURE:
@@ -139,16 +142,17 @@ class MeasurementQuantity(StrEnum):
 class MeasurementUnit(StrEnum):
     """Standard unit in which a quantity is measured."""
 
-    DEGREE = "degree"
+    DEGREE = auto()
     DEGREE_CELSIUS = "degree_C"
-    MEGAWATT = "MW"
     GIGAWATT_HOUR = "GW h"
     GIGAWATT_HOUR_PER_ANNUM = "GW h year-1"
     HOUR = "h"
     KILOGRAM_PER_CUBIC_METRE = "kg m-3"
+    MEGAWATT = "MW"
     METRE = "m"
     METRE_PER_SECOND = "m s-1"
     ONE = "1"  # Applies to all dimensionless quantities
+    RPM = auto()
 
 
 class TimeMeasurementUnit(StrEnum):

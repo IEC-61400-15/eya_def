@@ -1,16 +1,18 @@
 [build-system]
-requires = ["setuptools>=65.6", "wheel>=0.38"]
+requires = ["setuptools>=69.0", "wheel>=0.42"]
 
 [project]
 name = "eya_def_tools"
-version = "0.0.1a4"
+version = "0.0.1a5"
 authors = [
   {name="Christian Jonsson", email="christianj@naturalpower.com"},
   {name="Stephen Holleran", email="stephen@brightwindanalysis.com"},
-  {name="Thomas van Delft", email="thomas.vandelft@dnv.com"},
+  {name="Jason Fields", email="jason@empowr.io"},
   {name="Charlie Plumley", email="charlie.plumley@cubicoinvest.com"},
+  {name="Alina Brenneke", email="alina.brenneke@rwe.com"},
   {name="Bjarke Tobias Olsen", email="btol@dtu.dk"},
-  {name="M. Jason Fields", email="michael.fields@nrel.gov"},
+  {name="Philippe Beaucage", email="philippe.beaucage@ul.com"},
+  {name="Jonny Crease", email="jonny@boxkite.eco"},
   {name="Mark Stoelinga", email="mark.stoelinga@arcvera.com"},
   {name="Andrew Henderson", email="arh@cop.dk"},
 ]
@@ -71,17 +73,8 @@ warn_unused_ignores = true
 [[tool.mypy.overrides]]
 module = [
     "erdantic.*",
-    "pandas.*",
-    "pycountry.*",
-    "pytest.*",
 ]
 ignore_missing_imports = true
-
-[[tool.mypy.overrides]]
-module = [
-    "eya_def_tools.tests.*",
-]
-disallow_untyped_decorators = false
 
 [tool.pydantic-mypy]
 init_forbid_extra = true

@@ -2041,40 +2041,31 @@
   ],
   "reference_wind_farms": [
     {
-      "datasets": [
+      "id": "munro_wind_farm_reference",
+      "operational_datasets": [
         {
-          "data_period_end_date": "2022-12-31",
-          "data_period_start_date": "2020-01-01",
-          "data_source_type": "other_secondary",
-          "data_supplier_organisation": {
-            "abbreviation": "Munro Wind",
-            "address": "High Munro Walk, Glasgow, G12 0YE, UK",
-            "name": "Munro Wind Limited"
+          "classification": {
+            "data_source_type": "secondary",
+            "data_type": "scada"
           },
-          "data_type": "scada",
-          "label": "WTG SCADA",
-          "time_resolution": {
-            "unit": "minute",
-            "value": 10.0
-          },
-          "used_data_variables": [
+          "data_variables": [
             {
               "data_level": "turbine_level",
-              "label": "wind_speed",
+              "id": "wind_speed",
               "statistic_types": [
                 "mean"
               ]
             },
             {
               "data_level": "turbine_level",
-              "label": "active_power",
+              "id": "active_power",
               "statistic_types": [
                 "mean"
               ]
             },
             {
               "data_level": "turbine_level",
-              "label": "rotor_speed",
+              "id": "rotor_speed",
               "statistic_types": [
                 "mean"
               ]
@@ -2082,15 +2073,28 @@
             {
               "comments": "The sensor is mounted outside, below the nacelle.",
               "data_level": "turbine_level",
-              "label": "temperature",
+              "id": "temperature",
               "statistic_types": [
                 "mean"
               ]
             }
-          ]
+          ],
+          "end_date": "2022-12-31",
+          "id": "munro_wind_farm_reference_wtg_scada",
+          "integrity_verification": "The data were downloaded through direct connection to the site SCADA database. No further integrity verification was possible.",
+          "label": "WTG SCADA",
+          "start_date": "2020-01-01",
+          "supplying_organisation": {
+            "abbreviation": "Munro Wind",
+            "address": "High Munro Walk, Glasgow, G12 0YE, UK",
+            "name": "Munro Wind Limited"
+          },
+          "time_resolution": {
+            "unit": "minute",
+            "value": 10.0
+          }
         }
       ],
-      "id": "munro_wind_farm_reference",
       "wind_farm_id": "mu"
     }
   ],
@@ -2405,7 +2409,7 @@
                   {
                     "assessment_period": "lifetime",
                     "dimensions": [
-                      "measurement_id"
+                      "wind_dataset_id"
                     ],
                     "statistics": [
                       {
@@ -2431,7 +2435,7 @@
                       {
                         "assessment_period": "lifetime",
                         "dimensions": [
-                          "measurement_id"
+                          "wind_dataset_id"
                         ],
                         "statistics": [
                           {
@@ -2457,7 +2461,7 @@
                       {
                         "assessment_period": "lifetime",
                         "dimensions": [
-                          "measurement_id"
+                          "wind_dataset_id"
                         ],
                         "statistics": [
                           {
@@ -2780,7 +2784,7 @@
                   {
                     "assessment_period": "lifetime",
                     "dimensions": [
-                      "measurement_id"
+                      "wind_dataset_id"
                     ],
                     "statistics": [
                       {
@@ -2806,7 +2810,7 @@
                       {
                         "assessment_period": "lifetime",
                         "dimensions": [
-                          "measurement_id"
+                          "wind_dataset_id"
                         ],
                         "statistics": [
                           {
@@ -2832,7 +2836,7 @@
                       {
                         "assessment_period": "lifetime",
                         "dimensions": [
-                          "measurement_id"
+                          "wind_dataset_id"
                         ],
                         "statistics": [
                           {
@@ -2912,6 +2916,14 @@
       "label": "Barefoot Wind Farm",
       "operational_lifetime_start_date": "2024-01-01",
       "relevance": "internal",
+      "restrictions": [
+        {
+          "description": "The wind farm is required to initially curtail its grid export to a maximum of 10.0 MW due to grid upgrade works.",
+          "end_datetime": "2026-01-01T00:00:00",
+          "label": "Temporary grid curtailment",
+          "start_datetime": "2024-01-01T00:00:00"
+        }
+      ],
       "turbines": [
         {
           "description": "Configuration of WTG01 in Scenario A",
@@ -2925,7 +2937,8 @@
           },
           "restrictions": [
             {
-              "description": "Wind sector management (WSM) curtailment as specifiedby the turbine manufacturer",
+              "comments": "The strategy is designed to mitigate against the impact of high ambient turbulence intensity.",
+              "description": "Wind sector management (WSM) curtailment as specifiedby the turbine manufacturer. The power output is limited to 4.5 MW at wind speeds above 18.0 m/s when the wind direction is from between 120.0 and 210.0 degrees.",
               "label": "WSM curtailment"
             }
           ],
@@ -2943,7 +2956,8 @@
           },
           "restrictions": [
             {
-              "description": "Wind sector management (WSM) curtailment as specifiedby the turbine manufacturer",
+              "comments": "The strategy is designed to mitigate against the impact of high ambient turbulence intensity.",
+              "description": "Wind sector management (WSM) curtailment as specifiedby the turbine manufacturer. The power output is limited to 4.5 MW at wind speeds above 18.0 m/s when the wind direction is from between 120.0 and 210.0 degrees.",
               "label": "WSM curtailment"
             }
           ],
@@ -3029,11 +3043,105 @@
   "wind_resource_assessments": [
     {
       "id": "BfWF_WRA_1",
+      "input_characteristics": {
+        "data_availability": [
+          {
+            "dimensions": [
+              "wind_dataset_id",
+              "point_id",
+              "year",
+              "month"
+            ],
+            "statistics": [
+              {
+                "statistic_type": "mean",
+                "values": [
+                  [
+                    [
+                      "BF_M1",
+                      "Spd_80.1_315",
+                      2021,
+                      1
+                    ],
+                    0.877
+                  ],
+                  [
+                    [
+                      "BF_M1",
+                      "Spd_80.1_315",
+                      2021,
+                      2
+                    ],
+                    0.992
+                  ],
+                  [
+                    [
+                      "BF_M1",
+                      "Spd_80mSE",
+                      2021,
+                      1
+                    ],
+                    0.886
+                  ],
+                  [
+                    [
+                      "BF_M1",
+                      "Spd_80mSE",
+                      2021,
+                      2
+                    ],
+                    0.994
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "dimensions": [
+              "reference_wind_farm_id",
+              "operational_dataset_id",
+              "variable_id",
+              "turbine_id",
+              "year",
+              "month"
+            ],
+            "statistics": [
+              {
+                "statistic_type": "mean",
+                "values": [
+                  [
+                    [
+                      "munro_wind_farm_reference",
+                      "munro_wind_farm_reference_wtg_scada",
+                      "active_power",
+                      "f08b05bd-f90b-4833-91a5-4284b64c80db",
+                      2019,
+                      1
+                    ],
+                    0.989
+                  ],
+                  [
+                    [
+                      "munro_wind_farm_reference",
+                      "munro_wind_farm_reference_wtg_scada",
+                      "active_power",
+                      "b87f21bc-e1d8-4150-a2f4-d7f019bf96fc",
+                      2019,
+                      1
+                    ],
+                    0.991
+                  ]
+                ]
+              }
+            ]
+          }
+        ]
+      },
       "results": {
         "air_density": [
           {
             "dimensions": [
-              "measurement_id",
+              "wind_dataset_id",
               "height"
             ],
             "statistics": [
@@ -3055,7 +3163,7 @@
         "probability": [
           {
             "dimensions": [
-              "measurement_id",
+              "wind_dataset_id",
               "height",
               "wind_from_direction",
               "wind_speed"
@@ -3126,7 +3234,7 @@
         "temperature": [
           {
             "dimensions": [
-              "measurement_id",
+              "wind_dataset_id",
               "height"
             ],
             "statistics": [
@@ -3148,7 +3256,7 @@
         "wind_shear_exponent": [
           {
             "dimensions": [
-              "measurement_id"
+              "wind_dataset_id"
             ],
             "statistics": [
               {
@@ -3168,7 +3276,7 @@
         "wind_speed": [
           {
             "dimensions": [
-              "measurement_id",
+              "wind_dataset_id",
               "height"
             ],
             "statistics": [

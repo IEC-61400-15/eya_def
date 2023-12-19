@@ -22,6 +22,55 @@ from eya_def_tools.data_models.process_description import AssessmentProcessDescr
 from eya_def_tools.data_models.wind_uncertainty import WindUncertaintyAssessment
 
 
+class WindResourceInputCharacteristics(EyaDefBaseModel):
+    """Characteristics of the raw wind resource assessment inputs.
+
+    This schema covers details of the raw input datasets that are not
+    covered under the metadata schemas for the measurement stations,
+    reference meteorological datasets and reference operational winds.
+    """
+
+    data_availability: list[Dataset] = pdt.Field(
+        default=...,
+        min_length=1,
+        description=(
+            "Dimensionless raw data availability (also known as data "
+            "recovery rate and data coverage) for the primary inputs "
+            "to the wind resource assessment. The standard required "
+            "dataset(s) should report data availability on a monthly "
+            "basis, with dimensions 'wind_dataset_id', 'location_id' "
+            "(where the wind dataset has more than one location, "
+            "otherwise omitted), 'point_id', 'year' and 'month' (in "
+            "that order) for datasets from wind measurement stations "
+            "and meteorological reference sources; and dimensions "
+            "'reference_wind_farm_id', 'operational_dataset_id', "
+            "'variable_id' (where data availability is not identical "
+            "across all relevant variables within the operational "
+            "dataset, otherwise omitted), 'turbine_id' (for variables "
+            "at the turbine level and where data availability is not "
+            "identical across all turbines, otherwise omitted), "
+            "'year' and 'month' (in that order) for operational "
+            "reference wind farm datasets. Additional datasets with "
+            "other dimensions may be included optionally. The raw data "
+            "availability is defined as the proportion of samples "
+            "available in the raw dataset relative to the possible "
+            "maximum amount of samples within a certain time frame "
+            "(i.e. if no data were missing), before the author of the "
+            "EYA has undertaken any data filtering. The raw dataset "
+            "may include filtering inherent in the process of creating "
+            "it, such a quality filtering implemented in the firmware "
+            "of remote sensing devices (RSDs), and the raw data "
+            "availability then describes the state of the dataset "
+            "after such filtering has been applied."
+        ),
+    )
+
+    # TODO: Do we also want to include processed/final data
+    #       availability? We would then also need to clarify if data
+    #       synthesis (gap-filling) is to be included, and from what
+    #       sources.
+
+
 class WindResourceResults(EyaDefBaseModel):
     """Wind resource assessment results at measurement locations."""
 
@@ -30,9 +79,11 @@ class WindResourceResults(EyaDefBaseModel):
         min_length=1,
         description=(
             "Final long-term wind speed estimate(s) at the measurement "
-            "location(s) in metre per second. The dimensions of the "
-            "first standard result dataset should be 'measurement_id' "
-            "and 'height' (in that order). Further results with other "
+            "location(s) in metre per second (m s-1). The dimensions "
+            "of the first standard result dataset should be "
+            "'wind_dataset_id', 'location_id' (where the wind dataset "
+            "has more than one location, otherwise omitted), and "
+            "'height' (in that order). Further results with other "
             "dimensions may be included optionally."
         ),
     )
@@ -44,14 +95,15 @@ class WindResourceResults(EyaDefBaseModel):
             "measurement location(s), as dimensionless values. The "
             "first standard result dataset should comprise the joint "
             "wind speed and direction probability distributions, with "
-            "the dimensions 'measurement_id', 'height', 'wind_speed' "
-            "and 'wind_from_direction' (in that order). The wind speed "
-            "coordinates should be 1.0 metre per second bins centered "
-            "on whole numbers, with the first bin half the width (i.e. "
-            "0.25, 1.0, 2.0, 3.0, ...). The wind direction coordinates "
-            "should be twelve 30.0 degree bins, with the the first bin "
-            "centered at 0.0. Further results with other dimensions "
-            "may be included optionally."
+            "dimensions 'wind_dataset_id', 'location_id' (where the "
+            "wind dataset has multiple locations, otherwise omitted), "
+            "'height', 'wind_speed' and 'wind_from_direction' (in that "
+            "order). The wind speed coordinates should be 1.0 metre "
+            "per second bins centered on whole numbers, with the first "
+            "bin half the width (i.e. 0.25, 1.0, 2.0, 3.0, ...). The "
+            "wind direction coordinates should be twelve 30.0 degree "
+            "bins, with the the first bin centered at 0.0. Further "
+            "results with other dimensions may be included optionally."
         ),
     )
     turbulence_intensity: Optional[list[Dataset]] = pdt.Field(
@@ -65,12 +117,14 @@ class WindResourceResults(EyaDefBaseModel):
             "always be included when relevant turbulence data are "
             "available. The first standard result dataset should "
             "comprise the ambient turbulence intensity as a function "
-            "of wind speed, with the dimensions 'measurement_id', "
-            "'height' and 'wind_speed' (in that order). The wind speed "
-            "coordinates should be 1.0 metre per second bins centered "
-            "on whole numbers, with the first bin half the width (i.e. "
-            "0.25, 1.0, 2.0, 3.0, ...). Further results with other "
-            "dimensions may also be included."
+            "of wind speed, with the dimensions 'wind_dataset_id', "
+            "'location_id' (where the wind dataset has more than one "
+            "location, otherwise omitted), 'height' and 'wind_speed' "
+            "(in that order). The wind speed coordinates should be 1.0 "
+            "metre per second bins centered on whole numbers, with the "
+            "first bin half the width (i.e. 0.25, 1.0, 2.0, 3.0, ...). "
+            "Further results with other dimensions may also be "
+            "included."
         ),
     )
     wind_shear_exponent: Optional[list[Dataset]] = pdt.Field(
@@ -82,9 +136,11 @@ class WindResourceResults(EyaDefBaseModel):
             "since some wind measurement stations may only include a "
             "single measurement height, but it should always be "
             "included when relevant wind shear exponent data are "
-            "available. The dimension of the first standard result "
-            "dataset should be 'measurement_id' only. Further results "
-            "with other dimensions may also be included."
+            "available. The dimension(s) of the first standard result "
+            "dataset should be 'wind_dataset_id' and 'location_id' "
+            "(where the wind dataset has more than one location, "
+            "otherwise omitted). Further results with other dimensions "
+            "may also be included."
         ),
     )
     temperature: Optional[list[Dataset]] = pdt.Field(
@@ -97,8 +153,10 @@ class WindResourceResults(EyaDefBaseModel):
             "temperature, but it should always be included when "
             "relevant temperature data are available. The dimensions "
             "of the first standard result dataset should be "
-            "'measurement_id' and 'height' (in that order). Further "
-            "results with other dimensions may also be included."
+            "'wind_dataset_id', 'location_id' (where the wind dataset "
+            "has more than one location, otherwise omitted), and "
+            "'height' (in that order). Further results with other "
+            "dimensions may also be included."
         ),
     )
     air_density: Optional[list[Dataset]] = pdt.Field(
@@ -111,9 +169,11 @@ class WindResourceResults(EyaDefBaseModel):
             "measurements required to derive air density estimates, "
             "but it should always be included when relevant air "
             "density data are available. The dimensions of the first "
-            "standard result dataset should be 'measurement_id' and "
-            "'height' (in that order). Further results with other "
-            "dimensions may also be included."
+            "standard result dataset should be 'wind_dataset_id', "
+            "'location_id' (where the wind dataset has more than one "
+            "location, otherwise omitted), and 'height' (in that "
+            "order). Further results with other dimensions may also be "
+            "included."
         ),
     )
 
@@ -147,6 +207,13 @@ class WindResourceAssessment(EyaDefBaseModel):
             "should not be empty if the field is included."
         ),
     )
+    input_characteristics: WindResourceInputCharacteristics = pdt.Field(
+        default=...,
+        description=(
+            "Characteristics that describe the raw wind resource "
+            "assessment input datasets."
+        ),
+    )
     results: WindResourceResults = pdt.Field(
         default=...,
         description=(
@@ -167,7 +234,7 @@ class TurbineWindResourceResults(EyaDefBaseModel):
         min_length=1,
         description=(
             "Final long-term wind speed estimates at the turbine "
-            "location(s) in metre per second."
+            "location(s) in metre per second (m s-1)."
         ),
     )
     probability: Optional[list[Dataset]] = pdt.Field(

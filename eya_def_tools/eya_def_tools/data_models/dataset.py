@@ -77,7 +77,10 @@ class DatasetStatistic(EyaDefBaseModel):
         default=...,
         description=(
             "Type of statistic that the component of the dataset "
-            "contains. All values must correspond to this statistic."
+            "contains. All values must correspond to this statistic. "
+            "It can be either the string identifier of a basic "
+            "statistic type (e.g. 'mean') or a specification of a "
+            "probability of exceedance level."
         ),
     )
     values: float | DatasetValuesWithCoordinates = pdt.Field(
@@ -114,11 +117,17 @@ class DatasetDimension(StrEnum):
     MONTH = auto()
     YEAR = auto()
 
-    MEASUREMENT_ID = auto()
-    TURBINE_ID = auto()
-
     WIND_SPEED = auto()
     WIND_FROM_DIRECTION = auto()
+
+    WIND_FARM_ID = auto()
+    REFERENCE_WIND_FARM_ID = auto()
+    OPERATIONAL_DATASET_ID = auto()
+    WIND_DATASET_ID = auto()  # E.g. measurement station
+    TURBINE_ID = auto()
+    LOCATION_ID = auto()
+    POINT_ID = auto()  # E.g. measurement point
+    VARIABLE_ID = auto()  # E.g. operational dataset variable
 
 
 class Dataset(EyaDefBaseModel):
@@ -135,7 +144,7 @@ class Dataset(EyaDefBaseModel):
             "Optional label of the dataset, which should not be empty "
             "if the field is included."
         ),
-        examples=["Seasonal distribution of net energy."],
+        examples=["Seasonal distribution of net energy"],
     )
     description: Optional[str] = pdt.Field(
         default=None,
@@ -174,7 +183,7 @@ class Dataset(EyaDefBaseModel):
         ),
         examples=[
             [DatasetDimension.TURBINE_ID, DatasetDimension.YEAR],
-            [DatasetDimension.MEASUREMENT_ID, DatasetDimension.HEIGHT],
+            [DatasetDimension.WIND_DATASET_ID, DatasetDimension.HEIGHT],
         ],
     )
     statistics: list[DatasetStatistic] = pdt.Field(

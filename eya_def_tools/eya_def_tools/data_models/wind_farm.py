@@ -40,6 +40,34 @@ class OperationalRestriction(EyaDefBaseModel):
             "should not be empty if the field is included."
         ),
     )
+    start_datetime: Optional[dt.datetime] = pdt.Field(
+        default=None,
+        description=(
+            "Optional operational restriction start datetime in the "
+            "ISO 8601 standard format with the 'T' required between "
+            "the calendar date and time, i.e. YYYY-MM-DDThh:mm:ss. In "
+            "cases where the time is not relevant (i.e. only the date "
+            "is relevant), hours, minutes and seconds shall all be set "
+            "to zero. If using the time part, the timezone of the data "
+            "must be consistent with the UTC offset specified for the "
+            "EYA DEF document."
+        ),
+        examples=["2023-11-24T05:02:00", "2023-11-01T00:00:00"],
+    )
+    end_datetime: Optional[dt.datetime] = pdt.Field(
+        default=None,
+        description=(
+            "Optional operational restriction end datetime in the "
+            "ISO 8601 standard format with the 'T' required between "
+            "the calendar date and time, i.e. YYYY-MM-DDThh:mm:ss. In "
+            "cases where the time is not relevant (i.e. only the date "
+            "is relevant), hours, minutes and seconds shall all be set "
+            "to zero. If using the time part, the timezone of the data "
+            "must be consistent with the UTC offset specified for the "
+            "EYA DEF document."
+        ),
+        examples=["2024-12-24T23:15:00", "2024-12-31T00:00:00"],
+    )
 
 
 class TurbineConfiguration(EyaDefBaseModel):
@@ -83,7 +111,7 @@ class TurbineConfiguration(EyaDefBaseModel):
     )
     hub_height: float = pdt.Field(
         default=...,
-        description="The hub height of the turbine (in m).",
+        description="The hub height of the turbine above ground level (in m).",
     )
 
     # TODO: - need to link "turbine_model_id" to the relevant field

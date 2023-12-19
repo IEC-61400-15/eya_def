@@ -17,7 +17,9 @@ from eya_def_tools.data_models.eya_def import EyaDefDocument
 from eya_def_tools.data_models.eya_def_header import ReportContributor
 from eya_def_tools.data_models.general import Organisation
 from eya_def_tools.data_models.plant_performance import PlantPerformanceAssessment
-from eya_def_tools.data_models.reference_met_data import ReferenceMeteorologicalDataset
+from eya_def_tools.data_models.reference_met_data import (
+    ReferenceMeteorologicalDatasetMetadata,
+)
 from eya_def_tools.data_models.reference_wind_farm import ReferenceWindFarm
 from eya_def_tools.data_models.scenario import Scenario
 from eya_def_tools.data_models.wind_farm import WindFarmConfiguration
@@ -53,14 +55,13 @@ def draw_eya_def_top_level() -> None:
             Organisation,
             WindFarmConfiguration,
             ReferenceWindFarm,
-            ReferenceMeteorologicalDataset,
+            ReferenceMeteorologicalDatasetMetadata,
             WindResourceAssessment,
             Scenario,
         ],
     )
 
-    diagram.draw("eya_def_document_top_level.png")
-    diagram.draw("eya_def_document_top_level.svg")
+    draw_to_files(diagram=diagram, filename="eya_def_document_top_level")
 
 
 def draw_scenario_reduced() -> None:
@@ -72,8 +73,8 @@ def draw_scenario_reduced() -> None:
             EnergyAssessment,
         ],
     )
-    diagram.draw("scenario_reduced.png")
-    diagram.draw("scenario_reduced.svg")
+
+    draw_to_files(diagram=diagram, filename="scenario_reduced")
 
 
 def get_filename_for_model_class(model_class: type[EyaDefBaseModel]) -> str:
@@ -83,8 +84,12 @@ def get_filename_for_model_class(model_class: type[EyaDefBaseModel]) -> str:
 def draw_full_diagram_for_model_class(model_class: type[EyaDefBaseModel]) -> None:
     diagram = erd.create(model_class)
     filename = get_filename_for_model_class(model_class=model_class)
-    diagram.draw(f"{filename}.png")
+    draw_to_files(diagram=diagram, filename=filename)
+
+
+def draw_to_files(diagram: erd.EntityRelationshipDiagram, filename: str) -> None:
     diagram.draw(f"{filename}.svg")
+    diagram.draw(f"{filename}.png")
 
 
 def main() -> None:
