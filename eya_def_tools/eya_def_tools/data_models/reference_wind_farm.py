@@ -56,6 +56,29 @@ class OperationalDataSourceType(StrEnum):
     SECONDARY = auto()  # For example secondary SCADA data
 
 
+class OperationalDataVariableType(StrEnum):
+    """Type of operational data variable.
+
+    The terms comprise a subset of the ASPECT taxonomy.
+    """
+
+    ACTIVE_POWER = auto()
+    AIR_PRESSURE = auto()
+    AIR_TEMPERATURE = auto()
+    APPARENT_POWER = auto()
+    PITCH_ANGLE = auto()
+    RAIN_STATUS = auto()
+    RAINFALL_AMOUNT = auto()
+    RAINFALL_RATE = auto()
+    REACTIVE_POWER = auto()
+    RELATIVE_HUMIDITY = auto()
+    ROTOR_SPEED = auto()
+    ROTOR_STATUS = auto()
+    WIND_FROM_DIRECTION = auto()
+    WIND_SPEED = auto()
+    YAW_ANGLE = auto()
+
+
 class SingleSourceDatasetClassification(EyaDefBaseModel):
     """Classification of an operational dataset from a single source."""
 
@@ -118,15 +141,12 @@ DatasetClassification: TypeAlias = (
 class OperationalDataVariable(EyaDefBaseModel):
     """Reference wind farm operational data variable."""
 
-    # TODO: consider expanding the 'MeasurementQuantity' enum class to
-    #       include all relevant operational data variables and using
-    #       that instead of free text
-    id: str = pdt.Field(
+    type: OperationalDataType = pdt.Field(
         default=...,
         min_length=1,
         description=(
-            "Unique ID of the data variable. This is currently free "
-            "text but could be replaced by a list of enum options."
+            "The type of operational data variable, selected from the "
+            "standardised terms based on the ASPECT taxonomy."
         ),
         examples=["active_power", "wind_speed"],
     )
@@ -136,9 +156,11 @@ class OperationalDataVariable(EyaDefBaseModel):
         min_length=1,
         description=(
             "Optional label of the data variable, which should not be "
-            "empty if the field is included."
+            "empty if the field is included. This can be used to "
+            "provide the label assigned to the variable in the dataset "
+            "(e.g. field of column name), but does not need to."
         ),
-        examples=["Active Power", "Wind Speed"],
+        examples=["Bld1PitchAngle"],
     )
     description: Optional[str] = pdt.Field(
         default=None,
