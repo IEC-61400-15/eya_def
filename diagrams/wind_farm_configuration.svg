@@ -197,9 +197,9 @@
 <!-- eya_def_tools.data_models.wind_farm.WindFarmConfiguration&#45;&gt;eya_def_tools.data_models.wind_farm.TurbineConfiguration -->
 <g id="edge4" class="edge">
 <title>eya_def_tools.data_models.wind_farm.WindFarmConfiguration:e&#45;&gt;eya_def_tools.data_models.wind_farm.TurbineConfiguration:w</title>
-<path fill="none" stroke="black" d="M390,-314.75C390.12,-314.75 390.24,-314.75 390.36,-314.75"/>
-<polygon fill="black" stroke="black" points="489.93,-394.3 494.93,-404.06 494.09,-397.63 497.48,-400.33 497.48,-400.33 497.48,-400.33 494.09,-397.63 500.55,-397.03 489.93,-394.3"/>
-<ellipse fill="none" stroke="black" cx="485.46" cy="-390.73" rx="4" ry="4"/>
+<path fill="none" stroke="black" d="M390,-314.75C451.36,-314.75 436.64,-400.75 498,-400.75"/>
+<polygon fill="black" stroke="black" points="508.24,-410.99 502.74,-396.49 503,-405.75 498.47,-401.22 498.47,-401.22 498.47,-401.22 503,-405.75 493.74,-405.49 508.24,-410.99"/>
+<ellipse fill="none" stroke="black" cx="513.45" cy="-416.2" rx="5.66" ry="5.66"/>
 </g>
 </g>
 </svg>

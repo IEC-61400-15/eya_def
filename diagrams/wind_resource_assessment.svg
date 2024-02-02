@@ -71,9 +71,9 @@
 <!-- eya_def_tools.data_models.dataset.Dataset&#45;&gt;eya_def_tools.data_models.dataset.DatasetStatistic -->
 <g id="edge1" class="edge">
 <title>eya_def_tools.data_models.dataset.Dataset:e&#45;&gt;eya_def_tools.data_models.dataset.DatasetStatistic:w</title>
-<path fill="none" stroke="black" d="M1152,-115.75C1152.09,-115.75 1152.19,-115.75 1152.28,-115.75"/>
-<polygon fill="black" stroke="black" points="1249.67,-115.75 1259.67,-120.25 1255,-115.75 1259.33,-115.75 1259.33,-115.75 1259.33,-115.75 1255,-115.75 1259.67,-111.25 1249.67,-115.75"/>
-<ellipse fill="none" stroke="black" cx="1243.95" cy="-115.75" rx="4" ry="4"/>
+<path fill="none" stroke="black" d="M1152,-115.75C1200,-115.75 1212,-115.75 1260,-115.75"/>
+<polygon fill="black" stroke="black" points="1270.24,-125.99 1264.74,-111.49 1265,-120.75 1260.47,-116.22 1260.47,-116.22 1260.47,-116.22 1265,-120.75 1255.74,-120.49 1270.24,-125.99"/>
+<ellipse fill="none" stroke="black" cx="1275.45" cy="-131.2" rx="5.66" ry="5.66"/>
 </g>
 <!-- eya_def_tools.data_models.dataset.ExceedanceLevelStatisticType -->
 <g id="node3" class="node">
@@ -196,23 +196,23 @@
 <!-- eya_def_tools.data_models.wind_resource.WindResourceInputCharacteristics&#45;&gt;eya_def_tools.data_models.dataset.Dataset -->
 <g id="edge5" class="edge">
 <title>eya_def_tools.data_models.wind_resource.WindResourceInputCharacteristics:e&#45;&gt;eya_def_tools.data_models.dataset.Dataset:w</title>
-<path fill="none" stroke="black" d="M669.5,-364.75C669.65,-364.75 669.8,-364.75 669.95,-364.75"/>
-<polygon fill="black" stroke="black" points="786.63,-250 796.92,-246.19 790.44,-246.26 793.52,-243.22 793.52,-243.22 793.52,-243.22 790.44,-246.26 790.61,-239.78 786.63,-250"/>
-<ellipse fill="none" stroke="black" cx="782.55" cy="-254.01" rx="4" ry="4"/>
+<path fill="none" stroke="black" d="M669.5,-364.75C746.97,-364.75 716.53,-242.75 794,-242.75"/>
+<polygon fill="black" stroke="black" points="804.24,-252.99 798.74,-238.49 799,-247.75 794.47,-243.22 794.47,-243.22 794.47,-243.22 799,-247.75 789.74,-247.49 804.24,-252.99"/>
+<ellipse fill="none" stroke="black" cx="809.45" cy="-258.2" rx="5.66" ry="5.66"/>
 </g>
 <!-- eya_def_tools.data_models.wind_resource.WindResourceResults&#45;&gt;eya_def_tools.data_models.dataset.Dataset -->
 <g id="edge6" class="edge">
 <title>eya_def_tools.data_models.wind_resource.WindResourceResults:e&#45;&gt;eya_def_tools.data_models.dataset.Dataset:w</title>
-<path fill="none" stroke="black" d="M686,-285.75C686.1,-285.75 686.2,-285.75 686.3,-285.75"/>
-<polygon fill="black" stroke="black" points="784.4,-246.58 795.36,-247.05 789.36,-244.6 793.38,-243 793.38,-243 793.38,-243 789.36,-244.6 792.02,-238.69 784.4,-246.58"/>
-<ellipse fill="none" stroke="black" cx="779.09" cy="-248.7" rx="4" ry="4"/>
+<path fill="none" stroke="black" d="M686,-285.75C737.66,-285.75 742.34,-242.75 794,-242.75"/>
+<polygon fill="black" stroke="black" points="804.24,-252.99 798.74,-238.49 799,-247.75 794.47,-243.22 794.47,-243.22 794.47,-243.22 799,-247.75 789.74,-247.49 804.24,-252.99"/>
+<ellipse fill="none" stroke="black" cx="809.45" cy="-258.2" rx="5.66" ry="5.66"/>
 </g>
 <!-- eya_def_tools.data_models.wind_resource.WindResourceResults&#45;&gt;eya_def_tools.data_models.dataset.Dataset -->
 <g id="edge7" class="edge">
 <title>eya_def_tools.data_models.wind_resource.WindResourceResults:e&#45;&gt;eya_def_tools.data_models.dataset.Dataset:w</title>
-<path fill="none" stroke="black" d="M686,-264.75C686.1,-264.75 686.19,-264.75 686.29,-264.75"/>
-<polygon fill="black" stroke="black" points="783.87,-244.82 794.57,-247.23 789.1,-243.75 793.34,-242.88 793.34,-242.88 793.34,-242.88 789.1,-243.75 792.77,-238.41 783.87,-244.82"/>
-<ellipse fill="none" stroke="black" cx="778.27" cy="-245.96" rx="4" ry="4"/>
+<path fill="none" stroke="black" d="M686,-264.75C734.99,-264.75 745.01,-242.75 794,-242.75"/>
+<polygon fill="black" stroke="black" points="804.24,-252.99 798.74,-238.49 799,-247.75 794.47,-243.22 794.47,-243.22 794.47,-243.22 799,-247.75 789.74,-247.49 804.24,-252.99"/>
+<ellipse fill="none" stroke="black" cx="809.45" cy="-258.2" rx="5.66" ry="5.66"/>
 </g>
 <!-- eya_def_tools.data_models.wind_resource.WindResourceResults&#45;&gt;eya_def_tools.data_models.dataset.Dataset -->
 <g id="edge8" class="edge">
