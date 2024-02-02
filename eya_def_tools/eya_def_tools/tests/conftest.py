@@ -553,22 +553,30 @@ def reference_wind_farm_dataset_a() -> reference_wind_farm.OperationalDatasetMet
         end_date=dt.date(2022, 12, 31),
         data_variables=[
             reference_wind_farm.OperationalDataVariable(
-                type=reference_wind_farm.OperationalDataVariableType.WIND_SPEED,
+                variable_type=(
+                    reference_wind_farm.OperationalDataVariableType.WIND_SPEED
+                ),
                 data_level=reference_wind_farm.OperationalDataLevel.TURBINE_LEVEL,
                 statistic_types=[dataset.BasicStatisticType.MEAN],
             ),
             reference_wind_farm.OperationalDataVariable(
-                type=reference_wind_farm.OperationalDataVariableType.ACTIVE_POWER,
+                variable_type=(
+                    reference_wind_farm.OperationalDataVariableType.ACTIVE_POWER
+                ),
                 data_level=reference_wind_farm.OperationalDataLevel.TURBINE_LEVEL,
                 statistic_types=[dataset.BasicStatisticType.MEAN],
             ),
             reference_wind_farm.OperationalDataVariable(
-                type=reference_wind_farm.OperationalDataVariableType.ROTOR_SPEED,
+                variable_type=(
+                    reference_wind_farm.OperationalDataVariableType.ROTOR_SPEED
+                ),
                 data_level=reference_wind_farm.OperationalDataLevel.TURBINE_LEVEL,
                 statistic_types=[dataset.BasicStatisticType.MEAN],
             ),
             reference_wind_farm.OperationalDataVariable(
-                type=reference_wind_farm.OperationalDataVariableType.AIR_TEMPERATURE,
+                variable_type=(
+                    reference_wind_farm.OperationalDataVariableType.AIR_TEMPERATURE
+                ),
                 comments="The sensor is mounted outside, below the nacelle.",
                 data_level=reference_wind_farm.OperationalDataLevel.TURBINE_LEVEL,
                 statistic_types=[dataset.BasicStatisticType.MEAN],

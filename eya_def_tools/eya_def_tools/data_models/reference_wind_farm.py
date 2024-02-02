@@ -141,7 +141,7 @@ DatasetClassification: TypeAlias = (
 class OperationalDataVariable(EyaDefBaseModel):
     """Reference wind farm operational data variable."""
 
-    type: OperationalDataType = pdt.Field(
+    variable_type: OperationalDataVariableType = pdt.Field(
         default=...,
         min_length=1,
         description=(
@@ -150,7 +150,6 @@ class OperationalDataVariable(EyaDefBaseModel):
         ),
         examples=["active_power", "wind_speed"],
     )
-
     label: Optional[str] = pdt.Field(
         default=None,
         min_length=1,
@@ -196,6 +195,14 @@ class OperationalDataVariable(EyaDefBaseModel):
         description=(
             "Optional list of the types of statistics included for "
             "the data variable."
+        ),
+    )
+    time_resolution: Optional[TimeResolution] = pdt.Field(
+        default=None,
+        description=(
+            "Optional specification of the time resolution for the "
+            "variable, in case that is different from the dataset main "
+            "time resolution."
         ),
     )
 
@@ -271,9 +278,18 @@ class OperationalDatasetMetadata(EyaDefBaseModel):
             "undertaken and/or not possible."
         ),
     )
-    time_resolution: TimeResolution = pdt.Field(
-        default=...,
-        description="Time resolution of the operational data.",
+    time_resolution: Optional[TimeResolution] = pdt.Field(
+        default=None,
+        description=(
+            "The main time resolution of the operational data, if "
+            "relevant. For example, a SCADA dataset with all main "
+            "variables at 10-minute resolution should have the time "
+            "resolution specified as such, even when some variables "
+            "(e.g. alarm status) do not have a meaningful time "
+            "resolution. The time resolution can also be specified "
+            "at the variable level, in case of deviations from the "
+            "dataset main resolution."
+        ),
     )
     start_date: dt.date = start_date_field
     end_date: dt.date = end_date_field
