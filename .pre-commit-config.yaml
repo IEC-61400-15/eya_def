@@ -4,7 +4,7 @@ default_stages: [commit, push]
 fail_fast: false
 repos:
   - repo: https://github.com/psf/black
-    rev: 23.12.0
+    rev: 24.1.1
     hooks:
       - id: black
         name: black
@@ -43,21 +43,21 @@ repos:
       - id: trailing-whitespace
         args: [--markdown-linebreak-ext=md]
   - repo: https://github.com/pycqa/flake8
-    rev: 6.1.0
+    rev: 7.0.0
     hooks:
       - id: flake8
         name: flake8
         args: [--max-line-length=88, --max-complexity=14, --extend-ignore=E203]
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.7.1
+    rev: v1.8.0
     hooks:
       - id: mypy
         args: [--config-file, eya_def_tools/pyproject.toml]
         additional_dependencies: [
-          pandas==2.1.4,
-          pandas-stubs==2.1.4.231218,
+          pandas==2.2.0,
+          pandas-stubs==2.1.4.231227,
           pycountry==23.12.11,
-          pydantic==2.5.2,
-          pytest==7.4.3,
-          types-jsonschema==4.20.0.0,
+          pydantic==2.6.0,
+          pytest==8.0.0,
+          types-jsonschema==4.21.0.20240118,
         ]

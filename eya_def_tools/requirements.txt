@@ -1,7 +1,7 @@
 email-validator==2.1.0.post1
-jsonschema==4.20.0
-pandas==2.1.4
-pandas-stubs==2.1.4.231218
+jsonschema==4.21.1
+pandas==2.2.0
+pandas-stubs==2.1.4.231227
 pycountry==23.12.11
-pydantic==2.5.2
-pytest==7.4.3
+pydantic==2.6.0
+pytest==8.0.0
