@@ -17,10 +17,20 @@ https://github.com/pre-commit/pre-commit)
 
 
 The `eya_def_tools` package provides a toolset for working with the
-IEC 61400-15-2 EYA Reporting Digital Exchange Format (DEF) in the python
-programming language.
+IEC 61400-15-2 EYA Reporting Digital Exchange Format (DEF) in the Python
+programming language. It includes a nested `pydantic` data model for the
+EYA DEF that is equivalent of the JSON Schema.
 
-## Installation
+This README file only briefly covers some key topics for convenient
+reference. Full details will be provided on a separate documentation
+site, which still needs to be developed.
+
+## User guidance
+
+The following provides brief guidance for users on how to get started
+using the `eya_def_tools` package.
+
+### Installation
 
 Installation of the `eya_def_tools` package requires python version 3.11
 or higher. It is recommended to install it into a virtual environment,
@@ -45,21 +55,28 @@ conda activate <environment_name>
 cd eya_def
 cd eya_def_tools
 
-# Install `eya_def_tools`
+# Install 'eya_def_tools'
 pip install .
 ```
 
-To install in editable mode for development, including the development
-dependencies, replace the last command by the following.
+## Developer guidance
+
+The following provides brief guidance for developers on how to set up a
+development environment and use the development tools.
+
+### Development installation
+
+To install `eya_def_tools` in editable mode for development, including
+the development dependencies, use the following command.
 
 ```bash
 pip install -e .[dev]
 ```
 
-The `erd` flag can be added to also install dependencies for using the
-`erdantic` package to generate entity relationship diagrams (ERDs) from
-the pydantic data models. This requires a prior installation of the
-`graphviz` software.
+The `erd` flag can be added optionally to also install dependencies for
+using the `erdantic` package to generate entity relationship diagrams
+(ERDs) from the pydantic data models. This requires a prior installation
+of the [Graphviz](https://graphviz.org/) software.
 
 In a Windows environment, you may need to include additional options
 when installing `pygraphviz` with `pip`, to specify the locations for
@@ -71,7 +88,7 @@ work, but depends on your environment and where you have installed
 pip install --global-option=build_ext --global-option="-IC:\Program Files\Graphviz\include" --global-option="-LC:\Program Files\Graphviz\lib" pygraphviz==<DESIRED_VERSION>
 ```
 
-## Documentation
+### Documentation build
 
 The documentation of the package (including user documentation and API
 documentation) is created using [Sphinx](https://www.sphinx-doc.org).
@@ -85,7 +102,7 @@ execute the following.
 make html
 ```
 
-## Testing
+### Testing
 
 The test suite is built using [pytest](https://docs.pytest.org). The
 `pytest` package is included as a dependency in the requirements and
@@ -102,7 +119,7 @@ pytest --pyargs eya_def_tools --cov=eya_def_tools --cov-report term-missing
 
 Contributors are encouraged to write tests to cover new features.
 
-## Type hints and static type checking
+### Type hints and static type checking
 
 Type hints and static type checking are optional in Python, but make
 code dramatically more readable and can help identify type issues that
