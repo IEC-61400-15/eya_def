@@ -168,9 +168,9 @@ class EyaDefBaseModel(pdt.BaseModel):
         cls,
         by_alias: bool = True,
         ref_template: str = pdt_json_schema.DEFAULT_REF_TEMPLATE,
-        schema_generator: (
-            type[pdt_json_schema.GenerateJsonSchema]
-        ) = EyaDefGenerateJsonSchema,
+        schema_generator: type[
+            pdt_json_schema.GenerateJsonSchema
+        ] = EyaDefGenerateJsonSchema,
         mode: pdt_json_schema.JsonSchemaMode = "validation",
     ) -> pdt_json_schema.JsonSchemaValue:
         """Generate a JSON Schema dictionary for a model class.
@@ -200,9 +200,9 @@ class EyaDefBaseModel(pdt.BaseModel):
         cls,
         by_alias: bool = True,
         ref_template: str = pdt_json_schema.DEFAULT_REF_TEMPLATE,
-        schema_generator: (
-            type[pdt_json_schema.GenerateJsonSchema]
-        ) = EyaDefGenerateJsonSchema,
+        schema_generator: type[
+            pdt_json_schema.GenerateJsonSchema
+        ] = EyaDefGenerateJsonSchema,
         mode: pdt_json_schema.JsonSchemaMode = "validation",
         indent: int = 2,
     ) -> str:
