@@ -26,12 +26,12 @@ site, which still needs to be developed.
 ## Aims and use cases
 
 The EYA DEF aims to facilitate the following:
--	data sharing with a wider range of stakeholders in an automated
+- data sharing with a wider range of stakeholders in an automated
   fashion;
--	comparison of EYA results from different parties, for example for
+- comparison of EYA results from different parties, for example for
   example from different third-party consultants;
--	integration with other systems, such as financial model software; and
--	automated generation of reporting tables.
+- integration with other systems, such as financial model software; and
+- automated generation of reporting tables.
 
 For example, if a project developer receives EYA DEF JSON documents from
 its independent consultants, the data can immediately be loaded into the
