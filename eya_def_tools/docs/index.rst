@@ -1,4 +1,4 @@
-Documentation of the IEC 61400-15-2 Reporting Digital Exchange Format (DEF) python toolset
+Documentation of the IEC 61400-15-2 Reporting Digital Exchange Format (DEF) Python toolset
 ==========================================================================================
 
 .. toctree::

@@ -1,4 +1,4 @@
-# The IEC 61400-15-2 EYA DEF python toolset
+# The IEC 61400-15-2 EYA DEF Python toolset
 [![EYA DEF tools Python package linting and testing](
 https://github.com/IEC-61400-15/eya_def/actions/workflows/eya-def-tools-python-package.yml/badge.svg)](
 https://github.com/IEC-61400-15/eya_def/actions/workflows/eya-def-tools-python-package.yml)
@@ -21,9 +21,12 @@ IEC 61400-15-2 EYA Reporting Digital Exchange Format (DEF) in the Python
 programming language. It includes a nested `pydantic` data model for the
 EYA DEF that is equivalent of the JSON Schema.
 
-This README file only briefly covers some key topics for convenient
-reference. Full details will be provided on a separate documentation
-site, which still needs to be developed.
+This README file only briefly covers some key topics in relation to the
+Python package for convenient reference. Full details will be provided
+at a separate documentation site, which still needs to be developed. The
+README for the EYA DEF repo is located [here](../README.md) and includes
+all general information (i.e. all information that is not specific to
+the Python package).
 
 ## User guidance
 
@@ -37,7 +40,7 @@ or higher. It is recommended to install it into a virtual environment,
 using for example [virtualenv](https://virtualenv.pypa.io/en/latest/)
 or [miniforge](https://github.com/conda-forge/miniforge).
 
-The package can be installed from the git repository as follows. In the
+The package can be installed from the Git repository as follows. In the
 future it is intended to add it on PyPI for installation directly with
 `pip` (i.e. without the need to clone the repository).
 
@@ -51,12 +54,29 @@ git clone -b main https://github.com/IEC-61400-15/eya_def.git
 # or with a conda environment:
 conda activate <environment_name>
 
-# Navigate to python package directory
+# Navigate to Python package directory
 cd eya_def
 cd eya_def_tools
 
 # Install 'eya_def_tools'
 pip install .
+```
+
+### File I/O
+
+The EYA DEF tools include some utilities for reading from and writing
+to data files, which are located under `eya_def_tools.io`.
+
+The code snippet below shows an example of parsing an EYA DEF JSON data
+file into an `EyaDefDocument` model instance. If any data in the file is
+invalid, the parse operation will fail with an exception including the
+details of the validation errors.
+
+```python
+from pathlib import Path
+from eya_def_tools.io import parser
+eya_def_document = parser.parse_file(filepath=Path("C:/path/to/my/eya_def_file.json"))
+print(eya_def_document)
 ```
 
 ## Developer guidance
@@ -111,7 +131,7 @@ installation of `eya_def_tools`.
 
 To run the test suite with coverage reporting, including details on
 statements with missing coverage, simply execute the following at the
-top-level python package directory.
+top-level Python package directory.
 
 ```bash
 pytest --pyargs eya_def_tools --cov=eya_def_tools --cov-report term-missing
@@ -137,3 +157,56 @@ mypy --config-file pyproject.toml
 
 The mypy configurations are contained in the
 [pyproject.toml file](pyproject.toml).
+
+### GitHub Actions pipelines
+
+The `eya_def` repo has a GitHub Actions pipeline configured to run
+checks on pull requests (PRs) to check file formatting and ensure that
+all tests pass.
+
+### Pre-commit hooks
+
+The [pre-commit](https://pre-commit.com/) package is used for managing  
+Git hooks. This is part of the Python package development dependencies
+and is installed automatically during the `eya_def_tools` package
+development installation (when using the `[dev]` option). You can check
+it has been installed successfully by executing the following.
+
+```bash
+pre-commit --version
+```
+
+The project configurations for the Git hooks are contained within the
+file `.pre-commit-config.yaml` at the root repository directory.
+
+Lint checks are run on both `git commit` and `git push`. Tests are
+not included in the Git hooks.
+
+To install `pre-commit` in your local repository for the 'pre-commit'
+and 'pre-push' stages, execute the following from the root of the Git
+repository in an environment where all dependencies are installed.
+
+```bash
+pre-commit install --hook-type pre-commit --hook-type pre-push
+```
+
+After installation, `pre-commit` will run automatically on `git commit`
+and `git push`. Note that some hooks related to formatting (e.g.
+`requirements-txt-fixer` and `trailing-whitespace`) will auto-fix files
+but return an error on doing so. In these cases the fixed files need to
+be staged again and the commit attempt repeated. It should then pass the
+second time.
+
+If you want to run `pre-commit` manually on all files in the repository,
+including all the hooks, execute the following command.
+
+```bash
+pre-commit run --all-files --hook-stage push
+```
+
+The `pre-commit` hook dependencies can be updated by executing the
+following.
+
+```bash
+pre-commit autoupdate
+```

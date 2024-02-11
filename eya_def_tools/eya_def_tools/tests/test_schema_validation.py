@@ -1,6 +1,7 @@
 """Test validate schema on examples.
 
 """
+
 import copy
 from typing import Any
 
