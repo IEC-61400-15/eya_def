@@ -10,11 +10,6 @@ authors = [
   {name="Jason Fields", email="jason@empowr.io"},
   {name="Charlie Plumley", email="charlie.plumley@cubicoinvest.com"},
   {name="Alina Brenneke", email="alina.brenneke@rwe.com"},
-  {name="Bjarke Tobias Olsen", email="btol@dtu.dk"},
-  {name="Philippe Beaucage", email="philippe.beaucage@ul.com"},
-  {name="Jonny Crease", email="jonny@boxkite.eco"},
-  {name="Mark Stoelinga", email="mark.stoelinga@arcvera.com"},
-  {name="Andrew Henderson", email="arh@cop.dk"},
 ]
 description = "IEC 61400-15-2 Energy Yield Assessment (EYA) Digital Exchange Format (DEF) toolset"
 readme = "README.md"
