@@ -5,3 +5,4 @@ pandas-stubs==2.1.4.231218
 pycountry==23.12.11
 pydantic==2.5.2
 pytest==7.4.3
+ruamel.yaml==0.18.6

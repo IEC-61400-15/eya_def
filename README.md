@@ -1,83 +1,98 @@
 # The IEC 61400-15-2 EYA DEF
 
-The `eya_def` repo provides a digital format for exchange of information
-on wind plant energy yield assessment reporting as defined by the
-IEC 61400-15-2 standard. For more information regarding the IEC 61400-15
-working group, please see the progress update presentation
-[here](https://zenodo.org/record/3952717).
+The IEC 61400-15-2 Energy Yield Assessment Digital Exchange Format
+(EYA DEF) defines a complementary format for energy yield assessment
+reporting to the main written report, aimed at facilitating automated
+solutions for data exchange. It is organised as a deeply nested
+hierarchical data model and published in the form of a JSON Schema.
+Whereas the written EYA report provides an effective narrative for a
+human reader, the EYA DEF provides the clear definitions of namespace,
+structure and format required for computer systems to exchange energy
+yield assessment data. It provides a standard protocol for data
+exchange, so that producers and consumers of the data have a common and
+clear definition of the data structure and meaning of data fields. The
+JSON Schema also facilitates data validation, so that the receiver of
+EYA DEF data automatically can validate that the data is fully compliant
+with the data model specification.
 
-## JSON Schema and examples
+This repo provides all source data files for the EYA DEF, along with
+associated material and tools, as well as serving as the platform for
+development work.
 
-The `eya_def` takes the form of a [JSON Schema](
-json_schema/iec_61400-15-2_eya_def.schema.json).
+This README file only briefly covers some key topics for convenient
+reference. Full details will be provided at a separate documentation
+site, which still needs to be developed.
+
+## Aims and use cases
+
+The EYA DEF aims to facilitate the following:
+- data sharing with a wider range of stakeholders in an automated
+  fashion;
+- comparison of EYA results from different parties, for example for
+  example from different third-party consultants;
+- integration with other systems, such as financial model software; and
+- automated generation of reporting tables.
+
+For example, if a project developer receives EYA DEF JSON documents from
+its independent consultants, the data can immediately be loaded into the
+relevant internal databases and applications, and the results compared
+between the different consultants and with internal findings. Then the
+developer can share the EYA DEF JSON documents with lenders, investors
+and any other financial institutions who require the information to
+evaluate the project. They in turn will all be able to pull the data
+they need into the relevant applications without the requirement for any
+manual data processing. The same goes for other project stakeholders who
+require EYA reporting data.
+
+It is also expected that the EYA DEF data models will provide a helpful
+reference for companies developing energy yield assessment software.
+Whilst the data models used internally in such software of course do not
+need to mirror the EYA DEF in order to be able to export results in EYA
+DEF format, the EYA DEF data models may in some circumstances prove
+useful and avoid the need to completely new design new data models.
+
+## The EYA DEF JSON Schema
+
+The latest version of EYA DEF JSON Schema is available here [here](
+json_schema/iec_61400-15-2_eya_def.schema.json). The JSON Schema is the
+primary definition of the EYA DEF data model.
+
+## Example EYA DEF JSON documents
 
 Examples of JSON document files that implement (comply with) the JSON
 Schema are found [here](json_schema/examples).
 
+## Python package
+
+This repo includes the Python package [eya_def_tools](eya_def_tools),
+which provides a convenient interface for working with the EYA DEF data
+model in a Python environment. It has a separate README file, which is
+located [here](eya_def_tools/README.md).
+
 ## Schema diagrams
+
+The Python package (see [below](#Python-package)) uses [erdantic](
+https://erdantic.drivendata.org/stable/) to generate graphical
+representations of the `pydantic` data model. Note that the data types
+shown in the diagrams are the Python types defined in the `pydantic`
+data model and not the JSON Schema types.
 
 The top levels of the current draft of the data model is illustrated
 below.
 
   ![data_model_top_levels_diagram](diagrams/eya_def_document_top_level.svg)
 
-The python package (see [below](#Python-package)) uses [erdantic](
-https://erdantic.drivendata.org/stable/) to generate graphical
-representations of the data model.
+## Developer guidance
 
-The website [Draw.io](https://draw.io) can also be used to visualise
-data tables. See https://www.diagrams.net/blog/single-repository-diagrams
-for info about GitHub and draw.io functionality.
+For guidance related to tools and processes for development work, see
+the [Python package README](eya_def_tools/README.md). The Python package
+forms an integral part of the development workflow.
 
-## Python package
+## Acknowledgements
 
-This repo includes the python package `eya_def_tools` for working with
-the EYA DEF data model. This package is located [here](eya_def_tools)
-and has a separate README located [here](eya_def_tools/README.md).
-
-## Pre-commit hooks
-
-The [pre-commit](https://pre-commit.com/) package is used for managing  
-git hooks. This is part of the python package development dependencies
-and is installed automatically during the `eya_def_tools` package
-development installation (when using the `[dev]` option). You can check
-it has been installed successfully by executing the following.
-
-```bash
-pre-commit --version
-```
-
-The project configurations for the git hooks are contained within the
-file `.pre-commit-config.yaml` at the root repository directory.
-
-Lint checks are run on both `git commit` and `git push`. Tests are
-not included in the git hooks.
-
-To install `pre-commit` in your local repository for the 'pre-commit'
-and 'pre-push' stages, execute the following from the root of the git
-repository in an environment where all dependencies are installed.
-
-```bash
-pre-commit install --hook-type pre-commit --hook-type pre-push
-```
-
-After installation, `pre-commit` will run automatically on `git commit`
-and `git push`. Note that some hooks related to formatting (e.g.
-`requirements-txt-fixer` and `trailing-whitespace`) will auto-fix files
-but return an error on doing so. In these cases the fixed files need to
-be staged again and the commit attempt repeated. It should then pass the
-second time.
-
-If you want to run `pre-commit` manually on all files in the repository,
-including all the hooks, execute the following command.
-
-```bash
-pre-commit run --all-files --hook-stage push
-```
-
-The `pre-commit` hook dependencies can be updated by executing the
-following.
-
-```bash
-pre-commit autoupdate
-```
+The EYA DEF has been developed with contributions from the following
+people: Christian Jonsson, Stephen Holleran, Jason Fields, Charlie
+Plumley, Alina Brenneke, Philippe Beaucage, Mark Stoelinga, Andrew
+Henderson, Mark Kelly, Steve Clark, Thomas van Delft, Craig Robinson,
+Lars Levermann, Jan Heinen, Nikolaos Simisiroglou, Andres Blanco and
+Jonny Crease.

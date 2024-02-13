@@ -76,9 +76,9 @@ class PlantPerformanceSubcategoryElement(EyaDefBaseModel):
             "independent of all other elements."
         ),
     )
-    assessment_process_descriptions: (
-        Optional[list[AssessmentProcessDescription]]
-    ) = pdt.Field(
+    assessment_process_descriptions: Optional[
+        list[AssessmentProcessDescription]
+    ] = pdt.Field(
         default=None,
         min_length=1,
         description=(
@@ -223,9 +223,9 @@ class PlantPerformanceSubcategory(EyaDefBaseModel):
         default=...,
         description="Considered variability in the plant performance loss subcategory.",
     )
-    assessment_process_descriptions: (
-        Optional[list[AssessmentProcessDescription]]
-    ) = pdt.Field(
+    assessment_process_descriptions: Optional[
+        list[AssessmentProcessDescription]
+    ] = pdt.Field(
         default=None,
         min_length=1,
         description=(
