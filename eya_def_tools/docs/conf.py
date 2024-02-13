@@ -9,7 +9,7 @@ file_dirpath = Path(__file__).parent
 top_level_dirpath = file_dirpath.parent
 sys.path.insert(0, str(top_level_dirpath.absolute()))
 
-project = "IEC 61400-15-2 Reporting Digital Exchange Format (DEF) python toolset"
+project = "IEC 61400-15-2 Reporting Digital Exchange Format (DEF) Python toolset"
 copyright = "2022, IEC"
 author = "Christian Jonsson et al."
 release = "0.0.1"

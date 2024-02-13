@@ -1,9 +1,9 @@
-black==24.1.1
+black==24.2.0
 flake8==7.0.0
 isort==5.13.2
 mypy==1.8.0
-pip_audit==2.7.0
-pre-commit==3.6.0
+pip_audit==2.7.1
+pre-commit==3.6.1
 pytest-cov==4.1.0
 sphinx==7.2.6
 types-jsonschema==4.21.0.20240118

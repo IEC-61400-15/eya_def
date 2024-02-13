@@ -42,7 +42,7 @@ from eya_def_tools.data_models import (
 def top_level_dirpath() -> Path:
     """The path of the top-level project repository directory.
 
-    The top-level is the git repository, one level above the python
+    The top-level is the Git repository, one level above the Python
     package.
 
     :return: path to the project top-level directory
@@ -99,6 +99,7 @@ def master_json_schema(master_json_schema_filepath: Path) -> dict[str, Any]:
     """
     with open(master_json_schema_filepath) as f:
         json_schema = json.load(f)
+
     return json_schema
 
 
@@ -141,6 +142,7 @@ def pydantic_json_schema_from_file(
     """
     with open(pydantic_json_schema_tmp_path) as f:
         json_schema = json.load(f)
+
     return json_schema
 
 

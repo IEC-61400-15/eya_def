@@ -25,7 +25,7 @@ def get_json_schema_version() -> str:
     :return: the semantic version string of the JSON Schema, following
         the format <major>.<minor>.<patch> (e.g. '1.2.3')
     """
-    # TODO this is a placeholder to be updated (consider linking to git
+    # TODO this is a placeholder to be updated (consider linking to Git
     #      repo tags and consider how to distinguish JSON Schema and
-    #      python package versions)
+    #      Python package versions)
     return "0.0.1"
