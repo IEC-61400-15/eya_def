@@ -9,7 +9,7 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 641.25)">
 <title>Entity Relationship Diagram</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-641.25 1768,-641.25 1768,4 -4,4"/>
-<text text-anchor="middle" x="882" y="-6.7" font-family="Times New Roman,serif" font-size="9.00" fill="#a8a8a8">Created by erdantic v0.6.0 &lt;https://github.com/drivendataorg/erdantic&gt;</text>
+<text text-anchor="middle" x="882" y="-6.7" font-family="Times New Roman,serif" font-size="9.00" fill="#a8a8a8">Created by erdantic v0.7.0 &lt;https://github.com/drivendataorg/erdantic&gt;</text>
 <!-- eya_def_tools.data_models.general.Organisation -->
 <g id="node1" class="node">
 <title>eya_def_tools.data_models.general.Organisation</title>
@@ -173,9 +173,9 @@
 <!-- eya_def_tools.data_models.reference_wind_farm.OperationalDatasetMetadata&#45;&gt;eya_def_tools.data_models.reference_wind_farm.OperationalDataVariable -->
 <g id="edge4" class="edge">
 <title>eya_def_tools.data_models.reference_wind_farm.OperationalDatasetMetadata:e&#45;&gt;eya_def_tools.data_models.reference_wind_farm.OperationalDataVariable:w</title>
-<path fill="none" stroke="black" d="M985,-288.75C1053.83,-288.75 1024.17,-177.75 1093,-177.75"/>
-<polygon fill="black" stroke="black" points="1103.24,-187.99 1097.74,-173.49 1098,-182.75 1093.47,-178.22 1093.47,-178.22 1093.47,-178.22 1098,-182.75 1088.74,-182.49 1103.24,-187.99"/>
-<ellipse fill="none" stroke="black" cx="1108.45" cy="-193.2" rx="5.66" ry="5.66"/>
+<path fill="none" stroke="black" d="M985,-288.75C1046.03,-288.75 1029.63,-201.47 1073.11,-181.7"/>
+<polygon fill="black" stroke="black" points="1082.86,-179.76 1093.55,-182.23 1088.1,-178.72 1092.34,-177.88 1092.34,-177.88 1092.34,-177.88 1088.1,-178.72 1091.8,-173.4 1082.86,-179.76"/>
+<ellipse fill="none" stroke="black" cx="1077.25" cy="-180.88" rx="4" ry="4"/>
 </g>
 <!-- eya_def_tools.utils.doc_utils.eya_def_erdantic.DerivedDatasetClassification -->
 <g id="node5" class="node">
@@ -263,9 +263,9 @@
 <!-- eya_def_tools.data_models.reference_wind_farm.ReferenceWindFarm&#45;&gt;eya_def_tools.data_models.reference_wind_farm.OperationalDatasetMetadata -->
 <g id="edge7" class="edge">
 <title>eya_def_tools.data_models.reference_wind_farm.ReferenceWindFarm:e&#45;&gt;eya_def_tools.data_models.reference_wind_farm.OperationalDatasetMetadata:w</title>
-<path fill="none" stroke="black" d="M307,-520.75C355,-520.75 367,-520.75 415,-520.75"/>
-<polygon fill="black" stroke="black" points="425.24,-530.99 419.74,-516.49 420,-525.75 415.47,-521.22 415.47,-521.22 415.47,-521.22 420,-525.75 410.74,-525.49 425.24,-530.99"/>
-<ellipse fill="none" stroke="black" cx="430.45" cy="-536.2" rx="5.66" ry="5.66"/>
+<path fill="none" stroke="black" d="M307,-520.75C347.5,-520.75 362.37,-520.75 394.86,-520.75"/>
+<polygon fill="black" stroke="black" points="404.67,-520.75 414.67,-525.25 410,-520.75 414.33,-520.75 414.33,-520.75 414.33,-520.75 410,-520.75 414.67,-516.25 404.67,-520.75"/>
+<ellipse fill="none" stroke="black" cx="398.95" cy="-520.75" rx="4" ry="4"/>
 </g>
 </g>
 </svg>
