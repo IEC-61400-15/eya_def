@@ -59,9 +59,11 @@ class OperationalDataSourceType(StrEnum):
 class OperationalDataVariableType(StrEnum):
     """Type of operational data variable.
 
-    The terms comprise a subset of the ASPECT taxonomy.
+    The terms comprise a subset of the ASPECT taxonomy, together with
+    some additional terms.
     """
 
+    # From the ASPECT taxonomy:
     ACTIVE_POWER = auto()
     AIR_PRESSURE = auto()
     AIR_TEMPERATURE = auto()
@@ -77,6 +79,15 @@ class OperationalDataVariableType(StrEnum):
     WIND_FROM_DIRECTION = auto()
     WIND_SPEED = auto()
     YAW_ANGLE = auto()
+
+    # Additional terms:
+    ALARM_STATUS = auto()
+    EVENT_STATUS = auto()
+    POWER_LIMITATION = auto()
+    ENERGY_OUTPUT = auto()
+    AVAILABILITY = auto()
+    PRODUCTION_LOSS = auto()
+    DATA_AVAILABILITY = auto()
 
 
 class SingleSourceDatasetClassification(EyaDefBaseModel):

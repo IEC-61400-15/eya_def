@@ -147,9 +147,9 @@
 <!-- eya_def_tools.data_models.plant_performance.PlantPerformanceAssessment&#45;&gt;eya_def_tools.data_models.plant_performance.PlantPerformanceCategory -->
 <g id="edge3" class="edge">
 <title>eya_def_tools.data_models.plant_performance.PlantPerformanceAssessment:e&#45;&gt;eya_def_tools.data_models.plant_performance.PlantPerformanceCategory:w</title>
-<path fill="none" stroke="black" d="M242,-271.75C294.38,-271.75 292.01,-333.27 330.92,-348.41"/>
-<polygon fill="black" stroke="black" points="339.82,-349.97 348.9,-356.13 345.07,-350.89 349.34,-351.63 349.34,-351.63 349.34,-351.63 345.07,-350.89 350.45,-347.26 339.82,-349.97"/>
-<ellipse fill="none" stroke="black" cx="334.19" cy="-348.99" rx="4" ry="4"/>
+<path fill="none" stroke="black" d="M242,-271.75C293.92,-271.75 292.05,-332.18 329.89,-348"/>
+<polygon fill="black" stroke="black" points="339.84,-349.86 348.85,-356.11 345.08,-350.83 349.34,-351.63 349.34,-351.63 349.34,-351.63 345.08,-350.83 350.5,-347.26 339.84,-349.86"/>
+<ellipse fill="none" stroke="black" cx="334.22" cy="-348.81" rx="4" ry="4"/>
 </g>
 <!-- eya_def_tools.data_models.plant_performance.PlantPerformanceResults -->
 <g id="node6" class="node">

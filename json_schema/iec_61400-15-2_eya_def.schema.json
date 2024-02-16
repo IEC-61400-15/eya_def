@@ -1557,7 +1557,14 @@
                               "rotor_status",
                               "wind_from_direction",
                               "wind_speed",
-                              "yaw_angle"
+                              "yaw_angle",
+                              "alarm_status",
+                              "event_status",
+                              "power_limitation",
+                              "energy_output",
+                              "availability",
+                              "production_loss",
+                              "data_availability"
                             ],
                             "examples": [
                               "active_power",

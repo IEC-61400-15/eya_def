@@ -563,6 +563,13 @@ def reference_wind_farm_dataset_a() -> reference_wind_farm.OperationalDatasetMet
             ),
             reference_wind_farm.OperationalDataVariable(
                 variable_type=(
+                    reference_wind_farm.OperationalDataVariableType.YAW_ANGLE
+                ),
+                data_level=reference_wind_farm.OperationalDataLevel.TURBINE_LEVEL,
+                statistic_types=[dataset.BasicStatisticType.MEAN],
+            ),
+            reference_wind_farm.OperationalDataVariable(
+                variable_type=(
                     reference_wind_farm.OperationalDataVariableType.ACTIVE_POWER
                 ),
                 data_level=reference_wind_farm.OperationalDataLevel.TURBINE_LEVEL,

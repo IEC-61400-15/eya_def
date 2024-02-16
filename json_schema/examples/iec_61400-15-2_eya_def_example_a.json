@@ -2061,6 +2061,13 @@
               "statistic_types": [
                 "mean"
               ],
+              "variable_type": "yaw_angle"
+            },
+            {
+              "data_level": "turbine_level",
+              "statistic_types": [
+                "mean"
+              ],
               "variable_type": "active_power"
             },
             {
