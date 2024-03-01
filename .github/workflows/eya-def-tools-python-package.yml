@@ -1,4 +1,4 @@
-name: EYA DEF tools Python package linting and testing
+name: EYA DEF tools linting and testing
 
 on:
   push:
@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.11"]
+        python-version: ["3.11", "3.12"]
 
     steps:
     - uses: actions/checkout@v3
