@@ -74,9 +74,9 @@ class EyaDefDocument(EyaDefBaseModel):
     issue_date: dt.date = issue_date_field
     contributors: list[ReportContributor] = contributors_field
     issuing_organisations: list[Organisation] = issuing_organisations_field
-    receiving_organisations: Optional[
-        list[Organisation]
-    ] = receiving_organisations_field
+    receiving_organisations: Optional[list[Organisation]] = (
+        receiving_organisations_field
+    )
     contract_reference: Optional[str] = contract_reference_field
     confidentiality_classification: Optional[str] = confidentiality_classification_field
     epsg_srid: int = epsg_srid_field

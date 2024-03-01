@@ -9,7 +9,7 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 639.66)">
 <title>Entity Relationship Diagram</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-639.66 3526,-639.66 3526,4 -4,4"/>
-<text text-anchor="middle" x="1761" y="-6.7" font-family="Times New Roman,serif" font-size="9.00" fill="#a8a8a8">Created by erdantic v0.6.0 &lt;https://github.com/drivendataorg/erdantic&gt;</text>
+<text text-anchor="middle" x="1761" y="-6.7" font-family="Times New Roman,serif" font-size="9.00" fill="#a8a8a8">Created by erdantic v0.7.0 &lt;https://github.com/drivendataorg/erdantic&gt;</text>
 <!-- eya_def_tools.data_models.dataset.Dataset -->
 <g id="node1" class="node">
 <title>eya_def_tools.data_models.dataset.Dataset</title>
@@ -71,7 +71,7 @@
 <!-- eya_def_tools.data_models.dataset.Dataset&#45;&gt;eya_def_tools.data_models.dataset.DatasetStatistic -->
 <g id="edge1" class="edge">
 <title>eya_def_tools.data_models.dataset.Dataset:e&#45;&gt;eya_def_tools.data_models.dataset.DatasetStatistic:w</title>
-<path fill="none" stroke="black" d="M2618,-115.75C2618.09,-115.75 2618.19,-115.75 2618.28,-115.75"/>
+<path fill="none" stroke="black" d="M2618,-115.75C2658.5,-115.75 2673.37,-115.75 2705.86,-115.75"/>
 <polygon fill="black" stroke="black" points="2715.67,-115.75 2725.67,-120.25 2721,-115.75 2725.33,-115.75 2725.33,-115.75 2725.33,-115.75 2721,-115.75 2725.67,-111.25 2715.67,-115.75"/>
 <ellipse fill="none" stroke="black" cx="2709.95" cy="-115.75" rx="4" ry="4"/>
 </g>
@@ -147,9 +147,9 @@
 <!-- eya_def_tools.data_models.plant_performance.PlantPerformanceAssessment&#45;&gt;eya_def_tools.data_models.plant_performance.PlantPerformanceCategory -->
 <g id="edge3" class="edge">
 <title>eya_def_tools.data_models.plant_performance.PlantPerformanceAssessment:e&#45;&gt;eya_def_tools.data_models.plant_performance.PlantPerformanceCategory:w</title>
-<path fill="none" stroke="black" d="M242,-271.75C242.12,-271.75 242.23,-271.75 242.35,-271.75"/>
-<polygon fill="black" stroke="black" points="341.71,-345.59 347.05,-355.16 345.99,-348.77 349.46,-351.35 349.46,-351.35 349.46,-351.35 345.99,-348.77 352.42,-347.94 341.71,-345.59"/>
-<ellipse fill="none" stroke="black" cx="337.12" cy="-342.17" rx="4" ry="4"/>
+<path fill="none" stroke="black" d="M242,-271.75C293.92,-271.75 292.05,-332.18 329.89,-348"/>
+<polygon fill="black" stroke="black" points="339.84,-349.86 348.85,-356.11 345.08,-350.83 349.34,-351.63 349.34,-351.63 349.34,-351.63 345.08,-350.83 350.5,-347.26 339.84,-349.86"/>
+<ellipse fill="none" stroke="black" cx="334.22" cy="-348.81" rx="4" ry="4"/>
 </g>
 <!-- eya_def_tools.data_models.plant_performance.PlantPerformanceResults -->
 <g id="node6" class="node">
@@ -228,14 +228,14 @@
 <!-- eya_def_tools.data_models.plant_performance.PlantPerformanceCategory&#45;&gt;eya_def_tools.data_models.plant_performance.PlantPerformanceSubcategory -->
 <g id="edge6" class="edge">
 <title>eya_def_tools.data_models.plant_performance.PlantPerformanceCategory:e&#45;&gt;eya_def_tools.data_models.plant_performance.PlantPerformanceSubcategory:w</title>
-<path fill="none" stroke="black" d="M676,-266.75C676.15,-266.75 676.3,-266.75 676.45,-266.75"/>
-<polygon fill="black" stroke="black" points="780.78,-584.93 779.62,-595.83 782.44,-590 783.79,-594.11 783.79,-594.11 783.79,-594.11 782.44,-590 788.17,-593.03 780.78,-584.93"/>
-<ellipse fill="none" stroke="black" cx="779" cy="-579.5" rx="4" ry="4"/>
+<path fill="none" stroke="black" d="M676,-266.75C821.83,-266.75 649.47,-562.89 763.6,-592.39"/>
+<polygon fill="black" stroke="black" points="773.73,-593.56 783.15,-599.18 779.03,-594.18 783.34,-594.67 783.34,-594.67 783.34,-594.67 779.03,-594.18 784.18,-590.24 773.73,-593.56"/>
+<ellipse fill="none" stroke="black" cx="768.05" cy="-592.9" rx="4" ry="4"/>
 </g>
 <!-- eya_def_tools.data_models.plant_performance.PlantPerformanceResults&#45;&gt;eya_def_tools.data_models.dataset.Dataset -->
 <g id="edge7" class="edge">
 <title>eya_def_tools.data_models.plant_performance.PlantPerformanceResults:e&#45;&gt;eya_def_tools.data_models.dataset.Dataset:w</title>
-<path fill="none" stroke="black" d="M2136.5,-242.75C2136.61,-242.75 2136.71,-242.75 2136.82,-242.75"/>
+<path fill="none" stroke="black" d="M2136.5,-242.75C2183.88,-242.75 2200.59,-242.75 2239.59,-242.75"/>
 <polygon fill="black" stroke="black" points="2249.67,-242.75 2259.67,-247.25 2255,-242.75 2259.33,-242.75 2259.33,-242.75 2259.33,-242.75 2255,-242.75 2259.67,-238.25 2249.67,-242.75"/>
 <ellipse fill="none" stroke="black" cx="2243.95" cy="-242.75" rx="4" ry="4"/>
 </g>

@@ -1495,16 +1495,6 @@
                             "description": "Optional description of the data variable, which should not be empty if the field is included. This may include clarification of the point of measurement, where relevant.",
                             "title": "Description"
                           },
-                          "id": {
-                            "description": "Unique ID of the data variable. This is currently free text but could be replaced by a list of enum options.",
-                            "examples": [
-                              "active_power",
-                              "wind_speed"
-                            ],
-                            "minLength": 1,
-                            "title": "Id",
-                            "type": "string"
-                          },
                           "label": {
                             "anyOf": [
                               {
@@ -1516,10 +1506,9 @@
                               }
                             ],
                             "default": null,
-                            "description": "Optional label of the data variable, which should not be empty if the field is included.",
+                            "description": "Optional label of the data variable, which should not be empty if the field is included. This can be used to provide the label assigned to the variable in the dataset (e.g. field of column name), but does not need to.",
                             "examples": [
-                              "Active Power",
-                              "Wind Speed"
+                              "Bld1PitchAngle"
                             ],
                             "title": "Label"
                           },
@@ -1538,10 +1527,56 @@
                             ],
                             "description": "Optional list of the types of statistics included for the data variable.",
                             "title": "Statistic Types"
+                          },
+                          "time_resolution": {
+                            "anyOf": [
+                              {
+                                "$ref": "#/$defs/TimeResolution"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ],
+                            "default": null,
+                            "description": "Optional specification of the time resolution for the variable, in case that is different from the dataset main time resolution."
+                          },
+                          "variable_type": {
+                            "description": "The type of operational data variable, selected from the standardised terms based on the ASPECT taxonomy.",
+                            "enum": [
+                              "active_power",
+                              "air_pressure",
+                              "air_temperature",
+                              "apparent_power",
+                              "pitch_angle",
+                              "rain_status",
+                              "rainfall_amount",
+                              "rainfall_rate",
+                              "reactive_power",
+                              "relative_humidity",
+                              "rotor_speed",
+                              "rotor_status",
+                              "wind_from_direction",
+                              "wind_speed",
+                              "yaw_angle",
+                              "alarm_status",
+                              "event_status",
+                              "power_limitation",
+                              "energy_output",
+                              "availability",
+                              "production_loss",
+                              "data_availability"
+                            ],
+                            "examples": [
+                              "active_power",
+                              "wind_speed"
+                            ],
+                            "minLength": 1,
+                            "title": "Operational Data Variable Type",
+                            "type": "string"
                           }
                         },
                         "required": [
-                          "id",
+                          "variable_type",
                           "data_level",
                           "statistic_types"
                         ],
@@ -1633,12 +1668,16 @@
                       "description": "The organisation that supplied the data."
                     },
                     "time_resolution": {
-                      "allOf": [
+                      "anyOf": [
                         {
                           "$ref": "#/$defs/TimeResolution"
+                        },
+                        {
+                          "type": "null"
                         }
                       ],
-                      "description": "Time resolution of the operational data."
+                      "default": null,
+                      "description": "The main time resolution of the operational data, if relevant. For example, a SCADA dataset with all main variables at 10-minute resolution should have the time resolution specified as such, even when some variables (e.g. alarm status) do not have a meaningful time resolution. The time resolution can also be specified at the variable level, in case of deviations from the dataset main resolution."
                     }
                   },
                   "required": [
@@ -1646,7 +1685,6 @@
                     "label",
                     "classification",
                     "supplying_organisation",
-                    "time_resolution",
                     "start_date",
                     "end_date",
                     "data_variables"

@@ -555,22 +555,37 @@ def reference_wind_farm_dataset_a() -> reference_wind_farm.OperationalDatasetMet
         end_date=dt.date(2022, 12, 31),
         data_variables=[
             reference_wind_farm.OperationalDataVariable(
-                id="wind_speed",
+                variable_type=(
+                    reference_wind_farm.OperationalDataVariableType.WIND_SPEED
+                ),
                 data_level=reference_wind_farm.OperationalDataLevel.TURBINE_LEVEL,
                 statistic_types=[dataset.BasicStatisticType.MEAN],
             ),
             reference_wind_farm.OperationalDataVariable(
-                id="active_power",
+                variable_type=(
+                    reference_wind_farm.OperationalDataVariableType.YAW_ANGLE
+                ),
                 data_level=reference_wind_farm.OperationalDataLevel.TURBINE_LEVEL,
                 statistic_types=[dataset.BasicStatisticType.MEAN],
             ),
             reference_wind_farm.OperationalDataVariable(
-                id="rotor_speed",
+                variable_type=(
+                    reference_wind_farm.OperationalDataVariableType.ACTIVE_POWER
+                ),
                 data_level=reference_wind_farm.OperationalDataLevel.TURBINE_LEVEL,
                 statistic_types=[dataset.BasicStatisticType.MEAN],
             ),
             reference_wind_farm.OperationalDataVariable(
-                id="temperature",
+                variable_type=(
+                    reference_wind_farm.OperationalDataVariableType.ROTOR_SPEED
+                ),
+                data_level=reference_wind_farm.OperationalDataLevel.TURBINE_LEVEL,
+                statistic_types=[dataset.BasicStatisticType.MEAN],
+            ),
+            reference_wind_farm.OperationalDataVariable(
+                variable_type=(
+                    reference_wind_farm.OperationalDataVariableType.AIR_TEMPERATURE
+                ),
                 comments="The sensor is mounted outside, below the nacelle.",
                 data_level=reference_wind_farm.OperationalDataLevel.TURBINE_LEVEL,
                 statistic_types=[dataset.BasicStatisticType.MEAN],

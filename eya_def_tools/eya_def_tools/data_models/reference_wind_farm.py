@@ -56,6 +56,40 @@ class OperationalDataSourceType(StrEnum):
     SECONDARY = auto()  # For example secondary SCADA data
 
 
+class OperationalDataVariableType(StrEnum):
+    """Type of operational data variable.
+
+    The terms comprise a subset of the ASPECT taxonomy, together with
+    some additional terms.
+    """
+
+    # From the ASPECT taxonomy:
+    ACTIVE_POWER = auto()
+    AIR_PRESSURE = auto()
+    AIR_TEMPERATURE = auto()
+    APPARENT_POWER = auto()
+    PITCH_ANGLE = auto()
+    RAIN_STATUS = auto()
+    RAINFALL_AMOUNT = auto()
+    RAINFALL_RATE = auto()
+    REACTIVE_POWER = auto()
+    RELATIVE_HUMIDITY = auto()
+    ROTOR_SPEED = auto()
+    ROTOR_STATUS = auto()
+    WIND_FROM_DIRECTION = auto()
+    WIND_SPEED = auto()
+    YAW_ANGLE = auto()
+
+    # Additional terms:
+    ALARM_STATUS = auto()
+    EVENT_STATUS = auto()
+    POWER_LIMITATION = auto()
+    ENERGY_OUTPUT = auto()
+    AVAILABILITY = auto()
+    PRODUCTION_LOSS = auto()
+    DATA_AVAILABILITY = auto()
+
+
 class SingleSourceDatasetClassification(EyaDefBaseModel):
     """Classification of an operational dataset from a single source."""
 
@@ -118,27 +152,25 @@ DatasetClassification: TypeAlias = (
 class OperationalDataVariable(EyaDefBaseModel):
     """Reference wind farm operational data variable."""
 
-    # TODO: consider expanding the 'MeasurementQuantity' enum class to
-    #       include all relevant operational data variables and using
-    #       that instead of free text
-    id: str = pdt.Field(
+    variable_type: OperationalDataVariableType = pdt.Field(
         default=...,
         min_length=1,
         description=(
-            "Unique ID of the data variable. This is currently free "
-            "text but could be replaced by a list of enum options."
+            "The type of operational data variable, selected from the "
+            "standardised terms based on the ASPECT taxonomy."
         ),
         examples=["active_power", "wind_speed"],
     )
-
     label: Optional[str] = pdt.Field(
         default=None,
         min_length=1,
         description=(
             "Optional label of the data variable, which should not be "
-            "empty if the field is included."
+            "empty if the field is included. This can be used to "
+            "provide the label assigned to the variable in the dataset "
+            "(e.g. field of column name), but does not need to."
         ),
-        examples=["Active Power", "Wind Speed"],
+        examples=["Bld1PitchAngle"],
     )
     description: Optional[str] = pdt.Field(
         default=None,
@@ -174,6 +206,14 @@ class OperationalDataVariable(EyaDefBaseModel):
         description=(
             "Optional list of the types of statistics included for "
             "the data variable."
+        ),
+    )
+    time_resolution: Optional[TimeResolution] = pdt.Field(
+        default=None,
+        description=(
+            "Optional specification of the time resolution for the "
+            "variable, in case that is different from the dataset main "
+            "time resolution."
         ),
     )
 
@@ -249,9 +289,18 @@ class OperationalDatasetMetadata(EyaDefBaseModel):
             "undertaken and/or not possible."
         ),
     )
-    time_resolution: TimeResolution = pdt.Field(
-        default=...,
-        description="Time resolution of the operational data.",
+    time_resolution: Optional[TimeResolution] = pdt.Field(
+        default=None,
+        description=(
+            "The main time resolution of the operational data, if "
+            "relevant. For example, a SCADA dataset with all main "
+            "variables at 10-minute resolution should have the time "
+            "resolution specified as such, even when some variables "
+            "(e.g. alarm status) do not have a meaningful time "
+            "resolution. The time resolution can also be specified "
+            "at the variable level, in case of deviations from the "
+            "dataset main resolution."
+        ),
     )
     start_date: dt.date = start_date_field
     end_date: dt.date = end_date_field

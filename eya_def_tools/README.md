@@ -100,13 +100,9 @@ of the [Graphviz](https://graphviz.org/) software.
 
 In a Windows environment, you may need to include additional options
 when installing `pygraphviz` with `pip`, to specify the locations for
-the `graphviz` installation. Something similar to the following may
-work, but depends on your environment and where you have installed
-`graphviz`.
-
-```bash
-pip install --global-option=build_ext --global-option="-IC:\Program Files\Graphviz\include" --global-option="-LC:\Program Files\Graphviz\lib" pygraphviz==<DESIRED_VERSION>
-```
+the `graphviz` installation. See the [PyGraphviz documentation](
+https://pygraphviz.github.io/documentation/stable/install.html) for more
+detail.
 
 ### Documentation build
 

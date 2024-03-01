@@ -2051,32 +2051,39 @@
           "data_variables": [
             {
               "data_level": "turbine_level",
-              "id": "wind_speed",
               "statistic_types": [
                 "mean"
-              ]
+              ],
+              "variable_type": "wind_speed"
             },
             {
               "data_level": "turbine_level",
-              "id": "active_power",
               "statistic_types": [
                 "mean"
-              ]
+              ],
+              "variable_type": "yaw_angle"
             },
             {
               "data_level": "turbine_level",
-              "id": "rotor_speed",
               "statistic_types": [
                 "mean"
-              ]
+              ],
+              "variable_type": "active_power"
+            },
+            {
+              "data_level": "turbine_level",
+              "statistic_types": [
+                "mean"
+              ],
+              "variable_type": "rotor_speed"
             },
             {
               "comments": "The sensor is mounted outside, below the nacelle.",
               "data_level": "turbine_level",
-              "id": "temperature",
               "statistic_types": [
                 "mean"
-              ]
+              ],
+              "variable_type": "air_temperature"
             }
           ],
           "end_date": "2022-12-31",

@@ -9,7 +9,7 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 1381.25)">
 <title>Entity Relationship Diagram</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-1381.25 1407,-1381.25 1407,4 -4,4"/>
-<text text-anchor="middle" x="701.5" y="-6.7" font-family="Times New Roman,serif" font-size="9.00" fill="#a8a8a8">Created by erdantic v0.6.0 &lt;https://github.com/drivendataorg/erdantic&gt;</text>
+<text text-anchor="middle" x="701.5" y="-6.7" font-family="Times New Roman,serif" font-size="9.00" fill="#a8a8a8">Created by erdantic v0.7.0 &lt;https://github.com/drivendataorg/erdantic&gt;</text>
 <!-- eya_def_tools.data_models.eya_def.EyaDefDocument -->
 <g id="node1" class="node">
 <title>eya_def_tools.data_models.eya_def.EyaDefDocument</title>
@@ -151,9 +151,9 @@
 <!-- eya_def_tools.data_models.eya_def.EyaDefDocument&#45;&gt;eya_def_tools.data_models.eya_def_header.ReportContributor -->
 <g id="edge1" class="edge">
 <title>eya_def_tools.data_models.eya_def.EyaDefDocument:e&#45;&gt;eya_def_tools.data_models.eya_def_header.ReportContributor:w</title>
-<path fill="none" stroke="black" d="M891,-1073.75C891.14,-1073.75 891.28,-1073.75 891.42,-1073.75"/>
-<polygon fill="black" stroke="black" points="1027.53,-1357.43 1027.8,-1368.4 1029.84,-1362.24 1031.71,-1366.15 1031.71,-1366.15 1031.71,-1366.15 1029.84,-1362.24 1035.91,-1364.5 1027.53,-1357.43"/>
-<ellipse fill="none" stroke="black" cx="1025.06" cy="-1352.28" rx="4" ry="4"/>
+<path fill="none" stroke="black" d="M891,-1073.75C1028.04,-1073.75 902.02,-1337.2 1011.83,-1364.48"/>
+<polygon fill="black" stroke="black" points="1021.73,-1365.59 1031.16,-1371.18 1027.03,-1366.19 1031.34,-1366.68 1031.34,-1366.68 1031.34,-1366.68 1027.03,-1366.19 1032.17,-1362.24 1021.73,-1365.59"/>
+<ellipse fill="none" stroke="black" cx="1016.05" cy="-1364.95" rx="4" ry="4"/>
 </g>
 <!-- eya_def_tools.data_models.general.Organisation -->
 <g id="node3" class="node">
@@ -183,9 +183,9 @@
 <!-- eya_def_tools.data_models.eya_def.EyaDefDocument&#45;&gt;eya_def_tools.data_models.general.Organisation -->
 <g id="edge2" class="edge">
 <title>eya_def_tools.data_models.eya_def.EyaDefDocument:e&#45;&gt;eya_def_tools.data_models.general.Organisation:w</title>
-<path fill="none" stroke="black" d="M891,-1052.75C891.12,-1052.75 891.24,-1052.75 891.35,-1052.75"/>
-<polygon fill="black" stroke="black" points="1110.37,-1197.06 1116.24,-1206.32 1114.82,-1200 1118.44,-1202.38 1118.44,-1202.38 1118.44,-1202.38 1114.82,-1200 1121.2,-1198.81 1110.37,-1197.06"/>
-<ellipse fill="none" stroke="black" cx="1105.6" cy="-1193.92" rx="4" ry="4"/>
+<path fill="none" stroke="black" d="M891,-1052.75C1005.07,-1052.75 998.96,-1185.41 1098.71,-1201.22"/>
+<polygon fill="black" stroke="black" points="1108.69,-1201.97 1118.33,-1207.21 1114.01,-1202.37 1118.33,-1202.7 1118.33,-1202.7 1118.33,-1202.7 1114.01,-1202.37 1119.01,-1198.24 1108.69,-1201.97"/>
+<ellipse fill="none" stroke="black" cx="1102.99" cy="-1201.54" rx="4" ry="4"/>
 </g>
 <!-- eya_def_tools.data_models.eya_def.EyaDefDocument&#45;&gt;eya_def_tools.data_models.general.Organisation -->
 <g id="edge3" class="edge">
@@ -328,9 +328,9 @@
 <!-- eya_def_tools.data_models.eya_def.EyaDefDocument&#45;&gt;eya_def_tools.data_models.scenario.Scenario -->
 <g id="edge6" class="edge">
 <title>eya_def_tools.data_models.eya_def.EyaDefDocument:e&#45;&gt;eya_def_tools.data_models.scenario.Scenario:w</title>
-<path fill="none" stroke="black" d="M891,-800.75C891.13,-800.75 891.26,-800.75 891.38,-800.75"/>
-<polygon fill="black" stroke="black" points="997.12,-229.91 1003.36,-220.9 998.09,-224.67 998.88,-220.41 998.88,-220.41 998.88,-220.41 998.09,-224.67 994.51,-219.26 997.12,-229.91"/>
-<ellipse fill="none" stroke="black" cx="996.08" cy="-235.53" rx="4" ry="4"/>
+<path fill="none" stroke="black" d="M891,-800.75C1146.34,-800.75 759.06,-251.64 978.62,-221.08"/>
+<polygon fill="black" stroke="black" points="988.69,-220.42 998.96,-224.26 994.01,-220.07 998.33,-219.79 998.33,-219.79 998.33,-219.79 994.01,-220.07 998.37,-215.28 988.69,-220.42"/>
+<ellipse fill="none" stroke="black" cx="982.98" cy="-220.79" rx="4" ry="4"/>
 </g>
 <!-- eya_def_tools.data_models.wind_farm.WindFarmConfiguration -->
 <g id="node7" class="node">
@@ -392,9 +392,9 @@
 <!-- eya_def_tools.data_models.eya_def.EyaDefDocument&#45;&gt;eya_def_tools.data_models.wind_farm.WindFarmConfiguration -->
 <g id="edge7" class="edge">
 <title>eya_def_tools.data_models.eya_def.EyaDefDocument:e&#45;&gt;eya_def_tools.data_models.wind_farm.WindFarmConfiguration:w</title>
-<path fill="none" stroke="black" d="M891,-926.75C891.15,-926.75 891.3,-926.75 891.46,-926.75"/>
-<polygon fill="black" stroke="black" points="998.32,-1052.87 1001.35,-1063.4 1001.77,-1056.94 1004.57,-1060.24 1004.57,-1060.24 1004.57,-1060.24 1001.77,-1056.94 1008.22,-1057.59 998.32,-1052.87"/>
-<ellipse fill="none" stroke="black" cx="994.62" cy="-1048.5" rx="4" ry="4"/>
+<path fill="none" stroke="black" d="M891,-926.75C961.4,-926.75 934.06,-1035.38 984.98,-1057.03"/>
+<polygon fill="black" stroke="black" points="994.84,-1058.86 1003.85,-1065.11 1000.08,-1059.84 1004.34,-1060.63 1004.34,-1060.63 1004.34,-1060.63 1000.08,-1059.84 1005.49,-1056.26 994.84,-1058.86"/>
+<ellipse fill="none" stroke="black" cx="989.22" cy="-1057.81" rx="4" ry="4"/>
 </g>
 <!-- eya_def_tools.data_models.wind_resource.WindResourceAssessment -->
 <g id="node8" class="node">
@@ -428,9 +428,9 @@
 <!-- eya_def_tools.data_models.eya_def.EyaDefDocument&#45;&gt;eya_def_tools.data_models.wind_resource.WindResourceAssessment -->
 <g id="edge8" class="edge">
 <title>eya_def_tools.data_models.eya_def.EyaDefDocument:e&#45;&gt;eya_def_tools.data_models.wind_resource.WindResourceAssessment:w</title>
-<path fill="none" stroke="black" d="M891,-842.75C891.1,-842.75 891.21,-842.75 891.31,-842.75"/>
-<polygon fill="black" stroke="black" points="1035.84,-392.59 1043.18,-384.44 1037.47,-387.51 1038.8,-383.39 1038.8,-383.39 1038.8,-383.39 1037.47,-387.51 1034.61,-381.69 1035.84,-392.59"/>
-<ellipse fill="none" stroke="black" cx="1034.09" cy="-398.03" rx="4" ry="4"/>
+<path fill="none" stroke="black" d="M891,-842.75C1098.42,-842.75 842.9,-413.66 1018.68,-384.33"/>
+<polygon fill="black" stroke="black" points="1028.7,-383.55 1039.01,-387.26 1034.01,-383.14 1038.33,-382.8 1038.33,-382.8 1038.33,-382.8 1034.01,-383.14 1038.32,-378.29 1028.7,-383.55"/>
+<ellipse fill="none" stroke="black" cx="1023" cy="-383.99" rx="4" ry="4"/>
 </g>
 </g>
 </svg>

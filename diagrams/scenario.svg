@@ -9,7 +9,7 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 1085.76)">
 <title>Entity Relationship Diagram</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-1085.76 4710,-1085.76 4710,4 -4,4"/>
-<text text-anchor="middle" x="2353" y="-6.7" font-family="Times New Roman,serif" font-size="9.00" fill="#a8a8a8">Created by erdantic v0.6.0 &lt;https://github.com/drivendataorg/erdantic&gt;</text>
+<text text-anchor="middle" x="2353" y="-6.7" font-family="Times New Roman,serif" font-size="9.00" fill="#a8a8a8">Created by erdantic v0.7.0 &lt;https://github.com/drivendataorg/erdantic&gt;</text>
 <!-- eya_def_tools.data_models.dataset.Dataset -->
 <g id="node1" class="node">
 <title>eya_def_tools.data_models.dataset.Dataset</title>
@@ -71,7 +71,7 @@
 <!-- eya_def_tools.data_models.dataset.Dataset&#45;&gt;eya_def_tools.data_models.dataset.DatasetStatistic -->
 <g id="edge1" class="edge">
 <title>eya_def_tools.data_models.dataset.Dataset:e&#45;&gt;eya_def_tools.data_models.dataset.DatasetStatistic:w</title>
-<path fill="none" stroke="black" d="M3802,-715.15C3802.09,-715.15 3802.19,-715.15 3802.28,-715.15"/>
+<path fill="none" stroke="black" d="M3802,-715.15C3842.88,-715.15 3857.64,-715.15 3890.77,-715.15"/>
 <polygon fill="black" stroke="black" points="3899.67,-715.15 3909.67,-719.65 3905,-715.15 3909.33,-715.15 3909.33,-715.15 3909.33,-715.15 3905,-715.15 3909.67,-710.65 3899.67,-715.15"/>
 <ellipse fill="none" stroke="black" cx="3893.95" cy="-715.15" rx="4" ry="4"/>
 </g>
@@ -306,7 +306,7 @@
 <!-- eya_def_tools.data_models.plant_performance.PlantPerformanceAssessment&#45;&gt;eya_def_tools.data_models.plant_performance.PlantPerformanceCategory -->
 <g id="edge11" class="edge">
 <title>eya_def_tools.data_models.plant_performance.PlantPerformanceAssessment:e&#45;&gt;eya_def_tools.data_models.plant_performance.PlantPerformanceCategory:w</title>
-<path fill="none" stroke="black" d="M1304,-196.15C1304.09,-196.15 1304.19,-196.15 1304.28,-196.15"/>
+<path fill="none" stroke="black" d="M1304,-196.15C1344.5,-196.15 1359.37,-196.15 1391.86,-196.15"/>
 <polygon fill="black" stroke="black" points="1401.67,-196.15 1411.67,-200.65 1407,-196.15 1411.33,-196.15 1411.33,-196.15 1411.33,-196.15 1407,-196.15 1411.67,-191.65 1401.67,-196.15"/>
 <ellipse fill="none" stroke="black" cx="1395.95" cy="-196.15" rx="4" ry="4"/>
 </g>
@@ -336,9 +336,9 @@
 <!-- eya_def_tools.data_models.energy_assessment.EnergyAssessmentResults&#45;&gt;eya_def_tools.data_models.dataset.Dataset -->
 <g id="edge6" class="edge">
 <title>eya_def_tools.data_models.energy_assessment.EnergyAssessmentResults:e&#45;&gt;eya_def_tools.data_models.dataset.Dataset:w</title>
-<path fill="none" stroke="black" d="M3291.5,-359.15C3291.61,-359.15 3291.72,-359.15 3291.83,-359.15"/>
-<polygon fill="black" stroke="black" points="3440.89,-832.3 3439.61,-843.19 3442.5,-837.38 3443.8,-841.52 3443.8,-841.52 3443.8,-841.52 3442.5,-837.38 3448.19,-840.48 3440.89,-832.3"/>
-<ellipse fill="none" stroke="black" cx="3439.18" cy="-826.84" rx="4" ry="4"/>
+<path fill="none" stroke="black" d="M3291.5,-359.15C3509.25,-359.15 3237.81,-811.07 3423.55,-840.64"/>
+<polygon fill="black" stroke="black" points="3433.69,-841.39 3443.33,-846.62 3439.01,-841.78 3443.33,-842.1 3443.33,-842.1 3443.33,-842.1 3439.01,-841.78 3444,-837.64 3433.69,-841.39"/>
+<ellipse fill="none" stroke="black" cx="3427.99" cy="-840.97" rx="4" ry="4"/>
 </g>
 <!-- eya_def_tools.data_models.plant_performance.PlantPerformanceCategory&#45;&gt;eya_def_tools.data_models.plant_performance.PlantPerformanceResults -->
 <g id="edge13" class="edge">
@@ -394,16 +394,16 @@
 <!-- eya_def_tools.data_models.plant_performance.PlantPerformanceCategory&#45;&gt;eya_def_tools.data_models.plant_performance.PlantPerformanceSubcategory -->
 <g id="edge14" class="edge">
 <title>eya_def_tools.data_models.plant_performance.PlantPerformanceCategory:e&#45;&gt;eya_def_tools.data_models.plant_performance.PlantPerformanceSubcategory:w</title>
-<path fill="none" stroke="black" d="M1738,-111.15C1738.09,-111.15 1738.17,-111.15 1738.26,-111.15"/>
-<polygon fill="black" stroke="black" points="1840.47,-272.42 1842.02,-283.28 1843.32,-276.93 1845.64,-280.59 1845.64,-280.59 1845.64,-280.59 1843.32,-276.93 1849.62,-278.46 1840.47,-272.42"/>
-<ellipse fill="none" stroke="black" cx="1837.41" cy="-267.59" rx="4" ry="4"/>
+<path fill="none" stroke="black" d="M1738,-111.15C1819.65,-111.15 1767.73,-252.58 1825.9,-277.44"/>
+<polygon fill="black" stroke="black" points="1835.84,-279.28 1844.85,-285.52 1841.08,-280.25 1845.34,-281.03 1845.34,-281.03 1845.34,-281.03 1841.08,-280.25 1846.49,-276.67 1835.84,-279.28"/>
+<ellipse fill="none" stroke="black" cx="1830.21" cy="-278.24" rx="4" ry="4"/>
 </g>
 <!-- eya_def_tools.data_models.plant_performance.PlantPerformanceResults&#45;&gt;eya_def_tools.data_models.dataset.Dataset -->
 <g id="edge15" class="edge">
 <title>eya_def_tools.data_models.plant_performance.PlantPerformanceResults:e&#45;&gt;eya_def_tools.data_models.dataset.Dataset:w</title>
-<path fill="none" stroke="black" d="M3259.5,-31.15C3259.59,-31.15 3259.68,-31.15 3259.77,-31.15"/>
-<polygon fill="black" stroke="black" points="3441.71,-832.08 3439.54,-842.82 3442.89,-837.28 3443.85,-841.5 3443.85,-841.5 3443.85,-841.5 3442.89,-837.28 3448.31,-840.83 3441.71,-832.08"/>
-<ellipse fill="none" stroke="black" cx="3440.44" cy="-826.5" rx="4" ry="4"/>
+<path fill="none" stroke="black" d="M3259.5,-31.15C3437.11,-31.15 3273.07,-780.03 3423.99,-838.54"/>
+<polygon fill="black" stroke="black" points="3433.83,-840.32 3442.87,-846.52 3439.08,-841.26 3443.34,-842.03 3443.34,-842.03 3443.34,-842.03 3439.08,-841.26 3444.47,-837.67 3433.83,-840.32"/>
+<ellipse fill="none" stroke="black" cx="3428.2" cy="-839.3" rx="4" ry="4"/>
 </g>
 <!-- eya_def_tools.data_models.plant_performance.PlantPerformanceSubcategory&#45;&gt;eya_def_tools.data_models.process_description.AssessmentProcessDescription -->
 <g id="edge18" class="edge">
@@ -594,9 +594,9 @@
 <!-- eya_def_tools.data_models.wind_resource.TurbineWindResourceAssessment&#45;&gt;eya_def_tools.data_models.process_description.AssessmentProcessDescription -->
 <g id="edge23" class="edge">
 <title>eya_def_tools.data_models.wind_resource.TurbineWindResourceAssessment:e&#45;&gt;eya_def_tools.data_models.process_description.AssessmentProcessDescription:w</title>
-<path fill="none" stroke="black" d="M954,-660.15C1229.95,-660.15 1298.05,-627.15 1574,-627.15 1574,-627.15 1574,-627.15 2095.5,-627.15 2095.59,-627.15 2095.68,-627.15 2095.77,-627.15"/>
-<polygon fill="black" stroke="black" points="3068.25,-503.46 3078.74,-506.66 3073.54,-502.78 3077.84,-502.24 3077.84,-502.24 3077.84,-502.24 3073.54,-502.78 3077.6,-497.73 3068.25,-503.46"/>
-<ellipse fill="none" stroke="black" cx="3062.58" cy="-504.18" rx="4" ry="4"/>
+<path fill="none" stroke="black" d="M954,-660.15C1229.95,-660.15 1298.05,-627.15 1574,-627.15 1574,-627.15 1574,-627.15 2095.5,-627.15 2458.32,-627.15 2560.8,-685.02 2911,-590.15 2985.03,-570.1 2993.4,-513.42 3058.11,-503.61"/>
+<polygon fill="black" stroke="black" points="3068.19,-502.89 3078.49,-506.67 3073.51,-502.51 3077.83,-502.2 3077.83,-502.2 3077.83,-502.2 3073.51,-502.51 3077.85,-497.69 3068.19,-502.89"/>
+<ellipse fill="none" stroke="black" cx="3062.49" cy="-503.3" rx="4" ry="4"/>
 </g>
 <!-- eya_def_tools.data_models.wind_resource.TurbineWindResourceResults -->
 <g id="node16" class="node">
@@ -671,9 +671,9 @@
 <!-- eya_def_tools.data_models.wind_resource.TurbineWindResourceResults&#45;&gt;eya_def_tools.data_models.dataset.Dataset -->
 <g id="edge26" class="edge">
 <title>eya_def_tools.data_models.wind_resource.TurbineWindResourceResults:e&#45;&gt;eya_def_tools.data_models.dataset.Dataset:w</title>
-<path fill="none" stroke="black" d="M3307.5,-938.15C3307.64,-938.15 3307.79,-938.15 3307.93,-938.15"/>
-<polygon fill="black" stroke="black" points="3435.56,-848.11 3446.32,-846.02 3439.91,-845.04 3443.45,-842.54 3443.45,-842.54 3443.45,-842.54 3439.91,-845.04 3441.13,-838.67 3435.56,-848.11"/>
-<ellipse fill="none" stroke="black" cx="3430.88" cy="-851.41" rx="4" ry="4"/>
+<path fill="none" stroke="black" d="M3307.5,-938.15C3374.14,-938.15 3371.35,-860.66 3423.88,-844.92"/>
+<polygon fill="black" stroke="black" points="3433.76,-843.56 3444.28,-846.66 3439.05,-842.84 3443.34,-842.24 3443.34,-842.24 3443.34,-842.24 3439.05,-842.84 3443.05,-837.74 3433.76,-843.56"/>
+<ellipse fill="none" stroke="black" cx="3428.1" cy="-844.34" rx="4" ry="4"/>
 </g>
 <!-- eya_def_tools.data_models.wind_resource.TurbineWindResourceResults&#45;&gt;eya_def_tools.data_models.dataset.Dataset -->
 <g id="edge27" class="edge">
@@ -779,9 +779,9 @@
 <!-- eya_def_tools.data_models.wind_uncertainty.WindUncertaintyAssessment&#45;&gt;eya_def_tools.data_models.wind_uncertainty.WindUncertaintyCategory -->
 <g id="edge35" class="edge">
 <title>eya_def_tools.data_models.wind_uncertainty.WindUncertaintyAssessment:e&#45;&gt;eya_def_tools.data_models.wind_uncertainty.WindUncertaintyCategory:w</title>
-<path fill="none" stroke="black" d="M1303,-722.15C1303.17,-722.15 1303.34,-722.15 1303.5,-722.16"/>
-<polygon fill="black" stroke="black" points="1407.14,-872.64 1409.1,-883.43 1410.16,-877.04 1412.62,-880.6 1412.62,-880.6 1412.62,-880.6 1410.16,-877.04 1416.52,-878.33 1407.14,-872.64"/>
-<ellipse fill="none" stroke="black" cx="1403.9" cy="-867.93" rx="4" ry="4"/>
+<path fill="none" stroke="black" d="M1303,-722.15C1381.04,-722.15 1337.18,-853.3 1392.84,-877.38"/>
+<polygon fill="black" stroke="black" points="1402.84,-879.25 1411.84,-885.52 1408.09,-880.23 1412.34,-881.03 1412.34,-881.03 1412.34,-881.03 1408.09,-880.23 1413.5,-876.67 1402.84,-879.25"/>
+<ellipse fill="none" stroke="black" cx="1397.22" cy="-878.2" rx="4" ry="4"/>
 </g>
 <!-- eya_def_tools.data_models.wind_uncertainty.UncertaintyResults&#45;&gt;eya_def_tools.data_models.dataset.Dataset -->
 <g id="edge32" class="edge">
@@ -843,9 +843,9 @@
 <!-- eya_def_tools.data_models.wind_uncertainty.WindUncertaintyCategory&#45;&gt;eya_def_tools.data_models.wind_uncertainty.WindUncertaintySubcategory -->
 <g id="edge37" class="edge">
 <title>eya_def_tools.data_models.wind_uncertainty.WindUncertaintyCategory:e&#45;&gt;eya_def_tools.data_models.wind_uncertainty.WindUncertaintySubcategory:w</title>
-<path fill="none" stroke="black" d="M1737,-796.15C1737.1,-796.15 1737.2,-796.15 1737.31,-796.15"/>
-<polygon fill="black" stroke="black" points="1902.89,-948.16 1907.21,-958.24 1906.82,-951.77 1910.01,-954.7 1910.01,-954.7 1910.01,-954.7 1906.82,-951.77 1913.3,-951.61 1902.89,-948.16"/>
-<ellipse fill="none" stroke="black" cx="1898.67" cy="-944.3" rx="4" ry="4"/>
+<path fill="none" stroke="black" d="M1737,-796.15C1834.14,-796.15 1810.28,-933.29 1890.17,-952.84"/>
+<polygon fill="black" stroke="black" points="1900.23,-953.99 1909.66,-959.59 1905.53,-954.59 1909.84,-955.08 1909.84,-955.08 1909.84,-955.08 1905.53,-954.59 1910.68,-950.64 1900.23,-953.99"/>
+<ellipse fill="none" stroke="black" cx="1894.55" cy="-953.34" rx="4" ry="4"/>
 </g>
 <!-- eya_def_tools.data_models.wind_uncertainty.WindUncertaintySubcategory&#45;&gt;eya_def_tools.data_models.wind_uncertainty.UncertaintyResults -->
 <g id="edge38" class="edge">
