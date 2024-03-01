@@ -1,4 +1,19 @@
 # The IEC 61400-15-2 EYA DEF
+[![EYA DEF tools linting and testing](
+https://github.com/IEC-61400-15/eya_def/actions/workflows/eya-def-tools-python-package.yml/badge.svg)](
+https://github.com/IEC-61400-15/eya_def/actions/workflows/eya-def-tools-python-package.yml)
+[![Checked with mypy](
+http://www.mypy-lang.org/static/mypy_badge.svg)](
+http://mypy-lang.org/)
+[![Code style: black](
+https://img.shields.io/badge/code%20style-black-000000.svg)](
+https://github.com/psf/black)
+[![Imports: isort](
+https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336)](
+https://pycqa.github.io/isort/)
+[![pre-commit](
+https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](
+https://github.com/pre-commit/pre-commit)
 
 The IEC 61400-15-2 Energy Yield Assessment Digital Exchange Format
 (EYA DEF) defines a complementary format for energy yield assessment
