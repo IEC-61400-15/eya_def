@@ -14,50 +14,6 @@
       "title": "AssessmentBasis",
       "type": "string"
     },
-    "AssessmentProcessDescription": {
-      "additionalProperties": false,
-      "description": "Description of a process used in an energy yield assessment.",
-      "properties": {
-        "comments": {
-          "anyOf": [
-            {
-              "minLength": 1,
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "description": "Optional comments on the assessment process or model, which should not be empty if the field is included.",
-          "title": "Comments"
-        },
-        "description": {
-          "description": "Description of the assessment process or model.",
-          "minLength": 1,
-          "title": "Description",
-          "type": "string"
-        },
-        "label": {
-          "description": "Label or name of the process or model.",
-          "examples": [
-            "WAsP",
-            "VORTEX BLOCKS",
-            "DNV CFD",
-            "VENTOS/M"
-          ],
-          "minLength": 1,
-          "title": "Label",
-          "type": "string"
-        }
-      },
-      "required": [
-        "label",
-        "description"
-      ],
-      "title": "AssessmentProcessDescription",
-      "type": "object"
-    },
     "BasicStatisticType": {
       "description": "Statistic type that can be specified by a single label.",
       "enum": [
@@ -339,7 +295,7 @@
       "description": "Energy assessment results.",
       "properties": {
         "annual_energy_production": {
-          "description": "Annual energy production estimates in GWh.",
+          "description": "Annual energy production (AEP) estimates at the turbine location(s) in gigawatt hour (GW h). The dimension of the first standard result dataset should be 'wind_farm_id'. The dimension of the second standard result dataset should be 'turbine_id'. Further results with other dimensions may be included optionally.",
           "items": {
             "$ref": "#/$defs/Dataset"
           },
@@ -1764,13 +1720,33 @@
                 "additionalProperties": false,
                 "description": "Details and results for the assessment of gross energy yield.",
                 "properties": {
-                  "process_description": {
-                    "allOf": [
+                  "comments": {
+                    "anyOf": [
                       {
-                        "$ref": "#/$defs/AssessmentProcessDescription"
+                        "minLength": 1,
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
                       }
                     ],
-                    "description": "Specification of the process used to calculate the gross EYA estimates."
+                    "default": null,
+                    "description": "Optional comments on the gross energy assessment, which should not be empty if the field is included.",
+                    "title": "Comments"
+                  },
+                  "description": {
+                    "anyOf": [
+                      {
+                        "minLength": 1,
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "description": "Optional description of the gross energy assessment, which should not be empty if the field is included.",
+                    "title": "Description"
                   },
                   "results": {
                     "allOf": [
@@ -1782,7 +1758,6 @@
                   }
                 },
                 "required": [
-                  "process_description",
                   "results"
                 ],
                 "title": "Gross Energy Assessment",
@@ -1792,13 +1767,33 @@
                 "additionalProperties": false,
                 "description": "Details and results for the assessment of net energy yield.",
                 "properties": {
-                  "process_description": {
-                    "allOf": [
+                  "comments": {
+                    "anyOf": [
                       {
-                        "$ref": "#/$defs/AssessmentProcessDescription"
+                        "minLength": 1,
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
                       }
                     ],
-                    "description": "Specification of the process used to calculate the net EYA estimates."
+                    "default": null,
+                    "description": "Optional comments on the net energy assessment, which should not be empty if the field is included.",
+                    "title": "Comments"
+                  },
+                  "description": {
+                    "anyOf": [
+                      {
+                        "minLength": 1,
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "description": "Optional description of the net energy assessment, which should not be empty if the field is included.",
+                    "title": "Description"
                   },
                   "results": {
                     "allOf": [
@@ -1810,7 +1805,6 @@
                   }
                 },
                 "required": [
-                  "process_description",
                   "results"
                 ],
                 "title": "Net Energy Assessment",
@@ -1882,23 +1876,6 @@
                             "additionalProperties": false,
                             "description": "Plant performance loss assessment subcategory.",
                             "properties": {
-                              "assessment_process_descriptions": {
-                                "anyOf": [
-                                  {
-                                    "items": {
-                                      "$ref": "#/$defs/AssessmentProcessDescription"
-                                    },
-                                    "minItems": 1,
-                                    "type": "array"
-                                  },
-                                  {
-                                    "type": "null"
-                                  }
-                                ],
-                                "default": null,
-                                "description": "Optional description of calculation processes used in the assessment of the plant performance loss subcategory. The field should not be empty if it is included.",
-                                "title": "Assessment Process Descriptions"
-                              },
                               "basis": {
                                 "allOf": [
                                   {
@@ -1942,23 +1919,6 @@
                                       "additionalProperties": false,
                                       "description": "Plant performance loss assessment subcategory element.",
                                       "properties": {
-                                        "assessment_process_descriptions": {
-                                          "anyOf": [
-                                            {
-                                              "items": {
-                                                "$ref": "#/$defs/AssessmentProcessDescription"
-                                              },
-                                              "minItems": 1,
-                                              "type": "array"
-                                            },
-                                            {
-                                              "type": "null"
-                                            }
-                                          ],
-                                          "default": null,
-                                          "description": "Description of calculation processes used in the assessment of the plant performance loss subcategory element.",
-                                          "title": "Assessment Process Descriptions"
-                                        },
                                         "basis": {
                                           "allOf": [
                                             {
@@ -2183,18 +2143,6 @@
             "title": "Label",
             "type": "string"
           },
-          "operational_lifetime_length_years": {
-            "description": "Number of years of project operational lifetime.",
-            "examples": [
-              10.0,
-              20.0,
-              30.0
-            ],
-            "exclusiveMaximum": 100.0,
-            "exclusiveMinimum": 1.0,
-            "title": "Operational Lifetime Length Years",
-            "type": "number"
-          },
           "turbine_wind_resource_assessment": {
             "additionalProperties": false,
             "description": "Wind resource assessment at the turbine locations.",
@@ -2245,8 +2193,42 @@
                       }
                     ],
                     "default": null,
-                    "description": "Final long-term air density estimates at the turbine location(s) in kilogram per cubic metre.",
+                    "description": "Final long-term air density estimates at the turbine location(s) at hub height in kilogram per cubic metre (kg m-3). The dimension of the first standard result dataset should be 'turbine_id'. Further results with other dimensions may also be included.",
                     "title": "Air Density"
+                  },
+                  "ambient_turbulence_intensity": {
+                    "anyOf": [
+                      {
+                        "items": {
+                          "$ref": "#/$defs/Dataset"
+                        },
+                        "minItems": 1,
+                        "type": "array"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "description": "Final ambient turbulence intensity estimates at the turbine location(s) at hub height, as dimensionless values. The first standard result dataset should comprise the ambient turbulence intensity as a function of wind speed, with the dimensions 'turbine_id' and 'wind_speed' (in that order). The wind speed coordinates should be 1.0 metre per second bins centered on whole numbers, with the first bin half the width (i.e. 0.25, 1.0, 2.0, 3.0, ...). Further results with other dimensions may also be included.",
+                    "title": "Ambient Turbulence Intensity"
+                  },
+                  "displacement_height": {
+                    "anyOf": [
+                      {
+                        "items": {
+                          "$ref": "#/$defs/Dataset"
+                        },
+                        "minItems": 1,
+                        "type": "array"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "description": "Estimated effective displacement of the boundary layer at the turbine location(s) due to vegetation (forestry) in metre. The displacement height is measured as positive upwards from the ground level. This field is optional as it is only relevant at forested sites. The dimension of the first standard result dataset should be 'turbine_id'. Further results with other dimensions, such as displacement height binned by wind direction, may also be included.",
+                    "title": "Displacement Height"
                   },
                   "probability": {
                     "anyOf": [
@@ -2262,7 +2244,7 @@
                       }
                     ],
                     "default": null,
-                    "description": "Final long-term probability distribution estimates at the turbine location(s), such as wind speed probability distributions or joint wind speed and direction frequency distributions, as dimensionless values.",
+                    "description": "Final long-term probability distribution estimates at the turbine location(s) at hub height, as dimensionless values. The first standard result dataset should comprise the joint wind speed and direction probability distributions, with dimensions 'turbine_id', 'wind_speed' and 'wind_from_direction' (in that order). The wind speed coordinates should be 1.0 metre per second bins centered on whole numbers, with the first bin half the width (i.e. 0.25, 1.0, 2.0, 3.0, ...). The wind direction coordinates should be twelve 30.0 degree bins, with the the first bin centered at 0.0. Further results with other dimensions may also be included.",
                     "title": "Probability"
                   },
                   "temperature": {
@@ -2279,25 +2261,8 @@
                       }
                     ],
                     "default": null,
-                    "description": "Final long-term temperature estimates at the turbine location(s) in degree C.",
+                    "description": "Final long-term temperature estimates at the turbine location(s) at hub height in degree C. The dimension of the first standard result dataset should be 'turbine_id'. Further results with other dimensions may also be included.",
                     "title": "Temperature"
-                  },
-                  "turbulence_intensity": {
-                    "anyOf": [
-                      {
-                        "items": {
-                          "$ref": "#/$defs/Dataset"
-                        },
-                        "minItems": 1,
-                        "type": "array"
-                      },
-                      {
-                        "type": "null"
-                      }
-                    ],
-                    "default": null,
-                    "description": "Final long-term turbulence intensity estimates at the turbine location(s) as dimensionless values.",
-                    "title": "Turbulence Intensity"
                   },
                   "wind_shear_exponent": {
                     "anyOf": [
@@ -2313,11 +2278,11 @@
                       }
                     ],
                     "default": null,
-                    "description": "Final long-term power law wind shear exponent estimates at the turbine location(s).",
+                    "description": "Final power law wind shear exponent estimates at the turbine location(s). The dimension of the first standard result dataset should be 'turbine_id'. Further results with other dimensions may also be included.",
                     "title": "Wind Shear Exponent"
                   },
                   "wind_speed": {
-                    "description": "Final long-term wind speed estimates at the turbine location(s) in metre per second (m s-1).",
+                    "description": "Final long-term wind speed estimates at the turbine location(s) at hub height in metre per second (m s-1). The dimension of the first standard result dataset should be 'turbine_id'. Further results with other dimensions may be included optionally.",
                     "items": {
                       "$ref": "#/$defs/Dataset"
                     },
@@ -2342,14 +2307,6 @@
                 "minLength": 1,
                 "title": "Wind Resource Assessment Id Reference",
                 "type": "string"
-              },
-              "wind_spatial_modelling_processes": {
-                "description": "Wind spatial modelling processes used in the assessment.",
-                "items": {
-                  "$ref": "#/$defs/AssessmentProcessDescription"
-                },
-                "title": "Wind Spatial Modelling Processes",
-                "type": "array"
               },
               "wind_uncertainty_assessment": {
                 "additionalProperties": false,
@@ -2587,7 +2544,6 @@
             },
             "required": [
               "wind_resource_assessment_id_reference",
-              "wind_spatial_modelling_processes",
               "results",
               "wind_uncertainty_assessment"
             ],
@@ -2606,7 +2562,6 @@
         },
         "required": [
           "label",
-          "operational_lifetime_length_years",
           "wind_farm_ids",
           "turbine_wind_resource_assessment",
           "energy_assessment"
@@ -2776,22 +2731,14 @@
             "type": "string"
           },
           "operational_lifetime_end_date": {
-            "anyOf": [
-              {
-                "format": "date",
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "default": null,
             "description": "Operational lifetime end date of the wind farm in the ISO 8601 standard format for a calendar date, i.e. YYYY-MM-DD.",
             "examples": [
               "2051-03-31",
               "2025-12-31"
             ],
-            "title": "Operational Lifetime End Date"
+            "format": "date",
+            "title": "Operational Lifetime End Date",
+            "type": "string"
           },
           "operational_lifetime_start_date": {
             "description": "Operational lifetime start date of the wind farm in the ISO 8601 standard format for a calendar date, i.e. YYYY-MM-DD.",
@@ -3012,6 +2959,7 @@
           "turbines",
           "relevance",
           "operational_lifetime_start_date",
+          "operational_lifetime_end_date",
           "installed_capacity"
         ],
         "title": "Wind Farm Configuration",
@@ -3104,8 +3052,42 @@
                   }
                 ],
                 "default": null,
-                "description": "Final long-term air density estimates at the measurement location(s) in kilogram per cubic metre. This field is optional since some wind measurement stations may lack measurements required to derive air density estimates, but it should always be included when relevant air density data are available. The dimensions of the first standard result dataset should be 'wind_dataset_id', 'location_id' (where the wind dataset has more than one location, otherwise omitted), and 'height' (in that order). Further results with other dimensions may also be included.",
+                "description": "Final long-term air density estimates at the measurement location(s) in kilogram per cubic metre (kg m-3). This field is optional since some wind measurement stations may lack measurements required to derive air density estimates, but it should always be included when relevant data are available. The dimensions of the first standard result dataset should be 'wind_dataset_id', 'location_id' (where the wind dataset has more than one location, otherwise omitted), and 'height' (in that order). Further results with other dimensions may also be included.",
                 "title": "Air Density"
+              },
+              "ambient_turbulence_intensity": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "$ref": "#/$defs/Dataset"
+                    },
+                    "minItems": 1,
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "Final ambient turbulence intensity estimates at the measurement location(s), as dimensionless values. This field is optional since some measurement devices may lack meaningful turbulence measurements, but it should always be included when relevant turbulence data are available. The first standard result dataset should comprise the ambient turbulence intensity as a function of wind speed, with the dimensions 'wind_dataset_id', 'location_id' (where the wind dataset has more than one location, otherwise omitted), 'height' and 'wind_speed' (in that order). The wind speed coordinates should be 1.0 metre per second bins centered on whole numbers, with the first bin half the width (i.e. 0.25, 1.0, 2.0, 3.0, ...). Further results with other dimensions may also be included.",
+                "title": "Ambient Turbulence Intensity"
+              },
+              "displacement_height": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "$ref": "#/$defs/Dataset"
+                    },
+                    "minItems": 1,
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "Estimated effective displacement of the boundary layer at the measurement location(s) due to vegetation (forestry) in metre. The displacement height is measured as positive upwards from the ground level. This field is optional as it is only relevant at forested sites. The dimensions of the first standard result dataset should be 'wind_dataset_id' and 'location_id' (where the wind dataset has more than one location, otherwise omitted). Further results with other dimensions, such as displacement height binned by wind direction, may also be included.",
+                "title": "Displacement Height"
               },
               "probability": {
                 "description": "Final long-term probability distribution estimates at the measurement location(s), as dimensionless values. The first standard result dataset should comprise the joint wind speed and direction probability distributions, with dimensions 'wind_dataset_id', 'location_id' (where the wind dataset has multiple locations, otherwise omitted), 'height', 'wind_speed' and 'wind_from_direction' (in that order). The wind speed coordinates should be 1.0 metre per second bins centered on whole numbers, with the first bin half the width (i.e. 0.25, 1.0, 2.0, 3.0, ...). The wind direction coordinates should be twelve 30.0 degree bins, with the the first bin centered at 0.0. Further results with other dimensions may be included optionally.",
@@ -3132,23 +3114,6 @@
                 "default": null,
                 "description": "Final long-term temperature estimates at the measurement location(s) in degree C. This field is optional since some wind measurement stations may lack measurements of temperature, but it should always be included when relevant temperature data are available. The dimensions of the first standard result dataset should be 'wind_dataset_id', 'location_id' (where the wind dataset has more than one location, otherwise omitted), and 'height' (in that order). Further results with other dimensions may also be included.",
                 "title": "Temperature"
-              },
-              "turbulence_intensity": {
-                "anyOf": [
-                  {
-                    "items": {
-                      "$ref": "#/$defs/Dataset"
-                    },
-                    "minItems": 1,
-                    "type": "array"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ],
-                "default": null,
-                "description": "Final long-term turbulence intensity estimates at the measurement location(s), as dimensionless values. This field is optional since some measurement devices may lack meaningful turbulence measurements, but it should always be included when relevant turbulence data are available. The first standard result dataset should comprise the ambient turbulence intensity as a function of wind speed, with the dimensions 'wind_dataset_id', 'location_id' (where the wind dataset has more than one location, otherwise omitted), 'height' and 'wind_speed' (in that order). The wind speed coordinates should be 1.0 metre per second bins centered on whole numbers, with the first bin half the width (i.e. 0.25, 1.0, 2.0, 3.0, ...). Further results with other dimensions may also be included.",
-                "title": "Turbulence Intensity"
               },
               "wind_shear_exponent": {
                 "anyOf": [

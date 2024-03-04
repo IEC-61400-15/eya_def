@@ -52,14 +52,6 @@ class Scenario(EyaDefBaseModel):
             "scenario in the report."
         ),
     )
-    operational_lifetime_length_years: float = pdt.Field(
-        default=...,
-        description="Number of years of project operational lifetime.",
-        gt=1.0,
-        lt=100.0,
-        allow_inf_nan=False,
-        examples=[10.0, 20.0, 30.0],
-    )
     wind_farm_ids: list[str] = pdt.Field(
         default=...,
         min_length=1,

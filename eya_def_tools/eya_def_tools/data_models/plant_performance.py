@@ -12,7 +12,6 @@ import pydantic as pdt
 from eya_def_tools.data_models.base_model import EyaDefBaseModel
 from eya_def_tools.data_models.dataset import Dataset
 from eya_def_tools.data_models.general import AssessmentBasis, TimeVariabilityType
-from eya_def_tools.data_models.process_description import AssessmentProcessDescription
 
 
 class PlantPerformanceResults(EyaDefBaseModel):
@@ -75,17 +74,6 @@ class PlantPerformanceSubcategoryElement(EyaDefBaseModel):
             "Whether the plant performance loss subcategory element is "
             "independent of all other elements."
         ),
-    )
-    assessment_process_descriptions: Optional[list[AssessmentProcessDescription]] = (
-        pdt.Field(
-            default=None,
-            min_length=1,
-            description=(
-                "Description of calculation processes used in the "
-                "assessment of the plant performance loss subcategory "
-                "element."
-            ),
-        )
     )
     results: PlantPerformanceResults = pdt.Field(
         default=...,
@@ -222,17 +210,6 @@ class PlantPerformanceSubcategory(EyaDefBaseModel):
     variability: TimeVariabilityType = pdt.Field(
         default=...,
         description="Considered variability in the plant performance loss subcategory.",
-    )
-    assessment_process_descriptions: Optional[list[AssessmentProcessDescription]] = (
-        pdt.Field(
-            default=None,
-            min_length=1,
-            description=(
-                "Optional description of calculation processes used in the "
-                "assessment of the plant performance loss subcategory. The "
-                "field should not be empty if it is included."
-            ),
-        )
     )
     elements: Optional[list[PlantPerformanceSubcategoryElement]] = pdt.Field(
         default=None,

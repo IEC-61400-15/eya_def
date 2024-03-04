@@ -82,8 +82,10 @@ class MeasurementQuantity(StrEnum):
     """Quantity of a measurement."""
 
     AIR_DENSITY = auto()
+    AMBIENT_TURBULENCE_INTENSITY = auto()
     ANNUAL_ENERGY_PRODUCTION = auto()
     DATA_AVAILABILITY = auto()
+    DISPLACEMENT_HEIGHT = auto()
     DISTANCE = auto()
     EFFICIENCY = auto()
     ENERGY = auto()
@@ -95,7 +97,6 @@ class MeasurementQuantity(StrEnum):
     WIND_SHEAR_EXPONENT = auto()
     TEMPERATURE = auto()
     TIME = auto()
-    TURBULENCE_INTENSITY = auto()
     WIND_FROM_DIRECTION = auto()
     WIND_SPEED = auto()
 
@@ -105,10 +106,14 @@ class MeasurementQuantity(StrEnum):
         match self:
             case MeasurementQuantity.AIR_DENSITY:
                 return MeasurementUnit.KILOGRAM_PER_CUBIC_METRE
+            case MeasurementQuantity.AMBIENT_TURBULENCE_INTENSITY:
+                return MeasurementUnit.ONE
             case MeasurementQuantity.ANNUAL_ENERGY_PRODUCTION:
                 return MeasurementUnit.GIGAWATT_HOUR_PER_ANNUM
             case MeasurementQuantity.DATA_AVAILABILITY:
                 return MeasurementUnit.ONE
+            case MeasurementQuantity.DISPLACEMENT_HEIGHT:
+                return MeasurementUnit.METRE
             case MeasurementQuantity.DISTANCE:
                 return MeasurementUnit.METRE
             case MeasurementQuantity.EFFICIENCY:
@@ -131,8 +136,6 @@ class MeasurementQuantity(StrEnum):
                 return MeasurementUnit.DEGREE_CELSIUS
             case MeasurementQuantity.TIME:
                 return MeasurementUnit.HOUR
-            case MeasurementQuantity.TURBULENCE_INTENSITY:
-                return MeasurementUnit.ONE
             case MeasurementQuantity.WIND_FROM_DIRECTION:
                 return MeasurementUnit.DEGREE
             case MeasurementQuantity.WIND_SPEED:
