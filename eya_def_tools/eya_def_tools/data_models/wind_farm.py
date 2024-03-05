@@ -215,8 +215,8 @@ class WindFarmConfiguration(EyaDefBaseModel):
         ),
         examples=["2026-01-01", "2017-04-01"],
     )
-    operational_lifetime_end_date: Optional[dt.date] = pdt.Field(
-        default=None,
+    operational_lifetime_end_date: dt.date = pdt.Field(
+        default=...,
         description=(
             "Operational lifetime end date of the wind farm in the "
             "ISO 8601 standard format for a calendar date, i.e. "

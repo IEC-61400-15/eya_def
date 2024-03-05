@@ -2,12 +2,13 @@
 
 """
 
+from typing import Optional
+
 import pydantic as pdt
 
 from eya_def_tools.data_models.base_model import EyaDefBaseModel
 from eya_def_tools.data_models.dataset import Dataset
 from eya_def_tools.data_models.plant_performance import PlantPerformanceAssessment
-from eya_def_tools.data_models.process_description import AssessmentProcessDescription
 
 
 class EnergyAssessmentResults(EyaDefBaseModel):
@@ -16,17 +17,34 @@ class EnergyAssessmentResults(EyaDefBaseModel):
     annual_energy_production: list[Dataset] = pdt.Field(
         default=...,
         min_length=1,
-        description="Annual energy production estimates in GWh.",
+        description=(
+            "Annual energy production (AEP) estimates at the turbine "
+            "location(s) in gigawatt hour (GW h). The dimension of the "
+            "first standard result dataset should be 'wind_farm_id'. "
+            "The dimension of the second standard result dataset "
+            "should be 'turbine_id'. Further results with other "
+            "dimensions may be included optionally."
+        ),
     )
 
 
 class GrossEnergyAssessment(EyaDefBaseModel):
     """Gross energy assessment details and results."""
 
-    process_description: AssessmentProcessDescription = pdt.Field(
-        default=...,
+    description: Optional[str] = pdt.Field(
+        default=None,
+        min_length=1,
         description=(
-            "Specification of the process used to calculate the gross EYA estimates."
+            "Optional description of the gross energy assessment, "
+            "which should not be empty if the field is included."
+        ),
+    )
+    comments: Optional[str] = pdt.Field(
+        default=None,
+        min_length=1,
+        description=(
+            "Optional comments on the gross energy assessment, which "
+            "should not be empty if the field is included."
         ),
     )
     results: EnergyAssessmentResults = pdt.Field(
@@ -38,10 +56,20 @@ class GrossEnergyAssessment(EyaDefBaseModel):
 class NetEnergyAssessment(EyaDefBaseModel):
     """Net energy assessment details and results."""
 
-    process_description: AssessmentProcessDescription = pdt.Field(
-        default=...,
+    description: Optional[str] = pdt.Field(
+        default=None,
+        min_length=1,
         description=(
-            "Specification of the process used to calculate the net EYA estimates."
+            "Optional description of the net energy assessment, which "
+            "should not be empty if the field is included."
+        ),
+    )
+    comments: Optional[str] = pdt.Field(
+        default=None,
+        min_length=1,
+        description=(
+            "Optional comments on the net energy assessment, which "
+            "should not be empty if the field is included."
         ),
     )
     results: EnergyAssessmentResults = pdt.Field(

@@ -2110,10 +2110,7 @@
       "description": "ABC165-5.5MW turbine model scenario",
       "energy_assessment": {
         "gross_energy_assessment": {
-          "process_description": {
-            "description": "In-house calculation tool, using a wind speed and direction frequency distribution association method.",
-            "label": "TurboYield"
-          },
+          "comments": "Using an in-house calculation tool with a wind speed and direction frequency distribution association method.",
           "results": {
             "annual_energy_production": [
               {
@@ -2154,10 +2151,7 @@
           }
         },
         "net_energy_assessment": {
-          "process_description": {
-            "description": "In-house calculation tool, using a frequency distribution approach and treating all wind uncertainty components and all plant performance loss components as independent.",
-            "label": "TurboYield"
-          },
+          "comments": "In-house calculation tool, using a frequency distribution approach and treating all wind uncertainty components and all plant performance loss components as independent.",
           "results": {
             "annual_energy_production": [
               {
@@ -2271,14 +2265,8 @@
               },
               "subcategories": [
                 {
-                  "assessment_process_descriptions": [
-                    {
-                      "comments": "Internal toolset",
-                      "description": "Energy yield production time series simulation tool.",
-                      "label": "Time Series tool"
-                    }
-                  ],
                   "basis": "time_series_calculation",
+                  "comments": "Energy yield production time series simulation.",
                   "label": "load_curtailment",
                   "results": {
                     "efficiency": [
@@ -2368,7 +2356,6 @@
       "id": "b6953ecb-f88b-4660-9f69-bedbbe4c240b",
       "is_main_scenario": true,
       "label": "A",
-      "operational_lifetime_length_years": 30.0,
       "turbine_wind_resource_assessment": {
         "results": {
           "wind_speed": [
@@ -2400,13 +2387,6 @@
           ]
         },
         "wind_resource_assessment_id_reference": "BfWF_WRA_1",
-        "wind_spatial_modelling_processes": [
-          {
-            "comments": "The simulations were run using 60 representative days.",
-            "description": "A coupled CFD-mesoscale model.",
-            "label": "xeEdge-meso-cfd"
-          }
-        ],
         "wind_uncertainty_assessment": {
           "categories": [
             {
@@ -2526,10 +2506,6 @@
       "description": "PQR169-5.8MW turbine model scenario",
       "energy_assessment": {
         "gross_energy_assessment": {
-          "process_description": {
-            "description": "In-house calculation tool, using a wind speed and direction frequency distribution association method.",
-            "label": "TurboYield"
-          },
           "results": {
             "annual_energy_production": [
               {
@@ -2570,10 +2546,6 @@
           }
         },
         "net_energy_assessment": {
-          "process_description": {
-            "description": "In-house calculation tool, using a frequency distribution approach and treating all wind uncertainty components and all plant performance loss components as independent.",
-            "label": "TurboYield"
-          },
           "results": {
             "annual_energy_production": [
               {
@@ -2743,7 +2715,6 @@
       "id": "e27fefdf-cdd7-441f-a7a7-c4347514b4f7",
       "is_main_scenario": false,
       "label": "B",
-      "operational_lifetime_length_years": 30.0,
       "turbine_wind_resource_assessment": {
         "results": {
           "wind_speed": [
@@ -2775,13 +2746,6 @@
           ]
         },
         "wind_resource_assessment_id_reference": "BfWF_WRA_1",
-        "wind_spatial_modelling_processes": [
-          {
-            "comments": "The simulations were run using 60 representative days.",
-            "description": "A coupled CFD-mesoscale model.",
-            "label": "xeEdge-meso-cfd"
-          }
-        ],
         "wind_uncertainty_assessment": {
           "categories": [
             {
@@ -2921,6 +2885,7 @@
       "id": "bf_a",
       "installed_capacity": 11.0,
       "label": "Barefoot Wind Farm",
+      "operational_lifetime_end_date": "2054-12-31",
       "operational_lifetime_start_date": "2024-01-01",
       "relevance": "internal",
       "restrictions": [
@@ -2980,6 +2945,7 @@
       "id": "bf_b",
       "installed_capacity": 11.6,
       "label": "Barefoot Wind Farm",
+      "operational_lifetime_end_date": "2054-12-31",
       "operational_lifetime_start_date": "2024-01-01",
       "relevance": "internal",
       "turbines": [

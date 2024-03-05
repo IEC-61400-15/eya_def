@@ -25,9 +25,6 @@ from eya_def_tools.data_models import (
     general,
     iea43_wra_data_model,
     plant_performance,
-)
-from eya_def_tools.data_models import process_description as eya_prcs_desc
-from eya_def_tools.data_models import (
     reference_wind_farm,
     scenario,
     spatial,
@@ -462,6 +459,7 @@ def wind_farm_a(
         turbines=[turbine_specification_wtg01_a, turbine_specification_wtg02_a],
         relevance=wind_farm.WindFarmRelevance.INTERNAL,
         operational_lifetime_start_date=dt.date(2024, 1, 1),
+        operational_lifetime_end_date=dt.date(2054, 12, 31),
         installed_capacity=11.0,
         restrictions=[wind_farm_operational_restriction_a],
     )
@@ -482,6 +480,7 @@ def wind_farm_b(
         turbines=[turbine_specification_wtg01_b, turbine_specification_wtg02_b],
         relevance=wind_farm.WindFarmRelevance.INTERNAL,
         operational_lifetime_start_date=dt.date(2024, 1, 1),
+        operational_lifetime_end_date=dt.date(2054, 12, 31),
         installed_capacity=11.6,
         export_capacity=11.5,
     )
@@ -844,16 +843,6 @@ def wind_resource_assessment_a() -> wind_resource.WindResourceAssessment:
 
 
 @pytest.fixture(scope="session")
-def wind_spatial_model_process_a() -> eya_prcs_desc.AssessmentProcessDescription:
-    """Spatial model test case of ``AssessmentProcessDescription``."""
-    return eya_prcs_desc.AssessmentProcessDescription(
-        label="xeEdge-meso-cfd",
-        description="A coupled CFD-mesoscale model.",
-        comments="The simulations were run using 60 representative days.",
-    )
-
-
-@pytest.fixture(scope="session")
 def long_term_adj_uncertainty_subcat_a() -> wind_uncertainty.WindUncertaintySubcategory:
     """Test case 'a' of long-term adjustment ``WindUncertaintySubcategory``."""
     return wind_uncertainty.WindUncertaintySubcategory(
@@ -953,7 +942,6 @@ def historical_wind_uncertainty_category_a(
 
 @pytest.fixture(scope="session")
 def turbine_wind_resource_assessment_a(
-    wind_spatial_model_process_a: eya_prcs_desc.AssessmentProcessDescription,
     historical_wind_uncertainty_category_a: wind_uncertainty.WindUncertaintyCategory,
 ) -> wind_resource.TurbineWindResourceAssessment:
     """Test case instance 'a' of ``TurbineWindResourceAssessment``."""
@@ -982,7 +970,6 @@ def turbine_wind_resource_assessment_a(
                 )
             ],
         ),
-        wind_spatial_modelling_processes=[wind_spatial_model_process_a],
         wind_uncertainty_assessment=wind_uncertainty.WindUncertaintyAssessment(
             categories=[historical_wind_uncertainty_category_a],
             results=wind_uncertainty.UncertaintyResults(
@@ -1017,7 +1004,6 @@ def turbine_wind_resource_assessment_a(
 
 @pytest.fixture(scope="session")
 def turbine_wind_resource_assessment_b(
-    wind_spatial_model_process_a: eya_prcs_desc.AssessmentProcessDescription,
     historical_wind_uncertainty_category_a: wind_uncertainty.WindUncertaintyCategory,
 ) -> wind_resource.TurbineWindResourceAssessment:
     """Test case instance 'b' of ``TurbineWindResourceAssessment``."""
@@ -1046,7 +1032,6 @@ def turbine_wind_resource_assessment_b(
                 )
             ],
         ),
-        wind_spatial_modelling_processes=[wind_spatial_model_process_a],
         wind_uncertainty_assessment=wind_uncertainty.WindUncertaintyAssessment(
             categories=[historical_wind_uncertainty_category_a],
             results=wind_uncertainty.UncertaintyResults(
@@ -1132,17 +1117,9 @@ def plant_performance_curtailment_category_a() -> (
                 label=(
                     plant_performance.PlantPerformanceSubcategoryLabel.LOAD_CURTAILMENT
                 ),
+                comments="Energy yield production time series simulation.",
                 basis=general.AssessmentBasis.TIME_SERIES_CALCULATION,
                 variability=general.TimeVariabilityType.STATIC_PROCESS,
-                assessment_process_descriptions=[
-                    eya_prcs_desc.AssessmentProcessDescription(
-                        label="Time Series tool",
-                        description=(
-                            "Energy yield production time series simulation tool."
-                        ),
-                        comments="Internal toolset",
-                    )
-                ],
                 results=plant_performance.PlantPerformanceResults(
                     efficiency=[
                         dataset.Dataset(
@@ -1251,34 +1228,7 @@ def plant_performance_curtailment_category_b() -> (
 
 
 @pytest.fixture(scope="session")
-def gross_energy_process_description_a() -> eya_prcs_desc.AssessmentProcessDescription:
-    """Gross energy test case of ``AssessmentProcessDescription``."""
-    return eya_prcs_desc.AssessmentProcessDescription(
-        label="TurboYield",
-        description=(
-            "In-house calculation tool, using a wind speed and direction "
-            "frequency distribution association method."
-        ),
-    )
-
-
-@pytest.fixture(scope="session")
-def net_energy_process_description_a() -> eya_prcs_desc.AssessmentProcessDescription:
-    """Net energy test case of ``AssessmentProcessDescription``."""
-    return eya_prcs_desc.AssessmentProcessDescription(
-        label="TurboYield",
-        description=(
-            "In-house calculation tool, using a frequency distribution "
-            "approach and treating all wind uncertainty components and "
-            "all plant performance loss components as independent."
-        ),
-    )
-
-
-@pytest.fixture(scope="session")
 def energy_assessment_a(
-    gross_energy_process_description_a: eya_prcs_desc.AssessmentProcessDescription,
-    net_energy_process_description_a: eya_prcs_desc.AssessmentProcessDescription,
     plant_performance_curtailment_category_a: (
         plant_performance.PlantPerformanceCategory
     ),
@@ -1286,7 +1236,10 @@ def energy_assessment_a(
     """Test case instance 'a' of ``EnergyAssessment``."""
     return energy_assessment.EnergyAssessment(
         gross_energy_assessment=energy_assessment.GrossEnergyAssessment(
-            process_description=gross_energy_process_description_a,
+            comments=(
+                "Using an in-house calculation tool with a wind speed and "
+                "direction frequency distribution association method."
+            ),
             results=energy_assessment.EnergyAssessmentResults(
                 annual_energy_production=[
                     dataset.Dataset(
@@ -1339,7 +1292,11 @@ def energy_assessment_a(
             ),
         ),
         net_energy_assessment=energy_assessment.NetEnergyAssessment(
-            process_description=net_energy_process_description_a,
+            comments=(
+                "In-house calculation tool, using a frequency distribution "
+                "approach and treating all wind uncertainty components and "
+                "all plant performance loss components as independent."
+            ),
             results=energy_assessment.EnergyAssessmentResults(
                 annual_energy_production=[
                     dataset.Dataset(
@@ -1394,8 +1351,6 @@ def energy_assessment_a(
 
 @pytest.fixture(scope="session")
 def energy_assessment_b(
-    gross_energy_process_description_a: eya_prcs_desc.AssessmentProcessDescription,
-    net_energy_process_description_a: eya_prcs_desc.AssessmentProcessDescription,
     plant_performance_curtailment_category_b: (
         plant_performance.PlantPerformanceCategory
     ),
@@ -1403,7 +1358,6 @@ def energy_assessment_b(
     """Test case instance 'b' of ``EnergyAssessment``."""
     return energy_assessment.EnergyAssessment(
         gross_energy_assessment=energy_assessment.GrossEnergyAssessment(
-            process_description=gross_energy_process_description_a,
             results=energy_assessment.EnergyAssessmentResults(
                 annual_energy_production=[
                     dataset.Dataset(
@@ -1456,7 +1410,6 @@ def energy_assessment_b(
             ),
         ),
         net_energy_assessment=energy_assessment.NetEnergyAssessment(
-            process_description=net_energy_process_description_a,
             results=energy_assessment.EnergyAssessmentResults(
                 annual_energy_production=[
                     dataset.Dataset(
@@ -1520,7 +1473,6 @@ def scenario_a(
         label="A",
         description="ABC165-5.5MW turbine model scenario",
         is_main_scenario=True,
-        operational_lifetime_length_years=30,
         wind_farm_ids=["bf_a", "mu"],
         turbine_wind_resource_assessment=turbine_wind_resource_assessment_a,
         energy_assessment=energy_assessment_a,
@@ -1539,7 +1491,6 @@ def scenario_b(
         description="PQR169-5.8MW turbine model scenario",
         comments="Site suitability of turbine model has not yet investigated.",
         is_main_scenario=False,
-        operational_lifetime_length_years=30,
         wind_farm_ids=["bf_b", "mu"],
         turbine_wind_resource_assessment=turbine_wind_resource_assessment_b,
         energy_assessment=energy_assessment_b,
