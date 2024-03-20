@@ -1,8 +1,7 @@
-email-validator==2.1.0.post1
+email-validator==2.1.1
 jsonschema==4.21.1
-pandas==2.2.0
-pandas-stubs==2.1.4.231227
+pandas==2.2.1
 pycountry==23.12.11
-pydantic==2.6.1
-pytest==8.0.0
+pydantic==2.6.4
+pytest==8.1.1
 ruamel.yaml==0.18.6
