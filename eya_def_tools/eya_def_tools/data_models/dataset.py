@@ -32,6 +32,7 @@ class BasicStatisticType(StrEnum):
     MINIMUM = auto()
     MAXIMUM = auto()
     INTER_ANNUAL_VARIABILITY = auto()
+    SAMPLE_COUNT = auto()
 
 
 class ExceedanceLevelStatisticType(EyaDefBaseModel):
