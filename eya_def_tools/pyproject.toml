@@ -1,23 +1,24 @@
 [build-system]
-requires = ["setuptools>=69.0", "wheel>=0.42"]
+requires = ["setuptools>=69.0", "wheel>=0.43"]
 
 [project]
 name = "eya_def_tools"
-version = "0.0.1a5"
+version = "0.0.1a6"
 authors = [
   {name="Christian Jonsson", email="christianj@naturalpower.com"},
   {name="Stephen Holleran", email="stephen@brightwindanalysis.com"},
-  {name="Jason Fields", email="jason@empowr.io"},
+  {name="Jason Fields", email="jason.fields@res-group.com"},
   {name="Charlie Plumley", email="charlie.plumley@cubicoinvest.com"},
   {name="Alina Brenneke", email="alina.brenneke@rwe.com"},
 ]
-description = "IEC 61400-15-2 Energy Yield Assessment (EYA) Digital Exchange Format (DEF) toolset"
+description = "IEC 61400-15-2 Wind Energy Yield Assessment (EYA) Digital Exchange Format (DEF) toolset"
 readme = "README.md"
 requires-python = ">=3.11"
 classifiers = [
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
     "Operating System :: OS Independent",
 ]
 dynamic = ["dependencies", "optional-dependencies"]
@@ -33,7 +34,7 @@ optional-dependencies.erd = {file = ["requirements-erd.txt"]}
 
 [tool.black]
 color = true
-target-version = ["py311"]
+target-version = ["py312"]
 
 [tool.isort]
 profile = "black"
@@ -48,7 +49,7 @@ files = ["eya_def_tools"]
 plugins = [
     "pydantic.mypy",
 ]
-python_version = "3.11"
+python_version = "3.12"
 follow_imports = "normal"
 check_untyped_defs = true
 disallow_any_generics = true

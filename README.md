@@ -15,7 +15,7 @@ https://pycqa.github.io/isort/)
 https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](
 https://github.com/pre-commit/pre-commit)
 
-The IEC 61400-15-2 Energy Yield Assessment Digital Exchange Format
+The IEC 61400-15-2 Wind Energy Yield Assessment Digital Exchange Format
 (EYA DEF) defines a complementary format for energy yield assessment
 reporting to the main written report, aimed at facilitating automated
 solutions for data exchange. It is organised as a deeply nested
