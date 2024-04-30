@@ -38,6 +38,14 @@ This README file only briefly covers some key topics for convenient
 reference. Full details will be provided at a separate documentation
 site, which still needs to be developed.
 
+## Status
+
+Please note that the EYA DEF is currently in *draft* status and will be
+subject to extension and modification. Some elements are currently
+incomplete. Please see the issues page for details of open items.
+
+We welcome new people to get involved in the development work.
+
 ## Aims and use cases
 
 The EYA DEF aims to facilitate the following:

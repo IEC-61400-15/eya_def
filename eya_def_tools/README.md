@@ -12,6 +12,12 @@ README for the EYA DEF repo is located [here](../README.md) and includes
 all general information (i.e. all information that is not specific to
 the Python package).
 
+## Status
+
+Please note that the EYA DEF Python toolset is currently in draft status
+and will be subject to extension and modification. Some elements are
+currently incomplete.
+
 ## User guidance
 
 The following provides brief guidance for users on how to get started
