@@ -209,8 +209,8 @@ class WindFarmConfiguration(EyaDefBaseModel):
     operational_lifetime_start_date: dt.date = pdt.Field(
         default=...,
         description=(
-            "Operational lifetime start date of the wind farm in the "
-            "ISO 8601 standard format for a calendar date, i.e. "
+            "The operational lifetime start date of the wind farm in "
+            "the ISO 8601 standard format for a calendar date, i.e. "
             "YYYY-MM-DD."
         ),
         examples=["2026-01-01", "2017-04-01"],
@@ -218,7 +218,7 @@ class WindFarmConfiguration(EyaDefBaseModel):
     operational_lifetime_end_date: dt.date = pdt.Field(
         default=...,
         description=(
-            "Operational lifetime end date of the wind farm in the "
+            "The operational lifetime end date of the wind farm in the "
             "ISO 8601 standard format for a calendar date, i.e. "
             "YYYY-MM-DD."
         ),
@@ -227,12 +227,13 @@ class WindFarmConfiguration(EyaDefBaseModel):
     installed_capacity: float = pdt.Field(
         default=...,
         description=(
-            "The maximum production (in MW) of the wind farm under typical "
-            "conditions. If there are features in place to increase power "
-            "output beyond the stated nameplate power of the turbines (e.g. "
-            "so-called power boost solutions), the wind farm installed capacity "
-            "should correspond to that increased power, insofar as it is "
-            "reached under typical conditions and not only in rare exceptions."
+            "The maximum production (in MW) of the wind farm under "
+            "typical conditions. If there are features in place to "
+            "increase power output beyond the stated nameplate power "
+            "of the turbines (e.g. so-called power boost solutions), "
+            "the wind farm installed capacity should correspond to "
+            "that increased power, insofar as it is reached under "
+            "typical conditions and not only in rare exceptions."
         ),
         examples=[12.3, 2345.67],
     )
