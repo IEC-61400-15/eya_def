@@ -21,12 +21,13 @@ from eya_def_tools.data_models.dataset import Dataset
 from eya_def_tools.data_models.wind_uncertainty import WindUncertaintyAssessment
 
 
-class WindResourceInputCharacteristics(EyaDefBaseModel):
-    """Characteristics of the raw wind resource assessment inputs.
+class WindResourceDatasetStatistics(EyaDefBaseModel):
+    """Statistics related to the wind resource assessment datasets.
 
-    This schema covers details of the raw input datasets that are not
-    covered under the metadata schemas for the measurement stations,
-    reference meteorological datasets and reference operational winds.
+    This schema includes statistics items that describe the raw input
+    datasets, which are not covered under the metadata schemas for the
+    measurement stations, reference meteorological datasets and
+    reference operational wind farms.
     """
 
     data_availability: list[Dataset] = pdt.Field(
@@ -57,7 +58,7 @@ class WindResourceInputCharacteristics(EyaDefBaseModel):
             "(i.e. if no data were missing), before the author of the "
             "EYA has undertaken any data filtering. The raw dataset "
             "may include filtering inherent in the process of creating "
-            "it, such a quality filtering implemented in the firmware "
+            "it, such as quality filtering implemented in the firmware "
             "of remote sensing devices (RSDs), and the raw data "
             "availability then describes the state of the dataset "
             "after such filtering has been applied."
@@ -217,11 +218,11 @@ class WindResourceAssessment(EyaDefBaseModel):
             "should not be empty if the field is included."
         ),
     )
-    input_characteristics: WindResourceInputCharacteristics = pdt.Field(
+    dataset_statistics: WindResourceDatasetStatistics = pdt.Field(
         default=...,
         description=(
-            "Characteristics that describe the raw wind resource "
-            "assessment input datasets."
+            "Statistics relating to the wind resource assessment "
+            "datasets, such as data availability."
         ),
     )
     results: WindResourceResults = pdt.Field(
@@ -379,4 +380,3 @@ class TurbineWindResourceAssessment(EyaDefBaseModel):
             "Wind related uncertainty assessment categories including results."
         ),
     )
-    # TODO consider including measurement station weighting

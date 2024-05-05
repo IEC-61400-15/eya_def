@@ -610,7 +610,7 @@ def wind_resource_assessment_a() -> wind_resource.WindResourceAssessment:
     """Test case instance 'a' of ``WindResourceAssessment``."""
     return wind_resource.WindResourceAssessment(
         id="BfWF_WRA_1",
-        input_characteristics=wind_resource.WindResourceInputCharacteristics(
+        dataset_statistics=wind_resource.WindResourceDatasetStatistics(
             data_availability=[
                 dataset.Dataset(
                     dimensions=[
