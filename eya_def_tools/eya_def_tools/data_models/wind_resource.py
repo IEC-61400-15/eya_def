@@ -237,6 +237,35 @@ class WindResourceAssessment(EyaDefBaseModel):
     )
 
 
+class TurbineWindResourceWeighting(EyaDefBaseModel):
+    """Details of weighting applied to estimate turbine wind resource."""
+
+    source_wind_data: Optional[list[Dataset]] = pdt.Field(
+        default=None,
+        min_length=1,
+        description=(
+            "Optional specification of the weight applied to the "
+            "prediction based on each source of wind data when making "
+            "the final wind resource estimate at each target turbine "
+            "location. The dimensions of the first standard weighting "
+            "specification dataset should be 'turbine_id' (the target "
+            "turbine of the estimate for which the weight is applied), "
+            "'wind_dataset_id' (the source wind dataset whose "
+            "prediction the weight is applied to) and 'location_id' "
+            "(where the wind dataset has more than one location, "
+            "otherwise omitted). Further results with additional "
+            "dimensions may be included, optionally, in which case the "
+            "first dimensions must be the same as those prescribed for "
+            "the first standard dataset. For example, if weights are "
+            "applied by wind direction bin, an additional dataset with "
+            "dimensions 'turbine_id', 'wind_dataset_id', 'location_id' "
+            "and 'wind_from_direction' may be included, but the first "
+            "dataset should follow the standard and provide the mean "
+            "weights applied."
+        ),
+    )
+
+
 class TurbineWindResourceResults(EyaDefBaseModel):
     """Wind resource assessment results at turbine locations."""
 
@@ -348,7 +377,7 @@ class TurbineWindResourceAssessment(EyaDefBaseModel):
             "turbine wind resource assessment is based on only one "
             "wind resource assessment."
         ),
-        examples=["WRA01", "BfWF_WRA_1", "A"],
+        examples=["WRA01", "BfWF_WRA_1"],
     )
     description: Optional[str] = pdt.Field(
         default=None,
@@ -366,6 +395,16 @@ class TurbineWindResourceAssessment(EyaDefBaseModel):
             "Optional comments on the turbine wind resource "
             "assessment, which should not be empty if the field is "
             "included."
+        ),
+    )
+    weighting: Optional[TurbineWindResourceWeighting] = pdt.Field(
+        default=None,
+        description=(
+            "Optional specification of the weighting applied to "
+            "estimate the wind resource at the turbine location(s),"
+            "relevant for example when predictions from different "
+            "measurement stations were weighted individually at each "
+            "turbine based on representativeness."
         ),
     )
     results: TurbineWindResourceResults = pdt.Field(

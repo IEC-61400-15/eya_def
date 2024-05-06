@@ -970,6 +970,29 @@ def turbine_wind_resource_assessment_a(
                 )
             ],
         ),
+        weighting=wind_resource.TurbineWindResourceWeighting(
+            source_wind_data=[
+                dataset.Dataset(
+                    dimensions=[
+                        dataset.DatasetDimension.TURBINE_ID,
+                        dataset.DatasetDimension.WIND_DATASET_ID,
+                    ],
+                    statistics=dataset.DatasetStatistic(
+                        statistic_type=dataset.BasicStatisticType.MEAN,
+                        values=[
+                            (
+                                ["WTG01", "BF_M1"],
+                                1.0,
+                            ),
+                            (
+                                ["WTG02", "BF_M1"],
+                                1.0,
+                            ),
+                        ],
+                    ),
+                ),
+            ],
+        ),
         wind_uncertainty_assessment=wind_uncertainty.WindUncertaintyAssessment(
             categories=[historical_wind_uncertainty_category_a],
             results=wind_uncertainty.UncertaintyResults(
