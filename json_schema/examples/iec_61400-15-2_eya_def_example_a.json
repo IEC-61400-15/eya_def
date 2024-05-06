@@ -2386,6 +2386,37 @@
             }
           ]
         },
+        "weighting": {
+          "source_wind_data": [
+            {
+              "dimensions": [
+                "turbine_id",
+                "wind_dataset_id"
+              ],
+              "statistics": [
+                {
+                  "statistic_type": "mean",
+                  "values": [
+                    [
+                      [
+                        "WTG01",
+                        "BF_M1"
+                      ],
+                      1.0
+                    ],
+                    [
+                      [
+                        "WTG02",
+                        "BF_M1"
+                      ],
+                      1.0
+                    ]
+                  ]
+                }
+              ]
+            }
+          ]
+        },
         "wind_resource_assessment_id_reference": "BfWF_WRA_1",
         "wind_uncertainty_assessment": {
           "categories": [
@@ -3015,8 +3046,7 @@
   ],
   "wind_resource_assessments": [
     {
-      "id": "BfWF_WRA_1",
-      "input_characteristics": {
+      "dataset_statistics": {
         "data_availability": [
           {
             "dimensions": [
@@ -3110,6 +3140,7 @@
           }
         ]
       },
+      "id": "BfWF_WRA_1",
       "results": {
         "air_density": [
           {

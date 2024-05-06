@@ -23,7 +23,8 @@
         "standard_deviation",
         "minimum",
         "maximum",
-        "inter_annual_variability"
+        "inter_annual_variability",
+        "sample_count"
       ],
       "title": "BasicStatisticType",
       "type": "string"
@@ -278,13 +279,21 @@
           "const": "secondary",
           "default": "secondary",
           "description": "The data source type, which for derived data is 'secondary'.",
-          "title": "Data Source Type"
+          "enum": [
+            "secondary"
+          ],
+          "title": "Data Source Type",
+          "type": "string"
         },
         "data_type": {
           "const": "derived",
           "default": "derived",
           "description": "The type of operational data, categorised as 'derived' for all derived operational datasets (e.g. operational reports or databases with aggregate data). Details of the data type shall be included in the description of the operational dataset, including the type of derived dataset (e.g. an operational report), who produced it (e.g. the turbine OEM) and any relevant details known about how the data were processed.",
-          "title": "Data Type"
+          "enum": [
+            "derived"
+          ],
+          "title": "Data Type",
+          "type": "string"
         }
       },
       "title": "DerivedDatasetClassification",
@@ -1527,7 +1536,7 @@
                               "wind_speed"
                             ],
                             "minLength": 1,
-                            "title": "Operational Data Variable Type",
+                            "title": "OperationalDataVariableType",
                             "type": "string"
                           }
                         },
@@ -2297,12 +2306,45 @@
                 "title": "Turbine Wind Resource Results",
                 "type": "object"
               },
+              "weighting": {
+                "anyOf": [
+                  {
+                    "additionalProperties": false,
+                    "description": "Details of weighting applied to estimate turbine wind resource.",
+                    "properties": {
+                      "source_wind_data": {
+                        "anyOf": [
+                          {
+                            "items": {
+                              "$ref": "#/$defs/Dataset"
+                            },
+                            "minItems": 1,
+                            "type": "array"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ],
+                        "default": null,
+                        "description": "Optional specification of the weight applied to the prediction based on each source of wind data when making the final wind resource estimate at each target turbine location. The dimensions of the first standard weighting specification dataset should be 'turbine_id' (the target turbine of the estimate for which the weight is applied), 'wind_dataset_id' (the source wind dataset whose prediction the weight is applied to) and 'location_id' (where the wind dataset has more than one location, otherwise omitted). Further results with additional dimensions may be included, optionally, in which case the first dimensions must be the same as those prescribed for the first standard dataset. For example, if weights are applied by wind direction bin, an additional dataset with dimensions 'turbine_id', 'wind_dataset_id', 'location_id' and 'wind_from_direction' may be included, but the first dataset should follow the standard and provide the mean weights applied.",
+                        "title": "Source Wind Data"
+                      }
+                    },
+                    "title": "Turbine Wind Resource Weighting",
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "Optional specification of the weighting applied to estimate the wind resource at the turbine location(s),relevant for example when predictions from different measurement stations were weighted individually at each turbine based on representativeness."
+              },
               "wind_resource_assessment_id_reference": {
                 "description": "The ID of the wind resource assessment on which the turbine wind resource assessment is based. This must refer to an ID of a wind resource assessment included at the top level of the EYA DEF. The schema requires that a turbine wind resource assessment is based on only one wind resource assessment.",
                 "examples": [
                   "WRA01",
-                  "BfWF_WRA_1",
-                  "A"
+                  "BfWF_WRA_1"
                 ],
                 "minLength": 1,
                 "title": "Wind Resource Assessment Id Reference",
@@ -2731,7 +2773,7 @@
             "type": "string"
           },
           "operational_lifetime_end_date": {
-            "description": "Operational lifetime end date of the wind farm in the ISO 8601 standard format for a calendar date, i.e. YYYY-MM-DD.",
+            "description": "The operational lifetime end date of the wind farm in the ISO 8601 standard format for a calendar date, i.e. YYYY-MM-DD.",
             "examples": [
               "2051-03-31",
               "2025-12-31"
@@ -2741,7 +2783,7 @@
             "type": "string"
           },
           "operational_lifetime_start_date": {
-            "description": "Operational lifetime start date of the wind farm in the ISO 8601 standard format for a calendar date, i.e. YYYY-MM-DD.",
+            "description": "The operational lifetime start date of the wind farm in the ISO 8601 standard format for a calendar date, i.e. YYYY-MM-DD.",
             "examples": [
               "2026-01-01",
               "2017-04-01"
@@ -2989,6 +3031,26 @@
             "description": "Optional comments on the wind resource assessment, which should not be empty if the field is included.",
             "title": "Comments"
           },
+          "dataset_statistics": {
+            "additionalProperties": false,
+            "description": "Statistics relating to the wind resource assessment datasets, such as data availability.",
+            "properties": {
+              "data_availability": {
+                "description": "Dimensionless raw data availability (also known as data recovery rate and data coverage) for the primary inputs to the wind resource assessment. The standard required dataset(s) should report data availability on a monthly basis, with dimensions 'wind_dataset_id', 'location_id' (where the wind dataset has more than one location, otherwise omitted), 'point_id', 'year' and 'month' (in that order) for datasets from wind measurement stations and meteorological reference sources; and dimensions 'reference_wind_farm_id', 'operational_dataset_id', 'variable_id' (where data availability is not identical across all relevant variables within the operational dataset, otherwise omitted), 'turbine_id' (for variables at the turbine level and where data availability is not identical across all turbines, otherwise omitted), 'year' and 'month' (in that order) for operational reference wind farm datasets. Additional datasets with other dimensions may be included optionally. The raw data availability is defined as the proportion of samples available in the raw dataset relative to the possible maximum amount of samples within a certain time frame (i.e. if no data were missing), before the author of the EYA has undertaken any data filtering. The raw dataset may include filtering inherent in the process of creating it, such as quality filtering implemented in the firmware of remote sensing devices (RSDs), and the raw data availability then describes the state of the dataset after such filtering has been applied.",
+                "items": {
+                  "$ref": "#/$defs/Dataset"
+                },
+                "minItems": 1,
+                "title": "Data Availability",
+                "type": "array"
+              }
+            },
+            "required": [
+              "data_availability"
+            ],
+            "title": "Wind Resource Dataset Statistics",
+            "type": "object"
+          },
           "description": {
             "anyOf": [
               {
@@ -3013,26 +3075,6 @@
             "minLength": 1,
             "title": "Id",
             "type": "string"
-          },
-          "input_characteristics": {
-            "additionalProperties": false,
-            "description": "Characteristics that describe the raw wind resource assessment input datasets.",
-            "properties": {
-              "data_availability": {
-                "description": "Dimensionless raw data availability (also known as data recovery rate and data coverage) for the primary inputs to the wind resource assessment. The standard required dataset(s) should report data availability on a monthly basis, with dimensions 'wind_dataset_id', 'location_id' (where the wind dataset has more than one location, otherwise omitted), 'point_id', 'year' and 'month' (in that order) for datasets from wind measurement stations and meteorological reference sources; and dimensions 'reference_wind_farm_id', 'operational_dataset_id', 'variable_id' (where data availability is not identical across all relevant variables within the operational dataset, otherwise omitted), 'turbine_id' (for variables at the turbine level and where data availability is not identical across all turbines, otherwise omitted), 'year' and 'month' (in that order) for operational reference wind farm datasets. Additional datasets with other dimensions may be included optionally. The raw data availability is defined as the proportion of samples available in the raw dataset relative to the possible maximum amount of samples within a certain time frame (i.e. if no data were missing), before the author of the EYA has undertaken any data filtering. The raw dataset may include filtering inherent in the process of creating it, such a quality filtering implemented in the firmware of remote sensing devices (RSDs), and the raw data availability then describes the state of the dataset after such filtering has been applied.",
-                "items": {
-                  "$ref": "#/$defs/Dataset"
-                },
-                "minItems": 1,
-                "title": "Data Availability",
-                "type": "array"
-              }
-            },
-            "required": [
-              "data_availability"
-            ],
-            "title": "Wind Resource Input Characteristics",
-            "type": "object"
           },
           "results": {
             "additionalProperties": false,
@@ -3152,7 +3194,7 @@
         },
         "required": [
           "id",
-          "input_characteristics",
+          "dataset_statistics",
           "results"
         ],
         "title": "Wind Resource Assessment",

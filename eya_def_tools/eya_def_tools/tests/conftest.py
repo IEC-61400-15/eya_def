@@ -930,11 +930,11 @@ def historical_wind_uncertainty_category_a(
                                 (
                                     ["BF_M1"],
                                     0.03201,
-                                )
+                                ),
                             ],
-                        )
+                        ),
                     ],
-                )
+                ),
             ],
         ),
     )
@@ -965,9 +965,9 @@ def turbine_wind_resource_assessment_a(
                                     6.95,
                                 ),
                             ],
-                        )
+                        ),
                     ],
-                )
+                ),
             ],
         ),
         weighting=wind_resource.TurbineWindResourceWeighting(
@@ -977,19 +977,21 @@ def turbine_wind_resource_assessment_a(
                         dataset.DatasetDimension.TURBINE_ID,
                         dataset.DatasetDimension.WIND_DATASET_ID,
                     ],
-                    statistics=dataset.DatasetStatistic(
-                        statistic_type=dataset.BasicStatisticType.MEAN,
-                        values=[
-                            (
-                                ["WTG01", "BF_M1"],
-                                1.0,
-                            ),
-                            (
-                                ["WTG02", "BF_M1"],
-                                1.0,
-                            ),
-                        ],
-                    ),
+                    statistics=[
+                        dataset.DatasetStatistic(
+                            statistic_type=dataset.BasicStatisticType.MEAN,
+                            values=[
+                                (
+                                    ["WTG01", "BF_M1"],
+                                    1.0,
+                                ),
+                                (
+                                    ["WTG02", "BF_M1"],
+                                    1.0,
+                                ),
+                            ],
+                        ),
+                    ],
                 ),
             ],
         ),
@@ -1050,9 +1052,9 @@ def turbine_wind_resource_assessment_b(
                                     6.94,
                                 ),
                             ],
-                        )
+                        ),
                     ],
-                )
+                ),
             ],
         ),
         wind_uncertainty_assessment=wind_uncertainty.WindUncertaintyAssessment(
