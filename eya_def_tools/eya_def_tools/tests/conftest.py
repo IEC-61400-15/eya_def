@@ -480,7 +480,7 @@ def wind_farm_b(
         turbines=[turbine_specification_wtg01_b, turbine_specification_wtg02_b],
         relevance=wind_farm.WindFarmRelevance.INTERNAL,
         operational_lifetime_start_date=dt.date(2024, 1, 1),
-        operational_lifetime_end_date=dt.date(2054, 12, 31),
+        operational_lifetime_end_date=dt.date(2058, 12, 31),
         installed_capacity=11.6,
         export_capacity=11.5,
     )

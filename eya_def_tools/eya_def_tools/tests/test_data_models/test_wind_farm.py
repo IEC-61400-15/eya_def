@@ -2,6 +2,9 @@
 
 """
 
+from typing import Iterable
+
+import numpy as np
 import pytest
 
 from eya_def_tools.data_models.wind_farm import WindFarmConfiguration
@@ -26,15 +29,48 @@ def test_capacity_property_calculates_correctly(
     wind_farm_id: str,
     expected: float,
 ) -> None:
-    wind_farm: WindFarmConfiguration
-    if wind_farm_id == wind_farm_a.id:
-        wind_farm = wind_farm_a
-    elif wind_farm_id == wind_farm_b.id:
-        wind_farm = wind_farm_b
-    else:
-        raise ValueError(
-            "The wind farm ID used to reference test configuration objects "
-            "does not match any of the expected values."
-        )
+    wind_farm = _get_wind_farm_by_id(
+        wind_farms=(wind_farm_a, wind_farm_b), wind_farm_id=wind_farm_id
+    )
 
-    assert wind_farm.capacity == expected
+    assert np.isclose(wind_farm.capacity, expected)
+
+
+@pytest.mark.parametrize(
+    "wind_farm_id, expected",
+    [
+        (
+            "bf_a",
+            30.99879531,
+        ),
+        (
+            "bf_b",
+            34.99890483,
+        ),
+    ],
+)
+def test_operational_lifetime_length_property_calculates_correctly(
+    wind_farm_a: WindFarmConfiguration,
+    wind_farm_b: WindFarmConfiguration,
+    wind_farm_id: str,
+    expected: float,
+) -> None:
+    wind_farm = _get_wind_farm_by_id(
+        wind_farms=(wind_farm_a, wind_farm_b), wind_farm_id=wind_farm_id
+    )
+
+    assert np.isclose(wind_farm.operational_lifetime_length, expected)
+
+
+def _get_wind_farm_by_id(
+    wind_farms: Iterable[WindFarmConfiguration],
+    wind_farm_id: str,
+) -> WindFarmConfiguration:
+    for wind_farm in wind_farms:
+        if wind_farm.id == wind_farm_id:
+            return wind_farm
+
+    raise ValueError(
+        "The wind farm ID used to reference test configuration objects "
+        "does not match any of the expected values."
+    )
