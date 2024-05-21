@@ -183,9 +183,9 @@
 <!-- eya_def_tools.data_models.eya_def.EyaDefDocument&#45;&gt;eya_def_tools.data_models.general.Organisation -->
 <g id="edge2" class="edge">
 <title>eya_def_tools.data_models.eya_def.EyaDefDocument:e&#45;&gt;eya_def_tools.data_models.general.Organisation:w</title>
-<path fill="none" stroke="black" d="M891,-1031.25C1012.73,-1031.25 997.77,-1182.25 1119.5,-1182.25"/>
-<polygon fill="black" stroke="black" points="1129.74,-1192.49 1124.24,-1177.99 1124.5,-1187.25 1119.97,-1182.72 1119.97,-1182.72 1119.97,-1182.72 1124.5,-1187.25 1115.24,-1186.99 1129.74,-1192.49"/>
-<ellipse fill="none" stroke="black" cx="1134.95" cy="-1197.7" rx="5.66" ry="5.66"/>
+<path fill="none" stroke="black" d="M891,-1031.25C1005.12,-1031.25 999.11,-1163.96 1098.21,-1180.55"/>
+<polygon fill="black" stroke="black" points="1109.2,-1181.43 1118.81,-1186.71 1114.52,-1181.85 1118.83,-1182.2 1118.83,-1182.2 1118.83,-1182.2 1114.52,-1181.85 1119.52,-1177.74 1109.2,-1181.43"/>
+<ellipse fill="none" stroke="black" cx="1103.5" cy="-1180.98" rx="4" ry="4"/>
 </g>
 <!-- eya_def_tools.data_models.eya_def.EyaDefDocument&#45;&gt;eya_def_tools.data_models.general.Organisation -->
 <g id="edge3" class="edge">
