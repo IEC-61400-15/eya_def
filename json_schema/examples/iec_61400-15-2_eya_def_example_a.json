@@ -2333,7 +2333,7 @@
                       }
                     ]
                   },
-                  "variability": "static_process"
+                  "variability": "static"
                 }
               ]
             }
@@ -2723,7 +2723,7 @@
                       }
                     ]
                   },
-                  "variability": "static_process"
+                  "variability": "static"
                 }
               ]
             }
@@ -2976,7 +2976,7 @@
       "id": "bf_b",
       "installed_capacity": 11.6,
       "label": "Barefoot Wind Farm",
-      "operational_lifetime_end_date": "2054-12-31",
+      "operational_lifetime_end_date": "2058-12-31",
       "operational_lifetime_start_date": "2024-01-01",
       "relevance": "internal",
       "turbines": [

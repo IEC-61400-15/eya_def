@@ -198,7 +198,5 @@ class TimeResolution(EyaDefBaseModel):
 class TimeVariabilityType(StrEnum):
     """Type of time variability considered for an assessment element."""
 
-    STATIC_PROCESS = auto()
-    ANNUAL_VARIABLE = auto()
-
-    OTHER = auto()
+    STATIC = auto()
+    VARIABLE = auto()

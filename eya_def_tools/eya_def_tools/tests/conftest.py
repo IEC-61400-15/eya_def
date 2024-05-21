@@ -1144,7 +1144,7 @@ def plant_performance_curtailment_category_a() -> (
                 ),
                 comments="Energy yield production time series simulation.",
                 basis=general.AssessmentBasis.TIME_SERIES_CALCULATION,
-                variability=general.TimeVariabilityType.STATIC_PROCESS,
+                variability=general.TimeVariabilityType.STATIC,
                 results=plant_performance.PlantPerformanceResults(
                     efficiency=[
                         dataset.Dataset(
@@ -1218,7 +1218,7 @@ def plant_performance_curtailment_category_b() -> (
                     plant_performance.PlantPerformanceSubcategoryLabel.LOAD_CURTAILMENT
                 ),
                 basis=general.AssessmentBasis.PROJECT_SPECIFIC_ASSUMPTION,
-                variability=general.TimeVariabilityType.STATIC_PROCESS,
+                variability=general.TimeVariabilityType.STATIC,
                 results=plant_performance.PlantPerformanceResults(
                     efficiency=[
                         dataset.Dataset(
