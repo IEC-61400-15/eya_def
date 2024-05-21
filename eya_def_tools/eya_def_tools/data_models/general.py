@@ -190,7 +190,7 @@ class TimeResolution(EyaDefBaseModel):
     unit: TimeMeasurementUnit = pdt.Field(
         default=...,
         description=(
-            "The measurement unit of time in which the time resolution " "is specified."
+            "The measurement unit of time in which the time resolution is specified."
         ),
     )
 
