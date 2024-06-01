@@ -131,7 +131,7 @@ name.
  "confidentiality_classification": "Confidential",
  "document_id": "12345678",
  "document_version": "B",
- "issue_date": "2022-10-07",
+ "issue_date": "2023-10-07",
  "project_name": "Barefoot Wind Farm",
  "receiving_organisations": [
     {
