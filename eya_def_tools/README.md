@@ -1,22 +1,21 @@
 # The IEC 61400-15-2 EYA DEF Python toolset
 
-The `eya_def_tools` package provides a toolset for working with the
-IEC 61400-15-2 EYA Reporting Digital Exchange Format (DEF) in the Python
-programming language. It includes a nested `pydantic` data model for the
-EYA DEF that is equivalent of the JSON Schema.
+The `eya_def_tools` Python package provides a toolset for working with
+the EYA DEF in the Python programming language. It includes a nested
+`pydantic` data model that is equivalent of the EYA DEF JSON Schema.
 
-This README file only briefly covers some key topics in relation to the
-Python package for convenient reference. Full details will be provided
-at a separate documentation site, which still needs to be developed. The
+This README file only briefly covers a few key topics in relation to the
+Python package, for convenient reference. Full details will be provided
+on a separate documentation site, which still needs to be developed. The
 README for the EYA DEF repo is located [here](../README.md) and includes
 all general information (i.e. all information that is not specific to
 the Python package).
 
 ## Status
 
-Please note that the EYA DEF Python toolset is currently in draft status
-and will be subject to extension and modification. Some elements are
-currently incomplete.
+Please note that the EYA DEF Python toolset is currently in *draft*
+status and will be subject to extension and modification. Some elements
+are currently incomplete.
 
 ## User guidance
 
@@ -89,7 +88,7 @@ using the `erdantic` package to generate entity relationship diagrams
 of the [Graphviz](https://graphviz.org/) software.
 
 In a Windows environment, you may need to include additional options
-when installing `pygraphviz` with `pip`, to specify the locations for
+when installing `pygraphviz` using `pip`, to specify the locations for
 the `graphviz` installation. See the [PyGraphviz documentation](
 https://pygraphviz.github.io/documentation/stable/install.html) for more
 detail.
@@ -108,6 +107,8 @@ execute the following.
 make html
 ```
 
+Note that the documentation is still in the easy stages of development.
+
 ### Testing
 
 The test suite is built using [pytest](https://docs.pytest.org). The
@@ -116,8 +117,7 @@ is installed automatically (together with other dependencies) upon
 installation of `eya_def_tools`.
 
 To run the test suite with coverage reporting, including details on
-statements with missing coverage, simply execute the following at the
-top-level Python package directory.
+statements with missing coverage, simply execute the following.
 
 ```bash
 pytest --pyargs eya_def_tools --cov=eya_def_tools --cov-report term-missing
@@ -129,10 +129,11 @@ Contributors are encouraged to write tests to cover new features.
 
 Type hints and static type checking are optional in Python, but make
 code dramatically more readable and can help identify type issues that
-would otherwise trigger errors at runtime. This project enforces the use
-of type hints and runs static type checking using the
+would otherwise trigger errors at runtime. The EYA DEF project enforces
+the use of type hints and static type checking using the
 [mypy](https://mypy.readthedocs.io/en/stable/) tool, which is part of
-the `pre-commit` hooks
+the `pre-commit` hooks and GitHub Actions pipeline (see below for
+details).
 
 The `mypy` static type checking can also be run by executing the
 following at the root of the repository directory.
@@ -148,7 +149,10 @@ The mypy configurations are contained in the
 
 The `eya_def` repo has a GitHub Actions pipeline configured to run
 checks on pull requests (PRs) to check file formatting and ensure that
-all tests pass.
+static type checking, tests and other required checks pass.
+
+For details, see the pipeline [configuration file here](
+../.github/workflows/eya-def-tools-python-package.yml).
 
 ### Pre-commit hooks
 
@@ -163,7 +167,8 @@ pre-commit --version
 ```
 
 The project configurations for the Git hooks are contained within the
-file `.pre-commit-config.yaml` at the root repository directory.
+file [.pre-commit-config.yaml][../.pre-commit-config.yaml] at the root
+repository directory.
 
 Lint checks are run on both `git commit` and `git push`. Tests are
 not included in the Git hooks.
@@ -180,8 +185,7 @@ After installation, `pre-commit` will run automatically on `git commit`
 and `git push`. Note that some hooks related to formatting (e.g.
 `requirements-txt-fixer` and `trailing-whitespace`) will auto-fix files
 but return an error on doing so. In these cases the fixed files need to
-be staged again and the commit attempt repeated. It should then pass the
-second time.
+be staged again and the commit attempt repeated.
 
 If you want to run `pre-commit` manually on all files in the repository,
 including all the hooks, execute the following command.

@@ -480,7 +480,7 @@ def wind_farm_b(
         turbines=[turbine_specification_wtg01_b, turbine_specification_wtg02_b],
         relevance=wind_farm.WindFarmRelevance.INTERNAL,
         operational_lifetime_start_date=dt.date(2024, 1, 1),
-        operational_lifetime_end_date=dt.date(2054, 12, 31),
+        operational_lifetime_end_date=dt.date(2058, 12, 31),
         installed_capacity=11.6,
         export_capacity=11.5,
     )
@@ -610,7 +610,7 @@ def wind_resource_assessment_a() -> wind_resource.WindResourceAssessment:
     """Test case instance 'a' of ``WindResourceAssessment``."""
     return wind_resource.WindResourceAssessment(
         id="BfWF_WRA_1",
-        input_characteristics=wind_resource.WindResourceInputCharacteristics(
+        dataset_statistics=wind_resource.WindResourceDatasetStatistics(
             data_availability=[
                 dataset.Dataset(
                     dimensions=[
@@ -930,11 +930,11 @@ def historical_wind_uncertainty_category_a(
                                 (
                                     ["BF_M1"],
                                     0.03201,
-                                )
+                                ),
                             ],
-                        )
+                        ),
                     ],
-                )
+                ),
             ],
         ),
     )
@@ -965,9 +965,34 @@ def turbine_wind_resource_assessment_a(
                                     6.95,
                                 ),
                             ],
-                        )
+                        ),
                     ],
-                )
+                ),
+            ],
+        ),
+        weighting=wind_resource.TurbineWindResourceWeighting(
+            source_wind_data=[
+                dataset.Dataset(
+                    dimensions=[
+                        dataset.DatasetDimension.TURBINE_ID,
+                        dataset.DatasetDimension.WIND_DATASET_ID,
+                    ],
+                    statistics=[
+                        dataset.DatasetStatistic(
+                            statistic_type=dataset.BasicStatisticType.MEAN,
+                            values=[
+                                (
+                                    ["WTG01", "BF_M1"],
+                                    1.0,
+                                ),
+                                (
+                                    ["WTG02", "BF_M1"],
+                                    1.0,
+                                ),
+                            ],
+                        ),
+                    ],
+                ),
             ],
         ),
         wind_uncertainty_assessment=wind_uncertainty.WindUncertaintyAssessment(
@@ -1027,9 +1052,9 @@ def turbine_wind_resource_assessment_b(
                                     6.94,
                                 ),
                             ],
-                        )
+                        ),
                     ],
-                )
+                ),
             ],
         ),
         wind_uncertainty_assessment=wind_uncertainty.WindUncertaintyAssessment(
@@ -1119,7 +1144,7 @@ def plant_performance_curtailment_category_a() -> (
                 ),
                 comments="Energy yield production time series simulation.",
                 basis=general.AssessmentBasis.TIME_SERIES_CALCULATION,
-                variability=general.TimeVariabilityType.STATIC_PROCESS,
+                variability=general.TimeVariabilityType.STATIC,
                 results=plant_performance.PlantPerformanceResults(
                     efficiency=[
                         dataset.Dataset(
@@ -1193,7 +1218,7 @@ def plant_performance_curtailment_category_b() -> (
                     plant_performance.PlantPerformanceSubcategoryLabel.LOAD_CURTAILMENT
                 ),
                 basis=general.AssessmentBasis.PROJECT_SPECIFIC_ASSUMPTION,
-                variability=general.TimeVariabilityType.STATIC_PROCESS,
+                variability=general.TimeVariabilityType.STATIC,
                 results=plant_performance.PlantPerformanceResults(
                     efficiency=[
                         dataset.Dataset(

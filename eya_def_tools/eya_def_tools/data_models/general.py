@@ -190,7 +190,7 @@ class TimeResolution(EyaDefBaseModel):
     unit: TimeMeasurementUnit = pdt.Field(
         default=...,
         description=(
-            "The measurement unit of time in which the time resolution " "is specified."
+            "The measurement unit of time in which the time resolution is specified."
         ),
     )
 
@@ -198,7 +198,5 @@ class TimeResolution(EyaDefBaseModel):
 class TimeVariabilityType(StrEnum):
     """Type of time variability considered for an assessment element."""
 
-    STATIC_PROCESS = auto()
-    ANNUAL_VARIABLE = auto()
-
-    OTHER = auto()
+    STATIC = auto()
+    VARIABLE = auto()

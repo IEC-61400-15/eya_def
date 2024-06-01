@@ -51,9 +51,11 @@ We welcome new people to get involved in the development work.
 The EYA DEF aims to facilitate the following:
 - data sharing with a wider range of stakeholders in an automated
   fashion;
-- comparison of EYA results from different parties, for example for
-  example from different third-party consultants;
-- integration with other systems, such as financial model software; and
+- securing of data traceability and accuracy;
+- integration with systems that process EYA data, such as financial
+  model software;
+- comparison of EYA results from different parties, for example from
+  different third-party consultants; and
 - automated generation of reporting tables.
 
 For example, if a project developer receives EYA DEF JSON documents from
@@ -72,7 +74,7 @@ reference for companies developing energy yield assessment software.
 Whilst the data models used internally in such software of course do not
 need to mirror the EYA DEF in order to be able to export results in EYA
 DEF format, the EYA DEF data models may in some circumstances prove
-useful and avoid the need to completely new design new data models.
+useful and avoid the need for completely new designs of data models.
 
 ## The EYA DEF JSON Schema
 
@@ -105,6 +107,61 @@ below.
 
   ![data_model_top_levels_diagram](diagrams/eya_def_document_top_level.svg)
 
+## Basic example of format
+
+The text below shows an example of a small subset of energy yield
+assessment reporting data from a title page, in unstructured form.
+
+```
+Barefoot Wind Farm EYA
+
+Document ID.: 12345678, version B
+7th of October 2023
+
+Confidential
+Prepared for Miranda Investments Limited
+```
+
+The equivalent data is represented in structured EYA DEF JSON format
+below. Each piece of information appears together with a standard field
+name.
+
+```json
+{
+ "confidentiality_classification": "Confidential",
+ "document_id": "12345678",
+ "document_version": "B",
+ "issue_date": "2023-10-07",
+ "project_name": "Barefoot Wind Farm",
+ "receiving_organisations": [
+    {
+      "abbreviation": "Miranda",
+      "address": "9 Acosta St., Republic of Miranda",
+      "contact_name": "Luis Bunuel",
+      "name": "Miranda Investments Limited"
+    }
+  ],
+ "title": "Barefoot Wind Farm EYA",
+}
+```
+
+## Data security and integrity
+
+The EYA DEF specification and toolset in this repo covers the schema
+content and imposes no requirements with regards to technology for data
+transmission and storage, or protocols for digital signatures and
+encryption. In the simplest form of data exchange, an EYA DEF document
+may simply be transmitted as a JSON text data file attached to an email
+together with the main written report. It is however expected that
+secure APIs for EYA DEF documents will be developed to automate the data
+exchange process and provide comprehensive functionality to ensure data
+security and integrity. The user of this standard should adopt
+appropriate best practices to ensure data security and integrity in
+transmission and storage of EYA DEF data. Adherence to such best
+practices will minimise the risk for data manipulation or unauthorised
+access. It is recommended that encoding and compression of the data be
+specified at the point of access (for example in the API specification).
+
 ## Developer guidance
 
 For guidance related to tools and processes for development work, see
@@ -117,5 +174,5 @@ The EYA DEF has been developed with contributions from the following
 people: Christian Jonsson, Stephen Holleran, Jason Fields, Charlie
 Plumley, Alina Brenneke, Philippe Beaucage, Mark Stoelinga, Andrew
 Henderson, Mark Kelly, Steve Clark, Thomas van Delft, Craig Robinson,
-Lars Levermann, Jan Heinen, Nikolaos Simisiroglou, Andres Blanco and
-Jonny Crease.
+Lars Levermann, Jan Heinen, Nikolaos Simisiroglou, Andres Blanco, Jonny
+Crease, Roy Spence and Demetrios Zigras.

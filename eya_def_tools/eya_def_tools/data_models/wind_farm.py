@@ -268,3 +268,10 @@ class WindFarmConfiguration(EyaDefBaseModel):
             if self.export_capacity is not None
             else self.installed_capacity
         )
+
+    @property
+    def operational_lifetime_length(self) -> float:
+        """The length of the operational lifetime in years."""
+        return (
+            self.operational_lifetime_end_date - self.operational_lifetime_start_date
+        ).total_seconds() / (60.0 * 60.0 * 24.0 * 365.24)
