@@ -468,8 +468,8 @@ def wind_farm_a(
         description="Barefoot Wind Farm configuration for Scenario A",
         turbines=[turbine_specification_wtg01_a, turbine_specification_wtg02_a],
         relevance=wind_farm.WindFarmRelevance.INTERNAL,
-        operational_lifetime_start_date=dt.date(2024, 1, 1),
-        operational_lifetime_end_date=dt.date(2054, 12, 31),
+        assessment_period_start_date=dt.date(2024, 1, 1),
+        assessment_period_end_date=dt.date(2054, 12, 31),
         installed_capacity=11.0,
         restrictions=[wind_farm_operational_restriction_a],
     )
@@ -489,8 +489,8 @@ def wind_farm_b(
         comments="Secondary wind farm scenario",
         turbines=[turbine_specification_wtg01_b, turbine_specification_wtg02_b],
         relevance=wind_farm.WindFarmRelevance.INTERNAL,
-        operational_lifetime_start_date=dt.date(2024, 1, 1),
-        operational_lifetime_end_date=dt.date(2058, 12, 31),
+        assessment_period_start_date=dt.date(2024, 1, 1),
+        assessment_period_end_date=dt.date(2058, 12, 31),
         installed_capacity=11.6,
         export_capacity=11.5,
     )
@@ -514,8 +514,8 @@ def neighbouring_wind_farm_a(
         ),
         turbines=[turbine_specification_mu_t1_a, turbine_specification_mu_t2_a],
         relevance=wind_farm.WindFarmRelevance.EXTERNAL,
-        operational_lifetime_start_date=dt.date(2018, 7, 1),
-        operational_lifetime_end_date=dt.date(2038, 6, 30),
+        assessment_period_start_date=dt.date(2018, 7, 1),
+        assessment_period_end_date=dt.date(2038, 6, 30),
         installed_capacity=6.4,
     )
 

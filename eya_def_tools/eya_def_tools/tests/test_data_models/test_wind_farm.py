@@ -37,7 +37,7 @@ def test_capacity_property_calculates_correctly(
 
 
 @pytest.mark.parametrize(
-    argnames=("wind_farm_id", "expected_operational_lifetime_length"),
+    argnames=("wind_farm_id", "expected_assessment_period_length"),
     argvalues=[
         (
             "bf_a",
@@ -49,19 +49,19 @@ def test_capacity_property_calculates_correctly(
         ),
     ],
 )
-def test_operational_lifetime_length_property_calculates_correctly(
+def test_assessment_period_length_property_calculates_correctly(
     wind_farm_a: WindFarmConfiguration,
     wind_farm_b: WindFarmConfiguration,
     wind_farm_id: str,
-    expected_operational_lifetime_length: float,
+    expected_assessment_period_length: float,
 ) -> None:
     wind_farm = _get_wind_farm_by_id(
         wind_farms=(wind_farm_a, wind_farm_b), wind_farm_id=wind_farm_id
     )
 
     assert np.isclose(
-        wind_farm.operational_lifetime_length,
-        expected_operational_lifetime_length,
+        wind_farm.assessment_period_length,
+        expected_assessment_period_length,
     )
 
 

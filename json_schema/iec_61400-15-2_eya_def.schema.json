@@ -2585,6 +2585,26 @@
             ],
             "title": "Abbreviation"
           },
+          "assessment_period_end_date": {
+            "description": "The assessment period end date of the wind farm in the ISO 8601 standard format for a calendar date, i.e. YYYY-MM-DD.",
+            "examples": [
+              "2051-03-31",
+              "2025-12-31"
+            ],
+            "format": "date",
+            "title": "Assessment Period End Date",
+            "type": "string"
+          },
+          "assessment_period_start_date": {
+            "description": "The assessment period start date of the wind farm in the ISO 8601 standard format for a calendar date, i.e. YYYY-MM-DD.",
+            "examples": [
+              "2026-01-01",
+              "2017-04-01"
+            ],
+            "format": "date",
+            "title": "Assessment Period Start Date",
+            "type": "string"
+          },
           "comments": {
             "anyOf": [
               {
@@ -2658,26 +2678,6 @@
             "title": "Label",
             "type": "string"
           },
-          "operational_lifetime_end_date": {
-            "description": "The operational lifetime end date of the wind farm in the ISO 8601 standard format for a calendar date, i.e. YYYY-MM-DD.",
-            "examples": [
-              "2051-03-31",
-              "2025-12-31"
-            ],
-            "format": "date",
-            "title": "Operational Lifetime End Date",
-            "type": "string"
-          },
-          "operational_lifetime_start_date": {
-            "description": "The operational lifetime start date of the wind farm in the ISO 8601 standard format for a calendar date, i.e. YYYY-MM-DD.",
-            "examples": [
-              "2026-01-01",
-              "2017-04-01"
-            ],
-            "format": "date",
-            "title": "Operational Lifetime Start Date",
-            "type": "string"
-          },
           "relevance": {
             "description": "The relevance of the wind farm for the assessment ('internal', 'external' or 'future').",
             "enum": [
@@ -2711,6 +2711,42 @@
               "additionalProperties": false,
               "description": "Specification of all details for a turbine configuration.",
               "properties": {
+                "assessment_period_end_date": {
+                  "anyOf": [
+                    {
+                      "format": "date",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "Optional assessment period end date of the individual turbine in the ISO 8601 standard format for a calendar date, i.e. YYYY-MM-DD.",
+                  "examples": [
+                    "2051-03-31",
+                    "2025-12-31"
+                  ],
+                  "title": "Assessment Period End Date"
+                },
+                "assessment_period_start_date": {
+                  "anyOf": [
+                    {
+                      "format": "date",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "Optional assessment period start date of the individual turbine in the ISO 8601 standard format for a calendar date, i.e. YYYY-MM-DD.",
+                  "examples": [
+                    "2026-01-01",
+                    "2017-04-01"
+                  ],
+                  "title": "Assessment Period Start Date"
+                },
                 "comments": {
                   "anyOf": [
                     {
@@ -2806,42 +2842,6 @@
                   "title": "Location",
                   "type": "object"
                 },
-                "operational_lifetime_end_date": {
-                  "anyOf": [
-                    {
-                      "format": "date",
-                      "type": "string"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ],
-                  "default": null,
-                  "description": "Optional operational lifetime end date of the individual turbine in the ISO 8601 standard format for a calendar date, i.e. YYYY-MM-DD.",
-                  "examples": [
-                    "2051-03-31",
-                    "2025-12-31"
-                  ],
-                  "title": "Operational Lifetime End Date"
-                },
-                "operational_lifetime_start_date": {
-                  "anyOf": [
-                    {
-                      "format": "date",
-                      "type": "string"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ],
-                  "default": null,
-                  "description": "Optional operational lifetime start date of the individual turbine in the ISO 8601 standard format for a calendar date, i.e. YYYY-MM-DD.",
-                  "examples": [
-                    "2026-01-01",
-                    "2017-04-01"
-                  ],
-                  "title": "Operational Lifetime Start Date"
-                },
                 "restrictions": {
                   "anyOf": [
                     {
@@ -2886,8 +2886,8 @@
           "label",
           "turbines",
           "relevance",
-          "operational_lifetime_start_date",
-          "operational_lifetime_end_date",
+          "assessment_period_start_date",
+          "assessment_period_end_date",
           "installed_capacity"
         ],
         "title": "Wind Farm Configuration",

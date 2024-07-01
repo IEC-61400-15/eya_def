@@ -3020,12 +3020,12 @@
   "wind_farms": [
     {
       "abbreviation": "Barefoot",
+      "assessment_period_end_date": "2054-12-31",
+      "assessment_period_start_date": "2024-01-01",
       "description": "Barefoot Wind Farm configuration for Scenario A",
       "id": "bf_a",
       "installed_capacity": 11.0,
       "label": "Barefoot Wind Farm",
-      "operational_lifetime_end_date": "2054-12-31",
-      "operational_lifetime_start_date": "2024-01-01",
       "relevance": "internal",
       "restrictions": [
         {
@@ -3078,14 +3078,14 @@
     },
     {
       "abbreviation": "Barefoot",
+      "assessment_period_end_date": "2058-12-31",
+      "assessment_period_start_date": "2024-01-01",
       "comments": "Secondary wind farm scenario",
       "description": "Barefoot Wind Farm configuration for Scenario B",
       "export_capacity": 11.5,
       "id": "bf_b",
       "installed_capacity": 11.6,
       "label": "Barefoot Wind Farm",
-      "operational_lifetime_end_date": "2058-12-31",
-      "operational_lifetime_start_date": "2024-01-01",
       "relevance": "internal",
       "turbines": [
         {
@@ -3116,13 +3116,13 @@
     },
     {
       "abbreviation": "MWF",
+      "assessment_period_end_date": "2038-06-30",
+      "assessment_period_start_date": "2018-07-01",
       "comments": "Details taken from publicly available information; location data based on publicly available data and confirmed with satellite imagery.",
       "description": "The operational Munro Wind Farm",
       "id": "mu",
       "installed_capacity": 6.4,
       "label": "Munro Wind Farm",
-      "operational_lifetime_end_date": "2038-06-30",
-      "operational_lifetime_start_date": "2018-07-01",
       "relevance": "external",
       "turbines": [
         {

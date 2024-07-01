@@ -889,92 +889,92 @@
 <!-- eya_def_tools.data_models.wind_farm.WindFarmConfiguration -->
 <g id="node15" class="node">
 <title>eya_def_tools.data_models.wind_farm.WindFarmConfiguration</title>
-<g id="a_node15"><a xlink:title="eya_def_tools.data_models.wind_farm.WindFarmConfiguration&#10;&#10;A collection of wind turbines considered as one unit (plant).&#10;&#10;Fields:&#10; &#160;&#160;&#160;id: Unique identifier of the wind farm.&#10; &#160;&#160;&#160;label: Label or name of the wind farm.&#10; &#160;&#160;&#160;abbreviation: Optional abbreviated label of the wind farm. Default is None.&#10; &#160;&#160;&#160;description: Optional description of the wind farm, which should not be empty if the field is included. Default is None.&#10; &#160;&#160;&#160;comments: Optional comments on the wind farm, which should not be empty if the field is included. Default is None.&#10; &#160;&#160;&#160;turbines: List of specifications for constituent turbines.&#10; &#160;&#160;&#160;relevance: The relevance of the wind farm for the assessment (&#39;internal&#39;, &#39;external&#39; or &#39;future&#39;).&#10; &#160;&#160;&#160;operational_lifetime_start_date: The operational lifetime start date of the wind farm in the ISO 8601 standard format for a calendar date, i.e. YYYY&#45;MM&#45;DD.&#10; &#160;&#160;&#160;operational_lifetime_end_date: The operational lifetime end date of the wind farm in the ISO 8601 standard format for a calendar date, i.e. YYYY&#45;MM&#45;DD.&#10; &#160;&#160;&#160;installed_capacity: The maximum production (in MW) of the wind farm under typical conditions. If there are features in place to increase power output beyond the stated nameplate power of the turbines (e.g. so&#45;called power boost solutions), the wind farm installed capacity should correspond to that increased power, insofar as it is reached under typical conditions and not only in rare exceptions.&#10; &#160;&#160;&#160;export_capacity: Optional specification of the maximum permanently transmittable power (in MW) from the wind farm at the grid connection, or equivalent, if known. If not included it shall be assumed that the wind farm can transmit the full produced output. Default is None.&#10; &#160;&#160;&#160;restrictions: List of operational restrictions at the wind farm level. Default is None.&#10;">
-<polygon fill="none" stroke="black" points="676,-2054.96 676,-2076.96 1143,-2076.96 1143,-2054.96 676,-2054.96"/>
+<g id="a_node15"><a xlink:title="eya_def_tools.data_models.wind_farm.WindFarmConfiguration&#10;&#10;A collection of wind turbines considered as one unit (plant).&#10;&#10;Fields:&#10; &#160;&#160;&#160;id: Unique identifier of the wind farm.&#10; &#160;&#160;&#160;label: Label or name of the wind farm.&#10; &#160;&#160;&#160;abbreviation: Optional abbreviated label of the wind farm. Default is None.&#10; &#160;&#160;&#160;description: Optional description of the wind farm, which should not be empty if the field is included. Default is None.&#10; &#160;&#160;&#160;comments: Optional comments on the wind farm, which should not be empty if the field is included. Default is None.&#10; &#160;&#160;&#160;turbines: List of specifications for constituent turbines.&#10; &#160;&#160;&#160;relevance: The relevance of the wind farm for the assessment (&#39;internal&#39;, &#39;external&#39; or &#39;future&#39;).&#10; &#160;&#160;&#160;assessment_period_start_date: The assessment period start date of the wind farm in the ISO 8601 standard format for a calendar date, i.e. YYYY&#45;MM&#45;DD.&#10; &#160;&#160;&#160;assessment_period_end_date: The assessment period end date of the wind farm in the ISO 8601 standard format for a calendar date, i.e. YYYY&#45;MM&#45;DD.&#10; &#160;&#160;&#160;installed_capacity: The maximum production (in MW) of the wind farm under typical conditions. If there are features in place to increase power output beyond the stated nameplate power of the turbines (e.g. so&#45;called power boost solutions), the wind farm installed capacity should correspond to that increased power, insofar as it is reached under typical conditions and not only in rare exceptions.&#10; &#160;&#160;&#160;export_capacity: Optional specification of the maximum permanently transmittable power (in MW) from the wind farm at the grid connection, or equivalent, if known. If not included it shall be assumed that the wind farm can transmit the full produced output. Default is None.&#10; &#160;&#160;&#160;restrictions: List of operational restrictions at the wind farm level. Default is None.&#10;">
+<polygon fill="none" stroke="black" points="677.5,-2054.96 677.5,-2076.96 1141.5,-2076.96 1141.5,-2054.96 677.5,-2054.96"/>
 <text text-anchor="start" x="833.38" y="-2061.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-weight="bold" font-size="14.00">WindFarmConfiguration</text>
-<polygon fill="none" stroke="black" points="676,-2033.96 676,-2054.96 853,-2054.96 853,-2033.96 676,-2033.96"/>
+<polygon fill="none" stroke="black" points="677.5,-2033.96 677.5,-2054.96 851.5,-2054.96 851.5,-2033.96 677.5,-2033.96"/>
 <text text-anchor="start" x="759.25" y="-2038.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">id</text>
-<polygon fill="none" stroke="black" points="853,-2033.96 853,-2054.96 1066,-2054.96 1066,-2033.96 853,-2033.96"/>
-<text text-anchor="start" x="952.38" y="-2038.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">str</text>
-<polygon fill="none" stroke="black" points="1066,-2033.96 1066,-2054.96 1143,-2054.96 1143,-2033.96 1066,-2033.96"/>
-<text text-anchor="start" x="1089.12" y="-2038.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">string</text>
-<polygon fill="none" stroke="black" points="676,-2012.96 676,-2033.96 853,-2033.96 853,-2012.96 676,-2012.96"/>
+<polygon fill="none" stroke="black" points="851.5,-2033.96 851.5,-2054.96 1064.5,-2054.96 1064.5,-2033.96 851.5,-2033.96"/>
+<text text-anchor="start" x="950.88" y="-2038.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">str</text>
+<polygon fill="none" stroke="black" points="1064.5,-2033.96 1064.5,-2054.96 1141.5,-2054.96 1141.5,-2033.96 1064.5,-2033.96"/>
+<text text-anchor="start" x="1087.62" y="-2038.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">string</text>
+<polygon fill="none" stroke="black" points="677.5,-2012.96 677.5,-2033.96 851.5,-2033.96 851.5,-2012.96 677.5,-2012.96"/>
 <text text-anchor="start" x="751.75" y="-2017.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">label</text>
-<polygon fill="none" stroke="black" points="853,-2012.96 853,-2033.96 1066,-2033.96 1066,-2012.96 853,-2012.96"/>
-<text text-anchor="start" x="952.38" y="-2017.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">str</text>
-<polygon fill="none" stroke="black" points="1066,-2012.96 1066,-2033.96 1143,-2033.96 1143,-2012.96 1066,-2012.96"/>
-<text text-anchor="start" x="1089.12" y="-2017.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">string</text>
-<polygon fill="none" stroke="black" points="676,-1991.96 676,-2012.96 853,-2012.96 853,-1991.96 676,-1991.96"/>
+<polygon fill="none" stroke="black" points="851.5,-2012.96 851.5,-2033.96 1064.5,-2033.96 1064.5,-2012.96 851.5,-2012.96"/>
+<text text-anchor="start" x="950.88" y="-2017.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">str</text>
+<polygon fill="none" stroke="black" points="1064.5,-2012.96 1064.5,-2033.96 1141.5,-2033.96 1141.5,-2012.96 1064.5,-2012.96"/>
+<text text-anchor="start" x="1087.62" y="-2017.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">string</text>
+<polygon fill="none" stroke="black" points="677.5,-1991.96 677.5,-2012.96 851.5,-2012.96 851.5,-1991.96 677.5,-1991.96"/>
 <text text-anchor="start" x="730.38" y="-1996.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">abbreviation</text>
-<polygon fill="none" stroke="black" points="853,-1991.96 853,-2012.96 1066,-2012.96 1066,-1991.96 853,-1991.96"/>
-<text text-anchor="start" x="923.88" y="-1996.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">Optional[str]</text>
-<polygon fill="none" stroke="black" points="1066,-1991.96 1066,-2012.96 1143,-2012.96 1143,-1991.96 1066,-1991.96"/>
-<text text-anchor="start" x="1074.5" y="-1996.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">string | null</text>
-<polygon fill="none" stroke="black" points="676,-1970.96 676,-1991.96 853,-1991.96 853,-1970.96 676,-1970.96"/>
+<polygon fill="none" stroke="black" points="851.5,-1991.96 851.5,-2012.96 1064.5,-2012.96 1064.5,-1991.96 851.5,-1991.96"/>
+<text text-anchor="start" x="922.38" y="-1996.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">Optional[str]</text>
+<polygon fill="none" stroke="black" points="1064.5,-1991.96 1064.5,-2012.96 1141.5,-2012.96 1141.5,-1991.96 1064.5,-1991.96"/>
+<text text-anchor="start" x="1073" y="-1996.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">string | null</text>
+<polygon fill="none" stroke="black" points="677.5,-1970.96 677.5,-1991.96 851.5,-1991.96 851.5,-1970.96 677.5,-1970.96"/>
 <text text-anchor="start" x="733.38" y="-1975.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">description</text>
-<polygon fill="none" stroke="black" points="853,-1970.96 853,-1991.96 1066,-1991.96 1066,-1970.96 853,-1970.96"/>
-<text text-anchor="start" x="923.88" y="-1975.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">Optional[str]</text>
-<polygon fill="none" stroke="black" points="1066,-1970.96 1066,-1991.96 1143,-1991.96 1143,-1970.96 1066,-1970.96"/>
-<text text-anchor="start" x="1074.5" y="-1975.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">string | null</text>
-<polygon fill="none" stroke="black" points="676,-1949.96 676,-1970.96 853,-1970.96 853,-1949.96 676,-1949.96"/>
+<polygon fill="none" stroke="black" points="851.5,-1970.96 851.5,-1991.96 1064.5,-1991.96 1064.5,-1970.96 851.5,-1970.96"/>
+<text text-anchor="start" x="922.38" y="-1975.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">Optional[str]</text>
+<polygon fill="none" stroke="black" points="1064.5,-1970.96 1064.5,-1991.96 1141.5,-1991.96 1141.5,-1970.96 1064.5,-1970.96"/>
+<text text-anchor="start" x="1073" y="-1975.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">string | null</text>
+<polygon fill="none" stroke="black" points="677.5,-1949.96 677.5,-1970.96 851.5,-1970.96 851.5,-1949.96 677.5,-1949.96"/>
 <text text-anchor="start" x="735.62" y="-1954.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">comments</text>
-<polygon fill="none" stroke="black" points="853,-1949.96 853,-1970.96 1066,-1970.96 1066,-1949.96 853,-1949.96"/>
-<text text-anchor="start" x="923.88" y="-1954.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">Optional[str]</text>
-<polygon fill="none" stroke="black" points="1066,-1949.96 1066,-1970.96 1143,-1970.96 1143,-1949.96 1066,-1949.96"/>
-<text text-anchor="start" x="1074.5" y="-1954.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">string | null</text>
-<polygon fill="none" stroke="black" points="676,-1928.96 676,-1949.96 853,-1949.96 853,-1928.96 676,-1928.96"/>
+<polygon fill="none" stroke="black" points="851.5,-1949.96 851.5,-1970.96 1064.5,-1970.96 1064.5,-1949.96 851.5,-1949.96"/>
+<text text-anchor="start" x="922.38" y="-1954.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">Optional[str]</text>
+<polygon fill="none" stroke="black" points="1064.5,-1949.96 1064.5,-1970.96 1141.5,-1970.96 1141.5,-1949.96 1064.5,-1949.96"/>
+<text text-anchor="start" x="1073" y="-1954.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">string | null</text>
+<polygon fill="none" stroke="black" points="677.5,-1928.96 677.5,-1949.96 851.5,-1949.96 851.5,-1928.96 677.5,-1928.96"/>
 <text text-anchor="start" x="742.38" y="-1933.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">turbines</text>
-<polygon fill="none" stroke="black" points="853,-1928.96 853,-1949.96 1066,-1949.96 1066,-1928.96 853,-1928.96"/>
-<text text-anchor="start" x="887.12" y="-1933.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">list[TurbineConfiguration]</text>
-<polygon fill="none" stroke="black" points="1066,-1928.96 1066,-1949.96 1143,-1949.96 1143,-1928.96 1066,-1928.96"/>
-<text text-anchor="start" x="1090.62" y="-1933.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">array</text>
-<polygon fill="none" stroke="black" points="676,-1907.96 676,-1928.96 853,-1928.96 853,-1907.96 676,-1907.96"/>
+<polygon fill="none" stroke="black" points="851.5,-1928.96 851.5,-1949.96 1064.5,-1949.96 1064.5,-1928.96 851.5,-1928.96"/>
+<text text-anchor="start" x="885.62" y="-1933.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">list[TurbineConfiguration]</text>
+<polygon fill="none" stroke="black" points="1064.5,-1928.96 1064.5,-1949.96 1141.5,-1949.96 1141.5,-1928.96 1064.5,-1928.96"/>
+<text text-anchor="start" x="1089.12" y="-1933.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">array</text>
+<polygon fill="none" stroke="black" points="677.5,-1907.96 677.5,-1928.96 851.5,-1928.96 851.5,-1907.96 677.5,-1907.96"/>
 <text text-anchor="start" x="738.62" y="-1912.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">relevance</text>
-<polygon fill="none" stroke="black" points="853,-1907.96 853,-1928.96 1066,-1928.96 1066,-1907.96 853,-1907.96"/>
-<text text-anchor="start" x="901" y="-1912.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">WindFarmRelevance</text>
-<polygon fill="none" stroke="black" points="1066,-1907.96 1066,-1928.96 1143,-1928.96 1143,-1907.96 1066,-1907.96"/>
-<text text-anchor="start" x="1089.12" y="-1912.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">string</text>
-<polygon fill="none" stroke="black" points="676,-1886.96 676,-1907.96 853,-1907.96 853,-1886.96 676,-1886.96"/>
-<text text-anchor="start" x="679" y="-1891.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">operational_lifetime_start_date</text>
-<polygon fill="none" stroke="black" points="853,-1886.96 853,-1907.96 1066,-1907.96 1066,-1886.96 853,-1886.96"/>
-<text text-anchor="start" x="947.88" y="-1891.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">date</text>
-<polygon fill="none" stroke="black" points="1066,-1886.96 1066,-1907.96 1143,-1907.96 1143,-1886.96 1066,-1886.96"/>
-<text text-anchor="start" x="1089.12" y="-1891.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">string</text>
-<polygon fill="none" stroke="black" points="676,-1865.96 676,-1886.96 853,-1886.96 853,-1865.96 676,-1865.96"/>
-<text text-anchor="start" x="680.88" y="-1870.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">operational_lifetime_end_date</text>
-<polygon fill="none" stroke="black" points="853,-1865.96 853,-1886.96 1066,-1886.96 1066,-1865.96 853,-1865.96"/>
-<text text-anchor="start" x="947.88" y="-1870.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">date</text>
-<polygon fill="none" stroke="black" points="1066,-1865.96 1066,-1886.96 1143,-1886.96 1143,-1865.96 1066,-1865.96"/>
-<text text-anchor="start" x="1089.12" y="-1870.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">string</text>
-<polygon fill="none" stroke="black" points="676,-1844.96 676,-1865.96 853,-1865.96 853,-1844.96 676,-1844.96"/>
+<polygon fill="none" stroke="black" points="851.5,-1907.96 851.5,-1928.96 1064.5,-1928.96 1064.5,-1907.96 851.5,-1907.96"/>
+<text text-anchor="start" x="899.5" y="-1912.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">WindFarmRelevance</text>
+<polygon fill="none" stroke="black" points="1064.5,-1907.96 1064.5,-1928.96 1141.5,-1928.96 1141.5,-1907.96 1064.5,-1907.96"/>
+<text text-anchor="start" x="1087.62" y="-1912.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">string</text>
+<polygon fill="none" stroke="black" points="677.5,-1886.96 677.5,-1907.96 851.5,-1907.96 851.5,-1886.96 677.5,-1886.96"/>
+<text text-anchor="start" x="680.12" y="-1891.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">assessment_period_start_date</text>
+<polygon fill="none" stroke="black" points="851.5,-1886.96 851.5,-1907.96 1064.5,-1907.96 1064.5,-1886.96 851.5,-1886.96"/>
+<text text-anchor="start" x="946.38" y="-1891.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">date</text>
+<polygon fill="none" stroke="black" points="1064.5,-1886.96 1064.5,-1907.96 1141.5,-1907.96 1141.5,-1886.96 1064.5,-1886.96"/>
+<text text-anchor="start" x="1087.62" y="-1891.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">string</text>
+<polygon fill="none" stroke="black" points="677.5,-1865.96 677.5,-1886.96 851.5,-1886.96 851.5,-1865.96 677.5,-1865.96"/>
+<text text-anchor="start" x="682" y="-1870.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">assessment_period_end_date</text>
+<polygon fill="none" stroke="black" points="851.5,-1865.96 851.5,-1886.96 1064.5,-1886.96 1064.5,-1865.96 851.5,-1865.96"/>
+<text text-anchor="start" x="946.38" y="-1870.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">date</text>
+<polygon fill="none" stroke="black" points="1064.5,-1865.96 1064.5,-1886.96 1141.5,-1886.96 1141.5,-1865.96 1064.5,-1865.96"/>
+<text text-anchor="start" x="1087.62" y="-1870.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">string</text>
+<polygon fill="none" stroke="black" points="677.5,-1844.96 677.5,-1865.96 851.5,-1865.96 851.5,-1844.96 677.5,-1844.96"/>
 <text text-anchor="start" x="715" y="-1849.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">installed_capacity</text>
-<polygon fill="none" stroke="black" points="853,-1844.96 853,-1865.96 1066,-1865.96 1066,-1844.96 853,-1844.96"/>
-<text text-anchor="start" x="947.12" y="-1849.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">float</text>
-<polygon fill="none" stroke="black" points="1066,-1844.96 1066,-1865.96 1143,-1865.96 1143,-1844.96 1066,-1844.96"/>
-<text text-anchor="start" x="1083.5" y="-1849.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">number</text>
-<polygon fill="none" stroke="black" points="676,-1823.96 676,-1844.96 853,-1844.96 853,-1823.96 676,-1823.96"/>
+<polygon fill="none" stroke="black" points="851.5,-1844.96 851.5,-1865.96 1064.5,-1865.96 1064.5,-1844.96 851.5,-1844.96"/>
+<text text-anchor="start" x="945.62" y="-1849.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">float</text>
+<polygon fill="none" stroke="black" points="1064.5,-1844.96 1064.5,-1865.96 1141.5,-1865.96 1141.5,-1844.96 1064.5,-1844.96"/>
+<text text-anchor="start" x="1082" y="-1849.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">number</text>
+<polygon fill="none" stroke="black" points="677.5,-1823.96 677.5,-1844.96 851.5,-1844.96 851.5,-1823.96 677.5,-1823.96"/>
 <text text-anchor="start" x="719.5" y="-1828.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">export_capacity</text>
-<polygon fill="none" stroke="black" points="853,-1823.96 853,-1844.96 1066,-1844.96 1066,-1823.96 853,-1823.96"/>
-<text text-anchor="start" x="918.62" y="-1828.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">Optional[float]</text>
-<polygon fill="none" stroke="black" points="1066,-1823.96 1066,-1844.96 1143,-1844.96 1143,-1823.96 1066,-1823.96"/>
-<text text-anchor="start" x="1068.88" y="-1828.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">number | null</text>
-<polygon fill="none" stroke="black" points="676,-1802.96 676,-1823.96 853,-1823.96 853,-1802.96 676,-1802.96"/>
+<polygon fill="none" stroke="black" points="851.5,-1823.96 851.5,-1844.96 1064.5,-1844.96 1064.5,-1823.96 851.5,-1823.96"/>
+<text text-anchor="start" x="917.12" y="-1828.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">Optional[float]</text>
+<polygon fill="none" stroke="black" points="1064.5,-1823.96 1064.5,-1844.96 1141.5,-1844.96 1141.5,-1823.96 1064.5,-1823.96"/>
+<text text-anchor="start" x="1067.38" y="-1828.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">number | null</text>
+<polygon fill="none" stroke="black" points="677.5,-1802.96 677.5,-1823.96 851.5,-1823.96 851.5,-1802.96 677.5,-1802.96"/>
 <text text-anchor="start" x="733.75" y="-1807.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">restrictions</text>
-<polygon fill="none" stroke="black" points="853,-1802.96 853,-1823.96 1066,-1823.96 1066,-1802.96 853,-1802.96"/>
-<text text-anchor="start" x="856" y="-1807.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">Optional[list[OperationalRestriction]]</text>
-<polygon fill="none" stroke="black" points="1066,-1802.96 1066,-1823.96 1143,-1823.96 1143,-1802.96 1066,-1802.96"/>
-<text text-anchor="start" x="1076" y="-1807.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">array | null</text>
+<polygon fill="none" stroke="black" points="851.5,-1802.96 851.5,-1823.96 1064.5,-1823.96 1064.5,-1802.96 851.5,-1802.96"/>
+<text text-anchor="start" x="854.5" y="-1807.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">Optional[list[OperationalRestriction]]</text>
+<polygon fill="none" stroke="black" points="1064.5,-1802.96 1064.5,-1823.96 1141.5,-1823.96 1141.5,-1802.96 1064.5,-1802.96"/>
+<text text-anchor="start" x="1074.5" y="-1807.66" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">array | null</text>
 </a>
 </g>
 </g>
 <!-- eya_def_tools.data_models.eya_def.EyaDefDocument&#45;&gt;eya_def_tools.data_models.wind_farm.WindFarmConfiguration -->
 <g id="edge16" class="edge">
 <title>eya_def_tools.data_models.eya_def.EyaDefDocument:e&#45;&gt;eya_def_tools.data_models.wind_farm.WindFarmConfiguration:w</title>
-<path fill="none" stroke="black" d="M569.88,-2027.43C610.13,-2031.35 622.02,-2058.85 659.81,-2064.82"/>
-<polyline fill="none" stroke="black" points="560,-2026.96 564.99,-2027.2"/>
-<polyline fill="none" stroke="black" points="564.99,-2027.2 569.99,-2027.43"/>
-<polygon fill="black" stroke="black" points="664.69,-2065.19 674.33,-2070.43 670.01,-2065.59 674.33,-2065.91 674.33,-2065.91 674.33,-2065.91 670.01,-2065.59 675,-2061.45 664.69,-2065.19"/>
-<polyline fill="none" stroke="black" points="663.48,-2065.1 658.49,-2064.72"/>
+<path fill="none" stroke="black" d="M569.71,-2027.4C610.67,-2031.22 622.77,-2058.82 661.09,-2064.82"/>
+<polyline fill="none" stroke="black" points="560,-2026.96 564.99,-2027.19"/>
+<polyline fill="none" stroke="black" points="564.99,-2027.19 569.99,-2027.41"/>
+<polygon fill="black" stroke="black" points="666.19,-2065.2 675.83,-2070.43 671.51,-2065.59 675.83,-2065.91 675.83,-2065.91 675.83,-2065.91 671.51,-2065.59 676.5,-2061.45 666.19,-2065.2"/>
+<polyline fill="none" stroke="black" points="664.98,-2065.11 659.99,-2064.74"/>
 </g>
 <!-- eya_def_tools.data_models.wind_resource.WindResourceAssessment -->
 <g id="node16" class="node">
@@ -1212,95 +1212,95 @@
 <!-- eya_def_tools.data_models.wind_farm.WindFarmConfiguration&#45;&gt;eya_def_tools.data_models.wind_farm.OperationalRestriction -->
 <g id="edge37" class="edge">
 <title>eya_def_tools.data_models.wind_farm.WindFarmConfiguration:e&#45;&gt;eya_def_tools.data_models.wind_farm.OperationalRestriction:w</title>
-<path fill="none" stroke="black" d="M1153.99,-1813.39C1197.12,-1812.69 1211.31,-1807.52 1259,-1805.96 1510.42,-1797.77 1574.69,-1781 1825,-1805.96 1911.22,-1814.56 1934.38,-1842.93 2011.85,-1846.98"/>
-<polyline fill="none" stroke="black" points="1144,-1813.46 1149,-1813.42"/>
-<polyline fill="none" stroke="black" points="1149,-1813.42 1154,-1813.38"/>
+<path fill="none" stroke="black" d="M1152.34,-1813.39C1196.25,-1812.71 1210.59,-1807.52 1259,-1805.96 1510.43,-1797.88 1574.69,-1781 1825,-1805.96 1911.22,-1814.56 1934.38,-1842.93 2011.85,-1846.98"/>
+<polyline fill="none" stroke="black" points="1142.5,-1813.46 1147.5,-1813.43"/>
+<polyline fill="none" stroke="black" points="1147.5,-1813.43 1152.5,-1813.39"/>
 <polygon fill="black" stroke="black" points="2020.67,-1847.2 2030.55,-1851.95 2026,-1847.34 2030.33,-1847.45 2030.33,-1847.45 2030.33,-1847.45 2026,-1847.34 2030.78,-1842.96 2020.67,-1847.2"/>
 <ellipse fill="none" stroke="black" cx="2014.95" cy="-1847.06" rx="4" ry="4"/>
 </g>
 <!-- eya_def_tools.data_models.wind_farm.TurbineConfiguration -->
 <g id="node29" class="node">
 <title>eya_def_tools.data_models.wind_farm.TurbineConfiguration</title>
-<g id="a_node29"><a xlink:title="eya_def_tools.data_models.wind_farm.TurbineConfiguration&#10;&#10;Specification of all details for a turbine configuration.&#10;&#10;Fields:&#10; &#160;&#160;&#160;id: Unique identifier of the turbine.&#10; &#160;&#160;&#160;label: Label of the turbine, if different from the &#39;id&#39;. Default is None.&#10; &#160;&#160;&#160;description: Optional description of the turbine, which should not be empty if the field is included. Default is None.&#10; &#160;&#160;&#160;comments: Optional comments on the turbine, which should not be empty if the field is included. Default is None.&#10; &#160;&#160;&#160;location: The horizontal spatial location of the turbine.&#10; &#160;&#160;&#160;ground_level_altitude: The ground level altitude (base elevation) of the turbine (in m).&#10; &#160;&#160;&#160;hub_height: The hub height of the turbine above ground level (in m).&#10; &#160;&#160;&#160;turbine_model_id: Unique identifier of the turbine model.&#10; &#160;&#160;&#160;operational_lifetime_start_date: Optional operational lifetime start date of the individual turbine in the ISO 8601 standard format for a calendar date, i.e. YYYY&#45;MM&#45;DD. Default is None.&#10; &#160;&#160;&#160;operational_lifetime_end_date: Optional operational lifetime end date of the individual turbine in the ISO 8601 standard format for a calendar date, i.e. YYYY&#45;MM&#45;DD. Default is None.&#10; &#160;&#160;&#160;restrictions: List of operational restrictions at the turbine level. Default is None.&#10;">
-<polygon fill="none" stroke="black" points="1314,-2054.46 1314,-2076.46 1770,-2076.46 1770,-2054.46 1314,-2054.46"/>
+<g id="a_node29"><a xlink:title="eya_def_tools.data_models.wind_farm.TurbineConfiguration&#10;&#10;Specification of all details for a turbine configuration.&#10;&#10;Fields:&#10; &#160;&#160;&#160;id: Unique identifier of the turbine.&#10; &#160;&#160;&#160;label: Label of the turbine, if different from the &#39;id&#39;. Default is None.&#10; &#160;&#160;&#160;description: Optional description of the turbine, which should not be empty if the field is included. Default is None.&#10; &#160;&#160;&#160;comments: Optional comments on the turbine, which should not be empty if the field is included. Default is None.&#10; &#160;&#160;&#160;location: The horizontal spatial location of the turbine.&#10; &#160;&#160;&#160;ground_level_altitude: The ground level altitude (base elevation) of the turbine (in m).&#10; &#160;&#160;&#160;hub_height: The hub height of the turbine above ground level (in m).&#10; &#160;&#160;&#160;turbine_model_id: Unique identifier of the turbine model.&#10; &#160;&#160;&#160;assessment_period_start_date: Optional assessment period start date of the individual turbine in the ISO 8601 standard format for a calendar date, i.e. YYYY&#45;MM&#45;DD. Default is None.&#10; &#160;&#160;&#160;assessment_period_end_date: Optional assessment period end date of the individual turbine in the ISO 8601 standard format for a calendar date, i.e. YYYY&#45;MM&#45;DD. Default is None.&#10; &#160;&#160;&#160;restrictions: List of operational restrictions at the turbine level. Default is None.&#10;">
+<polygon fill="none" stroke="black" points="1315.5,-2054.46 1315.5,-2076.46 1768.5,-2076.46 1768.5,-2054.46 1315.5,-2054.46"/>
 <text text-anchor="start" x="1474.88" y="-2061.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-weight="bold" font-size="14.00">TurbineConfiguration</text>
-<polygon fill="none" stroke="black" points="1314,-2033.46 1314,-2054.46 1491,-2054.46 1491,-2033.46 1314,-2033.46"/>
+<polygon fill="none" stroke="black" points="1315.5,-2033.46 1315.5,-2054.46 1489.5,-2054.46 1489.5,-2033.46 1315.5,-2033.46"/>
 <text text-anchor="start" x="1397.25" y="-2038.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">id</text>
-<polygon fill="none" stroke="black" points="1491,-2033.46 1491,-2054.46 1704,-2054.46 1704,-2033.46 1491,-2033.46"/>
-<text text-anchor="start" x="1590.38" y="-2038.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">str</text>
-<polygon fill="none" stroke="black" points="1704,-2033.46 1704,-2054.46 1770,-2054.46 1770,-2033.46 1704,-2033.46"/>
-<text text-anchor="start" x="1721.62" y="-2038.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">string</text>
-<polygon fill="none" stroke="black" points="1314,-2012.46 1314,-2033.46 1491,-2033.46 1491,-2012.46 1314,-2012.46"/>
+<polygon fill="none" stroke="black" points="1489.5,-2033.46 1489.5,-2054.46 1702.5,-2054.46 1702.5,-2033.46 1489.5,-2033.46"/>
+<text text-anchor="start" x="1588.88" y="-2038.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">str</text>
+<polygon fill="none" stroke="black" points="1702.5,-2033.46 1702.5,-2054.46 1768.5,-2054.46 1768.5,-2033.46 1702.5,-2033.46"/>
+<text text-anchor="start" x="1720.12" y="-2038.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">string</text>
+<polygon fill="none" stroke="black" points="1315.5,-2012.46 1315.5,-2033.46 1489.5,-2033.46 1489.5,-2012.46 1315.5,-2012.46"/>
 <text text-anchor="start" x="1389.75" y="-2017.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">label</text>
-<polygon fill="none" stroke="black" points="1491,-2012.46 1491,-2033.46 1704,-2033.46 1704,-2012.46 1491,-2012.46"/>
-<text text-anchor="start" x="1561.88" y="-2017.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">Optional[str]</text>
-<polygon fill="none" stroke="black" points="1704,-2012.46 1704,-2033.46 1770,-2033.46 1770,-2012.46 1704,-2012.46"/>
-<text text-anchor="start" x="1707" y="-2017.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">string | null</text>
-<polygon fill="none" stroke="black" points="1314,-1991.46 1314,-2012.46 1491,-2012.46 1491,-1991.46 1314,-1991.46"/>
+<polygon fill="none" stroke="black" points="1489.5,-2012.46 1489.5,-2033.46 1702.5,-2033.46 1702.5,-2012.46 1489.5,-2012.46"/>
+<text text-anchor="start" x="1560.38" y="-2017.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">Optional[str]</text>
+<polygon fill="none" stroke="black" points="1702.5,-2012.46 1702.5,-2033.46 1768.5,-2033.46 1768.5,-2012.46 1702.5,-2012.46"/>
+<text text-anchor="start" x="1705.5" y="-2017.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">string | null</text>
+<polygon fill="none" stroke="black" points="1315.5,-1991.46 1315.5,-2012.46 1489.5,-2012.46 1489.5,-1991.46 1315.5,-1991.46"/>
 <text text-anchor="start" x="1371.38" y="-1996.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">description</text>
-<polygon fill="none" stroke="black" points="1491,-1991.46 1491,-2012.46 1704,-2012.46 1704,-1991.46 1491,-1991.46"/>
-<text text-anchor="start" x="1561.88" y="-1996.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">Optional[str]</text>
-<polygon fill="none" stroke="black" points="1704,-1991.46 1704,-2012.46 1770,-2012.46 1770,-1991.46 1704,-1991.46"/>
-<text text-anchor="start" x="1707" y="-1996.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">string | null</text>
-<polygon fill="none" stroke="black" points="1314,-1970.46 1314,-1991.46 1491,-1991.46 1491,-1970.46 1314,-1970.46"/>
+<polygon fill="none" stroke="black" points="1489.5,-1991.46 1489.5,-2012.46 1702.5,-2012.46 1702.5,-1991.46 1489.5,-1991.46"/>
+<text text-anchor="start" x="1560.38" y="-1996.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">Optional[str]</text>
+<polygon fill="none" stroke="black" points="1702.5,-1991.46 1702.5,-2012.46 1768.5,-2012.46 1768.5,-1991.46 1702.5,-1991.46"/>
+<text text-anchor="start" x="1705.5" y="-1996.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">string | null</text>
+<polygon fill="none" stroke="black" points="1315.5,-1970.46 1315.5,-1991.46 1489.5,-1991.46 1489.5,-1970.46 1315.5,-1970.46"/>
 <text text-anchor="start" x="1373.62" y="-1975.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">comments</text>
-<polygon fill="none" stroke="black" points="1491,-1970.46 1491,-1991.46 1704,-1991.46 1704,-1970.46 1491,-1970.46"/>
-<text text-anchor="start" x="1561.88" y="-1975.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">Optional[str]</text>
-<polygon fill="none" stroke="black" points="1704,-1970.46 1704,-1991.46 1770,-1991.46 1770,-1970.46 1704,-1970.46"/>
-<text text-anchor="start" x="1707" y="-1975.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">string | null</text>
-<polygon fill="none" stroke="black" points="1314,-1949.46 1314,-1970.46 1491,-1970.46 1491,-1949.46 1314,-1949.46"/>
+<polygon fill="none" stroke="black" points="1489.5,-1970.46 1489.5,-1991.46 1702.5,-1991.46 1702.5,-1970.46 1489.5,-1970.46"/>
+<text text-anchor="start" x="1560.38" y="-1975.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">Optional[str]</text>
+<polygon fill="none" stroke="black" points="1702.5,-1970.46 1702.5,-1991.46 1768.5,-1991.46 1768.5,-1970.46 1702.5,-1970.46"/>
+<text text-anchor="start" x="1705.5" y="-1975.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">string | null</text>
+<polygon fill="none" stroke="black" points="1315.5,-1949.46 1315.5,-1970.46 1489.5,-1970.46 1489.5,-1949.46 1315.5,-1949.46"/>
 <text text-anchor="start" x="1380.38" y="-1954.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">location</text>
-<polygon fill="none" stroke="black" points="1491,-1949.46 1491,-1970.46 1704,-1970.46 1704,-1949.46 1491,-1949.46"/>
-<text text-anchor="start" x="1572.75" y="-1954.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">Location</text>
-<polygon fill="none" stroke="black" points="1704,-1949.46 1704,-1970.46 1770,-1970.46 1770,-1949.46 1704,-1949.46"/>
-<text text-anchor="start" x="1719.75" y="-1954.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">object</text>
-<polygon fill="none" stroke="black" points="1314,-1928.46 1314,-1949.46 1491,-1949.46 1491,-1928.46 1314,-1928.46"/>
+<polygon fill="none" stroke="black" points="1489.5,-1949.46 1489.5,-1970.46 1702.5,-1970.46 1702.5,-1949.46 1489.5,-1949.46"/>
+<text text-anchor="start" x="1571.25" y="-1954.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">Location</text>
+<polygon fill="none" stroke="black" points="1702.5,-1949.46 1702.5,-1970.46 1768.5,-1970.46 1768.5,-1949.46 1702.5,-1949.46"/>
+<text text-anchor="start" x="1718.25" y="-1954.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">object</text>
+<polygon fill="none" stroke="black" points="1315.5,-1928.46 1315.5,-1949.46 1489.5,-1949.46 1489.5,-1928.46 1315.5,-1928.46"/>
 <text text-anchor="start" x="1342.88" y="-1933.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">ground_level_altitude</text>
-<polygon fill="none" stroke="black" points="1491,-1928.46 1491,-1949.46 1704,-1949.46 1704,-1928.46 1491,-1928.46"/>
-<text text-anchor="start" x="1585.12" y="-1933.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">float</text>
-<polygon fill="none" stroke="black" points="1704,-1928.46 1704,-1949.46 1770,-1949.46 1770,-1928.46 1704,-1928.46"/>
-<text text-anchor="start" x="1716" y="-1933.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">number</text>
-<polygon fill="none" stroke="black" points="1314,-1907.46 1314,-1928.46 1491,-1928.46 1491,-1907.46 1314,-1907.46"/>
+<polygon fill="none" stroke="black" points="1489.5,-1928.46 1489.5,-1949.46 1702.5,-1949.46 1702.5,-1928.46 1489.5,-1928.46"/>
+<text text-anchor="start" x="1583.62" y="-1933.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">float</text>
+<polygon fill="none" stroke="black" points="1702.5,-1928.46 1702.5,-1949.46 1768.5,-1949.46 1768.5,-1928.46 1702.5,-1928.46"/>
+<text text-anchor="start" x="1714.5" y="-1933.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">number</text>
+<polygon fill="none" stroke="black" points="1315.5,-1907.46 1315.5,-1928.46 1489.5,-1928.46 1489.5,-1907.46 1315.5,-1907.46"/>
 <text text-anchor="start" x="1371.75" y="-1912.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">hub_height</text>
-<polygon fill="none" stroke="black" points="1491,-1907.46 1491,-1928.46 1704,-1928.46 1704,-1907.46 1491,-1907.46"/>
-<text text-anchor="start" x="1585.12" y="-1912.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">float</text>
-<polygon fill="none" stroke="black" points="1704,-1907.46 1704,-1928.46 1770,-1928.46 1770,-1907.46 1704,-1907.46"/>
-<text text-anchor="start" x="1716" y="-1912.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">number</text>
-<polygon fill="none" stroke="black" points="1314,-1886.46 1314,-1907.46 1491,-1907.46 1491,-1886.46 1314,-1886.46"/>
+<polygon fill="none" stroke="black" points="1489.5,-1907.46 1489.5,-1928.46 1702.5,-1928.46 1702.5,-1907.46 1489.5,-1907.46"/>
+<text text-anchor="start" x="1583.62" y="-1912.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">float</text>
+<polygon fill="none" stroke="black" points="1702.5,-1907.46 1702.5,-1928.46 1768.5,-1928.46 1768.5,-1907.46 1702.5,-1907.46"/>
+<text text-anchor="start" x="1714.5" y="-1912.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">number</text>
+<polygon fill="none" stroke="black" points="1315.5,-1886.46 1315.5,-1907.46 1489.5,-1907.46 1489.5,-1886.46 1315.5,-1886.46"/>
 <text text-anchor="start" x="1353.38" y="-1891.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">turbine_model_id</text>
-<polygon fill="none" stroke="black" points="1491,-1886.46 1491,-1907.46 1704,-1907.46 1704,-1886.46 1491,-1886.46"/>
-<text text-anchor="start" x="1590.38" y="-1891.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">str</text>
-<polygon fill="none" stroke="black" points="1704,-1886.46 1704,-1907.46 1770,-1907.46 1770,-1886.46 1704,-1886.46"/>
-<text text-anchor="start" x="1721.62" y="-1891.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">string</text>
-<polygon fill="none" stroke="black" points="1314,-1865.46 1314,-1886.46 1491,-1886.46 1491,-1865.46 1314,-1865.46"/>
-<text text-anchor="start" x="1317" y="-1870.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">operational_lifetime_start_date</text>
-<polygon fill="none" stroke="black" points="1491,-1865.46 1491,-1886.46 1704,-1886.46 1704,-1865.46 1491,-1865.46"/>
-<text text-anchor="start" x="1557.38" y="-1870.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">Optional[date]</text>
-<polygon fill="none" stroke="black" points="1704,-1865.46 1704,-1886.46 1770,-1886.46 1770,-1865.46 1704,-1865.46"/>
-<text text-anchor="start" x="1707" y="-1870.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">string | null</text>
-<polygon fill="none" stroke="black" points="1314,-1844.46 1314,-1865.46 1491,-1865.46 1491,-1844.46 1314,-1844.46"/>
-<text text-anchor="start" x="1318.88" y="-1849.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">operational_lifetime_end_date</text>
-<polygon fill="none" stroke="black" points="1491,-1844.46 1491,-1865.46 1704,-1865.46 1704,-1844.46 1491,-1844.46"/>
-<text text-anchor="start" x="1557.38" y="-1849.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">Optional[date]</text>
-<polygon fill="none" stroke="black" points="1704,-1844.46 1704,-1865.46 1770,-1865.46 1770,-1844.46 1704,-1844.46"/>
-<text text-anchor="start" x="1707" y="-1849.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">string | null</text>
-<polygon fill="none" stroke="black" points="1314,-1823.46 1314,-1844.46 1491,-1844.46 1491,-1823.46 1314,-1823.46"/>
+<polygon fill="none" stroke="black" points="1489.5,-1886.46 1489.5,-1907.46 1702.5,-1907.46 1702.5,-1886.46 1489.5,-1886.46"/>
+<text text-anchor="start" x="1588.88" y="-1891.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">str</text>
+<polygon fill="none" stroke="black" points="1702.5,-1886.46 1702.5,-1907.46 1768.5,-1907.46 1768.5,-1886.46 1702.5,-1886.46"/>
+<text text-anchor="start" x="1720.12" y="-1891.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">string</text>
+<polygon fill="none" stroke="black" points="1315.5,-1865.46 1315.5,-1886.46 1489.5,-1886.46 1489.5,-1865.46 1315.5,-1865.46"/>
+<text text-anchor="start" x="1318.12" y="-1870.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">assessment_period_start_date</text>
+<polygon fill="none" stroke="black" points="1489.5,-1865.46 1489.5,-1886.46 1702.5,-1886.46 1702.5,-1865.46 1489.5,-1865.46"/>
+<text text-anchor="start" x="1555.88" y="-1870.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">Optional[date]</text>
+<polygon fill="none" stroke="black" points="1702.5,-1865.46 1702.5,-1886.46 1768.5,-1886.46 1768.5,-1865.46 1702.5,-1865.46"/>
+<text text-anchor="start" x="1705.5" y="-1870.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">string | null</text>
+<polygon fill="none" stroke="black" points="1315.5,-1844.46 1315.5,-1865.46 1489.5,-1865.46 1489.5,-1844.46 1315.5,-1844.46"/>
+<text text-anchor="start" x="1320" y="-1849.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">assessment_period_end_date</text>
+<polygon fill="none" stroke="black" points="1489.5,-1844.46 1489.5,-1865.46 1702.5,-1865.46 1702.5,-1844.46 1489.5,-1844.46"/>
+<text text-anchor="start" x="1555.88" y="-1849.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">Optional[date]</text>
+<polygon fill="none" stroke="black" points="1702.5,-1844.46 1702.5,-1865.46 1768.5,-1865.46 1768.5,-1844.46 1702.5,-1844.46"/>
+<text text-anchor="start" x="1705.5" y="-1849.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">string | null</text>
+<polygon fill="none" stroke="black" points="1315.5,-1823.46 1315.5,-1844.46 1489.5,-1844.46 1489.5,-1823.46 1315.5,-1823.46"/>
 <text text-anchor="start" x="1371.75" y="-1828.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">restrictions</text>
-<polygon fill="none" stroke="black" points="1491,-1823.46 1491,-1844.46 1704,-1844.46 1704,-1823.46 1491,-1823.46"/>
-<text text-anchor="start" x="1494" y="-1828.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">Optional[list[OperationalRestriction]]</text>
-<polygon fill="none" stroke="black" points="1704,-1823.46 1704,-1844.46 1770,-1844.46 1770,-1823.46 1704,-1823.46"/>
-<text text-anchor="start" x="1708.5" y="-1828.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">array | null</text>
+<polygon fill="none" stroke="black" points="1489.5,-1823.46 1489.5,-1844.46 1702.5,-1844.46 1702.5,-1823.46 1489.5,-1823.46"/>
+<text text-anchor="start" x="1492.5" y="-1828.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">Optional[list[OperationalRestriction]]</text>
+<polygon fill="none" stroke="black" points="1702.5,-1823.46 1702.5,-1844.46 1768.5,-1844.46 1768.5,-1823.46 1702.5,-1823.46"/>
+<text text-anchor="start" x="1707" y="-1828.16" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">array | null</text>
 </a>
 </g>
 </g>
 <!-- eya_def_tools.data_models.wind_farm.WindFarmConfiguration&#45;&gt;eya_def_tools.data_models.wind_farm.TurbineConfiguration -->
 <g id="edge38" class="edge">
 <title>eya_def_tools.data_models.wind_farm.WindFarmConfiguration:e&#45;&gt;eya_def_tools.data_models.wind_farm.TurbineConfiguration:w</title>
-<path fill="none" stroke="black" d="M1153.98,-1939.97C1231.48,-1948.12 1224.09,-2051.71 1297.71,-2064.23"/>
-<polyline fill="none" stroke="black" points="1144,-1939.46 1148.99,-1939.72"/>
-<polyline fill="none" stroke="black" points="1148.99,-1939.72 1153.99,-1939.97"/>
-<polygon fill="black" stroke="black" points="1302.7,-2064.63 1312.3,-2069.92 1308.02,-2065.06 1312.33,-2065.41 1312.33,-2065.41 1312.33,-2065.41 1308.02,-2065.06 1313.03,-2060.95 1302.7,-2064.63"/>
-<polyline fill="none" stroke="black" points="1301.48,-2064.53 1296.5,-2064.13"/>
+<path fill="none" stroke="black" d="M1152.34,-1939.95C1231.07,-1947.89 1224.38,-2051.69 1299.01,-2064.23"/>
+<polyline fill="none" stroke="black" points="1142.5,-1939.46 1147.49,-1939.71"/>
+<polyline fill="none" stroke="black" points="1147.49,-1939.71 1152.49,-1939.95"/>
+<polygon fill="black" stroke="black" points="1304.2,-2064.64 1313.81,-2069.92 1309.52,-2065.07 1313.83,-2065.41 1313.83,-2065.41 1313.83,-2065.41 1309.52,-2065.07 1314.52,-2060.95 1304.2,-2064.64"/>
+<polyline fill="none" stroke="black" points="1302.98,-2064.54 1298,-2064.15"/>
 </g>
 <!-- eya_def_tools.data_models.wind_resource.WindResourceDatasetStatistics -->
 <g id="node32" class="node">
@@ -1851,9 +1851,9 @@
 <!-- eya_def_tools.data_models.wind_farm.TurbineConfiguration&#45;&gt;eya_def_tools.data_models.spatial.Location -->
 <g id="edge35" class="edge">
 <title>eya_def_tools.data_models.wind_farm.TurbineConfiguration:e&#45;&gt;eya_def_tools.data_models.spatial.Location:w</title>
-<path fill="none" stroke="black" d="M1780.71,-1959.96C1920.85,-1959.96 1962.83,-1959.96 2100.51,-1959.96"/>
-<polyline fill="none" stroke="black" points="1771,-1959.96 1776,-1959.96"/>
-<polyline fill="none" stroke="black" points="1776,-1959.96 1781,-1959.96"/>
+<path fill="none" stroke="black" d="M1779.25,-1959.96C1920.14,-1959.96 1962.25,-1959.96 2100.87,-1959.96"/>
+<polyline fill="none" stroke="black" points="1769.5,-1959.96 1774.5,-1959.96"/>
+<polyline fill="none" stroke="black" points="1774.5,-1959.96 1779.5,-1959.96"/>
 <polyline fill="none" stroke="black" points="2115.5,-1959.96 2110.5,-1959.96"/>
 <polygon fill="black" stroke="black" points="2109.5,-1954.96 2109.5,-1964.96 2107.5,-1964.96 2107.5,-1954.96 2109.5,-1954.96"/>
 <polyline fill="none" stroke="black" points="2110.5,-1959.96 2105.5,-1959.96"/>
@@ -1863,11 +1863,11 @@
 <!-- eya_def_tools.data_models.wind_farm.TurbineConfiguration&#45;&gt;eya_def_tools.data_models.wind_farm.OperationalRestriction -->
 <g id="edge36" class="edge">
 <title>eya_def_tools.data_models.wind_farm.TurbineConfiguration:e&#45;&gt;eya_def_tools.data_models.wind_farm.OperationalRestriction:w</title>
-<path fill="none" stroke="black" d="M1780.95,-1834C1881.95,-1834.7 1914.74,-1845.97 2011.47,-1847.33"/>
-<polyline fill="none" stroke="black" points="1771,-1833.96 1776,-1833.98"/>
-<polyline fill="none" stroke="black" points="1776,-1833.98 1781,-1834"/>
-<polygon fill="black" stroke="black" points="2020.67,-1847.39 2030.63,-1851.96 2026,-1847.43 2030.33,-1847.46 2030.33,-1847.46 2030.33,-1847.46 2026,-1847.43 2030.7,-1842.96 2020.67,-1847.39"/>
-<ellipse fill="none" stroke="black" cx="2014.95" cy="-1847.35" rx="4" ry="4"/>
+<path fill="none" stroke="black" d="M1779.18,-1834C1881.12,-1834.67 1914.03,-1845.99 2011.64,-1847.33"/>
+<polyline fill="none" stroke="black" points="1769.5,-1833.96 1774.5,-1833.98"/>
+<polyline fill="none" stroke="black" points="1774.5,-1833.98 1779.5,-1834"/>
+<polygon fill="black" stroke="black" points="2020.67,-1847.39 2030.64,-1851.96 2026,-1847.43 2030.33,-1847.46 2030.33,-1847.46 2030.33,-1847.46 2026,-1847.43 2030.7,-1842.96 2020.67,-1847.39"/>
+<ellipse fill="none" stroke="black" cx="2014.95" cy="-1847.36" rx="4" ry="4"/>
 </g>
 <!-- eya_def_tools.data_models.wind_resource.TurbineWindResourceResults&#45;&gt;eya_def_tools.data_models.dataset.Dataset -->
 <g id="edge41" class="edge">
