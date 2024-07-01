@@ -17,6 +17,15 @@ authors = [
 description = "IEC 61400-15-2 Wind Energy Yield Assessment (EYA) Digital Exchange Format (DEF) toolset"
 readme = "README.md"
 requires-python = ">=3.11"
+keywords = [
+    "Energy Yield Assessment",
+    "EYA",
+    "Wind Resource Assessment",
+    "WRA",
+    "Schema",
+    "JSON Schema",
+    "Data Model",
+]
 classifiers = [
     "Natural Language :: English",
     "Programming Language :: Python",
