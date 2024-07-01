@@ -27,7 +27,7 @@ jobs:
         python -m pip install --upgrade pip setuptools wheel
         pip install -r eya_def_tools/requirements.txt
         pip install -r eya_def_tools/requirements-dev.txt
-        pip install -r eya_def_tools/requirements-erd.txt
+        pip install erdantic
     - name: Install eya_def_tools Python package
       run: |
         # Update this to copy JSON Schema file and not use editable install
