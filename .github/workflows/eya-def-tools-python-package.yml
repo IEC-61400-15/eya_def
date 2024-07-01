@@ -27,14 +27,14 @@ jobs:
         python -m pip install --upgrade pip setuptools wheel
         pip install -r eya_def_tools/requirements.txt
         pip install -r eya_def_tools/requirements-dev.txt
+        pip install -r eya_def_tools/requirements-erd.txt
     - name: Install eya_def_tools Python package
       run: |
         # Update this to copy JSON Schema file and not use editable install
         pip install -e eya_def_tools[dev]
     - name: Lint with flake8
       run: |
-        flake8 eya_def_tools --count --select=E9,F63,F7,F82 --show-source --statistics
-        flake8 eya_def_tools --count --exit-zero --max-complexity=14 --max-line-length=88 --extend-ignore=E203 --statistics
+        flake8 eya_def_tools --toml-config=eya_def_tools/pyproject.toml --count --show-source --statistics
     - name: Run static type checking with mypy
       run: |
         mypy --config-file eya_def_tools/pyproject.toml
