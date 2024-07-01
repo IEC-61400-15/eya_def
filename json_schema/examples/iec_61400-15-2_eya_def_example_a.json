@@ -2566,7 +2566,8 @@
                 ]
               }
             ]
-          }
+          },
+          "wind_speed_to_energy_sensitivity_factor": 1.65
         }
       },
       "id": "b6953ecb-f88b-4660-9f69-bedbbe4c240b",
@@ -2956,7 +2957,8 @@
                 ]
               }
             ]
-          }
+          },
+          "wind_speed_to_energy_sensitivity_factor": 1.66
         }
       },
       "id": "e27fefdf-cdd7-441f-a7a7-c4347514b4f7",

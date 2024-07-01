@@ -974,7 +974,7 @@ def long_term_adj_uncertainty_subcat_a() -> wind_uncertainty.WindUncertaintySubc
     """Test case 'a' of long-term adjustment ``WindUncertaintySubcategory``."""
     return wind_uncertainty.WindUncertaintySubcategory(
         label=wind_uncertainty.WindUncertaintySubcategoryLabel.LONG_TERM_ADJUSTMENT,
-        results=wind_uncertainty.UncertaintyResults(
+        results=wind_uncertainty.WindUncertaintyResults(
             relative_wind_speed_uncertainty=[
                 dataset.Dataset(
                     assessment_period=dataset.AssessmentPeriod.LIFETIME,
@@ -1007,7 +1007,7 @@ def lt_consistency_uncertainty_subcat_a() -> (
         label=(
             wind_uncertainty.WindUncertaintySubcategoryLabel.REFERENCE_DATA_CONSISTENCY
         ),
-        results=wind_uncertainty.UncertaintyResults(
+        results=wind_uncertainty.WindUncertaintyResults(
             relative_wind_speed_uncertainty=[
                 dataset.Dataset(
                     assessment_period=dataset.AssessmentPeriod.LIFETIME,
@@ -1043,7 +1043,7 @@ def historical_wind_uncertainty_category_a(
             long_term_adj_uncertainty_subcat_a,
             lt_consistency_uncertainty_subcat_a,
         ],
-        results=wind_uncertainty.UncertaintyResults(
+        results=wind_uncertainty.WindUncertaintyResults(
             relative_wind_speed_uncertainty=[
                 dataset.Dataset(
                     assessment_period=dataset.AssessmentPeriod.LIFETIME,
@@ -1073,7 +1073,7 @@ def wind_uncertainty_assessment_a(
 ) -> wind_uncertainty.WindUncertaintyAssessment:
     return wind_uncertainty.WindUncertaintyAssessment(
         categories=[historical_wind_uncertainty_category_a],
-        results=wind_uncertainty.UncertaintyResults(
+        results=wind_uncertainty.WindUncertaintyResults(
             relative_wind_speed_uncertainty=[
                 dataset.Dataset(
                     assessment_period=dataset.AssessmentPeriod.LIFETIME,
@@ -1099,6 +1099,7 @@ def wind_uncertainty_assessment_a(
                 )
             ],
         ),
+        wind_speed_to_energy_sensitivity_factor=1.65,
     )
 
 
@@ -1108,7 +1109,7 @@ def wind_uncertainty_assessment_b(
 ) -> wind_uncertainty.WindUncertaintyAssessment:
     return wind_uncertainty.WindUncertaintyAssessment(
         categories=[historical_wind_uncertainty_category_a],
-        results=wind_uncertainty.UncertaintyResults(
+        results=wind_uncertainty.WindUncertaintyResults(
             relative_wind_speed_uncertainty=[
                 dataset.Dataset(
                     assessment_period=dataset.AssessmentPeriod.LIFETIME,
@@ -1134,6 +1135,7 @@ def wind_uncertainty_assessment_b(
                 )
             ],
         ),
+        wind_speed_to_energy_sensitivity_factor=1.66,
     )
 
 

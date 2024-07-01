@@ -581,9 +581,9 @@
       "title": "TimeVariabilityType",
       "type": "string"
     },
-    "UncertaintyResults": {
+    "WindUncertaintyResults": {
       "additionalProperties": false,
-      "description": "Gross energy uncertainty assessment results.",
+      "description": "Wind uncertainty assessment results.",
       "properties": {
         "relative_energy_uncertainty": {
           "anyOf": [
@@ -599,7 +599,7 @@
             }
           ],
           "default": null,
-          "description": "Uncertainty assessment results as dimensionless relative values expressed in terms of AEP (annual energy production) and calculated as the standard deviation of the energy uncertainty distribution divided by the net P50 (50% probability of exceedance level) AEP.",
+          "description": "Uncertainty assessment results as dimensionless relative values expressed in terms of net annual energy production (AEP) and calculated as the standard deviation of the energy uncertainty distribution divided by the net P50 (50% probability of exceedance level) AEP.",
           "title": "Relative Energy Uncertainty"
         },
         "relative_wind_speed_uncertainty": {
@@ -620,7 +620,7 @@
           "title": "Relative Wind Speed Uncertainty"
         }
       },
-      "title": "UncertaintyResults",
+      "title": "WindUncertaintyResults",
       "type": "object"
     }
   },
@@ -1988,10 +1988,10 @@
                 "description": "Details of the wind related uncertainty assessment.",
                 "properties": {
                   "categories": {
-                    "description": "Wind related uncertainty assessment categories including results.",
+                    "description": "Wind uncertainty assessment categories including results.",
                     "items": {
                       "additionalProperties": false,
-                      "description": "Category of a wind related uncertainty assessment.",
+                      "description": "Category of a wind uncertainty assessment.",
                       "properties": {
                         "comments": {
                           "anyOf": [
@@ -2004,7 +2004,7 @@
                             }
                           ],
                           "default": null,
-                          "description": "Optional comments on the wind related uncertainty category, which should not be empty if the field is included.",
+                          "description": "Optional comments on the wind uncertainty category, which should not be empty if the field is included.",
                           "title": "Comments"
                         },
                         "description": {
@@ -2018,11 +2018,11 @@
                             }
                           ],
                           "default": null,
-                          "description": "Optional description of the wind related uncertainty category, which should not be empty if the field is included.",
+                          "description": "Optional description of the wind uncertainty category, which should not be empty if the field is included.",
                           "title": "Description"
                         },
                         "label": {
-                          "description": "Label of the wind related uncertainty assessment category.",
+                          "description": "Label of the wind uncertainty assessment category.",
                           "enum": [
                             "measurement",
                             "historical_wind_resource",
@@ -2037,16 +2037,16 @@
                         "results": {
                           "allOf": [
                             {
-                              "$ref": "#/$defs/UncertaintyResults"
+                              "$ref": "#/$defs/WindUncertaintyResults"
                             }
                           ],
-                          "description": "Wind related uncertainty assessment category results."
+                          "description": "Wind uncertainty assessment category results."
                         },
                         "subcategories": {
-                          "description": "Wind related uncertainty assessment subcategories that fall under the category. The subcategory objects include details and results at the subcategory level.",
+                          "description": "Wind uncertainty assessment subcategories that fall under the category. The subcategory objects include details and results at the subcategory level.",
                           "items": {
                             "additionalProperties": false,
-                            "description": "Subcategory of a wind related uncertainty assessment.",
+                            "description": "Subcategory of a wind uncertainty assessment.",
                             "properties": {
                               "comments": {
                                 "anyOf": [
@@ -2059,7 +2059,7 @@
                                   }
                                 ],
                                 "default": null,
-                                "description": "Optional comments on the wind related uncertainty subcategory, which should not be empty if the field is included.",
+                                "description": "Optional comments on the wind uncertainty subcategory, which should not be empty if the field is included.",
                                 "title": "Comments"
                               },
                               "description": {
@@ -2073,7 +2073,7 @@
                                   }
                                 ],
                                 "default": null,
-                                "description": "Optional description of the wind related uncertainty subcategory, which should not be empty if the field is included.",
+                                "description": "Optional description of the wind uncertainty subcategory, which should not be empty if the field is included.",
                                 "title": "Description"
                               },
                               "elements": {
@@ -2094,7 +2094,7 @@
                                             }
                                           ],
                                           "default": null,
-                                          "description": "Optional comments on the wind related uncertainty subcategory element, which should not be empty if the field is included.",
+                                          "description": "Optional comments on the wind uncertainty subcategory element, which should not be empty if the field is included.",
                                           "title": "Comments"
                                         },
                                         "description": {
@@ -2108,11 +2108,11 @@
                                             }
                                           ],
                                           "default": null,
-                                          "description": "Optional description of the wind related uncertainty subcategory element, which should not be empty if the field is included.",
+                                          "description": "Optional description of the wind uncertainty subcategory element, which should not be empty if the field is included.",
                                           "title": "Description"
                                         },
                                         "label": {
-                                          "description": "Label of the wind related uncertainty subcategory element.",
+                                          "description": "Label of the wind uncertainty subcategory element.",
                                           "minLength": 1,
                                           "title": "Label",
                                           "type": "string"
@@ -2120,10 +2120,10 @@
                                         "results": {
                                           "allOf": [
                                             {
-                                              "$ref": "#/$defs/UncertaintyResults"
+                                              "$ref": "#/$defs/WindUncertaintyResults"
                                             }
                                           ],
-                                          "description": "Wind related uncertainty assessment subcategory element results."
+                                          "description": "Wind uncertainty assessment subcategory element results."
                                         }
                                       },
                                       "required": [
@@ -2141,30 +2141,29 @@
                                   }
                                 ],
                                 "default": null,
-                                "description": "Wind related uncertainty assessment elements that fall under the subcategory. The element objects include details and results at the element level. A breakdown of wind related uncertainty subcategories into elements is optional and can be included only for a subset of the subcategories, as relevant. Whereas the categories and subcategories are fixed, the user may freely define element labels.",
+                                "description": "Wind uncertainty assessment elements that fall under the subcategory. The element objects include details and results at the element level. A breakdown of wind uncertainty subcategories into elements is optional and can be included only for a subset of the subcategories, as relevant. Whereas the categories and subcategories are fixed, the user may freely define element labels.",
                                 "title": "Elements"
                               },
                               "label": {
-                                "description": "Label of the wind related uncertainty subcategory.",
+                                "description": "Label of the wind uncertainty subcategory.",
                                 "enum": [
+                                  "wind_speed_measurement",
+                                  "wind_direction_measurement",
+                                  "other_atmospheric_parameters",
+                                  "data_integrity",
                                   "long_term_period_representativeness",
                                   "reference_data_consistency",
                                   "long_term_adjustment",
                                   "wind_speed_distribution_uncertainty",
                                   "on_site_data_synthesis",
                                   "measured_data_representativeness",
+                                  "vertical_model_uncertainty",
+                                  "excess_propagated_uncertainty",
+                                  "horizontal_model_inputs",
+                                  "horizontal_model_sensitivity",
+                                  "horizontal_model_appropriateness",
                                   "wind_speed_variability",
                                   "climate_change",
-                                  "plant_performance",
-                                  "wind_speed_measurement",
-                                  "wind_direction_measurement",
-                                  "other_atmospheric_parameters",
-                                  "data_integrity",
-                                  "model_inputs",
-                                  "model_sensitivity",
-                                  "model_appropriateness",
-                                  "model_uncertainty",
-                                  "excess_propagated_uncertainty",
                                   "other"
                                 ],
                                 "title": "Wind Uncertainty Subcategory Label",
@@ -2173,10 +2172,10 @@
                               "results": {
                                 "allOf": [
                                   {
-                                    "$ref": "#/$defs/UncertaintyResults"
+                                    "$ref": "#/$defs/WindUncertaintyResults"
                                   }
                                 ],
-                                "description": "Wind related uncertainty assessment subcategory results."
+                                "description": "Wind uncertainty assessment subcategory results."
                               }
                             },
                             "required": [
@@ -2205,15 +2204,25 @@
                   "results": {
                     "allOf": [
                       {
-                        "$ref": "#/$defs/UncertaintyResults"
+                        "$ref": "#/$defs/WindUncertaintyResults"
                       }
                     ],
                     "description": "Overall wind related uncertainty assessment results."
+                  },
+                  "wind_speed_to_energy_sensitivity_factor": {
+                    "description": "The dimensionless relative wind-speed-to-energy sensitivity factor, calculated as the dimensionless relative difference in net energy divided by the corresponding relative wind speed perturbation.",
+                    "examples": [
+                      1.6,
+                      2.1
+                    ],
+                    "title": "Wind Speed To Energy Sensitivity Factor",
+                    "type": "number"
                   }
                 },
                 "required": [
                   "categories",
-                  "results"
+                  "results",
+                  "wind_speed_to_energy_sensitivity_factor"
                 ],
                 "title": "Wind Uncertainty Assessment",
                 "type": "object"
