@@ -116,12 +116,14 @@ The test suite is built using [pytest](https://docs.pytest.org). The
 is installed automatically (together with other dependencies) upon
 installation of `eya_def_tools`.
 
-To run the test suite with coverage reporting, including details on
-statements with missing coverage, simply execute the following.
+To run the test suite, execute the following.
 
 ```bash
-pytest --pyargs eya_def_tools --cov=eya_def_tools --cov-report term-missing
+pytest --pyargs eya_def_tools
 ```
+
+The `pytest` configurations, including coverage reporting, are contained
+in the [pyproject.toml file](pyproject.toml).
 
 Contributors are encouraged to write tests to cover new features.
 
@@ -142,7 +144,7 @@ following at the root of the repository directory.
 mypy --config-file pyproject.toml
 ```
 
-The mypy configurations are contained in the
+The `mypy` configurations are contained in the
 [pyproject.toml file](pyproject.toml).
 
 ### GitHub Actions pipelines
