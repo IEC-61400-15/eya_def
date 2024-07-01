@@ -11,7 +11,7 @@ authors = [
   {name="Christian Jonsson", email="christianj@kudosoftware.com"},
   {name="Stephen Holleran", email="stephen@brightwindanalysis.com"},
   {name="Jason Fields", email="jason.fields@res-group.com"},
-  {name="Charlie Plumley", email="charlie.plumley@cubicoinvest.com"},
+  {name="Charlie Plumley", email="charlie.plumley@nuveenglobal.com>"},
   {name="Alina Brenneke", email="alina.brenneke@rwe.com"},
 ]
 description = "IEC 61400-15-2 Wind Energy Yield Assessment (EYA) Digital Exchange Format (DEF) toolset"
