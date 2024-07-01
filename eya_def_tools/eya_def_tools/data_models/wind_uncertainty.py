@@ -1,4 +1,4 @@
-"""Data models relating to wind uncertainty.
+"""Data models relating to wind resource and gross energy uncertainty.
 
 """
 
@@ -14,24 +14,24 @@ from eya_def_tools.data_models.dataset import Dataset
 
 
 class UncertaintyResults(EyaDefBaseModel):
-    """Uncertainty assessment results."""
+    """Gross energy uncertainty assessment results."""
 
     relative_wind_speed_uncertainty: Optional[list[Dataset]] = pdt.Field(
         default=None,
         min_length=1,
         description=(
-            "Uncertainty assessment results as dimensionless relative values "
-            "expressed in terms of wind speed and calculated as the standard "
-            "deviation of the wind speed uncertainty distribution divided by "
-            "the mean wind speed."
+            "Uncertainty assessment results as dimensionless relative "
+            "values expressed in terms of wind speed and calculated as "
+            "the standard deviation of the wind speed uncertainty "
+            "distribution divided by the mean wind speed."
         ),
     )
     relative_energy_uncertainty: Optional[list[Dataset]] = pdt.Field(
         default=None,
         min_length=1,
         description=(
-            "Uncertainty assessment results as dimensionless relative values "
-            "expressed in terms of AEP (annual energy production) and "
+            "Uncertainty assessment results as dimensionless relative "
+            "values expressed in terms of AEP (annual energy production) and "
             "calculated as the standard deviation of the energy uncertainty "
             "distribution divided by the net P50 (50% probability of "
             "exceedance level) AEP."
@@ -104,7 +104,7 @@ class WindUncertaintySubcategoryLabel(StrEnum):
     MODEL_UNCERTAINTY = auto()
     EXCESS_PROPAGATED_UNCERTAINTY = auto()  # Propagated from measurement uncertainty
 
-    # TODO - do we also need an "OTHER" subcategory
+    OTHER = auto()
 
     @property
     def category(self) -> WindUncertaintyCategoryLabel:
@@ -123,19 +123,19 @@ class WindUncertaintySubcategoryLabel(StrEnum):
             case WindUncertaintySubcategoryLabel.MEASURED_DATA_REPRESENTATIVENESS:
                 return WindUncertaintyCategoryLabel.HISTORICAL_WIND_RESOURCE
             case WindUncertaintySubcategoryLabel.WIND_SPEED_VARIABILITY:
-                return WindUncertaintyCategoryLabel.EVALUATION_PERIOD_ANNUAL_VARIABILITY
+                return WindUncertaintyCategoryLabel.FUTURE_ASSESSMENT_PERIOD_VARIABILITY
             case WindUncertaintySubcategoryLabel.CLIMATE_CHANGE:
-                return WindUncertaintyCategoryLabel.EVALUATION_PERIOD_ANNUAL_VARIABILITY
+                return WindUncertaintyCategoryLabel.FUTURE_ASSESSMENT_PERIOD_VARIABILITY
             case WindUncertaintySubcategoryLabel.PLANT_PERFORMANCE:
-                return WindUncertaintyCategoryLabel.EVALUATION_PERIOD_ANNUAL_VARIABILITY
+                return WindUncertaintyCategoryLabel.FUTURE_ASSESSMENT_PERIOD_VARIABILITY
             case WindUncertaintySubcategoryLabel.WIND_SPEED_MEASUREMENT:
-                return WindUncertaintyCategoryLabel.MEASUREMENT_UNCERTAINTY
+                return WindUncertaintyCategoryLabel.MEASUREMENT
             case WindUncertaintySubcategoryLabel.WIND_DIRECTION_MEASUREMENT:
-                return WindUncertaintyCategoryLabel.MEASUREMENT_UNCERTAINTY
+                return WindUncertaintyCategoryLabel.MEASUREMENT
             case WindUncertaintySubcategoryLabel.OTHER_ATMOSPHERIC_PARAMETERS:
-                return WindUncertaintyCategoryLabel.MEASUREMENT_UNCERTAINTY
+                return WindUncertaintyCategoryLabel.MEASUREMENT
             case WindUncertaintySubcategoryLabel.DATA_INTEGRITY:
-                return WindUncertaintyCategoryLabel.MEASUREMENT_UNCERTAINTY
+                return WindUncertaintyCategoryLabel.MEASUREMENT
             case WindUncertaintySubcategoryLabel.MODEL_INPUTS:
                 return WindUncertaintyCategoryLabel.HORIZONTAL_EXTRAPOLATION
             case WindUncertaintySubcategoryLabel.MODEL_SENSITIVITY:
@@ -146,6 +146,8 @@ class WindUncertaintySubcategoryLabel(StrEnum):
                 return WindUncertaintyCategoryLabel.VERTICAL_EXTRAPOLATION
             case WindUncertaintySubcategoryLabel.EXCESS_PROPAGATED_UNCERTAINTY:
                 return WindUncertaintyCategoryLabel.VERTICAL_EXTRAPOLATION
+            case WindUncertaintySubcategoryLabel.OTHER:
+                return WindUncertaintyCategoryLabel.OTHER
 
 
 class WindUncertaintySubcategory(EyaDefBaseModel):
@@ -195,13 +197,12 @@ class WindUncertaintySubcategory(EyaDefBaseModel):
 class WindUncertaintyCategoryLabel(StrEnum):
     """Category labels in the wind uncertainty assessment."""
 
+    MEASUREMENT = auto()
     HISTORICAL_WIND_RESOURCE = auto()
-    EVALUATION_PERIOD_ANNUAL_VARIABILITY = auto()  # Project evaluation period
-    MEASUREMENT_UNCERTAINTY = auto()
-    HORIZONTAL_EXTRAPOLATION = auto()
+    FUTURE_ASSESSMENT_PERIOD_VARIABILITY = auto()
     VERTICAL_EXTRAPOLATION = auto()
-
-    # TODO - do we also need an "OTHER" category
+    HORIZONTAL_EXTRAPOLATION = auto()
+    OTHER = auto()
 
 
 class WindUncertaintyCategory(EyaDefBaseModel):

@@ -11,8 +11,8 @@ from eya_def_tools.data_models.wind_uncertainty import (
 
 
 @pytest.mark.parametrize(
-    "wind_uncertainty_subcategory_label, expected",
-    [
+    argnames=("wind_uncertainty_subcategory_label", "expected_category"),
+    argvalues=[
         (
             WindUncertaintySubcategoryLabel.LONG_TERM_PERIOD_REPRESENTATIVENESS,
             WindUncertaintyCategoryLabel.HISTORICAL_WIND_RESOURCE,
@@ -23,12 +23,12 @@ from eya_def_tools.data_models.wind_uncertainty import (
         ),
         (
             WindUncertaintySubcategoryLabel.WIND_SPEED_MEASUREMENT,
-            WindUncertaintyCategoryLabel.MEASUREMENT_UNCERTAINTY,
+            WindUncertaintyCategoryLabel.MEASUREMENT,
         ),
     ],
 )
 def test_wind_uncertainty_subcategory_label_returns_correct_category_label(
     wind_uncertainty_subcategory_label: WindUncertaintySubcategoryLabel,
-    expected: WindUncertaintyCategoryLabel,
+    expected_category: WindUncertaintyCategoryLabel,
 ) -> None:
-    assert wind_uncertainty_subcategory_label.category == expected
+    assert wind_uncertainty_subcategory_label.category == expected_category

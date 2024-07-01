@@ -2020,13 +2020,14 @@
           "measurement_station_type_id": "mast",
           "name": "BF_M1",
           "notes": "This is an example WRA Data Model for the EYA DEF and does not describe a real measurement station.",
-          "update_at": "2022-09-06T10:00:00"
+          "update_at": "2022-09-06T10:00:00",
+          "uuid": "788dbaa3-20ff-4085-8aa9-8bbfeb4fe2d7"
         }
       ],
       "organisation": "The Torre Egger Consultants Limited",
       "plant_name": "Barefoot Wind Farm",
       "plant_type": "onshore_wind",
-      "version": "1.2.0-2023.01"
+      "version": "1.3.0-2024.03"
     }
   ],
   "project_country": "GB",
@@ -2039,9 +2040,116 @@
       "name": "Miranda Investments Limited"
     }
   ],
+  "reference_meteorological_datasets": [
+    {
+      "$schema": "https://raw.githubusercontent.com/IEA-Task-43/digital_wra_data_standard/master/schema/iea43_wra_data_model.schema.json",
+      "author": "Sergei Prokofiev",
+      "date": "2024-01-01",
+      "measurement_location": [
+        {
+          "latitude_ddeg": 53.9,
+          "longitude_ddeg": -4.3,
+          "measurement_point": [
+            {
+              "height_m": 100,
+              "height_reference_id": "ground_level",
+              "logger_measurement_config": [
+                {
+                  "column_name": [
+                    {
+                      "column_name": "Spd_100m_mps",
+                      "statistic_type_id": "avg"
+                    }
+                  ],
+                  "date_from": "2000-01-01T00:00:00",
+                  "date_to": "2023-12-31T23:00:00",
+                  "measurement_units_id": "m/s"
+                }
+              ],
+              "measurement_type_id": "wind_speed",
+              "name": "WS100m"
+            },
+            {
+              "height_m": 100,
+              "logger_measurement_config": [
+                {
+                  "column_name": [
+                    {
+                      "column_name": "Dir_100m_deg",
+                      "statistic_type_id": "avg"
+                    }
+                  ],
+                  "date_from": "2000-01-01T00:00:00",
+                  "date_to": "2023-12-31T23:00:00",
+                  "measurement_units_id": "deg"
+                }
+              ],
+              "measurement_type_id": "wind_direction",
+              "name": "WD100m"
+            },
+            {
+              "height_m": 2,
+              "logger_measurement_config": [
+                {
+                  "column_name": [
+                    {
+                      "column_name": "Tmp_2m_degC",
+                      "statistic_type_id": "avg"
+                    }
+                  ],
+                  "date_from": "2000-01-01T00:00:00",
+                  "date_to": "2023-12-31T23:00:00",
+                  "measurement_units_id": "deg_C"
+                }
+              ],
+              "measurement_type_id": "air_temperature",
+              "name": "Tmp2m"
+            },
+            {
+              "height_m": 0,
+              "logger_measurement_config": [
+                {
+                  "column_name": [
+                    {
+                      "column_name": "Prs_0m_hPa",
+                      "statistic_type_id": "avg"
+                    }
+                  ],
+                  "date_from": "2000-01-01T00:00:00",
+                  "date_to": "2023-12-31T23:00:00",
+                  "measurement_units_id": "hPa"
+                }
+              ],
+              "measurement_type_id": "air_pressure",
+              "name": "Prs0m"
+            }
+          ],
+          "measurement_station_type_id": "reanalysis",
+          "model_config": [
+            {
+              "averaging_period_minutes": 60,
+              "date_from": "2000-01-01T00:00:00",
+              "date_to": null,
+              "horizontal_grid_resolution_m": 11000,
+              "model_used": "ECMWF IFS",
+              "offset_from_utc_hrs": 0,
+              "reanalysis": "ERA5",
+              "timestamp_is_end_of_period": false,
+              "update_at": "2023-11-24T18:13:00"
+            }
+          ],
+          "name": "ERA5_53.536N_-6.3E",
+          "notes": "This is an ERA5 reanalysis dataset produced by ECMWF.",
+          "update_at": "2023-11-24T18:13:00",
+          "uuid": "282c5c44-17a2-426a-b10d-0826d0d868fc"
+        }
+      ],
+      "organisation": "The Torre Egger Consultants Limited",
+      "version": "1.3.0-2024.03"
+    }
+  ],
   "reference_wind_farms": [
     {
-      "id": "munro_wind_farm_reference",
       "operational_datasets": [
         {
           "classification": {
@@ -2351,73 +2459,7 @@
               }
             ]
           }
-        }
-      },
-      "id": "b6953ecb-f88b-4660-9f69-bedbbe4c240b",
-      "is_main_scenario": true,
-      "label": "A",
-      "turbine_wind_resource_assessment": {
-        "results": {
-          "wind_speed": [
-            {
-              "assessment_period": "lifetime",
-              "dimensions": [
-                "turbine_id"
-              ],
-              "statistics": [
-                {
-                  "statistic_type": "mean",
-                  "values": [
-                    [
-                      [
-                        "WTG01"
-                      ],
-                      6.91
-                    ],
-                    [
-                      [
-                        "WTG02"
-                      ],
-                      6.95
-                    ]
-                  ]
-                }
-              ]
-            }
-          ]
         },
-        "weighting": {
-          "source_wind_data": [
-            {
-              "dimensions": [
-                "turbine_id",
-                "wind_dataset_id"
-              ],
-              "statistics": [
-                {
-                  "statistic_type": "mean",
-                  "values": [
-                    [
-                      [
-                        "WTG01",
-                        "BF_M1"
-                      ],
-                      1.0
-                    ],
-                    [
-                      [
-                        "WTG02",
-                        "BF_M1"
-                      ],
-                      1.0
-                    ]
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        "wind_resource_assessment_id_reference": "BfWF_WRA_1",
         "wind_uncertainty_assessment": {
           "categories": [
             {
@@ -2526,6 +2568,72 @@
             ]
           }
         }
+      },
+      "id": "b6953ecb-f88b-4660-9f69-bedbbe4c240b",
+      "is_main_scenario": true,
+      "label": "A",
+      "turbine_wind_resource_assessment": {
+        "results": {
+          "wind_speed": [
+            {
+              "assessment_period": "lifetime",
+              "dimensions": [
+                "turbine_id"
+              ],
+              "statistics": [
+                {
+                  "statistic_type": "mean",
+                  "values": [
+                    [
+                      [
+                        "WTG01"
+                      ],
+                      6.91
+                    ],
+                    [
+                      [
+                        "WTG02"
+                      ],
+                      6.95
+                    ]
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "weighting": {
+          "source_wind_data": [
+            {
+              "dimensions": [
+                "turbine_id",
+                "wind_dataset_id"
+              ],
+              "statistics": [
+                {
+                  "statistic_type": "mean",
+                  "values": [
+                    [
+                      [
+                        "WTG01",
+                        "BF_M1"
+                      ],
+                      1.0
+                    ],
+                    [
+                      [
+                        "WTG02",
+                        "BF_M1"
+                      ],
+                      1.0
+                    ]
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "wind_resource_assessment_id_reference": "BfWF_WRA_1"
       },
       "wind_farm_ids": [
         "bf_a",
@@ -2741,42 +2849,7 @@
               }
             ]
           }
-        }
-      },
-      "id": "e27fefdf-cdd7-441f-a7a7-c4347514b4f7",
-      "is_main_scenario": false,
-      "label": "B",
-      "turbine_wind_resource_assessment": {
-        "results": {
-          "wind_speed": [
-            {
-              "assessment_period": "lifetime",
-              "dimensions": [
-                "turbine_id"
-              ],
-              "statistics": [
-                {
-                  "statistic_type": "mean",
-                  "values": [
-                    [
-                      [
-                        "WTG01"
-                      ],
-                      6.9
-                    ],
-                    [
-                      [
-                        "WTG02"
-                      ],
-                      6.94
-                    ]
-                  ]
-                }
-              ]
-            }
-          ]
         },
-        "wind_resource_assessment_id_reference": "BfWF_WRA_1",
         "wind_uncertainty_assessment": {
           "categories": [
             {
@@ -2885,6 +2958,41 @@
             ]
           }
         }
+      },
+      "id": "e27fefdf-cdd7-441f-a7a7-c4347514b4f7",
+      "is_main_scenario": false,
+      "label": "B",
+      "turbine_wind_resource_assessment": {
+        "results": {
+          "wind_speed": [
+            {
+              "assessment_period": "lifetime",
+              "dimensions": [
+                "turbine_id"
+              ],
+              "statistics": [
+                {
+                  "statistic_type": "mean",
+                  "values": [
+                    [
+                      [
+                        "WTG01"
+                      ],
+                      6.9
+                    ],
+                    [
+                      [
+                        "WTG02"
+                      ],
+                      6.94
+                    ]
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "wind_resource_assessment_id_reference": "BfWF_WRA_1"
       },
       "wind_farm_ids": [
         "bf_b",
@@ -3101,7 +3209,7 @@
           },
           {
             "dimensions": [
-              "reference_wind_farm_id",
+              "wind_farm_id",
               "operational_dataset_id",
               "variable_id",
               "turbine_id",
@@ -3114,7 +3222,7 @@
                 "values": [
                   [
                     [
-                      "munro_wind_farm_reference",
+                      "mu",
                       "munro_wind_farm_reference_wtg_scada",
                       "active_power",
                       "f08b05bd-f90b-4833-91a5-4284b64c80db",
@@ -3125,7 +3233,7 @@
                   ],
                   [
                     [
-                      "munro_wind_farm_reference",
+                      "mu",
                       "munro_wind_farm_reference_wtg_scada",
                       "active_power",
                       "b87f21bc-e1d8-4150-a2f4-d7f019bf96fc",

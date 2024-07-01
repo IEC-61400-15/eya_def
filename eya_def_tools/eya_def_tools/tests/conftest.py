@@ -313,6 +313,16 @@ def turbine_model_c() -> turbine_model.TurbineModelSpecifications:
 
 
 @pytest.fixture(scope="session")
+def all_turbine_models(
+    turbine_model_a: turbine_model.TurbineModelSpecifications,
+    turbine_model_b: turbine_model.TurbineModelSpecifications,
+    turbine_model_c: turbine_model.TurbineModelSpecifications,
+) -> list[turbine_model.TurbineModelSpecifications]:
+    """A list of all turbine model test case instances."""
+    return [turbine_model_a, turbine_model_b, turbine_model_c]
+
+
+@pytest.fixture(scope="session")
 def turbine_operational_restriction_a() -> wind_farm.OperationalRestriction:
     """Test case instance 'a' of ``OperationalRestriction``."""
     return wind_farm.OperationalRestriction(
@@ -511,16 +521,28 @@ def neighbouring_wind_farm_a(
 
 
 @pytest.fixture(scope="session")
+def all_wind_farms(
+    wind_farm_a: wind_farm.WindFarmConfiguration,
+    wind_farm_b: wind_farm.WindFarmConfiguration,
+    neighbouring_wind_farm_a: wind_farm.WindFarmConfiguration,
+) -> list[wind_farm.WindFarmConfiguration]:
+    """A list of all test case wind farm configurations."""
+    return [wind_farm_a, wind_farm_b, neighbouring_wind_farm_a]
+
+
+@pytest.fixture(scope="session")
 def measurement_station_a_filepath(json_examples_dirpath: Path) -> Path:
-    """Path to test case instance 'a' of ``MeasurementStationMetadata``."""
-    return json_examples_dirpath / "iec_61400-15-2_eya_def_example_a_iea43_wra.json"
+    """Path to test case 'a' of measurement station metadata."""
+    return (
+        json_examples_dirpath / "iec_61400-15-2_eya_def_example_a_iea43_wra_mast.json"
+    )
 
 
 @pytest.fixture(scope="session")
 def measurement_station_a(
     measurement_station_a_filepath: Path,
 ) -> iea43_wra_data_model.WraDataModelDocument:
-    """Test case instance 'a' of ``MeasurementStationMetadata``."""
+    """Test case instance 'a' of measurement station metadata.."""
     with open(measurement_station_a_filepath, "r") as f:
         json_data_dict = json.load(f)
 
@@ -599,10 +621,28 @@ def reference_wind_farm_a(
 ) -> reference_wind_farm.ReferenceWindFarm:
     """Test case instance 'a' of ``ReferenceWindFarm``."""
     return reference_wind_farm.ReferenceWindFarm(
-        id="munro_wind_farm_reference",
         wind_farm_id="mu",
         operational_datasets=[reference_wind_farm_dataset_a],
     )
+
+
+@pytest.fixture(scope="session")
+def reference_meteorological_dataset_a_filepath(json_examples_dirpath: Path) -> Path:
+    """Path to test case 'a' of reference met dataset metadata."""
+    return (
+        json_examples_dirpath / "iec_61400-15-2_eya_def_example_a_iea43_wra_era5.json"
+    )
+
+
+@pytest.fixture(scope="session")
+def reference_meteorological_dataset_a(
+    reference_meteorological_dataset_a_filepath: Path,
+) -> iea43_wra_data_model.WraDataModelDocument:
+    """Test case instance 'a' of reference met dataset metadata."""
+    with open(reference_meteorological_dataset_a_filepath, "r") as f:
+        json_data_dict = json.load(f)
+
+    return iea43_wra_data_model.WraDataModelDocument(json_data_dict)
 
 
 @pytest.fixture(scope="session")
@@ -633,7 +673,7 @@ def wind_resource_assessment_a() -> wind_resource.WindResourceAssessment:
                 ),
                 dataset.Dataset(
                     dimensions=[
-                        dataset.DatasetDimension.REFERENCE_WIND_FARM_ID,
+                        dataset.DatasetDimension.WIND_FARM_ID,
                         dataset.DatasetDimension.OPERATIONAL_DATASET_ID,
                         dataset.DatasetDimension.VARIABLE_ID,
                         dataset.DatasetDimension.TURBINE_ID,
@@ -646,7 +686,7 @@ def wind_resource_assessment_a() -> wind_resource.WindResourceAssessment:
                             values=[
                                 (
                                     [
-                                        "munro_wind_farm_reference",
+                                        "mu",
                                         "munro_wind_farm_reference_wtg_scada",
                                         "active_power",
                                         "f08b05bd-f90b-4833-91a5-4284b64c80db",
@@ -657,7 +697,7 @@ def wind_resource_assessment_a() -> wind_resource.WindResourceAssessment:
                                 ),
                                 (
                                     [
-                                        "munro_wind_farm_reference",
+                                        "mu",
                                         "munro_wind_farm_reference_wtg_scada",
                                         "active_power",
                                         "b87f21bc-e1d8-4150-a2f4-d7f019bf96fc",
@@ -843,6 +883,93 @@ def wind_resource_assessment_a() -> wind_resource.WindResourceAssessment:
 
 
 @pytest.fixture(scope="session")
+def turbine_wind_resource_assessment_a() -> wind_resource.TurbineWindResourceAssessment:
+    """Test case instance 'a' of ``TurbineWindResourceAssessment``."""
+    return wind_resource.TurbineWindResourceAssessment(
+        wind_resource_assessment_id_reference="BfWF_WRA_1",
+        results=wind_resource.TurbineWindResourceResults(
+            wind_speed=[
+                dataset.Dataset(
+                    assessment_period=dataset.AssessmentPeriod.LIFETIME,
+                    dimensions=[dataset.DatasetDimension.TURBINE_ID],
+                    statistics=[
+                        dataset.DatasetStatistic(
+                            statistic_type=dataset.BasicStatisticType.MEAN,
+                            values=[
+                                (
+                                    ["WTG01"],
+                                    6.91,
+                                ),
+                                (
+                                    ["WTG02"],
+                                    6.95,
+                                ),
+                            ],
+                        ),
+                    ],
+                ),
+            ],
+        ),
+        weighting=wind_resource.TurbineWindResourceWeighting(
+            source_wind_data=[
+                dataset.Dataset(
+                    dimensions=[
+                        dataset.DatasetDimension.TURBINE_ID,
+                        dataset.DatasetDimension.WIND_DATASET_ID,
+                    ],
+                    statistics=[
+                        dataset.DatasetStatistic(
+                            statistic_type=dataset.BasicStatisticType.MEAN,
+                            values=[
+                                (
+                                    ["WTG01", "BF_M1"],
+                                    1.0,
+                                ),
+                                (
+                                    ["WTG02", "BF_M1"],
+                                    1.0,
+                                ),
+                            ],
+                        ),
+                    ],
+                ),
+            ],
+        ),
+    )
+
+
+@pytest.fixture(scope="session")
+def turbine_wind_resource_assessment_b() -> wind_resource.TurbineWindResourceAssessment:
+    """Test case instance 'b' of ``TurbineWindResourceAssessment``."""
+    return wind_resource.TurbineWindResourceAssessment(
+        wind_resource_assessment_id_reference="BfWF_WRA_1",
+        results=wind_resource.TurbineWindResourceResults(
+            wind_speed=[
+                dataset.Dataset(
+                    assessment_period=dataset.AssessmentPeriod.LIFETIME,
+                    dimensions=[dataset.DatasetDimension.TURBINE_ID],
+                    statistics=[
+                        dataset.DatasetStatistic(
+                            statistic_type=dataset.BasicStatisticType.MEAN,
+                            values=[
+                                (
+                                    ["WTG01"],
+                                    6.90,
+                                ),
+                                (
+                                    ["WTG02"],
+                                    6.94,
+                                ),
+                            ],
+                        ),
+                    ],
+                ),
+            ],
+        ),
+    )
+
+
+@pytest.fixture(scope="session")
 def long_term_adj_uncertainty_subcat_a() -> wind_uncertainty.WindUncertaintySubcategory:
     """Test case 'a' of long-term adjustment ``WindUncertaintySubcategory``."""
     return wind_uncertainty.WindUncertaintySubcategory(
@@ -941,150 +1068,71 @@ def historical_wind_uncertainty_category_a(
 
 
 @pytest.fixture(scope="session")
-def turbine_wind_resource_assessment_a(
+def wind_uncertainty_assessment_a(
     historical_wind_uncertainty_category_a: wind_uncertainty.WindUncertaintyCategory,
-) -> wind_resource.TurbineWindResourceAssessment:
-    """Test case instance 'a' of ``TurbineWindResourceAssessment``."""
-    return wind_resource.TurbineWindResourceAssessment(
-        wind_resource_assessment_id_reference="BfWF_WRA_1",
-        results=wind_resource.TurbineWindResourceResults(
-            wind_speed=[
+) -> wind_uncertainty.WindUncertaintyAssessment:
+    return wind_uncertainty.WindUncertaintyAssessment(
+        categories=[historical_wind_uncertainty_category_a],
+        results=wind_uncertainty.UncertaintyResults(
+            relative_wind_speed_uncertainty=[
                 dataset.Dataset(
                     assessment_period=dataset.AssessmentPeriod.LIFETIME,
-                    dimensions=[dataset.DatasetDimension.TURBINE_ID],
+                    dimensions=None,
                     statistics=[
                         dataset.DatasetStatistic(
                             statistic_type=dataset.BasicStatisticType.MEAN,
-                            values=[
-                                (
-                                    ["WTG01"],
-                                    6.91,
-                                ),
-                                (
-                                    ["WTG02"],
-                                    6.95,
-                                ),
-                            ],
-                        ),
+                            values=0.48,
+                        )
                     ],
-                ),
+                )
             ],
-        ),
-        weighting=wind_resource.TurbineWindResourceWeighting(
-            source_wind_data=[
+            relative_energy_uncertainty=[
                 dataset.Dataset(
-                    dimensions=[
-                        dataset.DatasetDimension.TURBINE_ID,
-                        dataset.DatasetDimension.WIND_DATASET_ID,
-                    ],
+                    assessment_period=dataset.AssessmentPeriod.LIFETIME,
+                    dimensions=None,
                     statistics=[
                         dataset.DatasetStatistic(
                             statistic_type=dataset.BasicStatisticType.MEAN,
-                            values=[
-                                (
-                                    ["WTG01", "BF_M1"],
-                                    1.0,
-                                ),
-                                (
-                                    ["WTG02", "BF_M1"],
-                                    1.0,
-                                ),
-                            ],
-                        ),
+                            values=0.95,
+                        )
                     ],
-                ),
+                )
             ],
-        ),
-        wind_uncertainty_assessment=wind_uncertainty.WindUncertaintyAssessment(
-            categories=[historical_wind_uncertainty_category_a],
-            results=wind_uncertainty.UncertaintyResults(
-                relative_wind_speed_uncertainty=[
-                    dataset.Dataset(
-                        assessment_period=dataset.AssessmentPeriod.LIFETIME,
-                        dimensions=None,
-                        statistics=[
-                            dataset.DatasetStatistic(
-                                statistic_type=dataset.BasicStatisticType.MEAN,
-                                values=0.48,
-                            )
-                        ],
-                    )
-                ],
-                relative_energy_uncertainty=[
-                    dataset.Dataset(
-                        assessment_period=dataset.AssessmentPeriod.LIFETIME,
-                        dimensions=None,
-                        statistics=[
-                            dataset.DatasetStatistic(
-                                statistic_type=dataset.BasicStatisticType.MEAN,
-                                values=0.95,
-                            )
-                        ],
-                    )
-                ],
-            ),
         ),
     )
 
 
 @pytest.fixture(scope="session")
-def turbine_wind_resource_assessment_b(
+def wind_uncertainty_assessment_b(
     historical_wind_uncertainty_category_a: wind_uncertainty.WindUncertaintyCategory,
-) -> wind_resource.TurbineWindResourceAssessment:
-    """Test case instance 'b' of ``TurbineWindResourceAssessment``."""
-    return wind_resource.TurbineWindResourceAssessment(
-        wind_resource_assessment_id_reference="BfWF_WRA_1",
-        results=wind_resource.TurbineWindResourceResults(
-            wind_speed=[
+) -> wind_uncertainty.WindUncertaintyAssessment:
+    return wind_uncertainty.WindUncertaintyAssessment(
+        categories=[historical_wind_uncertainty_category_a],
+        results=wind_uncertainty.UncertaintyResults(
+            relative_wind_speed_uncertainty=[
                 dataset.Dataset(
                     assessment_period=dataset.AssessmentPeriod.LIFETIME,
-                    dimensions=[dataset.DatasetDimension.TURBINE_ID],
+                    dimensions=None,
                     statistics=[
                         dataset.DatasetStatistic(
                             statistic_type=dataset.BasicStatisticType.MEAN,
-                            values=[
-                                (
-                                    ["WTG01"],
-                                    6.90,
-                                ),
-                                (
-                                    ["WTG02"],
-                                    6.94,
-                                ),
-                            ],
-                        ),
+                            values=0.47,
+                        )
                     ],
-                ),
+                )
             ],
-        ),
-        wind_uncertainty_assessment=wind_uncertainty.WindUncertaintyAssessment(
-            categories=[historical_wind_uncertainty_category_a],
-            results=wind_uncertainty.UncertaintyResults(
-                relative_wind_speed_uncertainty=[
-                    dataset.Dataset(
-                        assessment_period=dataset.AssessmentPeriod.LIFETIME,
-                        dimensions=None,
-                        statistics=[
-                            dataset.DatasetStatistic(
-                                statistic_type=dataset.BasicStatisticType.MEAN,
-                                values=0.47,
-                            )
-                        ],
-                    )
-                ],
-                relative_energy_uncertainty=[
-                    dataset.Dataset(
-                        assessment_period=dataset.AssessmentPeriod.LIFETIME,
-                        dimensions=None,
-                        statistics=[
-                            dataset.DatasetStatistic(
-                                statistic_type=dataset.BasicStatisticType.MEAN,
-                                values=0.92,
-                            )
-                        ],
-                    )
-                ],
-            ),
+            relative_energy_uncertainty=[
+                dataset.Dataset(
+                    assessment_period=dataset.AssessmentPeriod.LIFETIME,
+                    dimensions=None,
+                    statistics=[
+                        dataset.DatasetStatistic(
+                            statistic_type=dataset.BasicStatisticType.MEAN,
+                            values=0.92,
+                        )
+                    ],
+                )
+            ],
         ),
     )
 
@@ -1254,6 +1302,7 @@ def plant_performance_curtailment_category_b() -> (
 
 @pytest.fixture(scope="session")
 def energy_assessment_a(
+    wind_uncertainty_assessment_a: wind_uncertainty.WindUncertaintyAssessment,
     plant_performance_curtailment_category_a: (
         plant_performance.PlantPerformanceCategory
     ),
@@ -1299,6 +1348,7 @@ def energy_assessment_a(
                 ],
             ),
         ),
+        wind_uncertainty_assessment=wind_uncertainty_assessment_a,
         plant_performance_assessment=plant_performance.PlantPerformanceAssessment(
             categories=[plant_performance_curtailment_category_a],
             results=plant_performance.PlantPerformanceResults(
@@ -1376,6 +1426,7 @@ def energy_assessment_a(
 
 @pytest.fixture(scope="session")
 def energy_assessment_b(
+    wind_uncertainty_assessment_b: wind_uncertainty.WindUncertaintyAssessment,
     plant_performance_curtailment_category_b: (
         plant_performance.PlantPerformanceCategory
     ),
@@ -1417,6 +1468,7 @@ def energy_assessment_b(
                 ],
             ),
         ),
+        wind_uncertainty_assessment=wind_uncertainty_assessment_b,
         plant_performance_assessment=plant_performance.PlantPerformanceAssessment(
             categories=[plant_performance_curtailment_category_b],
             results=plant_performance.PlantPerformanceResults(
@@ -1523,6 +1575,15 @@ def scenario_b(
 
 
 @pytest.fixture(scope="session")
+def all_scenarios(
+    scenario_a: scenario.Scenario,
+    scenario_b: scenario.Scenario,
+) -> list[scenario.Scenario]:
+    """A list of all test case scenarios."""
+    return [scenario_a, scenario_b]
+
+
+@pytest.fixture(scope="session")
 def issuing_organisation_a() -> general.Organisation:
     """Issuing organisation test case instance 'a' of ``Organisation``."""
     return general.Organisation(
@@ -1597,17 +1658,13 @@ def eya_def_a(
     second_author_a: eya_def_header.ReportContributor,
     verifier_a: eya_def_header.ReportContributor,
     approver_a: eya_def_header.ReportContributor,
-    wind_farm_a: wind_farm.WindFarmConfiguration,
-    wind_farm_b: wind_farm.WindFarmConfiguration,
-    neighbouring_wind_farm_a: wind_farm.WindFarmConfiguration,
+    all_wind_farms: list[wind_farm.WindFarmConfiguration],
     measurement_station_a: iea43_wra_data_model.WraDataModelDocument,
     reference_wind_farm_a: reference_wind_farm.ReferenceWindFarm,
-    turbine_model_a: turbine_model.TurbineModelSpecifications,
-    turbine_model_b: turbine_model.TurbineModelSpecifications,
-    turbine_model_c: turbine_model.TurbineModelSpecifications,
+    reference_meteorological_dataset_a: iea43_wra_data_model.WraDataModelDocument,
+    all_turbine_models: list[turbine_model.TurbineModelSpecifications],
     wind_resource_assessment_a: wind_resource.WindResourceAssessment,
-    scenario_a: scenario.Scenario,
-    scenario_b: scenario.Scenario,
+    all_scenarios: list[scenario.Scenario],
 ) -> eya_def.EyaDefDocument:
     """Test case instance 'a' of ``EyaDef``."""
     return eya_def.EyaDefDocument(
@@ -1637,12 +1694,13 @@ def eya_def_a(
         confidentiality_classification="Confidential",
         epsg_srid=32630,
         utc_offset=0.0,
-        wind_farms=[wind_farm_a, wind_farm_b, neighbouring_wind_farm_a],
+        wind_farms=all_wind_farms,
         measurement_stations=[measurement_station_a],
         reference_wind_farms=[reference_wind_farm_a],
+        reference_meteorological_datasets=[reference_meteorological_dataset_a],
         wind_resource_assessments=[wind_resource_assessment_a],
-        turbine_models=[turbine_model_a, turbine_model_b, turbine_model_c],
-        scenarios=[scenario_a, scenario_b],
+        turbine_models=all_turbine_models,
+        scenarios=all_scenarios,
     )
 
 

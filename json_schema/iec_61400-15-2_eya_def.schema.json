@@ -87,7 +87,6 @@
               "items": {
                 "description": "Dimension along which dataset values are assigned.",
                 "enum": [
-                  "height",
                   "minute",
                   "hour",
                   "day",
@@ -95,13 +94,12 @@
                   "year",
                   "wind_speed",
                   "wind_from_direction",
-                  "wind_farm_id",
-                  "reference_wind_farm_id",
-                  "operational_dataset_id",
                   "wind_dataset_id",
-                  "turbine_id",
-                  "location_id",
                   "point_id",
+                  "height",
+                  "wind_farm_id",
+                  "turbine_id",
+                  "operational_dataset_id",
                   "variable_id"
                 ],
                 "title": "Dataset Dimension",
@@ -304,13 +302,30 @@
       "description": "Energy assessment results.",
       "properties": {
         "annual_energy_production": {
-          "description": "Annual energy production (AEP) estimates at the turbine location(s) in gigawatt hour (GW h). The dimension of the first standard result dataset should be 'wind_farm_id'. The dimension of the second standard result dataset should be 'turbine_id'. Further results with other dimensions may be included optionally.",
+          "description": "Annual energy production (AEP) estimates at the turbine location(s) in gigawatt hour per annum (GW h year-1). The dimension of the first standard result dataset should be 'wind_farm_id'. The dimension of the second standard result dataset should be 'turbine_id'. Further results with other dimensions may be included optionally.",
           "items": {
             "$ref": "#/$defs/Dataset"
           },
           "minItems": 1,
           "title": "Annual Energy Production",
           "type": "array"
+        },
+        "energy_production": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/Dataset"
+              },
+              "minItems": 1,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Energy production estimates at the turbine location(s) over a specific period of time in gigawatt hour (GW h). This field should be used for energy production estimates that are not annualised. For all annual energy production (AEP) estimate, the field 'annual_energy_production' should be used.",
+          "title": "Energy Production"
         }
       },
       "required": [
@@ -568,7 +583,7 @@
     },
     "UncertaintyResults": {
       "additionalProperties": false,
-      "description": "Uncertainty assessment results.",
+      "description": "Gross energy uncertainty assessment results.",
       "properties": {
         "relative_energy_uncertainty": {
           "anyOf": [
@@ -878,11 +893,11 @@
                 "ref": "https://raw.githubusercontent.com/IEA-Task-43/digital_wra_data_standard/master/schema/iea43_wra_data_model.schema.json"
               }
             ],
-            "description": "A measurement metadata document according to the IEA Task 43 WRA Data Model JSON Schema.",
+            "description": "A wind dataset metadata document according to the IEA Wind Task 43 WRA Data Model JSON Schema.",
             "examples": [
               "https://foo.com/bar/example_iea43.json"
             ],
-            "title": "Measurement Station Metadata"
+            "title": "Wind Dataset Metadata"
           },
           "minItems": 1,
           "type": "array"
@@ -1181,142 +1196,16 @@
       "anyOf": [
         {
           "items": {
-            "anyOf": [
+            "allOf": [
               {
-                "additionalProperties": false,
-                "description": "Metadata for a reference meteorological dataset.",
-                "properties": {
-                  "comments": {
-                    "anyOf": [
-                      {
-                        "minLength": 1,
-                        "type": "string"
-                      },
-                      {
-                        "type": "null"
-                      }
-                    ],
-                    "default": null,
-                    "description": "Optional comments on the meteorological dataset, which should not be empty if the field is included.",
-                    "title": "Comments"
-                  },
-                  "description": {
-                    "description": "Description of the meteorological dataset.",
-                    "examples": [
-                      "The ERA5 reanalysis dataset.",
-                      "In-house WRF simulation seeded with MERRA2 reanalysis."
-                    ],
-                    "minLength": 1,
-                    "title": "Description",
-                    "type": "string"
-                  },
-                  "end_date": {
-                    "description": "End of the data period in the ISO 8601 standard format for a calendar date, i.e. YYYY-MM-DD.",
-                    "examples": [
-                      "2021-11-30"
-                    ],
-                    "format": "date",
-                    "title": "End Date",
-                    "type": "string"
-                  },
-                  "id": {
-                    "description": "Unique ID for the reference meteorological dataset within the EYA DEF document.",
-                    "examples": [
-                      "ERA5",
-                      "WRF_MERRA2_r0245_a"
-                    ],
-                    "minLength": 1,
-                    "title": "Id",
-                    "type": "string"
-                  },
-                  "locations": {
-                    "description": "The horizontal spatial location(s) of the meteorological data, with each location item including an ID for referencing in addition to the spatial coordinates. Where a large number of locations have been used (i.e. a large grid) and it is not relevant to include all, a subset can be included here and elaborated upon in the comments. All locations for which results are presented must be included.",
-                    "items": {
-                      "additionalProperties": false,
-                      "description": "Specification of a horizontal location in space with an ID.",
-                      "properties": {
-                        "id": {
-                          "description": "Unique ID for the location within the EYA DEF document.",
-                          "examples": [
-                            "r4853",
-                            "E1.23_N4.56",
-                            "c11f0e96-5ba3-416d-a51b-274e7e29c7e5"
-                          ],
-                          "minLength": 1,
-                          "title": "Id",
-                          "type": "string"
-                        },
-                        "x": {
-                          "description": "Location x-coordinate (typically easting).",
-                          "examples": [
-                            419665.0
-                          ],
-                          "title": "X",
-                          "type": "number"
-                        },
-                        "y": {
-                          "description": "Location y-coordinate (typically northing).",
-                          "examples": [
-                            6195240.0
-                          ],
-                          "title": "Y",
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "id",
-                        "x",
-                        "y"
-                      ],
-                      "title": "Id Location",
-                      "type": "object"
-                    },
-                    "minItems": 1,
-                    "title": "Locations",
-                    "type": "array"
-                  },
-                  "start_date": {
-                    "description": "Start of the data period in the ISO 8601 standard format for a calendar date, i.e. YYYY-MM-DD.",
-                    "examples": [
-                      "2015-10-20"
-                    ],
-                    "format": "date",
-                    "title": "Start Date",
-                    "type": "string"
-                  },
-                  "time_resolution": {
-                    "allOf": [
-                      {
-                        "$ref": "#/$defs/TimeResolution"
-                      }
-                    ],
-                    "description": "Time resolution of the reference meteorological data."
-                  }
-                },
-                "required": [
-                  "id",
-                  "description",
-                  "locations",
-                  "time_resolution",
-                  "start_date",
-                  "end_date"
-                ],
-                "title": "Reference Meteorological Dataset Metadata",
-                "type": "object"
-              },
-              {
-                "allOf": [
-                  {
-                    "ref": "https://raw.githubusercontent.com/IEA-Task-43/digital_wra_data_standard/master/schema/iea43_wra_data_model.schema.json"
-                  }
-                ],
-                "description": "A measurement metadata document according to the IEA Task 43 WRA Data Model JSON Schema.",
-                "examples": [
-                  "https://foo.com/bar/example_iea43.json"
-                ],
-                "title": "Measurement Station Metadata"
+                "ref": "https://raw.githubusercontent.com/IEA-Task-43/digital_wra_data_standard/master/schema/iea43_wra_data_model.schema.json"
               }
-            ]
+            ],
+            "description": "A wind dataset metadata document according to the IEA Wind Task 43 WRA Data Model JSON Schema.",
+            "examples": [
+              "https://foo.com/bar/example_iea43.json"
+            ],
+            "title": "Wind Dataset Metadata"
           },
           "minItems": 1,
           "type": "array"
@@ -1326,7 +1215,7 @@
         }
       ],
       "default": null,
-      "description": "Optional list of metadata documents that describe the reference meteorological datasets used in the long-term prediction process of the EYA and/or used as input wind resource data for calibration against reference operational data. Reference datasets may include ground-based meteorological (met) stations, reanalysis datasets and mesoscale model datasets. Either the EYA DEF schema for reference meteorological dataset metadata or the IEA Wind Task 43 WRA Data Model may be used. One metadata document shall be completed for each relevant reference meteorological dataset.",
+      "description": "Optional list of metadata documents that describe the reference meteorological datasets used in the long-term prediction process of the EYA and/or used as input wind resource data for calibration against reference operational data. Reference datasets may include ground-based meteorological (met) stations, reanalysis datasets and mesoscale model datasets. The IEA Wind Task 43 WRA Data Model schema shall be used. One metadata document shall be completed for each relevant reference meteorological dataset.",
       "title": "Reference Meteorological Datasets"
     },
     "reference_wind_farms": {
@@ -1363,16 +1252,6 @@
                 "default": null,
                 "description": "Optional description of the reference wind farm, which should not be empty if the field is included.",
                 "title": "Description"
-              },
-              "id": {
-                "description": "Unique ID for the reference wind farm within the EYA DEF document.",
-                "examples": [
-                  "fe1dba61-d6d6-45ef-beb4-ff569660fb14",
-                  "PharaohWindFarmPhIV"
-                ],
-                "minLength": 1,
-                "title": "Id",
-                "type": "string"
               },
               "operational_datasets": {
                 "description": "List of metadata documents describing the operational datasets from the reference wind farm that were used.",
@@ -1661,14 +1540,17 @@
                 "type": "array"
               },
               "wind_farm_id": {
-                "description": "The ID of the wind farm in the 'wind_farms' section of the top-level of the EYA DEF document, containing the configuration data for the reference wind farm.",
+                "description": "The ID of the wind farm that was used as reference, which must match the ID value in the 'wind_farms' section of the top-level of the EYA DEF document.",
+                "examples": [
+                  "fe1dba61-d6d6-45ef-beb4-ff569660fb14",
+                  "PharaohWindFarmPhIV"
+                ],
                 "minLength": 1,
                 "title": "Wind Farm Id",
                 "type": "string"
               }
             },
             "required": [
-              "id",
               "wind_farm_id",
               "operational_datasets"
             ],
@@ -1762,7 +1644,7 @@
                         "$ref": "#/$defs/EnergyAssessmentResults"
                       }
                     ],
-                    "description": "Gross EYA estimates."
+                    "description": "Gross energy yield assessment (EYA) predictions, covering the central (P50) gross annual energy production (AEP) estimate at the wind farm and turbine levels."
                   }
                 },
                 "required": [
@@ -1809,7 +1691,7 @@
                         "$ref": "#/$defs/EnergyAssessmentResults"
                       }
                     ],
-                    "description": "Net EYA predictions, including central estimates, overall uncertainties and results at different confidence levels."
+                    "description": "Net energy yield assessment (EYA) predictions, including central (P50) estimates, overall uncertainty standard deviation values and results at various confidence levels."
                   }
                 },
                 "required": [
@@ -2100,10 +1982,246 @@
                 ],
                 "title": "Plant Performance Assessment",
                 "type": "object"
+              },
+              "wind_uncertainty_assessment": {
+                "additionalProperties": false,
+                "description": "Details of the wind related uncertainty assessment.",
+                "properties": {
+                  "categories": {
+                    "description": "Wind related uncertainty assessment categories including results.",
+                    "items": {
+                      "additionalProperties": false,
+                      "description": "Category of a wind related uncertainty assessment.",
+                      "properties": {
+                        "comments": {
+                          "anyOf": [
+                            {
+                              "minLength": 1,
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ],
+                          "default": null,
+                          "description": "Optional comments on the wind related uncertainty category, which should not be empty if the field is included.",
+                          "title": "Comments"
+                        },
+                        "description": {
+                          "anyOf": [
+                            {
+                              "minLength": 1,
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ],
+                          "default": null,
+                          "description": "Optional description of the wind related uncertainty category, which should not be empty if the field is included.",
+                          "title": "Description"
+                        },
+                        "label": {
+                          "description": "Label of the wind related uncertainty assessment category.",
+                          "enum": [
+                            "measurement",
+                            "historical_wind_resource",
+                            "future_assessment_period_variability",
+                            "vertical_extrapolation",
+                            "horizontal_extrapolation",
+                            "other"
+                          ],
+                          "title": "Wind Uncertainty Category Label",
+                          "type": "string"
+                        },
+                        "results": {
+                          "allOf": [
+                            {
+                              "$ref": "#/$defs/UncertaintyResults"
+                            }
+                          ],
+                          "description": "Wind related uncertainty assessment category results."
+                        },
+                        "subcategories": {
+                          "description": "Wind related uncertainty assessment subcategories that fall under the category. The subcategory objects include details and results at the subcategory level.",
+                          "items": {
+                            "additionalProperties": false,
+                            "description": "Subcategory of a wind related uncertainty assessment.",
+                            "properties": {
+                              "comments": {
+                                "anyOf": [
+                                  {
+                                    "minLength": 1,
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ],
+                                "default": null,
+                                "description": "Optional comments on the wind related uncertainty subcategory, which should not be empty if the field is included.",
+                                "title": "Comments"
+                              },
+                              "description": {
+                                "anyOf": [
+                                  {
+                                    "minLength": 1,
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ],
+                                "default": null,
+                                "description": "Optional description of the wind related uncertainty subcategory, which should not be empty if the field is included.",
+                                "title": "Description"
+                              },
+                              "elements": {
+                                "anyOf": [
+                                  {
+                                    "items": {
+                                      "additionalProperties": false,
+                                      "description": "Subcategory element of a wind related uncertainty assessment.",
+                                      "properties": {
+                                        "comments": {
+                                          "anyOf": [
+                                            {
+                                              "minLength": 1,
+                                              "type": "string"
+                                            },
+                                            {
+                                              "type": "null"
+                                            }
+                                          ],
+                                          "default": null,
+                                          "description": "Optional comments on the wind related uncertainty subcategory element, which should not be empty if the field is included.",
+                                          "title": "Comments"
+                                        },
+                                        "description": {
+                                          "anyOf": [
+                                            {
+                                              "minLength": 1,
+                                              "type": "string"
+                                            },
+                                            {
+                                              "type": "null"
+                                            }
+                                          ],
+                                          "default": null,
+                                          "description": "Optional description of the wind related uncertainty subcategory element, which should not be empty if the field is included.",
+                                          "title": "Description"
+                                        },
+                                        "label": {
+                                          "description": "Label of the wind related uncertainty subcategory element.",
+                                          "minLength": 1,
+                                          "title": "Label",
+                                          "type": "string"
+                                        },
+                                        "results": {
+                                          "allOf": [
+                                            {
+                                              "$ref": "#/$defs/UncertaintyResults"
+                                            }
+                                          ],
+                                          "description": "Wind related uncertainty assessment subcategory element results."
+                                        }
+                                      },
+                                      "required": [
+                                        "label",
+                                        "results"
+                                      ],
+                                      "title": "Wind Uncertainty Subcategory Element",
+                                      "type": "object"
+                                    },
+                                    "minItems": 1,
+                                    "type": "array"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ],
+                                "default": null,
+                                "description": "Wind related uncertainty assessment elements that fall under the subcategory. The element objects include details and results at the element level. A breakdown of wind related uncertainty subcategories into elements is optional and can be included only for a subset of the subcategories, as relevant. Whereas the categories and subcategories are fixed, the user may freely define element labels.",
+                                "title": "Elements"
+                              },
+                              "label": {
+                                "description": "Label of the wind related uncertainty subcategory.",
+                                "enum": [
+                                  "long_term_period_representativeness",
+                                  "reference_data_consistency",
+                                  "long_term_adjustment",
+                                  "wind_speed_distribution_uncertainty",
+                                  "on_site_data_synthesis",
+                                  "measured_data_representativeness",
+                                  "wind_speed_variability",
+                                  "climate_change",
+                                  "plant_performance",
+                                  "wind_speed_measurement",
+                                  "wind_direction_measurement",
+                                  "other_atmospheric_parameters",
+                                  "data_integrity",
+                                  "model_inputs",
+                                  "model_sensitivity",
+                                  "model_appropriateness",
+                                  "model_uncertainty",
+                                  "excess_propagated_uncertainty",
+                                  "other"
+                                ],
+                                "title": "Wind Uncertainty Subcategory Label",
+                                "type": "string"
+                              },
+                              "results": {
+                                "allOf": [
+                                  {
+                                    "$ref": "#/$defs/UncertaintyResults"
+                                  }
+                                ],
+                                "description": "Wind related uncertainty assessment subcategory results."
+                              }
+                            },
+                            "required": [
+                              "label",
+                              "results"
+                            ],
+                            "title": "Wind Uncertainty Subcategory",
+                            "type": "object"
+                          },
+                          "title": "Subcategories",
+                          "type": "array"
+                        }
+                      },
+                      "required": [
+                        "label",
+                        "subcategories",
+                        "results"
+                      ],
+                      "title": "Wind Uncertainty Category",
+                      "type": "object"
+                    },
+                    "minItems": 1,
+                    "title": "Categories",
+                    "type": "array"
+                  },
+                  "results": {
+                    "allOf": [
+                      {
+                        "$ref": "#/$defs/UncertaintyResults"
+                      }
+                    ],
+                    "description": "Overall wind related uncertainty assessment results."
+                  }
+                },
+                "required": [
+                  "categories",
+                  "results"
+                ],
+                "title": "Wind Uncertainty Assessment",
+                "type": "object"
               }
             },
             "required": [
               "gross_energy_assessment",
+              "wind_uncertainty_assessment",
               "plant_performance_assessment",
               "net_energy_assessment"
             ],
@@ -2325,7 +2443,7 @@
                           }
                         ],
                         "default": null,
-                        "description": "Optional specification of the weight applied to the prediction based on each source of wind data when making the final wind resource estimate at each target turbine location. The dimensions of the first standard weighting specification dataset should be 'turbine_id' (the target turbine of the estimate for which the weight is applied), 'wind_dataset_id' (the source wind dataset whose prediction the weight is applied to), 'location_id' (where the wind dataset has more than one location, otherwise omitted), and 'variable_id' (if different weights were applied to different variables, such as wind speed and wind direction weighted differently, otherwise omitted). Further results with additional dimensions may optionally be included, in which case the initial set of dimensions must be the same as those for the first standard dataset. For example, if weights are applied by wind direction bin, an additional dataset with dimensions 'turbine_id', 'wind_dataset_id', 'location_id', 'variable_id' and 'wind_from_direction' (bin) may be included.",
+                        "description": "Optional specification of the weight applied to the prediction based on each source of wind data when making the final wind resource estimate at each target turbine location. The dimensions of the first standard weighting specification dataset should be 'turbine_id' (the target turbine of the estimate for which the weight is applied), 'wind_dataset_id' (the source wind dataset whose prediction the weight is applied to), and 'variable_id' (if different weights were applied to different variables, such as wind speed and wind direction weighted differently, otherwise omitted). Further results with additional dimensions may optionally be included, in which case the initial set of dimensions must be the same as those for the first standard dataset. For example, if weights are applied by wind direction bin, an additional dataset with dimensions 'turbine_id', 'wind_dataset_id', 'variable_id' and 'wind_from_direction' (i.e. wind direction bin) may be included.",
                         "title": "Source Wind Data"
                       }
                     },
@@ -2348,245 +2466,11 @@
                 "minLength": 1,
                 "title": "Wind Resource Assessment Id Reference",
                 "type": "string"
-              },
-              "wind_uncertainty_assessment": {
-                "additionalProperties": false,
-                "description": "Wind related uncertainty assessment categories including results.",
-                "properties": {
-                  "categories": {
-                    "description": "Wind related uncertainty assessment categories including results.",
-                    "items": {
-                      "additionalProperties": false,
-                      "description": "Category of a wind related uncertainty assessment.",
-                      "properties": {
-                        "comments": {
-                          "anyOf": [
-                            {
-                              "minLength": 1,
-                              "type": "string"
-                            },
-                            {
-                              "type": "null"
-                            }
-                          ],
-                          "default": null,
-                          "description": "Optional comments on the wind related uncertainty category, which should not be empty if the field is included.",
-                          "title": "Comments"
-                        },
-                        "description": {
-                          "anyOf": [
-                            {
-                              "minLength": 1,
-                              "type": "string"
-                            },
-                            {
-                              "type": "null"
-                            }
-                          ],
-                          "default": null,
-                          "description": "Optional description of the wind related uncertainty category, which should not be empty if the field is included.",
-                          "title": "Description"
-                        },
-                        "label": {
-                          "description": "Label of the wind related uncertainty assessment category.",
-                          "enum": [
-                            "historical_wind_resource",
-                            "evaluation_period_annual_variability",
-                            "measurement_uncertainty",
-                            "horizontal_extrapolation",
-                            "vertical_extrapolation"
-                          ],
-                          "title": "Wind Uncertainty Category Label",
-                          "type": "string"
-                        },
-                        "results": {
-                          "allOf": [
-                            {
-                              "$ref": "#/$defs/UncertaintyResults"
-                            }
-                          ],
-                          "description": "Wind related uncertainty assessment category results."
-                        },
-                        "subcategories": {
-                          "description": "Wind related uncertainty assessment subcategories that fall under the category. The subcategory objects include details and results at the subcategory level.",
-                          "items": {
-                            "additionalProperties": false,
-                            "description": "Subcategory of a wind related uncertainty assessment.",
-                            "properties": {
-                              "comments": {
-                                "anyOf": [
-                                  {
-                                    "minLength": 1,
-                                    "type": "string"
-                                  },
-                                  {
-                                    "type": "null"
-                                  }
-                                ],
-                                "default": null,
-                                "description": "Optional comments on the wind related uncertainty subcategory, which should not be empty if the field is included.",
-                                "title": "Comments"
-                              },
-                              "description": {
-                                "anyOf": [
-                                  {
-                                    "minLength": 1,
-                                    "type": "string"
-                                  },
-                                  {
-                                    "type": "null"
-                                  }
-                                ],
-                                "default": null,
-                                "description": "Optional description of the wind related uncertainty subcategory, which should not be empty if the field is included.",
-                                "title": "Description"
-                              },
-                              "elements": {
-                                "anyOf": [
-                                  {
-                                    "items": {
-                                      "additionalProperties": false,
-                                      "description": "Subcategory element of a wind related uncertainty assessment.",
-                                      "properties": {
-                                        "comments": {
-                                          "anyOf": [
-                                            {
-                                              "minLength": 1,
-                                              "type": "string"
-                                            },
-                                            {
-                                              "type": "null"
-                                            }
-                                          ],
-                                          "default": null,
-                                          "description": "Optional comments on the wind related uncertainty subcategory element, which should not be empty if the field is included.",
-                                          "title": "Comments"
-                                        },
-                                        "description": {
-                                          "anyOf": [
-                                            {
-                                              "minLength": 1,
-                                              "type": "string"
-                                            },
-                                            {
-                                              "type": "null"
-                                            }
-                                          ],
-                                          "default": null,
-                                          "description": "Optional description of the wind related uncertainty subcategory element, which should not be empty if the field is included.",
-                                          "title": "Description"
-                                        },
-                                        "label": {
-                                          "description": "Label of the wind related uncertainty subcategory element.",
-                                          "minLength": 1,
-                                          "title": "Label",
-                                          "type": "string"
-                                        },
-                                        "results": {
-                                          "allOf": [
-                                            {
-                                              "$ref": "#/$defs/UncertaintyResults"
-                                            }
-                                          ],
-                                          "description": "Wind related uncertainty assessment subcategory element results."
-                                        }
-                                      },
-                                      "required": [
-                                        "label",
-                                        "results"
-                                      ],
-                                      "title": "Wind Uncertainty Subcategory Element",
-                                      "type": "object"
-                                    },
-                                    "minItems": 1,
-                                    "type": "array"
-                                  },
-                                  {
-                                    "type": "null"
-                                  }
-                                ],
-                                "default": null,
-                                "description": "Wind related uncertainty assessment elements that fall under the subcategory. The element objects include details and results at the element level. A breakdown of wind related uncertainty subcategories into elements is optional and can be included only for a subset of the subcategories, as relevant. Whereas the categories and subcategories are fixed, the user may freely define element labels.",
-                                "title": "Elements"
-                              },
-                              "label": {
-                                "description": "Label of the wind related uncertainty subcategory.",
-                                "enum": [
-                                  "long_term_period_representativeness",
-                                  "reference_data_consistency",
-                                  "long_term_adjustment",
-                                  "wind_speed_distribution_uncertainty",
-                                  "on_site_data_synthesis",
-                                  "measured_data_representativeness",
-                                  "wind_speed_variability",
-                                  "climate_change",
-                                  "plant_performance",
-                                  "wind_speed_measurement",
-                                  "wind_direction_measurement",
-                                  "other_atmospheric_parameters",
-                                  "data_integrity",
-                                  "model_inputs",
-                                  "model_sensitivity",
-                                  "model_appropriateness",
-                                  "model_uncertainty",
-                                  "excess_propagated_uncertainty"
-                                ],
-                                "title": "Wind Uncertainty Subcategory Label",
-                                "type": "string"
-                              },
-                              "results": {
-                                "allOf": [
-                                  {
-                                    "$ref": "#/$defs/UncertaintyResults"
-                                  }
-                                ],
-                                "description": "Wind related uncertainty assessment subcategory results."
-                              }
-                            },
-                            "required": [
-                              "label",
-                              "results"
-                            ],
-                            "title": "Wind Uncertainty Subcategory",
-                            "type": "object"
-                          },
-                          "title": "Subcategories",
-                          "type": "array"
-                        }
-                      },
-                      "required": [
-                        "label",
-                        "subcategories",
-                        "results"
-                      ],
-                      "title": "Wind Uncertainty Category",
-                      "type": "object"
-                    },
-                    "minItems": 1,
-                    "title": "Categories",
-                    "type": "array"
-                  },
-                  "results": {
-                    "allOf": [
-                      {
-                        "$ref": "#/$defs/UncertaintyResults"
-                      }
-                    ],
-                    "description": "Overall wind related uncertainty assessment results."
-                  }
-                },
-                "required": [
-                  "categories",
-                  "results"
-                ],
-                "title": "Wind Uncertainty Assessment",
-                "type": "object"
               }
             },
             "required": [
               "wind_resource_assessment_id_reference",
-              "results",
-              "wind_uncertainty_assessment"
+              "results"
             ],
             "title": "Turbine Wind Resource Assessment",
             "type": "object"
@@ -2627,13 +2511,16 @@
       "anyOf": [
         {
           "items": {
+            "allOf": [
+              {
+                "ref": "https://raw.githubusercontent.com/octue/power-curve-schema/main/power-curve-schema/schema.json"
+              }
+            ],
             "description": "Wind turbine performance specifications according to the IEC-61400-16 data model.",
             "examples": [
               "https://foo.com/bar/example_wtg_model.json"
             ],
-            "properties": {},
-            "title": "Turbine Model Specifications",
-            "type": "object"
+            "title": "Turbine Model Specifications"
           },
           "minItems": 1,
           "type": "array"
@@ -3035,7 +2922,7 @@
             "description": "Statistics relating to the wind resource assessment datasets, such as data availability.",
             "properties": {
               "data_availability": {
-                "description": "Dimensionless raw data availability (also known as data recovery rate and data coverage) for the primary inputs to the wind resource assessment. The standard required dataset(s) should report data availability on a monthly basis, with dimensions 'wind_dataset_id', 'location_id' (where the wind dataset has more than one location, otherwise omitted), 'point_id', 'year' and 'month' (in that order) for datasets from wind measurement stations and meteorological reference sources; and dimensions 'reference_wind_farm_id', 'operational_dataset_id', 'variable_id' (where data availability is not identical across all relevant variables within the operational dataset, otherwise omitted), 'turbine_id' (for variables at the turbine level and where data availability is not identical across all turbines, otherwise omitted), 'year' and 'month' (in that order) for operational reference wind farm datasets. Additional datasets with other dimensions may be included optionally. The raw data availability is defined as the proportion of samples available in the raw dataset relative to the possible maximum amount of samples within a certain time frame (i.e. if no data were missing), before the author of the EYA has undertaken any data filtering. The raw dataset may include filtering inherent in the process of creating it, such as quality filtering implemented in the firmware of remote sensing devices (RSDs), and the raw data availability then describes the state of the dataset after such filtering has been applied.",
+                "description": "Dimensionless raw data availability (also known as data recovery rate and data coverage) for the primary inputs to the wind resource assessment. The standard required dataset(s) should report data availability on a monthly basis, with the dimensions 'wind_dataset_id', 'point_id', 'year' and 'month' (in that order) for datasets from wind measurement stations and meteorological reference sources; and 'wind_farm_id', 'operational_dataset_id', 'variable_id' (where data availability is not identical across all relevant variables within the operational dataset, otherwise omitted), 'turbine_id' (for variables at the turbine level and where data availability is not identical across all turbines, otherwise omitted), 'year' and 'month' (in that order) for operational reference wind farm datasets. Additional datasets with other dimensions may be included optionally. The raw data availability is defined as the proportion of samples available in the raw dataset relative to the possible maximum amount of samples within a certain time frame (i.e. if no data were missing), before the author of the EYA has undertaken any data filtering. The raw dataset may include filtering inherent in the process of creating it, such as quality filtering implemented in the firmware of remote sensing devices (RSDs), and the raw data availability then describes the state of the dataset after such filtering has been applied.",
                 "items": {
                   "$ref": "#/$defs/Dataset"
                 },
@@ -3093,7 +2980,7 @@
                   }
                 ],
                 "default": null,
-                "description": "Final long-term air density estimates at the measurement location(s) in kilogram per cubic metre (kg m-3). This field is optional since some wind measurement stations may lack measurements required to derive air density estimates, but it should always be included when relevant data are available. The dimensions of the first standard result dataset should be 'wind_dataset_id', 'location_id' (where the wind dataset has more than one location, otherwise omitted), and 'height' (in that order). Further results with other dimensions may also be included.",
+                "description": "Final long-term air density estimates at the measurement location(s) in kilogram per cubic metre (kg m-3). This field is optional since some wind measurement stations may lack measurements required to derive air density estimates, but it should always be included when relevant data are available. The dimensions of the first standard result dataset should be 'wind_dataset_id' and 'height' (in that order). Further results with other dimensions may also be included.",
                 "title": "Air Density"
               },
               "ambient_turbulence_intensity": {
@@ -3110,7 +2997,7 @@
                   }
                 ],
                 "default": null,
-                "description": "Final ambient turbulence intensity estimates at the measurement location(s), as dimensionless values. This field is optional since some measurement devices may lack meaningful turbulence measurements, but it should always be included when relevant turbulence data are available. The first standard result dataset should comprise the ambient turbulence intensity as a function of wind speed, with the dimensions 'wind_dataset_id', 'location_id' (where the wind dataset has more than one location, otherwise omitted), 'height' and 'wind_speed' (in that order). The wind speed coordinates should be 1.0 metre per second bins centered on whole numbers, with the first bin half the width (i.e. 0.25, 1.0, 2.0, 3.0, ...). Further results with other dimensions may also be included.",
+                "description": "Final ambient turbulence intensity estimates at the measurement location(s), as dimensionless values. This field is optional since some measurement devices may lack meaningful turbulence measurements, but it should always be included when relevant turbulence data are available. The first standard result dataset should comprise the ambient turbulence intensity as a function of wind speed, with the dimensions 'wind_dataset_id', 'height' and 'wind_speed' (in that order). The wind speed coordinates should be 1.0 metre per second bins centered on whole numbers, with the first bin half the width (i.e. 0.25, 1.0, 2.0, 3.0, ...). Further results with other dimensions may also be included.",
                 "title": "Ambient Turbulence Intensity"
               },
               "displacement_height": {
@@ -3127,11 +3014,11 @@
                   }
                 ],
                 "default": null,
-                "description": "Estimated effective displacement of the boundary layer at the measurement location(s) due to vegetation (forestry) in metre. The displacement height is measured as positive upwards from the ground level. This field is optional as it is only relevant at forested sites. The dimensions of the first standard result dataset should be 'wind_dataset_id' and 'location_id' (where the wind dataset has more than one location, otherwise omitted). Further results with other dimensions, such as displacement height binned by wind direction, may also be included.",
+                "description": "Estimated effective displacement of the boundary layer at the measurement location(s) due to vegetation (forestry) in metre. The displacement height is measured as positive upwards from the ground level. This field is optional as it is only relevant at forested sites. The dimension of the first standard result dataset should be 'wind_dataset_id'. Further results with other dimensions, such as displacement height binned by wind direction, may also be included.",
                 "title": "Displacement Height"
               },
               "probability": {
-                "description": "Final long-term probability distribution estimates at the measurement location(s), as dimensionless values. The first standard result dataset should comprise the joint wind speed and direction probability distributions, with dimensions 'wind_dataset_id', 'location_id' (where the wind dataset has multiple locations, otherwise omitted), 'height', 'wind_speed' and 'wind_from_direction' (in that order). The wind speed coordinates should be 1.0 metre per second bins centered on whole numbers, with the first bin half the width (i.e. 0.25, 1.0, 2.0, 3.0, ...). The wind direction coordinates should be twelve 30.0 degree bins, with the the first bin centered at 0.0. Further results with other dimensions may be included optionally.",
+                "description": "Final long-term probability distribution estimates at the measurement location(s), as dimensionless values. The first standard result dataset should comprise the joint wind speed and direction probability distributions, with dimensions 'wind_dataset_id', 'height', 'wind_speed' and 'wind_from_direction' (in that order). The wind speed coordinates should be 1.0 metre per second bins centered on whole numbers, with the first bin half the width (i.e. 0.25, 1.0, 2.0, 3.0, ...). The wind direction coordinates should be twelve 30.0 degree bins, with the the first bin centered at 0.0. Further results with other dimensions may be included optionally.",
                 "items": {
                   "$ref": "#/$defs/Dataset"
                 },
@@ -3153,7 +3040,7 @@
                   }
                 ],
                 "default": null,
-                "description": "Final long-term temperature estimates at the measurement location(s) in degree C. This field is optional since some wind measurement stations may lack measurements of temperature, but it should always be included when relevant temperature data are available. The dimensions of the first standard result dataset should be 'wind_dataset_id', 'location_id' (where the wind dataset has more than one location, otherwise omitted), and 'height' (in that order). Further results with other dimensions may also be included.",
+                "description": "Final long-term temperature estimates at the measurement location(s) in degree C. This field is optional since some wind measurement stations may lack measurements of temperature, but it should always be included when relevant temperature data are available. The dimensions of the first standard result dataset should be 'wind_dataset_id' and 'height' (in that order). Further results with other dimensions may also be included.",
                 "title": "Temperature"
               },
               "wind_shear_exponent": {
@@ -3170,11 +3057,11 @@
                   }
                 ],
                 "default": null,
-                "description": "Final long-term power law wind shear exponent estimates at the measurement location(s). This field is optional since some wind measurement stations may only include a single measurement height, but it should always be included when relevant wind shear exponent data are available. The dimension(s) of the first standard result dataset should be 'wind_dataset_id' and 'location_id' (where the wind dataset has more than one location, otherwise omitted). Further results with other dimensions may also be included.",
+                "description": "Final long-term power law wind shear exponent estimates at the measurement location(s). This field is optional since some wind measurement stations may only include a single measurement height, but it should always be included when relevant wind shear exponent data are available. The dimension of the first standard result dataset should be 'wind_dataset_id'. Further results with other dimensions may also be included.",
                 "title": "Wind Shear Exponent"
               },
               "wind_speed": {
-                "description": "Final long-term wind speed estimate(s) at the measurement location(s) in metre per second (m s-1). The dimensions of the first standard result dataset should be 'wind_dataset_id', 'location_id' (where the wind dataset has more than one location, otherwise omitted), and 'height' (in that order). Further results with other dimensions may be included optionally.",
+                "description": "Final long-term wind speed estimate(s) at the measurement location(s) in metre per second (m s-1). The dimensions of the first standard result dataset should be 'wind_dataset_id' and 'height' (in that order). Further results with other dimensions may be included optionally.",
                 "items": {
                   "$ref": "#/$defs/Dataset"
                 },

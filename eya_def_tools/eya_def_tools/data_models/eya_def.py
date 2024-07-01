@@ -33,9 +33,6 @@ from eya_def_tools.data_models.eya_def_header import (
 )
 from eya_def_tools.data_models.general import Organisation
 from eya_def_tools.data_models.iea43_wra_data_model import WraDataModelDocument
-from eya_def_tools.data_models.reference_met_data import (
-    ReferenceMeteorologicalDatasetMetadata,
-)
 from eya_def_tools.data_models.reference_wind_farm import ReferenceWindFarm
 from eya_def_tools.data_models.scenario import Scenario
 from eya_def_tools.data_models.turbine_model import TurbineModelSpecifications
@@ -119,9 +116,7 @@ class EyaDefDocument(EyaDefBaseModel):
             "reference operational wind farm."
         ),
     )
-    reference_meteorological_datasets: Optional[
-        list[ReferenceMeteorologicalDatasetMetadata | WraDataModelDocument]
-    ] = pdt.Field(
+    reference_meteorological_datasets: Optional[list[WraDataModelDocument]] = pdt.Field(
         default=None,
         min_length=1,
         description=(
@@ -131,11 +126,10 @@ class EyaDefDocument(EyaDefBaseModel):
             "resource data for calibration against reference "
             "operational data. Reference datasets may include "
             "ground-based meteorological (met) stations, reanalysis "
-            "datasets and mesoscale model datasets. Either the EYA DEF "
-            "schema for reference meteorological dataset metadata or "
-            "the IEA Wind Task 43 WRA Data Model may be used. One "
-            "metadata document shall be completed for each relevant "
-            "reference meteorological dataset."
+            "datasets and mesoscale model datasets. The IEA Wind Task "
+            "43 WRA Data Model schema shall be used. One metadata "
+            "document shall be completed for each relevant reference "
+            "meteorological dataset."
         ),
     )
     wind_resource_assessments: list[WindResourceAssessment] = pdt.Field(
