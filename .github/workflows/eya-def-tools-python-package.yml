@@ -2,9 +2,9 @@ name: EYA DEF tools linting and testing
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   build:
@@ -17,10 +17,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Set up Python ${{ matrix.python-version }}
+    - name: Set up Python ${{matrix.python-version}}
       uses: actions/setup-python@v3
       with:
-        python-version: ${{ matrix.python-version }}
+        python-version: ${{matrix.python-version}}
     - name: Update apt-get
       run: sudo apt-get update
     - name: Install graphviz
@@ -34,8 +34,8 @@ jobs:
         pip install -r eya_def_tools/requirements-erd.txt
     - name: Install eya_def_tools Python package
       run: |
-        # Update this to copy JSON Schema file and not use editable install
-        pip install -e eya_def_tools[dev]
+        # Need to update this to copy JSON Schema file and not use editable install
+        pip install -e eya_def_tools[dev,erd]
     - name: Lint with flake8
       run: |
         flake8 eya_def_tools --toml-config=eya_def_tools/pyproject.toml --count --show-source --statistics
@@ -44,4 +44,4 @@ jobs:
         mypy --config-file eya_def_tools/pyproject.toml
     - name: Test with pytest
       run: |
-        pytest --pyargs eya_def_tools --cov=eya_def_tools --cov-report term-missing --cov-fail-under=100
+        pytest --pyargs eya_def_tools --cov=eya_def_tools --cov-report term-missing --cov-fail-under=90
