@@ -2296,7 +2296,7 @@
                     "statistic_type": {
                       "exceedance_level": 0.9
                     },
-                    "values": 2.54751
+                    "values": 25.4751
                   }
                 ]
               }
@@ -2454,6 +2454,14 @@
                   {
                     "statistic_type": "mean",
                     "values": 0.879
+                  },
+                  {
+                    "statistic_type": "standard_deviation",
+                    "values": 0.071
+                  },
+                  {
+                    "statistic_type": "inter_annual_variability",
+                    "values": 0.121
                   }
                 ]
               }
@@ -2466,6 +2474,15 @@
               "label": "historical_wind_resource",
               "results": {
                 "relative_wind_speed_uncertainty": [
+                  {
+                    "assessment_period": "lifetime",
+                    "statistics": [
+                      {
+                        "statistic_type": "standard_deviation",
+                        "values": 0.03201
+                      }
+                    ]
+                  },
                   {
                     "assessment_period": "lifetime",
                     "dimensions": [
@@ -2494,6 +2511,15 @@
                     "relative_wind_speed_uncertainty": [
                       {
                         "assessment_period": "lifetime",
+                        "statistics": [
+                          {
+                            "statistic_type": "standard_deviation",
+                            "values": 0.025
+                          }
+                        ]
+                      },
+                      {
+                        "assessment_period": "lifetime",
                         "dimensions": [
                           "wind_dataset_id"
                         ],
@@ -2518,6 +2544,15 @@
                   "label": "reference_data_consistency",
                   "results": {
                     "relative_wind_speed_uncertainty": [
+                      {
+                        "assessment_period": "lifetime",
+                        "statistics": [
+                          {
+                            "statistic_type": "standard_deviation",
+                            "values": 0.02
+                          }
+                        ]
+                      },
                       {
                         "assessment_period": "lifetime",
                         "dimensions": [
@@ -2845,6 +2880,14 @@
                   {
                     "statistic_type": "mean",
                     "values": 0.897
+                  },
+                  {
+                    "statistic_type": "standard_deviation",
+                    "values": 0.07
+                  },
+                  {
+                    "statistic_type": "inter_annual_variability",
+                    "values": 0.12
                   }
                 ]
               }
@@ -2857,6 +2900,15 @@
               "label": "historical_wind_resource",
               "results": {
                 "relative_wind_speed_uncertainty": [
+                  {
+                    "assessment_period": "lifetime",
+                    "statistics": [
+                      {
+                        "statistic_type": "standard_deviation",
+                        "values": 0.03201
+                      }
+                    ]
+                  },
                   {
                     "assessment_period": "lifetime",
                     "dimensions": [
@@ -2885,6 +2937,15 @@
                     "relative_wind_speed_uncertainty": [
                       {
                         "assessment_period": "lifetime",
+                        "statistics": [
+                          {
+                            "statistic_type": "standard_deviation",
+                            "values": 0.025
+                          }
+                        ]
+                      },
+                      {
+                        "assessment_period": "lifetime",
                         "dimensions": [
                           "wind_dataset_id"
                         ],
@@ -2909,6 +2970,15 @@
                   "label": "reference_data_consistency",
                   "results": {
                     "relative_wind_speed_uncertainty": [
+                      {
+                        "assessment_period": "lifetime",
+                        "statistics": [
+                          {
+                            "statistic_type": "standard_deviation",
+                            "values": 0.02
+                          }
+                        ]
+                      },
                       {
                         "assessment_period": "lifetime",
                         "dimensions": [

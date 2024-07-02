@@ -31,7 +31,14 @@ class WindUncertaintyResults(EyaDefBaseModel):
             "Uncertainty assessment results as dimensionless relative "
             "values expressed in terms of wind speed and calculated as "
             "the standard deviation of the wind speed uncertainty "
-            "distribution divided by the mean wind speed."
+            "distribution divided by the mean wind speed. The first "
+            "standard dataset should present results without binning "
+            "(i.e. correspond to the overall value for the wind farm "
+            "under assessment). For wind uncertainty components "
+            "related to a wind dataset (e.g. measurement uncertainty), "
+            "a second standard dataset should present results with "
+            "binning dimension 'wind_dataset_id'. Datasets with other "
+            "binning dimensions may also be included optionally."
         ),
     )
     relative_energy_uncertainty: Optional[list[Dataset]] = pdt.Field(
@@ -42,7 +49,11 @@ class WindUncertaintyResults(EyaDefBaseModel):
             "values expressed in terms of net annual energy production "
             "(AEP) and calculated as the standard deviation of the "
             "energy uncertainty distribution divided by the net P50 "
-            "(50% probability of exceedance level) AEP."
+            "(50% probability of exceedance level) AEP. The first "
+            "standard dataset should present results without binning "
+            "(i.e. correspond to the overall value for the wind farm "
+            "under assessment). Datasets with other binning dimensions "
+            "may also be included optionally."
         ),
     )
 

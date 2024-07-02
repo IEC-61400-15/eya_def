@@ -491,7 +491,7 @@
       "description": "Plant performance loss assessment results.",
       "properties": {
         "efficiency": {
-          "description": "Dimensionless plant performance efficiency (loss factor) results.",
+          "description": "Dimensionless plant performance efficiency (loss factor) results. The first standard dataset should have no binning dimension (i.e. correspond to the overall value for the wind farm under assessment). Datasets with results binned by turbine should also be included where the efficiency is predicted at the turbine level, such as for the turbine interaction losses. Further results with other dimensions may also be included. All datasets should include the 'mean' and 'standard_deviation', statistics, where the former represents the central estimate and the latter the standard deviation of the associated uncertainty distribution. For the overall plant performance efficiency estimate at the wind farm level (i.e. the result dataset without binning), the statistic 'inter_annual_variability' must also be included. The inter-annual variability may optionally also be included for some or all of the other datasets.",
           "items": {
             "$ref": "#/$defs/Dataset"
           },
@@ -599,7 +599,7 @@
             }
           ],
           "default": null,
-          "description": "Uncertainty assessment results as dimensionless relative values expressed in terms of net annual energy production (AEP) and calculated as the standard deviation of the energy uncertainty distribution divided by the net P50 (50% probability of exceedance level) AEP.",
+          "description": "Uncertainty assessment results as dimensionless relative values expressed in terms of net annual energy production (AEP) and calculated as the standard deviation of the energy uncertainty distribution divided by the net P50 (50% probability of exceedance level) AEP. The first standard dataset should present results without binning (i.e. correspond to the overall value for the wind farm under assessment). Datasets with other binning dimensions may also be included optionally.",
           "title": "Relative Energy Uncertainty"
         },
         "relative_wind_speed_uncertainty": {
@@ -616,7 +616,7 @@
             }
           ],
           "default": null,
-          "description": "Uncertainty assessment results as dimensionless relative values expressed in terms of wind speed and calculated as the standard deviation of the wind speed uncertainty distribution divided by the mean wind speed.",
+          "description": "Uncertainty assessment results as dimensionless relative values expressed in terms of wind speed and calculated as the standard deviation of the wind speed uncertainty distribution divided by the mean wind speed. The first standard dataset should present results without binning (i.e. correspond to the overall value for the wind farm under assessment). For wind uncertainty components related to a wind dataset (e.g. measurement uncertainty), a second standard dataset should present results with binning dimension 'wind_dataset_id'. Datasets with other binning dimensions may also be included optionally.",
           "title": "Relative Wind Speed Uncertainty"
         }
       },

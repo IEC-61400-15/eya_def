@@ -978,6 +978,18 @@ def long_term_adj_uncertainty_subcat_a() -> wind_uncertainty.WindUncertaintySubc
             relative_wind_speed_uncertainty=[
                 dataset.Dataset(
                     assessment_period=dataset.AssessmentPeriod.LIFETIME,
+                    dimensions=None,
+                    statistics=[
+                        dataset.DatasetStatistic(
+                            statistic_type=(
+                                dataset.BasicStatisticType.STANDARD_DEVIATION
+                            ),
+                            values=0.025,
+                        )
+                    ],
+                ),
+                dataset.Dataset(
+                    assessment_period=dataset.AssessmentPeriod.LIFETIME,
                     dimensions=[dataset.DatasetDimension.WIND_DATASET_ID],
                     statistics=[
                         dataset.DatasetStatistic(
@@ -1009,6 +1021,18 @@ def lt_consistency_uncertainty_subcat_a() -> (
         ),
         results=wind_uncertainty.WindUncertaintyResults(
             relative_wind_speed_uncertainty=[
+                dataset.Dataset(
+                    assessment_period=dataset.AssessmentPeriod.LIFETIME,
+                    dimensions=None,
+                    statistics=[
+                        dataset.DatasetStatistic(
+                            statistic_type=(
+                                dataset.BasicStatisticType.STANDARD_DEVIATION
+                            ),
+                            values=0.02,
+                        )
+                    ],
+                ),
                 dataset.Dataset(
                     assessment_period=dataset.AssessmentPeriod.LIFETIME,
                     dimensions=[dataset.DatasetDimension.WIND_DATASET_ID],
@@ -1045,6 +1069,18 @@ def historical_wind_uncertainty_category_a(
         ],
         results=wind_uncertainty.WindUncertaintyResults(
             relative_wind_speed_uncertainty=[
+                dataset.Dataset(
+                    assessment_period=dataset.AssessmentPeriod.LIFETIME,
+                    dimensions=None,
+                    statistics=[
+                        dataset.DatasetStatistic(
+                            statistic_type=(
+                                dataset.BasicStatisticType.STANDARD_DEVIATION
+                            ),
+                            values=0.03201,
+                        ),
+                    ],
+                ),
                 dataset.Dataset(
                     assessment_period=dataset.AssessmentPeriod.LIFETIME,
                     dimensions=[dataset.DatasetDimension.WIND_DATASET_ID],
@@ -1144,7 +1180,7 @@ def plant_performance_curtailment_category_a() -> (
     plant_performance.PlantPerformanceCategory
 ):
     """Curtailment test case instance 'a' of ``PlantPerformanceCategory``."""
-    result_components = [
+    turbine_wise_result_components = [
         dataset.DatasetStatistic(
             statistic_type=dataset.BasicStatisticType.MEAN,
             values=[
@@ -1208,7 +1244,7 @@ def plant_performance_curtailment_category_a() -> (
                             ),
                             assessment_period=dataset.AssessmentPeriod.LIFETIME,
                             dimensions=[dataset.DatasetDimension.TURBINE_ID],
-                            statistics=result_components,
+                            statistics=turbine_wise_result_components,
                         )
                     ],
                 ),
@@ -1220,7 +1256,7 @@ def plant_performance_curtailment_category_a() -> (
                     description="Curtailment losses.",
                     assessment_period=dataset.AssessmentPeriod.LIFETIME,
                     dimensions=[dataset.DatasetDimension.TURBINE_ID],
-                    statistics=result_components,
+                    statistics=turbine_wise_result_components,
                 )
             ],
         ),
@@ -1232,7 +1268,7 @@ def plant_performance_curtailment_category_b() -> (
     plant_performance.PlantPerformanceCategory
 ):
     """Curtailment test case instance 'b' of ``PlantPerformanceCategory``."""
-    result_components = [
+    turbine_wise_result_components = [
         dataset.DatasetStatistic(
             statistic_type=dataset.BasicStatisticType.MEAN,
             values=[
@@ -1283,7 +1319,7 @@ def plant_performance_curtailment_category_b() -> (
                             ),
                             assessment_period=dataset.AssessmentPeriod.LIFETIME,
                             dimensions=[dataset.DatasetDimension.TURBINE_ID],
-                            statistics=result_components,
+                            statistics=turbine_wise_result_components,
                         )
                     ],
                 ),
@@ -1295,7 +1331,7 @@ def plant_performance_curtailment_category_b() -> (
                     description="Curtailment losses.",
                     assessment_period=dataset.AssessmentPeriod.LIFETIME,
                     dimensions=[dataset.DatasetDimension.TURBINE_ID],
-                    statistics=result_components,
+                    statistics=turbine_wise_result_components,
                 )
             ],
         ),
@@ -1362,7 +1398,19 @@ def energy_assessment_a(
                             dataset.DatasetStatistic(
                                 statistic_type=dataset.BasicStatisticType.MEAN,
                                 values=0.879,
-                            )
+                            ),
+                            dataset.DatasetStatistic(
+                                statistic_type=(
+                                    dataset.BasicStatisticType.STANDARD_DEVIATION
+                                ),
+                                values=0.071,
+                            ),
+                            dataset.DatasetStatistic(
+                                statistic_type=(
+                                    dataset.BasicStatisticType.INTER_ANNUAL_VARIABILITY
+                                ),
+                                values=0.121,
+                            ),
                         ],
                     )
                 ]
@@ -1416,7 +1464,7 @@ def energy_assessment_a(
                                 statistic_type=dataset.ExceedanceLevelStatisticType(
                                     exceedance_level=0.9
                                 ),
-                                values=2.54751,
+                                values=25.4751,
                             ),
                         ],
                     ),
@@ -1482,7 +1530,19 @@ def energy_assessment_b(
                             dataset.DatasetStatistic(
                                 statistic_type=dataset.BasicStatisticType.MEAN,
                                 values=0.897,
-                            )
+                            ),
+                            dataset.DatasetStatistic(
+                                statistic_type=(
+                                    dataset.BasicStatisticType.STANDARD_DEVIATION
+                                ),
+                                values=0.07,
+                            ),
+                            dataset.DatasetStatistic(
+                                statistic_type=(
+                                    dataset.BasicStatisticType.INTER_ANNUAL_VARIABILITY
+                                ),
+                                values=0.12,
+                            ),
                         ],
                     )
                 ]
