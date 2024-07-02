@@ -63,7 +63,7 @@ class OperationalDataVariableType(StrEnum):
     some additional terms.
     """
 
-    # From the ASPECT taxonomy:
+    # From the ASPECT taxonomy
     ACTIVE_POWER = auto()
     AIR_PRESSURE = auto()
     AIR_TEMPERATURE = auto()
@@ -80,7 +80,7 @@ class OperationalDataVariableType(StrEnum):
     WIND_SPEED = auto()
     YAW_ANGLE = auto()
 
-    # Additional terms:
+    # Additional terms
     ALARM_STATUS = auto()
     EVENT_STATUS = auto()
     POWER_LIMITATION = auto()
@@ -320,11 +320,13 @@ class OperationalDatasetMetadata(EyaDefBaseModel):
 class ReferenceWindFarm(EyaDefBaseModel):
     """Reference wind farm."""
 
-    id: str = pdt.Field(
+    wind_farm_id: str = pdt.Field(
         default=...,
         min_length=1,
         description=(
-            "Unique ID for the reference wind farm within the EYA DEF document."
+            "The ID of the wind farm that was used as reference, which "
+            "must match the ID value in the 'wind_farms' section of "
+            "the top-level of the EYA DEF document."
         ),
         examples=["fe1dba61-d6d6-45ef-beb4-ff569660fb14", "PharaohWindFarmPhIV"],
     )
@@ -342,15 +344,6 @@ class ReferenceWindFarm(EyaDefBaseModel):
         description=(
             "Optional comments on the reference wind farm, which "
             "should not be empty if the field is included."
-        ),
-    )
-    wind_farm_id: str = pdt.Field(
-        default=...,
-        min_length=1,
-        description=(
-            "The ID of the wind farm in the 'wind_farms' section of "
-            "the top-level of the EYA DEF document, containing the "
-            "configuration data for the reference wind farm."
         ),
     )
     operational_datasets: list[OperationalDatasetMetadata] = pdt.Field(

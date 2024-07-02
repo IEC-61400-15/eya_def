@@ -21,7 +21,23 @@ class PlantPerformanceResults(EyaDefBaseModel):
         default=...,
         min_length=1,
         description=(
-            "Dimensionless plant performance efficiency (loss factor) results."
+            "Dimensionless plant performance efficiency (loss factor) "
+            "results. The first standard dataset should have no "
+            "binning dimension (i.e. correspond to the overall value "
+            "for the wind farm under assessment). Datasets with "
+            "results binned by turbine should also be included where "
+            "the efficiency is predicted at the turbine level, such as "
+            "for the turbine interaction losses. Further results with "
+            "other dimensions may also be included. All datasets "
+            "should include the 'mean' and 'standard_deviation', "
+            "statistics, where the former represents the central "
+            "estimate and the latter the standard deviation of the "
+            "associated uncertainty distribution. For the overall "
+            "plant performance efficiency estimate at the wind farm "
+            "level (i.e. the result dataset without binning), the "
+            "statistic 'inter_annual_variability' must also be "
+            "included. The inter-annual variability may optionally "
+            "also be included for some or all of the other datasets."
         ),
     )
 

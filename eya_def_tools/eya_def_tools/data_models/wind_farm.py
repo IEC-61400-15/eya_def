@@ -124,19 +124,19 @@ class TurbineConfiguration(EyaDefBaseModel):
         description="Unique identifier of the turbine model.",
     )
 
-    operational_lifetime_start_date: Optional[dt.date] = pdt.Field(
+    assessment_period_start_date: Optional[dt.date] = pdt.Field(
         default=None,
         description=(
-            "Optional operational lifetime start date of the "
-            "individual turbine in the ISO 8601 standard format for a "
-            "calendar date, i.e. YYYY-MM-DD."
+            "Optional assessment period start date of the individual "
+            "turbine in the ISO 8601 standard format for a calendar "
+            "date, i.e. YYYY-MM-DD."
         ),
         examples=["2026-01-01", "2017-04-01"],
     )
-    operational_lifetime_end_date: Optional[dt.date] = pdt.Field(
+    assessment_period_end_date: Optional[dt.date] = pdt.Field(
         default=None,
         description=(
-            "Optional operational lifetime end date of the individual "
+            "Optional assessment period end date of the individual "
             "turbine in the ISO 8601 standard format for a calendar "
             "date, i.e. YYYY-MM-DD."
         ),
@@ -206,19 +206,19 @@ class WindFarmConfiguration(EyaDefBaseModel):
             "('internal', 'external' or 'future')."
         ),
     )
-    operational_lifetime_start_date: dt.date = pdt.Field(
+    assessment_period_start_date: dt.date = pdt.Field(
         default=...,
         description=(
-            "The operational lifetime start date of the wind farm in "
+            "The assessment period start date of the wind farm in "
             "the ISO 8601 standard format for a calendar date, i.e. "
             "YYYY-MM-DD."
         ),
         examples=["2026-01-01", "2017-04-01"],
     )
-    operational_lifetime_end_date: dt.date = pdt.Field(
+    assessment_period_end_date: dt.date = pdt.Field(
         default=...,
         description=(
-            "The operational lifetime end date of the wind farm in the "
+            "The assessment period end date of the wind farm in the "
             "ISO 8601 standard format for a calendar date, i.e. "
             "YYYY-MM-DD."
         ),
@@ -270,8 +270,8 @@ class WindFarmConfiguration(EyaDefBaseModel):
         )
 
     @property
-    def operational_lifetime_length(self) -> float:
+    def assessment_period_length(self) -> float:
         """The length of the operational lifetime in years."""
         return (
-            self.operational_lifetime_end_date - self.operational_lifetime_start_date
+            self.assessment_period_end_date - self.assessment_period_start_date
         ).total_seconds() / (60.0 * 60.0 * 24.0 * 365.24)

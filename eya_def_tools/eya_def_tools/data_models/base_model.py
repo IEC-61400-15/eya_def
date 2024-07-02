@@ -10,6 +10,8 @@ import pydantic as pdt
 import pydantic.json_schema as pdt_json_schema
 import pydantic_core as pdt_core
 
+from eya_def_tools.constants import ALL_OF_TAG, DEFINITIONS_TAG, REFERENCE_TAG
+
 
 class EyaDefGenerateJsonSchema(pdt_json_schema.GenerateJsonSchema):
     """Custom JSON Schema generator for the EYA DEF top-level model."""
@@ -40,16 +42,19 @@ class EyaDefGenerateJsonSchema(pdt_json_schema.GenerateJsonSchema):
         """Move single use definitions to where they are used.
 
         The current behaviour of the pydantic JSON Schema generator is
-        to include all sub-model definitions in the $defs section. This
-        function modifies the standard pydantic schema to define only
-        sub-models used in more than one place in $defs and define
-        single use models in the hierarchical tree of properties
+        to include all sub-model definitions in the ``$defs`` section.
+        This function modifies the standard pydantic schema to define
+        only sub-models used in more than one place in ``$defs`` and
+        define single use models in the hierarchical tree of properties
         instead.
 
         :param json_schema_dict: the model JSON Schema dictionary to
             modify in place
         """
-        for definition_label in json_schema_dict["$defs"].copy().keys():
+        if DEFINITIONS_TAG not in json_schema_dict.keys():
+            return
+
+        for definition_label in json_schema_dict[DEFINITIONS_TAG].copy().keys():
             definition_count = cls._recursive_get_definition_count(
                 json_schema_dict=json_schema_dict, definition_label=definition_label
             )
@@ -57,9 +62,9 @@ class EyaDefGenerateJsonSchema(pdt_json_schema.GenerateJsonSchema):
                 cls._recursive_move_definition_to_tree(
                     json_schema_dict=json_schema_dict,
                     definition_label=definition_label,
-                    definition=json_schema_dict["$defs"][definition_label],
+                    definition=json_schema_dict[DEFINITIONS_TAG][definition_label],
                 )
-                del json_schema_dict["$defs"][definition_label]
+                del json_schema_dict[DEFINITIONS_TAG][definition_label]
 
     @classmethod
     def _recursive_get_definition_count(
@@ -72,7 +77,7 @@ class EyaDefGenerateJsonSchema(pdt_json_schema.GenerateJsonSchema):
 
         count = 0
         for value in json_schema_dict.values():
-            if value == f"#/$defs/{definition_label}":
+            if value == f"#/{DEFINITIONS_TAG}/{definition_label}":
                 return count + 1
             elif isinstance(value, dict):
                 count = count + cls._recursive_get_definition_count(
@@ -97,12 +102,15 @@ class EyaDefGenerateJsonSchema(pdt_json_schema.GenerateJsonSchema):
             return
 
         for key, value in json_schema_dict.copy().items():
-            if key == "$ref" and value == f"#/$defs/{definition_label}":
+            if (
+                key == REFERENCE_TAG
+                and value == f"#/{DEFINITIONS_TAG}/{definition_label}"
+            ):
                 cls._move_definition(
                     json_schema_dict=json_schema_dict,
                     definition=definition,
                 )
-                del json_schema_dict["$ref"]
+                del json_schema_dict[REFERENCE_TAG]
             elif isinstance(value, dict):
                 cls._recursive_move_definition_to_tree(
                     json_schema_dict=value,
@@ -111,16 +119,17 @@ class EyaDefGenerateJsonSchema(pdt_json_schema.GenerateJsonSchema):
                 )
             elif isinstance(value, list):
                 if (
-                    key == "allOf"
+                    key == ALL_OF_TAG
                     and len(value) == 1
                     and isinstance(value[0], dict)
-                    and value[0] == {"$ref": f"#/$defs/{definition_label}"}
+                    and value[0]
+                    == {REFERENCE_TAG: f"#/{DEFINITIONS_TAG}/{definition_label}"}
                 ):
                     cls._move_definition(
                         json_schema_dict=json_schema_dict,
                         definition=definition,
                     )
-                    del json_schema_dict["allOf"]
+                    del json_schema_dict[ALL_OF_TAG]
                 else:
                     for item in value:
                         cls._recursive_move_definition_to_tree(

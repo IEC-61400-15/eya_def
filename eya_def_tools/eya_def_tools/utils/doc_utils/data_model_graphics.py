@@ -8,8 +8,6 @@ The graphics are rendered based on the ``pydantic`` data models in
 import re
 from typing import Final
 
-import erdantic as erd
-
 from eya_def_tools.data_models.base_model import EyaDefBaseModel
 from eya_def_tools.data_models.dataset import Dataset
 from eya_def_tools.data_models.energy_assessment import EnergyAssessment
@@ -17,9 +15,6 @@ from eya_def_tools.data_models.eya_def import EyaDefDocument
 from eya_def_tools.data_models.eya_def_header import ReportContributor
 from eya_def_tools.data_models.general import Organisation
 from eya_def_tools.data_models.plant_performance import PlantPerformanceAssessment
-from eya_def_tools.data_models.reference_met_data import (
-    ReferenceMeteorologicalDatasetMetadata,
-)
 from eya_def_tools.data_models.reference_wind_farm import ReferenceWindFarm
 from eya_def_tools.data_models.scenario import Scenario
 from eya_def_tools.data_models.wind_farm import WindFarmConfiguration
@@ -29,7 +24,7 @@ from eya_def_tools.data_models.wind_resource import (
 )
 from eya_def_tools.utils.doc_utils import eya_def_erdantic
 
-eya_def_erdantic.use_custom_representations()
+eya_def_erdantic.register_plugin()
 
 
 MODEL_CLASSES_TO_DRAW: Final[list[type[EyaDefBaseModel]]] = [
@@ -48,14 +43,13 @@ def draw_eya_def_top_level() -> None:
     """Draw diagram of the top level schema."""
     EyaDefDocument.model_rebuild(**locals())
 
-    diagram = erd.create(
+    diagram = eya_def_erdantic.create(
         EyaDefDocument,
-        termini=[
+        terminal_models=[
             ReportContributor,
             Organisation,
             WindFarmConfiguration,
             ReferenceWindFarm,
-            ReferenceMeteorologicalDatasetMetadata,
             WindResourceAssessment,
             Scenario,
         ],
@@ -66,9 +60,9 @@ def draw_eya_def_top_level() -> None:
 
 def draw_scenario_reduced() -> None:
     """Draw reduced diagram of the scenario level schema."""
-    diagram = erd.create(
+    diagram = eya_def_erdantic.create(
         Scenario,
-        termini=[
+        terminal_models=[
             TurbineWindResourceAssessment,
             EnergyAssessment,
         ],
@@ -82,12 +76,15 @@ def get_filename_for_model_class(model_class: type[EyaDefBaseModel]) -> str:
 
 
 def draw_full_diagram_for_model_class(model_class: type[EyaDefBaseModel]) -> None:
-    diagram = erd.create(model_class)
+    diagram = eya_def_erdantic.create(model_class)
     filename = get_filename_for_model_class(model_class=model_class)
     draw_to_files(diagram=diagram, filename=filename)
 
 
-def draw_to_files(diagram: erd.EntityRelationshipDiagram, filename: str) -> None:
+def draw_to_files(
+    diagram: eya_def_erdantic.EyaDefEntityRelationshipDiagram,
+    filename: str,
+) -> None:
     diagram.draw(f"{filename}.svg")
     diagram.draw(f"{filename}.png")
 

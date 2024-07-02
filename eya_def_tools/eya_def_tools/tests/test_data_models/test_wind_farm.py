@@ -11,8 +11,8 @@ from eya_def_tools.data_models.wind_farm import WindFarmConfiguration
 
 
 @pytest.mark.parametrize(
-    "wind_farm_id, expected",
-    [
+    argnames=("wind_farm_id", "expected_capacity"),
+    argvalues=[
         (
             "bf_a",
             11.0,
@@ -27,18 +27,18 @@ def test_capacity_property_calculates_correctly(
     wind_farm_a: WindFarmConfiguration,
     wind_farm_b: WindFarmConfiguration,
     wind_farm_id: str,
-    expected: float,
+    expected_capacity: float,
 ) -> None:
     wind_farm = _get_wind_farm_by_id(
         wind_farms=(wind_farm_a, wind_farm_b), wind_farm_id=wind_farm_id
     )
 
-    assert np.isclose(wind_farm.capacity, expected)
+    assert np.isclose(wind_farm.capacity, expected_capacity)
 
 
 @pytest.mark.parametrize(
-    "wind_farm_id, expected",
-    [
+    argnames=("wind_farm_id", "expected_assessment_period_length"),
+    argvalues=[
         (
             "bf_a",
             30.99879531,
@@ -49,17 +49,20 @@ def test_capacity_property_calculates_correctly(
         ),
     ],
 )
-def test_operational_lifetime_length_property_calculates_correctly(
+def test_assessment_period_length_property_calculates_correctly(
     wind_farm_a: WindFarmConfiguration,
     wind_farm_b: WindFarmConfiguration,
     wind_farm_id: str,
-    expected: float,
+    expected_assessment_period_length: float,
 ) -> None:
     wind_farm = _get_wind_farm_by_id(
         wind_farms=(wind_farm_a, wind_farm_b), wind_farm_id=wind_farm_id
     )
 
-    assert np.isclose(wind_farm.operational_lifetime_length, expected)
+    assert np.isclose(
+        wind_farm.assessment_period_length,
+        expected_assessment_period_length,
+    )
 
 
 def _get_wind_farm_by_id(

@@ -8,8 +8,8 @@ from eya_def_tools.data_models.general import MeasurementQuantity, MeasurementUn
 
 
 @pytest.mark.parametrize(
-    "measurement_quantity, expected",
-    [
+    argnames=("measurement_quantity", "expected"),
+    argvalues=[
         (
             MeasurementQuantity.WIND_SPEED,
             MeasurementUnit.METRE_PER_SECOND,

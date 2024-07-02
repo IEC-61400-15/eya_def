@@ -1,129 +1,303 @@
-"""Adaptation of the erdantic package for the EYA DEF.
+"""Adaptation of the erdantic functionality for the EYA DEF.
+
+This module comprises the custom classes and methods to refine how the
+entity relationship diagrams (ERDs) are rendered. It includes adding
+model field descriptions in the text that displays in the SVG graphics
+when hovering over a model, adding JSON Schema types and refining some
+of the type annotations.
 
 """
 
-from typing import Annotated, Any, List, Optional, Union, get_origin
-
-import erdantic as erd
-import erdantic.base as erd_base
-import erdantic.typing as erd_typing
-import pydantic as pdt
-
-from eya_def_tools.data_models import reference_wind_farm
-from eya_def_tools.data_models.base_model import EyaDefBaseModel
-from eya_def_tools.data_models.reference_met_data import (
-    ReferenceMeteorologicalDatasetMetadata,
+import html
+import inspect
+from typing import (
+    Any,
+    Collection,
+    Literal,
+    Self,
+    Sequence,
+    Type,
+    TypeGuard,
+    Union,
+    get_args,
+    get_origin,
 )
 
+import erdantic.core as erd_core
+import erdantic.exceptions as erd_exceptions
+import erdantic.plugins as erd_plugins
+import pydantic.errors as pdt_errors
+import pydantic.fields as pdt_fields
+import pydantic_core as pdt_core
+import sortedcontainers_pydantic
 
-class IEATask43WraDataModel:
-    pass
+from eya_def_tools.constants import ALL_OF_TAG, ANY_OF_TAG, REFERENCE_TAG
+from eya_def_tools.data_models.base_model import EyaDefBaseModel
+
+EyaDefBaseModelType = Type[EyaDefBaseModel]
 
 
-class IEC61400x16PowerCurveDataModel:
-    pass
+class EyaDefFieldInfo(erd_core.FieldInfo):
+    """Custom erdantic ``FieldInfo`` subclass for the EYA DEF."""
 
+    json_schema_type_name: str = ""
 
-# The ``erdantic`` package currently does not support the ``Literal``
-# type, so the models ``SingleSourceDatasetClassification`` and
-# ``DerivedDatasetClassification`` need a workaround here
-class SingleSourceDatasetClassification(EyaDefBaseModel):
-    data_type: reference_wind_farm.OperationalDataType = pdt.Field(
-        default=...,
-        description=(
-            "The type of operational data, categorised as 'scada' for "
-            "data from a Supervisory Control and Data Acquisition "
-            "(SCADA) system, 'metered' for data from a production "
-            "meter and 'environmental_measurement' for data from an "
-            "(on-site) environmental measurement station such as a "
-            "meteorological mast or a remote sensing device (RSD)."
-        ),
-    )
-    data_source_type: reference_wind_farm.OperationalDataSourceType = pdt.Field(
-        default=...,
-        description=(
-            "The type of the operational data source. Primary data, "
-            "such as primary SCADA data, comes directly from the "
-            "source without any intermediary. Secondary data covers "
-            "all other types of data sources, where the data does not "
-            "come directly from the source, such as secondary SCADA "
-            "data provided in harmonised form by a data management "
-            "service provider."
-        ),
+    _dot_row_template = (
+        """<tr>"""
+        """<td>{name}</td>"""
+        """<td>{type_name}</td>"""
+        """<td port="{name}" width="36">{json_schema_type_name}</td>"""
+        """</tr>"""
     )
 
+    def to_dot_row(self) -> str:
+        """Render the field info to DOT format."""
+        return self._dot_row_template.format(
+            name=self.name,
+            type_name=self.type_name,
+            json_schema_type_name=html.escape(self.json_schema_type_name),
+        )
 
-class DerivedDatasetClassification(EyaDefBaseModel):
-    data_type: reference_wind_farm.OperationalDataType = pdt.Field(
-        default=reference_wind_farm.OperationalDataType.DERIVED,
-        description=(
-            "The type of operational data, categorised as 'derived' "
-            "for all derived operational datasets (e.g. operational "
-            "reports or databases with aggregate data). Details of "
-            "the data type shall be included in the description of "
-            "the operational dataset, including the type of derived "
-            "dataset (e.g. an operational report), who produced it "
-            "(e.g. the turbine OEM) and any relevant details known "
-            "about how the data were processed."
-        ),
+
+class EyaDefModelInfo(erd_core.ModelInfo[EyaDefBaseModelType]):
+    """Custom erdantic ``ModelInfo`` subclass for the EYA DEF."""
+
+    @classmethod
+    def from_raw_model(cls, raw_model: EyaDefBaseModelType) -> Self:
+        """Build model info from an EYA DEF model."""
+        get_fields_fn = erd_plugins.identify_field_extractor_fn(raw_model)
+        if not get_fields_fn:
+            raise erd_exceptions.UnknownModelTypeError(
+                model=raw_model,
+                available_plugins=erd_plugins.list_plugins(),
+            )
+
+        full_name = erd_core.FullyQualifiedName.from_object(raw_model)
+        description = _get_model_description(full_name=full_name, raw_model=raw_model)
+        model_info = cls(
+            full_name=full_name,
+            name=raw_model.__name__,
+            fields={
+                field_info.name: field_info for field_info in get_fields_fn(raw_model)
+            },
+            description=description,
+        )
+
+        model_info._raw_model = raw_model
+
+        return model_info
+
+
+class EyaDefEntityRelationshipDiagram(erd_core.EntityRelationshipDiagram):
+    """Custom ``EntityRelationshipDiagram`` subclass for the EYA DEF."""
+
+    models: sortedcontainers_pydantic.SortedDict[str, EyaDefModelInfo] = (
+        sortedcontainers_pydantic.SortedDict()
     )
-    data_source_type: reference_wind_farm.OperationalDataSourceType = pdt.Field(
-        default=reference_wind_farm.OperationalDataSourceType.SECONDARY,
-        description="The data source type, which for derived data is 'secondary'.",
+
+
+def is_eya_def_model(obj: Any) -> TypeGuard[EyaDefBaseModelType]:
+    """Predicate function to determine if an object is an EYA DEF model."""
+    return inspect.isclass(obj) and issubclass(obj, EyaDefBaseModel)
+
+
+def get_fields_from_eya_def_model(
+    model: EyaDefBaseModelType,
+) -> Sequence[EyaDefFieldInfo]:
+    """Modified version of ``get_fields_from_pydantic_model()``."""
+    try:
+        model.model_rebuild()
+    except pdt_errors.PydanticUndefinedAnnotation as exc:
+        model_full_name = erd_core.FullyQualifiedName.from_object(model)
+        forward_ref = exc.name
+        message = (
+            f"Failed to resolve forward reference '{forward_ref}' in the type "
+            f"annotations for the model {model_full_name}. The model's "
+            f"``model_rebuild()`` method should be used to manually resolve it."
+        )
+        raise erd_exceptions.UnresolvableForwardRefError(
+            message,
+            name=forward_ref,
+            model_full_name=model_full_name,
+        ) from exc
+
+    model_json_schema = model.model_json_schema(by_alias=False)
+
+    field_infos: list[EyaDefFieldInfo] = []
+    for field_name, pydantic_field_info in model.model_fields.items():
+        field_info = EyaDefFieldInfo.from_raw_type(
+            model_full_name=erd_core.FullyQualifiedName.from_object(model),
+            name=field_name,
+            raw_type=pydantic_field_info.annotation or Any,  # type: ignore
+        )
+
+        field_info.json_schema_type_name = _get_field_json_schema_type(
+            field_name=field_name,
+            model_json_schema=model_json_schema,
+        )
+
+        abbreviated_field_type_name = _get_abbreviated_type_name(
+            field_name=field_name,
+            pydantic_field_info=pydantic_field_info,
+        )
+        if abbreviated_field_type_name is not None:
+            field_info.type_name = abbreviated_field_type_name
+
+        field_infos.append(field_info)
+
+    return field_infos
+
+
+def register_plugin() -> None:
+    """Register the EYA DEF erdantic plugin.
+
+    Calling this function will override the default pydantic plugin.
+    """
+    erd_plugins.register_plugin(
+        key="pydantic",
+        predicate_fn=is_eya_def_model,
+        get_fields_fn=get_fields_from_eya_def_model,
     )
 
 
-class PydanticField(erd.pydantic.PydanticField):  # type: ignore
-    @property
-    def type_obj(self) -> Union[type, erd_typing.GenericAlias]:
-        """Return abbreviated form of annotations for diagrams."""
-        if self.name == "measurement_stations":
-            return Annotated[Optional[list[dict[str, Any]]], IEATask43WraDataModel]
+def create(
+    model: EyaDefBaseModelType,
+    terminal_models: Collection[type] = tuple(),
+) -> EyaDefEntityRelationshipDiagram:
+    diagram = EyaDefEntityRelationshipDiagram()
 
-        if self.name == "turbine_models":
-            return Annotated[
-                Optional[list[dict[str, Any]]], IEC61400x16PowerCurveDataModel
-            ]
+    for terminal_model in terminal_models:
+        diagram.add_model(model=terminal_model, recurse=False)
 
-        if self.name == "reference_meteorological_datasets":
-            return Optional[
-                list[
-                    ReferenceMeteorologicalDatasetMetadata
-                    | Annotated[list[dict[str, Any]], IEATask43WraDataModel]
-                ]
-            ]
+    diagram.add_model(model=model)
 
-        # The ``erdantic`` package currently does not support the
-        # ``Literal`` type, so the operational dataset classification
-        # field needs a workaround
+    return diagram
+
+
+def _get_abbreviated_type_name(
+    field_name: str,
+    pydantic_field_info: pdt_fields.FieldInfo,
+) -> str | None:
+    match field_name:
+        case "measurement_stations" | "reference_meteorological_datasets":
+            return "Optional[list[IEATask43WraDataModel]]"
+        case "turbine_models":
+            return "Optional[list[IEC61400d16PowerCurveDataModel]]"
+        case "values":
+            if (
+                pydantic_field_info.description is not None
+                and "Dataset value(s)" in pydantic_field_info.description
+                and get_origin(pydantic_field_info.annotation) == Union
+            ):
+                return "Union[float, list[tuple[list[Union[int, float, str]], float]]]"
+
+    if get_origin(pydantic_field_info.annotation) == Literal:
+        options = ", ".join(
+            f"'{option}'" for option in get_args(pydantic_field_info.annotation)
+        )
+        return f"Literal[{options}]"
+
+    return None
+
+
+def _get_model_description(
+    full_name: erd_core.FullyQualifiedName,
+    raw_model: type[EyaDefBaseModel],
+) -> str:
+    description = str(full_name)
+
+    docstring = inspect.getdoc(object=raw_model)
+    if docstring:
+        description += "\n\n" + docstring + "\n"
+
+    if all(
+        model_field.description is None
+        for model_field in raw_model.model_fields.values()
+    ):
+        return description
+
+    description += "\nFields:\n"
+    for field_name, pydantic_field_info in raw_model.model_fields.items():
+        if pydantic_field_info.description is None:
+            continue
+
+        description += (
+            "    "
+            + _get_field_description(
+                field_name=field_name,
+                pydantic_field_info=pydantic_field_info,
+            ).strip()
+            + "\n"
+        )
+
+    return description
+
+
+def _get_field_description(
+    field_name: str,
+    pydantic_field_info: pdt_fields.FieldInfo,
+) -> str:
+    field_description = f"{field_name}: {pydantic_field_info.description}"
+
+    if (
+        not isinstance(pydantic_field_info.default, pdt_core.PydanticUndefinedType)
+        and pydantic_field_info.default is not ...
+    ):
+        if not field_description.strip().endswith("."):
+            field_description = field_description.rstrip() + ". "
+        else:
+            field_description = field_description.rstrip() + " "
+
+        if isinstance(pydantic_field_info.default, str):
+            field_description += f"Default is '{pydantic_field_info.default}'."
+        else:
+            field_description += f"Default is {pydantic_field_info.default}."
+
+    return field_description
+
+
+def _get_field_json_schema_type(
+    field_name: str,
+    model_json_schema: dict[str, Any],
+) -> str:
+    if "properties" not in model_json_schema.keys():
+        return ""
+
+    schema = model_json_schema["properties"]
+    if field_name not in schema.keys():
+        return ""
+
+    schema = schema[field_name]
+    if "type" in schema.keys():
+        return str(schema["type"])
+
+    if ALL_OF_TAG in schema.keys():
+        schema = schema[ALL_OF_TAG]
+        if not isinstance(schema, list):
+            return ""
+
         if (
-            self.name == "classification"
-            and "Classification of the type of data" in self.field.description
+            len(schema) == 1
+            and isinstance(schema[0], dict)
+            and schema[0].keys() == {REFERENCE_TAG}
         ):
-            return SingleSourceDatasetClassification | DerivedDatasetClassification
+            return "object"
 
-        if (
-            self.name == "values"
-            and "Dataset value(s)" in self.field.description
-            and get_origin(self.field.annotation) == Union
-        ):
-            return Union[
-                float,
-                list[tuple[list[Union[int, float, str]], float]],
-            ]
+        return " & ".join(
+            item["type"]
+            for item in schema
+            if isinstance(item, dict) and "type" in item.keys()
+        )
 
-        return super().type_obj
+    if ANY_OF_TAG in schema.keys():
+        schema = schema[ANY_OF_TAG]
+        if not isinstance(schema, list):
+            return ""
 
+        return " | ".join(
+            item["type"]
+            for item in schema
+            if isinstance(item, dict) and "type" in item.keys()
+        )
 
-class PydanticModel(erd.pydantic.PydanticModel):  # type: ignore
-    @property
-    def fields(self) -> List[erd_base.Field]:
-        return [
-            PydanticField(name=name, field_info=field_info)
-            for name, field_info in self.model.model_fields.items()
-        ]
-
-
-def use_custom_representations() -> None:
-    """Use custom EYA DEF representations of pydantic models."""
-    erd_base.register_model_adapter("pydantic")(PydanticModel)
+    return ""
