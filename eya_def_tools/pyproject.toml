@@ -1,20 +1,33 @@
 [build-system]
-requires = ["setuptools>=69.0", "wheel>=0.43"]
+requires = [
+    "setuptools>=70.1",
+    "wheel>=0.43",
+]
 
 [project]
 name = "eya_def_tools"
-version = "0.0.1a6"
+version = "0.0.1a7"
 authors = [
-  {name="Christian Jonsson", email="christianj@naturalpower.com"},
+  {name="Christian Jonsson", email="christianj@kudosoftware.com"},
   {name="Stephen Holleran", email="stephen@brightwindanalysis.com"},
   {name="Jason Fields", email="jason.fields@res-group.com"},
-  {name="Charlie Plumley", email="charlie.plumley@cubicoinvest.com"},
+  {name="Charlie Plumley", email="charlie.plumley@nuveenglobal.com"},
   {name="Alina Brenneke", email="alina.brenneke@rwe.com"},
 ]
 description = "IEC 61400-15-2 Wind Energy Yield Assessment (EYA) Digital Exchange Format (DEF) toolset"
 readme = "README.md"
 requires-python = ">=3.11"
+keywords = [
+    "Energy Yield Assessment",
+    "EYA",
+    "Wind Resource Assessment",
+    "WRA",
+    "Schema",
+    "JSON Schema",
+    "Data Model",
+]
 classifiers = [
+    "Natural Language :: English",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.11",
@@ -38,17 +51,20 @@ target-version = ["py312"]
 
 [tool.isort]
 profile = "black"
+py_version=312
 
 [tool.flake8]
+extend-ignore = [
+    "E203",  # Incompatible with black
+    "PT016",  # Incompatible with latest pytest API
+]
 max_line_length = 88
 max_complexity = 14
-extend-ignore = "E203"
+require-plugins = ["flake8-pytest-style"]
 
 [tool.mypy]
 files = ["eya_def_tools"]
-plugins = [
-    "pydantic.mypy",
-]
+plugins = ["pydantic.mypy"]
 python_version = "3.12"
 follow_imports = "normal"
 check_untyped_defs = true
@@ -67,10 +83,7 @@ warn_unused_configs = true
 warn_unused_ignores = true
 
 [[tool.mypy.overrides]]
-module = [
-    "erdantic.*",
-    "pygraphviz.*",
-]
+module = ["pygraphviz.*"]
 ignore_missing_imports = true
 
 [tool.pydantic-mypy]
@@ -80,9 +93,13 @@ warn_required_dynamic_aliases = true
 warn_untyped_fields = true
 
 [tool.pytest.ini_options]
-testpaths = ["tests"]
 addopts = [
-    "--import-mode=importlib"]
+    "--import-mode=importlib",
+    "--cov=eya_def_tools",
+    "--cov-report=html",
+    "--cov-report=xml",
+    "--cov-report=term-missing",
+]
 markers = [
     "erdantic: tests requiring the 'erdantic' package (deselect with '-m \"not erdantic\"')",
 ]

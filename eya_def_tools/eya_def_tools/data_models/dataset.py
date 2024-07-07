@@ -110,8 +110,6 @@ class AssessmentPeriod(StrEnum):
 class DatasetDimension(StrEnum):
     """Dimension along which dataset values are assigned."""
 
-    HEIGHT = auto()
-
     MINUTE = auto()
     HOUR = auto()
     DAY = auto()
@@ -121,14 +119,16 @@ class DatasetDimension(StrEnum):
     WIND_SPEED = auto()
     WIND_FROM_DIRECTION = auto()
 
+    WIND_DATASET_ID = auto()  # Measurement station or reference dataset
+    POINT_ID = auto()  # Measurement point
+    HEIGHT = auto()  # Measurement height or turbine hub height
+
     WIND_FARM_ID = auto()
-    REFERENCE_WIND_FARM_ID = auto()
-    OPERATIONAL_DATASET_ID = auto()
-    WIND_DATASET_ID = auto()  # E.g. measurement station
     TURBINE_ID = auto()
-    LOCATION_ID = auto()
-    POINT_ID = auto()  # E.g. measurement point
-    VARIABLE_ID = auto()  # E.g. operational dataset variable
+
+    OPERATIONAL_DATASET_ID = auto()  # E.g. 10-minute SCADA
+
+    VARIABLE_ID = auto()  # Measurement or operational data variable
 
 
 class Dataset(EyaDefBaseModel):
