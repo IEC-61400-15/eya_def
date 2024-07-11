@@ -169,8 +169,7 @@ pre-commit --version
 ```
 
 The project configurations for the Git hooks are contained within the
-file [.pre-commit-config.yaml][../.pre-commit-config.yaml] at the root
-repository directory.
+file `.pre-commit-config.yaml` at the root repository directory.
 
 Lint checks are run on both `git commit` and `git push`. Tests are
 not included in the Git hooks.

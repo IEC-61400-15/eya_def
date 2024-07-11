@@ -1,4 +1,5 @@
 # The IEC 61400-15-2 EYA DEF
+
 [![EYA DEF tools linting and testing](
 https://github.com/IEC-61400-15/eya_def/actions/workflows/eya-def-tools-python-package.yml/badge.svg)](
 https://github.com/IEC-61400-15/eya_def/actions/workflows/eya-def-tools-python-package.yml)
@@ -49,6 +50,7 @@ We welcome new people to get involved in the development work.
 ## Aims and use cases
 
 The EYA DEF aims to facilitate the following:
+
 - data sharing with a wider range of stakeholders in an automated
   fashion;
 - securing of data traceability and accuracy;
@@ -96,7 +98,7 @@ located [here](eya_def_tools/README.md).
 
 ## Schema diagrams
 
-The Python package (see [below](#Python-package)) uses [erdantic](
+The Python package (see [below](#python-package)) uses [erdantic](
 https://erdantic.drivendata.org/stable/) to generate graphical
 representations of the `pydantic` data model. Note that the data types
 shown in the diagrams are the Python types defined in the `pydantic`
@@ -112,7 +114,7 @@ below.
 The text below shows an example of a small subset of energy yield
 assessment reporting data from a title page, in unstructured form.
 
-```
+```text
 Barefoot Wind Farm EYA
 
 Document ID.: 12345678, version B
