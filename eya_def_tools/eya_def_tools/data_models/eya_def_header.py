@@ -12,6 +12,7 @@ import pydantic as pdt
 
 from eya_def_tools.data_models.base_model import EyaDefBaseModel
 from eya_def_tools.data_models.general import Organisation
+from eya_def_tools.data_models.spatial import EpsgSrid
 from eya_def_tools.utils import reference_utils
 
 Alpha2CountryCode: Type[StrEnum] = StrEnum(  # type: ignore
@@ -67,7 +68,7 @@ class ReportContributor(EyaDefBaseModel):
     )
 
 
-uri_field: Optional[pdt.AnyUrl] = pdt.Field(
+UriField: Optional[pdt.AnyUrl] = pdt.Field(
     default=None,
     title="URI",
     description=(
@@ -78,7 +79,7 @@ uri_field: Optional[pdt.AnyUrl] = pdt.Field(
     alias="$id",
 )
 
-schema_uri_field: pdt.AnyUrl = pdt.Field(
+SchemaUriField: pdt.AnyUrl = pdt.Field(
     default=reference_utils.get_json_schema_uri(),
     title="EYA DEF JSON Schema URI",
     description=(
@@ -93,21 +94,21 @@ schema_uri_field: pdt.AnyUrl = pdt.Field(
     alias="$schema",
 )
 
-uuid_field: Optional[uuid_.UUID] = pdt.Field(
+UuidField: Optional[uuid_.UUID] = pdt.Field(
     default=None,
     title="UUID",
     description="Optional UUID of the EYA DEF document.",
     examples=["8f46a815-8b6d-4870-8e92-c031b20320c6"],
 )
 
-title_field: str = pdt.Field(
+TitleField: str = pdt.Field(
     default=...,
     min_length=1,
     description="Title of the energy yield assessment (EYA) report.",
     examples=["Energy yield assessment of the Barefoot Wind Farm"],
 )
 
-description_field: Optional[str] = pdt.Field(
+DescriptionField: Optional[str] = pdt.Field(
     default=None,
     min_length=1,
     description=(
@@ -117,7 +118,7 @@ description_field: Optional[str] = pdt.Field(
     examples=["An updated document to incorporate the latest measurement data."],
 )
 
-comments_field: Optional[str] = pdt.Field(
+CommentsField: Optional[str] = pdt.Field(
     default=None,
     min_length=1,
     description=(
@@ -129,14 +130,14 @@ comments_field: Optional[str] = pdt.Field(
     ],
 )
 
-project_name_field: str = pdt.Field(
+ProjectNameField: str = pdt.Field(
     default=...,
     min_length=1,
     description="Name of the project under assessment.",
     examples=["Barefoot Wind Farm"],
 )
 
-project_country_field: Alpha2CountryCode = pdt.Field(
+ProjectCountryField: Alpha2CountryCode = pdt.Field(
     default=...,
     description=(
         "The ISO 3166-1 alpha-2 two-letter code of the country where "
@@ -144,7 +145,7 @@ project_country_field: Alpha2CountryCode = pdt.Field(
     ),
 )
 
-document_id_field: Optional[str] = pdt.Field(
+DocumentIdField: Optional[str] = pdt.Field(
     default=None,
     min_length=1,
     title="Document ID",
@@ -158,7 +159,7 @@ document_id_field: Optional[str] = pdt.Field(
     examples=["C385945/A/UK/R/002", "0345.923454.0001"],
 )
 
-document_version_field: Optional[str] = pdt.Field(
+DocumentVersionField: Optional[str] = pdt.Field(
     default=None,
     min_length=1,
     description=(
@@ -171,7 +172,7 @@ document_version_field: Optional[str] = pdt.Field(
     examples=["1.2.3", "A", "Rev. A"],
 )
 
-issue_date_field: dt.date = pdt.Field(
+IssueDateField: dt.date = pdt.Field(
     default=...,
     description=(
         "Report issue date in the ISO 8601 standard format for a "
@@ -180,19 +181,19 @@ issue_date_field: dt.date = pdt.Field(
     examples=["2022-10-05"],
 )
 
-contributors_field: list[ReportContributor] = pdt.Field(
+ContributorsField: list[ReportContributor] = pdt.Field(
     default=...,
     min_length=1,
     description="List of report contributors (e.g. author and verifier)",
 )
 
-issuing_organisations_field: list[Organisation] = pdt.Field(
+IssuingOrganisationsField: list[Organisation] = pdt.Field(
     default=...,
     min_length=1,
     description="The organisation(s) issuing the report (e.g. consultant).",
 )
 
-receiving_organisations_field: Optional[list[Organisation]] = pdt.Field(
+ReceivingOrganisationsField: Optional[list[Organisation]] = pdt.Field(
     default=None,
     min_length=1,
     description=(
@@ -201,7 +202,7 @@ receiving_organisations_field: Optional[list[Organisation]] = pdt.Field(
     ),
 )
 
-contract_reference_field: Optional[str] = pdt.Field(
+ContractReferenceField: Optional[str] = pdt.Field(
     default=None,
     min_length=1,
     description=(
@@ -213,7 +214,7 @@ contract_reference_field: Optional[str] = pdt.Field(
     examples=["Contract ID.: P-MIR-00239432-0001-C, dated 2022-11-30"],
 )
 
-confidentiality_classification_field: Optional[str] = pdt.Field(
+ConfidentialityClassificationField: Optional[str] = pdt.Field(
     default=None,
     min_length=1,
     description=(
@@ -224,8 +225,7 @@ confidentiality_classification_field: Optional[str] = pdt.Field(
     examples=["Strictly confidential", "Commercial in confidence", "Public"],
 )
 
-# TODO consider adding validation of valid EPSG SRID codes
-epsg_srid_field: int = pdt.Field(
+EpsgSridField: EpsgSrid = pdt.Field(
     default=...,
     description=(
         "EPSG Spatial Reference System Identifier (SRID) for the "
@@ -239,8 +239,9 @@ epsg_srid_field: int = pdt.Field(
     examples=[27700, 3006],
 )
 
-utc_offset_field: float = pdt.Field(
+UtcOffsetField: float = pdt.Field(
     default=...,
+    allow_inf_nan=False,
     description=(
         "The offset in hours of the local time zone used for the EYA "
         "relative to Coordinated Universal Time (UTC). It is applied "
@@ -261,23 +262,21 @@ class EyaDefHeader(EyaDefBaseModel):
     fields defined on the ``EyaDefDocument`` model.
     """
 
-    uri: Optional[pdt.AnyUrl] = uri_field
-    schema_uri: pdt.AnyUrl = schema_uri_field
-    uuid: Optional[uuid_.UUID] = uuid_field
-    title: str = title_field
-    description: Optional[str] = description_field
-    comments: Optional[str] = comments_field
-    project_name: str = project_name_field
-    project_country: Alpha2CountryCode = project_country_field
-    document_id: Optional[str] = document_id_field
-    document_version: Optional[str] = document_version_field
-    issue_date: dt.date = issue_date_field
-    contributors: list[ReportContributor] = contributors_field
-    issuing_organisations: list[Organisation] = issuing_organisations_field
-    receiving_organisations: Optional[list[Organisation]] = (
-        receiving_organisations_field
-    )
-    contract_reference: Optional[str] = contract_reference_field
-    confidentiality_classification: Optional[str] = confidentiality_classification_field
-    epsg_srid: int = epsg_srid_field
-    utc_offset: float = utc_offset_field
+    uri: Optional[pdt.AnyUrl] = UriField
+    schema_uri: pdt.AnyUrl = SchemaUriField
+    uuid: Optional[uuid_.UUID] = UuidField
+    title: str = TitleField
+    description: Optional[str] = DescriptionField
+    comments: Optional[str] = CommentsField
+    project_name: str = ProjectNameField
+    project_country: Alpha2CountryCode = ProjectCountryField
+    document_id: Optional[str] = DocumentIdField
+    document_version: Optional[str] = DocumentVersionField
+    issue_date: dt.date = IssueDateField
+    contributors: list[ReportContributor] = ContributorsField
+    issuing_organisations: list[Organisation] = IssuingOrganisationsField
+    receiving_organisations: Optional[list[Organisation]] = ReceivingOrganisationsField
+    contract_reference: Optional[str] = ContractReferenceField
+    confidentiality_classification: Optional[str] = ConfidentialityClassificationField
+    epsg_srid: EpsgSrid = EpsgSridField
+    utc_offset: float = UtcOffsetField

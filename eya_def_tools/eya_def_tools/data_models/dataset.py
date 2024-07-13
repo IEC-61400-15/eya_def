@@ -6,8 +6,9 @@ contexts.
 
 """
 
+import datetime
 from enum import StrEnum, auto
-from typing import Annotated, Optional, TypeAlias
+from typing import Annotated, Literal, Optional, TypeAlias
 
 import pydantic as pdt
 
@@ -15,16 +16,19 @@ from eya_def_tools.data_models.base_model import EyaDefBaseModel
 from eya_def_tools.data_models.general import NonEmptyStr
 
 DatasetValue: TypeAlias = float
+
 DatasetValueCoordinates: TypeAlias = list[int | float | NonEmptyStr]
+
 DatasetValuesWithCoordinates = Annotated[
     list[tuple[DatasetValueCoordinates, DatasetValue]],
     pdt.Field(min_length=1),
 ]
 
 
-class BasicStatisticType(StrEnum):
-    """Statistic type that can be specified by a single label."""
+class StatisticType(StrEnum):
+    """Type of statistic using standardised label."""
 
+    # Simple statistic types with no further required parameters
     SUM = auto()
     MEAN = auto()
     MEDIAN = auto()
@@ -34,11 +38,87 @@ class BasicStatisticType(StrEnum):
     INTER_ANNUAL_VARIABILITY = auto()
     SAMPLE_COUNT = auto()
 
+    # Statistic types that require further parameters
+    EXCEEDANCE_LEVEL = auto()
 
-class ExceedanceLevelStatisticType(EyaDefBaseModel):
-    """Probability of exceedance level statistic type."""
 
-    exceedance_level: float = pdt.Field(
+SimpleStatisticType: TypeAlias = Literal[
+    StatisticType.SUM,
+    StatisticType.MEAN,
+    StatisticType.MEDIAN,
+    StatisticType.STANDARD_DEVIATION,
+    StatisticType.MINIMUM,
+    StatisticType.MAXIMUM,
+    StatisticType.INTER_ANNUAL_VARIABILITY,
+    StatisticType.SAMPLE_COUNT,
+]
+
+
+TimeFrameStartDateField: Optional[datetime.date] = pdt.Field(
+    default=None,
+    description=(
+        "Optional specification of the start date of the time frame "
+        "(period) to which the statistic applies. When not specified, "
+        "it shall be assumed that the time frame start date is the "
+        "start of the full period of the relevant context (e.g. the "
+        "full assessment period). The time frame can for example be "
+        "used to specify that a certain uncertainty standard deviation "
+        "value applies from the second through the tenth year of wind "
+        "farm operation."
+    ),
+)
+
+TimeFrameEndDateField: Optional[datetime.date] = pdt.Field(
+    default=None,
+    description=(
+        "Optional specification of the end date of the time frame "
+        "(period) to which the statistic applies. When not specified, "
+        "it shall be assumed that the time frame end date is the "
+        "end of the full period of the relevant context (e.g. the "
+        "full assessment period)."
+    ),
+)
+
+ReturnPeriodField: Optional[pdt.PositiveFloat] = pdt.Field(
+    default=None,
+    description=(
+        "Optional specification of the return period in years, to be "
+        "included when relevant to the statistic in question. It may "
+        "for example specify a 1-year or 10-year return period for a "
+        "the standard deviation of an uncertainty distribution or "
+        "certain probability of exceedance level."
+    ),
+    examples=[1.0, 10.0],
+)
+
+
+class SimpleStatistic(EyaDefBaseModel):
+    """Specification of a statistic that only requires type definition."""
+
+    statistic_type: SimpleStatisticType = pdt.Field(
+        default=...,
+        description=(
+            "Specification of the type of statistic, using the "
+            "standardised naming conventions."
+        ),
+    )
+    time_frame_start_date: Optional[datetime.date] = TimeFrameStartDateField
+    time_frame_end_date: Optional[datetime.date] = TimeFrameEndDateField
+    return_period: Optional[pdt.PositiveFloat] = ReturnPeriodField
+
+
+class ExceedanceLevelStatistic(EyaDefBaseModel):
+    """Specification of a probability of exceedance level statistic."""
+
+    statistic_type: Literal[StatisticType.EXCEEDANCE_LEVEL] = pdt.Field(
+        default=StatisticType.EXCEEDANCE_LEVEL,
+        description=(
+            "Specification of the type of statistic, using the "
+            "standardised naming conventions. For an exceedance level "
+            "statistic, the type must always be 'exceedance_level'."
+        ),
+    )
+    probability: float = pdt.Field(
         default=...,
         ge=0.0,
         le=1.0,
@@ -49,10 +129,16 @@ class ExceedanceLevelStatisticType(EyaDefBaseModel):
         ),
         examples=[0.25, 0.75, 0.9, 0.99],
     )
+    time_frame_start_date: Optional[datetime.date] = TimeFrameStartDateField
+    time_frame_end_date: Optional[datetime.date] = TimeFrameEndDateField
+    return_period: Optional[pdt.PositiveFloat] = ReturnPeriodField
 
     @property
     def p_value_str(self) -> str:
-        return f"P{self.exceedance_level * 100.0:.1f}"
+        return f"P{self.probability * 100.0:.1f}"
+
+
+AnyStatisticType: TypeAlias = SimpleStatistic | ExceedanceLevelStatistic
 
 
 class DatasetStatistic(EyaDefBaseModel):
@@ -74,14 +160,12 @@ class DatasetStatistic(EyaDefBaseModel):
             "not be empty if the field is included."
         ),
     )
-    statistic_type: BasicStatisticType | ExceedanceLevelStatisticType = pdt.Field(
+    statistic: AnyStatisticType = pdt.Field(
         default=...,
+        discriminator="statistic_type",
         description=(
-            "Type of statistic that the component of the dataset "
-            "contains. All values must correspond to this statistic. "
-            "It can be either the string identifier of a basic "
-            "statistic type (e.g. 'mean') or a specification of a "
-            "probability of exceedance level."
+            "Specification of the statistic that the element of the "
+            "dataset corresponds to."
         ),
     )
     values: float | DatasetValuesWithCoordinates = pdt.Field(
@@ -96,15 +180,6 @@ class DatasetStatistic(EyaDefBaseModel):
             "dataset."
         ),
     )
-
-
-class AssessmentPeriod(StrEnum):
-    """Period of or in time that a dataset is applicable."""
-
-    LIFETIME = auto()
-    ANY_ONE_YEAR = auto()
-    ONE_OPERATIONAL_YEAR = auto()
-    OTHER = auto()
 
 
 class DatasetDimension(StrEnum):
@@ -161,14 +236,6 @@ class Dataset(EyaDefBaseModel):
         description=(
             "Optional comments on the dataset, which should not be "
             "empty if the field is included."
-        ),
-    )
-    assessment_period: Optional[AssessmentPeriod] = pdt.Field(
-        default=None,
-        description=(
-            "Optional period of or in time that has been assessed and "
-            "for which the dataset is applicable. This field is to be "
-            "included only when relevant."
         ),
     )
     dimensions: Optional[list[DatasetDimension]] = pdt.Field(

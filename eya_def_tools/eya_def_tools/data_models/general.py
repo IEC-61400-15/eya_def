@@ -4,6 +4,7 @@
 
 from __future__ import annotations
 
+import datetime
 from enum import StrEnum, auto
 from typing import Annotated, Optional
 
@@ -14,7 +15,7 @@ from eya_def_tools.data_models.base_model import EyaDefBaseModel
 NonEmptyStr = Annotated[str, pdt.Field(min_length=1)]
 
 
-start_date_field = pdt.Field(
+StartDateField: datetime.date = pdt.Field(
     default=...,
     description=(
         "Start of the data period in the ISO 8601 standard format for a "
@@ -23,7 +24,7 @@ start_date_field = pdt.Field(
     examples=["2015-10-20"],
 )
 
-end_date_field = pdt.Field(
+EndDateField: datetime.date = pdt.Field(
     default=...,
     description=(
         "End of the data period in the ISO 8601 standard format for a "
@@ -180,6 +181,7 @@ class TimeResolution(EyaDefBaseModel):
 
     value: float = pdt.Field(
         default=...,
+        allow_inf_nan=False,
         description=(
             "The value of the time resolution in the specified unit. "
             "For example, for 10-minute resolution, the value is "

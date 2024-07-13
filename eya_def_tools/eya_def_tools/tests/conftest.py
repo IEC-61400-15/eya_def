@@ -580,28 +580,28 @@ def reference_wind_farm_dataset_a() -> reference_wind_farm.OperationalDatasetMet
                     reference_wind_farm.OperationalDataVariableType.WIND_SPEED
                 ),
                 data_level=reference_wind_farm.OperationalDataLevel.TURBINE_LEVEL,
-                statistic_types=[dataset.BasicStatisticType.MEAN],
+                statistic_types=[dataset.StatisticType.MEAN],
             ),
             reference_wind_farm.OperationalDataVariable(
                 variable_type=(
                     reference_wind_farm.OperationalDataVariableType.YAW_ANGLE
                 ),
                 data_level=reference_wind_farm.OperationalDataLevel.TURBINE_LEVEL,
-                statistic_types=[dataset.BasicStatisticType.MEAN],
+                statistic_types=[dataset.StatisticType.MEAN],
             ),
             reference_wind_farm.OperationalDataVariable(
                 variable_type=(
                     reference_wind_farm.OperationalDataVariableType.ACTIVE_POWER
                 ),
                 data_level=reference_wind_farm.OperationalDataLevel.TURBINE_LEVEL,
-                statistic_types=[dataset.BasicStatisticType.MEAN],
+                statistic_types=[dataset.StatisticType.MEAN],
             ),
             reference_wind_farm.OperationalDataVariable(
                 variable_type=(
                     reference_wind_farm.OperationalDataVariableType.ROTOR_SPEED
                 ),
                 data_level=reference_wind_farm.OperationalDataLevel.TURBINE_LEVEL,
-                statistic_types=[dataset.BasicStatisticType.MEAN],
+                statistic_types=[dataset.StatisticType.MEAN],
             ),
             reference_wind_farm.OperationalDataVariable(
                 variable_type=(
@@ -609,7 +609,7 @@ def reference_wind_farm_dataset_a() -> reference_wind_farm.OperationalDatasetMet
                 ),
                 comments="The sensor is mounted outside, below the nacelle.",
                 data_level=reference_wind_farm.OperationalDataLevel.TURBINE_LEVEL,
-                statistic_types=[dataset.BasicStatisticType.MEAN],
+                statistic_types=[dataset.StatisticType.MEAN],
             ),
         ],
     )
@@ -661,7 +661,9 @@ def wind_resource_assessment_a() -> wind_resource.WindResourceAssessment:
                     ],
                     statistics=[
                         dataset.DatasetStatistic(
-                            statistic_type=dataset.BasicStatisticType.MEAN,
+                            statistic=dataset.SimpleStatistic(
+                                statistic_type=dataset.StatisticType.MEAN,
+                            ),
                             values=[
                                 (["BF_M1", "Spd_80.1_315", 2021, 1], 0.877),
                                 (["BF_M1", "Spd_80.1_315", 2021, 2], 0.992),
@@ -682,7 +684,9 @@ def wind_resource_assessment_a() -> wind_resource.WindResourceAssessment:
                     ],
                     statistics=[
                         dataset.DatasetStatistic(
-                            statistic_type=dataset.BasicStatisticType.MEAN,
+                            statistic=dataset.SimpleStatistic(
+                                statistic_type=dataset.StatisticType.MEAN,
+                            ),
                             values=[
                                 (
                                     [
@@ -721,7 +725,9 @@ def wind_resource_assessment_a() -> wind_resource.WindResourceAssessment:
                     ],
                     statistics=[
                         dataset.DatasetStatistic(
-                            statistic_type=dataset.BasicStatisticType.MEAN,
+                            statistic=dataset.SimpleStatistic(
+                                statistic_type=dataset.StatisticType.MEAN,
+                            ),
                             values=[
                                 (
                                     ["BF_M1", 120.0],
@@ -750,8 +756,8 @@ def wind_resource_assessment_a() -> wind_resource.WindResourceAssessment:
                             ],
                         ),
                         dataset.DatasetStatistic(
-                            statistic_type=(
-                                dataset.BasicStatisticType.STANDARD_DEVIATION
+                            statistic=dataset.SimpleStatistic(
+                                statistic_type=dataset.StatisticType.STANDARD_DEVIATION,
                             ),
                             values=[
                                 (
@@ -793,7 +799,9 @@ def wind_resource_assessment_a() -> wind_resource.WindResourceAssessment:
                     ],
                     statistics=[
                         dataset.DatasetStatistic(
-                            statistic_type=dataset.BasicStatisticType.MEAN,
+                            statistic=dataset.SimpleStatistic(
+                                statistic_type=dataset.StatisticType.MEAN,
+                            ),
                             values=[
                                 (
                                     ["BF_M1", 120.0, 0.0, 2.5],
@@ -829,7 +837,9 @@ def wind_resource_assessment_a() -> wind_resource.WindResourceAssessment:
                     dimensions=[dataset.DatasetDimension.WIND_DATASET_ID],
                     statistics=[
                         dataset.DatasetStatistic(
-                            statistic_type=dataset.BasicStatisticType.MEAN,
+                            statistic=dataset.SimpleStatistic(
+                                statistic_type=dataset.StatisticType.MEAN,
+                            ),
                             values=[
                                 (
                                     ["BF_M1"],
@@ -848,7 +858,9 @@ def wind_resource_assessment_a() -> wind_resource.WindResourceAssessment:
                     ],
                     statistics=[
                         dataset.DatasetStatistic(
-                            statistic_type=dataset.BasicStatisticType.MEAN,
+                            statistic=dataset.SimpleStatistic(
+                                statistic_type=dataset.StatisticType.MEAN,
+                            ),
                             values=[
                                 (
                                     ["BF_M1", 120.0],
@@ -867,7 +879,9 @@ def wind_resource_assessment_a() -> wind_resource.WindResourceAssessment:
                     ],
                     statistics=[
                         dataset.DatasetStatistic(
-                            statistic_type=dataset.BasicStatisticType.MEAN,
+                            statistic=dataset.SimpleStatistic(
+                                statistic_type=dataset.StatisticType.MEAN,
+                            ),
                             values=[
                                 (
                                     ["BF_M1", 120.0],
@@ -890,11 +904,12 @@ def turbine_wind_resource_assessment_a() -> wind_resource.TurbineWindResourceAss
         results=wind_resource.TurbineWindResourceResults(
             wind_speed=[
                 dataset.Dataset(
-                    assessment_period=dataset.AssessmentPeriod.LIFETIME,
                     dimensions=[dataset.DatasetDimension.TURBINE_ID],
                     statistics=[
                         dataset.DatasetStatistic(
-                            statistic_type=dataset.BasicStatisticType.MEAN,
+                            statistic=dataset.SimpleStatistic(
+                                statistic_type=dataset.StatisticType.MEAN,
+                            ),
                             values=[
                                 (
                                     ["WTG01"],
@@ -919,7 +934,9 @@ def turbine_wind_resource_assessment_a() -> wind_resource.TurbineWindResourceAss
                     ],
                     statistics=[
                         dataset.DatasetStatistic(
-                            statistic_type=dataset.BasicStatisticType.MEAN,
+                            statistic=dataset.SimpleStatistic(
+                                statistic_type=dataset.StatisticType.MEAN,
+                            ),
                             values=[
                                 (
                                     ["WTG01", "BF_M1"],
@@ -946,11 +963,12 @@ def turbine_wind_resource_assessment_b() -> wind_resource.TurbineWindResourceAss
         results=wind_resource.TurbineWindResourceResults(
             wind_speed=[
                 dataset.Dataset(
-                    assessment_period=dataset.AssessmentPeriod.LIFETIME,
                     dimensions=[dataset.DatasetDimension.TURBINE_ID],
                     statistics=[
                         dataset.DatasetStatistic(
-                            statistic_type=dataset.BasicStatisticType.MEAN,
+                            statistic=dataset.SimpleStatistic(
+                                statistic_type=dataset.StatisticType.MEAN,
+                            ),
                             values=[
                                 (
                                     ["WTG01"],
@@ -977,24 +995,22 @@ def long_term_adj_uncertainty_subcat_a() -> wind_uncertainty.WindUncertaintySubc
         results=wind_uncertainty.WindUncertaintyResults(
             relative_wind_speed_uncertainty=[
                 dataset.Dataset(
-                    assessment_period=dataset.AssessmentPeriod.LIFETIME,
                     dimensions=None,
                     statistics=[
                         dataset.DatasetStatistic(
-                            statistic_type=(
-                                dataset.BasicStatisticType.STANDARD_DEVIATION
+                            statistic=dataset.SimpleStatistic(
+                                statistic_type=dataset.StatisticType.STANDARD_DEVIATION,
                             ),
                             values=0.025,
                         )
                     ],
                 ),
                 dataset.Dataset(
-                    assessment_period=dataset.AssessmentPeriod.LIFETIME,
                     dimensions=[dataset.DatasetDimension.WIND_DATASET_ID],
                     statistics=[
                         dataset.DatasetStatistic(
-                            statistic_type=(
-                                dataset.BasicStatisticType.STANDARD_DEVIATION
+                            statistic=dataset.SimpleStatistic(
+                                statistic_type=dataset.StatisticType.STANDARD_DEVIATION,
                             ),
                             values=[
                                 (
@@ -1022,24 +1038,22 @@ def lt_consistency_uncertainty_subcat_a() -> (
         results=wind_uncertainty.WindUncertaintyResults(
             relative_wind_speed_uncertainty=[
                 dataset.Dataset(
-                    assessment_period=dataset.AssessmentPeriod.LIFETIME,
                     dimensions=None,
                     statistics=[
                         dataset.DatasetStatistic(
-                            statistic_type=(
-                                dataset.BasicStatisticType.STANDARD_DEVIATION
+                            statistic=dataset.SimpleStatistic(
+                                statistic_type=dataset.StatisticType.STANDARD_DEVIATION,
                             ),
                             values=0.02,
                         )
                     ],
                 ),
                 dataset.Dataset(
-                    assessment_period=dataset.AssessmentPeriod.LIFETIME,
                     dimensions=[dataset.DatasetDimension.WIND_DATASET_ID],
                     statistics=[
                         dataset.DatasetStatistic(
-                            statistic_type=(
-                                dataset.BasicStatisticType.STANDARD_DEVIATION
+                            statistic=dataset.SimpleStatistic(
+                                statistic_type=dataset.StatisticType.STANDARD_DEVIATION,
                             ),
                             values=[
                                 (
@@ -1070,24 +1084,22 @@ def historical_wind_uncertainty_category_a(
         results=wind_uncertainty.WindUncertaintyResults(
             relative_wind_speed_uncertainty=[
                 dataset.Dataset(
-                    assessment_period=dataset.AssessmentPeriod.LIFETIME,
                     dimensions=None,
                     statistics=[
                         dataset.DatasetStatistic(
-                            statistic_type=(
-                                dataset.BasicStatisticType.STANDARD_DEVIATION
+                            statistic=dataset.SimpleStatistic(
+                                statistic_type=dataset.StatisticType.STANDARD_DEVIATION,
                             ),
                             values=0.03201,
                         ),
                     ],
                 ),
                 dataset.Dataset(
-                    assessment_period=dataset.AssessmentPeriod.LIFETIME,
                     dimensions=[dataset.DatasetDimension.WIND_DATASET_ID],
                     statistics=[
                         dataset.DatasetStatistic(
-                            statistic_type=(
-                                dataset.BasicStatisticType.STANDARD_DEVIATION
+                            statistic=dataset.SimpleStatistic(
+                                statistic_type=dataset.StatisticType.STANDARD_DEVIATION,
                             ),
                             values=[
                                 (
@@ -1112,11 +1124,12 @@ def wind_uncertainty_assessment_a(
         results=wind_uncertainty.WindUncertaintyResults(
             relative_wind_speed_uncertainty=[
                 dataset.Dataset(
-                    assessment_period=dataset.AssessmentPeriod.LIFETIME,
                     dimensions=None,
                     statistics=[
                         dataset.DatasetStatistic(
-                            statistic_type=dataset.BasicStatisticType.MEAN,
+                            statistic=dataset.SimpleStatistic(
+                                statistic_type=dataset.StatisticType.MEAN,
+                            ),
                             values=0.48,
                         )
                     ],
@@ -1124,11 +1137,12 @@ def wind_uncertainty_assessment_a(
             ],
             relative_energy_uncertainty=[
                 dataset.Dataset(
-                    assessment_period=dataset.AssessmentPeriod.LIFETIME,
                     dimensions=None,
                     statistics=[
                         dataset.DatasetStatistic(
-                            statistic_type=dataset.BasicStatisticType.MEAN,
+                            statistic=dataset.SimpleStatistic(
+                                statistic_type=dataset.StatisticType.MEAN,
+                            ),
                             values=0.95,
                         )
                     ],
@@ -1148,11 +1162,12 @@ def wind_uncertainty_assessment_b(
         results=wind_uncertainty.WindUncertaintyResults(
             relative_wind_speed_uncertainty=[
                 dataset.Dataset(
-                    assessment_period=dataset.AssessmentPeriod.LIFETIME,
                     dimensions=None,
                     statistics=[
                         dataset.DatasetStatistic(
-                            statistic_type=dataset.BasicStatisticType.MEAN,
+                            statistic=dataset.SimpleStatistic(
+                                statistic_type=dataset.StatisticType.MEAN,
+                            ),
                             values=0.47,
                         )
                     ],
@@ -1160,11 +1175,12 @@ def wind_uncertainty_assessment_b(
             ],
             relative_energy_uncertainty=[
                 dataset.Dataset(
-                    assessment_period=dataset.AssessmentPeriod.LIFETIME,
                     dimensions=None,
                     statistics=[
                         dataset.DatasetStatistic(
-                            statistic_type=dataset.BasicStatisticType.MEAN,
+                            statistic=dataset.SimpleStatistic(
+                                statistic_type=dataset.StatisticType.MEAN,
+                            ),
                             values=0.92,
                         )
                     ],
@@ -1182,7 +1198,9 @@ def plant_performance_curtailment_category_a() -> (
     """Curtailment test case instance 'a' of ``PlantPerformanceCategory``."""
     turbine_wise_result_components = [
         dataset.DatasetStatistic(
-            statistic_type=dataset.BasicStatisticType.MEAN,
+            statistic=dataset.SimpleStatistic(
+                statistic_type=dataset.StatisticType.MEAN,
+            ),
             values=[
                 (
                     ["WTG01"],
@@ -1195,7 +1213,9 @@ def plant_performance_curtailment_category_a() -> (
             ],
         ),
         dataset.DatasetStatistic(
-            statistic_type=dataset.BasicStatisticType.STANDARD_DEVIATION,
+            statistic=dataset.SimpleStatistic(
+                statistic_type=dataset.StatisticType.STANDARD_DEVIATION,
+            ),
             values=[
                 (
                     ["WTG01"],
@@ -1208,7 +1228,9 @@ def plant_performance_curtailment_category_a() -> (
             ],
         ),
         dataset.DatasetStatistic(
-            statistic_type=dataset.BasicStatisticType.INTER_ANNUAL_VARIABILITY,
+            statistic=dataset.SimpleStatistic(
+                statistic_type=dataset.StatisticType.INTER_ANNUAL_VARIABILITY,
+            ),
             values=[
                 (
                     ["WTG01"],
@@ -1242,7 +1264,6 @@ def plant_performance_curtailment_category_a() -> (
                                 "Considering curtailment strategy as specified by "
                                 "the turbine manufacturer."
                             ),
-                            assessment_period=dataset.AssessmentPeriod.LIFETIME,
                             dimensions=[dataset.DatasetDimension.TURBINE_ID],
                             statistics=turbine_wise_result_components,
                         )
@@ -1254,7 +1275,6 @@ def plant_performance_curtailment_category_a() -> (
             efficiency=[
                 dataset.Dataset(
                     description="Curtailment losses.",
-                    assessment_period=dataset.AssessmentPeriod.LIFETIME,
                     dimensions=[dataset.DatasetDimension.TURBINE_ID],
                     statistics=turbine_wise_result_components,
                 )
@@ -1270,7 +1290,9 @@ def plant_performance_curtailment_category_b() -> (
     """Curtailment test case instance 'b' of ``PlantPerformanceCategory``."""
     turbine_wise_result_components = [
         dataset.DatasetStatistic(
-            statistic_type=dataset.BasicStatisticType.MEAN,
+            statistic=dataset.SimpleStatistic(
+                statistic_type=dataset.StatisticType.MEAN,
+            ),
             values=[
                 (
                     ["WTG01"],
@@ -1283,7 +1305,9 @@ def plant_performance_curtailment_category_b() -> (
             ],
         ),
         dataset.DatasetStatistic(
-            statistic_type=dataset.BasicStatisticType.STANDARD_DEVIATION,
+            statistic=dataset.SimpleStatistic(
+                statistic_type=dataset.StatisticType.STANDARD_DEVIATION,
+            ),
             values=[
                 (
                     ["WTG01"],
@@ -1317,7 +1341,6 @@ def plant_performance_curtailment_category_b() -> (
                                 "the absence of details from the turbine "
                                 "manufacturer."
                             ),
-                            assessment_period=dataset.AssessmentPeriod.LIFETIME,
                             dimensions=[dataset.DatasetDimension.TURBINE_ID],
                             statistics=turbine_wise_result_components,
                         )
@@ -1329,7 +1352,6 @@ def plant_performance_curtailment_category_b() -> (
             efficiency=[
                 dataset.Dataset(
                     description="Curtailment losses.",
-                    assessment_period=dataset.AssessmentPeriod.LIFETIME,
                     dimensions=[dataset.DatasetDimension.TURBINE_ID],
                     statistics=turbine_wise_result_components,
                 )
@@ -1355,11 +1377,12 @@ def energy_assessment_a(
             results=energy_assessment.EnergyAssessmentResults(
                 annual_energy_production=[
                     dataset.Dataset(
-                        assessment_period=dataset.AssessmentPeriod.LIFETIME,
                         dimensions=[dataset.DatasetDimension.TURBINE_ID],
                         statistics=[
                             dataset.DatasetStatistic(
-                                statistic_type=dataset.BasicStatisticType.MEAN,
+                                statistic=dataset.SimpleStatistic(
+                                    statistic_type=dataset.StatisticType.MEAN,
+                                ),
                                 values=[
                                     (
                                         ["WTG01"],
@@ -1374,11 +1397,12 @@ def energy_assessment_a(
                         ],
                     ),
                     dataset.Dataset(
-                        assessment_period=dataset.AssessmentPeriod.LIFETIME,
                         dimensions=None,
                         statistics=[
                             dataset.DatasetStatistic(
-                                statistic_type=dataset.BasicStatisticType.MEAN,
+                                statistic=dataset.SimpleStatistic(
+                                    statistic_type=dataset.StatisticType.MEAN,
+                                ),
                                 values=32.2,
                             )
                         ],
@@ -1392,22 +1416,27 @@ def energy_assessment_a(
             results=plant_performance.PlantPerformanceResults(
                 efficiency=[
                     dataset.Dataset(
-                        assessment_period=dataset.AssessmentPeriod.LIFETIME,
                         dimensions=None,
                         statistics=[
                             dataset.DatasetStatistic(
-                                statistic_type=dataset.BasicStatisticType.MEAN,
+                                statistic=dataset.SimpleStatistic(
+                                    statistic_type=dataset.StatisticType.MEAN,
+                                ),
                                 values=0.879,
                             ),
                             dataset.DatasetStatistic(
-                                statistic_type=(
-                                    dataset.BasicStatisticType.STANDARD_DEVIATION
+                                statistic=dataset.SimpleStatistic(
+                                    statistic_type=(
+                                        dataset.StatisticType.STANDARD_DEVIATION
+                                    ),
                                 ),
                                 values=0.071,
                             ),
                             dataset.DatasetStatistic(
-                                statistic_type=(
-                                    dataset.BasicStatisticType.INTER_ANNUAL_VARIABILITY
+                                statistic=dataset.SimpleStatistic(
+                                    statistic_type=(
+                                        dataset.StatisticType.INTER_ANNUAL_VARIABILITY
+                                    ),
                                 ),
                                 values=0.121,
                             ),
@@ -1425,44 +1454,49 @@ def energy_assessment_a(
             results=energy_assessment.EnergyAssessmentResults(
                 annual_energy_production=[
                     dataset.Dataset(
-                        assessment_period=dataset.AssessmentPeriod.LIFETIME,
                         dimensions=None,
                         statistics=[
                             dataset.DatasetStatistic(
-                                statistic_type=dataset.BasicStatisticType.MEDIAN,
+                                statistic=dataset.SimpleStatistic(
+                                    statistic_type=dataset.StatisticType.MEDIAN,
+                                ),
                                 values=31.5286,
                             ),
                             dataset.DatasetStatistic(
-                                statistic_type=(
-                                    dataset.BasicStatisticType.STANDARD_DEVIATION
+                                statistic=dataset.SimpleStatistic(
+                                    statistic_type=(
+                                        dataset.StatisticType.STANDARD_DEVIATION
+                                    ),
+                                    return_period=10.0,
                                 ),
                                 values=3.4681,
                             ),
                             dataset.DatasetStatistic(
-                                statistic_type=dataset.ExceedanceLevelStatisticType(
-                                    exceedance_level=0.9
-                                ),
-                                values=27.0894,
-                            ),
-                        ],
-                    ),
-                    dataset.Dataset(
-                        assessment_period=dataset.AssessmentPeriod.ANY_ONE_YEAR,
-                        dimensions=None,
-                        statistics=[
-                            dataset.DatasetStatistic(
-                                statistic_type=dataset.BasicStatisticType.MEDIAN,
-                                values=31.5286,
-                            ),
-                            dataset.DatasetStatistic(
-                                statistic_type=(
-                                    dataset.BasicStatisticType.STANDARD_DEVIATION
+                                statistic=dataset.SimpleStatistic(
+                                    statistic_type=(
+                                        dataset.StatisticType.STANDARD_DEVIATION
+                                    ),
+                                    return_period=1.0,
                                 ),
                                 values=4.7293,
                             ),
                             dataset.DatasetStatistic(
-                                statistic_type=dataset.ExceedanceLevelStatisticType(
-                                    exceedance_level=0.9
+                                statistic=dataset.ExceedanceLevelStatistic(
+                                    statistic_type=(
+                                        dataset.StatisticType.EXCEEDANCE_LEVEL
+                                    ),
+                                    probability=0.9,
+                                    return_period=10.0,
+                                ),
+                                values=27.0894,
+                            ),
+                            dataset.DatasetStatistic(
+                                statistic=dataset.ExceedanceLevelStatistic(
+                                    statistic_type=(
+                                        dataset.StatisticType.EXCEEDANCE_LEVEL
+                                    ),
+                                    probability=0.9,
+                                    return_period=1.0,
                                 ),
                                 values=25.4751,
                             ),
@@ -1487,11 +1521,12 @@ def energy_assessment_b(
             results=energy_assessment.EnergyAssessmentResults(
                 annual_energy_production=[
                     dataset.Dataset(
-                        assessment_period=dataset.AssessmentPeriod.LIFETIME,
                         dimensions=[dataset.DatasetDimension.TURBINE_ID],
                         statistics=[
                             dataset.DatasetStatistic(
-                                statistic_type=dataset.BasicStatisticType.MEAN,
+                                statistic=dataset.SimpleStatistic(
+                                    statistic_type=dataset.StatisticType.MEAN,
+                                ),
                                 values=[
                                     (
                                         ["WTG01"],
@@ -1506,11 +1541,12 @@ def energy_assessment_b(
                         ],
                     ),
                     dataset.Dataset(
-                        assessment_period=dataset.AssessmentPeriod.LIFETIME,
                         dimensions=None,
                         statistics=[
                             dataset.DatasetStatistic(
-                                statistic_type=dataset.BasicStatisticType.MEAN,
+                                statistic=dataset.SimpleStatistic(
+                                    statistic_type=dataset.StatisticType.MEAN,
+                                ),
                                 values=37.0,
                             )
                         ],
@@ -1524,22 +1560,27 @@ def energy_assessment_b(
             results=plant_performance.PlantPerformanceResults(
                 efficiency=[
                     dataset.Dataset(
-                        assessment_period=dataset.AssessmentPeriod.LIFETIME,
                         dimensions=None,
                         statistics=[
                             dataset.DatasetStatistic(
-                                statistic_type=dataset.BasicStatisticType.MEAN,
+                                statistic=dataset.SimpleStatistic(
+                                    statistic_type=dataset.StatisticType.MEAN,
+                                ),
                                 values=0.897,
                             ),
                             dataset.DatasetStatistic(
-                                statistic_type=(
-                                    dataset.BasicStatisticType.STANDARD_DEVIATION
+                                statistic=dataset.SimpleStatistic(
+                                    statistic_type=(
+                                        dataset.StatisticType.STANDARD_DEVIATION
+                                    ),
                                 ),
                                 values=0.07,
                             ),
                             dataset.DatasetStatistic(
-                                statistic_type=(
-                                    dataset.BasicStatisticType.INTER_ANNUAL_VARIABILITY
+                                statistic=dataset.SimpleStatistic(
+                                    statistic_type=(
+                                        dataset.StatisticType.INTER_ANNUAL_VARIABILITY
+                                    ),
                                 ),
                                 values=0.12,
                             ),
@@ -1552,44 +1593,49 @@ def energy_assessment_b(
             results=energy_assessment.EnergyAssessmentResults(
                 annual_energy_production=[
                     dataset.Dataset(
-                        assessment_period=dataset.AssessmentPeriod.LIFETIME,
                         dimensions=None,
                         statistics=[
                             dataset.DatasetStatistic(
-                                statistic_type=dataset.BasicStatisticType.MEDIAN,
+                                statistic=dataset.SimpleStatistic(
+                                    statistic_type=dataset.StatisticType.MEDIAN,
+                                ),
                                 values=35.15,
                             ),
                             dataset.DatasetStatistic(
-                                statistic_type=(
-                                    dataset.BasicStatisticType.STANDARD_DEVIATION
+                                statistic=dataset.SimpleStatistic(
+                                    statistic_type=(
+                                        dataset.StatisticType.STANDARD_DEVIATION
+                                    ),
+                                    return_period=10.0,
                                 ),
                                 values=4.5695,
                             ),
                             dataset.DatasetStatistic(
-                                statistic_type=dataset.ExceedanceLevelStatisticType(
-                                    exceedance_level=0.9
-                                ),
-                                values=29.301,
-                            ),
-                        ],
-                    ),
-                    dataset.Dataset(
-                        assessment_period=dataset.AssessmentPeriod.ANY_ONE_YEAR,
-                        dimensions=None,
-                        statistics=[
-                            dataset.DatasetStatistic(
-                                statistic_type=dataset.BasicStatisticType.MEDIAN,
-                                values=35.15,
-                            ),
-                            dataset.DatasetStatistic(
-                                statistic_type=(
-                                    dataset.BasicStatisticType.STANDARD_DEVIATION
+                                statistic=dataset.SimpleStatistic(
+                                    statistic_type=(
+                                        dataset.StatisticType.STANDARD_DEVIATION
+                                    ),
+                                    return_period=1.0,
                                 ),
                                 values=5.7998,
                             ),
                             dataset.DatasetStatistic(
-                                statistic_type=dataset.ExceedanceLevelStatisticType(
-                                    exceedance_level=0.9
+                                statistic=dataset.ExceedanceLevelStatistic(
+                                    statistic_type=(
+                                        dataset.StatisticType.EXCEEDANCE_LEVEL
+                                    ),
+                                    probability=0.9,
+                                    return_period=10.0,
+                                ),
+                                values=29.301,
+                            ),
+                            dataset.DatasetStatistic(
+                                statistic=dataset.ExceedanceLevelStatistic(
+                                    statistic_type=(
+                                        dataset.StatisticType.EXCEEDANCE_LEVEL
+                                    ),
+                                    probability=0.9,
+                                    return_period=1.0,
                                 ),
                                 values=27.7263,
                             ),

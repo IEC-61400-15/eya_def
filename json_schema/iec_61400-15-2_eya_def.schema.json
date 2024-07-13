@@ -14,45 +14,10 @@
       "title": "AssessmentBasis",
       "type": "string"
     },
-    "BasicStatisticType": {
-      "description": "Statistic type that can be specified by a single label.",
-      "enum": [
-        "sum",
-        "mean",
-        "median",
-        "standard_deviation",
-        "minimum",
-        "maximum",
-        "inter_annual_variability",
-        "sample_count"
-      ],
-      "title": "BasicStatisticType",
-      "type": "string"
-    },
     "Dataset": {
       "additionalProperties": false,
       "description": "Collection of labelled data for one specific quantity. The data is labelled by specifying dimensions and including coordinates along the dimensions for each data value.",
       "properties": {
-        "assessment_period": {
-          "anyOf": [
-            {
-              "description": "Period of or in time that a dataset is applicable.",
-              "enum": [
-                "lifetime",
-                "any_one_year",
-                "one_operational_year",
-                "other"
-              ],
-              "title": "Assessment Period",
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "description": "Optional period of or in time that has been assessed and for which the dataset is applicable. This field is to be included only when relevant."
-        },
         "comments": {
           "anyOf": [
             {
@@ -177,38 +142,31 @@
                 "description": "Optional description of the dataset statistic, which should not be empty if the field is included.",
                 "title": "Description"
               },
-              "statistic_type": {
-                "anyOf": [
+              "statistic": {
+                "description": "Specification of the statistic that the element of the dataset corresponds to.",
+                "discriminator": {
+                  "mapping": {
+                    "exceedance_level": "#/$defs/ExceedanceLevelStatistic",
+                    "inter_annual_variability": "#/$defs/SimpleStatistic",
+                    "maximum": "#/$defs/SimpleStatistic",
+                    "mean": "#/$defs/SimpleStatistic",
+                    "median": "#/$defs/SimpleStatistic",
+                    "minimum": "#/$defs/SimpleStatistic",
+                    "sample_count": "#/$defs/SimpleStatistic",
+                    "standard_deviation": "#/$defs/SimpleStatistic",
+                    "sum": "#/$defs/SimpleStatistic"
+                  },
+                  "propertyName": "statistic_type"
+                },
+                "oneOf": [
                   {
-                    "$ref": "#/$defs/BasicStatisticType"
+                    "$ref": "#/$defs/SimpleStatistic"
                   },
                   {
-                    "additionalProperties": false,
-                    "description": "Probability of exceedance level statistic type.",
-                    "properties": {
-                      "exceedance_level": {
-                        "description": "The dimensionless probability of exceedance level (i.e. probability value between 0.0 and 1.0) of the statistic.",
-                        "examples": [
-                          0.25,
-                          0.75,
-                          0.9,
-                          0.99
-                        ],
-                        "maximum": 1.0,
-                        "minimum": 0.0,
-                        "title": "Exceedance Level",
-                        "type": "number"
-                      }
-                    },
-                    "required": [
-                      "exceedance_level"
-                    ],
-                    "title": "Exceedance Level Statistic Type",
-                    "type": "object"
+                    "$ref": "#/$defs/ExceedanceLevelStatistic"
                   }
                 ],
-                "description": "Type of statistic that the component of the dataset contains. All values must correspond to this statistic. It can be either the string identifier of a basic statistic type (e.g. 'mean') or a specification of a probability of exceedance level.",
-                "title": "Statistic Type"
+                "title": "Statistic"
               },
               "values": {
                 "anyOf": [
@@ -252,7 +210,7 @@
               }
             },
             "required": [
-              "statistic_type",
+              "statistic",
               "values"
             ],
             "title": "Dataset Statistic",
@@ -332,6 +290,86 @@
         "annual_energy_production"
       ],
       "title": "EnergyAssessmentResults",
+      "type": "object"
+    },
+    "ExceedanceLevelStatistic": {
+      "additionalProperties": false,
+      "description": "Specification of a probability of exceedance level statistic.",
+      "properties": {
+        "probability": {
+          "description": "The dimensionless probability of exceedance level (i.e. probability value between 0.0 and 1.0) of the statistic.",
+          "examples": [
+            0.25,
+            0.75,
+            0.9,
+            0.99
+          ],
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Probability",
+          "type": "number"
+        },
+        "return_period": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional specification of the return period in years, to be included when relevant to the statistic in question. It may for example specify a 1-year or 10-year return period for a the standard deviation of an uncertainty distribution or certain probability of exceedance level.",
+          "examples": [
+            1.0,
+            10.0
+          ],
+          "title": "Return Period"
+        },
+        "statistic_type": {
+          "const": "exceedance_level",
+          "default": "exceedance_level",
+          "description": "Specification of the type of statistic, using the standardised naming conventions. For an exceedance level statistic, the type must always be 'exceedance_level'.",
+          "enum": [
+            "exceedance_level"
+          ],
+          "title": "Statistic Type",
+          "type": "string"
+        },
+        "time_frame_end_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional specification of the end date of the time frame (period) to which the statistic applies. When not specified, it shall be assumed that the time frame end date is the end of the full period of the relevant context (e.g. the full assessment period).",
+          "title": "Time Frame End Date"
+        },
+        "time_frame_start_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional specification of the start date of the time frame (period) to which the statistic applies. When not specified, it shall be assumed that the time frame start date is the start of the full period of the relevant context (e.g. the full assessment period). The time frame can for example be used to specify that a certain uncertainty standard deviation value applies from the second through the tenth year of wind farm operation.",
+          "title": "Time Frame Start Date"
+        }
+      },
+      "required": [
+        "probability"
+      ],
+      "title": "ExceedanceLevelStatistic",
       "type": "object"
     },
     "OperationalRestriction": {
@@ -504,6 +542,78 @@
         "efficiency"
       ],
       "title": "PlantPerformanceResults",
+      "type": "object"
+    },
+    "SimpleStatistic": {
+      "additionalProperties": false,
+      "description": "Specification of a statistic that only requires type definition.",
+      "properties": {
+        "return_period": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional specification of the return period in years, to be included when relevant to the statistic in question. It may for example specify a 1-year or 10-year return period for a the standard deviation of an uncertainty distribution or certain probability of exceedance level.",
+          "examples": [
+            1.0,
+            10.0
+          ],
+          "title": "Return Period"
+        },
+        "statistic_type": {
+          "description": "Specification of the type of statistic, using the standardised naming conventions.",
+          "enum": [
+            "sum",
+            "mean",
+            "median",
+            "standard_deviation",
+            "minimum",
+            "maximum",
+            "inter_annual_variability",
+            "sample_count"
+          ],
+          "title": "Statistic Type",
+          "type": "string"
+        },
+        "time_frame_end_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional specification of the end date of the time frame (period) to which the statistic applies. When not specified, it shall be assumed that the time frame end date is the end of the full period of the relevant context (e.g. the full assessment period).",
+          "title": "Time Frame End Date"
+        },
+        "time_frame_start_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional specification of the start date of the time frame (period) to which the statistic applies. When not specified, it shall be assumed that the time frame start date is the start of the full period of the relevant context (e.g. the full assessment period). The time frame can for example be used to specify that a certain uncertainty standard deviation value applies from the second through the tenth year of wind farm operation.",
+          "title": "Time Frame Start Date"
+        }
+      },
+      "required": [
+        "statistic_type"
+      ],
+      "title": "SimpleStatistic",
       "type": "object"
     },
     "SingleSourceDatasetClassification": {
@@ -1359,7 +1469,20 @@
                             "anyOf": [
                               {
                                 "items": {
-                                  "$ref": "#/$defs/BasicStatisticType"
+                                  "description": "Type of statistic using standardised label.",
+                                  "enum": [
+                                    "sum",
+                                    "mean",
+                                    "median",
+                                    "standard_deviation",
+                                    "minimum",
+                                    "maximum",
+                                    "inter_annual_variability",
+                                    "sample_count",
+                                    "exceedance_level"
+                                  ],
+                                  "title": "Statistic Type",
+                                  "type": "string"
                                 },
                                 "minItems": 1,
                                 "type": "array"
@@ -2215,6 +2338,7 @@
                       1.6,
                       2.1
                     ],
+                    "exclusiveMinimum": 0.0,
                     "title": "Wind Speed To Energy Sensitivity Factor",
                     "type": "number"
                   }
@@ -2645,6 +2769,7 @@
           "export_capacity": {
             "anyOf": [
               {
+                "exclusiveMinimum": 0.0,
                 "type": "number"
               },
               {
@@ -2674,6 +2799,7 @@
               12.3,
               2345.67
             ],
+            "exclusiveMinimum": 0.0,
             "title": "Installed Capacity",
             "type": "number"
           },

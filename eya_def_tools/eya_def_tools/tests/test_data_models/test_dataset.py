@@ -2,11 +2,9 @@
 
 """
 
-from eya_def_tools.data_models.dataset import ExceedanceLevelStatisticType
+from eya_def_tools.data_models.dataset import ExceedanceLevelStatistic
 
 
 def test_exceedance_level_statistic_type_p_value() -> None:
-    exceedance_level_statistic_type = ExceedanceLevelStatisticType(
-        exceedance_level=0.999
-    )
+    exceedance_level_statistic_type = ExceedanceLevelStatistic(probability=0.999)
     assert exceedance_level_statistic_type.p_value_str == "P99.9"

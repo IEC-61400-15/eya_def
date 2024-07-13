@@ -6,7 +6,7 @@ requires = [
 
 [project]
 name = "eya_def_tools"
-version = "0.0.1a7"
+version = "0.0.1a8"
 authors = [
   {name="Christian Jonsson", email="christianj@kudosoftware.com"},
   {name="Stephen Holleran", email="stephen@brightwindanalysis.com"},

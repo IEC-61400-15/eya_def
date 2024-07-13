@@ -279,7 +279,7 @@ class WindUncertaintyAssessment(EyaDefBaseModel):
         default=...,
         description="Overall wind related uncertainty assessment results.",
     )
-    wind_speed_to_energy_sensitivity_factor: float = pdt.Field(
+    wind_speed_to_energy_sensitivity_factor: pdt.PositiveFloat = pdt.Field(
         default=...,
         description=(
             "The dimensionless relative wind-speed-to-energy "
