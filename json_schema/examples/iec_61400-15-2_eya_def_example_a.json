@@ -2304,6 +2304,30 @@
                   }
                 ]
               }
+            ],
+            "energy_production": [
+              {
+                "dimensions": [
+                  "year",
+                  "month"
+                ],
+                "statistics": [
+                  {
+                    "statistic": {
+                      "statistic_type": "mean"
+                    },
+                    "values": [
+                      [
+                        [
+                          2030,
+                          1
+                        ],
+                        12.1
+                      ]
+                    ]
+                  }
+                ]
+              }
             ]
           }
         },
@@ -2792,6 +2816,30 @@
                       "statistic_type": "exceedance_level"
                     },
                     "values": 27.7263
+                  }
+                ]
+              }
+            ],
+            "energy_production": [
+              {
+                "dimensions": [
+                  "year",
+                  "month"
+                ],
+                "statistics": [
+                  {
+                    "statistic": {
+                      "statistic_type": "mean"
+                    },
+                    "values": [
+                      [
+                        [
+                          2030,
+                          1
+                        ],
+                        12.0
+                      ]
+                    ]
                   }
                 ]
               }

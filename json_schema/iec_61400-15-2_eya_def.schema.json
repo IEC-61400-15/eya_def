@@ -255,43 +255,6 @@
       "title": "DerivedDatasetClassification",
       "type": "object"
     },
-    "EnergyAssessmentResults": {
-      "additionalProperties": false,
-      "description": "Energy assessment results.",
-      "properties": {
-        "annual_energy_production": {
-          "description": "Annual energy production (AEP) estimates at the turbine location(s) in gigawatt hour per annum (GW h year-1). The dimension of the first standard result dataset should be 'wind_farm_id'. The dimension of the second standard result dataset should be 'turbine_id'. Further results with other dimensions may be included optionally.",
-          "items": {
-            "$ref": "#/$defs/Dataset"
-          },
-          "minItems": 1,
-          "title": "Annual Energy Production",
-          "type": "array"
-        },
-        "energy_production": {
-          "anyOf": [
-            {
-              "items": {
-                "$ref": "#/$defs/Dataset"
-              },
-              "minItems": 1,
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "description": "Energy production estimates at the turbine location(s) over a specific period of time in gigawatt hour (GW h). This field should be used for energy production estimates that are not annualised. For all annual energy production (AEP) estimate, the field 'annual_energy_production' should be used.",
-          "title": "Energy Production"
-        }
-      },
-      "required": [
-        "annual_energy_production"
-      ],
-      "title": "EnergyAssessmentResults",
-      "type": "object"
-    },
     "ExceedanceLevelStatistic": {
       "additionalProperties": false,
       "description": "Specification of a probability of exceedance level statistic.",
@@ -529,7 +492,7 @@
       "description": "Plant performance loss assessment results.",
       "properties": {
         "efficiency": {
-          "description": "Dimensionless plant performance efficiency (loss factor) results. The first standard dataset should have no binning dimension (i.e. correspond to the overall value for the wind farm under assessment). Datasets with results binned by turbine should also be included where the efficiency is predicted at the turbine level, such as for the turbine interaction losses. Further results with other dimensions may also be included. All datasets should include the 'mean' and 'standard_deviation', statistics, where the former represents the central estimate and the latter the standard deviation of the associated uncertainty distribution. For the overall plant performance efficiency estimate at the wind farm level (i.e. the result dataset without binning), the statistic 'inter_annual_variability' must also be included. The inter-annual variability may optionally also be included for some or all of the other datasets.",
+          "description": "Dimensionless plant performance efficiency (loss factor) results. The first standard dataset should have no binning dimension (i.e. correspond to the overall value for the wind farm(s) under assessment). Datasets with results binned by turbine should also be included where the efficiency is predicted at the turbine level, such as for the turbine interaction losses. Further results with other dimensions may also be included. All datasets should include the 'mean' and 'standard_deviation', statistics, where the former represents the central estimate and the latter the standard deviation of the associated uncertainty distribution. For the overall plant performance efficiency estimate at the wind farm level (i.e. the result dataset without binning), the statistic 'inter_annual_variability' must also be included. The inter-annual variability may optionally also be included for some or all of the other datasets.",
           "items": {
             "$ref": "#/$defs/Dataset"
           },
@@ -1762,12 +1725,41 @@
                     "title": "Description"
                   },
                   "results": {
-                    "allOf": [
-                      {
-                        "$ref": "#/$defs/EnergyAssessmentResults"
+                    "additionalProperties": false,
+                    "description": "Gross energy yield assessment (EYA) predictions, covering the central (P50) gross annual energy production (AEP) estimate at the wind farm and turbine levels.",
+                    "properties": {
+                      "annual_energy_production": {
+                        "description": "Gross annual energy production (AEP) estimates in gigawatt hour per annum (GW h year-1). The first standard dataset should have no binning dimension (i.e. correspond to the overall value for the wind farm(s) under assessment). The dimension of the second standard result dataset should be 'turbine_id'. Further results with other dimensions may be included optionally.",
+                        "items": {
+                          "$ref": "#/$defs/Dataset"
+                        },
+                        "minItems": 1,
+                        "title": "Annual Energy Production",
+                        "type": "array"
+                      },
+                      "energy_production": {
+                        "anyOf": [
+                          {
+                            "items": {
+                              "$ref": "#/$defs/Dataset"
+                            },
+                            "minItems": 1,
+                            "type": "array"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ],
+                        "default": null,
+                        "description": "Optional gross energy production estimates over a specific period of time in gigawatt hour (GW h). This field should be used for energy production estimates that are not annualised. For all annual energy production (AEP) estimates, the field 'annual_energy_production' should be used. The time period that values correspond to should be made clear (e.g. in description and/or comments fields) if not obvious from the binning dimension(s).",
+                        "title": "Energy Production"
                       }
+                    },
+                    "required": [
+                      "annual_energy_production"
                     ],
-                    "description": "Gross energy yield assessment (EYA) predictions, covering the central (P50) gross annual energy production (AEP) estimate at the wind farm and turbine levels."
+                    "title": "Gross Energy Assessment Results",
+                    "type": "object"
                   }
                 },
                 "required": [
@@ -1809,12 +1801,34 @@
                     "title": "Description"
                   },
                   "results": {
-                    "allOf": [
-                      {
-                        "$ref": "#/$defs/EnergyAssessmentResults"
+                    "additionalProperties": false,
+                    "description": "Net energy yield assessment (EYA) predictions, including central (P50) estimates, overall uncertainty standard deviation values and results at various confidence levels.",
+                    "properties": {
+                      "annual_energy_production": {
+                        "description": "Net annual energy production (AEP) estimates in gigawatt hour per annum (GW h year-1). The first standard dataset should have no binning dimension (i.e. correspond to the overall value for the wind farm(s) under assessment). The dimension of the second standard result dataset should be 'turbine_id'. Further results with other dimensions may be included optionally.",
+                        "items": {
+                          "$ref": "#/$defs/Dataset"
+                        },
+                        "minItems": 1,
+                        "title": "Annual Energy Production",
+                        "type": "array"
+                      },
+                      "energy_production": {
+                        "description": "Net energy production estimates over a specific period of time in gigawatt hour (GW h). This field should be used for energy production estimates that are not annualised. For all net annual energy production (AEP) estimates, the field 'annual_energy_production' should be used. The time period that values correspond to should be made clear (e.g. in description and/or comments fields) if not obvious from the binning dimension(s). The dimensions of the first standard result dataset should be 'month' and 'hour' (in that order), providing the 12 x 24 matrix of seasonal and diurnal variation in overall energy production. The dimensions of the second standard dataset should be 'year' and 'month' (in that order), providing the overall energy production estimate for each month throughout the future assessment period.",
+                        "items": {
+                          "$ref": "#/$defs/Dataset"
+                        },
+                        "minItems": 1,
+                        "title": "Energy Production",
+                        "type": "array"
                       }
+                    },
+                    "required": [
+                      "annual_energy_production",
+                      "energy_production"
                     ],
-                    "description": "Net energy yield assessment (EYA) predictions, including central (P50) estimates, overall uncertainty standard deviation values and results at various confidence levels."
+                    "title": "Net Energy Assessment Results",
+                    "type": "object"
                   }
                 },
                 "required": [

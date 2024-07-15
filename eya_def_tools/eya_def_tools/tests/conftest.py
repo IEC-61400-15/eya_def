@@ -1374,7 +1374,7 @@ def energy_assessment_a(
                 "Using an in-house calculation tool with a wind speed and "
                 "direction frequency distribution association method."
             ),
-            results=energy_assessment.EnergyAssessmentResults(
+            results=energy_assessment.GrossEnergyAssessmentResults(
                 annual_energy_production=[
                     dataset.Dataset(
                         dimensions=[dataset.DatasetDimension.TURBINE_ID],
@@ -1451,7 +1451,7 @@ def energy_assessment_a(
                 "approach and treating all wind uncertainty components and "
                 "all plant performance loss components as independent."
             ),
-            results=energy_assessment.EnergyAssessmentResults(
+            results=energy_assessment.NetEnergyAssessmentResults(
                 annual_energy_production=[
                     dataset.Dataset(
                         dimensions=None,
@@ -1503,6 +1503,22 @@ def energy_assessment_a(
                         ],
                     ),
                 ],
+                energy_production=[
+                    dataset.Dataset(
+                        dimensions=[
+                            dataset.DatasetDimension.YEAR,
+                            dataset.DatasetDimension.MONTH,
+                        ],
+                        statistics=[
+                            dataset.DatasetStatistic(
+                                statistic=dataset.SimpleStatistic(
+                                    statistic_type=dataset.StatisticType.MEAN,
+                                ),
+                                values=[([2030, 1], 12.1)],
+                            ),
+                        ],
+                    )
+                ],
             ),
         ),
     )
@@ -1518,7 +1534,7 @@ def energy_assessment_b(
     """Test case instance 'b' of ``EnergyAssessment``."""
     return energy_assessment.EnergyAssessment(
         gross_energy_assessment=energy_assessment.GrossEnergyAssessment(
-            results=energy_assessment.EnergyAssessmentResults(
+            results=energy_assessment.GrossEnergyAssessmentResults(
                 annual_energy_production=[
                     dataset.Dataset(
                         dimensions=[dataset.DatasetDimension.TURBINE_ID],
@@ -1590,7 +1606,7 @@ def energy_assessment_b(
             ),
         ),
         net_energy_assessment=energy_assessment.NetEnergyAssessment(
-            results=energy_assessment.EnergyAssessmentResults(
+            results=energy_assessment.NetEnergyAssessmentResults(
                 annual_energy_production=[
                     dataset.Dataset(
                         dimensions=None,
@@ -1641,6 +1657,22 @@ def energy_assessment_b(
                             ),
                         ],
                     ),
+                ],
+                energy_production=[
+                    dataset.Dataset(
+                        dimensions=[
+                            dataset.DatasetDimension.YEAR,
+                            dataset.DatasetDimension.MONTH,
+                        ],
+                        statistics=[
+                            dataset.DatasetStatistic(
+                                statistic=dataset.SimpleStatistic(
+                                    statistic_type=dataset.StatisticType.MEAN,
+                                ),
+                                values=[([2030, 1], 12.0)],
+                            ),
+                        ],
+                    )
                 ],
             ),
         ),
