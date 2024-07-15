@@ -107,7 +107,8 @@ class NetEnergyAssessmentResults(EyaDefBaseModel):
             "production. The dimensions of the second standard dataset "
             "should be 'year' and 'month' (in that order), providing "
             "the overall energy production estimate for each month "
-            "throughout the future assessment period."
+            "throughout the future assessment period. Further results "
+            "with other dimensions may be included optionally."
         ),
     )
 
