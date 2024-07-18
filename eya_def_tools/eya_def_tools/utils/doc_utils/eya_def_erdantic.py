@@ -191,7 +191,8 @@ def _get_abbreviated_type_name(
             ):
                 return "Union[float, list[tuple[list[Union[int, float, str]], float]]]"
         case "return_period":
-            return "Optional[float]"
+            if get_origin(pydantic_field_info.annotation) == Union:
+                return "Optional[int | float]"
 
     if get_origin(pydantic_field_info.annotation) == Literal:
         options = ", ".join(

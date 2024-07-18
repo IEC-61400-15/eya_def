@@ -2383,6 +2383,7 @@
                       },
                       {
                         "statistic": {
+                          "return_period": 1,
                           "statistic_type": "inter_annual_variability"
                         },
                         "values": [
@@ -2458,6 +2459,7 @@
                           },
                           {
                             "statistic": {
+                              "return_period": 1,
                               "statistic_type": "inter_annual_variability"
                             },
                             "values": [
@@ -2502,6 +2504,7 @@
                   },
                   {
                     "statistic": {
+                      "return_period": 1,
                       "statistic_type": "inter_annual_variability"
                     },
                     "values": 0.121
@@ -2978,6 +2981,7 @@
                   },
                   {
                     "statistic": {
+                      "return_period": 1,
                       "statistic_type": "inter_annual_variability"
                     },
                     "values": 0.12

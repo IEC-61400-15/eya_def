@@ -24,8 +24,9 @@ class GrossEnergyAssessmentResults(EyaDefBaseModel):
             "dataset should have no binning dimension (i.e. correspond "
             "to the overall value for the wind farm(s) under "
             "assessment). The dimension of the second standard result "
-            "dataset should be 'turbine_id'. Further results with "
-            "other dimensions may be included optionally."
+            "dataset should be 'turbine_id'. Only the P50 (median) "
+            "statistics are required. Further results with other "
+            "dimensions may be included optionally."
         ),
     )
     energy_production: Optional[list[Dataset]] = pdt.Field(
@@ -83,10 +84,16 @@ class NetEnergyAssessmentResults(EyaDefBaseModel):
             "Net annual energy production (AEP) estimates in gigawatt "
             "hour per annum (GW h year-1). The first standard dataset "
             "should have no binning dimension (i.e. correspond to the "
-            "overall value for the wind farm(s) under assessment). The "
-            "dimension of the second standard result dataset should be "
-            "'turbine_id'. Further results with other dimensions may "
-            "be included optionally."
+            "overall value for the wind farm(s) under assessment) and "
+            "should include as a minimum the P50 (median) value, the "
+            "standard deviation value and the P90 value for the full "
+            "assessment period, for any one year during the assessment "
+            "period, for the first ten years and for any one year "
+            "during the first ten years. The dimension of the second "
+            "standard result dataset should be 'turbine_id' and should "
+            "as a minimum include the assessment period P50 (median) "
+            "value for each individual turbine. Further results with "
+            "other dimensions may be included optionally."
         ),
     )
     energy_production: list[Dataset] = pdt.Field(
@@ -104,11 +111,15 @@ class NetEnergyAssessmentResults(EyaDefBaseModel):
             "the first standard result dataset should be 'month' and "
             "'hour' (in that order), providing the 12 x 24 matrix of "
             "seasonal and diurnal variation in overall energy "
-            "production. The dimensions of the second standard dataset "
-            "should be 'year' and 'month' (in that order), providing "
-            "the overall energy production estimate for each month "
-            "throughout the future assessment period. Further results "
-            "with other dimensions may be included optionally."
+            "production. If time variable elements are considered in "
+            "the assessment, a second standard dataset resolving the "
+            "time variability should be included. If statistics vary "
+            "on an annual basis, it should have the dimension 'year'."
+            "If statistics vary on a monthly basis (e.g. when "
+            "considering expected commissioning and availability of "
+            "turbines for each month), it should have the dimensions "
+            "'year' and 'month' (in that order). Further results with "
+            "other dimensions may be included optionally."
         ),
     )
 
@@ -137,7 +148,9 @@ class NetEnergyAssessment(EyaDefBaseModel):
         description=(
             "Net energy yield assessment (EYA) predictions, including "
             "central (P50) estimates, overall uncertainty standard "
-            "deviation values and results at various confidence levels."
+            "deviation values, results at various confidence levels, "
+            "and production profiles describing for example seasonal "
+            "and diurnal variations."
         ),
     )
 

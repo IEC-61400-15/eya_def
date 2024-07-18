@@ -6,7 +6,6 @@ contexts.
 
 """
 
-import datetime
 from enum import StrEnum, auto
 from typing import Annotated, Literal, Optional, TypeAlias
 
@@ -28,58 +27,31 @@ DatasetValuesWithCoordinates = Annotated[
 class StatisticType(StrEnum):
     """Type of statistic using standardised label."""
 
-    # Simple statistic types with no further required parameters
     SUM = auto()
     MEAN = auto()
     MEDIAN = auto()
     STANDARD_DEVIATION = auto()
     MINIMUM = auto()
     MAXIMUM = auto()
-    INTER_ANNUAL_VARIABILITY = auto()
     SAMPLE_COUNT = auto()
 
-    # Statistic types that require further parameters
+    INTER_ANNUAL_VARIABILITY = auto()
+
     EXCEEDANCE_LEVEL = auto()
 
 
-SimpleStatisticType: TypeAlias = Literal[
+BasicStatisticType: TypeAlias = Literal[
     StatisticType.SUM,
     StatisticType.MEAN,
     StatisticType.MEDIAN,
     StatisticType.STANDARD_DEVIATION,
     StatisticType.MINIMUM,
     StatisticType.MAXIMUM,
-    StatisticType.INTER_ANNUAL_VARIABILITY,
     StatisticType.SAMPLE_COUNT,
 ]
 
 
-TimeFrameStartDateField: Optional[datetime.date] = pdt.Field(
-    default=None,
-    description=(
-        "Optional specification of the start date of the time frame "
-        "(period) to which the statistic applies. When not specified, "
-        "it shall be assumed that the time frame start date is the "
-        "start of the full period of the relevant context (e.g. the "
-        "full assessment period). The time frame can for example be "
-        "used to specify that a certain uncertainty standard deviation "
-        "value applies from the second through the tenth year of wind "
-        "farm operation."
-    ),
-)
-
-TimeFrameEndDateField: Optional[datetime.date] = pdt.Field(
-    default=None,
-    description=(
-        "Optional specification of the end date of the time frame "
-        "(period) to which the statistic applies. When not specified, "
-        "it shall be assumed that the time frame end date is the "
-        "end of the full period of the relevant context (e.g. the "
-        "full assessment period)."
-    ),
-)
-
-ReturnPeriodField: Optional[pdt.PositiveFloat] = pdt.Field(
+ReturnPeriodField: Optional[pdt.PositiveInt | pdt.PositiveFloat] = pdt.Field(
     default=None,
     description=(
         "Optional specification of the return period in years, to be "
@@ -92,19 +64,39 @@ ReturnPeriodField: Optional[pdt.PositiveFloat] = pdt.Field(
 )
 
 
-class SimpleStatistic(EyaDefBaseModel):
+class BasicStatistic(EyaDefBaseModel):
     """Specification of a statistic that only requires type definition."""
 
-    statistic_type: SimpleStatisticType = pdt.Field(
+    statistic_type: BasicStatisticType = pdt.Field(
         default=...,
         description=(
             "Specification of the type of statistic, using the "
             "standardised naming conventions."
         ),
     )
-    time_frame_start_date: Optional[datetime.date] = TimeFrameStartDateField
-    time_frame_end_date: Optional[datetime.date] = TimeFrameEndDateField
-    return_period: Optional[pdt.PositiveFloat] = ReturnPeriodField
+    return_period: Optional[pdt.PositiveInt | pdt.PositiveFloat] = ReturnPeriodField
+
+
+class InterAnnualVariabilityStatistic(EyaDefBaseModel):
+    """Specification of an inter-annual variability statistic."""
+
+    statistic_type: Literal[StatisticType.INTER_ANNUAL_VARIABILITY] = pdt.Field(
+        default=StatisticType.INTER_ANNUAL_VARIABILITY,
+        description=(
+            "Specification of the type of statistic, using the "
+            "standardised naming conventions. For a standard deviation "
+            "statistic, the type must always be 'standard_deviation'."
+        ),
+    )
+    return_period: Literal[1] = pdt.Field(
+        default=1,
+        description=(
+            "Specification of the return period in years, which for "
+            "inter-annual variability must always be 1 (it is by "
+            "definition the variability of a one-year period relative "
+            "to the full time period)."
+        ),
+    )
 
 
 class ExceedanceLevelStatistic(EyaDefBaseModel):
@@ -129,16 +121,16 @@ class ExceedanceLevelStatistic(EyaDefBaseModel):
         ),
         examples=[0.25, 0.75, 0.9, 0.99],
     )
-    time_frame_start_date: Optional[datetime.date] = TimeFrameStartDateField
-    time_frame_end_date: Optional[datetime.date] = TimeFrameEndDateField
-    return_period: Optional[pdt.PositiveFloat] = ReturnPeriodField
+    return_period: Optional[pdt.PositiveInt | pdt.PositiveFloat] = ReturnPeriodField
 
     @property
     def p_value_str(self) -> str:
         return f"P{self.probability * 100.0:.1f}"
 
 
-AnyStatisticType: TypeAlias = SimpleStatistic | ExceedanceLevelStatistic
+AnyStatisticType: TypeAlias = (
+    BasicStatistic | InterAnnualVariabilityStatistic | ExceedanceLevelStatistic
+)
 
 
 class DatasetStatistic(EyaDefBaseModel):
@@ -190,6 +182,12 @@ class DatasetDimension(StrEnum):
     DAY = auto()
     MONTH = auto()
     YEAR = auto()
+
+    START_DATE = auto()
+    END_DATE = auto()
+
+    START_DATETIME = auto()
+    END_DATETIME = auto()
 
     WIND_SPEED = auto()
     WIND_FROM_DIRECTION = auto()
