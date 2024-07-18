@@ -55,10 +55,10 @@ ReturnPeriodField: Optional[pdt.PositiveInt | pdt.PositiveFloat] = pdt.Field(
     default=None,
     description=(
         "Optional specification of the return period in years, to be "
-        "included when relevant to the statistic in question. It may "
-        "for example specify a 1-year or 10-year return period for a "
-        "the standard deviation of an uncertainty distribution or "
-        "certain probability of exceedance level."
+        "included when relevant to the context and statistic in "
+        "question. It may for example specify a 1-year or a 10-year "
+        "return period for the standard deviation of an uncertainty "
+        "distribution or certain probability of exceedance level."
     ),
     examples=[1.0, 10.0],
 )

@@ -18,6 +18,7 @@ class GrossEnergyAssessmentResults(EyaDefBaseModel):
     annual_energy_production: list[Dataset] = pdt.Field(
         default=...,
         min_length=1,
+        title="Gross Annual Energy Production",
         description=(
             "Gross annual energy production (AEP) estimates in "
             "gigawatt hour per annum (GW h year-1). The first standard "
@@ -32,6 +33,7 @@ class GrossEnergyAssessmentResults(EyaDefBaseModel):
     energy_production: Optional[list[Dataset]] = pdt.Field(
         default=None,
         min_length=1,
+        title="Gross Energy Production",
         description=(
             "Optional gross energy production estimates over a "
             "specific period of time in gigawatt hour (GW h). This "
@@ -80,6 +82,7 @@ class NetEnergyAssessmentResults(EyaDefBaseModel):
     annual_energy_production: list[Dataset] = pdt.Field(
         default=...,
         min_length=1,
+        title="Net Annual Energy Production",
         description=(
             "Net annual energy production (AEP) estimates in gigawatt "
             "hour per annum (GW h year-1). The first standard dataset "
@@ -99,6 +102,7 @@ class NetEnergyAssessmentResults(EyaDefBaseModel):
     energy_production: list[Dataset] = pdt.Field(
         default=...,
         min_length=1,
+        title="Net Energy Production",
         description=(
             "Net energy production estimates over a specific period of "
             "time in gigawatt hour (GW h). This field should be used "
