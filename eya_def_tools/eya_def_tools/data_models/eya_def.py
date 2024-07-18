@@ -11,30 +11,31 @@ import pydantic as pdt
 from eya_def_tools.data_models.base_model import EyaDefBaseModel
 from eya_def_tools.data_models.eya_def_header import (
     Alpha2CountryCode,
+    CommentsField,
+    ConfidentialityClassificationField,
+    ContractReferenceField,
+    ContributorsField,
+    DescriptionField,
+    DocumentIdField,
+    DocumentVersionField,
+    EpsgSridField,
+    IssueDateField,
+    IssuingOrganisationsField,
+    ProjectCountryField,
+    ProjectNameField,
+    ReceivingOrganisationsField,
     ReportContributor,
-    comments_field,
-    confidentiality_classification_field,
-    contract_reference_field,
-    contributors_field,
-    description_field,
-    document_id_field,
-    document_version_field,
-    epsg_srid_field,
-    issue_date_field,
-    issuing_organisations_field,
-    project_country_field,
-    project_name_field,
-    receiving_organisations_field,
-    schema_uri_field,
-    title_field,
-    uri_field,
-    utc_offset_field,
-    uuid_field,
+    SchemaUriField,
+    TitleField,
+    UriField,
+    UtcOffsetField,
+    UuidField,
 )
 from eya_def_tools.data_models.general import Organisation
 from eya_def_tools.data_models.iea43_wra_data_model import WraDataModelDocument
 from eya_def_tools.data_models.reference_wind_farm import ReferenceWindFarm
 from eya_def_tools.data_models.scenario import Scenario
+from eya_def_tools.data_models.spatial import EpsgSrid
 from eya_def_tools.data_models.turbine_model import TurbineModelSpecifications
 from eya_def_tools.data_models.wind_farm import WindFarmConfiguration
 from eya_def_tools.data_models.wind_resource import WindResourceAssessment
@@ -58,26 +59,24 @@ class EyaDefDocument(EyaDefBaseModel):
         },
     )
 
-    uri: Optional[pdt.AnyUrl] = uri_field
-    schema_uri: pdt.AnyUrl = schema_uri_field
-    uuid: Optional[uuid_.UUID] = uuid_field
-    title: str = title_field
-    description: Optional[str] = description_field
-    comments: Optional[str] = comments_field
-    project_name: str = project_name_field
-    project_country: Alpha2CountryCode = project_country_field
-    document_id: Optional[str] = document_id_field
-    document_version: Optional[str] = document_version_field
-    issue_date: dt.date = issue_date_field
-    contributors: list[ReportContributor] = contributors_field
-    issuing_organisations: list[Organisation] = issuing_organisations_field
-    receiving_organisations: Optional[list[Organisation]] = (
-        receiving_organisations_field
-    )
-    contract_reference: Optional[str] = contract_reference_field
-    confidentiality_classification: Optional[str] = confidentiality_classification_field
-    epsg_srid: int = epsg_srid_field
-    utc_offset: float = utc_offset_field
+    uri: Optional[pdt.AnyUrl] = UriField
+    schema_uri: pdt.AnyUrl = SchemaUriField
+    uuid: Optional[uuid_.UUID] = UuidField
+    title: str = TitleField
+    description: Optional[str] = DescriptionField
+    comments: Optional[str] = CommentsField
+    project_name: str = ProjectNameField
+    project_country: Alpha2CountryCode = ProjectCountryField
+    document_id: Optional[str] = DocumentIdField
+    document_version: Optional[str] = DocumentVersionField
+    issue_date: dt.date = IssueDateField
+    contributors: list[ReportContributor] = ContributorsField
+    issuing_organisations: list[Organisation] = IssuingOrganisationsField
+    receiving_organisations: Optional[list[Organisation]] = ReceivingOrganisationsField
+    contract_reference: Optional[str] = ContractReferenceField
+    confidentiality_classification: Optional[str] = ConfidentialityClassificationField
+    epsg_srid: EpsgSrid = EpsgSridField
+    utc_offset: float = UtcOffsetField
     wind_farms: list[WindFarmConfiguration] = pdt.Field(
         default=...,
         min_length=1,

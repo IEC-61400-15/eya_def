@@ -107,10 +107,12 @@ class TurbineConfiguration(EyaDefBaseModel):
     )
     ground_level_altitude: float = pdt.Field(
         default=...,
+        allow_inf_nan=False,
         description="The ground level altitude (base elevation) of the turbine (in m).",
     )
     hub_height: float = pdt.Field(
         default=...,
+        allow_inf_nan=False,
         description="The hub height of the turbine above ground level (in m).",
     )
 
@@ -224,7 +226,7 @@ class WindFarmConfiguration(EyaDefBaseModel):
         ),
         examples=["2051-03-31", "2025-12-31"],
     )
-    installed_capacity: float = pdt.Field(
+    installed_capacity: pdt.PositiveFloat = pdt.Field(
         default=...,
         description=(
             "The maximum production (in MW) of the wind farm under "
@@ -237,7 +239,7 @@ class WindFarmConfiguration(EyaDefBaseModel):
         ),
         examples=[12.3, 2345.67],
     )
-    export_capacity: Optional[float] = pdt.Field(
+    export_capacity: Optional[pdt.PositiveFloat] = pdt.Field(
         default=None,
         description=(
             "Optional specification of the maximum permanently "

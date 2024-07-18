@@ -24,7 +24,7 @@ class PlantPerformanceResults(EyaDefBaseModel):
             "Dimensionless plant performance efficiency (loss factor) "
             "results. The first standard dataset should have no "
             "binning dimension (i.e. correspond to the overall value "
-            "for the wind farm under assessment). Datasets with "
+            "for the wind farm(s) under assessment). Datasets with "
             "results binned by turbine should also be included where "
             "the efficiency is predicted at the turbine level, such as "
             "for the turbine interaction losses. Further results with "

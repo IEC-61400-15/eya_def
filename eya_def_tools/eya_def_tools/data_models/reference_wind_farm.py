@@ -9,12 +9,12 @@ from typing import Literal, Optional, TypeAlias
 import pydantic as pdt
 
 from eya_def_tools.data_models.base_model import EyaDefBaseModel
-from eya_def_tools.data_models.dataset import BasicStatisticType
+from eya_def_tools.data_models.dataset import StatisticType
 from eya_def_tools.data_models.general import (
+    EndDateField,
     Organisation,
+    StartDateField,
     TimeResolution,
-    end_date_field,
-    start_date_field,
 )
 
 
@@ -200,7 +200,7 @@ class OperationalDataVariable(EyaDefBaseModel):
             "station."
         ),
     )
-    statistic_types: Optional[list[BasicStatisticType]] = pdt.Field(
+    statistic_types: Optional[list[StatisticType]] = pdt.Field(
         default=...,
         min_length=1,
         description=(
@@ -302,8 +302,8 @@ class OperationalDatasetMetadata(EyaDefBaseModel):
             "dataset main resolution."
         ),
     )
-    start_date: dt.date = start_date_field
-    end_date: dt.date = end_date_field
+    start_date: dt.date = StartDateField
+    end_date: dt.date = EndDateField
     data_variables: list[OperationalDataVariable] = pdt.Field(
         default=...,
         min_length=1,

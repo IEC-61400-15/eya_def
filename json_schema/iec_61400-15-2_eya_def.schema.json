@@ -14,45 +14,57 @@
       "title": "AssessmentBasis",
       "type": "string"
     },
-    "BasicStatisticType": {
-      "description": "Statistic type that can be specified by a single label.",
-      "enum": [
-        "sum",
-        "mean",
-        "median",
-        "standard_deviation",
-        "minimum",
-        "maximum",
-        "inter_annual_variability",
-        "sample_count"
-      ],
-      "title": "BasicStatisticType",
-      "type": "string"
-    },
-    "Dataset": {
+    "BasicStatistic": {
       "additionalProperties": false,
-      "description": "Collection of labelled data for one specific quantity. The data is labelled by specifying dimensions and including coordinates along the dimensions for each data value.",
+      "description": "Specification of a statistic that only requires type definition.",
       "properties": {
-        "assessment_period": {
+        "return_period": {
           "anyOf": [
             {
-              "description": "Period of or in time that a dataset is applicable.",
-              "enum": [
-                "lifetime",
-                "any_one_year",
-                "one_operational_year",
-                "other"
-              ],
-              "title": "Assessment Period",
-              "type": "string"
+              "exclusiveMinimum": 0,
+              "type": "integer"
+            },
+            {
+              "exclusiveMinimum": 0.0,
+              "type": "number"
             },
             {
               "type": "null"
             }
           ],
           "default": null,
-          "description": "Optional period of or in time that has been assessed and for which the dataset is applicable. This field is to be included only when relevant."
+          "description": "Optional specification of the return period in years, to be included when relevant to the context and statistic in question. It may for example specify a 1-year or a 10-year return period for the standard deviation of an uncertainty distribution or certain probability of exceedance level.",
+          "examples": [
+            1.0,
+            10.0
+          ],
+          "title": "Return Period"
         },
+        "statistic_type": {
+          "description": "Specification of the type of statistic, using the standardised naming conventions.",
+          "enum": [
+            "sum",
+            "mean",
+            "median",
+            "standard_deviation",
+            "minimum",
+            "maximum",
+            "sample_count"
+          ],
+          "title": "Statistic Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "statistic_type"
+      ],
+      "title": "BasicStatistic",
+      "type": "object"
+    },
+    "Dataset": {
+      "additionalProperties": false,
+      "description": "Collection of labelled data for one specific quantity. The data is labelled by specifying dimensions and including coordinates along the dimensions for each data value.",
+      "properties": {
         "comments": {
           "anyOf": [
             {
@@ -92,6 +104,10 @@
                   "day",
                   "month",
                   "year",
+                  "start_date",
+                  "end_date",
+                  "start_datetime",
+                  "end_datetime",
                   "wind_speed",
                   "wind_from_direction",
                   "wind_dataset_id",
@@ -177,38 +193,34 @@
                 "description": "Optional description of the dataset statistic, which should not be empty if the field is included.",
                 "title": "Description"
               },
-              "statistic_type": {
-                "anyOf": [
+              "statistic": {
+                "description": "Specification of the statistic that the element of the dataset corresponds to.",
+                "discriminator": {
+                  "mapping": {
+                    "exceedance_level": "#/$defs/ExceedanceLevelStatistic",
+                    "inter_annual_variability": "#/$defs/InterAnnualVariabilityStatistic",
+                    "maximum": "#/$defs/BasicStatistic",
+                    "mean": "#/$defs/BasicStatistic",
+                    "median": "#/$defs/BasicStatistic",
+                    "minimum": "#/$defs/BasicStatistic",
+                    "sample_count": "#/$defs/BasicStatistic",
+                    "standard_deviation": "#/$defs/BasicStatistic",
+                    "sum": "#/$defs/BasicStatistic"
+                  },
+                  "propertyName": "statistic_type"
+                },
+                "oneOf": [
                   {
-                    "$ref": "#/$defs/BasicStatisticType"
+                    "$ref": "#/$defs/BasicStatistic"
                   },
                   {
-                    "additionalProperties": false,
-                    "description": "Probability of exceedance level statistic type.",
-                    "properties": {
-                      "exceedance_level": {
-                        "description": "The dimensionless probability of exceedance level (i.e. probability value between 0.0 and 1.0) of the statistic.",
-                        "examples": [
-                          0.25,
-                          0.75,
-                          0.9,
-                          0.99
-                        ],
-                        "maximum": 1.0,
-                        "minimum": 0.0,
-                        "title": "Exceedance Level",
-                        "type": "number"
-                      }
-                    },
-                    "required": [
-                      "exceedance_level"
-                    ],
-                    "title": "Exceedance Level Statistic Type",
-                    "type": "object"
+                    "$ref": "#/$defs/InterAnnualVariabilityStatistic"
+                  },
+                  {
+                    "$ref": "#/$defs/ExceedanceLevelStatistic"
                   }
                 ],
-                "description": "Type of statistic that the component of the dataset contains. All values must correspond to this statistic. It can be either the string identifier of a basic statistic type (e.g. 'mean') or a specification of a probability of exceedance level.",
-                "title": "Statistic Type"
+                "title": "Statistic"
               },
               "values": {
                 "anyOf": [
@@ -252,7 +264,7 @@
               }
             },
             "required": [
-              "statistic_type",
+              "statistic",
               "values"
             ],
             "title": "Dataset Statistic",
@@ -297,41 +309,88 @@
       "title": "DerivedDatasetClassification",
       "type": "object"
     },
-    "EnergyAssessmentResults": {
+    "ExceedanceLevelStatistic": {
       "additionalProperties": false,
-      "description": "Energy assessment results.",
+      "description": "Specification of a probability of exceedance level statistic.",
       "properties": {
-        "annual_energy_production": {
-          "description": "Annual energy production (AEP) estimates at the turbine location(s) in gigawatt hour per annum (GW h year-1). The dimension of the first standard result dataset should be 'wind_farm_id'. The dimension of the second standard result dataset should be 'turbine_id'. Further results with other dimensions may be included optionally.",
-          "items": {
-            "$ref": "#/$defs/Dataset"
-          },
-          "minItems": 1,
-          "title": "Annual Energy Production",
-          "type": "array"
+        "probability": {
+          "description": "The dimensionless probability of exceedance level (i.e. probability value between 0.0 and 1.0) of the statistic.",
+          "examples": [
+            0.25,
+            0.75,
+            0.9,
+            0.99
+          ],
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Probability",
+          "type": "number"
         },
-        "energy_production": {
+        "return_period": {
           "anyOf": [
             {
-              "items": {
-                "$ref": "#/$defs/Dataset"
-              },
-              "minItems": 1,
-              "type": "array"
+              "exclusiveMinimum": 0,
+              "type": "integer"
+            },
+            {
+              "exclusiveMinimum": 0.0,
+              "type": "number"
             },
             {
               "type": "null"
             }
           ],
           "default": null,
-          "description": "Energy production estimates at the turbine location(s) over a specific period of time in gigawatt hour (GW h). This field should be used for energy production estimates that are not annualised. For all annual energy production (AEP) estimate, the field 'annual_energy_production' should be used.",
-          "title": "Energy Production"
+          "description": "Optional specification of the return period in years, to be included when relevant to the context and statistic in question. It may for example specify a 1-year or a 10-year return period for the standard deviation of an uncertainty distribution or certain probability of exceedance level.",
+          "examples": [
+            1.0,
+            10.0
+          ],
+          "title": "Return Period"
+        },
+        "statistic_type": {
+          "const": "exceedance_level",
+          "default": "exceedance_level",
+          "description": "Specification of the type of statistic, using the standardised naming conventions. For an exceedance level statistic, the type must always be 'exceedance_level'.",
+          "enum": [
+            "exceedance_level"
+          ],
+          "title": "Statistic Type",
+          "type": "string"
         }
       },
       "required": [
-        "annual_energy_production"
+        "probability"
       ],
-      "title": "EnergyAssessmentResults",
+      "title": "ExceedanceLevelStatistic",
+      "type": "object"
+    },
+    "InterAnnualVariabilityStatistic": {
+      "additionalProperties": false,
+      "description": "Specification of an inter-annual variability statistic.",
+      "properties": {
+        "return_period": {
+          "const": 1,
+          "default": 1,
+          "description": "Specification of the return period in years, which for inter-annual variability must always be 1 (it is by definition the variability of a one-year period relative to the full time period).",
+          "enum": [
+            1
+          ],
+          "title": "Return Period",
+          "type": "integer"
+        },
+        "statistic_type": {
+          "const": "inter_annual_variability",
+          "default": "inter_annual_variability",
+          "description": "Specification of the type of statistic, using the standardised naming conventions. For a standard deviation statistic, the type must always be 'standard_deviation'.",
+          "enum": [
+            "inter_annual_variability"
+          ],
+          "title": "Statistic Type",
+          "type": "string"
+        }
+      },
+      "title": "InterAnnualVariabilityStatistic",
       "type": "object"
     },
     "OperationalRestriction": {
@@ -491,7 +550,7 @@
       "description": "Plant performance loss assessment results.",
       "properties": {
         "efficiency": {
-          "description": "Dimensionless plant performance efficiency (loss factor) results. The first standard dataset should have no binning dimension (i.e. correspond to the overall value for the wind farm under assessment). Datasets with results binned by turbine should also be included where the efficiency is predicted at the turbine level, such as for the turbine interaction losses. Further results with other dimensions may also be included. All datasets should include the 'mean' and 'standard_deviation', statistics, where the former represents the central estimate and the latter the standard deviation of the associated uncertainty distribution. For the overall plant performance efficiency estimate at the wind farm level (i.e. the result dataset without binning), the statistic 'inter_annual_variability' must also be included. The inter-annual variability may optionally also be included for some or all of the other datasets.",
+          "description": "Dimensionless plant performance efficiency (loss factor) results. The first standard dataset should have no binning dimension (i.e. correspond to the overall value for the wind farm(s) under assessment). Datasets with results binned by turbine should also be included where the efficiency is predicted at the turbine level, such as for the turbine interaction losses. Further results with other dimensions may also be included. All datasets should include the 'mean' and 'standard_deviation', statistics, where the former represents the central estimate and the latter the standard deviation of the associated uncertainty distribution. For the overall plant performance efficiency estimate at the wind farm level (i.e. the result dataset without binning), the statistic 'inter_annual_variability' must also be included. The inter-annual variability may optionally also be included for some or all of the other datasets.",
           "items": {
             "$ref": "#/$defs/Dataset"
           },
@@ -1359,7 +1418,20 @@
                             "anyOf": [
                               {
                                 "items": {
-                                  "$ref": "#/$defs/BasicStatisticType"
+                                  "description": "Type of statistic using standardised label.",
+                                  "enum": [
+                                    "sum",
+                                    "mean",
+                                    "median",
+                                    "standard_deviation",
+                                    "minimum",
+                                    "maximum",
+                                    "sample_count",
+                                    "inter_annual_variability",
+                                    "exceedance_level"
+                                  ],
+                                  "title": "Statistic Type",
+                                  "type": "string"
                                 },
                                 "minItems": 1,
                                 "type": "array"
@@ -1639,12 +1711,41 @@
                     "title": "Description"
                   },
                   "results": {
-                    "allOf": [
-                      {
-                        "$ref": "#/$defs/EnergyAssessmentResults"
+                    "additionalProperties": false,
+                    "description": "Gross energy yield assessment (EYA) predictions, covering the central (P50) gross annual energy production (AEP) estimate at the wind farm and turbine levels.",
+                    "properties": {
+                      "annual_energy_production": {
+                        "description": "Gross annual energy production (AEP) estimates in gigawatt hour per annum (GW h year-1). The first standard dataset should have no binning dimension (i.e. correspond to the overall value for the wind farm(s) under assessment). The dimension of the second standard result dataset should be 'turbine_id'. Only the P50 (median) statistics are required. Further results with other dimensions may be included optionally.",
+                        "items": {
+                          "$ref": "#/$defs/Dataset"
+                        },
+                        "minItems": 1,
+                        "title": "Gross Annual Energy Production",
+                        "type": "array"
+                      },
+                      "energy_production": {
+                        "anyOf": [
+                          {
+                            "items": {
+                              "$ref": "#/$defs/Dataset"
+                            },
+                            "minItems": 1,
+                            "type": "array"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ],
+                        "default": null,
+                        "description": "Optional gross energy production estimates over a specific period of time in gigawatt hour (GW h). This field should be used for energy production estimates that are not annualised. For all annual energy production (AEP) estimates, the field 'annual_energy_production' should be used. The time period that values correspond to should be made clear (e.g. in description and/or comments fields) if not obvious from the binning dimension(s).",
+                        "title": "Gross Energy Production"
                       }
+                    },
+                    "required": [
+                      "annual_energy_production"
                     ],
-                    "description": "Gross energy yield assessment (EYA) predictions, covering the central (P50) gross annual energy production (AEP) estimate at the wind farm and turbine levels."
+                    "title": "Gross Energy Assessment Results",
+                    "type": "object"
                   }
                 },
                 "required": [
@@ -1686,12 +1787,34 @@
                     "title": "Description"
                   },
                   "results": {
-                    "allOf": [
-                      {
-                        "$ref": "#/$defs/EnergyAssessmentResults"
+                    "additionalProperties": false,
+                    "description": "Net energy yield assessment (EYA) predictions, including central (P50) estimates, overall uncertainty standard deviation values, results at various confidence levels, and production profiles describing for example seasonal and diurnal variations.",
+                    "properties": {
+                      "annual_energy_production": {
+                        "description": "Net annual energy production (AEP) estimates in gigawatt hour per annum (GW h year-1). The first standard dataset should have no binning dimension (i.e. correspond to the overall value for the wind farm(s) under assessment) and should include as a minimum the P50 (median) value, the standard deviation value and the P90 value for the full assessment period, for any one year during the assessment period, for the first ten years and for any one year during the first ten years. The dimension of the second standard result dataset should be 'turbine_id' and should as a minimum include the assessment period P50 (median) value for each individual turbine. Further results with other dimensions may be included optionally.",
+                        "items": {
+                          "$ref": "#/$defs/Dataset"
+                        },
+                        "minItems": 1,
+                        "title": "Net Annual Energy Production",
+                        "type": "array"
+                      },
+                      "energy_production": {
+                        "description": "Net energy production estimates over a specific period of time in gigawatt hour (GW h). This field should be used for energy production estimates that are not annualised. For all net annual energy production (AEP) estimates, the field 'annual_energy_production' should be used. The time period that values correspond to should be made clear (e.g. in description and/or comments fields) if not obvious from the binning dimension(s). The dimensions of the first standard result dataset should be 'month' and 'hour' (in that order), providing the 12 x 24 matrix of seasonal and diurnal variation in overall energy production. If time variable elements are considered in the assessment, a second standard dataset resolving the time variability should be included. If statistics vary on an annual basis, it should have the dimension 'year'.If statistics vary on a monthly basis (e.g. when considering expected commissioning and availability of turbines for each month), it should have the dimensions 'year' and 'month' (in that order). Further results with other dimensions may be included optionally.",
+                        "items": {
+                          "$ref": "#/$defs/Dataset"
+                        },
+                        "minItems": 1,
+                        "title": "Net Energy Production",
+                        "type": "array"
                       }
+                    },
+                    "required": [
+                      "annual_energy_production",
+                      "energy_production"
                     ],
-                    "description": "Net energy yield assessment (EYA) predictions, including central (P50) estimates, overall uncertainty standard deviation values and results at various confidence levels."
+                    "title": "Net Energy Assessment Results",
+                    "type": "object"
                   }
                 },
                 "required": [
@@ -2215,6 +2338,7 @@
                       1.6,
                       2.1
                     ],
+                    "exclusiveMinimum": 0.0,
                     "title": "Wind Speed To Energy Sensitivity Factor",
                     "type": "number"
                   }
@@ -2645,6 +2769,7 @@
           "export_capacity": {
             "anyOf": [
               {
+                "exclusiveMinimum": 0.0,
                 "type": "number"
               },
               {
@@ -2674,6 +2799,7 @@
               12.3,
               2345.67
             ],
+            "exclusiveMinimum": 0.0,
             "title": "Installed Capacity",
             "type": "number"
           },
