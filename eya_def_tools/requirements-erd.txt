@@ -1,4 +1,4 @@
-erdantic~=1.0.3
+erdantic~=1.0.4
 pygraphviz~=1.13
 sortedcontainers~=2.4.0
 sortedcontainers-pydantic~=1.0.0

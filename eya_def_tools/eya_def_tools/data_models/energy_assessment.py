@@ -89,14 +89,14 @@ class NetEnergyAssessmentResults(EyaDefBaseModel):
             "should have no binning dimension (i.e. correspond to the "
             "overall value for the wind farm(s) under assessment) and "
             "should include as a minimum the P50 (median) value, the "
-            "standard deviation value and the P90 value for the full "
-            "assessment period, for any one year during the assessment "
-            "period, for the first ten years and for any one year "
-            "during the first ten years. The dimension of the second "
-            "standard result dataset should be 'turbine_id' and should "
-            "as a minimum include the assessment period P50 (median) "
-            "value for each individual turbine. Further results with "
-            "other dimensions may be included optionally."
+            "standard deviation value, the P75 value and the P90 value "
+            "for the full assessment period, for any one year during "
+            "the first ten years of operation and for the first ten "
+            "years of operation. The dimension of the second standard "
+            "result dataset should be 'turbine_id' and should as a "
+            "minimum include the assessment period P50 (median) value "
+            "for each individual turbine. Further results with other "
+            "dimensions may be included optionally."
         ),
     )
     energy_production: list[Dataset] = pdt.Field(
