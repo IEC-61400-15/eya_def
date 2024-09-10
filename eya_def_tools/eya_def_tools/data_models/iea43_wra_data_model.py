@@ -26,7 +26,10 @@ WraDataModelDocument = Annotated[
                 "A wind dataset metadata document according to the IEA "
                 "Wind Task 43 WRA Data Model JSON Schema."
             ),
-            "examples": ["https://foo.com/bar/example_iea43.json"],
+            "examples": [
+                "https://raw.githubusercontent.com/IEA-Task-43/"
+                "digital_wra_data_standard/master/demo_data/iea43_wra_data_model.json"
+            ],
         },
         mode="validation",
     ),

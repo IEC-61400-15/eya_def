@@ -20,12 +20,15 @@ TurbineModelSpecifications = Annotated[
     pdt.WithJsonSchema(
         json_schema={
             ALL_OF_TAG: [{"ref": IEC61400_16_POWER_CURVE_DATA_MODEL_SCHEMA_URI}],
-            "title": "Turbine Model Specifications",
+            "title": "Turbine Model Power Curves Specification",
             "description": (
-                "Wind turbine performance specifications according to "
-                "the IEC-61400-16 data model."
+                "Wind turbine power curve specification according to "
+                "the IEC-61400-16 schema."
             ),
-            "examples": ["https://foo.com/bar/example_wtg_model.json"],
+            "examples": [
+                "https://raw.githubusercontent.com/octue/power-curve-schema/"
+                "main/power-curve-schema/examples/generic-274-20.json"
+            ],
         },
         mode="validation",
     ),
