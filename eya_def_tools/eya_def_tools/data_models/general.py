@@ -12,7 +12,7 @@ import pydantic as pdt
 
 from eya_def_tools.data_models.base_model import EyaDefBaseModel
 
-NonEmptyStr = Annotated[str, pdt.Field(min_length=1)]
+NonEmptyStr = Annotated[str, pdt.StringConstraints(min_length=1)]
 
 
 StartDateField: datetime.date = pdt.Field(
