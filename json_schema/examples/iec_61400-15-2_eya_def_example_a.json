@@ -3203,7 +3203,7 @@
       "description": "Barefoot Wind Farm configuration for Scenario A",
       "id": "bf_a",
       "installed_capacity": 11.0,
-      "label": "Barefoot Wind Farm",
+      "label": "Barefoot Wind Farm A",
       "relevance": "internal",
       "restrictions": [
         {
@@ -3215,6 +3215,7 @@
       ],
       "turbines": [
         {
+          "baseline_operating_mode": "default",
           "description": "Configuration of WTG01 in Scenario A",
           "ground_level_altitude": 44.9,
           "hub_height": 150.0,
@@ -3231,9 +3232,10 @@
               "label": "WSM curtailment"
             }
           ],
-          "turbine_model_id": "6ca5bc01-04b1-421a-a033-133304d6cc7f"
+          "turbine_model": "ABC165-5.5MW"
         },
         {
+          "baseline_operating_mode": "default",
           "description": "Configuration of WTG02 in Scenario A",
           "ground_level_altitude": 46.3,
           "hub_height": 160.0,
@@ -3250,7 +3252,7 @@
               "label": "WSM curtailment"
             }
           ],
-          "turbine_model_id": "6ca5bc01-04b1-421a-a033-133304d6cc7f"
+          "turbine_model": "ABC165-5.5MW"
         }
       ]
     },
@@ -3263,10 +3265,11 @@
       "export_capacity": 11.5,
       "id": "bf_b",
       "installed_capacity": 11.6,
-      "label": "Barefoot Wind Farm",
+      "label": "Barefoot Wind Farm B",
       "relevance": "internal",
       "turbines": [
         {
+          "baseline_operating_mode": "default",
           "description": "Configuration of WTG01 in Scenario B",
           "ground_level_altitude": 45.1,
           "hub_height": 148.0,
@@ -3276,9 +3279,10 @@
             "x": 419675.0,
             "y": 6194260.0
           },
-          "turbine_model_id": "e2914c83-f355-4cf2-9051-8e0f34aa3c03"
+          "turbine_model": "PQR169-5.8MW"
         },
         {
+          "baseline_operating_mode": "default",
           "description": "Configuration of WTG02 in Scenario B",
           "ground_level_altitude": 44.6,
           "hub_height": 158.0,
@@ -3288,7 +3292,7 @@
             "x": 420655.0,
             "y": 6194220.0
           },
-          "turbine_model_id": "e2914c83-f355-4cf2-9051-8e0f34aa3c03"
+          "turbine_model": "PQR169-5.8MW"
         }
       ]
     },
@@ -3304,6 +3308,7 @@
       "relevance": "external",
       "turbines": [
         {
+          "baseline_operating_mode": "default",
           "description": "Configuration of the neighbouring Mu_T1_a turbine",
           "ground_level_altitude": 40.2,
           "hub_height": 125.0,
@@ -3313,9 +3318,10 @@
             "x": 419665.0,
             "y": 6195240.0
           },
-          "turbine_model_id": "e3288cbd-fa3b-4241-8a4c-3856fc10c55e"
+          "turbine_model": "XYZ-3.2/140"
         },
         {
+          "baseline_operating_mode": "default",
           "description": "Configuration of the neighbouring Mu_T2_a turbine",
           "ground_level_altitude": 41.0,
           "hub_height": 125.0,
@@ -3325,7 +3331,7 @@
             "x": 419665.0,
             "y": 6195240.0
           },
-          "turbine_model_id": "e3288cbd-fa3b-4241-8a4c-3856fc10c55e"
+          "turbine_model": "XYZ-3.2/140"
         }
       ]
     }

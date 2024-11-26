@@ -954,7 +954,7 @@
             ],
             "description": "A wind dataset metadata document according to the IEA Wind Task 43 WRA Data Model JSON Schema.",
             "examples": [
-              "https://foo.com/bar/example_iea43.json"
+              "https://raw.githubusercontent.com/IEA-Task-43/digital_wra_data_standard/master/demo_data/iea43_wra_data_model.json"
             ],
             "title": "Wind Dataset Metadata"
           },
@@ -1262,7 +1262,7 @@
             ],
             "description": "A wind dataset metadata document according to the IEA Wind Task 43 WRA Data Model JSON Schema.",
             "examples": [
-              "https://foo.com/bar/example_iea43.json"
+              "https://raw.githubusercontent.com/IEA-Task-43/digital_wra_data_standard/master/demo_data/iea43_wra_data_model.json"
             ],
             "title": "Wind Dataset Metadata"
           },
@@ -2649,11 +2649,11 @@
                 "ref": "https://raw.githubusercontent.com/octue/power-curve-schema/main/power-curve-schema/schema.json"
               }
             ],
-            "description": "Wind turbine performance specifications according to the IEC-61400-16 data model.",
+            "description": "Wind turbine power curve specification according to the IEC-61400-16 schema.",
             "examples": [
-              "https://foo.com/bar/example_wtg_model.json"
+              "https://raw.githubusercontent.com/octue/power-curve-schema/main/power-curve-schema/examples/generic-274-20.json"
             ],
-            "title": "Turbine Model Specifications"
+            "title": "Turbine Model Power Curves Specification"
           },
           "minItems": 1,
           "type": "array"
@@ -2882,6 +2882,17 @@
                   ],
                   "title": "Assessment Period Start Date"
                 },
+                "baseline_operating_mode": {
+                  "description": "The unique identifier for the baseline operating mode of the turbine (the operating mode used in the calculation of gross energy yield), which should correspond to the value of the field 'label' under 'power_curves' and 'operating_modes' in the IEC 61400-16 power curve schema.",
+                  "examples": [
+                    "standard",
+                    "PO1",
+                    "N/14"
+                  ],
+                  "minLength": 1,
+                  "title": "Baseline Operating Mode",
+                  "type": "string"
+                },
                 "comments": {
                   "anyOf": [
                     {
@@ -2994,10 +3005,14 @@
                   "description": "List of operational restrictions at the turbine level.",
                   "title": "Restrictions"
                 },
-                "turbine_model_id": {
-                  "description": "Unique identifier of the turbine model.",
+                "turbine_model": {
+                  "description": "The unique identifier for the model of the turbine, which should correspond to the value of the field 'model_name' under 'turbine' in the IEC 61400-16 power curve schema.",
+                  "examples": [
+                    "GT 3.45-117",
+                    "XYZ/200/20MW"
+                  ],
                   "minLength": 1,
-                  "title": "Turbine Model Id",
+                  "title": "Turbine Model",
                   "type": "string"
                 }
               },
@@ -3006,7 +3021,8 @@
                 "location",
                 "ground_level_altitude",
                 "hub_height",
-                "turbine_model_id"
+                "turbine_model",
+                "baseline_operating_mode"
               ],
               "title": "Turbine Configuration",
               "type": "object"
