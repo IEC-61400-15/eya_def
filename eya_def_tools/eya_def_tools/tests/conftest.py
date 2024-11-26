@@ -353,7 +353,8 @@ def turbine_specification_wtg01_a(
         location=turbine_location_wtg01_a,
         ground_level_altitude=44.9,
         hub_height=150.0,
-        turbine_model_id="6ca5bc01-04b1-421a-a033-133304d6cc7f",
+        turbine_model="ABC165-5.5MW",
+        baseline_operating_mode="default",
         restrictions=[turbine_operational_restriction_a],
     )
 
@@ -370,7 +371,8 @@ def turbine_specification_wtg01_b(
         location=turbine_location_wtg01_b,
         ground_level_altitude=45.1,
         hub_height=148.0,
-        turbine_model_id="e2914c83-f355-4cf2-9051-8e0f34aa3c03",
+        turbine_model="PQR169-5.8MW",
+        baseline_operating_mode="default",
     )
 
 
@@ -387,7 +389,8 @@ def turbine_specification_wtg02_a(
         location=turbine_location_wtg02_a,
         ground_level_altitude=46.3,
         hub_height=160.0,
-        turbine_model_id="6ca5bc01-04b1-421a-a033-133304d6cc7f",
+        turbine_model="ABC165-5.5MW",
+        baseline_operating_mode="default",
         restrictions=[turbine_operational_restriction_a],
     )
 
@@ -404,7 +407,8 @@ def turbine_specification_wtg02_b(
         location=turbine_location_wtg02_b,
         ground_level_altitude=44.6,
         hub_height=158.0,
-        turbine_model_id="e2914c83-f355-4cf2-9051-8e0f34aa3c03",
+        turbine_model="PQR169-5.8MW",
+        baseline_operating_mode="default",
     )
 
 
@@ -420,7 +424,8 @@ def turbine_specification_mu_t1_a(
         location=turbine_location_mu_t1_a,
         ground_level_altitude=40.2,
         hub_height=125.0,
-        turbine_model_id="e3288cbd-fa3b-4241-8a4c-3856fc10c55e",
+        turbine_model="XYZ-3.2/140",
+        baseline_operating_mode="default",
     )
 
 
@@ -436,7 +441,8 @@ def turbine_specification_mu_t2_a(
         location=turbine_location_mu_t2_a,
         ground_level_altitude=41.0,
         hub_height=125.0,
-        turbine_model_id="e3288cbd-fa3b-4241-8a4c-3856fc10c55e",
+        turbine_model="XYZ-3.2/140",
+        baseline_operating_mode="default",
     )
 
 
@@ -463,7 +469,7 @@ def wind_farm_a(
     """Test case instance 'a' of ``WindFarm``."""
     return wind_farm.WindFarmConfiguration(
         id="bf_a",
-        label="Barefoot Wind Farm",
+        label="Barefoot Wind Farm A",
         abbreviation="Barefoot",
         description="Barefoot Wind Farm configuration for Scenario A",
         turbines=[turbine_specification_wtg01_a, turbine_specification_wtg02_a],
@@ -483,7 +489,7 @@ def wind_farm_b(
     """Test case instance 'b' of ``WindFarm``."""
     return wind_farm.WindFarmConfiguration(
         id="bf_b",
-        label="Barefoot Wind Farm",
+        label="Barefoot Wind Farm B",
         abbreviation="Barefoot",
         description="Barefoot Wind Farm configuration for Scenario B",
         comments="Secondary wind farm scenario",
