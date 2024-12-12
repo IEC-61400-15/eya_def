@@ -193,6 +193,12 @@ def _get_abbreviated_type_name(
         case "return_period":
             if get_origin(pydantic_field_info.annotation) == Union:
                 return "Optional[int | float]"
+        case "basis":
+            if get_origin(pydantic_field_info.annotation) == Literal:
+                return "AssessmentComponentBasis"
+        case "assessor_type":
+            if get_origin(pydantic_field_info.annotation) == Literal:
+                return "AssessorType"
 
     if get_origin(pydantic_field_info.annotation) == Literal:
         options = ", ".join(

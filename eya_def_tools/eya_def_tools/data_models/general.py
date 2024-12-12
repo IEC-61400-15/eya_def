@@ -6,7 +6,7 @@ from __future__ import annotations
 
 import datetime
 from enum import StrEnum, auto
-from typing import Annotated, Optional
+from typing import Annotated, Literal, Optional
 
 import pydantic as pdt
 
@@ -67,16 +67,56 @@ class Organisation(EyaDefBaseModel):
     )
 
 
-class AssessmentBasis(StrEnum):
-    """Basis on which an EYA or WRA component has been assessed."""
+AssessmentComponentBasis = Literal[
+    "time_series_calculation",
+    "distribution_calculation",
+    "other_calculation",
+    "project_specific_assumption",
+    "regional_assumption",
+    "generic assumption",
+    "not_considered",
+]
 
-    TIME_SERIES_CALCULATION = auto()
-    DISTRIBUTION_CALCULATION = auto()
-    OTHER_CALCULATION = auto()
-    PROJECT_SPECIFIC_ASSUMPTION = auto()
-    REGIONAL_ASSUMPTION = auto()
-    GENERIC_ASSUMPTION = auto()
-    NOT_CONSIDERED = auto()
+
+AssessorType = Literal[
+    "first_party",
+    "second_party",
+    "third_party",
+]
+
+
+class AssessmentComponentProvenance(EyaDefBaseModel):
+    """The provenance of an EYA or WRA component."""
+
+    assessor_type: AssessorType = pdt.Field(
+        default="second_party",
+        description=(
+            "Type of organisation that has undertaken the assessment "
+            "of the EYA or WRA component, where 'first_party' means a "
+            "receiving organisation that has commissioned the EYA, "
+            "'second_party' means the same issuing organisation(s) "
+            "that has undertaken the EYA and 'third_party' means any "
+            "other organisation(s) (which should be specified in the "
+            "field 'assessor_organisation')."
+        ),
+    )
+    assessor_organisation: Optional[Organisation] = pdt.Field(
+        default=None,
+        description=(
+            "Optional specification of the organisation that undertook "
+            "the assessment component, which should always be included "
+            "if this information is not clear from the specification "
+            "of the assessor type. It is for example not required to "
+            "include if the assessor type is second-party and there is "
+            "only one issuing organisation, but should be provided if "
+            "the assessor type is third-party or if it is first-party "
+            "and there are multiple receiving organisations."
+        ),
+    )
+
+
+def get_default_assessment_component_provenance() -> AssessmentComponentProvenance:
+    return AssessmentComponentProvenance()
 
 
 class MeasurementQuantity(StrEnum):

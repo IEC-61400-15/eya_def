@@ -1,18 +1,35 @@
 {
   "$defs": {
-    "AssessmentBasis": {
-      "description": "Basis on which an EYA or WRA component has been assessed.",
-      "enum": [
-        "time_series_calculation",
-        "distribution_calculation",
-        "other_calculation",
-        "project_specific_assumption",
-        "regional_assumption",
-        "generic_assumption",
-        "not_considered"
-      ],
-      "title": "AssessmentBasis",
-      "type": "string"
+    "AssessmentComponentProvenance": {
+      "additionalProperties": false,
+      "description": "The provenance of an EYA or WRA component.",
+      "properties": {
+        "assessor_organisation": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Organisation"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional specification of the organisation that undertook the assessment component, which should always be included if this information is not clear from the specification of the assessor type. It is for example not required to include if the assessor type is second-party and there is only one issuing organisation, but should be provided if the assessor type is third-party or if it is first-party and there are multiple receiving organisations."
+        },
+        "assessor_type": {
+          "default": "second_party",
+          "description": "Type of organisation that has undertaken the assessment of the EYA or WRA component, where 'first_party' means a receiving organisation that has commissioned the EYA, 'second_party' means the same issuing organisation(s) that has undertaken the EYA and 'third_party' means any other organisation(s) (which should be specified in the field 'assessor_organisation').",
+          "enum": [
+            "first_party",
+            "second_party",
+            "third_party"
+          ],
+          "title": "Assessor Type",
+          "type": "string"
+        }
+      },
+      "title": "AssessmentComponentProvenance",
+      "type": "object"
     },
     "BasicStatistic": {
       "additionalProperties": false,
@@ -1890,12 +1907,18 @@
                             "description": "Plant performance loss assessment subcategory.",
                             "properties": {
                               "basis": {
-                                "allOf": [
-                                  {
-                                    "$ref": "#/$defs/AssessmentBasis"
-                                  }
+                                "description": "Basis upon which the plant performance loss subcategory has been assessed. The basis describes the method and level of detail of the calculation or assumption used in the assessment of the subcategory.",
+                                "enum": [
+                                  "time_series_calculation",
+                                  "distribution_calculation",
+                                  "other_calculation",
+                                  "project_specific_assumption",
+                                  "regional_assumption",
+                                  "generic assumption",
+                                  "not_considered"
                                 ],
-                                "description": "Basis of plant performance loss subcategory assessment. The basis describes the level of detail of the calculation or estimate used in the assessment of the subcategory."
+                                "title": "Basis",
+                                "type": "string"
                               },
                               "comments": {
                                 "anyOf": [
@@ -1933,12 +1956,18 @@
                                       "description": "Plant performance loss assessment subcategory element.",
                                       "properties": {
                                         "basis": {
-                                          "allOf": [
-                                            {
-                                              "$ref": "#/$defs/AssessmentBasis"
-                                            }
+                                          "description": "Basis of the plant performance loss subcategory element assessment. The basis describes the method and level of detail of the calculation or assumption used in the assessment of the element.",
+                                          "enum": [
+                                            "time_series_calculation",
+                                            "distribution_calculation",
+                                            "other_calculation",
+                                            "project_specific_assumption",
+                                            "regional_assumption",
+                                            "generic assumption",
+                                            "not_considered"
                                           ],
-                                          "description": "Basis of plant performance loss subcategory element assessment. The basis describes the level of detail of the calculation or estimate used in the assessment of the element."
+                                          "title": "Basis",
+                                          "type": "string"
                                         },
                                         "comments": {
                                           "anyOf": [
@@ -1968,10 +1997,10 @@
                                           "description": "Optional description of the plant performance loss subcategory element, which should not be empty if the field is included.",
                                           "title": "Description"
                                         },
-                                        "is_independent": {
+                                        "is_statistically_independent": {
                                           "default": true,
-                                          "description": "Whether the plant performance loss subcategory element is independent of all other elements.",
-                                          "title": "Is Independent",
+                                          "description": "Whether the plant performance loss subcategory element is statistically independent of all other elements.",
+                                          "title": "Is Statistically Independent",
                                           "type": "boolean"
                                         },
                                         "label": {
@@ -1979,6 +2008,14 @@
                                           "minLength": 1,
                                           "title": "Label",
                                           "type": "string"
+                                        },
+                                        "provenance": {
+                                          "allOf": [
+                                            {
+                                              "$ref": "#/$defs/AssessmentComponentProvenance"
+                                            }
+                                          ],
+                                          "description": "Provenance of the plant performance loss subcategory element assessment, including specification of the assessor type (first-party, second-party or third-party) and if necessary also the assessor organisation. In cases when the specification of the provenance is omitted, it shall be assumed that the assessor is the same second-party as the (issuing) organisation(s) undertaking the EYA. Further details can be included in the description and comment fields of the plant performance subcategory element."
                                         },
                                         "results": {
                                           "allOf": [
@@ -2046,6 +2083,14 @@
                                 ],
                                 "title": "Plant Performance Subcategory Label",
                                 "type": "string"
+                              },
+                              "provenance": {
+                                "allOf": [
+                                  {
+                                    "$ref": "#/$defs/AssessmentComponentProvenance"
+                                  }
+                                ],
+                                "description": "Provenance of the plant performance loss subcategory assessment, including specification of the assessor type (first-party, second-party or third-party) and if necessary also the assessor organisation. In cases when the specification of the provenance is omitted, it shall be assumed that the assessor is the same second-party as the (issuing) organisation(s) undertaking the EYA. Further details can be included in the description and comment fields of the plant performance subcategory."
                               },
                               "results": {
                                 "allOf": [
