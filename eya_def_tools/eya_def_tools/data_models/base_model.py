@@ -10,7 +10,12 @@ import pydantic as pdt
 import pydantic.json_schema as pdt_json_schema
 import pydantic_core as pdt_core
 
-from eya_def_tools.constants import ALL_OF_TAG, DEFINITIONS_TAG, REFERENCE_TAG
+from eya_def_tools.constants import (
+    ALL_OF_TAG,
+    DEFINITIONS_TAG,
+    EXTERNAL_REFERENCE_TAG,
+    REFERENCE_TAG,
+)
 
 
 class EyaDefGenerateJsonSchema(pdt_json_schema.GenerateJsonSchema):
@@ -241,4 +246,5 @@ class EyaDefBaseModel(pdt.BaseModel):
             )
             .replace(r"\n\n", " ")
             .replace(r"\n", " ")
+            .replace(EXTERNAL_REFERENCE_TAG, REFERENCE_TAG)
         )

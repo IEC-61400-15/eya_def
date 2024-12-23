@@ -949,7 +949,7 @@
           "items": {
             "allOf": [
               {
-                "ref": "https://raw.githubusercontent.com/IEA-Task-43/digital_wra_data_standard/master/schema/iea43_wra_data_model.schema.json"
+                "$ref": "https://raw.githubusercontent.com/IEA-Task-43/digital_wra_data_standard/master/schema/iea43_wra_data_model.schema.json"
               }
             ],
             "description": "A wind dataset metadata document according to the IEA Wind Task 43 WRA Data Model JSON Schema.",
@@ -968,6 +968,24 @@
       "default": null,
       "description": "Optional list of measurement station metadata documents according to the IEA Wind Task 43 WRA Data Model, including all measurement stations relevant to the EYA, if any. It is recommended that one metadata document be completed for each measurement station, although the WRA Data Model allows for grouping multiple measurement stations into a single document.",
       "title": "Measurement Stations"
+    },
+    "power_curves": {
+      "description": "List of documents specifying power curves and associated information according to the IEC 61400-16 Power Curve Schema, covering all relevant turbine models.",
+      "items": {
+        "allOf": [
+          {
+            "$ref": "https://raw.githubusercontent.com/octue/power-curve-schema/main/power-curve-schema/schema.json"
+          }
+        ],
+        "description": "A document specifying power curves and associated information for a turbine model according to the IEC 61400-16 Power Curve Schema.",
+        "examples": [
+          "https://raw.githubusercontent.com/octue/power-curve-schema/main/power-curve-schema/examples/generic-274-20.json"
+        ],
+        "title": "Power Curve Document"
+      },
+      "minItems": 1,
+      "title": "Power Curves",
+      "type": "array"
     },
     "project_country": {
       "description": "The ISO 3166-1 alpha-2 two-letter code of the country where the project under assessment is located.",
@@ -1257,7 +1275,7 @@
           "items": {
             "allOf": [
               {
-                "ref": "https://raw.githubusercontent.com/IEA-Task-43/digital_wra_data_standard/master/schema/iea43_wra_data_model.schema.json"
+                "$ref": "https://raw.githubusercontent.com/IEA-Task-43/digital_wra_data_standard/master/schema/iea43_wra_data_model.schema.json"
               }
             ],
             "description": "A wind dataset metadata document according to the IEA Wind Task 43 WRA Data Model JSON Schema.",
@@ -2640,32 +2658,6 @@
       "title": "Title",
       "type": "string"
     },
-    "turbine_models": {
-      "anyOf": [
-        {
-          "items": {
-            "allOf": [
-              {
-                "ref": "https://raw.githubusercontent.com/octue/power-curve-schema/main/power-curve-schema/schema.json"
-              }
-            ],
-            "description": "Wind turbine power curve specification according to the IEC-61400-16 schema.",
-            "examples": [
-              "https://raw.githubusercontent.com/octue/power-curve-schema/main/power-curve-schema/examples/generic-274-20.json"
-            ],
-            "title": "Turbine Model Power Curves Specification"
-          },
-          "minItems": 1,
-          "type": "array"
-        },
-        {
-          "type": "null"
-        }
-      ],
-      "default": null,
-      "description": "List of wind turbine model specifications.",
-      "title": "Turbine Models"
-    },
     "utc_offset": {
       "description": "The offset in hours of the local time zone used for the EYA relative to Coordinated Universal Time (UTC). It is applied to UTC time to convert it to local time, hence positive for time zones ahead of UTC and negative for time zones behind UTC (e.g. -6.0 for MST and 9.5 for ACST). All data where the time zone is relevant (e.g. hourly time series and diurnal profiles) must be consistent with this one UTC offset.",
       "examples": [
@@ -2883,7 +2875,7 @@
                   "title": "Assessment Period Start Date"
                 },
                 "baseline_operating_mode": {
-                  "description": "The unique identifier for the baseline operating mode of the turbine (the operating mode used in the calculation of gross energy yield), which should correspond to the value of the field 'label' under 'power_curves' and 'operating_modes' in the IEC 61400-16 power curve schema.",
+                  "description": "The unique identifier for the baseline operating mode of the turbine (the operating mode used in the calculation of gross energy yield), which should correspond to the value of the field 'label' under 'power_curves' and 'operating_modes' in the IEC 61400-16 Power Curve Schema.",
                   "examples": [
                     "standard",
                     "PO1",
@@ -3006,7 +2998,7 @@
                   "title": "Restrictions"
                 },
                 "turbine_model": {
-                  "description": "The unique identifier for the model of the turbine, which should correspond to the value of the field 'model_name' under 'turbine' in the IEC 61400-16 power curve schema.",
+                  "description": "The unique identifier for the model of the turbine, which should correspond to the value of the field 'model_name' under 'turbine' in the IEC 61400-16 Power Curve Schema.",
                   "examples": [
                     "GT 3.45-117",
                     "XYZ/200/20MW"
@@ -3253,6 +3245,7 @@
     "utc_offset",
     "wind_farms",
     "wind_resource_assessments",
+    "power_curves",
     "scenarios"
   ],
   "title": "IEC 61400-15-2 EYA DEF Schema",

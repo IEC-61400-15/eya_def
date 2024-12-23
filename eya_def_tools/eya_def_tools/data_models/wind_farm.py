@@ -121,7 +121,7 @@ class TurbineConfiguration(EyaDefBaseModel):
         description=(
             "The unique identifier for the model of the turbine, which "
             "should correspond to the value of the field 'model_name' "
-            "under 'turbine' in the IEC 61400-16 power curve schema."
+            "under 'turbine' in the IEC 61400-16 Power Curve Schema."
         ),
         examples=["GT 3.45-117", "XYZ/200/20MW"],
     )
@@ -133,7 +133,7 @@ class TurbineConfiguration(EyaDefBaseModel):
             "the turbine (the operating mode used in the calculation "
             "of gross energy yield), which should correspond to the "
             "value of the field 'label' under 'power_curves' and "
-            "'operating_modes' in the IEC 61400-16 power curve schema."
+            "'operating_modes' in the IEC 61400-16 Power Curve Schema."
         ),
         examples=["standard", "PO1", "N/14"],
     )
