@@ -2,18 +2,32 @@
 
 """
 
-from typing import Any, Final
+from collections.abc import Mapping
+from typing import Annotated, Any, Final
 
+import jsonschema
 import pydantic as pdt
-from typing_extensions import Annotated
 
 from eya_def_tools.constants import ALL_OF_TAG, EXTERNAL_REFERENCE_TAG
 from eya_def_tools.data_models.general import NonEmptyStr
+from eya_def_tools.utils import loading_utils
 
 IEA43_WRA_DATA_MODEL_SCHEMA_URI: Final[str] = (
     "https://raw.githubusercontent.com/IEA-Task-43/digital_wra_data_standard/"
     "master/schema/iea43_wra_data_model.schema.json"
 )
+
+IEA43_WRA_DATA_MODEL_SCHEMA: Final[Mapping[str, Any]] = loading_utils.load_json_schema(
+    json_schema_uri=IEA43_WRA_DATA_MODEL_SCHEMA_URI,
+)
+
+
+def json_schema_validate_wra_data_model_document(
+    value: dict[str, Any]
+) -> dict[str, Any]:
+    jsonschema.validate(instance=value, schema=IEA43_WRA_DATA_MODEL_SCHEMA)
+
+    return value
 
 
 WraDataModelDocument = Annotated[
@@ -37,4 +51,5 @@ WraDataModelDocument = Annotated[
         },
         mode="validation",
     ),
+    pdt.BeforeValidator(json_schema_validate_wra_data_model_document),
 ]
