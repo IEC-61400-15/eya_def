@@ -2412,7 +2412,7 @@
                   "description": "Curtailment due to a wind sector management strategy to reduce turbine loads.",
                   "label": "load_curtailment",
                   "provenance": {
-                    "assessor_type": "second_party"
+                    "assessor_type": "issuing_organisation"
                   },
                   "results": {
                     "efficiency": [
@@ -2911,7 +2911,8 @@
                   "description": "A broad estimate of curtailment losses due to a wind sector management strategy to reduce turbine loads, in the absence of details from the turbine manufacturer, provided by the client and not independently verified.",
                   "label": "load_curtailment",
                   "provenance": {
-                    "assessor_type": "first_party"
+                    "assessor_type": "receiving_organisation",
+                    "is_verified_by_issuing_organisation": true
                   },
                   "results": {
                     "efficiency": [
