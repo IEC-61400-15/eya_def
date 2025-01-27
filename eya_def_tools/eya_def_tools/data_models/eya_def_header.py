@@ -197,8 +197,23 @@ ReceivingOrganisationsField: Optional[list[Organisation]] = pdt.Field(
     default=None,
     min_length=1,
     description=(
-        "Optional specification of organisation(s) receiving the "
+        "Optional specification of the organisation(s) receiving the "
         "report (e.g. client), if relevant."
+    ),
+)
+
+CommissioningOrganisationsField: Optional[list[Organisation]] = pdt.Field(
+    default=None,
+    min_length=1,
+    description=(
+        "Optional specification of the organisation(s) having "
+        "commissioned the report, if relevant. This is to be included "
+        "only if not identical to the receiving  organisation(s). "
+        "Whenever receiving organisation(s) are specified and "
+        "commissioning organisation(s) are not, is shall be assumed "
+        "they are the same. As an example, the commissioning "
+        "organisation could be a project developer and the receiving "
+        "organisation a financing bank."
     ),
 )
 
@@ -276,6 +291,9 @@ class EyaDefHeader(EyaDefBaseModel):
     contributors: list[ReportContributor] = ContributorsField
     issuing_organisations: list[Organisation] = IssuingOrganisationsField
     receiving_organisations: Optional[list[Organisation]] = ReceivingOrganisationsField
+    commissioning_organisations: Optional[list[Organisation]] = (
+        CommissioningOrganisationsField
+    )
     contract_reference: Optional[str] = ContractReferenceField
     confidentiality_classification: Optional[str] = ConfidentialityClassificationField
     epsg_srid: EpsgSrid = EpsgSridField

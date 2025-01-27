@@ -12,6 +12,7 @@ from eya_def_tools.data_models.base_model import EyaDefBaseModel
 from eya_def_tools.data_models.eya_def_header import (
     Alpha2CountryCode,
     CommentsField,
+    CommissioningOrganisationsField,
     ConfidentialityClassificationField,
     ContractReferenceField,
     ContributorsField,
@@ -73,6 +74,9 @@ class EyaDefDocument(EyaDefBaseModel):
     contributors: list[ReportContributor] = ContributorsField
     issuing_organisations: list[Organisation] = IssuingOrganisationsField
     receiving_organisations: Optional[list[Organisation]] = ReceivingOrganisationsField
+    commissioning_organisations: Optional[list[Organisation]] = (
+        CommissioningOrganisationsField
+    )
     contract_reference: Optional[str] = ContractReferenceField
     confidentiality_classification: Optional[str] = ConfidentialityClassificationField
     epsg_srid: EpsgSrid = EpsgSridField
