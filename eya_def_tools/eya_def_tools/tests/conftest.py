@@ -1334,8 +1334,9 @@ def plant_performance_curtailment_category_b() -> (
                     "independently verified."
                 ),
                 basis="project_specific_assumption",
-                provenance=general.AssessmentComponentProvenance(
-                    assessor_type="first_party",
+                provenance=general.FirstPartyAssessmentComponentProvenance(
+                    assessor_type="receiving_organisation",
+                    is_verified_by_issuing_organisation=True,
                 ),
                 variability=general.TimeVariabilityType.STATIC,
                 results=plant_performance.PlantPerformanceResults(

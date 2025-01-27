@@ -6,7 +6,7 @@ from __future__ import annotations
 
 import datetime
 from enum import StrEnum, auto
-from typing import Annotated, Literal, Optional
+from typing import Annotated, Literal, Optional, TypeAlias
 
 import pydantic as pdt
 
@@ -79,44 +79,101 @@ AssessmentComponentBasis = Literal[
 
 
 AssessorType = Literal[
-    "first_party",
-    "second_party",
-    "third_party",
+    "issuing_organisation",
+    "receiving_organisation",
+    "commissioning_organisation",
+    "other_organisation",
 ]
 
+IsVerifiedByIssuingOrganisationField: bool = pdt.Field(
+    default=...,
+    description=(
+        "Whether an assessment component provided by a receiving "
+        "organisation, commissioning organisation or other "
+        "organisation (e.g. independent third party) has been verified "
+        "by the issuing organisation(s) of the EYA."
+    ),
+)
 
-class AssessmentComponentProvenance(EyaDefBaseModel):
-    """The provenance of an EYA or WRA component."""
 
-    assessor_type: AssessorType = pdt.Field(
-        default="second_party",
+class IssuingOrganisationAssessmentComponentProvenance(EyaDefBaseModel):
+    """Provenance of a component assessed by the issuing organisation."""
+
+    assessor_type: Literal["issuing_organisation"] = pdt.Field(
+        default="issuing_organisation",
         description=(
-            "Type of organisation that has undertaken the assessment "
-            "of the EYA or WRA component, where 'first_party' means a "
-            "receiving organisation that has commissioned the EYA, "
-            "'second_party' means the same issuing organisation(s) "
-            "that has undertaken the EYA and 'third_party' means any "
-            "other organisation(s) (which should be specified in the "
-            "field 'assessor_organisation')."
-        ),
-    )
-    assessor_organisation: Optional[Organisation] = pdt.Field(
-        default=None,
-        description=(
-            "Optional specification of the organisation that undertook "
-            "the assessment component, which should always be included "
-            "if this information is not clear from the specification "
-            "of the assessor type. It is for example not required to "
-            "include if the assessor type is second-party and there is "
-            "only one issuing organisation, but should be provided if "
-            "the assessor type is third-party or if it is first-party "
-            "and there are multiple receiving organisations."
+            "Type of organisation that undertook the assessment of the "
+            "EYA or WRA component, which must be one of the options "
+            "'issuing_organisation', 'receiving_organisation', "
+            "'commissioning_organisation' and 'other_organisation'. "
+            "The value 'issuing_organisation' means that the component "
+            "has been assessed by the organisation(s) having "
+            "undertaken and issued the EYA."
         ),
     )
 
 
-def get_default_assessment_component_provenance() -> AssessmentComponentProvenance:
-    return AssessmentComponentProvenance()
+class FirstPartyAssessmentComponentProvenance(EyaDefBaseModel):
+    """First party provenance of an EYA or WRA component.
+
+    First party in this context means an organisation receiving and/or
+    having commissioned the EYA report.
+    """
+
+    assessor_type: Literal["receiving_organisation", "commissioning_organisation"] = (
+        pdt.Field(
+            default="receiving_organisation",
+            description=(
+                "Type of organisation that undertook the assessment of the "
+                "EYA or WRA component, which must be one of the options "
+                "'issuing_organisation', 'receiving_organisation', "
+                "'commissioning_organisation' and 'other_organisation'. "
+                "The value 'commissioning_organisation' should be used "
+                "only when the commissioning organisation is not also a "
+                "receiving organisation."
+            ),
+        )
+    )
+    is_verified_by_issuing_organisation: bool = IsVerifiedByIssuingOrganisationField
+
+
+class OtherOrganisationAssessmentComponentProvenance(EyaDefBaseModel):
+    """Provenance of a component assessed by another organisation."""
+
+    assessor_type: Literal["other_organisation"] = pdt.Field(
+        default="other_organisation",
+        description=(
+            "Type of organisation that undertook the assessment of the "
+            "EYA or WRA component, which must be one of the options "
+            "'issuing_organisation', 'receiving_organisation', "
+            "'commissioning_organisation' and 'other_organisation'. "
+            "The value 'other_organisation' should be used for "
+            "independent third parties or any other organisation that "
+            "has not issued, received or commissioned the EYA."
+        ),
+    )
+    assessor_organisations: list[Organisation] = pdt.Field(
+        default=...,
+        min_length=1,
+        description=(
+            "Specification of the other (third party) organisation(s) "
+            "that undertook the assessment of the component."
+        ),
+    )
+    is_verified_by_issuing_organisation: bool = IsVerifiedByIssuingOrganisationField
+
+
+AnyAssessmentComponentProvenance: TypeAlias = (
+    IssuingOrganisationAssessmentComponentProvenance
+    | FirstPartyAssessmentComponentProvenance
+    | OtherOrganisationAssessmentComponentProvenance
+)
+
+
+def get_default_assessment_component_provenance() -> (
+    IssuingOrganisationAssessmentComponentProvenance
+):
+    return IssuingOrganisationAssessmentComponentProvenance()
 
 
 class MeasurementQuantity(StrEnum):
