@@ -12,6 +12,7 @@ import datetime as dt
 import json
 import urllib.request as urllib_request
 import uuid as uuid_
+from collections.abc import Mapping
 from pathlib import Path
 from typing import Any
 
@@ -334,13 +335,25 @@ def power_curve_document_c(
 
 
 @pytest.fixture(scope="session")
-def all_power_curve_documents(
+def power_curve_document_map(
     power_curve_document_a: power_curve_schema.PowerCurveDocument,
     power_curve_document_b: power_curve_schema.PowerCurveDocument,
     power_curve_document_c: power_curve_schema.PowerCurveDocument,
+) -> Mapping[str, power_curve_schema.PowerCurveDocument]:
+    """Mapping of model name to power curve document."""
+    return {
+        "ABC165-5.5MW": power_curve_document_a,
+        "PQR169-5.8MW": power_curve_document_b,
+        "XYZ-3.2_140": power_curve_document_c,
+    }
+
+
+@pytest.fixture(scope="session")
+def all_power_curve_documents(
+    power_curve_document_map: Mapping[str, power_curve_schema.PowerCurveDocument],
 ) -> list[power_curve_schema.PowerCurveDocument]:
     """A list of all power curve document test case instances."""
-    return [power_curve_document_a, power_curve_document_b, power_curve_document_c]
+    return list(power_curve_document_map.values())
 
 
 @pytest.fixture(scope="session")

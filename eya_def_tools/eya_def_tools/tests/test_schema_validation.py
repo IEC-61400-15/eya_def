@@ -93,32 +93,17 @@ def test_json_schema_validate_reference_meteorological_dataset_a(
     )
 
 
-def test_json_schema_validate_power_curve_document_a(
-    power_curve_document_a: dict[str, Any],
+@pytest.mark.parametrize(
+    argnames="model_name",
+    argvalues=["ABC165-5.5MW", "PQR169-5.8MW", "XYZ-3.2_140"],
+)
+def test_json_schema_validate_power_curve_documents(
+    model_name: str,
+    power_curve_document_map: dict[str, dict[str, Any]],
     iec61400_16_power_curve_schema_json_schema: dict[str, Any],
 ) -> None:
     jsonschema.validate(
-        instance=power_curve_document_a,
-        schema=iec61400_16_power_curve_schema_json_schema,
-    )
-
-
-def test_json_schema_validate_power_curve_document_b(
-    power_curve_document_b: dict[str, Any],
-    iec61400_16_power_curve_schema_json_schema: dict[str, Any],
-) -> None:
-    jsonschema.validate(
-        instance=power_curve_document_b,
-        schema=iec61400_16_power_curve_schema_json_schema,
-    )
-
-
-def test_json_schema_validate_power_curve_document_c(
-    power_curve_document_c: dict[str, Any],
-    iec61400_16_power_curve_schema_json_schema: dict[str, Any],
-) -> None:
-    jsonschema.validate(
-        instance=power_curve_document_c,
+        instance=power_curve_document_map[model_name],
         schema=iec61400_16_power_curve_schema_json_schema,
     )
 
