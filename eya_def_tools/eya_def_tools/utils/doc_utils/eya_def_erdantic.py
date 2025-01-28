@@ -181,8 +181,8 @@ def _get_abbreviated_type_name(
     match field_name:
         case "measurement_stations" | "reference_meteorological_datasets":
             return "Optional[list[IEATask43WraDataModel]]"
-        case "turbine_models":
-            return "Optional[list[IEC61400d16PowerCurveDataModel]]"
+        case "power_curves":
+            return "list[IEC61400d16PowerCurveDataModel]"
         case "values":
             if (
                 pydantic_field_info.description is not None

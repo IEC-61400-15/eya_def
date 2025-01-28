@@ -33,10 +33,10 @@ from eya_def_tools.data_models.eya_def_header import (
 )
 from eya_def_tools.data_models.general import Organisation
 from eya_def_tools.data_models.iea43_wra_data_model import WraDataModelDocument
+from eya_def_tools.data_models.power_curve_schema import PowerCurveDocument
 from eya_def_tools.data_models.reference_wind_farm import ReferenceWindFarm
 from eya_def_tools.data_models.scenario import Scenario
 from eya_def_tools.data_models.spatial import EpsgSrid
-from eya_def_tools.data_models.turbine_model import TurbineModelSpecifications
 from eya_def_tools.data_models.wind_farm import WindFarmConfiguration
 from eya_def_tools.data_models.wind_resource import WindResourceAssessment
 from eya_def_tools.utils import reference_utils
@@ -139,10 +139,14 @@ class EyaDefDocument(EyaDefBaseModel):
             "measurement station locations."
         ),
     )
-    turbine_models: Optional[list[TurbineModelSpecifications]] = pdt.Field(
-        default=None,
+    power_curves: list[PowerCurveDocument] = pdt.Field(
+        default=...,
         min_length=1,
-        description="List of wind turbine model specifications.",
+        description=(
+            "List of documents specifying power curves and associated "
+            "information according to the IEC 61400-16 Power Curve "
+            "Schema, covering all relevant turbine models."
+        ),
     )
     scenarios: list[Scenario] = pdt.Field(
         default=...,
