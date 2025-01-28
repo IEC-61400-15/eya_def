@@ -1,0 +1,324 @@
+{
+  "design_bases": [
+    {
+      "certification": {
+        "certificate_reference": "IECRE.WE.TC.20.0099-R6",
+        "standard": "IEC",
+        "standard_edition": "2"
+      },
+      "design_class": {
+        "class_label": "II"
+      },
+      "design_lifetime": 20,
+      "label": "design_basis_1",
+      "name": "Design Basis 1",
+      "standard_climate": {
+        "operating_temperature_range": [
+          -20.0,
+          40.0
+        ],
+        "survival_temperature_range": [
+          -30.0,
+          50.0
+        ]
+      },
+      "turbulence": {
+        "category": "A"
+      }
+    }
+  ],
+  "document": {
+    "metadata": [
+      {
+        "term": "Identifier",
+        "value": "ba44fc3f-6963-45a9-a29f-e4fb855d881c"
+      },
+      {
+        "term": "Type",
+        "value": "http://purl.org/dc/dcmitype/Dataset"
+      },
+      {
+        "term": "Format",
+        "value": "IEC61400-16"
+      },
+      {
+        "term": "Source",
+        "value": "https://xyz-wind-turbines.api.com/power_curves/XYZ-3.2_140-v0.1.json"
+      },
+      {
+        "term": "Creator",
+        "value": "Fictitious Manufacturer XYZ Limited"
+      },
+      {
+        "term": "Publisher",
+        "value": "Fictitious Manufacturer XYZ Limited"
+      },
+      {
+        "term": "Date",
+        "value": "2020-09-06"
+      },
+      {
+        "term": "Description",
+        "value": "Specification of the power curves and associated information for the XYZ-3.2/140 turbine model"
+      },
+      {
+        "term": "Language",
+        "value": "en"
+      }
+    ]
+  },
+  "power_curves": {
+    "default_operating_mode": "standard",
+    "operating_modes": [
+      {
+        "cuts": [
+          {
+            "kind": "low_cut_in",
+            "period": 600.0,
+            "wind_speed": 3.0
+          },
+          {
+            "kind": "low_cut_out",
+            "period": 600.0,
+            "wind_speed": 2.5
+          },
+          {
+            "kind": "high_cut_out",
+            "period": 600.0,
+            "wind_speed": 25.0
+          },
+          {
+            "kind": "high_cut_in",
+            "period": 300.0,
+            "wind_speed": 22.0
+          },
+          {
+            "kind": "high_cut_out",
+            "period": 30.0,
+            "wind_speed": 28.0
+          },
+          {
+            "kind": "high_cut_out",
+            "period": 3.0,
+            "wind_speed": 32.0
+          }
+        ],
+        "description": "Standard (full power) operating mode",
+        "design_bases": [
+          "design_basis_1"
+        ],
+        "label": "standard",
+        "name": "Standard",
+        "overrides": {},
+        "parameters": [
+          {
+            "dimension": 0,
+            "label": "air-density",
+            "values": [
+              1.225
+            ]
+          },
+          {
+            "dimension": 1,
+            "label": "wind-speed",
+            "values": [
+              3.0,
+              3.5,
+              4.0,
+              4.5,
+              5.0,
+              5.5,
+              6.0,
+              6.5,
+              7.0,
+              7.5,
+              8.0,
+              8.5,
+              9.0,
+              9.5,
+              10.0,
+              10.5,
+              11.0,
+              11.5,
+              12.0,
+              12.5,
+              13.0,
+              13.5,
+              14.0,
+              14.5,
+              15.0,
+              15.5,
+              16.0,
+              16.5,
+              17.0,
+              17.5,
+              18.0,
+              18.5,
+              19.0,
+              19.5,
+              20.0,
+              20.5,
+              21.0,
+              21.5,
+              22.0,
+              22.5,
+              23.0,
+              23.5,
+              24.0,
+              24.5,
+              25.0
+            ]
+          }
+        ],
+        "power": [
+          [
+            31000.0,
+            112000.0,
+            215000.0,
+            339000.0,
+            487000.0,
+            667000.0,
+            883000.0,
+            1140000.0,
+            1440000.0,
+            1785000.0,
+            2179000.0,
+            2679000.0,
+            3118000.0,
+            3195000.0,
+            3200000.0,
+            3200000.0,
+            3200000.0,
+            3200000.0,
+            3200000.0,
+            3200000.0,
+            3200000.0,
+            3200000.0,
+            3200000.0,
+            3200000.0,
+            3200000.0,
+            3200000.0,
+            3200000.0,
+            3200000.0,
+            3200000.0,
+            3200000.0,
+            3200000.0,
+            3200000.0,
+            3200000.0,
+            3200000.0,
+            3200000.0,
+            3200000.0,
+            3200000.0,
+            3200000.0,
+            3200000.0,
+            3200000.0,
+            3200000.0,
+            3200000.0,
+            3200000.0,
+            3200000.0,
+            3200000.0
+          ]
+        ],
+        "power_is_coefficient": false,
+        "rated_power": 3200000.0,
+        "thrust": [
+          [
+            0.873,
+            0.849,
+            0.834,
+            0.828,
+            0.827,
+            0.825,
+            0.82,
+            0.816,
+            0.805,
+            0.804,
+            0.794,
+            0.79,
+            0.789,
+            0.678,
+            0.564,
+            0.465,
+            0.384,
+            0.321,
+            0.273,
+            0.234,
+            0.205,
+            0.182,
+            0.161,
+            0.144,
+            0.129,
+            0.117,
+            0.106,
+            0.097,
+            0.089,
+            0.081,
+            0.074,
+            0.069,
+            0.063,
+            0.059,
+            0.055,
+            0.051,
+            0.048,
+            0.045,
+            0.043,
+            0.04,
+            0.038,
+            0.036,
+            0.034,
+            0.032,
+            0.03
+          ]
+        ],
+        "thrust_is_coefficient": true
+      }
+    ]
+  },
+  "turbine": {
+    "available_hub_heights": [
+      125.0
+    ],
+    "cut_in_rpm": 3.5,
+    "drive_type": "geared",
+    "grid_frequencies": [
+      50.0,
+      60.0
+    ],
+    "manufacturer_display_name": "XYZ",
+    "manufacturer_name": "Fictitious Manufacturer XYZ Limited",
+    "model_description": "Generic turbine XYZ-3.2/140 for the EYA DEF examples.",
+    "model_name": "XYZ-3.2/140",
+    "number_of_blades": 3,
+    "rated_power": 3200000.0,
+    "rated_rpm": 12.5,
+    "regulation_type": "pitch",
+    "rotor_diameter": 140.0,
+    "rotor_tilt": 5.0,
+    "thermal_shutdown": {
+      "cold": {
+        "restart_duration": 600.0,
+        "restart_temperature": -15.0,
+        "shutdown_temperature": -20.0
+      },
+      "derating": [
+        {
+          "$comment": "Linear ramp down to zero",
+          "air_density": 1.225,
+          "power_limit": [
+            3200000.0,
+            0.0
+          ],
+          "temperature": [
+            35.0,
+            40.0
+          ]
+        }
+      ],
+      "hot": {
+        "restart_duration": 60.0,
+        "restart_temperature": 35.0,
+        "shutdown_temperature": 40.0
+      }
+    }
+  }
+}

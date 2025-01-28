@@ -12,6 +12,7 @@ import datetime as dt
 import json
 import urllib.request as urllib_request
 import uuid as uuid_
+from collections.abc import Mapping
 from pathlib import Path
 from typing import Any
 
@@ -25,10 +26,10 @@ from eya_def_tools.data_models import (
     general,
     iea43_wra_data_model,
     plant_performance,
+    power_curve_schema,
     reference_wind_farm,
     scenario,
     spatial,
-    turbine_model,
     wind_farm,
     wind_resource,
     wind_uncertainty,
@@ -219,6 +220,18 @@ def iea43_wra_data_model_json_schema() -> dict[str, Any]:
         iea43_wra_data_model.IEA43_WRA_DATA_MODEL_SCHEMA_URI
     ) as url:
         json_schema = json.load(url)
+
+    return json_schema
+
+
+@pytest.fixture(scope="session")
+def iec61400_16_power_curve_schema_json_schema() -> dict[str, Any]:
+    """The IEC 61400-16 Power Curve Schema JSON Schema."""
+    with urllib_request.urlopen(
+        power_curve_schema.IEC61400_16_POWER_CURVE_SCHEMA_SCHEMA_URI
+    ) as url:
+        json_schema = json.load(url)
+
     return json_schema
 
 
@@ -276,50 +289,71 @@ def turbine_location_mu_t2_a() -> spatial.Location:
     )
 
 
-# TODO update once draft of IEC-61400-16 data model is ready
 @pytest.fixture(scope="session")
-def turbine_model_a() -> turbine_model.TurbineModelSpecifications:
-    """Test case instance 'a' of ``TurbineModel``."""
-    return turbine_model.TurbineModelSpecifications(
-        {
-            "id": "6ca5bc01-04b1-421a-a033-133304d6cc7f",
-            "label": "ABC165-5.5MW",
-        }
-    )
-
-
-# TODO update once draft of IEC-61400-16 data model is ready
-@pytest.fixture(scope="session")
-def turbine_model_b() -> turbine_model.TurbineModelSpecifications:
-    """Test case instance 'b' of ``TurbineModel``."""
-    return turbine_model.TurbineModelSpecifications(
-        {
-            "id": "e2914c83-f355-4cf2-9051-8e0f34aa3c03",
-            "label": "PQR169-5.8MW",
-        }
-    )
-
-
-# TODO update once draft of IEC-61400-16 data model is ready
-@pytest.fixture(scope="session")
-def turbine_model_c() -> turbine_model.TurbineModelSpecifications:
-    """Test case instance 'c' of ``TurbineModel``."""
-    return turbine_model.TurbineModelSpecifications(
-        {
-            "turbine_model_id": "e3288cbd-fa3b-4241-8a4c-3856fc10c55e",
-            "label": "XYZ-3.2/140",
-        }
-    )
+def power_curve_document_a_filepath(json_examples_dirpath: Path) -> Path:
+    return json_examples_dirpath / "iec_61400-15-2_eya_def_example_a_ABC165-5.5MW.json"
 
 
 @pytest.fixture(scope="session")
-def all_turbine_models(
-    turbine_model_a: turbine_model.TurbineModelSpecifications,
-    turbine_model_b: turbine_model.TurbineModelSpecifications,
-    turbine_model_c: turbine_model.TurbineModelSpecifications,
-) -> list[turbine_model.TurbineModelSpecifications]:
-    """A list of all turbine model test case instances."""
-    return [turbine_model_a, turbine_model_b, turbine_model_c]
+def power_curve_document_b_filepath(json_examples_dirpath: Path) -> Path:
+    return json_examples_dirpath / "iec_61400-15-2_eya_def_example_a_PQR169-5.8MW.json"
+
+
+@pytest.fixture(scope="session")
+def power_curve_document_c_filepath(json_examples_dirpath: Path) -> Path:
+    return json_examples_dirpath / "iec_61400-15-2_eya_def_example_a_XYZ-3.2_140.json"
+
+
+@pytest.fixture(scope="session")
+def power_curve_document_a(
+    power_curve_document_a_filepath: Path,
+) -> power_curve_schema.PowerCurveDocument:
+    with open(power_curve_document_a_filepath, "r") as f:
+        json_data_dict = json.load(f)
+
+    return power_curve_schema.PowerCurveDocument(json_data_dict)
+
+
+@pytest.fixture(scope="session")
+def power_curve_document_b(
+    power_curve_document_b_filepath: Path,
+) -> power_curve_schema.PowerCurveDocument:
+    with open(power_curve_document_b_filepath, "r") as f:
+        json_data_dict = json.load(f)
+
+    return power_curve_schema.PowerCurveDocument(json_data_dict)
+
+
+@pytest.fixture(scope="session")
+def power_curve_document_c(
+    power_curve_document_c_filepath: Path,
+) -> power_curve_schema.PowerCurveDocument:
+    with open(power_curve_document_c_filepath, "r") as f:
+        json_data_dict = json.load(f)
+
+    return power_curve_schema.PowerCurveDocument(json_data_dict)
+
+
+@pytest.fixture(scope="session")
+def power_curve_document_map(
+    power_curve_document_a: power_curve_schema.PowerCurveDocument,
+    power_curve_document_b: power_curve_schema.PowerCurveDocument,
+    power_curve_document_c: power_curve_schema.PowerCurveDocument,
+) -> Mapping[str, power_curve_schema.PowerCurveDocument]:
+    """Mapping of model name to power curve document."""
+    return {
+        "ABC165-5.5MW": power_curve_document_a,
+        "PQR169-5.8MW": power_curve_document_b,
+        "XYZ-3.2_140": power_curve_document_c,
+    }
+
+
+@pytest.fixture(scope="session")
+def all_power_curve_documents(
+    power_curve_document_map: Mapping[str, power_curve_schema.PowerCurveDocument],
+) -> list[power_curve_schema.PowerCurveDocument]:
+    """A list of all power curve document test case instances."""
+    return list(power_curve_document_map.values())
 
 
 @pytest.fixture(scope="session")
@@ -353,7 +387,8 @@ def turbine_specification_wtg01_a(
         location=turbine_location_wtg01_a,
         ground_level_altitude=44.9,
         hub_height=150.0,
-        turbine_model_id="6ca5bc01-04b1-421a-a033-133304d6cc7f",
+        turbine_model="ABC165-5.5MW",
+        baseline_operating_mode="standard",
         restrictions=[turbine_operational_restriction_a],
     )
 
@@ -370,7 +405,8 @@ def turbine_specification_wtg01_b(
         location=turbine_location_wtg01_b,
         ground_level_altitude=45.1,
         hub_height=148.0,
-        turbine_model_id="e2914c83-f355-4cf2-9051-8e0f34aa3c03",
+        turbine_model="PQR169-5.8MW",
+        baseline_operating_mode="standard",
     )
 
 
@@ -387,7 +423,8 @@ def turbine_specification_wtg02_a(
         location=turbine_location_wtg02_a,
         ground_level_altitude=46.3,
         hub_height=160.0,
-        turbine_model_id="6ca5bc01-04b1-421a-a033-133304d6cc7f",
+        turbine_model="ABC165-5.5MW",
+        baseline_operating_mode="standard",
         restrictions=[turbine_operational_restriction_a],
     )
 
@@ -404,7 +441,8 @@ def turbine_specification_wtg02_b(
         location=turbine_location_wtg02_b,
         ground_level_altitude=44.6,
         hub_height=158.0,
-        turbine_model_id="e2914c83-f355-4cf2-9051-8e0f34aa3c03",
+        turbine_model="PQR169-5.8MW",
+        baseline_operating_mode="standard",
     )
 
 
@@ -420,7 +458,8 @@ def turbine_specification_mu_t1_a(
         location=turbine_location_mu_t1_a,
         ground_level_altitude=40.2,
         hub_height=125.0,
-        turbine_model_id="e3288cbd-fa3b-4241-8a4c-3856fc10c55e",
+        turbine_model="XYZ-3.2/140",
+        baseline_operating_mode="standard",
     )
 
 
@@ -436,7 +475,8 @@ def turbine_specification_mu_t2_a(
         location=turbine_location_mu_t2_a,
         ground_level_altitude=41.0,
         hub_height=125.0,
-        turbine_model_id="e3288cbd-fa3b-4241-8a4c-3856fc10c55e",
+        turbine_model="XYZ-3.2/140",
+        baseline_operating_mode="standard",
     )
 
 
@@ -463,7 +503,7 @@ def wind_farm_a(
     """Test case instance 'a' of ``WindFarm``."""
     return wind_farm.WindFarmConfiguration(
         id="bf_a",
-        label="Barefoot Wind Farm",
+        label="Barefoot Wind Farm A",
         abbreviation="Barefoot",
         description="Barefoot Wind Farm configuration for Scenario A",
         turbines=[turbine_specification_wtg01_a, turbine_specification_wtg02_a],
@@ -483,7 +523,7 @@ def wind_farm_b(
     """Test case instance 'b' of ``WindFarm``."""
     return wind_farm.WindFarmConfiguration(
         id="bf_b",
-        label="Barefoot Wind Farm",
+        label="Barefoot Wind Farm B",
         abbreviation="Barefoot",
         description="Barefoot Wind Farm configuration for Scenario B",
         comments="Secondary wind farm scenario",
@@ -1803,7 +1843,7 @@ def eya_def_a(
     measurement_station_a: iea43_wra_data_model.WraDataModelDocument,
     reference_wind_farm_a: reference_wind_farm.ReferenceWindFarm,
     reference_meteorological_dataset_a: iea43_wra_data_model.WraDataModelDocument,
-    all_turbine_models: list[turbine_model.TurbineModelSpecifications],
+    all_power_curve_documents: list[power_curve_schema.PowerCurveDocument],
     wind_resource_assessment_a: wind_resource.WindResourceAssessment,
     all_scenarios: list[scenario.Scenario],
 ) -> eya_def.EyaDefDocument:
@@ -1840,7 +1880,7 @@ def eya_def_a(
         reference_wind_farms=[reference_wind_farm_a],
         reference_meteorological_datasets=[reference_meteorological_dataset_a],
         wind_resource_assessments=[wind_resource_assessment_a],
-        turbine_models=all_turbine_models,
+        power_curves=all_power_curve_documents,
         scenarios=all_scenarios,
     )
 

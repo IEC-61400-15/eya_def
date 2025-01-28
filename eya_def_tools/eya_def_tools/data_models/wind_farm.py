@@ -115,15 +115,27 @@ class TurbineConfiguration(EyaDefBaseModel):
         allow_inf_nan=False,
         description="The hub height of the turbine above ground level (in m).",
     )
-
-    # TODO: - need to link "turbine_model_id" to the relevant field
-    #         in IEC 61400-16
-    #       - need also details to identify the baseline power curve
-    #         including power mode, power curve air density, etc.
-    turbine_model_id: str = pdt.Field(
+    turbine_model: str = pdt.Field(
         default=...,
         min_length=1,
-        description="Unique identifier of the turbine model.",
+        description=(
+            "The unique identifier for the model of the turbine, which "
+            "should correspond to the value of the field 'model_name' "
+            "under 'turbine' in the IEC 61400-16 Power Curve Schema."
+        ),
+        examples=["GT 3.45-117", "XYZ/200/20MW"],
+    )
+    baseline_operating_mode: str = pdt.Field(
+        default=...,
+        min_length=1,
+        description=(
+            "The unique identifier for the baseline operating mode of "
+            "the turbine (the operating mode used in the calculation "
+            "of gross energy yield), which should correspond to the "
+            "value of the field 'label' under 'power_curves' and "
+            "'operating_modes' in the IEC 61400-16 Power Curve Schema."
+        ),
+        examples=["standard", "PO1", "N/14"],
     )
 
     assessment_period_start_date: Optional[dt.date] = pdt.Field(
