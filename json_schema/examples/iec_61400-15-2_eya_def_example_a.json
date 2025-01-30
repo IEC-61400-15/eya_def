@@ -3409,13 +3409,15 @@
               "subcategories": [
                 {
                   "basis": "time_series_calculation",
-                  "comments": "Energy yield production time series simulation.",
+                  "comments": "Considering curtailment strategy as specified by the turbine manufacturer.",
+                  "description": "Curtailment due to a wind sector management strategy to reduce turbine loads.",
                   "label": "load_curtailment",
+                  "provenance": {
+                    "assessor_type": "issuing_organisation"
+                  },
                   "results": {
                     "efficiency": [
                       {
-                        "comments": "Considering curtailment strategy as specified by the turbine manufacturer.",
-                        "description": "Curtailment due to a wind sector management strategy to reduce turbine loads.",
                         "dimensions": [
                           "turbine_id"
                         ],
@@ -3907,12 +3909,15 @@
               "subcategories": [
                 {
                   "basis": "project_specific_assumption",
+                  "description": "A broad estimate of curtailment losses due to a wind sector management strategy to reduce turbine loads, in the absence of details from the turbine manufacturer, provided by the client and not independently verified.",
                   "label": "load_curtailment",
+                  "provenance": {
+                    "assessor_type": "receiving_organisation",
+                    "is_verified_by_issuing_organisation": true
+                  },
                   "results": {
                     "efficiency": [
                       {
-                        "comments": "A broad estimate of curtailment losses in the absence of details from the turbine manufacturer.",
-                        "description": "Expected curtailment due to a wind sector management to reduce turbine loads.",
                         "dimensions": [
                           "turbine_id"
                         ],

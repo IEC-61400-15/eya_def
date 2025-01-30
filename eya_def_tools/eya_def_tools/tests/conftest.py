@@ -1290,20 +1290,19 @@ def plant_performance_curtailment_category_a() -> (
                 label=(
                     plant_performance.PlantPerformanceSubcategoryLabel.LOAD_CURTAILMENT
                 ),
-                comments="Energy yield production time series simulation.",
-                basis=general.AssessmentBasis.TIME_SERIES_CALCULATION,
+                description=(
+                    "Curtailment due to a wind sector management "
+                    "strategy to reduce turbine loads."
+                ),
+                comments=(
+                    "Considering curtailment strategy as specified by "
+                    "the turbine manufacturer."
+                ),
+                basis="time_series_calculation",
                 variability=general.TimeVariabilityType.STATIC,
                 results=plant_performance.PlantPerformanceResults(
                     efficiency=[
                         dataset.Dataset(
-                            description=(
-                                "Curtailment due to a wind sector management "
-                                "strategy to reduce turbine loads."
-                            ),
-                            comments=(
-                                "Considering curtailment strategy as specified by "
-                                "the turbine manufacturer."
-                            ),
                             dimensions=[dataset.DatasetDimension.TURBINE_ID],
                             statistics=turbine_wise_result_components,
                         )
@@ -1367,20 +1366,22 @@ def plant_performance_curtailment_category_b() -> (
                 label=(
                     plant_performance.PlantPerformanceSubcategoryLabel.LOAD_CURTAILMENT
                 ),
-                basis=general.AssessmentBasis.PROJECT_SPECIFIC_ASSUMPTION,
+                description=(
+                    "A broad estimate of curtailment losses due to a "
+                    "wind sector management strategy to reduce turbine "
+                    "loads, in the absence of details from the turbine "
+                    "manufacturer, provided by the client and not "
+                    "independently verified."
+                ),
+                basis="project_specific_assumption",
+                provenance=general.FirstPartyAssessmentComponentProvenance(
+                    assessor_type="receiving_organisation",
+                    is_verified_by_issuing_organisation=True,
+                ),
                 variability=general.TimeVariabilityType.STATIC,
                 results=plant_performance.PlantPerformanceResults(
                     efficiency=[
                         dataset.Dataset(
-                            description=(
-                                "Expected curtailment due to a wind sector "
-                                "management to reduce turbine loads."
-                            ),
-                            comments=(
-                                "A broad estimate of curtailment losses in "
-                                "the absence of details from the turbine "
-                                "manufacturer."
-                            ),
                             dimensions=[dataset.DatasetDimension.TURBINE_ID],
                             statistics=turbine_wise_result_components,
                         )

@@ -11,7 +11,12 @@ import pydantic as pdt
 
 from eya_def_tools.data_models.base_model import EyaDefBaseModel
 from eya_def_tools.data_models.dataset import Dataset
-from eya_def_tools.data_models.general import AssessmentBasis, TimeVariabilityType
+from eya_def_tools.data_models.general import (
+    AnyAssessmentComponentProvenance,
+    AssessmentComponentBasis,
+    TimeVariabilityType,
+    get_default_assessment_component_provenance,
+)
 
 
 class PlantPerformanceResults(EyaDefBaseModel):
@@ -68,13 +73,30 @@ class PlantPerformanceSubcategoryElement(EyaDefBaseModel):
             "field is included."
         ),
     )
-    basis: AssessmentBasis = pdt.Field(
+    basis: AssessmentComponentBasis = pdt.Field(
         default=...,
         description=(
-            "Basis of plant performance loss subcategory element "
-            "assessment. The basis describes the level of detail of "
-            "the calculation or estimate used in the assessment of the "
-            "element."
+            "Basis of the plant performance loss subcategory element "
+            "assessment. The basis describes the method and level of "
+            "detail of the calculation or assumption used in the "
+            "assessment of the element."
+        ),
+    )
+    provenance: AnyAssessmentComponentProvenance = pdt.Field(
+        default_factory=get_default_assessment_component_provenance,
+        discriminator="assessor_type",
+        description=(
+            "Provenance of the plant performance loss subcategory "
+            "element assessment, including specification of the "
+            "assessor type (issuing organisation, receiving "
+            "organisation, commissioning organisation or other "
+            "organisation), and if relevant also the assessor "
+            "organisation and status of verification. Where the "
+            "specification of the provenance is omitted, it shall be "
+            "assumed that the assessor is the issuing organisation(s) "
+            "of the EYA. Further details can be included in the "
+            "description and comment fields of the plant performance "
+            "subcategory element."
         ),
     )
     variability: TimeVariabilityType = pdt.Field(
@@ -84,11 +106,11 @@ class PlantPerformanceSubcategoryElement(EyaDefBaseModel):
             "subcategory element."
         ),
     )
-    is_independent: bool = pdt.Field(
+    is_statistically_independent: bool = pdt.Field(
         default=True,
         description=(
             "Whether the plant performance loss subcategory element is "
-            "independent of all other elements."
+            "statistically independent of all other elements."
         ),
     )
     results: PlantPerformanceResults = pdt.Field(
@@ -214,13 +236,29 @@ class PlantPerformanceSubcategory(EyaDefBaseModel):
             "included."
         ),
     )
-    basis: AssessmentBasis = pdt.Field(
+    basis: AssessmentComponentBasis = pdt.Field(
         default=...,
         description=(
-            "Basis of plant performance loss subcategory assessment. "
-            "The basis describes the level of detail of the "
-            "calculation or estimate used in the assessment of the "
-            "subcategory."
+            "Basis upon which the plant performance loss subcategory "
+            "has been assessed. The basis describes the method and "
+            "level of detail of the calculation or assumption used in "
+            "the assessment of the subcategory."
+        ),
+    )
+    provenance: AnyAssessmentComponentProvenance = pdt.Field(
+        default_factory=get_default_assessment_component_provenance,
+        discriminator="assessor_type",
+        description=(
+            "Provenance of the plant performance loss subcategory "
+            "assessment, including specification of the assessor type "
+            "(issuing organisation, receiving organisation, "
+            "commissioning organisation or other organisation), and if "
+            "relevant also the assessor organisation and status of "
+            "verification. Where the specification of the provenance "
+            "is omitted, it shall be assumed that the assessor is the "
+            "issuing organisation(s) of the EYA. Further details can "
+            "be included in the description and comment fields of the "
+            "plant performance subcategory."
         ),
     )
     variability: TimeVariabilityType = pdt.Field(

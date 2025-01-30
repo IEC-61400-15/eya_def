@@ -1,19 +1,5 @@
 {
   "$defs": {
-    "AssessmentBasis": {
-      "description": "Basis on which an EYA or WRA component has been assessed.",
-      "enum": [
-        "time_series_calculation",
-        "distribution_calculation",
-        "other_calculation",
-        "project_specific_assumption",
-        "regional_assumption",
-        "generic_assumption",
-        "not_considered"
-      ],
-      "title": "AssessmentBasis",
-      "type": "string"
-    },
     "BasicStatistic": {
       "additionalProperties": false,
       "description": "Specification of a statistic that only requires type definition.",
@@ -365,6 +351,32 @@
       "title": "ExceedanceLevelStatistic",
       "type": "object"
     },
+    "FirstPartyAssessmentComponentProvenance": {
+      "additionalProperties": false,
+      "description": "First party provenance of an EYA or WRA component. First party in this context means an organisation receiving and/or having commissioned the EYA report.",
+      "properties": {
+        "assessor_type": {
+          "default": "receiving_organisation",
+          "description": "Type of organisation that undertook the assessment of the EYA or WRA component, which must be one of the options 'issuing_organisation', 'receiving_organisation', 'commissioning_organisation' and 'other_organisation'. The value 'commissioning_organisation' should be used only when the commissioning organisation is not also a receiving organisation.",
+          "enum": [
+            "receiving_organisation",
+            "commissioning_organisation"
+          ],
+          "title": "Assessor Type",
+          "type": "string"
+        },
+        "is_verified_by_issuing_organisation": {
+          "description": "Whether an assessment component provided by a receiving organisation, commissioning organisation or other organisation (e.g. independent third party) has been verified by the issuing organisation(s) of the EYA.",
+          "title": "Is Verified By Issuing Organisation",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "is_verified_by_issuing_organisation"
+      ],
+      "title": "FirstPartyAssessmentComponentProvenance",
+      "type": "object"
+    },
     "InterAnnualVariabilityStatistic": {
       "additionalProperties": false,
       "description": "Specification of an inter-annual variability statistic.",
@@ -391,6 +403,24 @@
         }
       },
       "title": "InterAnnualVariabilityStatistic",
+      "type": "object"
+    },
+    "IssuingOrganisationAssessmentComponentProvenance": {
+      "additionalProperties": false,
+      "description": "Provenance of a component assessed by the issuing organisation.",
+      "properties": {
+        "assessor_type": {
+          "const": "issuing_organisation",
+          "default": "issuing_organisation",
+          "description": "Type of organisation that undertook the assessment of the EYA or WRA component, which must be one of the options 'issuing_organisation', 'receiving_organisation', 'commissioning_organisation' and 'other_organisation'. The value 'issuing_organisation' means that the component has been assessed by the organisation(s) having undertaken and issued the EYA.",
+          "enum": [
+            "issuing_organisation"
+          ],
+          "title": "Assessor Type",
+          "type": "string"
+        }
+      },
+      "title": "IssuingOrganisationAssessmentComponentProvenance",
       "type": "object"
     },
     "OperationalRestriction": {
@@ -543,6 +573,42 @@
         "name"
       ],
       "title": "Organisation",
+      "type": "object"
+    },
+    "OtherOrganisationAssessmentComponentProvenance": {
+      "additionalProperties": false,
+      "description": "Provenance of a component assessed by another organisation.",
+      "properties": {
+        "assessor_organisations": {
+          "description": "Specification of the other (third party) organisation(s) that undertook the assessment of the component.",
+          "items": {
+            "$ref": "#/$defs/Organisation"
+          },
+          "minItems": 1,
+          "title": "Assessor Organisations",
+          "type": "array"
+        },
+        "assessor_type": {
+          "const": "other_organisation",
+          "default": "other_organisation",
+          "description": "Type of organisation that undertook the assessment of the EYA or WRA component, which must be one of the options 'issuing_organisation', 'receiving_organisation', 'commissioning_organisation' and 'other_organisation'. The value 'other_organisation' should be used for independent third parties or any other organisation that has not issued, received or commissioned the EYA.",
+          "enum": [
+            "other_organisation"
+          ],
+          "title": "Assessor Type",
+          "type": "string"
+        },
+        "is_verified_by_issuing_organisation": {
+          "description": "Whether an assessment component provided by a receiving organisation, commissioning organisation or other organisation (e.g. independent third party) has been verified by the issuing organisation(s) of the EYA.",
+          "title": "Is Verified By Issuing Organisation",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "assessor_organisations",
+        "is_verified_by_issuing_organisation"
+      ],
+      "title": "OtherOrganisationAssessmentComponentProvenance",
       "type": "object"
     },
     "PlantPerformanceResults": {
@@ -734,6 +800,23 @@
         "Report labelled as draft. To be finalised following review by all parties."
       ],
       "title": "Comments"
+    },
+    "commissioning_organisations": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/Organisation"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Optional specification of the organisation(s) having commissioned the report, if relevant. This is to be included only if not identical to the receiving  organisation(s). Whenever receiving organisation(s) are specified and commissioning organisation(s) are not, is shall be assumed they are the same. As an example, the commissioning organisation could be a project developer and the receiving organisation a financing bank.",
+      "title": "Commissioning Organisations"
     },
     "confidentiality_classification": {
       "anyOf": [
@@ -1266,7 +1349,7 @@
         }
       ],
       "default": null,
-      "description": "Optional specification of organisation(s) receiving the report (e.g. client), if relevant.",
+      "description": "Optional specification of the organisation(s) receiving the report (e.g. client), if relevant.",
       "title": "Receiving Organisations"
     },
     "reference_meteorological_datasets": {
@@ -1908,12 +1991,18 @@
                             "description": "Plant performance loss assessment subcategory.",
                             "properties": {
                               "basis": {
-                                "allOf": [
-                                  {
-                                    "$ref": "#/$defs/AssessmentBasis"
-                                  }
+                                "description": "Basis upon which the plant performance loss subcategory has been assessed. The basis describes the method and level of detail of the calculation or assumption used in the assessment of the subcategory.",
+                                "enum": [
+                                  "time_series_calculation",
+                                  "distribution_calculation",
+                                  "other_calculation",
+                                  "project_specific_assumption",
+                                  "regional_assumption",
+                                  "generic assumption",
+                                  "not_considered"
                                 ],
-                                "description": "Basis of plant performance loss subcategory assessment. The basis describes the level of detail of the calculation or estimate used in the assessment of the subcategory."
+                                "title": "Basis",
+                                "type": "string"
                               },
                               "comments": {
                                 "anyOf": [
@@ -1951,12 +2040,18 @@
                                       "description": "Plant performance loss assessment subcategory element.",
                                       "properties": {
                                         "basis": {
-                                          "allOf": [
-                                            {
-                                              "$ref": "#/$defs/AssessmentBasis"
-                                            }
+                                          "description": "Basis of the plant performance loss subcategory element assessment. The basis describes the method and level of detail of the calculation or assumption used in the assessment of the element.",
+                                          "enum": [
+                                            "time_series_calculation",
+                                            "distribution_calculation",
+                                            "other_calculation",
+                                            "project_specific_assumption",
+                                            "regional_assumption",
+                                            "generic assumption",
+                                            "not_considered"
                                           ],
-                                          "description": "Basis of plant performance loss subcategory element assessment. The basis describes the level of detail of the calculation or estimate used in the assessment of the element."
+                                          "title": "Basis",
+                                          "type": "string"
                                         },
                                         "comments": {
                                           "anyOf": [
@@ -1986,10 +2081,10 @@
                                           "description": "Optional description of the plant performance loss subcategory element, which should not be empty if the field is included.",
                                           "title": "Description"
                                         },
-                                        "is_independent": {
+                                        "is_statistically_independent": {
                                           "default": true,
-                                          "description": "Whether the plant performance loss subcategory element is independent of all other elements.",
-                                          "title": "Is Independent",
+                                          "description": "Whether the plant performance loss subcategory element is statistically independent of all other elements.",
+                                          "title": "Is Statistically Independent",
                                           "type": "boolean"
                                         },
                                         "label": {
@@ -1997,6 +2092,30 @@
                                           "minLength": 1,
                                           "title": "Label",
                                           "type": "string"
+                                        },
+                                        "provenance": {
+                                          "description": "Provenance of the plant performance loss subcategory element assessment, including specification of the assessor type (issuing organisation, receiving organisation, commissioning organisation or other organisation), and if relevant also the assessor organisation and status of verification. Where the specification of the provenance is omitted, it shall be assumed that the assessor is the issuing organisation(s) of the EYA. Further details can be included in the description and comment fields of the plant performance subcategory element.",
+                                          "discriminator": {
+                                            "mapping": {
+                                              "commissioning_organisation": "#/$defs/FirstPartyAssessmentComponentProvenance",
+                                              "issuing_organisation": "#/$defs/IssuingOrganisationAssessmentComponentProvenance",
+                                              "other_organisation": "#/$defs/OtherOrganisationAssessmentComponentProvenance",
+                                              "receiving_organisation": "#/$defs/FirstPartyAssessmentComponentProvenance"
+                                            },
+                                            "propertyName": "assessor_type"
+                                          },
+                                          "oneOf": [
+                                            {
+                                              "$ref": "#/$defs/IssuingOrganisationAssessmentComponentProvenance"
+                                            },
+                                            {
+                                              "$ref": "#/$defs/FirstPartyAssessmentComponentProvenance"
+                                            },
+                                            {
+                                              "$ref": "#/$defs/OtherOrganisationAssessmentComponentProvenance"
+                                            }
+                                          ],
+                                          "title": "Provenance"
                                         },
                                         "results": {
                                           "allOf": [
@@ -2064,6 +2183,30 @@
                                 ],
                                 "title": "Plant Performance Subcategory Label",
                                 "type": "string"
+                              },
+                              "provenance": {
+                                "description": "Provenance of the plant performance loss subcategory assessment, including specification of the assessor type (issuing organisation, receiving organisation, commissioning organisation or other organisation), and if relevant also the assessor organisation and status of verification. Where the specification of the provenance is omitted, it shall be assumed that the assessor is the issuing organisation(s) of the EYA. Further details can be included in the description and comment fields of the plant performance subcategory.",
+                                "discriminator": {
+                                  "mapping": {
+                                    "commissioning_organisation": "#/$defs/FirstPartyAssessmentComponentProvenance",
+                                    "issuing_organisation": "#/$defs/IssuingOrganisationAssessmentComponentProvenance",
+                                    "other_organisation": "#/$defs/OtherOrganisationAssessmentComponentProvenance",
+                                    "receiving_organisation": "#/$defs/FirstPartyAssessmentComponentProvenance"
+                                  },
+                                  "propertyName": "assessor_type"
+                                },
+                                "oneOf": [
+                                  {
+                                    "$ref": "#/$defs/IssuingOrganisationAssessmentComponentProvenance"
+                                  },
+                                  {
+                                    "$ref": "#/$defs/FirstPartyAssessmentComponentProvenance"
+                                  },
+                                  {
+                                    "$ref": "#/$defs/OtherOrganisationAssessmentComponentProvenance"
+                                  }
+                                ],
+                                "title": "Provenance"
                               },
                               "results": {
                                 "allOf": [
