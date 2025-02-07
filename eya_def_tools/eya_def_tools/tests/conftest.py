@@ -60,8 +60,7 @@ def master_json_schema_dirpath(top_level_dirpath: Path) -> Path:
     master_json_schema_dirpath = top_level_dirpath / "json_schema"
     if not master_json_schema_dirpath.is_dir():
         raise ValueError(
-            f"the expected json schema directory "
-            f"'{master_json_schema_dirpath}' does not exist"
+            f"the expected json schema directory '{master_json_schema_dirpath}' does not exist"
         )
     return master_json_schema_dirpath
 
@@ -156,8 +155,7 @@ def json_examples_dirpath(top_level_dirpath: Path) -> Path:
     json_examples_dirpath = top_level_dirpath / "json_schema" / "examples"
     if not json_examples_dirpath.is_dir():
         raise ValueError(
-            f"the expected json examples directory "
-            f"'{json_examples_dirpath}' does not exist"
+            f"the expected json examples directory '{json_examples_dirpath}' does not exist"
         )
     return json_examples_dirpath
 
@@ -176,8 +174,7 @@ def json_example_filepaths(json_examples_dirpath: Path) -> list[Path]:
     json_example_filepaths = list(json_examples_dirpath.glob(filename_pattern))
     if len(json_example_filepaths) < 1:
         raise ValueError(
-            f"no example json files with the expected filename pattern "
-            f"exist in the directory '{json_examples_dirpath}'"
+            f"no example json files with the expected filename pattern exist in the directory '{json_examples_dirpath}'"
         )
     return json_example_filepaths
 
@@ -308,7 +305,7 @@ def power_curve_document_c_filepath(json_examples_dirpath: Path) -> Path:
 def power_curve_document_a(
     power_curve_document_a_filepath: Path,
 ) -> power_curve_schema.PowerCurveDocument:
-    with open(power_curve_document_a_filepath, "r") as f:
+    with open(power_curve_document_a_filepath) as f:
         json_data_dict = json.load(f)
 
     return power_curve_schema.PowerCurveDocument(json_data_dict)
@@ -318,7 +315,7 @@ def power_curve_document_a(
 def power_curve_document_b(
     power_curve_document_b_filepath: Path,
 ) -> power_curve_schema.PowerCurveDocument:
-    with open(power_curve_document_b_filepath, "r") as f:
+    with open(power_curve_document_b_filepath) as f:
         json_data_dict = json.load(f)
 
     return power_curve_schema.PowerCurveDocument(json_data_dict)
@@ -328,7 +325,7 @@ def power_curve_document_b(
 def power_curve_document_c(
     power_curve_document_c_filepath: Path,
 ) -> power_curve_schema.PowerCurveDocument:
-    with open(power_curve_document_c_filepath, "r") as f:
+    with open(power_curve_document_c_filepath) as f:
         json_data_dict = json.load(f)
 
     return power_curve_schema.PowerCurveDocument(json_data_dict)
@@ -368,8 +365,7 @@ def turbine_operational_restriction_a() -> wind_farm.OperationalRestriction:
             "direction is from between 120.0 and 210.0 degrees."
         ),
         comments=(
-            "The strategy is designed to mitigate against the impact "
-            "of high ambient turbulence intensity."
+            "The strategy is designed to mitigate against the impact of high ambient turbulence intensity."
         ),
     )
 
@@ -583,7 +579,7 @@ def measurement_station_a(
     measurement_station_a_filepath: Path,
 ) -> iea43_wra_data_model.WraDataModelDocument:
     """Test case instance 'a' of measurement station metadata.."""
-    with open(measurement_station_a_filepath, "r") as f:
+    with open(measurement_station_a_filepath) as f:
         json_data_dict = json.load(f)
 
     return iea43_wra_data_model.WraDataModelDocument(json_data_dict)
@@ -679,7 +675,7 @@ def reference_meteorological_dataset_a(
     reference_meteorological_dataset_a_filepath: Path,
 ) -> iea43_wra_data_model.WraDataModelDocument:
     """Test case instance 'a' of reference met dataset metadata."""
-    with open(reference_meteorological_dataset_a_filepath, "r") as f:
+    with open(reference_meteorological_dataset_a_filepath) as f:
         json_data_dict = json.load(f)
 
     return iea43_wra_data_model.WraDataModelDocument(json_data_dict)
@@ -1291,12 +1287,10 @@ def plant_performance_curtailment_category_a() -> (
                     plant_performance.PlantPerformanceSubcategoryLabel.LOAD_CURTAILMENT
                 ),
                 description=(
-                    "Curtailment due to a wind sector management "
-                    "strategy to reduce turbine loads."
+                    "Curtailment due to a wind sector management strategy to reduce turbine loads."
                 ),
                 comments=(
-                    "Considering curtailment strategy as specified by "
-                    "the turbine manufacturer."
+                    "Considering curtailment strategy as specified by the turbine manufacturer."
                 ),
                 basis="time_series_calculation",
                 variability=general.TimeVariabilityType.STATIC,
@@ -1851,8 +1845,7 @@ def eya_def_a(
     return eya_def.EyaDefDocument(
         **{
             "$id": (
-                "https://example.com/api/v2/eya/report/"
-                "id=b1396029-e9af-49f7-9599-534db175e53c.json"
+                "https://example.com/api/v2/eya/report/id=b1396029-e9af-49f7-9599-534db175e53c.json"
             )
         },
         uuid=uuid_.UUID("b1396029-e9af-49f7-9599-534db175e53c"),

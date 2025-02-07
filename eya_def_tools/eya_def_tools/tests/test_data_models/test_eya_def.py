@@ -1,6 +1,4 @@
-"""Test the ``eya_def`` top-level data model module.
-
-"""
+"""Test the ``eya_def`` top-level data model module."""
 
 import json
 from pathlib import Path

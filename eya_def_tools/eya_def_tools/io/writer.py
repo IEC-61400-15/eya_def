@@ -1,6 +1,4 @@
-"""Writer module for the EYA DEF.
-
-"""
+"""Writer module for the EYA DEF."""
 
 import json
 from pathlib import Path

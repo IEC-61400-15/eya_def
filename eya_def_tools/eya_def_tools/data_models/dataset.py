@@ -7,7 +7,7 @@ contexts.
 """
 
 from enum import StrEnum, auto
-from typing import Annotated, Literal, Optional, TypeAlias
+from typing import Annotated, Literal, TypeAlias
 
 import pydantic as pdt
 
@@ -51,7 +51,7 @@ BasicStatisticType: TypeAlias = Literal[
 ]
 
 
-ReturnPeriodField: Optional[pdt.PositiveInt | pdt.PositiveFloat] = pdt.Field(
+ReturnPeriodField: pdt.PositiveInt | pdt.PositiveFloat | None = pdt.Field(
     default=None,
     description=(
         "Optional specification of the return period in years, to be "
@@ -70,11 +70,10 @@ class BasicStatistic(EyaDefBaseModel):
     statistic_type: BasicStatisticType = pdt.Field(
         default=...,
         description=(
-            "Specification of the type of statistic, using the "
-            "standardised naming conventions."
+            "Specification of the type of statistic, using the standardised naming conventions."
         ),
     )
-    return_period: Optional[pdt.PositiveInt | pdt.PositiveFloat] = ReturnPeriodField
+    return_period: pdt.PositiveInt | pdt.PositiveFloat | None = ReturnPeriodField
 
 
 class InterAnnualVariabilityStatistic(EyaDefBaseModel):
@@ -121,7 +120,7 @@ class ExceedanceLevelStatistic(EyaDefBaseModel):
         ),
         examples=[0.25, 0.75, 0.9, 0.99],
     )
-    return_period: Optional[pdt.PositiveInt | pdt.PositiveFloat] = ReturnPeriodField
+    return_period: pdt.PositiveInt | pdt.PositiveFloat | None = ReturnPeriodField
 
     @property
     def p_value_str(self) -> str:
@@ -136,28 +135,25 @@ AnyStatisticType: TypeAlias = (
 class DatasetStatistic(EyaDefBaseModel):
     """Dataset values for one specific statistic type."""
 
-    description: Optional[str] = pdt.Field(
+    description: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
-            "Optional description of the dataset statistic, which "
-            "should not be empty if the field is included."
+            "Optional description of the dataset statistic, which should not be empty if the field is included."
         ),
     )
-    comments: Optional[str] = pdt.Field(
+    comments: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
-            "Optional comments on the dataset statistic, which should "
-            "not be empty if the field is included."
+            "Optional comments on the dataset statistic, which should not be empty if the field is included."
         ),
     )
     statistic: AnyStatisticType = pdt.Field(
         default=...,
         discriminator="statistic_type",
         description=(
-            "Specification of the statistic that the element of the "
-            "dataset corresponds to."
+            "Specification of the statistic that the element of the dataset corresponds to."
         ),
     )
     values: float | DatasetValuesWithCoordinates = pdt.Field(
@@ -211,32 +207,29 @@ class Dataset(EyaDefBaseModel):
     coordinates along the dimensions for each data value.
     """
 
-    label: Optional[str] = pdt.Field(
+    label: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
-            "Optional label of the dataset, which should not be empty "
-            "if the field is included."
+            "Optional label of the dataset, which should not be empty if the field is included."
         ),
         examples=["Seasonal distribution of net energy"],
     )
-    description: Optional[str] = pdt.Field(
+    description: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
-            "Optional description of the dataset, which should not be "
-            "empty if the field is included."
+            "Optional description of the dataset, which should not be empty if the field is included."
         ),
     )
-    comments: Optional[str] = pdt.Field(
+    comments: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
-            "Optional comments on the dataset, which should not be "
-            "empty if the field is included."
+            "Optional comments on the dataset, which should not be empty if the field is included."
         ),
     )
-    dimensions: Optional[list[DatasetDimension]] = pdt.Field(
+    dimensions: list[DatasetDimension] | None = pdt.Field(
         default=None,
         min_length=1,
         description=(

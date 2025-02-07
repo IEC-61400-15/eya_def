@@ -1,6 +1,4 @@
-"""Configuration file for the Sphinx documentation builder.
-
-"""
+"""Configuration file for the Sphinx documentation builder."""
 
 import sys
 from pathlib import Path

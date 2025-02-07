@@ -1,8 +1,4 @@
-"""Data models relating to EYA scenarios.
-
-"""
-
-from typing import Optional
+"""Data models relating to EYA scenarios."""
 
 import pydantic as pdt
 
@@ -14,12 +10,11 @@ from eya_def_tools.data_models.wind_resource import TurbineWindResourceAssessmen
 class Scenario(EyaDefBaseModel):
     """Single unique energy yield assessment scenario."""
 
-    id: Optional[str] = pdt.Field(
+    id: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
-            "Optional unique identifier of the scenario, which should "
-            "not be empty if the field is included."
+            "Optional unique identifier of the scenario, which should not be empty if the field is included."
         ),
         examples=["3613a846-1e74-4535-ad40-7368f7ad452d"],
     )
@@ -29,27 +24,24 @@ class Scenario(EyaDefBaseModel):
         description="Label of the scenario.",
         examples=["Sc1", "A", "B01"],
     )
-    description: Optional[str] = pdt.Field(
+    description: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
-            "Optional description of the scenario, which should not be "
-            "empty if the field is included."
+            "Optional description of the scenario, which should not be empty if the field is included."
         ),
     )
-    comments: Optional[str] = pdt.Field(
+    comments: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
-            "Optional comments on the scenario, which should not be "
-            "empty if the field is included."
+            "Optional comments on the scenario, which should not be empty if the field is included."
         ),
     )
-    is_main_scenario: Optional[bool] = pdt.Field(
+    is_main_scenario: bool | None = pdt.Field(
         default=None,
         description=(
-            "Optional flag to specify whether or not it is the main "
-            "scenario in the report."
+            "Optional flag to specify whether or not it is the main scenario in the report."
         ),
     )
     wind_farm_ids: list[str] = pdt.Field(

@@ -1,6 +1,4 @@
-"""Utility functions to get up-to-date references.
-
-"""
+"""Utility functions to get up-to-date references."""
 
 import pydantic as pdt
 
@@ -14,8 +12,7 @@ def get_json_schema_uri() -> pdt.AnyUrl:
     # TODO this is a placeholder to be updated (and consider including
     #      version in URI)
     return pdt.AnyUrl(
-        "https://raw.githubusercontent.com/IEC-61400-15/eya_def/blob/main/"
-        "iec_61400-15-2_eya_def.schema.json"
+        "https://raw.githubusercontent.com/IEC-61400-15/eya_def/blob/main/iec_61400-15-2_eya_def.schema.json"
     )
 
 

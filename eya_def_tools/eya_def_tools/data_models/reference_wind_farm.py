@@ -1,10 +1,8 @@
-"""Data models relating to reference wind farm specifications.
-
-"""
+"""Data models relating to reference wind farm specifications."""
 
 import datetime as dt
 from enum import StrEnum, auto
-from typing import Literal, Optional, TypeAlias
+from typing import Literal, TypeAlias
 
 import pydantic as pdt
 
@@ -156,12 +154,11 @@ class OperationalDataVariable(EyaDefBaseModel):
         default=...,
         min_length=1,
         description=(
-            "The type of operational data variable, selected from the "
-            "standardised terms based on the ASPECT taxonomy."
+            "The type of operational data variable, selected from the standardised terms based on the ASPECT taxonomy."
         ),
         examples=["active_power", "wind_speed"],
     )
-    label: Optional[str] = pdt.Field(
+    label: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
@@ -172,7 +169,7 @@ class OperationalDataVariable(EyaDefBaseModel):
         ),
         examples=["Bld1PitchAngle"],
     )
-    description: Optional[str] = pdt.Field(
+    description: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
@@ -181,12 +178,11 @@ class OperationalDataVariable(EyaDefBaseModel):
             "clarification of the point of measurement, where relevant."
         ),
     )
-    comments: Optional[str] = pdt.Field(
+    comments: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
-            "Optional comments on the data variable, which should not "
-            "be empty if the field is included."
+            "Optional comments on the data variable, which should not be empty if the field is included."
         ),
     )
     data_level: OperationalDataLevel = pdt.Field(
@@ -200,15 +196,14 @@ class OperationalDataVariable(EyaDefBaseModel):
             "station."
         ),
     )
-    statistic_types: Optional[list[StatisticType]] = pdt.Field(
+    statistic_types: list[StatisticType] | None = pdt.Field(
         default=...,
         min_length=1,
         description=(
-            "Optional list of the types of statistics included for "
-            "the data variable."
+            "Optional list of the types of statistics included for the data variable."
         ),
     )
-    time_resolution: Optional[TimeResolution] = pdt.Field(
+    time_resolution: TimeResolution | None = pdt.Field(
         default=None,
         description=(
             "Optional specification of the time resolution for the "
@@ -230,29 +225,26 @@ class OperationalDatasetMetadata(EyaDefBaseModel):
             "PharaohWindFarmPhIV_OEM_op_reports",
         ],
     )
-    label: Optional[str] = pdt.Field(
+    label: str | None = pdt.Field(
         default=...,
         min_length=1,
         description=(
-            "Optional label of the reference wind farm dataset, which "
-            "should not be empty if the field is included."
+            "Optional label of the reference wind farm dataset, which should not be empty if the field is included."
         ),
         examples=["OEM operational reports"],
     )
-    description: Optional[str] = pdt.Field(
+    description: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
-            "Optional description of the dataset, which should not be "
-            "empty if the field is included."
+            "Optional description of the dataset, which should not be empty if the field is included."
         ),
     )
-    comments: Optional[str] = pdt.Field(
+    comments: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
-            "Optional comments on the dataset, which should not be "
-            "empty if the field is included."
+            "Optional comments on the dataset, which should not be empty if the field is included."
         ),
     )
     classification: DatasetClassification = pdt.Field(
@@ -276,7 +268,7 @@ class OperationalDatasetMetadata(EyaDefBaseModel):
         default=...,
         description="The organisation that supplied the data.",
     )
-    integrity_verification: Optional[str] = pdt.Field(
+    integrity_verification: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
@@ -289,7 +281,7 @@ class OperationalDatasetMetadata(EyaDefBaseModel):
             "undertaken and/or not possible."
         ),
     )
-    time_resolution: Optional[TimeResolution] = pdt.Field(
+    time_resolution: TimeResolution | None = pdt.Field(
         default=None,
         description=(
             "The main time resolution of the operational data, if "
@@ -330,20 +322,18 @@ class ReferenceWindFarm(EyaDefBaseModel):
         ),
         examples=["fe1dba61-d6d6-45ef-beb4-ff569660fb14", "PharaohWindFarmPhIV"],
     )
-    description: Optional[str] = pdt.Field(
+    description: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
-            "Optional description of the reference wind farm, which "
-            "should not be empty if the field is included."
+            "Optional description of the reference wind farm, which should not be empty if the field is included."
         ),
     )
-    comments: Optional[str] = pdt.Field(
+    comments: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
-            "Optional comments on the reference wind farm, which "
-            "should not be empty if the field is included."
+            "Optional comments on the reference wind farm, which should not be empty if the field is included."
         ),
     )
     operational_datasets: list[OperationalDatasetMetadata] = pdt.Field(

@@ -10,13 +10,11 @@ of the type annotations.
 
 import html
 import inspect
+from collections.abc import Collection, Sequence
 from typing import (
     Any,
-    Collection,
     Literal,
     Self,
-    Sequence,
-    Type,
     TypeGuard,
     Union,
     get_args,
@@ -34,7 +32,7 @@ import sortedcontainers_pydantic
 from eya_def_tools.constants import ALL_OF_TAG, ANY_OF_TAG, REFERENCE_TAG
 from eya_def_tools.data_models.base_model import EyaDefBaseModel
 
-EyaDefBaseModelType = Type[EyaDefBaseModel]
+EyaDefBaseModelType = type[EyaDefBaseModel]
 
 
 class EyaDefFieldInfo(erd_core.FieldInfo):
@@ -269,18 +267,18 @@ def _get_field_json_schema_type(
     field_name: str,
     model_json_schema: dict[str, Any],
 ) -> str:
-    if "properties" not in model_json_schema.keys():
+    if "properties" not in model_json_schema:
         return ""
 
     schema = model_json_schema["properties"]
-    if field_name not in schema.keys():
+    if field_name not in schema:
         return ""
 
     schema = schema[field_name]
-    if "type" in schema.keys():
+    if "type" in schema:
         return str(schema["type"])
 
-    if ALL_OF_TAG in schema.keys():
+    if ALL_OF_TAG in schema:
         schema = schema[ALL_OF_TAG]
         if not isinstance(schema, list):
             return ""
@@ -293,20 +291,16 @@ def _get_field_json_schema_type(
             return "object"
 
         return " & ".join(
-            item["type"]
-            for item in schema
-            if isinstance(item, dict) and "type" in item.keys()
+            item["type"] for item in schema if isinstance(item, dict) and "type" in item
         )
 
-    if ANY_OF_TAG in schema.keys():
+    if ANY_OF_TAG in schema:
         schema = schema[ANY_OF_TAG]
         if not isinstance(schema, list):
             return ""
 
         return " | ".join(
-            item["type"]
-            for item in schema
-            if isinstance(item, dict) and "type" in item.keys()
+            item["type"] for item in schema if isinstance(item, dict) and "type" in item
         )
 
     return ""
