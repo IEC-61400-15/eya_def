@@ -1,6 +1,4 @@
-"""Definitions of global constants, including string literals.
-
-"""
+"""Definitions of global constants, including string literals."""
 
 from typing import Final
 

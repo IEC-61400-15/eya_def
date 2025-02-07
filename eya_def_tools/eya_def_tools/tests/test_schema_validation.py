@@ -1,6 +1,4 @@
-"""Test validate schema on examples.
-
-"""
+"""Test validate schema on examples."""
 
 import copy
 from typing import Any
@@ -21,7 +19,7 @@ def test_validate_master_json_schema(
     json_schema = master_json_schema.copy()
 
     # Remove ``$id`` field from schema to avoid resolving from URL
-    if "$id" in json_schema.keys():
+    if "$id" in json_schema:
         del json_schema["$id"]
 
     for json_filename, json_example in json_example_dict.items():
@@ -44,7 +42,7 @@ def test_validate_pydantic_model_json_schema(
     json_schema = pydantic_json_schema.copy()
 
     # Remove ``$id`` field from schema to avoid resolving from URL
-    if "$id" in json_schema.keys():
+    if "$id" in json_schema:
         del json_schema["$id"]
 
     for json_filename, json_example in json_example_dict.items():
@@ -116,9 +114,10 @@ def _get_reduced_json_example(json_example: dict[str, Any]) -> dict[str, Any]:
     """
     json_example_reduced = copy.deepcopy(json_example)
 
-    if "$id" in json_example_reduced.keys():
+    if "$id" in json_example_reduced:
         del json_example_reduced["$id"]
-    if "$schema" in json_example_reduced.keys():
+
+    if "$schema" in json_example_reduced:
         del json_example_reduced["$schema"]
 
     return json_example_reduced

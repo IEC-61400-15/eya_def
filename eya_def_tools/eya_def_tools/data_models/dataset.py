@@ -7,7 +7,7 @@ contexts.
 """
 
 from enum import StrEnum, auto
-from typing import Annotated, Literal, Optional, TypeAlias
+from typing import Annotated, Literal, TypeAlias
 
 import pydantic as pdt
 
@@ -51,7 +51,7 @@ BasicStatisticType: TypeAlias = Literal[
 ]
 
 
-ReturnPeriodField: Optional[pdt.PositiveInt | pdt.PositiveFloat] = pdt.Field(
+ReturnPeriodField: pdt.PositiveInt | pdt.PositiveFloat | None = pdt.Field(
     default=None,
     description=(
         "Optional specification of the return period in years, to be "
@@ -74,7 +74,7 @@ class BasicStatistic(EyaDefBaseModel):
             "standardised naming conventions."
         ),
     )
-    return_period: Optional[pdt.PositiveInt | pdt.PositiveFloat] = ReturnPeriodField
+    return_period: pdt.PositiveInt | pdt.PositiveFloat | None = ReturnPeriodField
 
 
 class InterAnnualVariabilityStatistic(EyaDefBaseModel):
@@ -121,7 +121,7 @@ class ExceedanceLevelStatistic(EyaDefBaseModel):
         ),
         examples=[0.25, 0.75, 0.9, 0.99],
     )
-    return_period: Optional[pdt.PositiveInt | pdt.PositiveFloat] = ReturnPeriodField
+    return_period: pdt.PositiveInt | pdt.PositiveFloat | None = ReturnPeriodField
 
     @property
     def p_value_str(self) -> str:
@@ -136,7 +136,7 @@ AnyStatisticType: TypeAlias = (
 class DatasetStatistic(EyaDefBaseModel):
     """Dataset values for one specific statistic type."""
 
-    description: Optional[str] = pdt.Field(
+    description: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
@@ -144,7 +144,7 @@ class DatasetStatistic(EyaDefBaseModel):
             "should not be empty if the field is included."
         ),
     )
-    comments: Optional[str] = pdt.Field(
+    comments: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
@@ -211,7 +211,7 @@ class Dataset(EyaDefBaseModel):
     coordinates along the dimensions for each data value.
     """
 
-    label: Optional[str] = pdt.Field(
+    label: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
@@ -220,7 +220,7 @@ class Dataset(EyaDefBaseModel):
         ),
         examples=["Seasonal distribution of net energy"],
     )
-    description: Optional[str] = pdt.Field(
+    description: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
@@ -228,7 +228,7 @@ class Dataset(EyaDefBaseModel):
             "empty if the field is included."
         ),
     )
-    comments: Optional[str] = pdt.Field(
+    comments: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
@@ -236,7 +236,7 @@ class Dataset(EyaDefBaseModel):
             "empty if the field is included."
         ),
     )
-    dimensions: Optional[list[DatasetDimension]] = pdt.Field(
+    dimensions: list[DatasetDimension] | None = pdt.Field(
         default=None,
         min_length=1,
         description=(

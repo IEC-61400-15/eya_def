@@ -12,8 +12,6 @@ level.
 
 """
 
-from typing import Optional
-
 import pydantic as pdt
 
 from eya_def_tools.data_models.base_model import EyaDefBaseModel
@@ -95,7 +93,7 @@ class WindResourceResults(EyaDefBaseModel):
             "may be included optionally."
         ),
     )
-    ambient_turbulence_intensity: Optional[list[Dataset]] = pdt.Field(
+    ambient_turbulence_intensity: list[Dataset] | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
@@ -114,7 +112,7 @@ class WindResourceResults(EyaDefBaseModel):
             "dimensions may also be included."
         ),
     )
-    wind_shear_exponent: Optional[list[Dataset]] = pdt.Field(
+    wind_shear_exponent: list[Dataset] | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
@@ -128,7 +126,7 @@ class WindResourceResults(EyaDefBaseModel):
             "other dimensions may also be included."
         ),
     )
-    temperature: Optional[list[Dataset]] = pdt.Field(
+    temperature: list[Dataset] | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
@@ -142,7 +140,7 @@ class WindResourceResults(EyaDefBaseModel):
             "results with other dimensions may also be included."
         ),
     )
-    air_density: Optional[list[Dataset]] = pdt.Field(
+    air_density: list[Dataset] | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
@@ -157,7 +155,7 @@ class WindResourceResults(EyaDefBaseModel):
             "may also be included."
         ),
     )
-    displacement_height: Optional[list[Dataset]] = pdt.Field(
+    displacement_height: list[Dataset] | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
@@ -187,7 +185,7 @@ class WindResourceAssessment(EyaDefBaseModel):
         ),
         examples=["WRA01", "BfWF_WRA_1", "A"],
     )
-    description: Optional[str] = pdt.Field(
+    description: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
@@ -195,7 +193,7 @@ class WindResourceAssessment(EyaDefBaseModel):
             "which should not be empty if the field is included."
         ),
     )
-    comments: Optional[str] = pdt.Field(
+    comments: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
@@ -225,7 +223,7 @@ class WindResourceAssessment(EyaDefBaseModel):
 class TurbineWindResourceWeighting(EyaDefBaseModel):
     """Details of weighting applied to estimate turbine wind resource."""
 
-    source_wind_data: Optional[list[Dataset]] = pdt.Field(
+    source_wind_data: list[Dataset] | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
@@ -265,7 +263,7 @@ class TurbineWindResourceResults(EyaDefBaseModel):
             "may be included optionally."
         ),
     )
-    probability: Optional[list[Dataset]] = pdt.Field(
+    probability: list[Dataset] | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
@@ -283,7 +281,7 @@ class TurbineWindResourceResults(EyaDefBaseModel):
             "dimensions may also be included."
         ),
     )
-    ambient_turbulence_intensity: Optional[list[Dataset]] = pdt.Field(
+    ambient_turbulence_intensity: list[Dataset] | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
@@ -299,7 +297,7 @@ class TurbineWindResourceResults(EyaDefBaseModel):
             "included."
         ),
     )
-    wind_shear_exponent: Optional[list[Dataset]] = pdt.Field(
+    wind_shear_exponent: list[Dataset] | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
@@ -309,7 +307,7 @@ class TurbineWindResourceResults(EyaDefBaseModel):
             "with other dimensions may also be included."
         ),
     )
-    temperature: Optional[list[Dataset]] = pdt.Field(
+    temperature: list[Dataset] | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
@@ -320,7 +318,7 @@ class TurbineWindResourceResults(EyaDefBaseModel):
             "included."
         ),
     )
-    air_density: Optional[list[Dataset]] = pdt.Field(
+    air_density: list[Dataset] | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
@@ -331,7 +329,7 @@ class TurbineWindResourceResults(EyaDefBaseModel):
             "other dimensions may also be included."
         ),
     )
-    displacement_height: Optional[list[Dataset]] = pdt.Field(
+    displacement_height: list[Dataset] | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
@@ -364,7 +362,7 @@ class TurbineWindResourceAssessment(EyaDefBaseModel):
         ),
         examples=["WRA01", "BfWF_WRA_1"],
     )
-    description: Optional[str] = pdt.Field(
+    description: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
@@ -373,7 +371,7 @@ class TurbineWindResourceAssessment(EyaDefBaseModel):
             "included."
         ),
     )
-    comments: Optional[str] = pdt.Field(
+    comments: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
@@ -382,7 +380,7 @@ class TurbineWindResourceAssessment(EyaDefBaseModel):
             "included."
         ),
     )
-    weighting: Optional[TurbineWindResourceWeighting] = pdt.Field(
+    weighting: TurbineWindResourceWeighting | None = pdt.Field(
         default=None,
         description=(
             "Optional specification of the weighting applied to "

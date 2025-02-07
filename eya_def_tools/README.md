@@ -76,7 +76,7 @@ development environment and use the development tools.
 ### Development installation
 
 To install `eya_def_tools` in editable mode for development, including
-the development dependencies, use the following command.
+the development dependencies, execute the following command.
 
 ```bash
 pip install -e .[dev]
@@ -93,39 +93,31 @@ the `graphviz` installation. See the [PyGraphviz documentation](
 https://pygraphviz.github.io/documentation/stable/install.html) for more
 detail.
 
-### Documentation build
+### Linting and code formatting
 
-The documentation of the package (including user documentation and API
-documentation) is created using [Sphinx](https://www.sphinx-doc.org).
-The API documentation is generated automatically from the docstrings
-within the source code.
+The [ruff](https://docs.astral.sh/ruff/) tool is used as the linter and
+code formatter for the `eya_def_tools` code base. It replaces the
+previously used tools `isort`, `black` and `flake8` (including plugins).
+The style enforced by `ruff` is nearly the same as `black` and includes
+the functionality of `isort`.
 
-To build the HTML documentation, navigate to the docs directory and
-execute the following.
-
-```bash
-make html
-```
-
-Note that the documentation is still in the easy stages of development.
-
-### Testing
-
-The test suite is built using [pytest](https://docs.pytest.org). The
-`pytest` package is included as a dependency in the requirements and
-is installed automatically (together with other dependencies) upon
-installation of `eya_def_tools`.
-
-To run the test suite, execute the following.
+To run the `ruff` linter and formatter on the code base, execute the
+following two commands.
 
 ```bash
-pytest --pyargs eya_def_tools
+ruff check
+ruff format
 ```
 
-The `pytest` configurations, including coverage reporting, are contained
-in the [pyproject.toml file](pyproject.toml).
+The `ruff` configurations are contained within the Python package
+configuration file [pyproject.toml](pyproject.toml).
 
-Contributors are encouraged to write tests to cover new features.
+The `ruff` linting and formatting checks are also enforced in the Git
+hooks set up with the `pre-commit` tool and in the linting and testing
+pipeline set up with GitHub Actions.
+
+The Git hooks also include other formatting checks, such as pretty
+formatting of JSON files and ensuring consistent line and file endings.
 
 ### Type hints and static type checking
 
@@ -144,17 +136,26 @@ following at the root of the repository directory.
 mypy --config-file pyproject.toml
 ```
 
-The `mypy` configurations are contained in the
-[pyproject.toml file](pyproject.toml).
+The `mypy` configurations are contained within the Python package
+configuration file [pyproject.toml](pyproject.toml).
 
-### GitHub Actions pipelines
+### Testing
 
-The `eya_def` repo has a GitHub Actions pipeline configured to run
-checks on pull requests (PRs) to check file formatting and ensure that
-static type checking, tests and other required checks pass.
+The test suite is built using [pytest](https://docs.pytest.org). The
+`pytest` package is included as a dependency in the requirements and
+is installed automatically (together with other dependencies) upon
+installation of `eya_def_tools`.
 
-For details, see the pipeline [configuration file here](
-../.github/workflows/eya-def-tools-python-package.yml).
+To run the test suite, execute the following.
+
+```bash
+pytest --pyargs eya_def_tools
+```
+
+The `pytest` configurations, including coverage reporting, are contained
+within the file [pyproject.toml](pyproject.toml).
+
+Contributors are encouraged to write tests to cover new features.
 
 ### Pre-commit hooks
 
@@ -201,3 +202,28 @@ following.
 ```bash
 pre-commit autoupdate
 ```
+
+### GitHub Actions pipelines
+
+The `eya_def` repo has a GitHub Actions pipeline configured to run
+checks on pull requests (PRs) to check file formatting and ensure that
+static type checking, tests and other required checks pass.
+
+For details, see the pipeline [configuration file here](
+../.github/workflows/eya-def-tools-python-package.yml).
+
+### Documentation build
+
+The documentation of the package (including user documentation and API
+documentation) is created using [Sphinx](https://www.sphinx-doc.org).
+The API documentation is generated automatically from the docstrings
+within the source code.
+
+To build the HTML documentation, navigate to the docs directory and
+execute the following.
+
+```bash
+make html
+```
+
+Note that the documentation is still in the easy stages of development.

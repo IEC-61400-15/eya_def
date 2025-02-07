@@ -1,6 +1,4 @@
-"""Tests for the ``io`` module.
-
-"""
+"""Tests for the ``io`` module."""
 
 from pathlib import Path
 

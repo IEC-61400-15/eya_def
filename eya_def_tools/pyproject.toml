@@ -1,12 +1,12 @@
 [build-system]
 requires = [
-    "setuptools>=70.1",
-    "wheel>=0.43",
+    "setuptools>=75.8",
+    "wheel>=0.45",
 ]
 
 [project]
 name = "eya_def_tools"
-version = "0.0.1a8"
+version = "0.0.1a9"
 authors = [
   {name="Christian Jonsson", email="christianj@kudosoftware.com"},
   {name="Stephen Holleran", email="stephen@brightwindanalysis.com"},
@@ -32,6 +32,7 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Operating System :: OS Independent",
 ]
 dynamic = ["dependencies", "optional-dependencies"]
@@ -45,22 +46,29 @@ dependencies = {file = ["requirements.txt"]}
 optional-dependencies.dev = {file = ["requirements-dev.txt"]}
 optional-dependencies.erd = {file = ["requirements-erd.txt"]}
 
-[tool.black]
-color = true
-target-version = ["py312"]
+[tool.ruff]
+fix = true
+show-fixes = true
+target-version = "py311"
 
-[tool.isort]
-profile = "black"
-py_version=312
-
-[tool.flake8]
-extend-ignore = [
-    "E203",  # Incompatible with black
-    "PT016",  # Incompatible with latest pytest API
+[tool.ruff.lint]
+extend-select = [
+    "E501",  # line-too-long
+    "I",  # isort
+    "UP",  # pyupgrade
+    "FA",  # flake8-future-annotations
+    "ICN",  # flake8-import-conventions
+    "PT",  # flake8-pytest-style
+    "B",  # flake8-bugbear
+    "SIM",  # flake8-simplify
 ]
-max_line_length = 88
-max_complexity = 14
-require-plugins = ["flake8-pytest-style"]
+
+[tool.ruff.lint.flake8-import-conventions.aliases]
+"matplotlib.pyplot" = "plt"
+"numpy" = "np"
+"pandas" = "pd"
+"pydantic" = "pdt"
+"xml.etree.ElementTree" = "ET"
 
 [tool.mypy]
 files = ["eya_def_tools"]
@@ -83,7 +91,7 @@ warn_unused_configs = true
 warn_unused_ignores = true
 
 [[tool.mypy.overrides]]
-module = ["pygraphviz.*"]
+module = ["pygraphviz.*", "erdantic.*"]
 ignore_missing_imports = true
 
 [tool.pydantic-mypy]

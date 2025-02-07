@@ -1,6 +1,4 @@
-"""Test the ``data_models.wind_uncertainty`` module.
-
-"""
+"""Test the ``data_models.wind_uncertainty`` module."""
 
 import pytest
 

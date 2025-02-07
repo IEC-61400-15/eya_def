@@ -1,6 +1,4 @@
-"""Data models for spatial data.
-
-"""
+"""Data models for spatial data."""
 
 from typing import Annotated
 
@@ -32,8 +30,8 @@ class Location(EyaDefBaseModel):
 def _validate_epsg(value: int) -> int:
     try:
         _ = pyproj.CRS.from_epsg(code=value)
-    except CRSError:
-        raise ValueError(f"Invalid EPSG SRID code {value}.")
+    except CRSError as exc:
+        raise ValueError(f"Invalid EPSG SRID code {value}.") from exc
 
     return value
 

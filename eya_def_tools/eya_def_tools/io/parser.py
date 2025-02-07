@@ -1,6 +1,4 @@
-"""Parsing module for the EYA DEF.
-
-"""
+"""Parsing module for the EYA DEF."""
 
 import json
 from pathlib import Path

@@ -1,10 +1,7 @@
-"""Data models for wind farm and turbine configurations.
-
-"""
+"""Data models for wind farm and turbine configurations."""
 
 import datetime as dt
 from enum import StrEnum, auto
-from typing import Optional
 
 import pydantic as pdt
 
@@ -32,7 +29,7 @@ class OperationalRestriction(EyaDefBaseModel):
         min_length=1,
         description="Description of the operational restriction.",
     )
-    comments: Optional[str] = pdt.Field(
+    comments: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
@@ -40,7 +37,7 @@ class OperationalRestriction(EyaDefBaseModel):
             "should not be empty if the field is included."
         ),
     )
-    start_datetime: Optional[dt.datetime] = pdt.Field(
+    start_datetime: dt.datetime | None = pdt.Field(
         default=None,
         description=(
             "Optional operational restriction start datetime in the "
@@ -54,7 +51,7 @@ class OperationalRestriction(EyaDefBaseModel):
         ),
         examples=["2023-11-24T05:02:00", "2023-11-01T00:00:00"],
     )
-    end_datetime: Optional[dt.datetime] = pdt.Field(
+    end_datetime: dt.datetime | None = pdt.Field(
         default=None,
         description=(
             "Optional operational restriction end datetime in the "
@@ -79,13 +76,13 @@ class TurbineConfiguration(EyaDefBaseModel):
         description="Unique identifier of the turbine.",
         examples=["b55caeac-f152-4b13-8217-3fddeab792cf", "T1-scenario-1"],
     )
-    label: Optional[str] = pdt.Field(
+    label: str | None = pdt.Field(
         default=None,
         min_length=1,
         description="Label of the turbine, if different from the 'id'.",
         examples=["T1", "WTG02", "WEA_003"],
     )
-    description: Optional[str] = pdt.Field(
+    description: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
@@ -93,7 +90,7 @@ class TurbineConfiguration(EyaDefBaseModel):
             "empty if the field is included."
         ),
     )
-    comments: Optional[str] = pdt.Field(
+    comments: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
@@ -138,7 +135,7 @@ class TurbineConfiguration(EyaDefBaseModel):
         examples=["standard", "PO1", "N/14"],
     )
 
-    assessment_period_start_date: Optional[dt.date] = pdt.Field(
+    assessment_period_start_date: dt.date | None = pdt.Field(
         default=None,
         description=(
             "Optional assessment period start date of the individual "
@@ -147,7 +144,7 @@ class TurbineConfiguration(EyaDefBaseModel):
         ),
         examples=["2026-01-01", "2017-04-01"],
     )
-    assessment_period_end_date: Optional[dt.date] = pdt.Field(
+    assessment_period_end_date: dt.date | None = pdt.Field(
         default=None,
         description=(
             "Optional assessment period end date of the individual "
@@ -156,7 +153,7 @@ class TurbineConfiguration(EyaDefBaseModel):
         ),
         examples=["2051-03-31", "2025-12-31"],
     )
-    restrictions: Optional[list[OperationalRestriction]] = pdt.Field(
+    restrictions: list[OperationalRestriction] | None = pdt.Field(
         default=None,
         min_length=1,
         description="List of operational restrictions at the turbine level.",
@@ -186,13 +183,13 @@ class WindFarmConfiguration(EyaDefBaseModel):
         description="Label or name of the wind farm.",
         examples=["Barefoot Wind Farm", "Project Summit Phase III"],
     )
-    abbreviation: Optional[str] = pdt.Field(
+    abbreviation: str | None = pdt.Field(
         default=None,
         min_length=1,
         description="Optional abbreviated label of the wind farm.",
         examples=["BWF", "Summit PhIII"],
     )
-    description: Optional[str] = pdt.Field(
+    description: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
@@ -200,7 +197,7 @@ class WindFarmConfiguration(EyaDefBaseModel):
             "be empty if the field is included."
         ),
     )
-    comments: Optional[str] = pdt.Field(
+    comments: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
@@ -251,7 +248,7 @@ class WindFarmConfiguration(EyaDefBaseModel):
         ),
         examples=[12.3, 2345.67],
     )
-    export_capacity: Optional[pdt.PositiveFloat] = pdt.Field(
+    export_capacity: pdt.PositiveFloat | None = pdt.Field(
         default=None,
         description=(
             "Optional specification of the maximum permanently "
@@ -262,7 +259,7 @@ class WindFarmConfiguration(EyaDefBaseModel):
         ),
         examples=[11.3, 2332.0],
     )
-    restrictions: Optional[list[OperationalRestriction]] = pdt.Field(
+    restrictions: list[OperationalRestriction] | None = pdt.Field(
         default=None,
         min_length=1,
         description="List of operational restrictions at the wind farm level.",

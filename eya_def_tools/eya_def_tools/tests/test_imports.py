@@ -1,6 +1,4 @@
-"""Test module imports.
-
-"""
+"""Test module imports."""
 
 import importlib.util as importlib_util
 import sys

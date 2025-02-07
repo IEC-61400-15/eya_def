@@ -1,11 +1,8 @@
-"""Data models relating to plant performance loss assessments.
-
-"""
+"""Data models relating to plant performance loss assessments."""
 
 from __future__ import annotations
 
 from enum import StrEnum, auto
-from typing import Optional
 
 import pydantic as pdt
 
@@ -55,7 +52,7 @@ class PlantPerformanceSubcategoryElement(EyaDefBaseModel):
         min_length=1,
         description="Label of the plant performance loss subcategory element.",
     )
-    description: Optional[str] = pdt.Field(
+    description: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
@@ -64,7 +61,7 @@ class PlantPerformanceSubcategoryElement(EyaDefBaseModel):
             "field is included."
         ),
     )
-    comments: Optional[str] = pdt.Field(
+    comments: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
@@ -102,8 +99,7 @@ class PlantPerformanceSubcategoryElement(EyaDefBaseModel):
     variability: TimeVariabilityType = pdt.Field(
         default=...,
         description=(
-            "Considered variability in the plant performance loss "
-            "subcategory element."
+            "Considered variability in the plant performance loss subcategory element."
         ),
     )
     is_statistically_independent: bool = pdt.Field(
@@ -218,7 +214,7 @@ class PlantPerformanceSubcategory(EyaDefBaseModel):
         default=...,
         description="Label of the plant performance loss subcategory.",
     )
-    description: Optional[str] = pdt.Field(
+    description: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
@@ -227,7 +223,7 @@ class PlantPerformanceSubcategory(EyaDefBaseModel):
             "included."
         ),
     )
-    comments: Optional[str] = pdt.Field(
+    comments: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
@@ -265,7 +261,7 @@ class PlantPerformanceSubcategory(EyaDefBaseModel):
         default=...,
         description="Considered variability in the plant performance loss subcategory.",
     )
-    elements: Optional[list[PlantPerformanceSubcategoryElement]] = pdt.Field(
+    elements: list[PlantPerformanceSubcategoryElement] | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
@@ -304,7 +300,7 @@ class PlantPerformanceCategory(EyaDefBaseModel):
         default=...,
         description="Label of the plant performance loss category.",
     )
-    description: Optional[str] = pdt.Field(
+    description: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
@@ -313,7 +309,7 @@ class PlantPerformanceCategory(EyaDefBaseModel):
             "included."
         ),
     )
-    comments: Optional[str] = pdt.Field(
+    comments: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(

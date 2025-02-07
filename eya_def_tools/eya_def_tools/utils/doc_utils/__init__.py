@@ -1,3 +1,1 @@
-"""Utilities for creating documentation content.
-
-"""
+"""Utilities for creating documentation content."""

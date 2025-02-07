@@ -1,6 +1,4 @@
-"""Test the ``data_models.general`` module.
-
-"""
+"""Test the ``data_models.general`` module."""
 
 import pytest
 

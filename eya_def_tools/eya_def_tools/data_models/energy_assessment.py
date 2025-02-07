@@ -1,8 +1,4 @@
-"""Data models relating to energy assessments.
-
-"""
-
-from typing import Optional
+"""Data models relating to energy assessments."""
 
 import pydantic as pdt
 
@@ -30,7 +26,7 @@ class GrossEnergyAssessmentResults(EyaDefBaseModel):
             "dimensions may be included optionally."
         ),
     )
-    energy_production: Optional[list[Dataset]] = pdt.Field(
+    energy_production: list[Dataset] | None = pdt.Field(
         default=None,
         min_length=1,
         title="Gross Energy Production",
@@ -50,7 +46,7 @@ class GrossEnergyAssessmentResults(EyaDefBaseModel):
 class GrossEnergyAssessment(EyaDefBaseModel):
     """Gross energy assessment details and results."""
 
-    description: Optional[str] = pdt.Field(
+    description: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
@@ -58,7 +54,7 @@ class GrossEnergyAssessment(EyaDefBaseModel):
             "which should not be empty if the field is included."
         ),
     )
-    comments: Optional[str] = pdt.Field(
+    comments: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
@@ -131,7 +127,7 @@ class NetEnergyAssessmentResults(EyaDefBaseModel):
 class NetEnergyAssessment(EyaDefBaseModel):
     """Net energy assessment details and results."""
 
-    description: Optional[str] = pdt.Field(
+    description: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
@@ -139,7 +135,7 @@ class NetEnergyAssessment(EyaDefBaseModel):
             "should not be empty if the field is included."
         ),
     )
-    comments: Optional[str] = pdt.Field(
+    comments: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
