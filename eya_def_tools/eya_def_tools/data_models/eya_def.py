@@ -136,7 +136,8 @@ class EyaDefDocument(EyaDefBaseModel):
         default=...,
         min_length=1,
         description=(
-            "List of wind resource assessments, including results, at the measurement station locations."
+            "List of wind resource assessments, including results, at "
+            "the measurement station locations."
         ),
     )
     power_curves: list[PowerCurveDocument] = pdt.Field(

@@ -70,7 +70,8 @@ class BasicStatistic(EyaDefBaseModel):
     statistic_type: BasicStatisticType = pdt.Field(
         default=...,
         description=(
-            "Specification of the type of statistic, using the standardised naming conventions."
+            "Specification of the type of statistic, using the "
+            "standardised naming conventions."
         ),
     )
     return_period: pdt.PositiveInt | pdt.PositiveFloat | None = ReturnPeriodField
@@ -139,21 +140,24 @@ class DatasetStatistic(EyaDefBaseModel):
         default=None,
         min_length=1,
         description=(
-            "Optional description of the dataset statistic, which should not be empty if the field is included."
+            "Optional description of the dataset statistic, which "
+            "should not be empty if the field is included."
         ),
     )
     comments: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
-            "Optional comments on the dataset statistic, which should not be empty if the field is included."
+            "Optional comments on the dataset statistic, which should "
+            "not be empty if the field is included."
         ),
     )
     statistic: AnyStatisticType = pdt.Field(
         default=...,
         discriminator="statistic_type",
         description=(
-            "Specification of the statistic that the element of the dataset corresponds to."
+            "Specification of the statistic that the element of the "
+            "dataset corresponds to."
         ),
     )
     values: float | DatasetValuesWithCoordinates = pdt.Field(
@@ -211,7 +215,8 @@ class Dataset(EyaDefBaseModel):
         default=None,
         min_length=1,
         description=(
-            "Optional label of the dataset, which should not be empty if the field is included."
+            "Optional label of the dataset, which should not be empty "
+            "if the field is included."
         ),
         examples=["Seasonal distribution of net energy"],
     )
@@ -219,14 +224,16 @@ class Dataset(EyaDefBaseModel):
         default=None,
         min_length=1,
         description=(
-            "Optional description of the dataset, which should not be empty if the field is included."
+            "Optional description of the dataset, which should not be "
+            "empty if the field is included."
         ),
     )
     comments: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
-            "Optional comments on the dataset, which should not be empty if the field is included."
+            "Optional comments on the dataset, which should not be "
+            "empty if the field is included."
         ),
     )
     dimensions: list[DatasetDimension] | None = pdt.Field(

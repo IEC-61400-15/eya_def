@@ -53,6 +53,7 @@ target-version = "py311"
 
 [tool.ruff.lint]
 extend-select = [
+    "E501",  # line-too-long
     "I",  # isort
     "UP",  # pyupgrade
     "FA",  # flake8-future-annotations

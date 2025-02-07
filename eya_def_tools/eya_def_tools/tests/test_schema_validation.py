@@ -29,7 +29,8 @@ def test_validate_master_json_schema(
             jsonschema.validate(instance=json_example_, schema=json_schema)
         except jsonschema_exceptions.ValidationError as exc:
             pytest.fail(
-                f"The json example '{json_filename}' did not pass the master json schema validation ({exc})."
+                f"The json example '{json_filename}' did not pass the "
+                f"master json schema validation ({exc})."
             )
 
 
@@ -51,7 +52,8 @@ def test_validate_pydantic_model_json_schema(
             jsonschema.validate(instance=json_example_, schema=json_schema)
         except jsonschema_exceptions.ValidationError as exc:
             pytest.fail(
-                f"The json example '{json_filename}' did not pass the pydantic model json schema validation ({exc})."
+                f"The json example '{json_filename}' did not pass the "
+                f"pydantic model json schema validation ({exc})."
             )
 
 
@@ -64,7 +66,8 @@ def test_validate_pydantic_model(json_example_dict: dict[str, Any]) -> None:
             assert isinstance(energy_yield_assessment, EyaDefDocument)
         except pdt.ValidationError as exc:
             pytest.fail(
-                f"The json example '{json_filename}' did not pass the pydantic model validation ({exc})."
+                f"The json example '{json_filename}' did not pass the "
+                f"pydantic model validation ({exc})."
             )
 
 

@@ -39,7 +39,8 @@ WraDataModelDocument = Annotated[
             ALL_OF_TAG: [{EXTERNAL_REFERENCE_TAG: IEA43_WRA_DATA_MODEL_SCHEMA_URI}],
             "title": "Wind Dataset Metadata",
             "description": (
-                "A wind dataset metadata document according to the IEA Wind Task 43 WRA Data Model JSON Schema."
+                "A wind dataset metadata document according to the IEA "
+                "Wind Task 43 WRA Data Model JSON Schema."
             ),
             "examples": [
                 "https://raw.githubusercontent.com/IEA-Task-43/"

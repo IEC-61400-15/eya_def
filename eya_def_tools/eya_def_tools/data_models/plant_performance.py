@@ -105,7 +105,8 @@ class PlantPerformanceSubcategoryElement(EyaDefBaseModel):
     is_statistically_independent: bool = pdt.Field(
         default=True,
         description=(
-            "Whether the plant performance loss subcategory element is statistically independent of all other elements."
+            "Whether the plant performance loss subcategory element is "
+            "statistically independent of all other elements."
         ),
     )
     results: PlantPerformanceResults = pdt.Field(

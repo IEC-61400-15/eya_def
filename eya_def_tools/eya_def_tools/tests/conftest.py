@@ -60,8 +60,10 @@ def master_json_schema_dirpath(top_level_dirpath: Path) -> Path:
     master_json_schema_dirpath = top_level_dirpath / "json_schema"
     if not master_json_schema_dirpath.is_dir():
         raise ValueError(
-            f"the expected json schema directory '{master_json_schema_dirpath}' does not exist"
+            f"The expected JSON Schema directory path "
+            f"'{master_json_schema_dirpath}' does not exist."
         )
+
     return master_json_schema_dirpath
 
 
@@ -78,6 +80,7 @@ def master_json_schema_filepath(master_json_schema_dirpath: Path) -> Path:
     filepath = master_json_schema_dirpath / "iec_61400-15-2_eya_def.schema.json"
     if not filepath.is_file():
         raise ValueError(f"the expected json schema file '{filepath}' does not exist")
+
     return filepath
 
 
@@ -155,8 +158,10 @@ def json_examples_dirpath(top_level_dirpath: Path) -> Path:
     json_examples_dirpath = top_level_dirpath / "json_schema" / "examples"
     if not json_examples_dirpath.is_dir():
         raise ValueError(
-            f"the expected json examples directory '{json_examples_dirpath}' does not exist"
+            f"The expected JSON examples directory path "
+            f"'{json_examples_dirpath}' does not exist."
         )
+
     return json_examples_dirpath
 
 
@@ -174,8 +179,10 @@ def json_example_filepaths(json_examples_dirpath: Path) -> list[Path]:
     json_example_filepaths = list(json_examples_dirpath.glob(filename_pattern))
     if len(json_example_filepaths) < 1:
         raise ValueError(
-            f"no example json files with the expected filename pattern exist in the directory '{json_examples_dirpath}'"
+            f"no example json files with the expected filename pattern "
+            f"exist in the directory '{json_examples_dirpath}'"
         )
+
     return json_example_filepaths
 
 
@@ -365,7 +372,8 @@ def turbine_operational_restriction_a() -> wind_farm.OperationalRestriction:
             "direction is from between 120.0 and 210.0 degrees."
         ),
         comments=(
-            "The strategy is designed to mitigate against the impact of high ambient turbulence intensity."
+            "The strategy is designed to mitigate against the impact "
+            "of high ambient turbulence intensity."
         ),
     )
 
@@ -1287,10 +1295,12 @@ def plant_performance_curtailment_category_a() -> (
                     plant_performance.PlantPerformanceSubcategoryLabel.LOAD_CURTAILMENT
                 ),
                 description=(
-                    "Curtailment due to a wind sector management strategy to reduce turbine loads."
+                    "Curtailment due to a wind sector management "
+                    "strategy to reduce turbine loads."
                 ),
                 comments=(
-                    "Considering curtailment strategy as specified by the turbine manufacturer."
+                    "Considering curtailment strategy as specified by "
+                    "the turbine manufacturer."
                 ),
                 basis="time_series_calculation",
                 variability=general.TimeVariabilityType.STATIC,

@@ -138,7 +138,7 @@ class DerivedDatasetClassification(EyaDefBaseModel):
     )
     data_source_type: Literal[OperationalDataSourceType.SECONDARY] = pdt.Field(
         default=OperationalDataSourceType.SECONDARY,
-        description="The data source type, which for derived data is 'secondary'.",
+        description=("The data source type, which for derived data is 'secondary'."),
     )
 
 
@@ -154,7 +154,8 @@ class OperationalDataVariable(EyaDefBaseModel):
         default=...,
         min_length=1,
         description=(
-            "The type of operational data variable, selected from the standardised terms based on the ASPECT taxonomy."
+            "The type of operational data variable, selected from the "
+            "standardised terms based on the ASPECT taxonomy."
         ),
         examples=["active_power", "wind_speed"],
     )
@@ -182,7 +183,8 @@ class OperationalDataVariable(EyaDefBaseModel):
         default=None,
         min_length=1,
         description=(
-            "Optional comments on the data variable, which should not be empty if the field is included."
+            "Optional comments on the data variable, which should not "
+            "be empty if the field is included."
         ),
     )
     data_level: OperationalDataLevel = pdt.Field(
@@ -219,7 +221,7 @@ class OperationalDatasetMetadata(EyaDefBaseModel):
     id: str = pdt.Field(
         default=...,
         min_length=1,
-        description="Unique ID of the reference operational wind farm dataset",
+        description=("Unique ID of the reference operational wind farm dataset"),
         examples=[
             "305f27e4-d51e-44dc-a1b1-e54feea36e17",
             "PharaohWindFarmPhIV_OEM_op_reports",
@@ -229,7 +231,8 @@ class OperationalDatasetMetadata(EyaDefBaseModel):
         default=...,
         min_length=1,
         description=(
-            "Optional label of the reference wind farm dataset, which should not be empty if the field is included."
+            "Optional label of the reference wind farm dataset, which "
+            "should not be empty if the field is included."
         ),
         examples=["OEM operational reports"],
     )
@@ -237,14 +240,16 @@ class OperationalDatasetMetadata(EyaDefBaseModel):
         default=None,
         min_length=1,
         description=(
-            "Optional description of the dataset, which should not be empty if the field is included."
+            "Optional description of the dataset, which should not be "
+            "empty if the field is included."
         ),
     )
     comments: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
-            "Optional comments on the dataset, which should not be empty if the field is included."
+            "Optional comments on the dataset, which should not be "
+            "empty if the field is included."
         ),
     )
     classification: DatasetClassification = pdt.Field(
@@ -326,14 +331,16 @@ class ReferenceWindFarm(EyaDefBaseModel):
         default=None,
         min_length=1,
         description=(
-            "Optional description of the reference wind farm, which should not be empty if the field is included."
+            "Optional description of the reference wind farm, which "
+            "should not be empty if the field is included."
         ),
     )
     comments: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
-            "Optional comments on the reference wind farm, which should not be empty if the field is included."
+            "Optional comments on the reference wind farm, which "
+            "should not be empty if the field is included."
         ),
     )
     operational_datasets: list[OperationalDatasetMetadata] = pdt.Field(

@@ -40,7 +40,8 @@ class ReportContributor(EyaDefBaseModel):
     email_address: pdt.EmailStr | None = pdt.Field(
         default=None,
         description=(
-            "Optional email address of the contributor, which should not be empty if the field is included."
+            "Optional email address of the contributor, which should "
+            "not be empty if the field is included."
         ),
         examples=["j.miro@art.cat", "andrei.tarkovsky@cinema.com"],
     )
@@ -52,7 +53,8 @@ class ReportContributor(EyaDefBaseModel):
         default=None,
         min_length=1,
         description=(
-            "Optional comments to clarify contribution, which should not be empty if the field is included."
+            "Optional comments to clarify contribution, which should "
+            "not be empty if the field is included."
         ),
         examples=["Second author"],
     )
@@ -67,7 +69,8 @@ UriField: pdt.AnyUrl | None = pdt.Field(
     default=None,
     title="URI",
     description=(
-        "Optional URI of the EYA DEF JSON document, which should have the field name '$id' in the JSON document."
+        "Optional URI of the EYA DEF JSON document, which should have "
+        "the field name '$id' in the JSON document."
     ),
     examples=["https://foo.com/api/eya?id=8f46a815-8b6d-4870-8e92-c031b20320c6.json"],
     alias="$id",
@@ -82,7 +85,8 @@ SchemaUriField: pdt.AnyUrl = pdt.Field(
         "latest published version if not included."
     ),
     examples=[
-        "https://raw.githubusercontent.com/IEC-61400-15/eya_def/blob/main/iec_61400-15-2_eya_def.schema.json"
+        "https://raw.githubusercontent.com/IEC-61400-15/eya_def/"
+        "blob/main/iec_61400-15-2_eya_def.schema.json"
     ],
     alias="$schema",
 )
@@ -133,7 +137,8 @@ ProjectNameField: str = pdt.Field(
 ProjectCountryField: Alpha2CountryCode = pdt.Field(
     default=...,
     description=(
-        "The ISO 3166-1 alpha-2 two-letter code of the country where the project under assessment is located."
+        "The ISO 3166-1 alpha-2 two-letter code of the country where "
+        "the project under assessment is located."
     ),
 )
 
@@ -167,7 +172,8 @@ DocumentVersionField: str | None = pdt.Field(
 IssueDateField: dt.date = pdt.Field(
     default=...,
     description=(
-        "Report issue date in the ISO 8601 standard format for a calendar date, i.e. YYYY-MM-DD."
+        "Report issue date in the ISO 8601 standard format for a "
+        "calendar date, i.e. YYYY-MM-DD."
     ),
     examples=["2022-10-05"],
 )
@@ -188,7 +194,8 @@ ReceivingOrganisationsField: list[Organisation] | None = pdt.Field(
     default=None,
     min_length=1,
     description=(
-        "Optional specification of the organisation(s) receiving the report (e.g. client), if relevant."
+        "Optional specification of the organisation(s) receiving the "
+        "report (e.g. client), if relevant."
     ),
 )
 

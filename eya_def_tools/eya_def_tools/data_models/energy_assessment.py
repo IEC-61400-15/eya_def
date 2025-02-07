@@ -50,14 +50,16 @@ class GrossEnergyAssessment(EyaDefBaseModel):
         default=None,
         min_length=1,
         description=(
-            "Optional description of the gross energy assessment, which should not be empty if the field is included."
+            "Optional description of the gross energy assessment, "
+            "which should not be empty if the field is included."
         ),
     )
     comments: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
-            "Optional comments on the gross energy assessment, which should not be empty if the field is included."
+            "Optional comments on the gross energy assessment, which "
+            "should not be empty if the field is included."
         ),
     )
     results: GrossEnergyAssessmentResults = pdt.Field(
@@ -129,14 +131,16 @@ class NetEnergyAssessment(EyaDefBaseModel):
         default=None,
         min_length=1,
         description=(
-            "Optional description of the net energy assessment, which should not be empty if the field is included."
+            "Optional description of the net energy assessment, which "
+            "should not be empty if the field is included."
         ),
     )
     comments: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
-            "Optional comments on the net energy assessment, which should not be empty if the field is included."
+            "Optional comments on the net energy assessment, which "
+            "should not be empty if the field is included."
         ),
     )
     results: NetEnergyAssessmentResults = pdt.Field(

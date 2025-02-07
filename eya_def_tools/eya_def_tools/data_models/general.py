@@ -16,7 +16,8 @@ NonEmptyStr = Annotated[str, pdt.StringConstraints(min_length=1)]
 StartDateField: datetime.date = pdt.Field(
     default=...,
     description=(
-        "Start of the data period in the ISO 8601 standard format for a calendar date, i.e. YYYY-MM-DD."
+        "Start of the data period in the ISO 8601 standard format for "
+        "a calendar date, i.e. YYYY-MM-DD."
     ),
     examples=["2015-10-20"],
 )
@@ -24,7 +25,8 @@ StartDateField: datetime.date = pdt.Field(
 EndDateField: datetime.date = pdt.Field(
     default=...,
     description=(
-        "End of the data period in the ISO 8601 standard format for a calendar date, i.e. YYYY-MM-DD."
+        "End of the data period in the ISO 8601 standard format for a "
+        "calendar date, i.e. YYYY-MM-DD."
     ),
     examples=["2021-11-30"],
 )
@@ -152,7 +154,8 @@ class OtherOrganisationAssessmentComponentProvenance(EyaDefBaseModel):
         default=...,
         min_length=1,
         description=(
-            "Specification of the other (third party) organisation(s) that undertook the assessment of the component."
+            "Specification of the other (third party) organisation(s) "
+            "that undertook the assessment of the component."
         ),
     )
     is_verified_by_issuing_organisation: bool = IsVerifiedByIssuingOrganisationField

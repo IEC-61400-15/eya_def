@@ -195,7 +195,8 @@ class WindUncertaintySubcategory(EyaDefBaseModel):
         default=None,
         min_length=1,
         description=(
-            "Optional comments on the wind uncertainty subcategory, which should not be empty if the field is included."
+            "Optional comments on the wind uncertainty subcategory, "
+            "which should not be empty if the field is included."
         ),
     )
     elements: list[WindUncertaintySubcategoryElement] | None = pdt.Field(
@@ -239,14 +240,16 @@ class WindUncertaintyCategory(EyaDefBaseModel):
         default=None,
         min_length=1,
         description=(
-            "Optional description of the wind uncertainty category, which should not be empty if the field is included."
+            "Optional description of the wind uncertainty category, "
+            "which should not be empty if the field is included."
         ),
     )
     comments: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
-            "Optional comments on the wind uncertainty category, which should not be empty if the field is included."
+            "Optional comments on the wind uncertainty category, which "
+            "should not be empty if the field is included."
         ),
     )
     subcategories: list[WindUncertaintySubcategory] = pdt.Field(

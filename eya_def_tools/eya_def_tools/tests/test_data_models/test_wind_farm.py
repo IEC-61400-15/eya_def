@@ -72,5 +72,6 @@ def _get_wind_farm_by_id(
             return wind_farm
 
     raise ValueError(
-        "The wind farm ID used to reference test configuration objects does not match any of the expected values."
+        "The wind farm ID used to reference test configuration objects "
+        "does not match any of the expected values."
     )

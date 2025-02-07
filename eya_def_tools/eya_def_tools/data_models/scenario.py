@@ -14,7 +14,8 @@ class Scenario(EyaDefBaseModel):
         default=None,
         min_length=1,
         description=(
-            "Optional unique identifier of the scenario, which should not be empty if the field is included."
+            "Optional unique identifier of the scenario, which should "
+            "not be empty if the field is included."
         ),
         examples=["3613a846-1e74-4535-ad40-7368f7ad452d"],
     )
@@ -28,20 +29,23 @@ class Scenario(EyaDefBaseModel):
         default=None,
         min_length=1,
         description=(
-            "Optional description of the scenario, which should not be empty if the field is included."
+            "Optional description of the scenario, which should not be "
+            "empty if the field is included."
         ),
     )
     comments: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
-            "Optional comments on the scenario, which should not be empty if the field is included."
+            "Optional comments on the scenario, which should not be "
+            "empty if the field is included."
         ),
     )
     is_main_scenario: bool | None = pdt.Field(
         default=None,
         description=(
-            "Optional flag to specify whether or not it is the main scenario in the report."
+            "Optional flag to specify whether or not it is the main "
+            "scenario in the report."
         ),
     )
     wind_farm_ids: list[str] = pdt.Field(

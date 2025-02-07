@@ -33,7 +33,8 @@ class OperationalRestriction(EyaDefBaseModel):
         default=None,
         min_length=1,
         description=(
-            "Optional comments on the operational restriction, which should not be empty if the field is included."
+            "Optional comments on the operational restriction, which "
+            "should not be empty if the field is included."
         ),
     )
     start_datetime: dt.datetime | None = pdt.Field(
@@ -85,14 +86,16 @@ class TurbineConfiguration(EyaDefBaseModel):
         default=None,
         min_length=1,
         description=(
-            "Optional description of the turbine, which should not be empty if the field is included."
+            "Optional description of the turbine, which should not be "
+            "empty if the field is included."
         ),
     )
     comments: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
-            "Optional comments on the turbine, which should not be empty if the field is included."
+            "Optional comments on the turbine, which should not be "
+            "empty if the field is included."
         ),
     )
     location: Location = pdt.Field(
@@ -190,14 +193,16 @@ class WindFarmConfiguration(EyaDefBaseModel):
         default=None,
         min_length=1,
         description=(
-            "Optional description of the wind farm, which should not be empty if the field is included."
+            "Optional description of the wind farm, which should not "
+            "be empty if the field is included."
         ),
     )
     comments: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
-            "Optional comments on the wind farm, which should not be empty if the field is included."
+            "Optional comments on the wind farm, which should not be "
+            "empty if the field is included."
         ),
     )
     turbines: list[TurbineConfiguration] = pdt.Field(
@@ -208,7 +213,8 @@ class WindFarmConfiguration(EyaDefBaseModel):
     relevance: WindFarmRelevance = pdt.Field(
         default=...,
         description=(
-            "The relevance of the wind farm for the assessment ('internal', 'external' or 'future')."
+            "The relevance of the wind farm for the assessment "
+            "('internal', 'external' or 'future')."
         ),
     )
     assessment_period_start_date: dt.date = pdt.Field(

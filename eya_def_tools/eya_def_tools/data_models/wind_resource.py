@@ -189,20 +189,23 @@ class WindResourceAssessment(EyaDefBaseModel):
         default=None,
         min_length=1,
         description=(
-            "Optional description of the wind resource assessment, which should not be empty if the field is included."
+            "Optional description of the wind resource assessment, "
+            "which should not be empty if the field is included."
         ),
     )
     comments: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
-            "Optional comments on the wind resource assessment, which should not be empty if the field is included."
+            "Optional comments on the wind resource assessment, which "
+            "should not be empty if the field is included."
         ),
     )
     dataset_statistics: WindResourceDatasetStatistics = pdt.Field(
         default=...,
         description=(
-            "Statistics relating to the wind resource assessment datasets, such as data availability."
+            "Statistics relating to the wind resource assessment "
+            "datasets, such as data availability."
         ),
     )
     results: WindResourceResults = pdt.Field(
