@@ -11,7 +11,8 @@ from eya_def_tools.data_models.general import NonEmptyStr
 from eya_def_tools.utils import loading_utils
 
 IEC61400_16_POWER_CURVE_SCHEMA_SCHEMA_URI: Final[str] = (
-    "https://raw.githubusercontent.com/octue/power-curve-schema/main/power-curve-schema/schema.json"
+    "https://raw.githubusercontent.com/octue/power-curve-schema/"
+    "main/power-curve-schema/schema.json"
 )
 
 IEC61400_16_POWER_CURVE_SCHEMA_SCHEMA: Final[Mapping[str, Any]] = (
