@@ -275,9 +275,6 @@
           "const": "secondary",
           "default": "secondary",
           "description": "The data source type, which for derived data is 'secondary'.",
-          "enum": [
-            "secondary"
-          ],
           "title": "Data Source Type",
           "type": "string"
         },
@@ -285,9 +282,6 @@
           "const": "derived",
           "default": "derived",
           "description": "The type of operational data, categorised as 'derived' for all derived operational datasets (e.g. operational reports or databases with aggregate data). Details of the data type shall be included in the description of the operational dataset, including the type of derived dataset (e.g. an operational report), who produced it (e.g. the turbine OEM) and any relevant details known about how the data were processed.",
-          "enum": [
-            "derived"
-          ],
           "title": "Data Type",
           "type": "string"
         }
@@ -338,9 +332,6 @@
           "const": "exceedance_level",
           "default": "exceedance_level",
           "description": "Specification of the type of statistic, using the standardised naming conventions. For an exceedance level statistic, the type must always be 'exceedance_level'.",
-          "enum": [
-            "exceedance_level"
-          ],
           "title": "Statistic Type",
           "type": "string"
         }
@@ -385,9 +376,6 @@
           "const": 1,
           "default": 1,
           "description": "Specification of the return period in years, which for inter-annual variability must always be 1 (it is by definition the variability of a one-year period relative to the full time period).",
-          "enum": [
-            1
-          ],
           "title": "Return Period",
           "type": "integer"
         },
@@ -395,9 +383,6 @@
           "const": "inter_annual_variability",
           "default": "inter_annual_variability",
           "description": "Specification of the type of statistic, using the standardised naming conventions. For a standard deviation statistic, the type must always be 'standard_deviation'.",
-          "enum": [
-            "inter_annual_variability"
-          ],
           "title": "Statistic Type",
           "type": "string"
         }
@@ -413,9 +398,6 @@
           "const": "issuing_organisation",
           "default": "issuing_organisation",
           "description": "Type of organisation that undertook the assessment of the EYA or WRA component, which must be one of the options 'issuing_organisation', 'receiving_organisation', 'commissioning_organisation' and 'other_organisation'. The value 'issuing_organisation' means that the component has been assessed by the organisation(s) having undertaken and issued the EYA.",
-          "enum": [
-            "issuing_organisation"
-          ],
           "title": "Assessor Type",
           "type": "string"
         }
@@ -592,9 +574,6 @@
           "const": "other_organisation",
           "default": "other_organisation",
           "description": "Type of organisation that undertook the assessment of the EYA or WRA component, which must be one of the options 'issuing_organisation', 'receiving_organisation', 'commissioning_organisation' and 'other_organisation'. The value 'other_organisation' should be used for independent third parties or any other organisation that has not issued, received or commissioned the EYA.",
-          "enum": [
-            "other_organisation"
-          ],
           "title": "Assessor Type",
           "type": "string"
         },
@@ -1587,7 +1566,7 @@
                               "wind_speed"
                             ],
                             "minLength": 1,
-                            "title": "OperationalDataVariableType",
+                            "title": "Operational Data Variable Type",
                             "type": "string"
                           }
                         },
@@ -1676,11 +1655,7 @@
                       "type": "string"
                     },
                     "supplying_organisation": {
-                      "allOf": [
-                        {
-                          "$ref": "#/$defs/Organisation"
-                        }
-                      ],
+                      "$ref": "#/$defs/Organisation",
                       "description": "The organisation that supplied the data."
                     },
                     "time_resolution": {
@@ -1977,11 +1952,7 @@
                           "type": "string"
                         },
                         "results": {
-                          "allOf": [
-                            {
-                              "$ref": "#/$defs/PlantPerformanceResults"
-                            }
-                          ],
+                          "$ref": "#/$defs/PlantPerformanceResults",
                           "description": "Plant performance assessment category results."
                         },
                         "subcategories": {
@@ -2118,19 +2089,11 @@
                                           "title": "Provenance"
                                         },
                                         "results": {
-                                          "allOf": [
-                                            {
-                                              "$ref": "#/$defs/PlantPerformanceResults"
-                                            }
-                                          ],
+                                          "$ref": "#/$defs/PlantPerformanceResults",
                                           "description": "Plant performance assessment subcategory element results."
                                         },
                                         "variability": {
-                                          "allOf": [
-                                            {
-                                              "$ref": "#/$defs/TimeVariabilityType"
-                                            }
-                                          ],
+                                          "$ref": "#/$defs/TimeVariabilityType",
                                           "description": "Considered variability in the plant performance loss subcategory element."
                                         }
                                       },
@@ -2209,19 +2172,11 @@
                                 "title": "Provenance"
                               },
                               "results": {
-                                "allOf": [
-                                  {
-                                    "$ref": "#/$defs/PlantPerformanceResults"
-                                  }
-                                ],
+                                "$ref": "#/$defs/PlantPerformanceResults",
                                 "description": "Plant performance assessment subcategory results."
                               },
                               "variability": {
-                                "allOf": [
-                                  {
-                                    "$ref": "#/$defs/TimeVariabilityType"
-                                  }
-                                ],
+                                "$ref": "#/$defs/TimeVariabilityType",
                                 "description": "Considered variability in the plant performance loss subcategory."
                               }
                             },
@@ -2252,11 +2207,7 @@
                     "type": "array"
                   },
                   "results": {
-                    "allOf": [
-                      {
-                        "$ref": "#/$defs/PlantPerformanceResults"
-                      }
-                    ],
+                    "$ref": "#/$defs/PlantPerformanceResults",
                     "description": "Overall plant performance loss assessment results."
                   }
                 },
@@ -2319,11 +2270,7 @@
                           "type": "string"
                         },
                         "results": {
-                          "allOf": [
-                            {
-                              "$ref": "#/$defs/WindUncertaintyResults"
-                            }
-                          ],
+                          "$ref": "#/$defs/WindUncertaintyResults",
                           "description": "Wind uncertainty assessment category results."
                         },
                         "subcategories": {
@@ -2402,11 +2349,7 @@
                                           "type": "string"
                                         },
                                         "results": {
-                                          "allOf": [
-                                            {
-                                              "$ref": "#/$defs/WindUncertaintyResults"
-                                            }
-                                          ],
+                                          "$ref": "#/$defs/WindUncertaintyResults",
                                           "description": "Wind uncertainty assessment subcategory element results."
                                         }
                                       },
@@ -2454,11 +2397,7 @@
                                 "type": "string"
                               },
                               "results": {
-                                "allOf": [
-                                  {
-                                    "$ref": "#/$defs/WindUncertaintyResults"
-                                  }
-                                ],
+                                "$ref": "#/$defs/WindUncertaintyResults",
                                 "description": "Wind uncertainty assessment subcategory results."
                               }
                             },
@@ -2486,11 +2425,7 @@
                     "type": "array"
                   },
                   "results": {
-                    "allOf": [
-                      {
-                        "$ref": "#/$defs/WindUncertaintyResults"
-                      }
-                    ],
+                    "$ref": "#/$defs/WindUncertaintyResults",
                     "description": "Overall wind related uncertainty assessment results."
                   },
                   "wind_speed_to_energy_sensitivity_factor": {
@@ -2912,10 +2847,10 @@
               }
             ],
             "default": null,
-            "description": "Optional specification of the maximum permanently transmittable power (in MW) from the wind farm at the grid connection, or equivalent, if known. If not included it shall be assumed that the wind farm can transmit the full produced output.",
+            "description": "Optional specification of the maximum permanently transmittable power (in W) from the wind farm at the grid connection, or equivalent, if known. If not included it shall be assumed that the wind farm can transmit the full produced output.",
             "examples": [
-              11.3,
-              2332.0
+              11300000.0,
+              2332000000.0
             ],
             "title": "Export Capacity"
           },
@@ -2929,10 +2864,10 @@
             "type": "string"
           },
           "installed_capacity": {
-            "description": "The maximum production (in MW) of the wind farm under typical conditions. If there are features in place to increase power output beyond the stated nameplate power of the turbines (e.g. so-called power boost solutions), the wind farm installed capacity should correspond to that increased power, insofar as it is reached under typical conditions and not only in rare exceptions.",
+            "description": "The maximum production (in W) of the wind farm under typical conditions. If there are features in place to increase power output beyond the stated nameplate power of the turbines (e.g. so-called power boost solutions), the wind farm installed capacity should correspond to that increased power, insofar as it is reached under typical conditions and not only in rare exceptions.",
             "examples": [
-              12.3,
-              2345.67
+              12300000.0,
+              2345000000.0
             ],
             "exclusiveMinimum": 0.0,
             "title": "Installed Capacity",
