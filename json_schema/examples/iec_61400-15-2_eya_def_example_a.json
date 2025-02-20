@@ -4194,7 +4194,7 @@
       "assessment_period_start_date": "2024-01-01",
       "description": "Barefoot Wind Farm configuration for Scenario A",
       "id": "bf_a",
-      "installed_capacity": 11.0,
+      "installed_capacity": 11000000.0,
       "label": "Barefoot Wind Farm A",
       "relevance": "internal",
       "restrictions": [
@@ -4254,9 +4254,9 @@
       "assessment_period_start_date": "2024-01-01",
       "comments": "Secondary wind farm scenario",
       "description": "Barefoot Wind Farm configuration for Scenario B",
-      "export_capacity": 11.5,
+      "export_capacity": 11500000.0,
       "id": "bf_b",
-      "installed_capacity": 11.6,
+      "installed_capacity": 11600000.0,
       "label": "Barefoot Wind Farm B",
       "relevance": "internal",
       "turbines": [
@@ -4295,7 +4295,7 @@
       "comments": "Details taken from publicly available information; location data based on publicly available data and confirmed with satellite imagery.",
       "description": "The operational Munro Wind Farm",
       "id": "mu",
-      "installed_capacity": 6.4,
+      "installed_capacity": 6400000.0,
       "label": "Munro Wind Farm",
       "relevance": "external",
       "turbines": [

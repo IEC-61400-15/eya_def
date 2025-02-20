@@ -514,7 +514,7 @@ def wind_farm_a(
         relevance=wind_farm.WindFarmRelevance.INTERNAL,
         assessment_period_start_date=dt.date(2024, 1, 1),
         assessment_period_end_date=dt.date(2054, 12, 31),
-        installed_capacity=11.0,
+        installed_capacity=11.0e6,
         restrictions=[wind_farm_operational_restriction_a],
     )
 
@@ -535,8 +535,8 @@ def wind_farm_b(
         relevance=wind_farm.WindFarmRelevance.INTERNAL,
         assessment_period_start_date=dt.date(2024, 1, 1),
         assessment_period_end_date=dt.date(2058, 12, 31),
-        installed_capacity=11.6,
-        export_capacity=11.5,
+        installed_capacity=11.6e6,
+        export_capacity=11.5e6,
     )
 
 
@@ -560,7 +560,7 @@ def neighbouring_wind_farm_a(
         relevance=wind_farm.WindFarmRelevance.EXTERNAL,
         assessment_period_start_date=dt.date(2018, 7, 1),
         assessment_period_end_date=dt.date(2038, 6, 30),
-        installed_capacity=6.4,
+        installed_capacity=6.4e6,
     )
 
 
