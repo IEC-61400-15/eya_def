@@ -1,12 +1,10 @@
-"""General type and class definitions for the EYA DEF schema.
-
-"""
+"""General type and class definitions for the EYA DEF schema."""
 
 from __future__ import annotations
 
 import datetime
 from enum import StrEnum, auto
-from typing import Annotated, Literal, Optional, TypeAlias
+from typing import Annotated, Literal, TypeAlias
 
 import pydantic as pdt
 
@@ -18,8 +16,8 @@ NonEmptyStr = Annotated[str, pdt.StringConstraints(min_length=1)]
 StartDateField: datetime.date = pdt.Field(
     default=...,
     description=(
-        "Start of the data period in the ISO 8601 standard format for a "
-        "calendar date, i.e. YYYY-MM-DD."
+        "Start of the data period in the ISO 8601 standard format for "
+        "a calendar date, i.e. YYYY-MM-DD."
     ),
     examples=["2015-10-20"],
 )
@@ -47,19 +45,19 @@ class Organisation(EyaDefBaseModel):
         description="Entity name of the organisation.",
         examples=["The Torre Egger Consultants Limited", "Miranda Investments Limited"],
     )
-    abbreviation: Optional[str] = pdt.Field(
+    abbreviation: str | None = pdt.Field(
         default=None,
         min_length=1,
         description="Abbreviated name of the organisation.",
         examples=["Torre Egger", "Miranda"],
     )
-    address: Optional[str] = pdt.Field(
+    address: str | None = pdt.Field(
         default=None,
         min_length=1,
         description="Address of the organisation.",
         examples=["5 Munro Road, Summit Centre, Sgurrsville, G12 0YE, UK"],
     )
-    contact_name: Optional[str] = pdt.Field(
+    contact_name: str | None = pdt.Field(
         default=None,
         min_length=1,
         description="Name(s) of contact person(s) in the organisation.",

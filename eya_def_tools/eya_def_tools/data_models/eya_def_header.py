@@ -1,11 +1,8 @@
-"""Module for top-level metadata fields for an EYA DEF document.
-
-"""
+"""Module for top-level metadata fields for an EYA DEF document."""
 
 import datetime as dt
 import uuid as uuid_
 from enum import StrEnum, auto
-from typing import Optional, Type
 
 import pycountry
 import pydantic as pdt
@@ -15,7 +12,7 @@ from eya_def_tools.data_models.general import Organisation
 from eya_def_tools.data_models.spatial import EpsgSrid
 from eya_def_tools.utils import reference_utils
 
-Alpha2CountryCode: Type[StrEnum] = StrEnum(  # type: ignore
+Alpha2CountryCode: type[StrEnum] = StrEnum(  # type: ignore
     "Alpha2CountryCode",
     {country.alpha_2: country.alpha_2 for country in pycountry.countries},
 )
@@ -40,7 +37,7 @@ class ReportContributor(EyaDefBaseModel):
         description="Name of the contributor.",
         examples=["Joan Miro", "Andrei Tarkovsky"],
     )
-    email_address: Optional[pdt.EmailStr] = pdt.Field(
+    email_address: pdt.EmailStr | None = pdt.Field(
         default=None,
         description=(
             "Optional email address of the contributor, which should "
@@ -52,7 +49,7 @@ class ReportContributor(EyaDefBaseModel):
         default=...,
         description="Type of contributor.",
     )
-    contribution_comments: Optional[str] = pdt.Field(
+    contribution_comments: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
@@ -61,14 +58,14 @@ class ReportContributor(EyaDefBaseModel):
         ),
         examples=["Second author"],
     )
-    completion_date: Optional[dt.date] = pdt.Field(
+    completion_date: dt.date | None = pdt.Field(
         default=None,
         description="Optional contribution completion date (format YYYY-MM-DD).",
         examples=["2022-10-04"],
     )
 
 
-UriField: Optional[pdt.AnyUrl] = pdt.Field(
+UriField: pdt.AnyUrl | None = pdt.Field(
     default=None,
     title="URI",
     description=(
@@ -94,7 +91,7 @@ SchemaUriField: pdt.AnyUrl = pdt.Field(
     alias="$schema",
 )
 
-UuidField: Optional[uuid_.UUID] = pdt.Field(
+UuidField: uuid_.UUID | None = pdt.Field(
     default=None,
     title="UUID",
     description="Optional UUID of the EYA DEF document.",
@@ -108,7 +105,7 @@ TitleField: str = pdt.Field(
     examples=["Energy yield assessment of the Barefoot Wind Farm"],
 )
 
-DescriptionField: Optional[str] = pdt.Field(
+DescriptionField: str | None = pdt.Field(
     default=None,
     min_length=1,
     description=(
@@ -118,7 +115,7 @@ DescriptionField: Optional[str] = pdt.Field(
     examples=["An updated document to incorporate the latest measurement data."],
 )
 
-CommentsField: Optional[str] = pdt.Field(
+CommentsField: str | None = pdt.Field(
     default=None,
     min_length=1,
     description=(
@@ -145,7 +142,7 @@ ProjectCountryField: Alpha2CountryCode = pdt.Field(
     ),
 )
 
-DocumentIdField: Optional[str] = pdt.Field(
+DocumentIdField: str | None = pdt.Field(
     default=None,
     min_length=1,
     title="Document ID",
@@ -159,7 +156,7 @@ DocumentIdField: Optional[str] = pdt.Field(
     examples=["C385945/A/UK/R/002", "0345.923454.0001"],
 )
 
-DocumentVersionField: Optional[str] = pdt.Field(
+DocumentVersionField: str | None = pdt.Field(
     default=None,
     min_length=1,
     description=(
@@ -193,7 +190,7 @@ IssuingOrganisationsField: list[Organisation] = pdt.Field(
     description="The organisation(s) issuing the report (e.g. consultant).",
 )
 
-ReceivingOrganisationsField: Optional[list[Organisation]] = pdt.Field(
+ReceivingOrganisationsField: list[Organisation] | None = pdt.Field(
     default=None,
     min_length=1,
     description=(
@@ -202,7 +199,7 @@ ReceivingOrganisationsField: Optional[list[Organisation]] = pdt.Field(
     ),
 )
 
-CommissioningOrganisationsField: Optional[list[Organisation]] = pdt.Field(
+CommissioningOrganisationsField: list[Organisation] | None = pdt.Field(
     default=None,
     min_length=1,
     description=(
@@ -217,7 +214,7 @@ CommissioningOrganisationsField: Optional[list[Organisation]] = pdt.Field(
     ),
 )
 
-ContractReferenceField: Optional[str] = pdt.Field(
+ContractReferenceField: str | None = pdt.Field(
     default=None,
     min_length=1,
     description=(
@@ -229,7 +226,7 @@ ContractReferenceField: Optional[str] = pdt.Field(
     examples=["Contract ID.: P-MIR-00239432-0001-C, dated 2022-11-30"],
 )
 
-ConfidentialityClassificationField: Optional[str] = pdt.Field(
+ConfidentialityClassificationField: str | None = pdt.Field(
     default=None,
     min_length=1,
     description=(
@@ -277,24 +274,24 @@ class EyaDefHeader(EyaDefBaseModel):
     fields defined on the ``EyaDefDocument`` model.
     """
 
-    uri: Optional[pdt.AnyUrl] = UriField
+    uri: pdt.AnyUrl | None = UriField
     schema_uri: pdt.AnyUrl = SchemaUriField
-    uuid: Optional[uuid_.UUID] = UuidField
+    uuid: uuid_.UUID | None = UuidField
     title: str = TitleField
-    description: Optional[str] = DescriptionField
-    comments: Optional[str] = CommentsField
+    description: str | None = DescriptionField
+    comments: str | None = CommentsField
     project_name: str = ProjectNameField
     project_country: Alpha2CountryCode = ProjectCountryField
-    document_id: Optional[str] = DocumentIdField
-    document_version: Optional[str] = DocumentVersionField
+    document_id: str | None = DocumentIdField
+    document_version: str | None = DocumentVersionField
     issue_date: dt.date = IssueDateField
     contributors: list[ReportContributor] = ContributorsField
     issuing_organisations: list[Organisation] = IssuingOrganisationsField
-    receiving_organisations: Optional[list[Organisation]] = ReceivingOrganisationsField
-    commissioning_organisations: Optional[list[Organisation]] = (
+    receiving_organisations: list[Organisation] | None = ReceivingOrganisationsField
+    commissioning_organisations: list[Organisation] | None = (
         CommissioningOrganisationsField
     )
-    contract_reference: Optional[str] = ContractReferenceField
-    confidentiality_classification: Optional[str] = ConfidentialityClassificationField
+    contract_reference: str | None = ContractReferenceField
+    confidentiality_classification: str | None = ConfidentialityClassificationField
     epsg_srid: EpsgSrid = EpsgSridField
     utc_offset: float = UtcOffsetField

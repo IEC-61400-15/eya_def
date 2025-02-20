@@ -1,10 +1,7 @@
-"""Top level pydantic data model for the IEC 61400-15-2 EYA DEF.
-
-"""
+"""Top level pydantic data model for the IEC 61400-15-2 EYA DEF."""
 
 import datetime as dt
 import uuid as uuid_
-from typing import Optional
 
 import pydantic as pdt
 
@@ -60,25 +57,25 @@ class EyaDefDocument(EyaDefBaseModel):
         },
     )
 
-    uri: Optional[pdt.AnyUrl] = UriField
+    uri: pdt.AnyUrl | None = UriField
     schema_uri: pdt.AnyUrl = SchemaUriField
-    uuid: Optional[uuid_.UUID] = UuidField
+    uuid: uuid_.UUID | None = UuidField
     title: str = TitleField
-    description: Optional[str] = DescriptionField
-    comments: Optional[str] = CommentsField
+    description: str | None = DescriptionField
+    comments: str | None = CommentsField
     project_name: str = ProjectNameField
     project_country: Alpha2CountryCode = ProjectCountryField
-    document_id: Optional[str] = DocumentIdField
-    document_version: Optional[str] = DocumentVersionField
+    document_id: str | None = DocumentIdField
+    document_version: str | None = DocumentVersionField
     issue_date: dt.date = IssueDateField
     contributors: list[ReportContributor] = ContributorsField
     issuing_organisations: list[Organisation] = IssuingOrganisationsField
-    receiving_organisations: Optional[list[Organisation]] = ReceivingOrganisationsField
-    commissioning_organisations: Optional[list[Organisation]] = (
+    receiving_organisations: list[Organisation] | None = ReceivingOrganisationsField
+    commissioning_organisations: list[Organisation] | None = (
         CommissioningOrganisationsField
     )
-    contract_reference: Optional[str] = ContractReferenceField
-    confidentiality_classification: Optional[str] = ConfidentialityClassificationField
+    contract_reference: str | None = ContractReferenceField
+    confidentiality_classification: str | None = ConfidentialityClassificationField
     epsg_srid: EpsgSrid = EpsgSridField
     utc_offset: float = UtcOffsetField
     wind_farms: list[WindFarmConfiguration] = pdt.Field(
@@ -96,7 +93,7 @@ class EyaDefDocument(EyaDefBaseModel):
             "wind farm ID."
         ),
     )
-    measurement_stations: Optional[list[WraDataModelDocument]] = pdt.Field(
+    measurement_stations: list[WraDataModelDocument] | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
@@ -109,7 +106,7 @@ class EyaDefDocument(EyaDefBaseModel):
             "stations into a single document."
         ),
     )
-    reference_wind_farms: Optional[list[ReferenceWindFarm]] = pdt.Field(
+    reference_wind_farms: list[ReferenceWindFarm] | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
@@ -119,7 +116,7 @@ class EyaDefDocument(EyaDefBaseModel):
             "reference operational wind farm."
         ),
     )
-    reference_meteorological_datasets: Optional[list[WraDataModelDocument]] = pdt.Field(
+    reference_meteorological_datasets: list[WraDataModelDocument] | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
@@ -139,8 +136,8 @@ class EyaDefDocument(EyaDefBaseModel):
         default=...,
         min_length=1,
         description=(
-            "List of wind resource assessments, including results, at the "
-            "measurement station locations."
+            "List of wind resource assessments, including results, at "
+            "the measurement station locations."
         ),
     )
     power_curves: list[PowerCurveDocument] = pdt.Field(

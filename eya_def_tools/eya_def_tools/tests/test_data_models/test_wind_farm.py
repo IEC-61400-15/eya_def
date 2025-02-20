@@ -1,8 +1,6 @@
-"""Test the ``wind_farm`` module.
+"""Test the ``wind_farm`` module."""
 
-"""
-
-from typing import Iterable
+from collections.abc import Iterable
 
 import numpy as np
 import pytest

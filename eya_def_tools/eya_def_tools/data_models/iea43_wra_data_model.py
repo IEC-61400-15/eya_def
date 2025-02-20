@@ -1,6 +1,4 @@
-"""References to the IEA Task 43 WRA Data Model.
-
-"""
+"""References to the IEA Task 43 WRA Data Model."""
 
 from collections.abc import Mapping
 from typing import Annotated, Any, Final
@@ -23,7 +21,7 @@ IEA43_WRA_DATA_MODEL_SCHEMA: Final[Mapping[str, Any]] = loading_utils.load_json_
 
 
 def json_schema_validate_wra_data_model_document(
-    value: dict[str, Any]
+    value: dict[str, Any],
 ) -> dict[str, Any]:
     jsonschema.validate(instance=value, schema=IEA43_WRA_DATA_MODEL_SCHEMA)
 

@@ -1,6 +1,4 @@
-"""Test the ``data_model_graphics`` module.
-
-"""
+"""Test the ``data_model_graphics`` module."""
 
 import os
 from pathlib import Path

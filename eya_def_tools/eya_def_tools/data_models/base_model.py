@@ -1,6 +1,4 @@
-"""Modified pydantic base model for the EYA DEF.
-
-"""
+"""Modified pydantic base model for the EYA DEF."""
 
 import json
 import re
@@ -56,10 +54,10 @@ class EyaDefGenerateJsonSchema(pdt_json_schema.GenerateJsonSchema):
         :param json_schema_dict: the model JSON Schema dictionary to
             modify in place
         """
-        if DEFINITIONS_TAG not in json_schema_dict.keys():
+        if DEFINITIONS_TAG not in json_schema_dict:
             return
 
-        for definition_label in json_schema_dict[DEFINITIONS_TAG].copy().keys():
+        for definition_label in json_schema_dict[DEFINITIONS_TAG].copy():
             definition_count = cls._recursive_get_definition_count(
                 json_schema_dict=json_schema_dict, definition_label=definition_label
             )
@@ -107,41 +105,58 @@ class EyaDefGenerateJsonSchema(pdt_json_schema.GenerateJsonSchema):
             return
 
         for key, value in json_schema_dict.copy().items():
+            cls._process_definition_to_tree_schema_item(
+                key=key,
+                value=value,
+                json_schema_dict=json_schema_dict,
+                definition_label=definition_label,
+                definition=definition,
+            )
+
+    @classmethod
+    def _process_definition_to_tree_schema_item(
+        cls,
+        key: str,
+        value: Any,
+        json_schema_dict: Any,
+        definition_label: str,
+        definition: dict[str, Any],
+    ) -> None:
+        if key == REFERENCE_TAG and value == f"#/{DEFINITIONS_TAG}/{definition_label}":
+            cls._move_definition(
+                json_schema_dict=json_schema_dict,
+                definition=definition,
+            )
+            del json_schema_dict[REFERENCE_TAG]
+
+        elif isinstance(value, dict):
+            cls._recursive_move_definition_to_tree(
+                json_schema_dict=value,
+                definition_label=definition_label,
+                definition=definition,
+            )
+
+        elif isinstance(value, list):
             if (
-                key == REFERENCE_TAG
-                and value == f"#/{DEFINITIONS_TAG}/{definition_label}"
+                key == ALL_OF_TAG
+                and len(value) == 1
+                and isinstance(value[0], dict)
+                and value[0]
+                == {REFERENCE_TAG: f"#/{DEFINITIONS_TAG}/{definition_label}"}
             ):
                 cls._move_definition(
                     json_schema_dict=json_schema_dict,
                     definition=definition,
                 )
-                del json_schema_dict[REFERENCE_TAG]
-            elif isinstance(value, dict):
-                cls._recursive_move_definition_to_tree(
-                    json_schema_dict=value,
-                    definition_label=definition_label,
-                    definition=definition,
-                )
-            elif isinstance(value, list):
-                if (
-                    key == ALL_OF_TAG
-                    and len(value) == 1
-                    and isinstance(value[0], dict)
-                    and value[0]
-                    == {REFERENCE_TAG: f"#/{DEFINITIONS_TAG}/{definition_label}"}
-                ):
-                    cls._move_definition(
-                        json_schema_dict=json_schema_dict,
+                del json_schema_dict[ALL_OF_TAG]
+
+            else:
+                for item in value:
+                    cls._recursive_move_definition_to_tree(
+                        json_schema_dict=item,
+                        definition_label=definition_label,
                         definition=definition,
                     )
-                    del json_schema_dict[ALL_OF_TAG]
-                else:
-                    for item in value:
-                        cls._recursive_move_definition_to_tree(
-                            json_schema_dict=item,
-                            definition_label=definition_label,
-                            definition=definition,
-                        )
 
     @classmethod
     def _move_definition(
@@ -157,7 +172,7 @@ class EyaDefGenerateJsonSchema(pdt_json_schema.GenerateJsonSchema):
             json_schema_dict["title"],
         )
         for field_attribute in ["title", "description"]:
-            if field_attribute in schema_copy.keys():
+            if field_attribute in schema_copy:
                 json_schema_dict[field_attribute] = schema_copy[field_attribute]
 
 

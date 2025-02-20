@@ -1,6 +1,4 @@
-"""Test the ``data_models.dataset`` module.
-
-"""
+"""Test the ``data_models.dataset`` module."""
 
 from eya_def_tools.data_models.dataset import ExceedanceLevelStatistic
 

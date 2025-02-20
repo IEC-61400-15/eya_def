@@ -1,8 +1,4 @@
-"""Data models relating to EYA scenarios.
-
-"""
-
-from typing import Optional
+"""Data models relating to EYA scenarios."""
 
 import pydantic as pdt
 
@@ -14,7 +10,7 @@ from eya_def_tools.data_models.wind_resource import TurbineWindResourceAssessmen
 class Scenario(EyaDefBaseModel):
     """Single unique energy yield assessment scenario."""
 
-    id: Optional[str] = pdt.Field(
+    id: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
@@ -29,7 +25,7 @@ class Scenario(EyaDefBaseModel):
         description="Label of the scenario.",
         examples=["Sc1", "A", "B01"],
     )
-    description: Optional[str] = pdt.Field(
+    description: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
@@ -37,7 +33,7 @@ class Scenario(EyaDefBaseModel):
             "empty if the field is included."
         ),
     )
-    comments: Optional[str] = pdt.Field(
+    comments: str | None = pdt.Field(
         default=None,
         min_length=1,
         description=(
@@ -45,7 +41,7 @@ class Scenario(EyaDefBaseModel):
             "empty if the field is included."
         ),
     )
-    is_main_scenario: Optional[bool] = pdt.Field(
+    is_main_scenario: bool | None = pdt.Field(
         default=None,
         description=(
             "Optional flag to specify whether or not it is the main "

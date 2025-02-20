@@ -1,6 +1,4 @@
-"""References to the IEC 61400-16 Power Curve Schema.
-
-"""
+"""References to the IEC 61400-16 Power Curve Schema."""
 
 from collections.abc import Mapping
 from typing import Annotated, Any, Final
