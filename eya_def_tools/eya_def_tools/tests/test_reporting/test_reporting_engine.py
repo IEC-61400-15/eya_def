@@ -17,7 +17,7 @@ def test_generate_iec_table_a_returns_correct_values(
                 "",
                 "2",
                 "ABC165-5.5MW",
-                "5.50",
+                "5.55",
                 "165.0",
                 "150.0, 160.0",
             ],

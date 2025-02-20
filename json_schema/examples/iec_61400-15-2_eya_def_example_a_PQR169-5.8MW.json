@@ -224,7 +224,6 @@
           ]
         ],
         "power_is_coefficient": false,
-        "rated_power": 5800000.0,
         "thrust": [
           [
             0.873,
