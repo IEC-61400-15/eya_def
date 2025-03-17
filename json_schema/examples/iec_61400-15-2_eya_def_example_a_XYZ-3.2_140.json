@@ -220,7 +220,6 @@
           ]
         ],
         "power_is_coefficient": false,
-        "rated_power": 3200000.0,
         "thrust": [
           [
             0.873,

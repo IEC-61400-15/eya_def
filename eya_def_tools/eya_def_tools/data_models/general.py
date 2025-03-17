@@ -217,7 +217,7 @@ class MeasurementQuantity(StrEnum):
             case MeasurementQuantity.ENERGY:
                 return MeasurementUnit.GIGAWATT_HOUR
             case MeasurementQuantity.POWER:
-                return MeasurementUnit.MEGAWATT
+                return MeasurementUnit.WATT
             case MeasurementQuantity.PROBABILITY:
                 return MeasurementUnit.ONE
             case MeasurementQuantity.RELATIVE_ENERGY_UNCERTAINTY:
@@ -247,7 +247,7 @@ class MeasurementUnit(StrEnum):
     GIGAWATT_HOUR_PER_ANNUM = "GW h year-1"
     HOUR = "h"
     KILOGRAM_PER_CUBIC_METRE = "kg m-3"
-    MEGAWATT = "MW"
+    WATT = "W"
     METRE = "m"
     METRE_PER_SECOND = "m s-1"
     ONE = "1"  # Applies to all dimensionless quantities

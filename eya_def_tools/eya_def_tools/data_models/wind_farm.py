@@ -238,7 +238,7 @@ class WindFarmConfiguration(EyaDefBaseModel):
     installed_capacity: pdt.PositiveFloat = pdt.Field(
         default=...,
         description=(
-            "The maximum production (in MW) of the wind farm under "
+            "The maximum production (in W) of the wind farm under "
             "typical conditions. If there are features in place to "
             "increase power output beyond the stated nameplate power "
             "of the turbines (e.g. so-called power boost solutions), "
@@ -246,18 +246,18 @@ class WindFarmConfiguration(EyaDefBaseModel):
             "that increased power, insofar as it is reached under "
             "typical conditions and not only in rare exceptions."
         ),
-        examples=[12.3, 2345.67],
+        examples=[12.3e6, 2.345e9],
     )
     export_capacity: pdt.PositiveFloat | None = pdt.Field(
         default=None,
         description=(
             "Optional specification of the maximum permanently "
-            "transmittable power (in MW) from the wind farm at the "
+            "transmittable power (in W) from the wind farm at the "
             "grid connection, or equivalent, if known. If not included "
             "it shall be assumed that the wind farm can transmit the "
             "full produced output."
         ),
-        examples=[11.3, 2332.0],
+        examples=[11.3e6, 2.332e9],
     )
     restrictions: list[OperationalRestriction] | None = pdt.Field(
         default=None,
@@ -267,7 +267,7 @@ class WindFarmConfiguration(EyaDefBaseModel):
 
     @property
     def capacity(self) -> float:
-        """The wind farm capacity (in MW).
+        """The wind farm capacity (in W).
 
         The capacity is the lesser of the ``installed_capacity`` (the
         maximum permanently transmittable power at the grid connection

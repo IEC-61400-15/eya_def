@@ -178,7 +178,7 @@ def _get_abbreviated_type_name(
 ) -> str | None:
     match field_name:
         case "measurement_stations" | "reference_meteorological_datasets":
-            return "Optional[list[IEATask43WraDataModel]]"
+            return "list[IEATask43WraDataModel] | None"
         case "power_curves":
             return "list[IEC61400d16PowerCurveDataModel]"
         case "values":
@@ -190,7 +190,7 @@ def _get_abbreviated_type_name(
                 return "Union[float, list[tuple[list[Union[int, float, str]], float]]]"
         case "return_period":
             if get_origin(pydantic_field_info.annotation) == Union:
-                return "Optional[int | float]"
+                return "int | float | None"
         case "basis":
             if get_origin(pydantic_field_info.annotation) == Literal:
                 return "AssessmentComponentBasis"

@@ -13,11 +13,11 @@ from eya_def_tools.data_models.wind_farm import WindFarmConfiguration
     argvalues=[
         (
             "bf_a",
-            11.0,
+            11.0e6,
         ),
         (
             "bf_b",
-            11.5,
+            11.5e6,
         ),
     ],
 )
