@@ -1,12 +1,12 @@
 [build-system]
 requires = [
-    "setuptools>=75.8",
+    "setuptools>=80.8",
     "wheel>=0.45",
 ]
 
 [project]
 name = "eya_def_tools"
-version = "0.0.1a9"
+version = "0.0.1a10"
 authors = [
   {name="Christian Jonsson", email="christianj@kudosoftware.com"},
   {name="Stephen Holleran", email="stephen@brightwindanalysis.com"},
@@ -73,7 +73,7 @@ extend-select = [
 [tool.mypy]
 files = ["eya_def_tools"]
 plugins = ["pydantic.mypy"]
-python_version = "3.12"
+python_version = "3.11"
 follow_imports = "normal"
 check_untyped_defs = true
 disallow_any_generics = true
