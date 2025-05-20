@@ -1,5 +1,4 @@
 {
-  "$id": "https://example.com/api/v2/eya/report/id=b1396029-e9af-49f7-9599-534db175e53c.json",
   "$schema": "https://raw.githubusercontent.com/IEC-61400-15/eya_def/blob/main/iec_61400-15-2_eya_def.schema.json",
   "comments": "Update to consider further on-site measurement data.",
   "confidentiality_classification": "Confidential",
@@ -4184,6 +4183,7 @@
     }
   ],
   "title": "Energy yield assessment of the Barefoot Wind Farm",
+  "uri": "https://example.com/api/v2/eya/report/id=b1396029-e9af-49f7-9599-534db175e53c.json",
   "utc_offset": 0.0,
   "uuid": "b1396029-e9af-49f7-9599-534db175e53c",
   "wind_farms": [

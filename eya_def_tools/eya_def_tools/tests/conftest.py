@@ -1853,11 +1853,7 @@ def eya_def_a(
 ) -> eya_def.EyaDefDocument:
     """Test case instance 'a' of ``EyaDef``."""
     return eya_def.EyaDefDocument(
-        **{
-            "$id": (
-                "https://example.com/api/v2/eya/report/id=b1396029-e9af-49f7-9599-534db175e53c.json"
-            )
-        },
+        uri="https://example.com/api/v2/eya/report/id=b1396029-e9af-49f7-9599-534db175e53c.json",
         uuid=uuid_.UUID("b1396029-e9af-49f7-9599-534db175e53c"),
         title="Energy yield assessment of the Barefoot Wind Farm",
         description=(

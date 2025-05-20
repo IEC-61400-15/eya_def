@@ -16,17 +16,13 @@ def test_validate_master_json_schema(
     json_example_dict: dict[str, Any],
 ) -> None:
     """Test validate all json file examples against master schema."""
-    json_schema = master_json_schema.copy()
-
-    # Remove ``$id`` field from schema to avoid resolving from URL
-    if "$id" in json_schema:
-        del json_schema["$id"]
+    json_schema = _clear_json_schema_id(json_schema=master_json_schema)
 
     for json_filename, json_example in json_example_dict.items():
-        json_example_ = _get_reduced_json_example(json_example=json_example)
+        processed_json_example = _get_reduced_json_example(json_example=json_example)
 
         try:
-            jsonschema.validate(instance=json_example_, schema=json_schema)
+            jsonschema.validate(instance=processed_json_example, schema=json_schema)
         except jsonschema_exceptions.ValidationError as exc:
             pytest.fail(
                 f"The json example '{json_filename}' did not pass the "
@@ -39,17 +35,13 @@ def test_validate_pydantic_model_json_schema(
     json_example_dict: dict[str, Any],
 ) -> None:
     """Test validate all json file examples against pydantic schema."""
-    json_schema = pydantic_json_schema.copy()
-
-    # Remove ``$id`` field from schema to avoid resolving from URL
-    if "$id" in json_schema:
-        del json_schema["$id"]
+    json_schema = _clear_json_schema_id(json_schema=pydantic_json_schema)
 
     for json_filename, json_example in json_example_dict.items():
-        json_example_ = _get_reduced_json_example(json_example=json_example)
+        processed_json_example = _get_reduced_json_example(json_example=json_example)
 
         try:
-            jsonschema.validate(instance=json_example_, schema=json_schema)
+            jsonschema.validate(instance=processed_json_example, schema=json_schema)
         except jsonschema_exceptions.ValidationError as exc:
             pytest.fail(
                 f"The json example '{json_filename}' did not pass the "
@@ -106,11 +98,24 @@ def test_json_schema_validate_power_curve_documents(
     )
 
 
+def _clear_json_schema_id(
+    json_schema: dict[str, Any],
+) -> dict[str, Any]:
+    """Remove ``$id`` field from schema to avoid resolving from URL."""
+    if "$id" not in json_schema:
+        return json_schema
+
+    updated_json_schema = copy.deepcopy(json_schema)
+    del updated_json_schema["$id"]
+
+    return updated_json_schema
+
+
 def _get_reduced_json_example(json_example: dict[str, Any]) -> dict[str, Any]:
     """Remove ``$id`` and `$schema``` fields from a JSON example.
 
     This is to avoid attempting to use these fields when resolving URLs,
-    as the tests should use the local copies
+    as the tests should use the local copies.
     """
     json_example_reduced = copy.deepcopy(json_example)
 

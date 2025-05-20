@@ -11,7 +11,7 @@
               "type": "integer"
             },
             {
-              "exclusiveMinimum": 0.0,
+              "exclusiveMinimum": 0,
               "type": "number"
             },
             {
@@ -313,7 +313,7 @@
               "type": "integer"
             },
             {
-              "exclusiveMinimum": 0.0,
+              "exclusiveMinimum": 0,
               "type": "number"
             },
             {
@@ -734,24 +734,6 @@
   "additionalProperties": true,
   "description": "IEC 61400-15-2 EYA DEF top-level data model.",
   "properties": {
-    "$id": {
-      "anyOf": [
-        {
-          "format": "uri",
-          "minLength": 1,
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ],
-      "default": null,
-      "description": "Optional URI of the EYA DEF JSON document, which should have the field name '$id' in the JSON document.",
-      "examples": [
-        "https://foo.com/api/eya?id=8f46a815-8b6d-4870-8e92-c031b20320c6.json"
-      ],
-      "title": "URI"
-    },
     "$schema": {
       "default": "https://raw.githubusercontent.com/IEC-61400-15/eya_def/blob/main/iec_61400-15-2_eya_def.schema.json",
       "description": "URI of the EYA DEF JSON Schema, which should have the field name '$schema' in the JSON document. It is assumed to be the latest published version if not included.",
@@ -2434,7 +2416,7 @@
                       1.6,
                       2.1
                     ],
-                    "exclusiveMinimum": 0.0,
+                    "exclusiveMinimum": 0,
                     "title": "Wind Speed To Energy Sensitivity Factor",
                     "type": "number"
                   }
@@ -2736,6 +2718,24 @@
       "title": "Title",
       "type": "string"
     },
+    "uri": {
+      "anyOf": [
+        {
+          "format": "uri",
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Optional URI of the EYA DEF JSON document",
+      "examples": [
+        "https://foo.com/api/eya?id=8f46a815-8b6d-4870-8e92-c031b20320c6.json"
+      ],
+      "title": "URI"
+    },
     "utc_offset": {
       "description": "The offset in hours of the local time zone used for the EYA relative to Coordinated Universal Time (UTC). It is applied to UTC time to convert it to local time, hence positive for time zones ahead of UTC and negative for time zones behind UTC (e.g. -6.0 for MST and 9.5 for ACST). All data where the time zone is relevant (e.g. hourly time series and diurnal profiles) must be consistent with this one UTC offset.",
       "examples": [
@@ -2839,7 +2839,7 @@
           "export_capacity": {
             "anyOf": [
               {
-                "exclusiveMinimum": 0.0,
+                "exclusiveMinimum": 0,
                 "type": "number"
               },
               {
@@ -2869,7 +2869,7 @@
               12300000.0,
               2345000000.0
             ],
-            "exclusiveMinimum": 0.0,
+            "exclusiveMinimum": 0,
             "title": "Installed Capacity",
             "type": "number"
           },
