@@ -188,7 +188,7 @@ def _get_abbreviated_type_name(
                 and get_origin(pydantic_field_info.annotation) == Union
             ):
                 return "Union[float, list[tuple[list[Union[int, float, str]], float]]]"
-        case "return_period":
+        case "evaluation_period":
             if get_origin(pydantic_field_info.annotation) == Union:
                 return "int | float | None"
         case "basis":

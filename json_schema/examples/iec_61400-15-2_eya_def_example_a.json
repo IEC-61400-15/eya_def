@@ -3273,30 +3273,30 @@
                   },
                   {
                     "statistic": {
-                      "return_period": 10.0,
+                      "evaluation_period": 10.0,
                       "statistic_type": "standard_deviation"
                     },
                     "values": 3.4681
                   },
                   {
                     "statistic": {
-                      "return_period": 1.0,
+                      "evaluation_period": 1.0,
                       "statistic_type": "standard_deviation"
                     },
                     "values": 4.7293
                   },
                   {
                     "statistic": {
+                      "evaluation_period": 10.0,
                       "probability": 0.9,
-                      "return_period": 10.0,
                       "statistic_type": "exceedance_level"
                     },
                     "values": 27.0894
                   },
                   {
                     "statistic": {
+                      "evaluation_period": 1.0,
                       "probability": 0.9,
-                      "return_period": 1.0,
                       "statistic_type": "exceedance_level"
                     },
                     "values": 25.4751
@@ -3382,7 +3382,7 @@
                       },
                       {
                         "statistic": {
-                          "return_period": 1,
+                          "evaluation_period": 1,
                           "statistic_type": "inter_annual_variability"
                         },
                         "values": [
@@ -3460,7 +3460,7 @@
                           },
                           {
                             "statistic": {
-                              "return_period": 1,
+                              "evaluation_period": 1,
                               "statistic_type": "inter_annual_variability"
                             },
                             "values": [
@@ -3505,7 +3505,7 @@
                   },
                   {
                     "statistic": {
-                      "return_period": 1,
+                      "evaluation_period": 1,
                       "statistic_type": "inter_annual_variability"
                     },
                     "values": 0.121
@@ -3793,30 +3793,30 @@
                   },
                   {
                     "statistic": {
-                      "return_period": 10.0,
+                      "evaluation_period": 10.0,
                       "statistic_type": "standard_deviation"
                     },
                     "values": 4.5695
                   },
                   {
                     "statistic": {
-                      "return_period": 1.0,
+                      "evaluation_period": 1.0,
                       "statistic_type": "standard_deviation"
                     },
                     "values": 5.7998
                   },
                   {
                     "statistic": {
+                      "evaluation_period": 10.0,
                       "probability": 0.9,
-                      "return_period": 10.0,
                       "statistic_type": "exceedance_level"
                     },
                     "values": 29.301
                   },
                   {
                     "statistic": {
+                      "evaluation_period": 1.0,
                       "probability": 0.9,
-                      "return_period": 1.0,
                       "statistic_type": "exceedance_level"
                     },
                     "values": 27.7263
@@ -3985,7 +3985,7 @@
                   },
                   {
                     "statistic": {
-                      "return_period": 1,
+                      "evaluation_period": 1,
                       "statistic_type": "inter_annual_variability"
                     },
                     "values": 0.12

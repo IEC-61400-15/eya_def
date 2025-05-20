@@ -1512,7 +1512,7 @@ def energy_assessment_a(
                                     statistic_type=(
                                         dataset.StatisticType.STANDARD_DEVIATION
                                     ),
-                                    return_period=10.0,
+                                    evaluation_period=10.0,
                                 ),
                                 values=3.4681,
                             ),
@@ -1521,7 +1521,7 @@ def energy_assessment_a(
                                     statistic_type=(
                                         dataset.StatisticType.STANDARD_DEVIATION
                                     ),
-                                    return_period=1.0,
+                                    evaluation_period=1.0,
                                 ),
                                 values=4.7293,
                             ),
@@ -1531,7 +1531,7 @@ def energy_assessment_a(
                                         dataset.StatisticType.EXCEEDANCE_LEVEL
                                     ),
                                     probability=0.9,
-                                    return_period=10.0,
+                                    evaluation_period=10.0,
                                 ),
                                 values=27.0894,
                             ),
@@ -1541,7 +1541,7 @@ def energy_assessment_a(
                                         dataset.StatisticType.EXCEEDANCE_LEVEL
                                     ),
                                     probability=0.9,
-                                    return_period=1.0,
+                                    evaluation_period=1.0,
                                 ),
                                 values=25.4751,
                             ),
@@ -1667,7 +1667,7 @@ def energy_assessment_b(
                                     statistic_type=(
                                         dataset.StatisticType.STANDARD_DEVIATION
                                     ),
-                                    return_period=10.0,
+                                    evaluation_period=10.0,
                                 ),
                                 values=4.5695,
                             ),
@@ -1676,7 +1676,7 @@ def energy_assessment_b(
                                     statistic_type=(
                                         dataset.StatisticType.STANDARD_DEVIATION
                                     ),
-                                    return_period=1.0,
+                                    evaluation_period=1.0,
                                 ),
                                 values=5.7998,
                             ),
@@ -1686,7 +1686,7 @@ def energy_assessment_b(
                                         dataset.StatisticType.EXCEEDANCE_LEVEL
                                     ),
                                     probability=0.9,
-                                    return_period=10.0,
+                                    evaluation_period=10.0,
                                 ),
                                 values=29.301,
                             ),
@@ -1696,7 +1696,7 @@ def energy_assessment_b(
                                         dataset.StatisticType.EXCEEDANCE_LEVEL
                                     ),
                                     probability=0.9,
-                                    return_period=1.0,
+                                    evaluation_period=1.0,
                                 ),
                                 values=27.7263,
                             ),

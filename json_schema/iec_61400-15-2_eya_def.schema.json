@@ -4,7 +4,7 @@
       "additionalProperties": false,
       "description": "Specification of a statistic that only requires type definition.",
       "properties": {
-        "return_period": {
+        "evaluation_period": {
           "anyOf": [
             {
               "exclusiveMinimum": 0,
@@ -19,12 +19,12 @@
             }
           ],
           "default": null,
-          "description": "Optional specification of the return period in years, to be included when relevant to the context and statistic in question. It may for example specify a 1-year or a 10-year return period for the standard deviation of an uncertainty distribution or certain probability of exceedance level.",
+          "description": "Optional specification of the evaluation period in years, to be included when relevant to the context and statistic in question. This may for example define a 10-year evaluation period for the standard deviation of an uncertainty distribution or a certain probability of exceedance level.",
           "examples": [
             1.0,
             10.0
           ],
-          "title": "Return Period"
+          "title": "Evaluation Period"
         },
         "statistic_type": {
           "description": "Specification of the type of statistic, using the standardised naming conventions.",
@@ -293,20 +293,7 @@
       "additionalProperties": false,
       "description": "Specification of a probability of exceedance level statistic.",
       "properties": {
-        "probability": {
-          "description": "The dimensionless probability of exceedance level (i.e. probability value between 0.0 and 1.0) of the statistic.",
-          "examples": [
-            0.25,
-            0.75,
-            0.9,
-            0.99
-          ],
-          "maximum": 1.0,
-          "minimum": 0.0,
-          "title": "Probability",
-          "type": "number"
-        },
-        "return_period": {
+        "evaluation_period": {
           "anyOf": [
             {
               "exclusiveMinimum": 0,
@@ -321,12 +308,25 @@
             }
           ],
           "default": null,
-          "description": "Optional specification of the return period in years, to be included when relevant to the context and statistic in question. It may for example specify a 1-year or a 10-year return period for the standard deviation of an uncertainty distribution or certain probability of exceedance level.",
+          "description": "Optional specification of the evaluation period in years, to be included when relevant to the context and statistic in question. This may for example define a 10-year evaluation period for the standard deviation of an uncertainty distribution or a certain probability of exceedance level.",
           "examples": [
             1.0,
             10.0
           ],
-          "title": "Return Period"
+          "title": "Evaluation Period"
+        },
+        "probability": {
+          "description": "The dimensionless probability of exceedance level (i.e. probability value between 0.0 and 1.0) of the statistic.",
+          "examples": [
+            0.25,
+            0.75,
+            0.9,
+            0.99
+          ],
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Probability",
+          "type": "number"
         },
         "statistic_type": {
           "const": "exceedance_level",
@@ -372,11 +372,11 @@
       "additionalProperties": false,
       "description": "Specification of an inter-annual variability statistic.",
       "properties": {
-        "return_period": {
+        "evaluation_period": {
           "const": 1,
           "default": 1,
-          "description": "Specification of the return period in years, which for inter-annual variability must always be 1 (it is by definition the variability of a one-year period relative to the full time period).",
-          "title": "Return Period",
+          "description": "Specification of the evaluation period in years, which for inter-annual variability must always be 1 (it is by definition the variability of a one-year period relative to the full time period).",
+          "title": "Evaluation Period",
           "type": "integer"
         },
         "statistic_type": {
