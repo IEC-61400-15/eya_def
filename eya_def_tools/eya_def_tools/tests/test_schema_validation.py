@@ -19,7 +19,7 @@ def test_validate_master_json_schema(
     json_schema = _clear_json_schema_id(json_schema=master_json_schema)
 
     for json_filename, json_example in json_example_dict.items():
-        processed_json_example = _get_reduced_json_example(json_example=json_example)
+        processed_json_example = _clear_reference_to_schema(json_example=json_example)
 
         try:
             jsonschema.validate(instance=processed_json_example, schema=json_schema)
@@ -38,7 +38,7 @@ def test_validate_pydantic_model_json_schema(
     json_schema = _clear_json_schema_id(json_schema=pydantic_json_schema)
 
     for json_filename, json_example in json_example_dict.items():
-        processed_json_example = _get_reduced_json_example(json_example=json_example)
+        processed_json_example = _clear_reference_to_schema(json_example=json_example)
 
         try:
             jsonschema.validate(instance=processed_json_example, schema=json_schema)
@@ -98,10 +98,8 @@ def test_json_schema_validate_power_curve_documents(
     )
 
 
-def _clear_json_schema_id(
-    json_schema: dict[str, Any],
-) -> dict[str, Any]:
-    """Remove ``$id`` field from schema to avoid resolving from URL."""
+def _clear_json_schema_id(json_schema: dict[str, Any]) -> dict[str, Any]:
+    """Remove the ``$id`` field from a schema to avoid resolving URI."""
     if "$id" not in json_schema:
         return json_schema
 
@@ -111,18 +109,17 @@ def _clear_json_schema_id(
     return updated_json_schema
 
 
-def _get_reduced_json_example(json_example: dict[str, Any]) -> dict[str, Any]:
-    """Remove ``$id`` and `$schema``` fields from a JSON example.
+def _clear_reference_to_schema(json_example: dict[str, Any]) -> dict[str, Any]:
+    """Remove the ``$schema`` field from a JSON example.
 
-    This is to avoid attempting to use these fields when resolving URLs,
-    as the tests should use the local copies.
+    The removal of the ``$schema`` field is to avoid attempting to
+    resolve the URI instead of validating against the local copy of the
+    schema.
     """
+    if "$schema" not in json_example:
+        return json_example
+
     json_example_reduced = copy.deepcopy(json_example)
-
-    if "$id" in json_example_reduced:
-        del json_example_reduced["$id"]
-
-    if "$schema" in json_example_reduced:
-        del json_example_reduced["$schema"]
+    del json_example_reduced["$schema"]
 
     return json_example_reduced
