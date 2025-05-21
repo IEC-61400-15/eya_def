@@ -171,7 +171,8 @@ forms an integral part of the development workflow.
 
 The EYA DEF has been developed with contributions from the following
 people: Christian Jonsson, Stephen Holleran, Jason Fields, Charlie
-Plumley, Alina Brenneke, Philippe Beaucage, Mark Stoelinga, Andrew
-Henderson, Mark Kelly, Steve Clark, Thomas van Delft, Craig Robinson,
-Lars Levermann, Jan Heinen, Nikolaos Simisiroglou, Andres Blanco, Jonny
-Crease, Roy Spence and Demetrios Zigras.
+Plumley, Bjarke Olsen, Alina Brenneke, Philippe Beaucage, Mark
+Stoelinga, Andrew Henderson, Mark Kelly, Steve Clark, Thomas van Delft,
+Craig Robinson, Lars Levermann, Jan Heinen, Nikolaos Simisiroglou,
+Andres Blanco, Jonny Crease, Roy Spence, Demetrios Zigras, Mouhamet
+Diallo, Mitchel Scott, Steve Cordle and Okan Sargin.
