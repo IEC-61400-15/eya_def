@@ -1781,6 +1781,23 @@
                         "title": "Gross Annual Energy Production",
                         "type": "array"
                       },
+                      "capacity_factor": {
+                        "anyOf": [
+                          {
+                            "items": {
+                              "$ref": "#/$defs/Dataset"
+                            },
+                            "minItems": 1,
+                            "type": "array"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ],
+                        "default": null,
+                        "description": "Optional gross capacity factor estimates as dimensionless values, calculated by dividing the corresponding gross annual energy production (AEP) estimates by the energy that would have been produced through constant output at full installed (nameplate) capacity. If the gross capacity factor estimates are specified here, it is recommended to include the same binning dimensions and statistics as for the gross AEP estimates. If not specified, the gross capacity factor estimates can be derived from the gross AEP estimates together with the relevant installed capacity values.",
+                        "title": "Gross Capacity Factor"
+                      },
                       "energy_production": {
                         "anyOf": [
                           {
@@ -1856,6 +1873,23 @@
                         "minItems": 1,
                         "title": "Net Annual Energy Production",
                         "type": "array"
+                      },
+                      "capacity_factor": {
+                        "anyOf": [
+                          {
+                            "items": {
+                              "$ref": "#/$defs/Dataset"
+                            },
+                            "minItems": 1,
+                            "type": "array"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ],
+                        "default": null,
+                        "description": "Optional net capacity factor estimates as dimensionless values, calculated by dividing the corresponding net annual energy production (AEP) estimates by the energy that would have been produced through constant output at full installed (nameplate) capacity. If the net capacity factor estimates are specified here, it is recommended to include the same binning dimensions and statistics as for the net AEP estimates. If not specified, the net capacity factor estimates can be derived from the net AEP estimates together with the relevant installed capacity values. Note that, whilst the capacity factor may be a useful indicator for the purpose of high level comparisons, it does not necessarily provide a clear and unambiguous view. For example, the capacity factor may have an upward bias due to an understated turbine nameplate capacity. A detailed and comprehensive comparison cannot rely on the capacity factor alone.",
+                        "title": "Net Capacity Factor"
                       },
                       "energy_production": {
                         "description": "Net energy production estimates over a specific period of time in gigawatt hour (GW h). This field should be used for energy production estimates that are not annualised. For all net annual energy production (AEP) estimates, the field 'annual_energy_production' should be used. The time period that values correspond to should be made clear (e.g. in description and/or comments fields) if not obvious from the binning dimension(s). The dimensions of the first standard result dataset should be 'month' and 'hour' (in that order), providing the 12 x 24 matrix of seasonal and diurnal variation in overall energy production. If time variable elements are considered in the assessment, a second standard dataset resolving the time variability should be included. If statistics vary on an annual basis, it should have the dimension 'year'.If statistics vary on a monthly basis (e.g. when considering expected commissioning and availability of turbines for each month), it should have the dimensions 'year' and 'month' (in that order). Further results with other dimensions may be included optionally.",
@@ -2847,7 +2881,7 @@
               }
             ],
             "default": null,
-            "description": "Optional specification of the maximum permanently transmittable power (in W) from the wind farm at the grid connection, or equivalent, if known. If not included it shall be assumed that the wind farm can transmit the full produced output.",
+            "description": "Optional specification of the maximum permanently transmittable active power (in W) from the wind farm at the grid connection point, or equivalent, if known. If not included, it shall be assumed that the wind farm can transmit the full produced output.",
             "examples": [
               11300000.0,
               2332000000.0
@@ -2864,7 +2898,7 @@
             "type": "string"
           },
           "installed_capacity": {
-            "description": "The maximum production (in W) of the wind farm under typical conditions. If there are features in place to increase power output beyond the stated nameplate power of the turbines (e.g. so-called power boost solutions), the wind farm installed capacity should correspond to that increased power, insofar as it is reached under typical conditions and not only in rare exceptions.",
+            "description": "The sum of the individual nameplate active power capacities of the wind turbines that form part of the wind farm (in W). Note that the nameplate power does not always correspond to output under typical conditions.",
             "examples": [
               12300000.0,
               2345000000.0

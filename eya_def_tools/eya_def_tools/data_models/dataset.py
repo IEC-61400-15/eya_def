@@ -266,3 +266,9 @@ class Dataset(EyaDefBaseModel):
             "standard deviation values."
         ),
     )
+
+
+NonEmptyDatasetList = Annotated[
+    list[Dataset],
+    pdt.Field(min_length=1),
+]

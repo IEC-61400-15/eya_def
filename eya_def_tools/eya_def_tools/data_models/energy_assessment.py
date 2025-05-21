@@ -3,7 +3,7 @@
 import pydantic as pdt
 
 from eya_def_tools.data_models.base_model import EyaDefBaseModel
-from eya_def_tools.data_models.dataset import Dataset
+from eya_def_tools.data_models.dataset import NonEmptyDatasetList
 from eya_def_tools.data_models.plant_performance import PlantPerformanceAssessment
 from eya_def_tools.data_models.wind_uncertainty import WindUncertaintyAssessment
 
@@ -11,9 +11,8 @@ from eya_def_tools.data_models.wind_uncertainty import WindUncertaintyAssessment
 class GrossEnergyAssessmentResults(EyaDefBaseModel):
     """Gross energy assessment results."""
 
-    annual_energy_production: list[Dataset] = pdt.Field(
+    annual_energy_production: NonEmptyDatasetList = pdt.Field(
         default=...,
-        min_length=1,
         title="Gross Annual Energy Production",
         description=(
             "Gross annual energy production (AEP) estimates in "
@@ -26,9 +25,25 @@ class GrossEnergyAssessmentResults(EyaDefBaseModel):
             "dimensions may be included optionally."
         ),
     )
-    energy_production: list[Dataset] | None = pdt.Field(
+    capacity_factor: NonEmptyDatasetList | None = pdt.Field(
         default=None,
-        min_length=1,
+        title="Gross Capacity Factor",
+        description=(
+            "Optional gross capacity factor estimates as dimensionless "
+            "values, calculated by dividing the corresponding gross "
+            "annual energy production (AEP) estimates by the energy "
+            "that would have been produced through constant output at "
+            "full installed (nameplate) capacity. If the gross "
+            "capacity factor estimates are specified here, it is "
+            "recommended to include the same binning dimensions and "
+            "statistics as for the gross AEP estimates. If not "
+            "specified, the gross capacity factor estimates can be "
+            "derived from the gross AEP estimates together with the "
+            "relevant installed capacity values."
+        ),
+    )
+    energy_production: NonEmptyDatasetList | None = pdt.Field(
+        default=None,
         title="Gross Energy Production",
         description=(
             "Optional gross energy production estimates over a "
@@ -75,9 +90,8 @@ class GrossEnergyAssessment(EyaDefBaseModel):
 class NetEnergyAssessmentResults(EyaDefBaseModel):
     """Net energy assessment results."""
 
-    annual_energy_production: list[Dataset] = pdt.Field(
+    annual_energy_production: NonEmptyDatasetList = pdt.Field(
         default=...,
-        min_length=1,
         title="Net Annual Energy Production",
         description=(
             "Net annual energy production (AEP) estimates in gigawatt "
@@ -95,9 +109,31 @@ class NetEnergyAssessmentResults(EyaDefBaseModel):
             "dimensions may be included optionally."
         ),
     )
-    energy_production: list[Dataset] = pdt.Field(
+    capacity_factor: NonEmptyDatasetList | None = pdt.Field(
+        default=None,
+        title="Net Capacity Factor",
+        description=(
+            "Optional net capacity factor estimates as dimensionless "
+            "values, calculated by dividing the corresponding net "
+            "annual energy production (AEP) estimates by the energy "
+            "that would have been produced through constant output at "
+            "full installed (nameplate) capacity. If the net capacity "
+            "factor estimates are specified here, it is recommended to "
+            "include the same binning dimensions and statistics as for "
+            "the net AEP estimates. If not specified, the net capacity "
+            "factor estimates can be derived from the net AEP "
+            "estimates together with the relevant installed capacity "
+            "values. Note that, whilst the capacity factor may be a "
+            "useful indicator for the purpose of high level "
+            "comparisons, it does not necessarily provide a clear and "
+            "unambiguous view. For example, the capacity factor may "
+            "have an upward bias due to an understated turbine "
+            "nameplate capacity. A detailed and comprehensive "
+            "comparison cannot rely on the capacity factor alone."
+        ),
+    )
+    energy_production: NonEmptyDatasetList = pdt.Field(
         default=...,
-        min_length=1,
         title="Net Energy Production",
         description=(
             "Net energy production estimates over a specific period of "

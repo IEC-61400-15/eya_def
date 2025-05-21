@@ -15,7 +15,7 @@ level.
 import pydantic as pdt
 
 from eya_def_tools.data_models.base_model import EyaDefBaseModel
-from eya_def_tools.data_models.dataset import Dataset
+from eya_def_tools.data_models.dataset import NonEmptyDatasetList
 
 
 class WindResourceDatasetStatistics(EyaDefBaseModel):
@@ -27,9 +27,8 @@ class WindResourceDatasetStatistics(EyaDefBaseModel):
     reference operational wind farms.
     """
 
-    data_availability: list[Dataset] = pdt.Field(
+    data_availability: NonEmptyDatasetList = pdt.Field(
         default=...,
-        min_length=1,
         description=(
             "Dimensionless raw data availability (also known as data "
             "recovery rate and data coverage) for the primary inputs "
@@ -64,9 +63,8 @@ class WindResourceDatasetStatistics(EyaDefBaseModel):
 class WindResourceResults(EyaDefBaseModel):
     """Wind resource assessment results at measurement locations."""
 
-    wind_speed: list[Dataset] = pdt.Field(
+    wind_speed: NonEmptyDatasetList = pdt.Field(
         default=...,
-        min_length=1,
         description=(
             "Final long-term wind speed estimate(s) at the measurement "
             "location(s) in metre per second (m s-1). The dimensions "
@@ -75,9 +73,8 @@ class WindResourceResults(EyaDefBaseModel):
             "results with other dimensions may be included optionally."
         ),
     )
-    probability: list[Dataset] = pdt.Field(
+    probability: NonEmptyDatasetList = pdt.Field(
         default=...,
-        min_length=1,
         description=(
             "Final long-term probability distribution estimates at the "
             "measurement location(s), as dimensionless values. The "
@@ -93,9 +90,8 @@ class WindResourceResults(EyaDefBaseModel):
             "may be included optionally."
         ),
     )
-    ambient_turbulence_intensity: list[Dataset] | None = pdt.Field(
+    ambient_turbulence_intensity: NonEmptyDatasetList | None = pdt.Field(
         default=None,
-        min_length=1,
         description=(
             "Final ambient turbulence intensity estimates at the "
             "measurement location(s), as dimensionless values. This "
@@ -112,9 +108,8 @@ class WindResourceResults(EyaDefBaseModel):
             "dimensions may also be included."
         ),
     )
-    wind_shear_exponent: list[Dataset] | None = pdt.Field(
+    wind_shear_exponent: NonEmptyDatasetList | None = pdt.Field(
         default=None,
-        min_length=1,
         description=(
             "Final long-term power law wind shear exponent estimates "
             "at the measurement location(s). This field is optional "
@@ -126,9 +121,8 @@ class WindResourceResults(EyaDefBaseModel):
             "other dimensions may also be included."
         ),
     )
-    temperature: list[Dataset] | None = pdt.Field(
+    temperature: NonEmptyDatasetList | None = pdt.Field(
         default=None,
-        min_length=1,
         description=(
             "Final long-term temperature estimates at the measurement "
             "location(s) in degree C. This field is optional since "
@@ -140,9 +134,8 @@ class WindResourceResults(EyaDefBaseModel):
             "results with other dimensions may also be included."
         ),
     )
-    air_density: list[Dataset] | None = pdt.Field(
+    air_density: NonEmptyDatasetList | None = pdt.Field(
         default=None,
-        min_length=1,
         description=(
             "Final long-term air density estimates at the measurement "
             "location(s) in kilogram per cubic metre (kg m-3). This "
@@ -155,9 +148,8 @@ class WindResourceResults(EyaDefBaseModel):
             "may also be included."
         ),
     )
-    displacement_height: list[Dataset] | None = pdt.Field(
+    displacement_height: NonEmptyDatasetList | None = pdt.Field(
         default=None,
-        min_length=1,
         description=(
             "Estimated effective displacement of the boundary layer at "
             "the measurement location(s) due to vegetation (forestry) "
@@ -223,9 +215,8 @@ class WindResourceAssessment(EyaDefBaseModel):
 class TurbineWindResourceWeighting(EyaDefBaseModel):
     """Details of weighting applied to estimate turbine wind resource."""
 
-    source_wind_data: list[Dataset] | None = pdt.Field(
+    source_wind_data: NonEmptyDatasetList | None = pdt.Field(
         default=None,
-        min_length=1,
         description=(
             "Optional specification of the weight applied to the "
             "prediction based on each source of wind data when making "
@@ -252,9 +243,8 @@ class TurbineWindResourceWeighting(EyaDefBaseModel):
 class TurbineWindResourceResults(EyaDefBaseModel):
     """Wind resource assessment results at turbine locations."""
 
-    wind_speed: list[Dataset] = pdt.Field(
+    wind_speed: NonEmptyDatasetList = pdt.Field(
         default=...,
-        min_length=1,
         description=(
             "Final long-term wind speed estimates at the turbine "
             "location(s) at hub height in metre per second (m s-1). "
@@ -263,9 +253,8 @@ class TurbineWindResourceResults(EyaDefBaseModel):
             "may be included optionally."
         ),
     )
-    probability: list[Dataset] | None = pdt.Field(
+    probability: NonEmptyDatasetList | None = pdt.Field(
         default=None,
-        min_length=1,
         description=(
             "Final long-term probability distribution estimates at the "
             "turbine location(s) at hub height, as dimensionless "
@@ -281,9 +270,8 @@ class TurbineWindResourceResults(EyaDefBaseModel):
             "dimensions may also be included."
         ),
     )
-    ambient_turbulence_intensity: list[Dataset] | None = pdt.Field(
+    ambient_turbulence_intensity: NonEmptyDatasetList | None = pdt.Field(
         default=None,
-        min_length=1,
         description=(
             "Final ambient turbulence intensity estimates at the "
             "turbine location(s) at hub height, as dimensionless "
@@ -297,9 +285,8 @@ class TurbineWindResourceResults(EyaDefBaseModel):
             "included."
         ),
     )
-    wind_shear_exponent: list[Dataset] | None = pdt.Field(
+    wind_shear_exponent: NonEmptyDatasetList | None = pdt.Field(
         default=None,
-        min_length=1,
         description=(
             "Final power law wind shear exponent estimates at the "
             "turbine location(s). The dimension of the first standard "
@@ -307,9 +294,8 @@ class TurbineWindResourceResults(EyaDefBaseModel):
             "with other dimensions may also be included."
         ),
     )
-    temperature: list[Dataset] | None = pdt.Field(
+    temperature: NonEmptyDatasetList | None = pdt.Field(
         default=None,
-        min_length=1,
         description=(
             "Final long-term temperature estimates at the turbine "
             "location(s) at hub height in degree C. The dimension of "
@@ -318,9 +304,8 @@ class TurbineWindResourceResults(EyaDefBaseModel):
             "included."
         ),
     )
-    air_density: list[Dataset] | None = pdt.Field(
+    air_density: NonEmptyDatasetList | None = pdt.Field(
         default=None,
-        min_length=1,
         description=(
             "Final long-term air density estimates at the turbine "
             "location(s) at hub height in kilogram per cubic metre "
@@ -329,9 +314,8 @@ class TurbineWindResourceResults(EyaDefBaseModel):
             "other dimensions may also be included."
         ),
     )
-    displacement_height: list[Dataset] | None = pdt.Field(
+    displacement_height: NonEmptyDatasetList | None = pdt.Field(
         default=None,
-        min_length=1,
         description=(
             "Estimated effective displacement of the boundary layer at "
             "the turbine location(s) due to vegetation (forestry) in "

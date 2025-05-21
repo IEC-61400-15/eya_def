@@ -238,13 +238,10 @@ class WindFarmConfiguration(EyaDefBaseModel):
     installed_capacity: pdt.PositiveFloat = pdt.Field(
         default=...,
         description=(
-            "The maximum production (in W) of the wind farm under "
-            "typical conditions. If there are features in place to "
-            "increase power output beyond the stated nameplate power "
-            "of the turbines (e.g. so-called power boost solutions), "
-            "the wind farm installed capacity should correspond to "
-            "that increased power, insofar as it is reached under "
-            "typical conditions and not only in rare exceptions."
+            "The sum of the individual nameplate active power "
+            "capacities of the wind turbines that form part of the "
+            "wind farm (in W). Note that the nameplate power does not "
+            "always correspond to output under typical conditions."
         ),
         examples=[12.3e6, 2.345e9],
     )
@@ -252,10 +249,10 @@ class WindFarmConfiguration(EyaDefBaseModel):
         default=None,
         description=(
             "Optional specification of the maximum permanently "
-            "transmittable power (in W) from the wind farm at the "
-            "grid connection, or equivalent, if known. If not included "
-            "it shall be assumed that the wind farm can transmit the "
-            "full produced output."
+            "transmittable active power (in W) from the wind farm at "
+            "the grid connection point, or equivalent, if known. If "
+            "not included, it shall be assumed that the wind farm can "
+            "transmit the full produced output."
         ),
         examples=[11.3e6, 2.332e9],
     )
