@@ -1,10 +1,8 @@
 cff-version: 1.2.0
-message: "If you use this software, please cite it as below."
+message: "If you use the schema and/or software in this repository, please cite them as below."
 authors:
 - family-names: "Jonsson"
   given-names: "Christian"
   orcid: "https://orcid.org/0009-0001-8891-1276"
-title: "The IEC 61400-15-2 EYA DEF Python toolset"
-version: 0.0.1a10
-date-released: 2025-05-21
+title: "The IEC 61400-15-2 Wind Energy Yield Assessment Digital Exchange Format (EYA DEF)"
 url: "https://github.com/IEC-61400-15/eya_def"
