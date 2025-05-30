@@ -17,15 +17,14 @@ from enum import StrEnum, auto
 import pydantic as pdt
 
 from eya_def_tools.data_models.base_model import EyaDefBaseModel
-from eya_def_tools.data_models.dataset import Dataset
+from eya_def_tools.data_models.dataset import NonEmptyDatasetList
 
 
 class WindUncertaintyResults(EyaDefBaseModel):
     """Wind uncertainty assessment results."""
 
-    relative_wind_speed_uncertainty: list[Dataset] | None = pdt.Field(
+    relative_wind_speed_uncertainty: NonEmptyDatasetList | None = pdt.Field(
         default=None,
-        min_length=1,
         description=(
             "Uncertainty assessment results as dimensionless relative "
             "values expressed in terms of wind speed and calculated as "
@@ -40,9 +39,8 @@ class WindUncertaintyResults(EyaDefBaseModel):
             "binning dimensions may also be included optionally."
         ),
     )
-    relative_energy_uncertainty: list[Dataset] | None = pdt.Field(
+    relative_energy_uncertainty: NonEmptyDatasetList | None = pdt.Field(
         default=None,
-        min_length=1,
         description=(
             "Uncertainty assessment results as dimensionless relative "
             "values expressed in terms of net annual energy production "

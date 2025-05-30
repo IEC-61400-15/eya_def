@@ -51,14 +51,14 @@ BasicStatisticType: TypeAlias = Literal[
 ]
 
 
-ReturnPeriodField: pdt.PositiveInt | pdt.PositiveFloat | None = pdt.Field(
+EvaluationPeriodField: pdt.PositiveInt | pdt.PositiveFloat | None = pdt.Field(
     default=None,
     description=(
-        "Optional specification of the return period in years, to be "
-        "included when relevant to the context and statistic in "
-        "question. It may for example specify a 1-year or a 10-year "
-        "return period for the standard deviation of an uncertainty "
-        "distribution or certain probability of exceedance level."
+        "Optional specification of the evaluation period in years, to "
+        "be included when relevant to the context and statistic in "
+        "question. This may for example define a 10-year evaluation "
+        "period for the standard deviation of an uncertainty "
+        "distribution or a certain probability of exceedance level."
     ),
     examples=[1.0, 10.0],
 )
@@ -74,7 +74,9 @@ class BasicStatistic(EyaDefBaseModel):
             "standardised naming conventions."
         ),
     )
-    return_period: pdt.PositiveInt | pdt.PositiveFloat | None = ReturnPeriodField
+    evaluation_period: pdt.PositiveInt | pdt.PositiveFloat | None = (
+        EvaluationPeriodField
+    )
 
 
 class InterAnnualVariabilityStatistic(EyaDefBaseModel):
@@ -88,11 +90,11 @@ class InterAnnualVariabilityStatistic(EyaDefBaseModel):
             "statistic, the type must always be 'standard_deviation'."
         ),
     )
-    return_period: Literal[1] = pdt.Field(
+    evaluation_period: Literal[1] = pdt.Field(
         default=1,
         description=(
-            "Specification of the return period in years, which for "
-            "inter-annual variability must always be 1 (it is by "
+            "Specification of the evaluation period in years, which "
+            "for inter-annual variability must always be 1 (it is by "
             "definition the variability of a one-year period relative "
             "to the full time period)."
         ),
@@ -121,7 +123,9 @@ class ExceedanceLevelStatistic(EyaDefBaseModel):
         ),
         examples=[0.25, 0.75, 0.9, 0.99],
     )
-    return_period: pdt.PositiveInt | pdt.PositiveFloat | None = ReturnPeriodField
+    evaluation_period: pdt.PositiveInt | pdt.PositiveFloat | None = (
+        EvaluationPeriodField
+    )
 
     @property
     def p_value_str(self) -> str:
@@ -262,3 +266,9 @@ class Dataset(EyaDefBaseModel):
             "standard deviation values."
         ),
     )
+
+
+NonEmptyDatasetList = Annotated[
+    list[Dataset],
+    pdt.Field(min_length=1),
+]

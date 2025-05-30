@@ -1,5 +1,4 @@
 {
-  "$id": "https://example.com/api/v2/eya/report/id=b1396029-e9af-49f7-9599-534db175e53c.json",
   "$schema": "https://raw.githubusercontent.com/IEC-61400-15/eya_def/blob/main/iec_61400-15-2_eya_def.schema.json",
   "comments": "Update to consider further on-site measurement data.",
   "confidentiality_classification": "Confidential",
@@ -3274,30 +3273,30 @@
                   },
                   {
                     "statistic": {
-                      "return_period": 10.0,
+                      "evaluation_period": 10.0,
                       "statistic_type": "standard_deviation"
                     },
                     "values": 3.4681
                   },
                   {
                     "statistic": {
-                      "return_period": 1.0,
+                      "evaluation_period": 1.0,
                       "statistic_type": "standard_deviation"
                     },
                     "values": 4.7293
                   },
                   {
                     "statistic": {
+                      "evaluation_period": 10.0,
                       "probability": 0.9,
-                      "return_period": 10.0,
                       "statistic_type": "exceedance_level"
                     },
                     "values": 27.0894
                   },
                   {
                     "statistic": {
+                      "evaluation_period": 1.0,
                       "probability": 0.9,
-                      "return_period": 1.0,
                       "statistic_type": "exceedance_level"
                     },
                     "values": 25.4751
@@ -3383,7 +3382,7 @@
                       },
                       {
                         "statistic": {
-                          "return_period": 1,
+                          "evaluation_period": 1,
                           "statistic_type": "inter_annual_variability"
                         },
                         "values": [
@@ -3461,7 +3460,7 @@
                           },
                           {
                             "statistic": {
-                              "return_period": 1,
+                              "evaluation_period": 1,
                               "statistic_type": "inter_annual_variability"
                             },
                             "values": [
@@ -3506,7 +3505,7 @@
                   },
                   {
                     "statistic": {
-                      "return_period": 1,
+                      "evaluation_period": 1,
                       "statistic_type": "inter_annual_variability"
                     },
                     "values": 0.121
@@ -3794,30 +3793,30 @@
                   },
                   {
                     "statistic": {
-                      "return_period": 10.0,
+                      "evaluation_period": 10.0,
                       "statistic_type": "standard_deviation"
                     },
                     "values": 4.5695
                   },
                   {
                     "statistic": {
-                      "return_period": 1.0,
+                      "evaluation_period": 1.0,
                       "statistic_type": "standard_deviation"
                     },
                     "values": 5.7998
                   },
                   {
                     "statistic": {
+                      "evaluation_period": 10.0,
                       "probability": 0.9,
-                      "return_period": 10.0,
                       "statistic_type": "exceedance_level"
                     },
                     "values": 29.301
                   },
                   {
                     "statistic": {
+                      "evaluation_period": 1.0,
                       "probability": 0.9,
-                      "return_period": 1.0,
                       "statistic_type": "exceedance_level"
                     },
                     "values": 27.7263
@@ -3986,7 +3985,7 @@
                   },
                   {
                     "statistic": {
-                      "return_period": 1,
+                      "evaluation_period": 1,
                       "statistic_type": "inter_annual_variability"
                     },
                     "values": 0.12
@@ -4184,6 +4183,7 @@
     }
   ],
   "title": "Energy yield assessment of the Barefoot Wind Farm",
+  "uri": "https://example.com/api/v2/eya/report/id=b1396029-e9af-49f7-9599-534db175e53c.json",
   "utc_offset": 0.0,
   "uuid": "b1396029-e9af-49f7-9599-534db175e53c",
   "wind_farms": [

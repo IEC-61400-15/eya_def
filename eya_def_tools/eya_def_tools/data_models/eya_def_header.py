@@ -68,12 +68,8 @@ class ReportContributor(EyaDefBaseModel):
 UriField: pdt.AnyUrl | None = pdt.Field(
     default=None,
     title="URI",
-    description=(
-        "Optional URI of the EYA DEF JSON document, which should have "
-        "the field name '$id' in the JSON document."
-    ),
+    description="Optional URI of the EYA DEF JSON document",
     examples=["https://foo.com/api/eya?id=8f46a815-8b6d-4870-8e92-c031b20320c6.json"],
-    alias="$id",
 )
 
 SchemaUriField: pdt.AnyUrl = pdt.Field(

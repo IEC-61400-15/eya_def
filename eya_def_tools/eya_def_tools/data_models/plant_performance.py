@@ -7,7 +7,7 @@ from enum import StrEnum, auto
 import pydantic as pdt
 
 from eya_def_tools.data_models.base_model import EyaDefBaseModel
-from eya_def_tools.data_models.dataset import Dataset
+from eya_def_tools.data_models.dataset import NonEmptyDatasetList
 from eya_def_tools.data_models.general import (
     AnyAssessmentComponentProvenance,
     AssessmentComponentBasis,
@@ -19,9 +19,8 @@ from eya_def_tools.data_models.general import (
 class PlantPerformanceResults(EyaDefBaseModel):
     """Plant performance loss assessment results."""
 
-    efficiency: list[Dataset] = pdt.Field(
+    efficiency: NonEmptyDatasetList = pdt.Field(
         default=...,
-        min_length=1,
         description=(
             "Dimensionless plant performance efficiency (loss factor) "
             "results. The first standard dataset should have no "

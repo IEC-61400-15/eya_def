@@ -1,30 +1,30 @@
 [build-system]
 requires = [
-    "setuptools>=75.8",
+    "setuptools>=80.8",
     "wheel>=0.45",
 ]
 
 [project]
 name = "eya_def_tools"
-version = "0.0.1a9"
+version = "0.0.1a10"
 authors = [
   {name="Christian Jonsson", email="christianj@kudosoftware.com"},
-  {name="Stephen Holleran", email="stephen@brightwindanalysis.com"},
-  {name="Jason Fields", email="jason.fields@res-group.com"},
-  {name="Charlie Plumley", email="charlie.plumley@nuveenglobal.com"},
-  {name="Alina Brenneke", email="alina.brenneke@rwe.com"},
 ]
 description = "IEC 61400-15-2 Wind Energy Yield Assessment (EYA) Digital Exchange Format (DEF) toolset"
 readme = "README.md"
 requires-python = ">=3.11"
 keywords = [
+    "Wind Energy",
     "Energy Yield Assessment",
     "EYA",
     "Wind Resource Assessment",
     "WRA",
+    "Reporting",
+    "Data Exchange",
     "Schema",
     "JSON Schema",
     "Data Model",
+    "Digitalisation",
 ]
 classifiers = [
     "Natural Language :: English",
@@ -73,7 +73,7 @@ extend-select = [
 [tool.mypy]
 files = ["eya_def_tools"]
 plugins = ["pydantic.mypy"]
-python_version = "3.12"
+python_version = "3.11"
 follow_imports = "normal"
 check_untyped_defs = true
 disallow_any_generics = true

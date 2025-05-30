@@ -1,10 +1,10 @@
 default_language_version:
-    python: python3.12
+    python: python3.13
 default_stages: [pre-commit, pre-merge-commit, pre-push]
 fail_fast: false
 repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.9.5
+    rev: v0.11.10
     hooks:
       - id: ruff
         types_or: [python, pyi, jupyter]
@@ -50,15 +50,15 @@ repos:
           email-validator==2.2.0,
           jsonschema==4.23.0,
           pandas==2.2.3,
-          pandas-stubs==2.2.3.241126,
+          pandas-stubs==2.2.3.250308,
           pycountry==24.6.1,
-          pydantic==2.10.6,
-          pyproj==3.7.0,
-          pytest==8.3.4,
+          pydantic==2.11.4,
+          pyproj==3.7.1,
+          pytest==8.3.5,
           ruamel.yaml==0.18.10,
           sortedcontainers==2.4.0,
-          sortedcontainers-pydantic==1.0.0,
-          types-jsonschema==4.23.0.20241208,
+          sortedcontainers-pydantic==2.0.0,
+          types-jsonschema==4.23.0.20250516,
         ]
         exclude: |
             (?x)

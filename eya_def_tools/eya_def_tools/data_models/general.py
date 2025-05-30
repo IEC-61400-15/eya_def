@@ -180,11 +180,13 @@ class MeasurementQuantity(StrEnum):
     AIR_DENSITY = auto()
     AMBIENT_TURBULENCE_INTENSITY = auto()
     ANNUAL_ENERGY_PRODUCTION = auto()
+    CAPACITY_FACTOR = auto()
     DATA_AVAILABILITY = auto()
     DISPLACEMENT_HEIGHT = auto()
     DISTANCE = auto()
     EFFICIENCY = auto()
     ENERGY = auto()
+    ENERGY_PRODUCTION = auto()
     POWER = auto()
     PROBABILITY = auto()
     RELATIVE_ENERGY_UNCERTAINTY = auto()
@@ -206,6 +208,8 @@ class MeasurementQuantity(StrEnum):
                 return MeasurementUnit.ONE
             case MeasurementQuantity.ANNUAL_ENERGY_PRODUCTION:
                 return MeasurementUnit.GIGAWATT_HOUR_PER_ANNUM
+            case MeasurementQuantity.CAPACITY_FACTOR:
+                return MeasurementUnit.ONE
             case MeasurementQuantity.DATA_AVAILABILITY:
                 return MeasurementUnit.ONE
             case MeasurementQuantity.DISPLACEMENT_HEIGHT:
@@ -214,7 +218,7 @@ class MeasurementQuantity(StrEnum):
                 return MeasurementUnit.METRE
             case MeasurementQuantity.EFFICIENCY:
                 return MeasurementUnit.ONE
-            case MeasurementQuantity.ENERGY:
+            case MeasurementQuantity.ENERGY | MeasurementQuantity.ENERGY_PRODUCTION:
                 return MeasurementUnit.GIGAWATT_HOUR
             case MeasurementQuantity.POWER:
                 return MeasurementUnit.WATT
