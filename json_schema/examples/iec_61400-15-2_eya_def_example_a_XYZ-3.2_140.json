@@ -293,7 +293,7 @@
     "regulation_type": "pitch",
     "rotor_diameter": 140.0,
     "rotor_tilt": 5.0,
-    "thermal_shutdown": {
+    "thermal_regulation": {
       "cold": {
         "restart_duration": 600.0,
         "restart_temperature": -15.0,
