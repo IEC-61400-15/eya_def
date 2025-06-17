@@ -7,9 +7,9 @@ the EYA DEF in the Python programming language. It includes a nested
 This README file only briefly covers a few key topics in relation to the
 Python package, for convenient reference. Full details will be provided
 on a separate documentation site, which still needs to be developed. The
-README for the EYA DEF repo is located [here](../README.md) and includes
-all general information (i.e. all information that is not specific to
-the Python package).
+[README for the EYA DEF repo](../README.md) includes all general
+information (i.e. all information that is not specific to the Python
+package).
 
 ## Status
 

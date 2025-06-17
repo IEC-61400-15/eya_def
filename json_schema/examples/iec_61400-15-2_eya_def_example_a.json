@@ -4216,6 +4216,7 @@
             "x": 419665.0,
             "y": 6194240.0
           },
+          "power_curve_document_id": "27dc5fa1-2552-4c48-a294-d471cbcad4a8",
           "restrictions": [
             {
               "comments": "The strategy is designed to mitigate against the impact of high ambient turbulence intensity.",
@@ -4236,6 +4237,7 @@
             "x": 420665.0,
             "y": 6194240.0
           },
+          "power_curve_document_id": "27dc5fa1-2552-4c48-a294-d471cbcad4a8",
           "restrictions": [
             {
               "comments": "The strategy is designed to mitigate against the impact of high ambient turbulence intensity.",
@@ -4270,6 +4272,7 @@
             "x": 419675.0,
             "y": 6194260.0
           },
+          "power_curve_document_id": "4e3718a4-d950-4532-a63a-b3a681002a4a",
           "turbine_model": "PQR169-5.8MW"
         },
         {
@@ -4283,6 +4286,7 @@
             "x": 420655.0,
             "y": 6194220.0
           },
+          "power_curve_document_id": "4e3718a4-d950-4532-a63a-b3a681002a4a",
           "turbine_model": "PQR169-5.8MW"
         }
       ]
@@ -4309,6 +4313,7 @@
             "x": 419665.0,
             "y": 6195240.0
           },
+          "power_curve_document_id": "ba44fc3f-6963-45a9-a29f-e4fb855d881c",
           "turbine_model": "XYZ-3.2/140"
         },
         {
@@ -4322,6 +4327,7 @@
             "x": 419665.0,
             "y": 6195240.0
           },
+          "power_curve_document_id": "ba44fc3f-6963-45a9-a29f-e4fb855d881c",
           "turbine_model": "XYZ-3.2/140"
         }
       ]

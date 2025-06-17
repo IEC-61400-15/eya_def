@@ -122,6 +122,17 @@ class TurbineConfiguration(EyaDefBaseModel):
         ),
         examples=["GT 3.45-117", "XYZ/200/20MW"],
     )
+    power_curve_document_id: str = pdt.Field(
+        default=...,
+        min_length=1,
+        description=(
+            "The unique identifier of the turbine model power curve "
+            "document, which should correspond to the value for the "
+            "term 'Identifier' under 'document' and 'metadata' in "
+            "the IEC 61400-16 Power Curve Schema."
+        ),
+        examples=["ba44fc3f-6963-45a9-a29f-e4fb855d881c", "XYZ/200/20MW/1.2.3"],
+    )
     baseline_operating_mode: str = pdt.Field(
         default=...,
         min_length=1,
@@ -134,7 +145,6 @@ class TurbineConfiguration(EyaDefBaseModel):
         ),
         examples=["standard", "PO1", "N/14"],
     )
-
     assessment_period_start_date: dt.date | None = pdt.Field(
         default=None,
         description=(
