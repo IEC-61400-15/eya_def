@@ -728,17 +728,17 @@
       "type": "object"
     }
   },
-  "$id": "https://raw.githubusercontent.com/IEC-61400-15/eya_def/blob/main/iec_61400-15-2_eya_def.schema.json",
+  "$id": "https://raw.githubusercontent.com/IEC-61400-15/eya_def/refs/heads/main/json_schema/iec_61400-15-2_eya_def.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$version": "0.0.1",
   "additionalProperties": true,
   "description": "IEC 61400-15-2 EYA DEF top-level data model.",
   "properties": {
     "$schema": {
-      "default": "https://raw.githubusercontent.com/IEC-61400-15/eya_def/blob/main/iec_61400-15-2_eya_def.schema.json",
+      "default": "https://raw.githubusercontent.com/IEC-61400-15/eya_def/refs/heads/main/json_schema/iec_61400-15-2_eya_def.schema.json",
       "description": "URI of the EYA DEF JSON Schema, which should have the field name '$schema' in the JSON document. It is assumed to be the latest published version if not included.",
       "examples": [
-        "https://raw.githubusercontent.com/IEC-61400-15/eya_def/blob/main/iec_61400-15-2_eya_def.schema.json"
+        "https://raw.githubusercontent.com/IEC-61400-15/eya_def/refs/heads/main/json_schema/iec_61400-15-2_eya_def.schema.json"
       ],
       "format": "uri",
       "minLength": 1,

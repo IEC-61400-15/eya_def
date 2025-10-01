@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/IEC-61400-15/eya_def/blob/main/iec_61400-15-2_eya_def.schema.json",
+  "$schema": "https://raw.githubusercontent.com/IEC-61400-15/eya_def/refs/heads/main/json_schema/iec_61400-15-2_eya_def.schema.json",
   "comments": "Update to consider further on-site measurement data.",
   "confidentiality_classification": "Confidential",
   "contract_reference": "P/UK/000765/001/B, 2022-11-30",
