@@ -392,6 +392,7 @@ def turbine_specification_wtg01_a(
         ground_level_altitude=44.9,
         hub_height=150.0,
         turbine_model="ABC165-5.5MW",
+        power_curve_document_id="27dc5fa1-2552-4c48-a294-d471cbcad4a8",
         baseline_operating_mode="standard",
         restrictions=[turbine_operational_restriction_a],
     )
@@ -410,6 +411,7 @@ def turbine_specification_wtg01_b(
         ground_level_altitude=45.1,
         hub_height=148.0,
         turbine_model="PQR169-5.8MW",
+        power_curve_document_id="4e3718a4-d950-4532-a63a-b3a681002a4a",
         baseline_operating_mode="standard",
     )
 
@@ -428,6 +430,7 @@ def turbine_specification_wtg02_a(
         ground_level_altitude=46.3,
         hub_height=160.0,
         turbine_model="ABC165-5.5MW",
+        power_curve_document_id="27dc5fa1-2552-4c48-a294-d471cbcad4a8",
         baseline_operating_mode="standard",
         restrictions=[turbine_operational_restriction_a],
     )
@@ -446,6 +449,7 @@ def turbine_specification_wtg02_b(
         ground_level_altitude=44.6,
         hub_height=158.0,
         turbine_model="PQR169-5.8MW",
+        power_curve_document_id="4e3718a4-d950-4532-a63a-b3a681002a4a",
         baseline_operating_mode="standard",
     )
 
@@ -463,6 +467,7 @@ def turbine_specification_mu_t1_a(
         ground_level_altitude=40.2,
         hub_height=125.0,
         turbine_model="XYZ-3.2/140",
+        power_curve_document_id="ba44fc3f-6963-45a9-a29f-e4fb855d881c",
         baseline_operating_mode="standard",
     )
 
@@ -480,6 +485,7 @@ def turbine_specification_mu_t2_a(
         ground_level_altitude=41.0,
         hub_height=125.0,
         turbine_model="XYZ-3.2/140",
+        power_curve_document_id="ba44fc3f-6963-45a9-a29f-e4fb855d881c",
         baseline_operating_mode="standard",
     )
 

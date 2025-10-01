@@ -3092,6 +3092,16 @@
                   "title": "Location",
                   "type": "object"
                 },
+                "power_curve_document_id": {
+                  "description": "The unique identifier of the turbine model power curve document, which should correspond to the value for the term 'Identifier' under 'document' and 'metadata' in the IEC 61400-16 Power Curve Schema.",
+                  "examples": [
+                    "ba44fc3f-6963-45a9-a29f-e4fb855d881c",
+                    "XYZ/200/20MW/1.2.3"
+                  ],
+                  "minLength": 1,
+                  "title": "Power Curve Document Id",
+                  "type": "string"
+                },
                 "restrictions": {
                   "anyOf": [
                     {
@@ -3126,6 +3136,7 @@
                 "ground_level_altitude",
                 "hub_height",
                 "turbine_model",
+                "power_curve_document_id",
                 "baseline_operating_mode"
               ],
               "title": "Turbine Configuration",
