@@ -3,8 +3,7 @@
     {
       "certification": {
         "certificate_reference": "IECRE.WE.TC.20.0099-R6",
-        "standard": "IEC",
-        "standard_edition": "2"
+        "design_standard": "IEC 61400-1:2019"
       },
       "design_class": {
         "class_label": "II"
@@ -68,37 +67,37 @@
     ]
   },
   "power_curves": {
-    "default_operating_mode": "standard",
+    "default_operating_mode_label": "standard",
     "operating_modes": [
       {
         "cuts": [
           {
-            "kind": "low_cut_in",
+            "kind": "low-cut-in",
             "period": 600.0,
             "wind_speed": 3.0
           },
           {
-            "kind": "low_cut_out",
+            "kind": "low-cut-out",
             "period": 600.0,
             "wind_speed": 2.2
           },
           {
-            "kind": "high_cut_out",
+            "kind": "high-cut-out",
             "period": 600.0,
             "wind_speed": 27.5
           },
           {
-            "kind": "high_cut_in",
+            "kind": "high-cut-in",
             "period": 240.0,
             "wind_speed": 25.0
           },
           {
-            "kind": "high_cut_out",
+            "kind": "high-cut-out",
             "period": 30.0,
             "wind_speed": 30.0
           },
           {
-            "kind": "high_cut_out",
+            "kind": "high-cut-out",
             "period": 3.0,
             "wind_speed": 35.0
           }
@@ -321,8 +320,8 @@
       },
       "derating": [
         {
-          "$comment": "Linear ramp down to zero",
           "air_density": 1.225,
+          "legend": "Linear ramp down to zero",
           "power_limit": [
             5500000.0,
             0.0
