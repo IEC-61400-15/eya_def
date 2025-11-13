@@ -2104,32 +2104,32 @@
           {
             "cuts": [
               {
-                "kind": "low-cut-in",
+                "cut_type": "low-cut-in",
                 "period": 600.0,
                 "wind_speed": 3.0
               },
               {
-                "kind": "low-cut-out",
+                "cut_type": "low-cut-out",
                 "period": 600.0,
                 "wind_speed": 2.2
               },
               {
-                "kind": "high-cut-out",
+                "cut_type": "high-cut-out",
                 "period": 600.0,
                 "wind_speed": 27.5
               },
               {
-                "kind": "high-cut-in",
+                "cut_type": "high-cut-in",
                 "period": 240.0,
                 "wind_speed": 25.0
               },
               {
-                "kind": "high-cut-out",
+                "cut_type": "high-cut-out",
                 "period": 30.0,
                 "wind_speed": 30.0
               },
               {
-                "kind": "high-cut-out",
+                "cut_type": "high-cut-out",
                 "period": 3.0,
                 "wind_speed": 35.0
               }
@@ -2262,8 +2262,7 @@
                 5550000.0
               ]
             ],
-            "power_is_coefficient": false,
-            "thrust": [
+            "thrust_coefficient": [
               [
                 0.873,
                 0.849,
@@ -2316,8 +2315,7 @@
                 0.027,
                 0.025
               ]
-            ],
-            "thrust_is_coefficient": true
+            ]
           }
         ]
       },
@@ -2446,32 +2444,32 @@
           {
             "cuts": [
               {
-                "kind": "low-cut-in",
+                "cut_type": "low-cut-in",
                 "period": 600.0,
                 "wind_speed": 3.0
               },
               {
-                "kind": "low-cut-out",
+                "cut_type": "low-cut-out",
                 "period": 600.0,
                 "wind_speed": 2.2
               },
               {
-                "kind": "high-cut-out",
+                "cut_type": "high-cut-out",
                 "period": 600.0,
                 "wind_speed": 26.0
               },
               {
-                "kind": "high-cut-in",
+                "cut_type": "high-cut-in",
                 "period": 240.0,
                 "wind_speed": 24.0
               },
               {
-                "kind": "high-cut-out",
+                "cut_type": "high-cut-out",
                 "period": 30.0,
                 "wind_speed": 28.0
               },
               {
-                "kind": "high-cut-out",
+                "cut_type": "high-cut-out",
                 "period": 3.0,
                 "wind_speed": 32.0
               }
@@ -2596,8 +2594,7 @@
                 5800000.0
               ]
             ],
-            "power_is_coefficient": false,
-            "thrust": [
+            "thrust_coefficient": [
               [
                 0.873,
                 0.849,
@@ -2647,8 +2644,7 @@
                 0.035,
                 0.032
               ]
-            ],
-            "thrust_is_coefficient": true
+            ]
           }
         ]
       },
@@ -2777,32 +2773,32 @@
           {
             "cuts": [
               {
-                "kind": "low-cut-in",
+                "cut_type": "low-cut-in",
                 "period": 600.0,
                 "wind_speed": 3.0
               },
               {
-                "kind": "low-cut-out",
+                "cut_type": "low-cut-out",
                 "period": 600.0,
                 "wind_speed": 2.5
               },
               {
-                "kind": "high-cut-out",
+                "cut_type": "high-cut-out",
                 "period": 600.0,
                 "wind_speed": 25.0
               },
               {
-                "kind": "high-cut-in",
+                "cut_type": "high-cut-in",
                 "period": 300.0,
                 "wind_speed": 22.0
               },
               {
-                "kind": "high-cut-out",
+                "cut_type": "high-cut-out",
                 "period": 30.0,
                 "wind_speed": 28.0
               },
               {
-                "kind": "high-cut-out",
+                "cut_type": "high-cut-out",
                 "period": 3.0,
                 "wind_speed": 32.0
               }
@@ -2923,8 +2919,7 @@
                 3200000.0
               ]
             ],
-            "power_is_coefficient": false,
-            "thrust": [
+            "thrust_coefficient": [
               [
                 0.873,
                 0.849,
@@ -2972,8 +2967,7 @@
                 0.032,
                 0.03
               ]
-            ],
-            "thrust_is_coefficient": true
+            ]
           }
         ]
       },
