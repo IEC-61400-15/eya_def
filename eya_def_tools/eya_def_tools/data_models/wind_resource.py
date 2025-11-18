@@ -368,7 +368,7 @@ class TurbineWindResourceAssessment(EyaDefBaseModel):
         default=None,
         description=(
             "Optional specification of the weighting applied to "
-            "estimate the wind resource at the turbine location(s),"
+            "estimate the wind resource at the turbine location(s), "
             "relevant for example when predictions from different "
             "measurement stations were weighted individually at each "
             "turbine based on representativeness."
