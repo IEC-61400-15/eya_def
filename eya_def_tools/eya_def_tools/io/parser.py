@@ -16,7 +16,7 @@ def parse_file(filepath: Path) -> EyaDefDocument:
     documents as JSON rather than YAML to ensure safe serialization and
     deserialization without compatibility issues.
 
-    :param filepath: the path to the file to pase
+    :param filepath: the path to the file to parse
     :return: an ``EyaDefDocument`` instance representation of the file
         contents
     """
